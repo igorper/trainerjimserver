@@ -1,4 +1,8 @@
 Trainerjim::Application.routes.draw do
+  # Homepage
+  get "home/index"
+  root :to => 'home#index'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

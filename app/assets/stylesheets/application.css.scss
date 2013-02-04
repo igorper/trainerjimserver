@@ -1,0 +1,21 @@
+/*
+ *= require_self
+ *= require_tree .
+ */
+
+body.main-layout {
+    margin: 0;
+    padding: 0;
+    font-family: sans-serif;
+    background-color: #f2f2f2;
+}
+
+body > div.skeleton {
+    padding: 0;
+    margin: 0;
+}
+
+.central-strip {
+    width: 920px;
+    margin: 0 auto 0 auto;
+}
