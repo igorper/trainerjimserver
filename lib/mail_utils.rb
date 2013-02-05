@@ -1,7 +1,9 @@
 module MailUtils
   # Extracts the user's name from the given email. For example, if the email
-  # is "john.smith_martin+goblin-junior@something.com", the returned string
-  # will be "John Smith Martin Goblin Junior".
+  # is
+  #     "john.smith_martin+goblin-junior@something.com"
+  # the returned string will be
+  #     "John Smith Martin Goblin Junior"
   # 
   # @param email string An email string (e.g.: "john.smith_martin+goblin-junior@something.com").
   # 
