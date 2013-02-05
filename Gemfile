@@ -36,3 +36,6 @@ gem 'bcrypt-ruby'
 
 # To use debugger
 # gem 'debugger'
+
+gem 'mail'
+gem 'unicode'

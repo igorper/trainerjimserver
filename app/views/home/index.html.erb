@@ -5,5 +5,6 @@
     <%= t :hello, user: 'New User' %>
     <%= @u.authenticate('Hrt 2309 Vili') ? 'Authenticated' : 'Not authenticated' %>
     <%= @u.admin? ? 'Admin' : 'Not admin' %>
+    <div><%= @u.display_name  %></div>
   </div>
 </div>
