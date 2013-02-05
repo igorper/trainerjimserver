@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130205120418) do
+ActiveRecord::Schema.define(:version => 20130205135501) do
+
+  create_table "measurements", :force => true do |t|
+    t.integer  "user_id"
+    t.binary   "data"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "measurements", ["user_id"], :name => "index_measurements_on_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email"
