@@ -3,7 +3,9 @@ Trainerjim::Application.routes.draw do
   get "home/index"
   root :to => 'home#index'
   
-  resources :measurements
+  # UPLOAD MEASUREMENT
+  match 'measurements/upload' => 'measurements#upload'
+  match 'measurements/new' => 'measurements#new'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
