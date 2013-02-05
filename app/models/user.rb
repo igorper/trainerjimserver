@@ -3,6 +3,8 @@ class User < ActiveRecord::Base
   
   attr_accessible :email, :password, :admin, :first_name, :last_names
   
+  has_many :measurements, :dependent => :delete_all
+  
   @@RoleAdmin = 0b1
   
   def admin?
@@ -26,5 +28,9 @@ class User < ActiveRecord::Base
         return self.first_name + " " + self.last_names
       end
     end
+  end
+  
+  def unique_display_name()
+    "#{self.display_name} (#{self.email})"
   end
 end

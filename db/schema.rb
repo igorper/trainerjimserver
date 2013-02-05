@@ -14,7 +14,7 @@
 ActiveRecord::Schema.define(:version => 20130205135501) do
 
   create_table "measurements", :force => true do |t|
-    t.integer  "user_id"
+    t.integer  "user_id",    :null => false
     t.binary   "data"
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
