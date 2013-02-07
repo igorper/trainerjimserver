@@ -1,0 +1,29 @@
+@mixin sans {
+    font: {
+        family: 'Open Sans', sans-serif;
+        weight: 400;
+    }
+}
+
+@mixin serif {
+    font: {
+        family: 'Droid Serif', serif;
+        weight: 400;
+    }
+}
+
+@mixin bold {
+    font-weight: bold;
+}
+
+$jimColor: #FBCA15;
+
+@mixin box-shadow($shadows...) {
+    -moz-box-shadow: $shadows;
+    -webkit-box-shadow: $shadows;
+    box-shadow: $shadows;
+}
+
+@mixin text-shadow($color: rgba(0, 0, 0, 0.5)) {
+    text-shadow: 0 1px 1px $color;
+}

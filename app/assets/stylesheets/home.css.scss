@@ -1,3 +1,33 @@
+@import "common.scss";
+
 h1 {
     margin: 0;
+}
+
+div.under-construction-panel {
+    box-shadow: 0px 0px 2px 2px #ddd;
+    border-radius: 10px;
+    margin: 50px auto 0 auto;
+    width: 450px;
+    background-color: $jimColor;
+    border: 1px solid #BF9113;
+    padding: 15px 0;
+}
+
+div.moto {
+    @include bold;
+    @include text-shadow;
+    text-align: center;
+    font-size: 24px;
+    color: white;
+    padding: 0px 15px 25px;
+}
+
+div.construction-notice {
+    @include text-shadow(white);
+    text-align: center;
+    //background-color: white;
+    padding: 5px 20px;
+    border-radius: 5px;
+    margin: 5px 100px;
 }
