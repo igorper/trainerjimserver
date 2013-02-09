@@ -30,6 +30,6 @@ class MeasurementsController < ApplicationController
     @entriesPerPage = 30
     @totalPages = (@totalCount.to_f / @entriesPerPage).ceil
     @page = [[params[:page].present? ? params[:page].to_i : 1, @totalPages].min, 1].max
-    @measurements = Measurement.offset((@page - 1) * @entriesPerPage).limit(30)
+    @measurements = Measurement.offset((@page - 1) * @entriesPerPage).limit(@entriesPerPage)
   end
 end

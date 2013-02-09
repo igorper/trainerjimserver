@@ -58,11 +58,25 @@ input#page {
     width: 55px;
 }
 
-input#prevpage {
+div.page-nav-button {
+    @include middle;
+    display: inline-block;
+    border-radius: 5px;
+    border: 1px solid #999999;
+    background-color: white;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+div.page-nav-button:hover {
+    background-color: #efefef;
+}
+
+div#prevpage {
     margin-right: 10px;
 }
 
-input#nextpage {
+div#nextpage {
     margin-left: 10px;
 }
 

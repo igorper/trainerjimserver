@@ -1,12 +1,13 @@
 <div class="shadowed-central-strip">
   <div class="main-content">
     <div class="title"><%= t 'measurements.list.title'  %></div>
-    <%= form_tag({:controller => :measurements, :action => :show}, {:method => :get})  do %>
+    <%= form_tag({:controller => :measurements, :action => :show}, {:method => :get, :id => :pagination})  do %>
       <div class="pagination">
-          <%= submit_tag (t 'measurements.list.prevpage'), :id => 'prevpage' %>
-          <%= label_tag :page, (t 'measurements.list.page') %>
-          <%= text_field_tag :page, @page, :id => 'page' %> / <%= @totalPages %>
-          <%= submit_tag (t 'measurements.list.nextpage'), :id => 'nextpage' %>
+        <div id="prevpage" class="page-nav-button"><%= t 'measurements.list.prevpage' %></div>
+        <%= hidden_field_tag :totalPages, @totalPages %>
+        <%= label_tag :page, (t 'measurements.list.page') %>
+        <%= text_field_tag :page, @page, :id => 'page' %> / <%= @totalPages %>
+        <div id="nextpage" class="page-nav-button"><%= t 'measurements.list.nextpage' %></div>
       </div>
     <% end %>
     <table class="list">
@@ -20,7 +21,7 @@
         <tr class="entry <%= ((idx += 1) % 2) == 0 ? 'even' : 'odd'  %>">
           <td class="user-id"><%= m.id  %></td>
           <td class="user-email"><div class="nowrap"><a href="mailto:<%= m.user.email %>"><%= m.user.email %></a></div></td>
-          <td class="data"><div class="nowrap"><%= m.data  %></div></td>
+          <td class="data"><div class="nowrap"><%= m.data.present? ? m.data[0, 100] : '' %></div></td>
         </tr>
       <% end %>
     </table>
