@@ -1,1 +1,16 @@
-Test
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Trainerjim</title>
+    <%= stylesheet_link_tag    "application", :media => "all" %>
+    <%= stylesheet_link_tag    controller_name, :media => "all" %>
+    <%= javascript_include_tag "application" %>
+    <%= javascript_include_tag controller_name %>
+    <%= csrf_meta_tags %>
+  </head>
+  <body class="main-layout">
+    <div class="skeleton">
+      <%= yield %>
+    </div>
+  </body>
+</html>
