@@ -1,0 +1,71 @@
+@import "common.scss";
+
+div.title {
+    @include sans;
+    @include bold;
+    font: {
+        size: 22px;
+    }
+}
+
+.list {
+    margin: 15px;
+    border: 1px solid #E8AF11;
+    border-spacing: 0;
+}
+
+.entry.header {
+    @include bold;
+}
+
+.entry td,th {
+    padding: 10px 5px;
+}
+
+.entry.odd {
+    background: {
+        color: white;
+    }
+}
+
+.entry .user-id {
+    @include center;
+    @include middle;
+    width: 100%;
+}
+
+.entry .user-email {
+    @include center;
+    @include middle;
+}
+
+.entry .user-email .nowrap {
+    @include ellipsise;
+    width: 150px;
+}
+
+.entry .data {
+    vertical-align: middle;
+}
+
+.entry .data .nowrap {
+    @include ellipsise;
+    width: 600px;
+}
+
+input#page {
+    @include center;
+    width: 55px;
+}
+
+input#prevpage {
+    margin-right: 10px;
+}
+
+input#nextpage {
+    margin-left: 10px;
+}
+
+div.pagination {
+    @include right;
+}

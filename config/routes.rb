@@ -6,6 +6,7 @@ Trainerjim::Application.routes.draw do
   # UPLOAD MEASUREMENT
   match 'measurements/upload' => 'measurements#upload'
   match 'measurements/new' => 'measurements#new'
+  match 'measurements/list' => 'measurements#show'
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -24,4 +24,12 @@ class MeasurementsController < ApplicationController
       format.json { render json: @measurement }
     end
   end
+  
+  def show
+    @totalCount = Measurement.count
+    @entriesPerPage = 30
+    @totalPages = (@totalCount.to_f / @entriesPerPage).ceil
+    @page = [[params[:page].present? ? params[:page].to_i : 1, @totalPages].min, 1].max
+    @measurements = Measurement.offset((@page - 1) * @entriesPerPage).limit(30)
+  end
 end

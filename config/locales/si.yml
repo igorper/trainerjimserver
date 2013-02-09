@@ -1,0 +1,11 @@
+si:
+  hello: "Pozdravljen, %{user}! Kako si?"
+  measurements:
+    list:
+      title: "Seznam meritev:"
+      page: "Stran:"
+      prevpage: "< Nazaj"
+      nextpage: "Naprej >"
+      id: "Id:"
+      useremail: "Email:"
+      data: "Meritev:"

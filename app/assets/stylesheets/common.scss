@@ -1,3 +1,8 @@
+$jimColor: #FBCA15;
+
+
+
+/** FONTS */
 @mixin sans {
     font: {
         family: 'Open Sans', sans-serif;
@@ -16,8 +21,33 @@
     font-weight: bold;
 }
 
-$jimColor: #FBCA15;
 
+
+/** TEXT */
+@mixin ellipsise {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+@mixin center {
+    text-align: center;
+}
+
+@mixin right {
+    text-align: right;
+}
+
+
+
+/** LAYOUT */
+@mixin middle {
+    text-align: center;
+}
+
+
+
+/** SHADOWS */
 @mixin box-shadow($shadows...) {
     -moz-box-shadow: $shadows;
     -webkit-box-shadow: $shadows;

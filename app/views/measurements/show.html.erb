@@ -1,0 +1,28 @@
+<div class="shadowed-central-strip">
+  <div class="main-content">
+    <div class="title"><%= t 'measurements.list.title'  %></div>
+    <%= form_tag({:controller => :measurements, :action => :show}, {:method => :get})  do %>
+      <div class="pagination">
+          <%= submit_tag (t 'measurements.list.prevpage'), :id => 'prevpage' %>
+          <%= label_tag :page, (t 'measurements.list.page') %>
+          <%= text_field_tag :page, @page, :id => 'page' %> / <%= @totalPages %>
+          <%= submit_tag (t 'measurements.list.nextpage'), :id => 'nextpage' %>
+      </div>
+    <% end %>
+    <table class="list">
+      <tr class="entry header">
+        <th><%= t 'measurements.list.id'  %></th>
+        <th><%= t 'measurements.list.useremail'  %></th>
+        <th><%= t 'measurements.list.data'  %></th>
+      </tr>
+      <% idx = 0 %>
+      <% @measurements.each do |m| %>
+        <tr class="entry <%= ((idx += 1) % 2) == 0 ? 'even' : 'odd'  %>">
+          <td class="user-id"><%= m.id  %></td>
+          <td class="user-email"><div class="nowrap"><a href="mailto:<%= m.user.email %>"><%= m.user.email %></a></div></td>
+          <td class="data"><div class="nowrap"><%= m.data  %></div></td>
+        </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
