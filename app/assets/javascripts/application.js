@@ -1,5 +1,5 @@
 /*
  *= require_self
  *= require jquery
- *= require common
+ *= require_tree .
  */
