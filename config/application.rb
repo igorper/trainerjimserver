@@ -59,6 +59,6 @@ module Trainerjim
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     
-    config.assets.precompile += ['home.js', 'measurements.js', 'home.css.scss', 'measurements.css.scss']
+    config.assets.precompile += ['home.js', 'measurements.js', 'home.css', 'measurements.css']
   end
 end
