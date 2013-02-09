@@ -1,6 +1,4 @@
 Trainerjim::Application.routes.draw do
-  get "dummy/dummy"
-
   # Homepage
   get "home/index"
   root :to => 'home#index'

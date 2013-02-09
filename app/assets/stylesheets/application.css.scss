@@ -1,3 +1,36 @@
-/*
- *= require_tree .
- */
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:700,700italic,400italic,400|Droid+Serif:400,400italic,700,700italic&subset=latin,latin-ext);
+
+@import "definitions.scss";
+
+body.main-layout {
+    @include sans;
+    margin: 0;
+    padding: 0;
+    background-color: transparentize($jimColor, 0.8);
+}
+
+body > div.skeleton {
+    padding: 0;
+    margin: 0;
+}
+
+.central-strip {
+    width: 930px;
+    margin: 0 auto 0 auto;
+}
+
+.shadowed-central-strip {
+    @extend .central-strip;
+    
+    border-radius: 5px;
+    border-bottom: 1px solid #b5b5b5;
+    border-top: 1px solid white;
+    border-right: 1px solid #b5b5b5;
+    border-left: 1px solid white;
+    margin-top: 15px;
+    box-shadow: 0 0 3px 3px #dddddd;
+}
+
+.main-content {
+    padding: 10px;
+}
