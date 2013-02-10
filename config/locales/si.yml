@@ -1,4 +1,6 @@
 si:
+  motto: Lažje. Hitreje. Tekoče. Trajna povezava med vami in vašim trenerjem.
+  soon: Prihaja kmalu...
   hello: "Pozdravljen, %{user}! Kako si?"
   measurements:
     list:

@@ -1,17 +1,28 @@
+class MeasurementSubmission < Measurement
+  attr_accessor :email, :password, :file_upload_data
+  attr_accessible :email, :password, :file_upload_data
+end
+  
 class MeasurementsController < ApplicationController
+  
   
   def upload
     @measurement = MeasurementSubmission.new(params[:measurement_submission])
-    @user = User.find_by_email @measurement.email
-    if @user.present? and @user.authenticate(@measurement.password) then
-      @measurement.user_id = @user.id
-      # TODO: Maybe do something with the data (verify it, parse it... whatever).
-      @measurement.data = @measurement.file_upload_data.read
-      @measurement.save
-      head :ok
-    else
-      head :bad_request
+    # Did we get all the data and authorisation tokens needed for submission?
+    if @measurement.email.present? and @measurement.file_upload_data.present? then
+      # Good, now authenticate the user.
+      @user = User.find_by_email @measurement.email
+      if @user.present? and @user.authenticate(@measurement.password) then
+        @measurement.user_id = @user.id
+        # Everything is alright. Upload the data into the DB:
+        # TODO: Maybe do something with the data (verify it, parse it... whatever).
+        @measurement.data = @measurement.file_upload_data.read
+        @measurement.save
+        head :ok
+        return
+      end
     end
+    head :bad_request
   end
 
   # GET /measurements/new
