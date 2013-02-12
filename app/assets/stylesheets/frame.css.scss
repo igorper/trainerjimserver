@@ -10,7 +10,7 @@ div#header.outer-container {
     
     div.logo {
         background: {
-            image: url("logo_full_medium.png");
+            image: image-url("logo_full_medium.png");
             size: auto $headerHeight * 0.7;
             repeat: no-repeat;
             position: center;
