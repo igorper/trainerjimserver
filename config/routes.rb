@@ -1,7 +1,7 @@
 Trainerjim::Application.routes.draw do
   # Homepage
   get "home/index"
-  root :to => 'home#index'
+  root :to => 'home#soon'
   
   # UPLOAD MEASUREMENT
   match 'measurements/upload' => 'measurements#upload'

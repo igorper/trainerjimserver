@@ -6,3 +6,8 @@ en:
     list:
       title: "List of measurements:"
       page: "Page:"
+      prevpage: "< Previous"
+      nextpage: "Next >"
+      id: "Id:"
+      useremail: "Email:"
+      data: "Measurement:"

@@ -1,0 +1,21 @@
+@import "definitions.scss";
+
+div#header.outer-container {
+    height: $headerHeight;
+    width: 100%;
+    background-color: $jimColor;
+    border: {
+        bottom: 1px solid darken($jimColor, 11%);
+    }
+    
+    div.logo {
+        background: {
+            image: url("logo_full_medium.png");
+            size: auto $headerHeight * 0.7;
+            repeat: no-repeat;
+            position: center;
+        }
+        height: $headerHeight;
+        width: 200px;
+    }
+}

@@ -3,18 +3,14 @@
   <head>
     <title>Trainerjim</title>
     <%= stylesheet_link_tag    "application", :media => "all" %>
-    <%= stylesheet_link_tag    "frame", :media => "all" %>
     <%= stylesheet_link_tag    controller_name, :media => "all" %>
     <%= javascript_include_tag "application" %>
-    <%= javascript_include_tag "frame" %>
     <%= javascript_include_tag controller_name %>
     <%= csrf_meta_tags %>
   </head>
   <body class="main-layout">
     <div class="skeleton">
-      <%= render :partial => 'shared/header' %>
-      <div class="central-strip content"><%= yield %></div>
-      <%= render :partial => 'shared/footer' %>
+      <%= yield %>
     </div>
   </body>
 </html>

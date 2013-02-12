@@ -1,18 +1,6 @@
 <h1>New measurement</h1>
 
 <%= form_for(@measurement, :url => { :action => "upload" }) do |f| %>
-  <% if @measurement.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(@measurement.errors.count, "error") %> prohibited this measurement from being saved:</h2>
-
-      <ul>
-      <% @measurement.errors.full_messages.each do |msg| %>
-        <li><%= msg %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
-
   <div class="actions">
     Data: <%= f.file_field :file_upload_data %>
     Email: <%= f.text_field :email %>

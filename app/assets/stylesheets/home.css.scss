@@ -1,64 +1,65 @@
 @import "definitions.scss";
-
-h1 {
-    margin: 0;
-}
-
-div.under-construction-panel {
-    position: relative;
-    box-shadow: 0px 0px 20px 20px transparentize(black, 0.5);
-    border: 1px solid black;
-    border-radius: 10px;
-    margin: 50px auto 0 auto;
-    width: 500px;
-    background-color: $jimColor;
-    border: 1px solid #BF9113;
-    padding: 15px 0;
-    z-index: 2;
-}
-
-div.logo {
-    @include center;
-    width: 100%;
-    height: 200px;
-    background: {
-        image: url("logo_full_medium.png");
-        repeat: none;
-        position: center;
+div#home {
+    h1 {
+        margin: 0;
     }
-}
-
-div.moto {
-    @include bold;
-    @include text-shadow;
-    text-align: center;
-    font-size: 24px;
-    color: white;
-    padding: 0px 15px 25px;
-    z-index: 3;
-}
-
-div.construction-notice {
-    @include text-shadow(white);
-    text-align: center;
-    //background-color: white;
-    padding: 5px 20px;
-    border-radius: 5px;
-    margin: 5px 100px;
-    z-index: 4;
-}
-
-div.background {
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: {
-        image: url("comming-soon-background.jpg");
-        attachment: fixed;
-        position: center;
-        size: cover;
+    
+    div.under-construction-panel {
+        position: relative;
+        box-shadow: 0px 0px 20px 20px transparentize(black, 0.5);
+        border: 1px solid black;
+        border-radius: 10px;
+        margin: 50px auto 0 auto;
+        width: 500px;
+        background-color: $jimColor;
+        border: 1px solid #BF9113;
+        padding: 15px 0;
+        z-index: 2;
     }
-    height: 100%;
-    width: 100%;
-    z-index: 1;
+    
+    div.logo {
+        @include center;
+        width: 100%;
+        height: 200px;
+        background: {
+            image: url("logo_full_medium.png");
+            repeat: none;
+            position: center;
+        }
+    }
+    
+    div.moto {
+        @include bold;
+        @include text-shadow;
+        text-align: center;
+        font-size: 24px;
+        color: white;
+        padding: 0px 15px 25px;
+        z-index: 3;
+    }
+    
+    div.construction-notice {
+        @include text-shadow(white);
+        text-align: center;
+        //background-color: white;
+        padding: 5px 20px;
+        border-radius: 5px;
+        margin: 5px 100px;
+        z-index: 4;
+    }
+    
+    div.background {
+        position: fixed;
+        top: 0;
+        left: 0;
+        background: {
+            image: url("comming-soon-background.jpg");
+            attachment: fixed;
+            position: center;
+            size: cover;
+        }
+        height: 100%;
+        width: 100%;
+        z-index: 1;
+    }
 }
