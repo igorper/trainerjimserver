@@ -1,5 +1,6 @@
 $jimColor: #FBCA15;
 $headerHeight: 60px;
+$errorShadowColor: lighten(#ff6d00, 7%);
 
 
 
@@ -47,7 +48,7 @@ $headerHeight: 60px;
 
 /** LAYOUT */
 @mixin middle {
-    text-align: center;
+    vertical-align: middle;
 }
 
 

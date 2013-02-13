@@ -59,6 +59,7 @@ body.main-layout {
 }
 
 .standard-button {
+    @include sans;
     @include rounded;
     @include bold;
     @include text-shadow(0px 1px 1px white);
@@ -92,21 +93,32 @@ body.main-layout {
     @include shadow(0 0 5px 5px transparentize($jimColor, 0.4));
 }  
 
+.standard-input-field.error {
+    @include shadow(0 0 3px 3px $errorShadowColor);
+    border: 1px solid darken($errorShadowColor, 30%);
+}
+
+.standard-input-field.error:focus {
+    border: 1px solid darken($errorShadowColor, 30%);
+    @include shadow(0 0 5px 5px lighten($errorShadowColor, 15%));
+}
+
 
 
 ////////////////////////////////////////////////////////////////////////////////
 /// LOGIN PANEL
 //
 div.login-panel {
-    div.outer-container {
-        @include shadow(0 1px 3px 3px transparentize(black, 0.7));
+    > div.outer-container {
+        @include shadow(0 1px 3px 3px transparentize(black, 0.85));
         @include rounded(10px);
+        border: 1px solid darken($jimColor, 25%);
         margin: 5px;
         background: {
-            color: white;
+            color: lighten($jimColor, 43%);
         }
         
-        div.inner-container {
+        > div.inner-container {
             @include rounded(10px);
             > div.title-outer-container {
                 @include rounded(10px);
@@ -134,29 +146,36 @@ div.login-panel {
                 }
             }
             
-            div.content {
+            > div.title-content-separator {
+                border-top: 1px solid white;
+                height: 10px;
+            }
+            
+            > div.content {
                 @include rounded(10px);
-                border-top: 1px solid lighten($jimColor, 20%);
-                padding: 10px;
-                background: {
-                    color: lighten($jimColor, 43%);
-                }
+                padding: 0 10px 10px 10px;
                 
-                table.form-table {
+                > form > table.form-table {
+                    border: none;
                     border-spacing: 0px;
+                    padding: 0px;
                     margin: 0px auto;
+                    
+                    td {
+                        padding: 0px;
+                    }
                     
                     td.label {
                         @include right;
                         padding-right: 20px;
                     }
                     
-                    div.submit-button {
+                    input.submit-button {
                         margin-top: 25px;
                         padding: 7px 20px;
                     }
                     
-                    input {
+                    input.standard-input-field {
                         width: 250px;
                         margin-right: 30px;
                     }

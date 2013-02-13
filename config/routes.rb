@@ -7,7 +7,7 @@ Trainerjim::Application.routes.draw do
   
   # Login
   match "login" => 'authentication#login', :as => :login
-  get "authentication/authenticate", :as => :authenticate
+  post "authentication/authenticate", :as => :authenticate
   
   # UPLOAD MEASUREMENT
   match 'measurements/upload' => 'measurements#upload'

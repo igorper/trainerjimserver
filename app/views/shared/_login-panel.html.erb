@@ -7,21 +7,24 @@
         </div>
         <div class="title-bottom"></div>
       </div>
+      <div class="title-content-separator"></div>
       <div class="content">
-        <table class="form-table">
-          <tr>
-            <td class="label"><div class="form-text-element"><%= t 'shared.login-panel.email' %></div></td>
-            <td><div class="form-text-element"><input type="text" class="email standard-input-field" name="email" value="<%= (defined? email) ? email : '' %>" /></div></td>
-          </tr>
-          <tr>
-            <td class="label"><div class="form-text-element"><%= t 'shared.login-panel.password' %></div></td>
-            <td><div class="form-text-element"><input type="password" class="password standard-input-field" name="password" value="<%= (defined? email) ? email : '' %>" /></div></td>
-          </tr>
-          <tr>
-            <td></td>
-            <td><div class="standard-button submit-button"><%= t 'shared.login-panel.submit'  %></div></td>
-          </tr>
-        </table>
+        <%= form_tag(authenticate_url) do |f| %>
+          <table class="form-table">
+            <tr>
+              <td class="label"><div class="form-text-element"><%= t 'shared.login-panel.email' %></div></td>
+              <td><div class="form-text-element"><input type="text" class="email standard-input-field" name="email" value="<%= (defined? email) ? email : '' %>" /></div></td>
+            </tr>
+            <tr>
+              <td class="label"><div class="form-text-element"><%= t 'shared.login-panel.password' %></div></td>
+              <td><div class="form-text-element"><input type="password" class="password standard-input-field" name="password" value="<%= (defined? email) ? email : '' %>" /></div></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><input type="submit" class="standard-button submit-button" value="<%= t 'shared.login-panel.submit'  %>" /></td>
+            </tr>
+          </table>
+        <% end %>
       </div>
     </div>
   </div>

@@ -8,14 +8,21 @@ div.header.outer-container {
         bottom: 1px solid darken($jimColor, 11%);
     }
     
-    div.logo {
-        background: {
-            image: image-url("logo_full_medium.png");
-            size: auto $headerHeight * 0.7;
-            repeat: no-repeat;
-            position: center;
-        }
+    > div.central-strip {
         height: $headerHeight;
-        width: 200px;
+        
+        > div.logo {
+            @include middle;
+            background: {
+                image: image-url("logo_full_medium.png");
+                size: auto $headerHeight * 0.7;
+                repeat: no-repeat;
+                position: center;
+            }
+            height: $headerHeight;
+            width: 200px;
+            display: inline-block;
+        }
+        
     }
 }
