@@ -11,3 +11,9 @@ si:
       id: "Id:"
       useremail: "Email:"
       data: "Meritev:"
+  shared:
+    login-panel:
+      title: Prijava
+      email: "E-mail naslov:"
+      password: "Geslo:"
+      submit: "Prijavi me"

@@ -39,7 +39,7 @@ div#home {
     }
     
     div.construction-notice {
-        @include text-shadow(white);
+        @include text-shadow(0 1px 1px white);
         text-align: center;
         //background-color: white;
         padding: 5px 20px;

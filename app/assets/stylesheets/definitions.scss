@@ -22,6 +22,10 @@ $headerHeight: 60px;
     font-weight: bold;
 }
 
+@mixin italic {
+    font-style: italic;
+}
+
 
 
 /** TEXT */
@@ -48,13 +52,20 @@ $headerHeight: 60px;
 
 
 
+/** BORDERS */
+@mixin rounded($radius: 5px) {
+    border-radius: $radius;
+}
+
+
+
 /** SHADOWS */
-@mixin box-shadow($shadows...) {
+@mixin shadow($shadows...) {
     -moz-box-shadow: $shadows;
     -webkit-box-shadow: $shadows;
     box-shadow: $shadows;
 }
 
-@mixin text-shadow($color: rgba(0, 0, 0, 0.5)) {
-    text-shadow: 0 1px 1px $color;
+@mixin text-shadow($shadow: 0 1px 1px rgba(0, 0, 0, 0.5)) {
+    text-shadow: $shadow;
 }

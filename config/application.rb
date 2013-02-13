@@ -59,6 +59,6 @@ module Trainerjim
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     
-    config.assets.precompile += %w(frame.js home.js measurements.js frame.css home.css measurements.css)
+    config.assets.precompile += %w(frame.js home.js measurements.js authentication.js frame.css home.css measurements.css authentication.css)
   end
 end

@@ -1,7 +1,13 @@
 Trainerjim::Application.routes.draw do
+  get "authentication/login"
+
   # Homepage
-  get "home/index"
+  get "home/index", :as => :home
   root :to => 'home#soon'
+  
+  # Login
+  match "login" => 'authentication#login', :as => :login
+  get "authentication/authenticate", :as => :authenticate
   
   # UPLOAD MEASUREMENT
   match 'measurements/upload' => 'measurements#upload'

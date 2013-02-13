@@ -11,3 +11,9 @@ en:
       id: "Id:"
       useremail: "Email:"
       data: "Measurement:"
+  shared:
+    login-panel:
+      title: Log in
+      email: "E-mail:"
+      password: "Password:"
+      submit: "Log me in"
