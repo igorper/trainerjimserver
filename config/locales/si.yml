@@ -17,3 +17,4 @@ si:
       email: "E-mail naslov:"
       password: "Geslo:"
       submit: "Prijavi me"
+      login-failed: "Prijava je spodletela. Prosimo preverite email naslov in geslo."

@@ -1,4 +1,19 @@
-<div id="login-panel" class="login-panel">
+<%
+# @param html_id the ID used in this partial as the ID of the outermost element.
+# @param email   the email address that will be used initially in the email input field.
+# @param callback the jQuery selector of an element that should
+#           receive notification of the login progress. This partial will
+#           notify the given element by triggering
+#           (http://api.jquery.com/trigger/) the event 'tj_login' with a
+#           boolean parameter (indicating success or failure).
+# @param redirect_url the url to which to redirect upon successful login. If a
+#           callback is provided, this parameter is not used.
+internal_html_id = (defined? html_id) ? html_id : 'login-panel'
+js_should_notify = (defined? callback) ? 'true' : 'false'
+notify_selector = (defined? callback) ? callback : ''
+r_url = (defined? redirect_url) ? redirect_url : home_url
+%>
+<div id="<%= internal_html_id %>" class="login-panel">
   <div class="outer-container">
     <div class="inner-container">
       <div class="title-outer-container">
@@ -9,7 +24,7 @@
       </div>
       <div class="title-content-separator"></div>
       <div class="content">
-        <%= form_tag(authenticate_url) do |f| %>
+        <%= form_tag(authenticate_url, :class => 'login-panel-form') do |f| %>
           <table class="form-table">
             <tr>
               <td class="label"><div class="form-text-element"><%= t 'shared.login-panel.email' %></div></td>
@@ -17,7 +32,11 @@
             </tr>
             <tr>
               <td class="label"><div class="form-text-element"><%= t 'shared.login-panel.password' %></div></td>
-              <td><div class="form-text-element"><input type="password" class="password standard-input-field" name="password" value="<%= (defined? email) ? email : '' %>" /></div></td>
+              <td><div class="form-text-element"><input type="password" class="password standard-input-field" name="password" value="" /></div></td>
+            </tr>
+            <tr>
+              <td></td>
+              <td><div class="error-message"></div></td>
             </tr>
             <tr>
               <td></td>
@@ -25,6 +44,34 @@
             </tr>
           </table>
         <% end %>
+        <script type="text/javascript">
+          $(function() {
+            var loginForm = $('#<%= internal_html_id %> table.form-table');
+            var pwdInput = loginForm.find('input.password');
+            var uidInput = loginForm.find('input.email');
+            var btn = loginForm.find('input.submit-button');
+            var errMsg = loginForm.find('div.error-message');
+
+            btn.click(function(e) {
+              callJSON('<%= authenticate_url %>', {email: uidInput.val(), password: pwdInput.val()}, function(hasLoggedIn) {
+                if (<%= js_should_notify %>) {
+                  $('<%= notify_selector %>').trigger('tj_login', [hasLoggedIn]);
+                } else if (hasLoggedIn) {
+                  window.location = '<%= r_url %>';
+                }
+                // Show some error message if the login failed:
+                if (hasLoggedIn) {
+                  errMsg.removeClass('active');
+                  errMsg.text('');
+                } else {
+                  errMsg.addClass('active');
+                  errMsg.text('<%= t 'shared.login-panel.login-failed' %>');
+                }
+              });
+              e.preventDefault();
+            })
+          });
+        </script>
       </div>
     </div>
   </div>

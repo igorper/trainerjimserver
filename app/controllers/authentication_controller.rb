@@ -3,21 +3,20 @@ class AuthenticationController < ApplicationController
   def login
   end
   
-  # POST
+  # Useful for Ajax calls. This method starts a logged-in user session.
+  # @method POST
   # @param email 
   # @param password
-  # DISABLED @param redirect_url (optional; if given, but empty, it redirects back to the
-  # requesting page)
+  # @returns JSON `true` on success, `false` otherwise.
   def authenticate
-    login_success = !!login_with_password(params[:email], params[:password])
-    redirect_url = params[:redirect_url]
-#    if redirect_url.nil? then
-    render :json => login_success
-#    elsif redirect_url.blank?
-#      redirect_to :back
-#    else
-#      redirect_to redirect_url
-#    end
+    render :json => !!login_with_password(params[:email], params[:password])
+    #    redirect_url = params[:redirect_url]
+    #    if redirect_url.nil? then
+    #    elsif redirect_url.blank?
+    #      redirect_to :back
+    #    else
+    #      redirect_to redirect_url
+    #    end
   end
   
   ##############################################################################
@@ -34,21 +33,10 @@ class AuthenticationController < ApplicationController
   def login_with_password(email, password)
     user = User.find_by_email email
     if user and user.authenticate(password) then
-      do_login(user)
+      AuthenticationHelper.do_login(user, session)
       return user
     else
       return false
     end
-  end
-  
-  # Actually logs the given user in. It puts the user's ID into the session
-  # store
-  def do_login(user)
-    session[:user_id] = user.id
-  end
-  
-  # Logs the user out (and drops all data from the session).
-  def do_logout()
-    reset_session
   end
 end
