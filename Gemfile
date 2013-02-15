@@ -40,3 +40,6 @@ gem 'bcrypt-ruby'
 
 gem 'mail'
 gem 'unicode'
+
+# For foreign key constraints on databases
+gem 'foreigner', :git => 'git://github.com/matthuhiggins/foreigner.git'

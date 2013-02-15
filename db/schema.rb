@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130214082017) do
+ActiveRecord::Schema.define(:version => 20130215102905) do
 
   create_table "measurements", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -32,6 +32,17 @@ ActiveRecord::Schema.define(:version => 20130214082017) do
   add_index "sessions", ["session_id"], :name => "index_sessions_on_session_id"
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
+  create_table "trainings", :force => true do |t|
+    t.integer  "user_id",    :null => false
+    t.integer  "trainer_id"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "trainings", ["trainer_id"], :name => "index_trainings_on_trainer_id"
+  add_index "trainings", ["user_id"], :name => "index_trainings_on_user_id"
+
   create_table "users", :force => true do |t|
     t.string   "email"
     t.string   "password_digest"
@@ -43,5 +54,8 @@ ActiveRecord::Schema.define(:version => 20130214082017) do
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+
+  add_foreign_key "trainings", "users", :name => "trainings_trainer_id_fk", :column => "trainer_id", :dependent => :nullify
+  add_foreign_key "trainings", "users", :name => "trainings_user_id_fk", :dependent => :delete
 
 end
