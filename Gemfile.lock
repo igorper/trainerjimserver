@@ -1,6 +1,7 @@
 GIT
-  remote: git://github.com/matthuhiggins/foreigner.git
-  revision: cda87b4473dc187a54a9a0335ee4590e74b42bfb
+  remote: git://github.com/urbas/foreigner.git
+  revision: 75e96d439b47a249c8863a7cef1d2cbf06678146
+  branch: on-update
   specs:
     foreigner (1.3.0)
       activerecord (>= 3.0.0)

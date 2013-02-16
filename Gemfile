@@ -42,4 +42,4 @@ gem 'mail'
 gem 'unicode'
 
 # For foreign key constraints on databases
-gem 'foreigner', :git => 'git://github.com/matthuhiggins/foreigner.git'
+gem 'foreigner', :git => 'git://github.com/urbas/foreigner.git', :branch => 'on-update'
