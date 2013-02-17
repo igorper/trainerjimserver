@@ -11,7 +11,16 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130215102905) do
+ActiveRecord::Schema.define(:version => 20130217115141) do
+
+  create_table "exercises", :force => true do |t|
+    t.integer  "training_id", :null => false
+    t.string   "name"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "exercises", ["training_id"], :name => "index_exercises_on_training_id"
 
   create_table "measurements", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -21,6 +30,14 @@ ActiveRecord::Schema.define(:version => 20130215102905) do
   end
 
   add_index "measurements", ["user_id"], :name => "index_measurements_on_user_id"
+
+  create_table "series", :force => true do |t|
+    t.integer  "exercise_id", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "series", ["exercise_id"], :name => "index_series_on_exercise_id"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -54,6 +71,12 @@ ActiveRecord::Schema.define(:version => 20130215102905) do
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+
+  add_foreign_key "exercises", "trainings", :name => "exercises_training_id_fk", :dependent => :delete
+
+  add_foreign_key "measurements", "users", :name => "measurements_user_id_fk", :dependent => :delete
+
+  add_foreign_key "series", "exercises", :name => "series_exercise_id_fk", :dependent => :delete
 
   add_foreign_key "trainings", "users", :name => "trainings_trainer_id_fk", :column => "trainer_id", :dependent => :nullify
   add_foreign_key "trainings", "users", :name => "trainings_user_id_fk", :dependent => :delete

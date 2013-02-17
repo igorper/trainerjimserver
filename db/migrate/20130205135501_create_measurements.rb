@@ -4,6 +4,8 @@ class CreateMeasurements < ActiveRecord::Migration
       t.belongs_to :user, :null => false
       t.binary :data
 
+      t.foreign_key :users, :column => 'user_id', :dependent => :delete, :on_update => :cascade
+
       t.timestamps
     end
     
