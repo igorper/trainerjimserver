@@ -9,7 +9,8 @@ class AuthenticationController < ApplicationController
   # @param password
   # @returns JSON `true` on success, `false` otherwise.
   def authenticate
-    render :json => !!login_with_password(params[:email], params[:password])
+    user = AuthenticationHelper.login_with_password(session, params[:email], params[:password])
+    render :json => !!AuthenticationHelper.login_with_password(session, params[:email], params[:password])
     #    redirect_url = params[:redirect_url]
     #    if redirect_url.nil? then
     #    elsif redirect_url.blank?

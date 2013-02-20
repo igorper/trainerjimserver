@@ -9,7 +9,10 @@ Trainerjim::Application.routes.draw do
   match "login" => 'authentication#login', :as => :login
   post "authentication/authenticate", :as => :authenticate
   
-  # UPLOAD MEASUREMENT
+  # Training
+  post "training/get"
+  
+  # Measurements
   match 'measurements/upload' => 'measurements#upload'
   match 'measurements/new' => 'measurements#new'
   match 'measurements/list' => 'measurements#show'

@@ -16,11 +16,31 @@ ActiveRecord::Schema.define(:version => 20130217115141) do
   create_table "exercises", :force => true do |t|
     t.integer  "training_id", :null => false
     t.string   "name"
+    t.integer  "order"
     t.datetime "created_at",  :null => false
     t.datetime "updated_at",  :null => false
   end
 
   add_index "exercises", ["training_id"], :name => "index_exercises_on_training_id"
+
+  create_table "i18n_keys", :force => true do |t|
+    t.string   "key"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "i18n_keys", ["key"], :name => "index_i18n_keys_on_key", :unique => true
+
+  create_table "i18n_strings", :force => true do |t|
+    t.integer  "i18n_key_id"
+    t.string   "locale"
+    t.text     "data"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+  end
+
+  add_index "i18n_strings", ["i18n_key_id"], :name => "index_i18n_strings_on_i18n_key_id"
+  add_index "i18n_strings", ["locale"], :name => "index_i18n_strings_on_locale"
 
   create_table "measurements", :force => true do |t|
     t.integer  "user_id",    :null => false
@@ -32,9 +52,12 @@ ActiveRecord::Schema.define(:version => 20130217115141) do
   add_index "measurements", ["user_id"], :name => "index_measurements_on_user_id"
 
   create_table "series", :force => true do |t|
-    t.integer  "exercise_id", :null => false
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.integer  "exercise_id",  :null => false
+    t.integer  "order"
+    t.integer  "repeat_count"
+    t.integer  "weight"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
   add_index "series", ["exercise_id"], :name => "index_series_on_exercise_id"
@@ -73,6 +96,8 @@ ActiveRecord::Schema.define(:version => 20130217115141) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
 
   add_foreign_key "exercises", "trainings", :name => "exercises_training_id_fk", :dependent => :delete
+
+  add_foreign_key "i18n_strings", "i18n_keys", :name => "i18n_strings_i18n_key_id_fk", :dependent => :delete
 
   add_foreign_key "measurements", "users", :name => "measurements_user_id_fk", :dependent => :delete
 
