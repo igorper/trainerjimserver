@@ -26,3 +26,28 @@ div.header.outer-container {
         
     }
 }
+
+div.footer.outer-container {
+    background-color: lighten($jimColor, 43%);
+    /*    border: {
+        top: 1px solid white;
+    }*/
+    
+    > div.inner-container {
+        padding: 15px 0px;
+        /*        border: {
+            top: 1px solid lighten($jimColor, 15%);
+        }*/
+        > div.central-strip > div.content {
+            > div.copyright-notice {
+                @include text-shadow(1px 1px white);
+                display: inline-block;
+                margin: 0px 15px;
+                color: #777;
+                font: {
+                    size: 0.9em;
+                }
+            }
+        }
+    }
+}
