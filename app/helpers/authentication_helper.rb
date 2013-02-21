@@ -41,4 +41,9 @@ module AuthenticationHelper
   def do_logout
     reset_session
   end
+  
+  def mapi_authentication(params)
+    # TODO: finish this mobile API function
+    # Tries to authenticate the user through the 
+  end
 end

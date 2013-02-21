@@ -1,15 +1,29 @@
 class TrainingController < ApplicationController
+  # Returns an entire training for the user.
   # @method POST, GET
   # @param email 
   # @param password
+  # @param id
   # @returns JSON a JSON encoded string containing the first training (together
   # with its exercises and series).
-  def get
+  def m_get
     user = AuthenticationHelper.auth_with_password(params[:email], params[:password])
     if user then
-      render :json => Training.find_by_user_id(user.id, :include => [:exercises, {:exercises => :series}]).to_json(:include => {
-          :exercises => { :include => {:series => {:only => [:id,:repeat_count, :weight]}}, :only => [:id, :name] }
-        }, :only => [:id,:name])
+      render :json => Training.find_by_id_and_user_id(params[:id], user.id, :include => [:exercises, {:exercises => :series}]).to_json(TrainingHelper.training_full_view)
+    else
+      render :json => nil
+    end
+  end
+  
+  # Lists all trainings for the current user
+  # @method POST, GET
+  # @param email 
+  # @param password
+  # @returns JSON a JSON encoded list all trainings
+  def m_list
+    user = AuthenticationHelper.auth_with_password(params[:email], params[:password])
+    if user then
+      render :json => Training.find_all_by_user_id(user.id).to_json(TrainingHelper.training_view)
     else
       render :json => nil
     end
