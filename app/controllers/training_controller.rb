@@ -7,11 +7,12 @@ class TrainingController < ApplicationController
   # @returns JSON a JSON encoded string containing the first training (together
   # with its exercises and series).
   def m_get
-    user = AuthenticationHelper.auth_with_password(params[:email], params[:password])
-    if user then
-      render :json => Training.find_by_id_and_user_id(params[:id], user.id, :include => [:exercises, {:exercises => :series}]).to_json(TrainingHelper.training_full_view)
-    else
-      render :json => nil
+    AuthenticationHelper.mapi_authenticate params do |user|
+      if user then
+        render :json => Training.find_by_id_and_user_id(params[:id], user.id, :include => [:exercises, {:exercises => :series}]).to_json(TrainingHelper.training_full_view)
+      else
+        render :json => nil
+      end
     end
   end
   
@@ -21,11 +22,12 @@ class TrainingController < ApplicationController
   # @param password
   # @returns JSON a JSON encoded list all trainings
   def m_list
-    user = AuthenticationHelper.auth_with_password(params[:email], params[:password])
-    if user then
-      render :json => Training.find_all_by_user_id(user.id).to_json(TrainingHelper.training_view)
-    else
-      render :json => nil
+    AuthenticationHelper.mapi_authenticate params do |user|
+      if user then
+        render :json => Training.find_all_by_user_id(user.id).to_json(TrainingHelper.training_view)
+      else
+        render :json => nil
+      end
     end
   end
 end

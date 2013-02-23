@@ -16,6 +16,17 @@ module AuthenticationHelper
     return user
   end
   
+  # TODO: This method should be able to sign in the user through all 
+  # authentication mechanisms.
+  def self.mapi_authenticate(params, &block)
+    user = AuthenticationHelper.auth_with_password(params[:email], params[:password])
+    yield user
+  end
+  
+  def register_with_password(email, password, full_name)
+    # TODO: Finish
+  end
+  
   def self.auth_with_password(email, password)
     user = User.find_by_email email
     if user and user.authenticate(password) then
@@ -40,10 +51,5 @@ module AuthenticationHelper
   
   def do_logout
     reset_session
-  end
-  
-  def mapi_authentication(params)
-    # TODO: finish this mobile API function
-    # Tries to authenticate the user through the 
   end
 end

@@ -23,21 +23,4 @@ class AuthenticationController < ApplicationController
   ##############################################################################
   ## UTILITY METHODS
   #
-  
-  # Tries to authenticate the user with the given email by checkin the password.
-  # On success it returns a User instance. On failure it returns `false`.
-  # 
-  # This method also marks the authentication
-  #
-  # @param email string the email of the user trying to log in.
-  #
-  def login_with_password(email, password)
-    user = User.find_by_email email
-    if user and user.authenticate(password) then
-      AuthenticationHelper.do_login(user, session)
-      return user
-    else
-      return false
-    end
-  end
 end
