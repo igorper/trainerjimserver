@@ -8,18 +8,18 @@
 #           boolean parameter (indicating success or failure).
 # @param redirect_url the url to which to redirect upon successful login. If a
 #           callback is provided, this parameter is not used.
-internal_html_id = (defined? html_id) ? html_id : 'login-panel'
+internal_html_id = (defined? html_id) ? html_id : 'register-panel'
 js_should_notify = (defined? callback) ? 'true' : 'false'
 notify_selector = (defined? callback) ? callback : ''
 r_url = (defined? redirect_url) ? redirect_url : home_url
 %>
-<div id="<%= internal_html_id %>" class="login-panel middle-box-panel">
+<div id="<%= internal_html_id %>" class="register-panel middle-box-panel">
   <div class="outer-container">
     <div class="title">
       <%= t 'shared.login-panel.title'  %>
     </div>
     <div class="content">
-      <%= form_tag(authenticate_url, :class => 'login-panel-form') do |f| %>
+      <%= form_tag(authenticate_url, :class => 'register-panel-form') do |f| %>
         <table class="form-table">
           <tr>
             <td class="label"><div class="form-text-element"><%= t 'shared.login-panel.email' %></div></td>
@@ -28,6 +28,10 @@ r_url = (defined? redirect_url) ? redirect_url : home_url
           <tr>
             <td class="label"><div class="form-text-element"><%= t 'shared.login-panel.password' %></div></td>
             <td><div class="form-text-element"><input type="password" class="password standard-input-field" name="password" value="" /></div></td>
+          </tr>
+          <tr>
+            <td class="label"><div class="form-text-element"><%= t 'shared.login-panel.password' %></div></td>
+            <td><div class="form-text-element"><input type="password" class="password standard-input-field" name="password_retyped" value="" /></div></td>
           </tr>
           <tr>
             <td></td>

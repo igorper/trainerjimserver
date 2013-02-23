@@ -7,7 +7,9 @@ Trainerjim::Application.routes.draw do
   
   # Login
   match "login" => 'authentication#login', :as => :login
+  match "register" => 'authentication#register', :as => :register
   post "authentication/authenticate", :as => :authenticate
+  get "authentication/create_user", :as => :create_user
   
   # Measurements
   match 'measurements/upload' => 'measurements#upload'

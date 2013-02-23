@@ -8,3 +8,14 @@ div#login {
         }
     }
 }
+
+div#register {
+    > div.inner-container {
+        padding: 20px;
+        
+        > div.register-panel {
+            width: 600px;
+            margin: 0 auto;
+        }
+    }
+}

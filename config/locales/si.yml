@@ -18,3 +18,16 @@ si:
       password: "Geslo:"
       submit: "Prijavi me"
       login-failed: "Prijava je spodletela. Prosimo preverite email naslov in geslo."
+    register-panel:
+      title: Registracija
+      email: "Polno ime:"
+      email: "E-mail naslov:"
+      password: "Geslo:"
+      password: "Ponovi geslo:"
+      submit: "Registriraj me!"
+      registration-failed: "Registracija je spodletela. Prosimo preverite vnešene podatke."
+  authentication:
+    user_exist: "Uporabnik že obstaja."
+    retyped_password_mismatch: "Gesli se ne ujemata."
+    password_short: "Geslo je prekratko. Prosimo uporabite vsaj 8 znakov."
+    email_invalid: "Email naslov je neveljaven."

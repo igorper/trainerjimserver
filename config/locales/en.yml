@@ -17,3 +17,17 @@ en:
       email: "E-mail:"
       password: "Password:"
       submit: "Log me in"
+      login-failed: "Login failed. Please check your email and password."
+    register-panel:
+      title: Registration
+      email: "Full name:"
+      email: "E-mail:"
+      password: "Password:"
+      password: "Retype password:"
+      submit: "Register!"
+      registration-failed: "Registration failed. Please check entered data."
+  authentication:
+    user_exist: "User already exists."
+    retyped_password_mismatch: "The passwords mismatch."
+    password_short: "The password is too short. Please use at least 8 characters."
+    email_invalid: "Email address is not valid."
