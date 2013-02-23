@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   has_secure_password
   
-  attr_accessible :id, :email, :password, :admin, :first_name, :last_names
+  attr_accessible :id, :email, :password, :admin, :full_name
   
   has_many :measurements, :dependent => :delete_all
   
@@ -16,17 +16,11 @@ class User < ActiveRecord::Base
   end
   
   def display_name()
-    if self.first_name.blank? and self.last_names.blank? then
+    if self.full_name.blank? then
       require 'mail_utils'
       return MailUtils::extract_display_name(self.email)
     else
-      if self.first_name.blank? then
-        return self.last_names
-      elsif self.last_names.blank? then
-        return self.first_name
-      else
-        return self.first_name + " " + self.last_names
-      end
+      return self.full_name
     end
   end
   
