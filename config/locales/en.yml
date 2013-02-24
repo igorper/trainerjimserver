@@ -20,12 +20,11 @@ en:
       login-failed: "Login failed. Please check your email and password."
     register-panel:
       title: Registration
-      email: "Full name:"
+      full-name: "Full name:"
       email: "E-mail:"
       password: "Password:"
-      password: "Retype password:"
+      password_retype: "Retype password:"
       submit: "Register!"
-      registration-failed: "Registration failed. Please check entered data."
   authentication:
     user_exist: "User already exists."
     retyped_password_mismatch: "The passwords mismatch."

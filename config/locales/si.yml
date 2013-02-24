@@ -20,12 +20,11 @@ si:
       login-failed: "Prijava je spodletela. Prosimo preverite email naslov in geslo."
     register-panel:
       title: Registracija
-      email: "Polno ime:"
+      full-name: "Polno ime:"
       email: "E-mail naslov:"
       password: "Geslo:"
-      password: "Ponovi geslo:"
+      password_retype: "Ponovi geslo:"
       submit: "Registriraj me!"
-      registration-failed: "Registracija je spodletela. Prosimo preverite vnešene podatke."
   authentication:
     user_exist: "Uporabnik že obstaja."
     retyped_password_mismatch: "Gesli se ne ujemata."

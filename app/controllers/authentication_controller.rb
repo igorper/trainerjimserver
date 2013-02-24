@@ -6,6 +6,7 @@ class AuthenticationController < ApplicationController
   end
   
   # Useful for Ajax calls. This method starts a logged-in user session.
+  # 
   # @method POST
   # 
   # @param email 
@@ -22,13 +23,15 @@ class AuthenticationController < ApplicationController
   # the user. The user still has to log in.
   # 
   # @method POST
+  # 
   # @param full_name 
   # @param email 
   # @param password
   # @param password_retyped
-  # @returns JSON `true` on success, `false` otherwise.
+  # @returns JSON `true` on success, an exception object otherwise.
   def create_user
-    ajax_render AuthenticationHelper.register_with_password(params[:email], params[:password], params[:retyped_password], params[:full_name]), 'authentication'
+    user = AuthenticationHelper.register_with_password(params[:email], params[:password], params[:retyped_password], params[:full_name])
+    ajax_render user.is_a?(Symbol) ? user : true, :symbol_error => true, :i18n_error => :authentication
   end
   
   ##############################################################################

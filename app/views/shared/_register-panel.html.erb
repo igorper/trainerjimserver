@@ -1,13 +1,14 @@
 <%
-# @param html_id the ID used in this partial as the ID of the outermost element.
-# @param email   the email address that will be used initially in the email input field.
-# @param callback the jQuery selector of an element that should
-#           receive notification of the login progress. This partial will
-#           notify the given element by triggering
-#           (http://api.jquery.com/trigger/) the event 'tj_login' with a
-#           boolean parameter (indicating success or failure).
+# @param html_id      the ID used in this partial as the ID of the outermost element.
+# @param full_name    the full name of the user.
+# @param email        the email address that will be used initially in the email input field.
+# @param callback     the jQuery selector of an element that should
+#                     receive notification of the login progress. This partial will
+#                     notify the given element by triggering
+#                     (http://api.jquery.com/trigger/) the event 'tj_register' with a
+#                     string parameter with the following possible results: 'registered', 'attempt_failed', 'cancelled'
 # @param redirect_url the url to which to redirect upon successful login. If a
-#           callback is provided, this parameter is not used.
+#                     callback is provided, this parameter is not used.
 internal_html_id = (defined? html_id) ? html_id : 'register-panel'
 js_should_notify = (defined? callback) ? 'true' : 'false'
 notify_selector = (defined? callback) ? callback : ''
@@ -16,22 +17,26 @@ r_url = (defined? redirect_url) ? redirect_url : home_url
 <div id="<%= internal_html_id %>" class="register-panel middle-box-panel">
   <div class="outer-container">
     <div class="title">
-      <%= t 'shared.login-panel.title'  %>
+      <%= t 'shared.register-panel.title'  %>
     </div>
     <div class="content">
       <%= form_tag(authenticate_url, :class => 'register-panel-form') do |f| %>
         <table class="form-table">
           <tr>
-            <td class="label"><div class="form-text-element"><%= t 'shared.login-panel.email' %></div></td>
+            <td class="label"><div class="form-text-element"><%= t 'shared.register-panel.full-name' %></div></td>
+            <td><div class="form-text-element"><input type="text" class="full_name standard-input-field" name="full_name" value="<%= (defined? full_name) ? full_name : '' %>" /></div></td>
+          </tr>
+          <tr>
+            <td class="label"><div class="form-text-element"><%= t 'shared.register-panel.email' %></div></td>
             <td><div class="form-text-element"><input type="text" class="email standard-input-field" name="email" value="<%= (defined? email) ? email : '' %>" /></div></td>
           </tr>
           <tr>
-            <td class="label"><div class="form-text-element"><%= t 'shared.login-panel.password' %></div></td>
-            <td><div class="form-text-element"><input type="password" class="password standard-input-field" name="password" value="" /></div></td>
+            <td class="label"><div class="form-text-element"><%= t 'shared.register-panel.password' %></div></td>
+            <td><div class="form-text-element"><input type="password" class="first password standard-input-field" name="password" value="" /></div></td>
           </tr>
           <tr>
-            <td class="label"><div class="form-text-element"><%= t 'shared.login-panel.password' %></div></td>
-            <td><div class="form-text-element"><input type="password" class="password standard-input-field" name="password_retyped" value="" /></div></td>
+            <td class="label"><div class="form-text-element"><%= t 'shared.register-panel.password_retype' %></div></td>
+            <td><div class="form-text-element"><input type="password" class="second password standard-input-field" name="retyped_password" value="" /></div></td>
           </tr>
           <tr>
             <td></td>
@@ -39,36 +44,38 @@ r_url = (defined? redirect_url) ? redirect_url : home_url
           </tr>
           <tr>
             <td></td>
-            <td><input type="submit" class="standard-button submit-button" value="<%= t 'shared.login-panel.submit'  %>" /></td>
+            <td><input type="submit" class="standard-button submit-button" value="<%= t 'shared.register-panel.submit'  %>" /></td>
           </tr>
         </table>
       <% end %>
       <script type="text/javascript">
         $(function() {
-          var loginForm = $('#<%= internal_html_id %> table.form-table');
-          var pwdInput = loginForm.find('input.password');
-          var uidInput = loginForm.find('input.email');
-          var btn = loginForm.find('input.submit-button');
-          var errMsg = loginForm.find('div.error-message');
+          var registerForm = $('#<%= internal_html_id %> table.form-table');
+          var pwdInput = registerForm.find('input.password.first');
+          var pwd2Input = registerForm.find('input.password.second');
+          var uidInput = registerForm.find('input.email');
+          var full_nameInput = registerForm.find('input.full_name');
+          var btn = registerForm.find('input.submit-button');
+          var errMsg = registerForm.find('div.error-message');
+          var shouldNotify = <%= js_should_notify %>;
+          var notifySelector = '<%= notify_selector %>';
 
           btn.click(function(e) {
-            callJSON('<%= authenticate_url %>', {email: uidInput.val(), password: pwdInput.val()}, function(hasLoggedIn) {
-              if (<%= js_should_notify %>) {
-                $('<%= notify_selector %>').trigger('tj_login', [hasLoggedIn]);
-              } else if (hasLoggedIn) {
+            callJSON('<%= create_user_url %>', {full_name: full_nameInput.val(), email: uidInput.val(), password: pwdInput.val(), retyped_password: pwd2Input.val()}, function(hasRegistered) {
+              if (shouldNotify) {
+                $(notifySelector).trigger('tj_register', 'registered');
+              } else if (hasRegistered) {
                 window.location = '<%= r_url %>';
               }
-              // Show some error message if the login failed:
-              if (hasLoggedIn) {
-                errMsg.removeClass('active');
-                errMsg.text('');
-              } else {
-                errMsg.addClass('active');
-                errMsg.text('<%= t 'shared.login-panel.login-failed' %>');
+            }, function(msg, errId) {
+              errMsg.addClass('active');
+              errMsg.text(msg);
+              if (shouldNotify) {
+                $(notifySelector).trigger('tj_register', 'attempt_failed');
               }
             });
             e.preventDefault();
-          })
+          });
         });
       </script>
     </div>
