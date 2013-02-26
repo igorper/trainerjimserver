@@ -4,7 +4,7 @@
   </div>
   <% Training.all.each do |t| %>
     <div class="training-entry">
-      <%= t.name %>
+      <a href="<%= training_url(t.id)  %>"><%= t.name %></a>
     </div>
   <% end  %>
 </div>

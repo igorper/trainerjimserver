@@ -1,3 +1,8 @@
+# Initial setup
+
 1.  Install `postgresql`
 
 
+
+## Updating the server with most recent code:
+cd /maco/rails/apps/trainerjim && git pull && bundle exec rake db:migrate assets:precompile RAILS_ENV=production && touch /maco/rails/apps/trainerjim/tmp/restart.txt

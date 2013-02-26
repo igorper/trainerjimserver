@@ -1,5 +1,9 @@
 Trainerjim::Application.routes.draw do
-  get "authentication/login"
+  
+  # NOTE: Mobile API or MAPI means that sessions aren't processed and most
+  # privileged actions require explicit authentication (through email/password or
+  # Google Token Authentication or otherwise). It will be written in the
+  # documentation of provided of the controller's action.
 
   # Homepage
   match 'index' => "home#index", :as => :home
@@ -18,12 +22,9 @@ Trainerjim::Application.routes.draw do
   match 'measurements/new' => 'measurements#new'
   match 'measurements/list' => 'measurements#show'
   
-  # NOTE: Mobile API or MAPI means that sessions aren't processed and most
-  # privileged actions require explicit authentication (through email/password or
-  # Google Token Authentication or otherwise). It will be written in the
-  # documentation of provided of the controller's action.
-  
-  # MOBILE API: Training
+  # Trainings
+  resources :training
+  # MOBILE API
   match 'mapi/training/get' => 'training#m_get'
   match 'mapi/training/list' => 'training#m_list'
 

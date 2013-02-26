@@ -1,4 +1,9 @@
 class TrainingController < ApplicationController
+  
+  def show
+    @t = Training.find_by_id(params[:id])
+  end
+  
   # Returns an entire training for the user.
   # @method POST, GET
   # @param email 
