@@ -103,6 +103,13 @@ body.main-layout {
     @include shadow(0 0 5px 5px lighten($errorShadowColor, 15%));
 }
 
+.main-page-title {
+    @include sans;
+    font: {
+        size: 1.5em;
+    }
+}
+
 
 
 ////////////////////////////////////////////////////////////////////////////////

@@ -10,13 +10,12 @@
         </td>
         <td class="login-part">
           <div>
-            <% if AuthenticationHelper.is_logged_in(session) then %>
+            <% if AuthenticationHelper.is_logged_in?(session) then %>
               <%= AuthenticationHelper.current_user_display_name(session) %>
-              <a href="<%= logout_url() %>">Log out</a>
+              <a href="<%= logout_url %>">Log out</a>
             <% else %>
-              <a href="<%= login_url(:redirect_url => soon_url()) %>">Log in</a>
+              <a href="<%= login_url %>">Log in</a>
             <% end %>
-
           </div>
         </td>
       </tr>

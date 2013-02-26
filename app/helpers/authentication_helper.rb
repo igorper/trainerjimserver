@@ -1,8 +1,19 @@
 module AuthenticationHelper
-  ##############################################################################
-  ## UTILITIES
-  #
   
+  ##############################################################################
+  ## UTILITIES (instance)
+  #
+  def do_logout
+    reset_session
+  end
+  
+  def logged_in?
+    return AuthenticationHelper.is_logged_in?(session)
+  end
+  
+  ##############################################################################
+  ## UTILITIES (global)
+  #
   def self.current_user_id(session)
     return session[:Authentication_user_id]
   end
@@ -11,7 +22,7 @@ module AuthenticationHelper
     return session[:Authentication_user_display_name]
   end
   
-  def self.is_logged_in(session)
+  def self.is_logged_in?(session)
     return !session[:Authentication_user_id].nil?
   end
   
@@ -55,10 +66,6 @@ module AuthenticationHelper
   def self.do_login(session, user)
     session[:Authentication_user_id] = user.id
     session[:Authentication_user_display_name] = user.display_name
-  end
-  
-  def do_logout
-    reset_session
   end
   
   ##############################################################################

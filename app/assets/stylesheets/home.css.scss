@@ -1,5 +1,21 @@
 @import "definitions.scss";
-div#home {
+
+div#training-list {
+    padding: 20px 0px;
+    
+    div.main-page-title {
+        margin: {bottom: 15px;}
+    }
+    
+    div.training-entry {
+        padding: 15px 20px;
+        background: {
+            color: lighten($jimColor, 43%);
+        }
+    }
+}
+
+div#soon-welcome {
     h1 {
         margin: 0;
     }

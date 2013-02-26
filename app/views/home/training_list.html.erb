@@ -1,0 +1,10 @@
+<div id="training-list">
+  <div class="main-page-title">
+    Seznam razpoložljivih treningov
+  </div>
+  <% Training.all.each do |t| %>
+    <div class="training-entry">
+      <%= t.name %>
+    </div>
+  <% end  %>
+</div>
