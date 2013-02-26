@@ -1,6 +1,25 @@
 <div id="header" class="header outer-container">
   <div class="central-strip">
-    <div class="logo clickable-link" data-cl-href="<%= home_url  %>"></div>
-    <div style="display: inline-block; vertical-align: middle;"><%= AuthenticationHelper.current_user_display_name(session) %></div>
+    <table class="panel">
+      <tr>
+        <td class="logo-part">
+          <div class="logo clickable-link" data-cl-href="<%= home_url %>"></div>
+        </td>
+        <td class="main-part">
+          Test
+        </td>
+        <td class="login-part">
+          <div>
+            <% if AuthenticationHelper.is_logged_in(session) then %>
+              <%= AuthenticationHelper.current_user_display_name(session) %>
+              <a href="<%= logout_url() %>">Log out</a>
+            <% else %>
+              <a href="<%= login_url(:redirect_url => soon_url()) %>">Log in</a>
+            <% end %>
+
+          </div>
+        </td>
+      </tr>
+    </table>
   </div>
 </div>

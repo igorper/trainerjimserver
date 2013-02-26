@@ -11,7 +11,7 @@
 internal_html_id = (defined? html_id) ? html_id : 'login-panel'
 js_should_notify = (defined? callback) ? 'true' : 'false'
 notify_selector = (defined? callback) ? callback : ''
-r_url = (defined? redirect_url) ? redirect_url : home_url
+r_url = (defined?(redirect_url) && !redirect_url.blank?) ? redirect_url : home_url
 %>
 <div id="<%= internal_html_id %>" class="login-panel middle-box-panel">
   <div class="outer-container">

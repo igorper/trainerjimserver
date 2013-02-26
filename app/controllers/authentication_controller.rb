@@ -1,8 +1,17 @@
 class AuthenticationController < ApplicationController
   
   include AjaxHelper
-    
+  include AuthenticationHelper
+
+  # @param redirect_url
   def login
+    redirect_url = params[:redirect_url]
+    render 'authentication/login', :locals => {:redirect_url => redirect_url}
+  end
+    
+  def logout
+    do_logout()
+    redirect_to home_url
   end
   
   # Useful for Ajax calls. This method starts a logged-in user session.

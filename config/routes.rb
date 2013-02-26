@@ -2,12 +2,14 @@ Trainerjim::Application.routes.draw do
   get "authentication/login"
 
   # Homepage
-  get "home/index", :as => :home
-  root :to => 'home#soon'
+  match 'index' => "home#index", :as => :home
+  root :to => 'home#soon', :as => :soon
   
   # Login
   match "login" => 'authentication#login', :as => :login
+  match "logout" => 'authentication#logout', :as => :logout
   match "register" => 'authentication#register', :as => :register
+  # AJAX API:
   post "authentication/authenticate", :as => :authenticate
   post "authentication/create_user", :as => :create_user
   

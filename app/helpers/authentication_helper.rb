@@ -11,6 +11,10 @@ module AuthenticationHelper
     return session[:Authentication_user_display_name]
   end
   
+  def self.is_logged_in(session)
+    return !session[:Authentication_user_id].nil?
+  end
+  
   ##############################################################################
   ## LOGIN
   #

@@ -1,5 +1,8 @@
 @import "definitions.scss";
 
+$logoPartWidth: 200px;
+$loginPartWidth: 200px;
+
 div.header.outer-container {
     height: $headerHeight;
     width: 100%;
@@ -11,19 +14,41 @@ div.header.outer-container {
     > div.central-strip {
         height: $headerHeight;
         
-        > div.logo {
-            @include middle;
-            background: {
-                image: image-url("logo_full_medium.png");
-                size: auto $headerHeight * 0.7;
-                repeat: no-repeat;
-                position: center;
+        > table.panel {
+            width: $pageWidth;
+            padding: 0px;
+            border: {
+                spacing: 0px;
             }
-            height: $headerHeight;
-            width: 200px;
-            display: inline-block;
+            
+            td {
+                padding: 0px;
+            }
+            
+            td.logo-part {
+                width: $logoPartWidth;
+                div.logo {
+                    @include middle;
+                    height: $headerHeight;
+                    background: {
+                        image: image-url("logo_full_medium.png");
+                        size: auto $headerHeight * 0.7;
+                        repeat: no-repeat;
+                        position: center;
+                    }
+                }
+            }
+            
+            td.main-part {
+                width: available;
+            }
+            
+            td.login-part {
+                width: $loginPartWidth;
+                > div {
+                }
+            }
         }
-        
     }
 }
 

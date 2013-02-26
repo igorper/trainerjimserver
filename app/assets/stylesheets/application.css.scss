@@ -29,7 +29,7 @@ body.main-layout {
 /// COMMON LAYOUT UTILS
 //
 .central-strip {
-    width: 940px;
+    width: $pageWidth;
     margin: 0 auto 0 auto;
 }
 
