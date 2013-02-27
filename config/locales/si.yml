@@ -30,3 +30,5 @@ si:
     retyped_password_mismatch: "Gesli se ne ujemata."
     password_short: "Geslo je prekratko. Prosimo uporabite vsaj 8 znakov."
     email_invalid: "Email naslov je neveljaven."
+  mapi-err:
+    authentication_failure: "Prijava spodletela. Neveljavno uporabniško ime ali geslo."

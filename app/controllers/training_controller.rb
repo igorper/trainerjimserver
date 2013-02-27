@@ -1,5 +1,8 @@
 class TrainingController < ApplicationController
   
+  include AjaxHelper
+  include AuthenticationHelper
+  
   def show
     @t = Training.find_by_id(params[:id])
   end
@@ -12,12 +15,8 @@ class TrainingController < ApplicationController
   # @returns JSON a JSON encoded string containing the first training (together
   # with its exercises and series).
   def m_get
-    AuthenticationHelper.mapi_authenticate params do |user|
-      if user then
-        render :json => Training.find_by_id(params[:id], :include => [:exercises, {:exercises => :series}]).to_json(TrainingHelper.training_full_view)
-      else
-        render :json => nil
-      end
+    with_auth_mapi do |user|
+      ajax_render Training.find_by_id(params[:id], :include => [:exercises, {:exercises => :series}]).to_json(TrainingHelper.training_full_view)
     end
   end
   
@@ -27,12 +26,8 @@ class TrainingController < ApplicationController
   # @param password
   # @returns JSON a JSON encoded list all trainings
   def m_list
-    AuthenticationHelper.mapi_authenticate params do |user|
-      if user then
-        render :json => Training.all.to_json(TrainingHelper.training_view)
-      else
-        render :json => nil
-      end
+    with_auth_mapi do |user|
+      ajax_render Training.all.to_json(TrainingHelper.training_view)
     end
   end
 end

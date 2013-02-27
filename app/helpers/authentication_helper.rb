@@ -47,11 +47,25 @@ module AuthenticationHelper
     return user
   end
   
-  # TODO: This method should be able to sign in the user through all 
-  # authentication mechanisms.
+  # @param params the request parameters (from GET or POST)
+  # @param block this method is called with either a `User` instance (if the
+  # authentication succeeded) or `null` if the authentication failed.
   def self.mapi_authenticate(params, &block)
-    user = AuthenticationHelper.auth_with_password(params[:email], params[:password])
-    yield user
+    user = AuthenticationHelper.multi_auth(params)
+    yield user.is_a?(Symbol) ? null : user
+  end
+  
+  # @param params the request parameters (from GET or POST)
+  # @returns a `User` instance in case the authentication worked, `null` if the
+  #          authentication tokens are invalid (e.g., wrong password), or a
+  #          symbol, which describes the code of the error.
+  def self.multi_auth(params)
+    # Check if the password and email are present:
+    if params[:email].present? && params[:password].present? then
+      return AuthenticationHelper.auth_with_password(params[:email], params[:password])
+    else
+      return :auth_method_unknown
+    end
   end
   
   def self.auth_with_password(email, password)
