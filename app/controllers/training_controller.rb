@@ -14,7 +14,7 @@ class TrainingController < ApplicationController
   def m_get
     AuthenticationHelper.mapi_authenticate params do |user|
       if user then
-        render :json => Training.find_by_id_and_user_id(params[:id], user.id, :include => [:exercises, {:exercises => :series}]).to_json(TrainingHelper.training_full_view)
+        render :json => Training.find_by_id(params[:id], :include => [:exercises, {:exercises => :series}]).to_json(TrainingHelper.training_full_view)
       else
         render :json => nil
       end
@@ -29,7 +29,7 @@ class TrainingController < ApplicationController
   def m_list
     AuthenticationHelper.mapi_authenticate params do |user|
       if user then
-        render :json => Training.find_all_by_user_id(user.id).to_json(TrainingHelper.training_view)
+        render :json => Training.all.to_json(TrainingHelper.training_view)
       else
         render :json => nil
       end
