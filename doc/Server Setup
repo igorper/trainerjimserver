@@ -1,6 +1,8 @@
 # Initial setup
 
--   Install `postgresql`
+-   Install `postgresql` and all the other dependencies that will be needed later on:
+
+        yum -y install postgresql-devel automake autoconf gcc gcc-c++ openssl openssl-devel zlib zlib-devel curl-devel curl-devel httpd-devel apr-devel apr-util-devel
 
 -   Generate ssh keys (https://help.github.com/articles/generating-ssh-keys):
 
@@ -16,11 +18,66 @@
 
         \curl -L https://get.rvm.io | bash -s stable --ruby
 
-    Note: I had to install the following first:
+    Add this line to file `~/.bashrc` of `root`:
 
-        yum -y install automake autoconf gcc gcc-c++ openssl
+        [[ -s "/usr/local/rvm/scripts/rvm" ]] && source "/usr/local/rvm/scripts/rvm"
+
+    [This suddenly wasn't the case anymore after installing those YUM dependencies...] RVM wanted to install Ruby 2, which for some reason did not work. I installed Ruby 1.9.3 instead:
+
+        rvm install ruby-1.9.3-p374
+
+-   Install bundler:
+
+        gem install bundler
+
+-   Install gems in for our web server:
+
+        bundle install
+
+-   Install passenger:
+
+        gem install passenger
+        passenger-install-apache2-module
+
+-   Put something like this into `/etc/httpd/conf/httpd.conf`:
+
+    Just after `LoadModule` listing:
+
+        NameVirtualHost *:80
+        NameVirtualHost *:443
+
+    At the very bottom:
+
+LoadModule passenger_module /usr/local/rvm/gems/ruby-1.9.3-p385/gems/passenger-3.0.19/ext/apache2/mod_passenger.so
+PassengerRoot /usr/local/rvm/gems/ruby-1.9.3-p385/gems/passenger-3.0.19
+PassengerRuby /usr/local/rvm/wrappers/ruby-1.9.3-p385/ruby
+
+<VirtualHost *:80>
+    ServerName jim.fzv.uni-mb.si
+
+    DocumentRoot "/maco/rails/apps/trainerjim/public"
+    <Directory "/maco/rails/apps/trainerjim/public">
+        AllowOverride all
+        Options -MultiViews
+        AuthType None
+        Order deny,allow
+        Allow from all
+    </Directory>
+
+    <LocationMatch "^/assets/.*$">
+        Header unset ETag
+        FileETag None
+        ExpiresActive On
+        ExpiresDefault "access plus 1 year"
+        Header append Cache-Control public
+    </LocationMatch>
+</VirtualHost>
+
+-   After all of this, you may run this to make sure Passenger gets the gems:
+
+    bundle install --deployment
 
 
 
-## Updating the server with most recent code:
-cd /maco/rails/apps/trainerjim && git pull && bundle exec rake db:migrate assets:precompile RAILS_ENV=production && touch /maco/rails/apps/trainerjim/tmp/restart.txt
+# Updating app
+cd /maco/rails/apps/trainerjimserver && git pull && bundle exec rake db:migrate assets:precompile RAILS_ENV=production && touch /maco/rails/apps/trainerjimserver/tmp/restart.txt
