@@ -22,3 +22,5 @@ gem 'unicode'
 
 # For foreign key constraints on databases
 gem 'foreigner', :git => 'git://github.com/urbas/foreigner.git', :branch => 'on-update'
+
+gem 'rubyzip'

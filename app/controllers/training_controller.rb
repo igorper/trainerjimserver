@@ -30,4 +30,29 @@ class TrainingController < ApplicationController
       ajax_render Training.all.to_json(TrainingHelper.training_view)
     end
   end
+  
+  # @param email
+  # @param password
+  # @param trainingId
+  # @param trainingData [ZIP FILE] a binary stream of data.
+  # TODO: define ZIP FILE contents.
+  def m_upload
+    with_auth_mapi do |user|
+      require 'zip/zipfilesystem'
+      # Get the zip file that is the training data:
+      Zip::ZipFile.open(params[:trainingData].path) do |zip_file|
+        
+        data = []
+        
+        zip_file.each do |file|
+          data.push({:name => file.name, :size => file.size, :compressed_size => file.compressed_size})
+        end
+        
+        ajax_render data
+      end
+    end
+  end
+  
+  def tests
+  end
 end

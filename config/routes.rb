@@ -24,9 +24,11 @@ Trainerjim::Application.routes.draw do
   
   # Trainings
   resources :training
+  match 'mapi/training/tests' => 'training#tests'
   # MOBILE API
   match 'mapi/training/get' => 'training#m_get'
   match 'mapi/training/list' => 'training#m_list'
+  match 'mapi/training/upload' => 'training#m_upload', :as => :upload_training
 
   # The priority is based upon order of creation:
   # first created -> highest priority.
