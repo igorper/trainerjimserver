@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  measurement_id: 1
+  event_type: 1
+  timestamp: 2013-03-06 14:22:16
+
+two:
+  measurement_id: 1
+  event_type: 1
+  timestamp: 2013-03-06 14:22:16

@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130223120236) do
+ActiveRecord::Schema.define(:version => 20130306142216) do
 
   create_table "exercises", :force => true do |t|
     t.integer  "training_id", :null => false
@@ -43,12 +43,16 @@ ActiveRecord::Schema.define(:version => 20130223120236) do
   add_index "i18n_strings", ["locale"], :name => "index_i18n_strings_on_locale"
 
   create_table "measurements", :force => true do |t|
-    t.integer  "user_id",    :null => false
+    t.integer  "user_id",     :null => false
     t.binary   "data"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
+    t.integer  "training_id"
+    t.datetime "start_time"
+    t.datetime "end_time"
   end
 
+  add_index "measurements", ["training_id"], :name => "index_measurements_on_training_id"
   add_index "measurements", ["user_id"], :name => "index_measurements_on_user_id"
 
   create_table "series", :force => true do |t|
@@ -61,6 +65,16 @@ ActiveRecord::Schema.define(:version => 20130223120236) do
   end
 
   add_index "series", ["exercise_id"], :name => "index_series_on_exercise_id"
+
+  create_table "series_events", :force => true do |t|
+    t.integer  "measurement_id"
+    t.integer  "event_type"
+    t.datetime "timestamp"
+    t.datetime "created_at",     :null => false
+    t.datetime "updated_at",     :null => false
+  end
+
+  add_index "series_events", ["measurement_id"], :name => "index_series_events_on_measurement_id"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -93,8 +107,11 @@ ActiveRecord::Schema.define(:version => 20130223120236) do
 
   add_foreign_key "i18n_strings", "i18n_keys", :name => "i18n_strings_i18n_key_id_fk", :dependent => :delete
 
+  add_foreign_key "measurements", "trainings", :name => "measurements_training_id_fk", :dependent => :delete
   add_foreign_key "measurements", "users", :name => "measurements_user_id_fk", :dependent => :delete
 
   add_foreign_key "series", "exercises", :name => "series_exercise_id_fk", :dependent => :delete
+
+  add_foreign_key "series_events", "measurements", :name => "series_events_measurement_id_fk", :dependent => :delete
 
 end
