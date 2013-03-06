@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
+matej:
+  full_name: Matej Urbas
   email: matej@example.com
-  password_digest: MyString
+  password_digest: $2a$10$x/nvHVvCGtA0865e3.d1ZeWnhBawtJtX8xj2T.LILvJ49B9IGGdSe
   
-two:
+igor:
+  full_name: Igor Pernek
   email: igor@example.com
-  password_digest: MyString
+  password_digest: $2a$10$uSotUNLftI3zXYSSRcgrxe2f5eCsUyxH7DgDN13fDuS0Cwe2osj2G

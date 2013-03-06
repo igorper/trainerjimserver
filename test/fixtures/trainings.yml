@@ -1,7 +1,9 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  name: MyString
+matej1:
+  name: "Matej's training"
+  trainee: matej
 
-two:
-  name: MyString
+igor1:
+  name: "Igor's training"
+  trainee: igor

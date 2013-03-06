@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130306145306) do
+ActiveRecord::Schema.define(:version => 20130306152626) do
 
   create_table "exercises", :force => true do |t|
     t.integer  "training_id", :null => false
@@ -89,9 +89,12 @@ ActiveRecord::Schema.define(:version => 20130306145306) do
 
   create_table "trainings", :force => true do |t|
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
+    t.integer  "trainee_user_id"
   end
+
+  add_index "trainings", ["trainee_user_id"], :name => "index_trainings_on_trainee_user_id"
 
   create_table "users", :force => true do |t|
     t.string   "email"
@@ -114,5 +117,7 @@ ActiveRecord::Schema.define(:version => 20130306145306) do
   add_foreign_key "series", "exercises", :name => "series_exercise_id_fk", :dependent => :delete
 
   add_foreign_key "series_events", "measurements", :name => "series_events_measurement_id_fk", :dependent => :delete
+
+  add_foreign_key "trainings", "users", :name => "trainings_trainee_user_id_fk", :column => "trainee_user_id", :dependent => :delete
 
 end
