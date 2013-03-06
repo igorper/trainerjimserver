@@ -1,7 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
 one:
-  name: MyString
+  exercise_id: 1
+  repeat_count: 15
+  weight: 70
 
 two:
-  name: MyString
+  exercise_id: 2
+  repeat_count: 25
+  weight: 79
