@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130306142216) do
+ActiveRecord::Schema.define(:version => 20130306145306) do
 
   create_table "exercises", :force => true do |t|
     t.integer  "training_id", :null => false
@@ -62,6 +62,7 @@ ActiveRecord::Schema.define(:version => 20130306142216) do
     t.integer  "weight"
     t.datetime "created_at",   :null => false
     t.datetime "updated_at",   :null => false
+    t.integer  "rest_time"
   end
 
   add_index "series", ["exercise_id"], :name => "index_series_on_exercise_id"
