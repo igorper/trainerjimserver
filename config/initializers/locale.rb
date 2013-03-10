@@ -1,1 +1,1 @@
-I18n.default_locale = :si
+I18n.default_locale = :en

@@ -60,5 +60,11 @@ module Trainerjim
     config.assets.version = '1.0'
     
     config.assets.precompile += %w(frame.js home.js measurements.js authentication.js training.js frame.css home.css measurements.css authentication.css training.css)
+  
+    # Add the fonts path
+    config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
+
+    # Precompile additional assets
+    config.assets.precompile += %w( .svg .eot .woff .ttf )
   end
 end

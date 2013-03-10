@@ -51,17 +51,14 @@ div#soon-welcome {
         font-size: 24px;
         color: white;
         padding: 0px 15px 25px;
-        z-index: 3;
     }
     
     div.construction-notice {
         @include text-shadow(0 1px 1px white);
+        @include light;
         text-align: center;
-        //background-color: white;
         padding: 5px 20px;
-        border-radius: 5px;
-        margin: 5px 100px;
-        z-index: 4;
+        font-size: 1.2em;
     }
     
     div.background {
@@ -76,6 +73,5 @@ div#soon-welcome {
         }
         height: 100%;
         width: 100%;
-        z-index: 1;
     }
 }

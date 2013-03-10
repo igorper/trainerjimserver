@@ -1,14 +1,14 @@
-$jimColor: #FBCA15;
-$headerHeight: 60px;
+$jimColor: #FBC912;
+$headerHeight: 56px;
 $errorShadowColor: lighten(#ff6d00, 7%);
-$pageWidth: 940px;
+$pageWidth: 990px;
 
 
 
 /** FONTS */
 @mixin sans {
     font: {
-        family: 'Open Sans', sans-serif;
+        family: 'fineness', sans-serif;
         weight: 400;
     }
 }
@@ -20,8 +20,12 @@ $pageWidth: 940px;
     }
 }
 
+@mixin light {
+    font-weight: 300;
+}
+
 @mixin bold {
-    font-weight: bold;
+    font-weight: 700;
 }
 
 @mixin italic {
@@ -70,4 +74,15 @@ $pageWidth: 940px;
 
 @mixin text-shadow($shadow: 0 1px 1px rgba(0, 0, 0, 0.5)) {
     text-shadow: $shadow;
+}
+
+
+
+/** BRANDING */
+@mixin logo {
+    background: {
+        image: image-url("Logo.png");
+        repeat: no-repeat;
+        position: center;
+    }
 }
