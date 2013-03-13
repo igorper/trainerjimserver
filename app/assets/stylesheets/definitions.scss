@@ -1,5 +1,5 @@
 $jimColor: #FBC912;
-$headerHeight: 56px;
+$headerHeight: 57px;
 $errorShadowColor: lighten(#ff6d00, 7%);
 $pageWidth: 990px;
 
@@ -8,7 +8,7 @@ $pageWidth: 990px;
 /** FONTS */
 @mixin sans {
     font: {
-        family: 'fineness', sans-serif;
+        family: 'Open Sans', sans-serif;
         weight: 400;
     }
 }
@@ -16,6 +16,13 @@ $pageWidth: 990px;
 @mixin serif {
     font: {
         family: 'Droid Serif', serif;
+        weight: 400;
+    }
+}
+
+@mixin sans-titles {
+    font: {
+        family: 'fineness';
         weight: 400;
     }
 }
@@ -54,6 +61,16 @@ $pageWidth: 990px;
 /** LAYOUT */
 @mixin middle {
     vertical-align: middle;
+}
+
+@mixin inline {
+    display: inline-block;
+}
+
+@mixin min-table {
+    border-spacing: 0px;
+    padding: 0px;
+    margin: 0px;
 }
 
 

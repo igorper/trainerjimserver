@@ -51,5 +51,5 @@ $(function() {
         e.preventDefault();
     });
 
-    $('.standard-button').disableSelection();
+    $('.button-behaviour').disableSelection();
 });

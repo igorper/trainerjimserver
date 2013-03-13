@@ -12,13 +12,14 @@ div.header.outer-container {
         height: $headerHeight;
         
         > table.panel {
-            width: $pageWidth;
-            padding: 0px;
-            border-spacing: 0px;
+            @include text-shadow(0 1px 0px darken($jimColor, 15%));
+            @include min-table;
+            font-size: 1.3em;
             color: white;
+            width: $pageWidth;
             
             a {
-                color: #757676;
+                color: white;
             }
             
             td {
@@ -36,6 +37,35 @@ div.header.outer-container {
             
             td.main-part {
                 width: available;
+                
+                table.buttons {
+                    @include min-table;
+                    height: $headerHeight;
+                    
+                    td.main-button {
+                        @include middle;
+                        border-left: 2px solid #fee170;
+                        cursor: pointer;
+                        padding: 10px;
+                        width: 72px;
+                    }
+                    
+                    td.main-button.last {
+                        border-right: 2px solid #fee170;
+                    }
+                    
+                    td.main-button:hover {
+                        background: {
+                            color: #ffbf00;
+                        }
+                    }
+                    
+                    td.main-button:active {
+                        background: {
+                            image: image-url("Gradient_ClickedState_1px.png");
+                        }
+                    }
+                }
             }
             
             td.login-part {

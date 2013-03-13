@@ -1,4 +1,4 @@
-@import url(https://fonts.googleapis.com/css?family=Droid+Serif:400,400italic,700,700italic&subset=latin,latin-ext);
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:700,700italic,400italic,400,300italic,300|Droid+Serif:400,400italic,700,700italic&subset=latin,latin-ext);
 
 
 
@@ -78,6 +78,15 @@ body.main-layout {
     padding: 10px;
 }
 
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// JS BEHAVIOUT CLASSES
+//
+/** Disables selection and makes the cursor a pointer. */
+.button-behaviour {
+    cursor: pointer;
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////
