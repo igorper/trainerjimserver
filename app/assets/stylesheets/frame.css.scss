@@ -42,8 +42,10 @@ div.header.outer-container {
                     @include min-table;
                     height: $headerHeight;
                     
+                    // TOP HEADER BUTTONS
                     td.main-button {
                         @include middle;
+                        @include center;
                         border-left: 2px solid #fee170;
                         cursor: pointer;
                         padding: 10px;
@@ -60,7 +62,7 @@ div.header.outer-container {
                         }
                     }
                     
-                    td.main-button:active {
+                    td.main-button:active, td.main-button.pressed {
                         background: {
                             image: image-url("Gradient_ClickedState_1px.png");
                         }

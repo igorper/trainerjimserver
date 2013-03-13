@@ -51,5 +51,16 @@ $(function() {
         e.preventDefault();
     });
 
+    /**
+     * Buttons
+     */
     $('.button-behaviour').disableSelection();
+    
+    $('.button-behaviour').mousedown(function() {
+        $(this).addClass("pressed");
+    });
+    
+    $('.button-behaviour').mouseup(function() {
+        $(this).removeClass("pressed");
+    });
 });
