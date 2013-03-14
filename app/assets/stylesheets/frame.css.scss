@@ -13,7 +13,7 @@ div.header.outer-container {
         
         > table.panel {
             @include text-shadow(0 1px 0px darken($jimColor, 15%));
-            @include min-table;
+            @include zero-spacing;
             font-size: 1.3em;
             color: white;
             width: $pageWidth;
@@ -39,7 +39,7 @@ div.header.outer-container {
                 width: available;
                 
                 table.buttons {
-                    @include min-table;
+                    @include zero-spacing;
                     height: $headerHeight;
                     
                     // TOP HEADER BUTTONS

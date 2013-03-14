@@ -17,6 +17,9 @@ Trainerjim::Application.routes.draw do
   post "authentication/authenticate", :as => :authenticate
   post "authentication/create_user", :as => :create_user
   
+  # Dashboard
+  match 'dashboard' => 'dashboard#show', :as => :dashboard
+  
   # Measurements
   match 'measurements/upload' => 'measurements#upload'
   match 'measurements/new' => 'measurements#new'

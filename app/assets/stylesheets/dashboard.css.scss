@@ -1,0 +1,31 @@
+@import "definitions.scss";
+
+$dashboardLRMargin: 0px;
+$exercisesWidth: 141px;
+$statisticsWidth: 199px;
+$measurementsWidth: $pageWidth - $exercisesWidth - $statisticsWidth;
+
+#dashboard-show {
+    margin: 20px 0px;
+    width: 100%;
+    
+    > div {
+        display: inline-block;
+        border: 1px solid #cecece;
+        vertical-align: top;
+    }
+    
+    .people-exercises {
+        width: $exercisesWidth - 2px;
+    }
+    
+    .statistics {
+        width: $statisticsWidth - 1px;
+        margin-left: -1px;
+    }
+    
+    .measurements {
+        width: $measurementsWidth - 1px;
+        margin-left: -1px;
+    }
+}

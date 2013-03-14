@@ -67,7 +67,7 @@ $pageWidth: 990px;
     display: inline-block;
 }
 
-@mixin min-table {
+@mixin zero-spacing {
     border-spacing: 0px;
     padding: 0px;
     margin: 0px;
