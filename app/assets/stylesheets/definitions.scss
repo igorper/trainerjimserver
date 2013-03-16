@@ -56,6 +56,10 @@ $pageWidth: 990px;
     text-align: right;
 }
 
+@mixin left {
+    text-align: left;
+}
+
 
 
 /** LAYOUT */
@@ -65,6 +69,21 @@ $pageWidth: 990px;
 
 @mixin inline {
     display: inline-block;
+}
+
+@mixin inline-middle {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+@mixin inline-top {
+    display: inline-block;
+    vertical-align: top;
+}
+
+@mixin inline-bottom {
+    display: inline-block;
+    vertical-align: bottom;
 }
 
 @mixin zero-spacing {

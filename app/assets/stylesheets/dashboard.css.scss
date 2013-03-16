@@ -3,7 +3,10 @@
 $dashboardLRMargin: 0px;
 $exercisesWidth: 141px;
 $statisticsWidth: 199px;
-$measurementsWidth: $pageWidth - $exercisesWidth - $statisticsWidth;
+$measurementsWidth: $pageWidth - $exercisesWidth - $statisticsWidth - 4px;
+$avatarHeight: 42px;
+$avatarWidth: 42px;
+$statisticsFontSize: 75px;
 
 #dashboard-show {
     margin: 20px 0px;
@@ -13,19 +16,115 @@ $measurementsWidth: $pageWidth - $exercisesWidth - $statisticsWidth;
         display: inline-block;
         border: 1px solid #cecece;
         vertical-align: top;
+        
+        &.people-exercises {
+            width: $exercisesWidth;
+            
+            > .entry {
+                font: {
+                    size: 0.8em;
+                }
+                @include text-shadow(0 1px 1px white);
+                height: 50px;
+                
+                
+                &.even {
+                    background: {
+                        color: #ececec;
+                    }
+                }
+                
+                &.selected {
+                    background: {
+                        color: $jimColor;
+                    }
+                }
+                
+                > .title {
+                    @include inline-middle;
+                    width: $exercisesWidth - 50px;
+                    padding: 5px;
+                }
+                
+                > .icon {
+                    @include inline-middle;
+                    height: 50px;
+                    width: 30px;
+                }
+            }
+        }
+        
+        &.statistics {
+            width: $statisticsWidth;
+            margin-left: -1px;
+            
+            > .avatar-name {
+                height: $avatarHeight;
+                background: {
+                    color: #ececec;
+                }
+                
+                > div {
+                    @include inline-middle;
+                    
+                    &.avatar {
+                        height: $avatarHeight;
+                        width: $avatarWidth;
+                        background: {
+                            color: #cecece;
+                        }
+                    }
+                    
+                    &.name {
+                        @include bold;
+                        @include text-shadow(0 1px 1px white);
+                        $st_name_padding: 5px;
+                        width: $statisticsWidth - $avatarWidth - $st_name_padding*2;
+                        padding: $st_name_padding;
+                        color: #555;
+                    }
+                }
+            }
+            
+            > .numbers {
+                @include center;
+                
+                > .activity-percentage {
+                    @include inline;
+                    
+                    > .number {
+                        @include inline-bottom;
+                        @include sans-titles;
+                        color: #555;
+                        font: {
+                            size: $statisticsFontSize;
+                        }
+                        height: $statisticsFontSize*0.97;
+                    }
+                    
+                    > .label {
+                        @include inline-bottom;
+                        @include left;
+                        color: $jimColor;
+                    }
+                }
+                
+                > .separator {
+                    > div {
+                        @include inline;
+                        border-bottom: 2px dashed $jimColor;
+                        height: 5px;
+                        width: $statisticsWidth - 50px;
+                        
+                    }
+                }
+            }
+        }
+        
+        &.measurements {
+            width: $measurementsWidth;
+            margin-left: -1px;
+        }
     }
     
-    .people-exercises {
-        width: $exercisesWidth - 2px;
-    }
-    
-    .statistics {
-        width: $statisticsWidth - 1px;
-        margin-left: -1px;
-    }
-    
-    .measurements {
-        width: $measurementsWidth - 1px;
-        margin-left: -1px;
-    }
 }
