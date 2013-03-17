@@ -41,30 +41,55 @@ div.header.outer-container {
                 table.buttons {
                     @include zero-spacing;
                     height: $headerHeight;
+                    $headMainBtnWidth: 72px;
                     
-                    // TOP HEADER BUTTONS
+                    ////////////////////////////////////////////////////////////////////////////////
+                    /// TOP NAVIGATION BUTTONS
+                    //
                     td.main-button {
                         @include middle;
                         @include center;
                         border-left: 2px solid #fee170;
                         cursor: pointer;
-                        padding: 10px;
-                        width: 72px;
-                    }
-                    
-                    td.main-button.last {
-                        border-right: 2px solid #fee170;
-                    }
-                    
-                    td.main-button:hover {
-                        background: {
-                            color: #ffbf00;
+                        width: $headMainBtnWidth;
+                        
+                        &.last {
+                            border-right: 2px solid #fee170;
                         }
-                    }
-                    
-                    td.main-button:active, td.main-button.pressed {
-                        background: {
-                            image: image-url("Gradient_ClickedState_1px.png");
+                        
+                        &:hover {
+                            background: {
+                                color: #ffbf00;
+                            }
+                        }
+                        
+                        a {
+                            display: block;
+                            width: $headMainBtnWidth;
+                            height: $headerHeight;
+                            background: {
+                                repeat: repeat-x;
+                            }
+                            
+                            &:active {
+                                background: {
+                                    image: image-url("Gradient_ClickedState_1px.png");
+                                }
+                            }
+                            
+                            > div {
+                                @include fill;
+                                background: {
+                                    position: center;
+                                    repeat: no-repeat;
+                                }
+                            }
+                            
+                            &.dashboard div {background-image: image-url("Ikona_Dashboard.png");}
+                            &.people div {background-image: image-url("Ikona_People.png");}
+                            &.workout div {background-image: image-url("Ikona_Workout.png");}
+                            &.calendar div {background-image: image-url("Ikona_Cal.png");}
+                            &.messages div {background-image: image-url("Ikona_Msgs.png");}
                         }
                     }
                 }

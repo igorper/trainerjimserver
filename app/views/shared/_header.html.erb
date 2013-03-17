@@ -8,11 +8,11 @@
         <td class="main-part">
           <table class="buttons">
             <tr>
-              <td class="main-button button-behaviour"><%= image_tag("Ikona_Dashboard.png", :alt => "rss feed") %></td>
-              <td class="main-button button-behaviour"><%= image_tag("Ikona_People.png", :alt => "rss feed") %></td>
-              <td class="main-button button-behaviour"><%= image_tag("Ikona_Workout.png", :alt => "rss feed") %></td>
-              <td class="main-button button-behaviour"><%= image_tag("Ikona_Cal.png", :alt => "rss feed") %></td>
-              <td class="main-button button-behaviour last"><%= image_tag("Ikona_Msgs.png", :alt => "rss feed") %></td>
+              <td class="main-button"><a href="<%= dashboard_url %>" class="dashboard"><div></div></a></td>
+              <td class="main-button"><a href="<%= dashboard_url %>" class="people"><div></div></a></td>
+              <td class="main-button"><a href="<%= dashboard_url %>" class="workout"><div></div></a></td>
+              <td class="main-button"><a href="<%= dashboard_url %>" class="calendar"><div></div></a></td>
+              <td class="main-button last"><a href="<%= dashboard_url %>" class="messages"><div></div></a></td>
             </tr>
           </table>
         </td>
