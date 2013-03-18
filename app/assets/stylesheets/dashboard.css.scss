@@ -1,12 +1,13 @@
 @import "definitions.scss";
 
-$dashboardLRMargin: 0px;
 $exercisesWidth: 141px;
 $statisticsWidth: 199px;
 $measurementsWidth: $pageWidth - $exercisesWidth - $statisticsWidth - 4px;
 $avatarHeight: 42px;
 $avatarWidth: 42px;
 $statisticsFontSize: 75px;
+$statisticsLabelColor: #e9af2e;
+$statisticsLabelFontSize: 14px;
 
 #dashboard-show {
     margin: 20px 0px;
@@ -17,13 +18,14 @@ $statisticsFontSize: 75px;
         border: 1px solid #cecece;
         vertical-align: top;
         
+        
+        ////////////////////////////////////////////////////////////////////////////////
+        /// PEOPLE (left column)
+        //
         &.people-exercises {
             width: $exercisesWidth;
             
             > .entry {
-                font: {
-                    size: 0.8em;
-                }
                 @include text-shadow(0 1px 1px white);
                 height: 50px;
                 
@@ -54,6 +56,10 @@ $statisticsFontSize: 75px;
             }
         }
         
+        
+        ////////////////////////////////////////////////////////////////////////////////
+        /// STATISTICS and COMMENTS (middle column)
+        //
         &.statistics {
             width: $statisticsWidth;
             margin-left: -1px;
@@ -91,6 +97,7 @@ $statisticsFontSize: 75px;
                 
                 > .activity-percentage {
                     @include inline;
+                    margin: { top: 10px; }
                     
                     > .number {
                         @include inline-bottom;
@@ -99,28 +106,94 @@ $statisticsFontSize: 75px;
                         font: {
                             size: $statisticsFontSize;
                         }
-                        height: $statisticsFontSize*0.97;
+                        line-height: $statisticsFontSize;
+                        height: $statisticsFontSize;
                     }
                     
                     > .label {
                         @include inline-bottom;
+                        @include sans-titles;
+                        @include bold;
                         @include left;
-                        color: $jimColor;
+                        padding-bottom: $statisticsFontSize * 0.18;
+                        div {
+                            font: {size: $statisticsLabelFontSize;}
+                            line-height: $statisticsLabelFontSize;
+                            height: $statisticsLabelFontSize + 1px;
+                            color: $statisticsLabelColor;
+                            
+                            &.percent {
+                                font: {size: 1.4em;}
+                            }
+                        }
                     }
                 }
                 
                 > .separator {
+                    margin-top: -10px;
                     > div {
                         @include inline;
                         border-bottom: 2px dashed $jimColor;
-                        height: 5px;
                         width: $statisticsWidth - 50px;
-                        
                     }
+                }
+            }
+            
+            > .comments {
+                margin-top: 15px;
+                border-top: 1px solid #cecece;
+                
+                > .comment {
+                    
+                    > .header {
+                        > div {
+                            @include inline-middle;
+                            
+                            &.icon {
+                                @include size(48px, 31px);
+                                margin: 10px;
+                                background: {
+                                    image: image-url("SPeechBubbles.png");
+                                    repeat: no-repeat;
+                                }
+                            }
+                            
+                            .title {
+                                font-size: 1.4em;
+                            }
+                            
+                            .date {
+                                font-size: 0.85em;
+                                color: #1f94d2;
+                            }
+                        }
+                    }
+                    
+                    > .separator {
+                        border-bottom: 1px solid #cecece;
+                        margin: 10px;
+                    }
+                    
+                    > .emoticons {
+                        @include center;
+                    }
+                    
+                    > .message {
+                        text-align: justify;
+                        margin: 0px 10px 10px 10px;
+                    }
+                }
+                
+                > .responded-flag {
+                    margin: 10px;
                 }
             }
         }
         
+        
+        ////////////////////////////////////////////////////////////////////////////////
+        /// MEASUREMENTS (right column)
+        //
         &.measurements {
             width: $measurementsWidth;
             margin-left: -1px;

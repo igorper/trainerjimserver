@@ -40,6 +40,7 @@
 //
 body.main-layout {
     @include sans;
+    font-size: $bodyFontSize;
     margin: 0;
     padding: 0;
     div.skeleton {

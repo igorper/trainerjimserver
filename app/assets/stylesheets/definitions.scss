@@ -2,6 +2,7 @@ $jimColor: #FBC912;
 $headerHeight: 57px;
 $errorShadowColor: lighten(#ff6d00, 7%);
 $pageWidth: 990px;
+$bodyFontSize: 13px;
 
 
 
@@ -90,6 +91,16 @@ $pageWidth: 990px;
     border-spacing: 0px;
     padding: 0px;
     margin: 0px;
+}
+
+@mixin fill {
+    width: 100%;
+    height: 100%;
+}
+
+@mixin size($width, $height) {
+    width: $width;
+    height: $height;
 }
 
 
