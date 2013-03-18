@@ -1,2 +1,11 @@
-<div id="placeholder" style="width:600px;height:300px"></div>
-<span id="clickdata"></span>
+<div id="graphWindow">
+<div id="placeholder"></div>
+<div id="workoutSets">
+  Series 
+  <% for @set in 1..3 %>
+    <button value="<%=@set %>"><%=@set %></button>
+  <% end %>
+</div>
+<span id="clickdata" contenteditable="true"></span>
+</div>
+<div style="clear:both;"></div>
