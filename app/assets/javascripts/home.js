@@ -118,7 +118,10 @@ function onClick(event, pos, item) {
         if (item.series.label === "podatki") {
             $("#clickdata").text("You clicked point " + item.dataIndex + ".");
             
-            var comment = [item.datapoint[0],item.datapoint[1],"tuki pride komentar"];
+            var komentar=prompt("Dodajte komentar","");
+            
+            
+            var comment = [item.datapoint[0],item.datapoint[1],komentar];
             //dodamo izbrano točko in na novo izrišemo graf
             plotData[1].data.push(comment);
             plot.setData(plotData);
