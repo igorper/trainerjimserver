@@ -1,24 +1,25 @@
 <div id="dashboard-show">
   <div class="people-exercises">
-    <div class="entry">
-      <div class="title">Natalia Zexembhayeva</div>
-      <div class="icon"></div>
-    </div>
-    <div class="entry even">
-      <div class="title">Natalia Zexembhayeva</div>
-      <div class="icon"></div>
-    </div>
-    <div class="entry selected">
-      <div class="title">Chuck N.</div>
-      <div class="icon"></div>
-    </div>
-    <div class="entry even">
-      <div class="title">Natalia Zexembhayeva</div>
-      <div class="icon"></div>
-    </div>
-  </div><div class="statistics">
+    <% @trainees.each_with_index do |trainee,index| %>
+      <% if @selected == @trainne %>
+        <div class="entry selected">
+          <div class="title"><%=trainee.display_name%></div>
+          <div class="icon"></div>
+        </div>
+      <% else %>
+        <div class="entry<%= index%2==1 ? " even" : "" %>">
+          <div class="title">
+        <%= link_to trainee.display_name, :action => "show",:selected => trainee %></div>
+          <div class="icon"></div>
+        </div>
+      <%  end %>
+    <% end %>
+  </div>
+
+  <% if @selected  %>
+  <div class="statistics">
     <div class="avatar-name">
-      <div class="avatar"></div><div class="name">Chuck N.</div>
+      <div class="avatar"></div><div class="name"><%= @selected.display_name %> </div>
     </div>
     <div class="numbers">
       <div class="activity-percentage">
@@ -78,10 +79,23 @@
       </div>
     </div>
   </div><div class="measurements">
-    Measurements
-    Measurements
-    Measurements
-    Measurements
-    Measurements
+    <div class="calendar">
+      <div class="month"><button class="arrow">Left</button>February<button class="arrow">Right</button></div>
+      <div class="day">1</div><div class="day">3</div>
+    </div>
+    <br>
+    <div id="graphWindow">
+<div id="placeholder"></div>
+<div id="workoutSets">
+  Series 
+  <% for @set in 1..3 %>
+    <button value="<%=@set %>"><%=@set %></button>
+  <% end %>
+</div>
+<span id="clickdata" contenteditable="true"></span>
+</div>
+    
   </div>
+  
+  <% end %>
 </div>

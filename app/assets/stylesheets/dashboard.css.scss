@@ -2,12 +2,51 @@
 
 $exercisesWidth: 141px;
 $statisticsWidth: 199px;
-$measurementsWidth: $pageWidth - $exercisesWidth - $statisticsWidth - 4px;
+$measurementsWidth: $pageWidth - $exercisesWidth - $statisticsWidth - 60px;
 $avatarHeight: 42px;
 $avatarWidth: 42px;
 $statisticsFontSize: 75px;
 $statisticsLabelColor: #e9af2e;
 $statisticsLabelFontSize: 14px;
+
+
+a:hover{ color: black }
+a:visited{ color: black }
+
+div.calendar{
+    border-bottom: 1px solid #cecece;
+}
+div.day{
+    border-left: 1px solid #cecece;
+    padding: 0px 5px 0px 5px;
+    text-align: center;
+}
+
+div#workoutSets {
+    text-align: center;
+}
+div#graphWindow{
+    width:$measurementsWidth;
+}
+
+div#placeholder,{    
+    width:600px;
+    height:300px;
+}
+
+div.month{
+            display: inline;
+        }
+        
+button.arrow{    
+            margin-left: 10px;
+            margin-right: 10px;
+}
+
+
+div.day{
+    display: inline;
+}
 
 #dashboard-show {
     margin: 20px 0px;
@@ -46,6 +85,8 @@ $statisticsLabelFontSize: 14px;
                     @include inline-middle;
                     width: $exercisesWidth - 50px;
                     padding: 5px;
+                    
+
                 }
                 
                 > .icon {
@@ -197,7 +238,11 @@ $statisticsLabelFontSize: 14px;
         &.measurements {
             width: $measurementsWidth;
             margin-left: -1px;
+            
+            
         }
+        
+
     }
     
 }
