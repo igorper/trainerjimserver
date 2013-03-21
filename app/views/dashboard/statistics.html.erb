@@ -51,7 +51,11 @@
         </div>
         <div class="separator"></div>
         <div class="message">
-          I couldn't do the leg press today and am wondering what can I do next time to make it up?
+          <% if not @conversation.nil?  %>
+              <%=@converastion%>
+          <% else %>
+            Comment your workout, or ask a question.
+          <% end %>
         </div>
       </div>
       <div class="responded-flag">

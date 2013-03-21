@@ -21,8 +21,8 @@ class Remodeling < ActiveRecord::Migration
     add_column :measurements, :rating, :integer
     
     create_table :conversations do |t|
-      t.integer :user1
-      t.integer :user2
+      t.integer :user1_id
+      t.integer :user2_id
       t.string :text
       t.integer :datum  #TODO: popravi na datetime?+anglesko
       t.integer :measurement_id, :null => true

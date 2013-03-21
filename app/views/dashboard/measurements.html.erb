@@ -4,7 +4,7 @@ Uporabnik se ni treniral.
 
 <% else %>
   <div class="calendar">
-    <div class="month"><button class="arrow">Left</button><%= displayMonth(@measurements.first.start_time) %> <button class="arrow">Right</button></div>
+    <div class="month"><button class="arrow">&#8592;</button><%= displayMonth(@measurements.first.start_time) %> <button class="arrow">&#8594;</button></div>
     <% @measurements.group_by{ |measurement| measurement.start_time.day}.each do |k,v| %>
       <div class="day" measurement-id="<%= v.first.id %> "><%= k %> </div>
     <% end  %>

@@ -11,11 +11,11 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130320165109) do
+ActiveRecord::Schema.define(:version => 20130321190823) do
 
   create_table "conversations", :force => true do |t|
-    t.integer "user1"
-    t.integer "user2"
+    t.integer "user1_id"
+    t.integer "user2_id"
     t.string  "text"
     t.integer "datum"
     t.integer "measurement_id"
@@ -138,6 +138,8 @@ ActiveRecord::Schema.define(:version => 20130320165109) do
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
 
   add_foreign_key "conversations", "measurements", :name => "conversations_measurement_id_fk", :dependent => :delete
+  add_foreign_key "conversations", "users", :name => "conversations_user1_id_fk", :column => "user1_id", :dependent => :delete
+  add_foreign_key "conversations", "users", :name => "conversations_user2_id_fk", :column => "user2_id", :dependent => :delete
 
   add_foreign_key "exercises", "exercise_types", :name => "exercises_exercise_type_id_fk", :dependent => :delete
   add_foreign_key "exercises", "trainings", :name => "exercises_training_id_fk", :dependent => :delete
