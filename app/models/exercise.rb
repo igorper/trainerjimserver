@@ -3,5 +3,5 @@ class Exercise < ActiveRecord::Base
   
   belongs_to :training
   has_many :series
-  has_one :exercise_type
+  belongs_to :exercise_type
 end

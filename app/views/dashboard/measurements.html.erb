@@ -1,0 +1,27 @@
+<% if @measurements.empty? %>
+  
+Uporabnik se ni treniral.
+
+<% else %>
+  <div class="calendar">
+    <div class="month"><button class="arrow">Left</button><%= displayMonth(@measurements.first.start_time) %> <button class="arrow">Right</button></div>
+    <% @measurements.group_by{ |measurement| measurement.start_time.day}.each do |k,v| %>
+      <div class="day"><%= k %> </div>
+    <% end  %>
+  </div>
+  <br>
+  <div id="graphWindow">
+    <div id="placeholder"></div>
+    <div id="workoutSets">
+      Series 
+      <% for @set in 1..3 %>
+        <button value="<%=@set %>"><%=@set %></button>
+      <% end %>
+    </div>
+    <span id="clickdata" contenteditable="true"></span>
+  </div>
+
+  <%=  @measurements.last.series_executions.map{ |se|
+    se.exercise
+    }  %>
+<% end %>
