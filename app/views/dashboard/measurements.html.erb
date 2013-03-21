@@ -6,7 +6,7 @@ Uporabnik se ni treniral.
   <div class="calendar">
     <div class="month"><button class="arrow">Left</button><%= displayMonth(@measurements.first.start_time) %> <button class="arrow">Right</button></div>
     <% @measurements.group_by{ |measurement| measurement.start_time.day}.each do |k,v| %>
-      <div class="day"><%= k %> </div>
+      <div class="day" measurement-id="<%= v.first.id %> "><%= k %> </div>
     <% end  %>
   </div>
   <br>
@@ -20,8 +20,8 @@ Uporabnik se ni treniral.
     </div>
     <span id="clickdata" contenteditable="true"></span>
   </div>
-
-  <%=  @measurements.last.series_executions.map{ |se|
-    se.exercise
-    }  %>
+  
+  
+  <div id="types">gfgfgfgfgf</div>
+  
 <% end %>

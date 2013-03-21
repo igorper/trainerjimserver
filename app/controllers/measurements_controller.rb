@@ -43,4 +43,6 @@ class MeasurementsController < ApplicationController
     @page = [[params[:page].present? ? params[:page].to_i : 1, @totalPages].min, 1].max
     @measurements = Measurement.offset((@page - 1) * @entriesPerPage).limit(@entriesPerPage)
   end
+  
+  
 end

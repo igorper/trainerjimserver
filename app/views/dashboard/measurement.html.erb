@@ -1,0 +1,10 @@
+<% if @measurement.series_executions.empty? %>
+  Ta trening niste opravili nobene vaje.
+<% else %>
+ Pregled vaj:
+<ul>
+<%  @measurement.series_executions.map{|e| e.exercise.exercise_type}.uniq{|t| t.name}.each do |type| %>
+  <li><%=type.name%></li>
+<%  end %>
+</ul>
+<% end %>

@@ -16,6 +16,13 @@ $(document).ready(function() {
 
                 placeholder.bind("plotclick", onClick);
                 placeholder.bind("plothover", onHover);
+                
+                $(".day").click(function(){
+                    $.ajax({
+                        url: "/dashboard/measurement/" +$(this).attr("measurement-id"),
+                        success: function(data){ $("#types").html(data);}
+                      });
+                });
             });
         }
     });

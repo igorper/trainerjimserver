@@ -6,17 +6,17 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-if !User.find_by_email('matej.urbas@gmail.com') then
+#if !User.find_by_email('matej.urbas@gmail.com') then
   matej = User.create(:email => 'matej.urbas@gmail.com', :password => 'Hrt 2309_Vili', :admin => true, :full_name => 'Matej Urbas')
   igor = User.create(:email => 'igor.pernek@gmail.com', :password => '307 Lakih_Pet', :admin => true, :full_name => 'Igor Pernek')
   damjan = User.create(:email => 'damjan.obal@gmail.com', :password => 'Klipni_Ul 103', :admin => true, :full_name => 'Damjan Obal')
   kristjan = User.create(:email => 'kristjan.korez@gmail.com', :password => 'korezina 371', :admin => true, :full_name => 'Kristjan Korez')
-end
+#end
 
-bench = ExerciseType.create(:name => bench)
-incline = ExerciseType.create(:name => incline)
-vertical = ExerciseType.create(:name => vertical)
-lat = ExerciseType.create(:name => lat)
+bench = ExerciseType.create(:name => "bench")
+incline = ExerciseType.create(:name => "incline")
+vertical = ExerciseType.create(:name => "vertical")
+lat = ExerciseType.create(:name => "lat")
 
 
 # Create some dummy trainings:
@@ -27,14 +27,18 @@ training1_ex3 = training1.exercises.create(:exercise_type => vertical, :order =>
 training1_ex4 = training1.exercises.create(:exercise_type => lat, :order => 4)
 
 
-measurement1 = Measurement.create(:user_id => 1, :data =>  "[1,2,3,4,5,6]", :training => training1,
+measurement1 = Measurement.create(:user_id => matej.id, :data =>  "[1,2,3,4,5,6]", :training => training1,
                             :start_time => DateTime.new(2009,9,1,17),
                             :end_time => DateTime.new(2009,9,1,18))
-measurement1 = Measurement.create(:user_id => 1, :data =>  "[1,2,3,4,5,6]", :training => training1,
+measurement1 = Measurement.create(:user_id => matej.id, :data =>  "[1,2,3,4,5,6]", :training => training1,
                             :start_time => DateTime.new(2009,11,3,17),
                             :end_time => DateTime.new(2009,11,3,18))
                           
 series_ex1 = SeriesExecution.create(:start_timestamp => 1, :end_timestamp => 2, :exercise => training1_ex1, :weight => 100, :num_repetitions => 5,
+  :rest_time => 10, :measurement => measurement1)
+series_ex1 = SeriesExecution.create(:start_timestamp => 1, :end_timestamp => 2, :exercise => training1_ex1, :weight => 100, :num_repetitions => 5,
+  :rest_time => 10, :measurement => measurement1)
+series_ex1 = SeriesExecution.create(:start_timestamp => 1, :end_timestamp => 2, :exercise => training1_ex3, :weight => 100, :num_repetitions => 5,
   :rest_time => 10, :measurement => measurement1)
 
 training1_ex1.series.create(:order => 1, :repeat_count => 10, :weight => 50)

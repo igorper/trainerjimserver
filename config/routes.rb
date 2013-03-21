@@ -21,6 +21,7 @@ Trainerjim::Application.routes.draw do
   match 'dashboard' => 'dashboard#show', :as => :dashboard
   match 'dashboard/statistics/:user' => 'dashboard#statistics'
   match 'dashboard/measurements/:user' => 'dashboard#measurements'
+  match 'dashboard/measurement/:id' => 'dashboard#measurement'
   
   # Measurements
   match 'measurements/upload' => 'measurements#upload'

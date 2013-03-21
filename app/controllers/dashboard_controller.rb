@@ -16,4 +16,9 @@ class DashboardController < ApplicationController
     
   end
   
+  def measurement
+    @measurement = Measurement.find_by_id(params[:id])
+    render :layout => false
+  end
+  
 end
