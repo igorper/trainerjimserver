@@ -30,3 +30,5 @@ gem 'foreigner', :git => 'git://github.com/urbas/foreigner.git'
 gem 'rubyzip'
 
 gem "flot-rails"
+
+gem 'bootstrap-sass'
