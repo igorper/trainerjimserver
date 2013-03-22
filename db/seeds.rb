@@ -28,17 +28,22 @@ training1_ex4 = training1.exercises.create(:exercise_type => lat, :order => 4)
 
 
 measurement1 = Measurement.create(:user_id => matej.id, :data =>  "[1,2,3,4,5,6]", :training => training1,
-                            :start_time => DateTime.new(2009,9,1,17),
-                            :end_time => DateTime.new(2009,9,1,18))
-measurement1 = Measurement.create(:user_id => matej.id, :data =>  "[1,2,3,4,5,6]", :training => training1,
-                            :start_time => DateTime.new(2009,11,3,17),
-                            :end_time => DateTime.new(2009,11,3,18))
+                            :start_time => DateTime.new(2012,1,9,17),
+                            :end_time => DateTime.new(2012,1,9,18))
+measurement2 = Measurement.create(:user_id => matej.id, :data =>  "[1,2,3,4,5,6]", :training => training1,
+                            :start_time => DateTime.new(2012,1,13,17),
+                            :end_time => DateTime.new(2012,1,13,18))
+measurement3 = Measurement.create(:user_id => matej.id, :data =>  "[1,2,3,4,5,6]", :training => training1,
+                            :start_time => DateTime.new(2012,1,15,15),
+                            :end_time => DateTime.new(2012,1,15,16))
                           
 series_ex1 = SeriesExecution.create(:start_timestamp => 1, :end_timestamp => 2, :exercise => training1_ex1, :weight => 100, :num_repetitions => 5,
   :rest_time => 10, :measurement => measurement1)
 series_ex1 = SeriesExecution.create(:start_timestamp => 1, :end_timestamp => 2, :exercise => training1_ex1, :weight => 100, :num_repetitions => 5,
   :rest_time => 10, :measurement => measurement1)
 series_ex1 = SeriesExecution.create(:start_timestamp => 1, :end_timestamp => 2, :exercise => training1_ex3, :weight => 100, :num_repetitions => 5,
+  :rest_time => 10, :measurement => measurement1)
+series_ex1 = SeriesExecution.create(:start_timestamp => 1, :end_timestamp => 2, :exercise => training1_ex2, :weight => 100, :num_repetitions => 5,
   :rest_time => 10, :measurement => measurement1)
 
 training1_ex1.series.create(:order => 1, :repeat_count => 10, :weight => 50)

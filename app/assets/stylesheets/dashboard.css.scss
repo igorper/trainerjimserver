@@ -2,7 +2,7 @@
 
 $exercisesWidth: 141px;
 $statisticsWidth: 199px;
-$measurementsWidth: $pageWidth - $exercisesWidth - $statisticsWidth - 60px;
+$measurementsWidth: $pageWidth - $exercisesWidth - $statisticsWidth - 4px;
 $avatarHeight: 42px;
 $avatarWidth: 42px;
 $statisticsFontSize: 75px;
@@ -11,6 +11,9 @@ $statisticsLabelFontSize: 14px;
 
 
 
+.pagination{
+    margin: 0px;
+}
 
 
 a:hover{ color: black }
@@ -23,7 +26,7 @@ div.calendar{
 }
 
 #types{
-  border-top: 1px solid #cecece;  
+    border-top: 1px solid #cecece;  
 }
 
 div.day{
@@ -45,12 +48,12 @@ div#placeholder,{
 }
 
 div.month{
-            display: inline;
-        }
-        
+    display: inline;
+}
+
 button.arrow{    
-            margin-left: 10px;
-            margin-right: 10px;
+    margin-left: 10px;
+    margin-right: 10px;
 }
 
 
@@ -77,15 +80,20 @@ div.day{
             > .entry {
                 @include text-shadow(0 1px 1px white);
                 height: 50px;
-
-                > :hover{
-                background-color: #1f94d2;;
+                
+                &:hover{                                
+                    background-color: #1f94d2;
                 }
                 
                 &.even {
                     background: {
                         color: #ececec;
                     }
+                    
+                    &:hover{                                
+                        background-color: #1f94d2;
+                    }
+                    
                 }
                 
                 &.selected {
@@ -99,7 +107,7 @@ div.day{
                     width: $exercisesWidth - 50px;
                     padding: 5px;
                     
-
+                    
                 }
                 
                 > .icon {
@@ -255,7 +263,7 @@ div.day{
             
         }
         
-
+        
     }
     
 }

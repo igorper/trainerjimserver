@@ -21,6 +21,15 @@ class DashboardController < ApplicationController
     
   end
   
+  def exercise
+     respond_to do |format|
+       format.html
+      format.json{ 
+        render :json => SeriesExecution.where("exercise_id=? and measurement_id=?",params[:exercise],params[:measurement]).to_json
+      }       
+     end
+  end
+  
   def measurement
     @measurement = Measurement.find_by_id(params[:id])
       respond_to do |format|

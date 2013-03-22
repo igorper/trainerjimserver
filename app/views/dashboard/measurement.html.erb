@@ -1,10 +1,10 @@
 <% if @measurement.series_executions.empty? %>
   Ta trening niste opravili nobene vaje.
 <% else %>
- Pregled vaj:
-<ul>
-<%  @measurement.series_executions.map{|e| e.exercise.exercise_type}.uniq{|t| t.name}.each do |type| %>
-  <li><%=type.name%></li>
+ <div class="btn-toolbar"></div>
+<%  @measurement.series_executions.map{|e| e.exercise}.uniq{|t| t.exercise_type.name}.each do |exercise| %>
+ <button class="btn exercisetype" typeid="<%=exercise.id%>"><%=exercise.exercise_type.name%></button>
 <%  end %>
-</ul>
+</div>
 <% end %>
+<div id="serijareport"></div>
