@@ -27,6 +27,9 @@ Trainerjim::Application.routes.draw do
   match 'dashboard/knockout' => 'dashboard#knockout'
   match 'dashboard/exercisedates/:user' => 'dashboard#exercisedates'
   
+  #Conversations
+  match 'conversations/list/:user' => 'conversations#list'
+  
   #Users
   match 'users/list' => 'users#list'
   

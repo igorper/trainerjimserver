@@ -11,14 +11,14 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130323153125) do
+ActiveRecord::Schema.define(:version => 20130323214230) do
 
   create_table "conversations", :force => true do |t|
-    t.integer "user1_id"
-    t.integer "user2_id"
-    t.string  "text"
-    t.integer "datum"
-    t.integer "measurement_id"
+    t.integer  "user1_id"
+    t.integer  "user2_id"
+    t.string   "text"
+    t.integer  "measurement_id"
+    t.datetime "date"
   end
 
   create_table "exercise_types", :force => true do |t|

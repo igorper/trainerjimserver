@@ -41,14 +41,21 @@ measurement3 = Measurement.create(:user_id => matej.id, :data =>  "[1,1,2,2,2,3,
 comment1 = MeasurementComment.create(:timestamp => 3, :comment => "Very good!")
 comment1.measurement = measurement1
 comment1.save
+
+conversation1 = Conversation.create(:user1 => matej, :user2 => igor, :date => DateTime.now, :text => "Good job.")
+conversation2 = Conversation.create(:user1 => matej, :user2 => igor, :date => DateTime.now, :text => "Yeah, I Tried^^")
+conversation1 = Conversation.create(:user1 => igor, :user2 => matej, :date => DateTime.now, :text => "Lalala.")
                           
 series_ex1 = SeriesExecution.create(:start_timestamp =>502326, :end_timestamp => 555083, :exercise => training1_ex1, :weight => 100, :num_repetitions => 5,
   :rest_time => 10, :measurement => measurement1)
-series_ex1 = SeriesExecution.create(:start_timestamp => 644028, :end_timestamp => 691958, :exercise => training1_ex1, :weight => 100, :num_repetitions => 5,
+series_ex1 = SeriesExecution.create(:start_timestamp => 644028, :end_timestamp => 691958, :exercise => training1_ex1, :weight => 110, :num_repetitions => 6,
   :rest_time => 10, :measurement => measurement1)
-series_ex1 = SeriesExecution.create(:start_timestamp => 794157, :end_timestamp => 837461, :exercise => training1_ex3, :weight => 100, :num_repetitions => 5,
+series_ex1 = SeriesExecution.create(:start_timestamp => 794157, :end_timestamp => 837461, :exercise => training1_ex3, :weight => 120, :num_repetitions => 7,
   :rest_time => 10, :measurement => measurement1)
-series_ex1 = SeriesExecution.create(:start_timestamp => 878272, :end_timestamp => 921478, :exercise => training1_ex2, :weight => 100, :num_repetitions => 5,
+series_ex1 = SeriesExecution.create(:start_timestamp => 878272, :end_timestamp => 921478, :exercise => training1_ex2, :weight => 130, :num_repetitions => 8,
+  :rest_time => 10, :measurement => measurement1)
+
+series_ex1 = SeriesExecution.create(:exercise => training1_ex4, :weight => 140, :num_repetitions => 5,
   :rest_time => 10, :measurement => measurement1)
 
 training1_ex1.series.create(:order => 1, :repeat_count => 10, :weight => 50)
@@ -144,19 +151,19 @@ measurement2 = Measurement.create(:user_id => matej.id, :data =>  "[-100097,2789
                           
 series_ex11 = SeriesExecution.create(:start_timestamp => 278891, :end_timestamp => 310245, :exercise => training1_ex1, :weight => 50, :num_repetitions => 10,
   :rest_time => 279, :measurement => measurement2)
-series_ex21 = SeriesExecution.create(:start_timestamp => 362331, :end_timestamp => 395669, :exercise => training1_ex1, :weight => 50, :num_repetitions => 10,
+series_ex21 = SeriesExecution.create(:start_timestamp => 362331, :end_timestamp => 395669, :exercise => training1_ex1, :weight => 60, :num_repetitions => 11,
   :rest_time => 279, :measurement => measurement2)
-series_ex31 = SeriesExecution.create(:start_timestamp => 362331, :end_timestamp => 395669, :exercise => training1_ex1, :weight => 50, :num_repetitions => 10,
+series_ex31 = SeriesExecution.create(:start_timestamp => 362331, :end_timestamp => 395669, :exercise => training1_ex1, :weight => 70, :num_repetitions => 12,
   :rest_time => 279, :measurement => measurement2)
-series_ex41 = SeriesExecution.create(:start_timestamp => 444178, :end_timestamp => 475336, :exercise => training1_ex1, :weight => 50, :num_repetitions => 10,
+series_ex41 = SeriesExecution.create(:start_timestamp => 444178, :end_timestamp => 475336, :exercise => training1_ex1, :weight => 80, :num_repetitions => 13,
   :rest_time => 279, :measurement => measurement2)
 
 
-series_ex12 = SeriesExecution.create(:start_timestamp => 278891, :end_timestamp => 310245, :exercise => training1_ex1, :weight => 50, :num_repetitions => 10,
+series_ex12 = SeriesExecution.create(:start_timestamp => 278891, :end_timestamp => 310245, :exercise => training1_ex1, :weight => 90, :num_repetitions => 14,
   :rest_time => 279, :measurement => measurement3)
-series_ex22 = SeriesExecution.create(:start_timestamp => 362331, :end_timestamp => 395669, :exercise => training1_ex1, :weight => 50, :num_repetitions => 10,
+series_ex22 = SeriesExecution.create(:start_timestamp => 362331, :end_timestamp => 395669, :exercise => training1_ex1, :weight => 30, :num_repetitions => 15,
   :rest_time => 279, :measurement => measurement3)
-series_ex32 = SeriesExecution.create(:start_timestamp => 362331, :end_timestamp => 395669, :exercise => training1_ex1, :weight => 50, :num_repetitions => 10,
+series_ex32 = SeriesExecution.create(:start_timestamp => 362331, :end_timestamp => 395669, :exercise => training1_ex1, :weight => 20, :num_repetitions => 16,
   :rest_time => 279, :measurement => measurement3)
-series_ex42 = SeriesExecution.create(:start_timestamp => 444178, :end_timestamp => 475336, :exercise => training1_ex1, :weight => 50, :num_repetitions => 10,
+series_ex42 = SeriesExecution.create(:start_timestamp => 444178, :end_timestamp => 475336, :exercise => training1_ex1, :weight => 20, :num_repetitions => 17,
   :rest_time => 279, :measurement => measurement3)

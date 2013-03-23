@@ -1,16 +1,16 @@
 <div id="dashboard-show">
   <div class="people-exercises" data-bind="foreach: users">
-    
-      <div class="entry" data-bind="click: $parent.selectUsers.bind($data,$index()), css: {selected: $parent.selected() == $index(), even: $index() % 2 == 1}">
-        <div class="title" data-bind="text: full_name">
+
+    <div class="entry" data-bind="click: $parent.selectUsers.bind($data,$index()), css: {selected: $parent.selected() == $index(), even: $index() % 2 == 1}">
+      <div class="title" data-bind="text: full_name">
       </div>
-        <div class="icon"></div>
-      </div>
+      <div class="icon"></div>
+    </div>
   </div>
 
-  
-<div class="statistics">
-<div class="avatar-name" data-bind="visible: statisticsVisible">
+
+  <div class="statistics">
+    <div class="avatar-name" data-bind="visible: statisticsVisible">
       <div class="avatar"></div><div class="name" data-bind="text: selectedUser().full_name"></div>
     </div>
     <div class="numbers">
@@ -48,13 +48,13 @@
         exercise | <a href="#">workout</a>
       </div>
     </div>
-    <div class="comments">
+    <div class="comments" data-bind="with: commentsVM.last">
       <div class="comment">
         <div class="header">
           <div class="icon"></div>
           <div class="title-date">
             <div class="title">Comment</div>
-            <div class="date">Fri, Feb 13, 2013</div>
+            <div class="date" data-bind="text: $parent.dateFormat(date)"></div>
           </div>
         </div>
         <div class="separator"></div>
@@ -63,55 +63,64 @@
         </div>
         <div class="separator"></div>
         <div class="message">
+          <span data-bind="text: text"></span>
+        </div>       
+        <div class="responded-flag">
+          <button class="btn-link" data-bind="">Reply</button>
         </div>
       </div>
-      <div class="responded-flag">
-        <input type="checkbox" value="ON" checked="" /> You already responded <a href="#">view</a>
-      </div>
     </div>
 
 
-    </div>
-  
+  </div>
+
   <div class="measurements">
-    
-    <div data-bind="ifnot: calendarVisible">  
-      Uporabnik se ni treniral.
-    </div>
-    
-  <div class="calendar" data-bind="visible: calendarVisible">
-    <div class="btn-toolbar">
-      <div class="btn-group">
-        <button class="btn" data-bind="click: scrollMonth.bind(null,-1)">Prev</button>
-        <button class="btn disabled" data-bind="text: currentMonth().month"></button>
-        <button class="btn" data-bind="click: scrollMonth.bind(null,1)">Next</button>
-        </div>
-      
-      <div class="btn-group" data-bind="foreach: currentMonth().days">
-          <button class="btn" data-bind="text: day, click: $parent.measurementSelected.bind($data,$index()), css: { disabled: $index() == $parent.selectedDayIndex() }"
+
+
+
+    <div data-bind="with: calendarVM">
+      <div data-bind="visible: !calendarVisible()">  
+        Uporabnik se ni treniral.
+      </div>
+      <div class="calendar" data-bind="visible: calendarVisible">
+        <div class="btn-toolbar">
+          <div class="btn-group">
+            <button class="btn" data-bind="click: scrollMonth.bind(null,-1)">Prev</button>
+            <button class="btn disabled" data-bind="text: currentMonth().month"></button>
+            <button class="btn" data-bind="click: scrollMonth.bind(null,1)">Next</button>
+          </div>
+
+          <div class="btn-group" data-bind="foreach: currentMonth().days">
+            <button class="btn" data-bind="text: day, click: $parent.measurementSelected.bind($data,$index()), css: { disabled: $index() == $parent.selectedDayIndex() }"></button>
+          </div>
+        </div> 
       </div>
     </div>
-    
 
-  </div>
-  <br>
-  <div id="graphWindow">
-    <div id="placeholder"></div>
-    <div id="workoutSets" data-bind="foreach: exerciseExecutions">
-      <button data-bind="text: $index(), click: $parent.onGraphChangeButton"></button>
+    <div id="graphWindow">
+      <div data-bind="visible: hasExerciseMeasurements()">
+        <div id="placeholder" data-bind="visible: hasExerciseMeasurements"></div>
+        <div class="exerciseinfo" data-bind="visible: selectedExercise() != null">
+          <div id="workoutSets" data-bind="visible: hasExerciseMeasurements, foreach: exerciseExecutions">
+            <button class="btn" data-bind="text: $index(), click: $parent.onGraphChangeButton, css: { disabled: $data == $parent.selectedGraph()}"></button>
+          </div>   <div class="seen" data-bind="visible: hasExerciseMeasurements"> 
+            <div class="abc"><div class="text" data-bind="html: selectedExerciseWeightInfo()"></div></div></div>
+        </div>
+        <div data-bind="visible: selectedExercise()!=null && !hasExerciseMeasurements()">No exercise data.</div>
+      </div>
+      <div data-bind="visible: !hasExerciseMeasurements() && calendarVM.calendarVisible">Pick an exercise.</div>
     </div>
-  </div>
-  
-  
-  <div id="types">
-    <div data-bind="ifnot: typesVisible">  
-      Ta trening niste opravili nobene vaje.
-    </div>  
- <div class="btn-toolbar" data-bind="foreach: exerciseTypes">
- <button class="btn exercisetype" data-bind="text: name, click: $parent.onExerciseClick" ></button>
-</div>
-<div id="serijareport"></div>
-  </div>
+
+
+    <div id="types">
+      <div data-bind="ifnot: typesVisible">  
+        Ta trening niste opravili nobene vaje.
+      </div>  
+      <div class="btn-toolbar" data-bind="foreach: exerciseTypes">
+        <button class="btn exercisetype" data-bind="text: name, click: $parent.onExerciseClick, css: { disabled: $parent.selectedExercise()==$data }" ></button>
+      </div>
+      <div id="serijareport"></div>
+    </div>
   </div>
 </div>
 </div>

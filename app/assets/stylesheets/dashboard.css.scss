@@ -8,6 +8,46 @@ $avatarWidth: 42px;
 $statisticsFontSize: 75px;
 $statisticsLabelColor: #e9af2e;
 $statisticsLabelFontSize: 14px;
+$graphHeight : 300px;
+
+
+
+div.measurements{
+    width: $measurementsWidth;
+}
+
+div#graphWindow{
+    height: $graphHeight+50px;
+    
+    > div {
+        > div.exerciseinfo{
+            > div#workoutSets {
+                text-align: center;
+                float: left;
+                margin-left: 250px;
+            }
+            
+            > div.seen{
+                float: right;
+                margin-top: -20px;
+                width: 100px;
+                > div.abc{    
+                    position: relative;
+                    @include size(63px,65px);
+                    background: {
+                        image: image-url("Weight.png");        
+                        repeat: no-repeat;
+                    }
+                    > div.text{
+                        position: absolute;
+                        top: 20px;
+                        left: 20px;
+                    }
+                }
+            }
+        }
+    }
+}
 
 
 
@@ -23,10 +63,12 @@ a:visited{ color: black }
 
 div.calendar{
     border-bottom: 1px solid #cecece;
+    padding-left: 50px;
 }
 
 #types{
     border-top: 1px solid #cecece;  
+    padding-left: 50px;
 }
 
 div.day{
@@ -35,30 +77,11 @@ div.day{
     text-align: center;
 }
 
-div#workoutSets {
-    text-align: center;
-}
-div#graphWindow{
-    width:$measurementsWidth;
-}
+
 
 div#placeholder,{    
-    width:600px;
-    height:300px;
-}
-
-div.month{
-    display: inline;
-}
-
-button.arrow{    
-    margin-left: 10px;
-    margin-right: 10px;
-}
-
-
-div.day{
-    display: inline;
+    width: 500px;
+    height: $graphHeight;
 }
 
 #dashboard-show {
@@ -76,6 +99,7 @@ div.day{
         //
         &.people-exercises {
             width: $exercisesWidth;
+            margin-right: -3px;
             
             > .entry {
                 @include text-shadow(0 1px 1px white);
@@ -258,7 +282,7 @@ div.day{
         //
         &.measurements {
             width: $measurementsWidth;
-            margin-left: -1px;
+            margin-left: -4px;
             
             
         }
