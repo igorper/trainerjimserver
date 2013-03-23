@@ -4,4 +4,5 @@ class Measurement < ActiveRecord::Base
   belongs_to :user
   belongs_to :training  
   has_many :series_executions
+  has_many :measurement_comment
 end

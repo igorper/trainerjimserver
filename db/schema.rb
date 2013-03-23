@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130321190823) do
+ActiveRecord::Schema.define(:version => 20130323153125) do
 
   create_table "conversations", :force => true do |t|
     t.integer "user1_id"
@@ -57,7 +57,7 @@ ActiveRecord::Schema.define(:version => 20130321190823) do
   create_table "measurement_comments", :force => true do |t|
     t.integer "timestamp"
     t.string  "comment"
-    t.integer "series_execution_id"
+    t.integer "measurement_id"
   end
 
   create_table "measurements", :force => true do |t|
@@ -146,7 +146,7 @@ ActiveRecord::Schema.define(:version => 20130321190823) do
 
   add_foreign_key "i18n_strings", "i18n_keys", :name => "i18n_strings_i18n_key_id_fk", :dependent => :delete
 
-  add_foreign_key "measurement_comments", "series", :name => "measurement_comments_series_execution_id_fk", :column => "series_execution_id", :dependent => :delete
+  add_foreign_key "measurement_comments", "measurements", :name => "measurement_comments_measurement_id_fk", :dependent => :delete
 
   add_foreign_key "measurements", "trainings", :name => "measurements_training_id_fk", :dependent => :delete
   add_foreign_key "measurements", "users", :name => "measurements_user_id_fk", :dependent => :delete
