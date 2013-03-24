@@ -45,9 +45,9 @@ $("document").ready(function() {
     placeholder.bind("plothover", onHover);
 
     $.getJSON('/users/list.json', function(data) {
-        
-        
-        function StatisticsPanel(exerciseTypes){
+
+
+        function StatisticsPanel(exerciseTypes) {
             self.exerciseTypes = exerciseTypes;
             self.weightLifted = ko.computed(function() {
                 if (self.exerciseTypes.length > 0) {
@@ -63,7 +63,7 @@ $("document").ready(function() {
                 return 0;
             });
         }
-        
+
         function CommentsViewModel() {
             var self = this;
             self.comments = ko.observable([]);
@@ -86,10 +86,22 @@ $("document").ready(function() {
         function CalendarViewModel(parent) {
             ///Calendar
             var self = this;
+
+            self.setup = function(data) {
+                if (data.length > 0) {
+                    self.calendar(data);
+                    self.currentMonthIndex(0);
+                    self.measurementSelected(self.currentMonth().days[0]);
+                } else {
+                    self.calendar([]);
+                    self.currentMonthIndex(0);
+                    self.selectedDay(null);
+                }
+            };
+
             self.parent = parent;
             self.calendar = ko.observable([]);
             self.currentMonthIndex = ko.observable(0);
-            self.selectedDayIndex = ko.observable(-1);
             self.selectedDay = ko.observable();
             self.calendarVisible = ko.computed(function() {
                 return self.calendar() && self.calendar().length > 0;
@@ -109,24 +121,24 @@ $("document").ready(function() {
                     i = self.calendar().length - 1;
                 }
                 self.currentMonthIndex(i);
-                self.selectedDayIndex(-1);
+                self.measurementSelected(self.currentMonth().days[0]);
 
                 //Clear graph display
                 self.parent.clearGraphs();
             };
 
-            self.measurementSelected = function(index, el) {
+            self.measurementSelected = function(el) {
                 if (self.selectedDay() !== el) {
                     self.selectedDay(el);
-                    self.selectedDayIndex(index);
                     $.getJSON("/dashboard/measurement/" + el.measurements[0].id, function(data) {
+
                         self.parent.exerciseTypes(data.types);
                         self.parent.measurement(data.measurement);
+
                         graphcomments = data.measurement.measurement_comment;
                         measurementData = eval(data.measurement.data);
 
                         self.parent.clearGraphs();
-
                         self.parent.statistics(new StatisticsPanel(data.types));
                     });
                 }
@@ -148,9 +160,10 @@ $("document").ready(function() {
             self.clearGraphs = function() {
                 self.selectedExercise(null);
                 self.exerciseExecutions([]);
+                $.plot(placeholder,[],options);
             };
-            
-            self.userChanged = function(){
+
+            self.userChanged = function() {
                 self.statistics(null);
                 self.clearGraphs();
             }
@@ -164,10 +177,10 @@ $("document").ready(function() {
             self.statistics = ko.observable(null);
 
             ///Measurements
-            self.measurement = ko.observable(),
-                    self.selectedExercise = ko.observable(null),
-                    self.exerciseExecutions = ko.observable(),
-                    self.hasExerciseMeasurements = ko.computed(function() {
+            self.measurement = ko.observable();
+            self.selectedExercise = ko.observable(null);
+            self.exerciseExecutions = ko.observable();
+            self.hasExerciseMeasurements = ko.computed(function() {
                 return self.selectedExercise() !== null && self.selectedExercise().executions.length > 0 && self.selectedExercise().executions[0].start_timestamp !== null;
             });
 
@@ -178,19 +191,32 @@ $("document").ready(function() {
                     return ex.num_repetitions + "X<br>" + ex.weight + "kg"
                 }
             });
-            self.exerciseTypes = ko.observable([]);
+            
+            
+            self.selectedExecution = ko.observable(null);
 
+            ///Draw the grapsh here
+            self.measurementsAvailable = ko.computed(function() {
+                return self.selectedExercise() !== null && self.selectedExercise().executions.length > 0 && self.selectedExercise()[0].start_timestamp !== null;
+            });
+            
+            ///Just text info
+            self.alternateExerciseInfo = ko.computed(function() {
+                return self.selectedExecution() !== null && self.selectedExecution().start_timestamp === null;
+            });
+
+            self.exerciseTypes = ko.observable([]);
             self.typesVisible = ko.computed(function() {
-                return self.exerciseTypes() !== undefined && self.exerciseTypes().length > 0;
+                return self.exerciseTypes() !== null && self.exerciseTypes().length > 0;
             });
 
             self.onExerciseClick = function(element) {
                 self.selectedExercise(element);
                 self.exerciseExecutions(element.executions);
+                self.onGraphChangeButton(element.executions[0]);
             };
-            self.selectedGraph = ko.observable(null);
             self.onGraphChangeButton = function(element) {
-                self.selectedGraph(element);
+                self.selectedExecution(element);
                 setUpGraph(placeholder, getGraphData(measurementData, element.start_timestamp, element.end_timestamp));
 
 
@@ -201,13 +227,14 @@ $("document").ready(function() {
             });
 
 
-            self.selectUsers = function(index, element) {
+            self.selectUsers = function(element) {
                 if (element !== self.selectedUser()) {
                     self.selectedUser(element);
                     self.clearGraphs();
+                    self.exerciseTypes([]);
+
                     $.getJSON("/dashboard/exercisedates/" + element.id() + ".json", function(data) {
-                        self.calendarVM.calendar(data);
-                        self.calendarVM.currentMonthIndex(0);
+                        self.calendarVM.setup(data);
                     });
                     $.getJSON("/conversations/list/" + self.selectedUser().id() + ".json", function(data) {
                         self.commentsVM.comments(data);

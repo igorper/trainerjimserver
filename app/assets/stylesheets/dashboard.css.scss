@@ -49,6 +49,41 @@ div#graphWindow{
     }
 }
 
+#stack{
+    position: absolute;
+    margin-top: 120px;
+    margin-left: 30px;
+}
+
+.horizontalstack { 
+    height:100px; 
+    width:150px; 
+    margin-left:5px; 
+    display: inline-block; /*Here you can also used display-inline:block instead of float:left*/
+    @include sans-titles;
+    color: #555;
+    font: {
+        size: $statisticsFontSize;
+    }
+}
+
+.verticalline{
+    position: absolute;
+    margin-top: -35px;
+    display: inline-block;
+    border:{
+        
+        color: $jimColor;
+        style: dashed;
+        width: 1px;
+    }
+    height: 100px;
+}
+
+.exercisetextinfo{
+    width: 500px;
+    height: $graphHeight;
+}
 
 
 .pagination{

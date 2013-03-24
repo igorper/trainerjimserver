@@ -17,7 +17,7 @@ class DashboardController < ApplicationController
     #Group by month first, then by date
     @measurements = Measurement.select("start_time, id,end_time").find_all_by_user_id(params[:user])
     .group_by{|m| m.start_time.strftime("%B") }
-    .map{|k,v| {:month => k, :days => v.group_by{|m| m.start_time.day }.map{ |k,v| {:day => k, :measurements => v}}}}
+    .map{|k,v| {:month => k, :days => v.group_by{|m| m.start_time.day }.map{ |k,v| {:day => k, :measurements => v}}.sort_by{|k,v| v}.reverse}}
     respond_to do |format|
       format.json  { render :json => @measurements.to_json(
         )   }

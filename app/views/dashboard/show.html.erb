@@ -1,7 +1,7 @@
 <div id="dashboard-show">
   <div class="people-exercises" data-bind="foreach: users">
 
-    <div class="entry" data-bind="click: $parent.selectUsers.bind($data,$index()), css: {selected: $parent.selectedUser() == $data, even: $index() % 2 == 1}">
+    <div class="entry" data-bind="click: $parent.selectUsers.bind($data), css: {selected: $parent.selectedUser() == $data, even: $index() % 2 == 1}">
       <div class="title" data-bind="text: full_name">
       </div>
       <div class="icon"></div>
@@ -93,24 +93,33 @@
           </div>
 
           <div class="btn-group" data-bind="foreach: currentMonth().days">
-            <button class="btn" data-bind="text: day, click: $parent.measurementSelected.bind($data,$index()), css: { disabled: $index() == $parent.selectedDayIndex() }"></button>
+            <button class="btn" data-bind="text: day, click: $parent.measurementSelected.bind($data), css: { disabled: $data === $parent.selectedDay() }"></button>
           </div>
         </div> 
       </div>
     </div>
 
     <div id="graphWindow">
-      <div data-bind="visible: hasExerciseMeasurements()">
-        <div id="placeholder" data-bind="visible: hasExerciseMeasurements"></div>
-        <div class="exerciseinfo" data-bind="visible: selectedExercise() != null">
-          <div id="workoutSets" data-bind="visible: hasExerciseMeasurements, foreach: exerciseExecutions">
-            <button class="btn" data-bind="text: $index(), click: $parent.onGraphChangeButton, css: { disabled: $data == $parent.selectedGraph()}"></button>
-          </div>   <div class="seen" data-bind="visible: hasExerciseMeasurements"> 
+      <div data-bind="visible: selectedExercise !== null">
+        <div id="placeholder" data-bind="visible: !alternateExerciseInfo()">
+
+        </div>
+        <div class="exercisetextinfo" data-bind="visible: alternateExerciseInfo">
+<div id="stack">
+  <div class="horizontalstack">ONe</div>
+  <div class="verticalline"></div>
+  <div class="horizontalstack">Two</div>  
+  <div class="verticalline"></div>
+  <div class="horizontalstack">three</div>
+</div></div>
+        <div class="exerciseinfo" data-bind="visible: selectedExercise() !== null">
+          <div id="workoutSets" data-bind="foreach: exerciseExecutions">
+            <button class="btn" data-bind="text: $index(), click: $parent.onGraphChangeButton, css: { disabled: $data === $parent.selectedExecution()}"></button>
+          </div>   
+          <div class="seen" data-bind="visible: selectedExercise() !== null"> 
             <div class="abc"><div class="text" data-bind="html: selectedExerciseWeightInfo()"></div></div></div>
         </div>
-        <div data-bind="visible: selectedExercise()!=null && !hasExerciseMeasurements()">No exercise data.</div>
-      </div>
-      <div data-bind="visible: !hasExerciseMeasurements() && calendarVM.calendarVisible">Pick an exercise.</div>
+      </div>      
     </div>
 
 
