@@ -33,8 +33,9 @@ function Duration(array) {
     flat = $.map(array, function(el) {
         return el.executions;
     });
+    
     return $.map(flat, function(impl) {
-        return impl.duration;
+        return impl.duration_seconds;
     }).sum();
 }
 ;
