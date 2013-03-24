@@ -1,7 +1,7 @@
 <div id="dashboard-show">
   <div class="people-exercises" data-bind="foreach: users">
 
-    <div class="entry" data-bind="click: $parent.selectUsers.bind($data,$index()), css: {selected: $parent.selected() == $index(), even: $index() % 2 == 1}">
+    <div class="entry" data-bind="click: $parent.selectUsers.bind($data,$index()), css: {selected: $parent.selectedUser() == $data, even: $index() % 2 == 1}">
       <div class="title" data-bind="text: full_name">
       </div>
       <div class="icon"></div>
@@ -9,43 +9,45 @@
   </div>
 
 
-  <div class="statistics">
-    <div class="avatar-name" data-bind="visible: statisticsVisible">
-      <div class="avatar"></div><div class="name" data-bind="text: selectedUser().full_name"></div>
-    </div>
-    <div class="numbers">
-      <div class="activity-percentage">
-        <div class="number">
-          72
-        </div>
-        <div class="label">
-          <div>min</div>
-          <div>active</div>
-        </div>
+  <div class="statistics" data-bind="visible: statisticsVisible">
+    <div>
+      <div class="avatar-name" data-bind="with: selectedUser">
+        <div class="avatar"></div><div class="name" data-bind="text: full_name"></div>
       </div>
-      <div class="separator"><div></div></div>
-      <div class="activity-percentage">
-        <div class="number">
-          91
+      <div class="numbers" data-bind="with: statistics()">
+        <div class="activity-percentage" data-bind="visible: duration !== false">
+          <div class="number" data-bind="text: duration">
+            72
+          </div>
+          <div class="label">
+            <div>min</div>
+            <div>active</div>
+          </div>
         </div>
-        <div class="label">
-          <div class="percent">%</div>
-          <div>workout</div>
-          <div>done</div>
+        <div class="separator"><div></div></div>
+        <div class="activity-percentage">
+          <div class="number">
+            91
+          </div>
+          <div class="label">
+            <div class="percent">%</div>
+            <div>workout</div>
+            <div>done</div>
+          </div>
         </div>
-      </div>
-      <div class="separator"><div></div></div>
-      <div class="activity-percentage">
-        <div class="number">
-          713
+        <div class="separator"><div></div></div>
+        <div class="activity-percentage" data-bind="visible: weightLifted !== false">
+          <div class="number" data-bind="text: weightLifted">
+            713
+          </div>
+          <div class="label">
+            <div>kg</div>
+            <div>lifted</div>
+          </div>
         </div>
-        <div class="label">
-          <div>kg</div>
-          <div>lifted</div>
+        <div class="ex-workout-switch">
+          exercise | <a href="#">workout</a>
         </div>
-      </div>
-      <div class="ex-workout-switch">
-        exercise | <a href="#">workout</a>
       </div>
     </div>
     <div class="comments" data-bind="with: commentsVM.last">
@@ -74,7 +76,7 @@
 
   </div>
 
-  <div class="measurements">
+  <div class="measurements" data-bind="visible: statisticsVisible">
 
 
 

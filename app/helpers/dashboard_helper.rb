@@ -3,7 +3,4 @@ module DashboardHelper
     date.strftime("%B")
   end
   
-  def listOfExerciseTypes(executions)
-    
-  end
 end

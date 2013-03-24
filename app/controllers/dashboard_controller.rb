@@ -2,23 +2,7 @@ class DashboardController < ApplicationController
   def show
     @trainees = User.find(:all)
   end
-  
-  
-  def knockout
-    @trainees = User.find(:all)    
-  end
-  
-  def statistics
-    selected = params[:user]
-    @selected = User.find_by_id(selected)
-    @conversation = "Nekaj me je v krizu vsekalo"    
     
-    #This line doesnt work when trying to display it in view. It works if u request text directly though.
-    @conversation = Conversation.where(:user1_id => params[:user]).last
-    
-    render :layout => false
-  end
-  
   def measurements
     selected = params[:user]
     @measurements = User.find_by_id(selected).measurements

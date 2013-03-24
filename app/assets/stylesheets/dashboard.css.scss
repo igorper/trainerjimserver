@@ -150,66 +150,68 @@ div#placeholder,{
             width: $statisticsWidth;
             margin-left: -1px;
             
-            > .avatar-name {
-                height: $avatarHeight;
-                background: {
-                    color: #ececec;
-                }
-                
-                > div {
-                    @include inline-middle;
+            > div{
+                > .avatar-name {
+                    height: $avatarHeight;
+                    background: {
+                        color: #ececec;
+                    }
                     
-                    &.avatar {
-                        height: $avatarHeight;
-                        width: $avatarWidth;
-                        background: {
-                            color: #cecece;
+                    > div {
+                        @include inline-middle;
+                        
+                        &.avatar {
+                            height: $avatarHeight;
+                            width: $avatarWidth;
+                            background: {
+                                color: #cecece;
+                            }
+                        }
+                        
+                        &.name {
+                            @include bold;
+                            @include text-shadow(0 1px 1px white);
+                            $st_name_padding: 5px;
+                            width: $statisticsWidth - $avatarWidth - $st_name_padding*2;
+                            padding: $st_name_padding;
+                            color: #555;
                         }
                     }
-                    
-                    &.name {
-                        @include bold;
-                        @include text-shadow(0 1px 1px white);
-                        $st_name_padding: 5px;
-                        width: $statisticsWidth - $avatarWidth - $st_name_padding*2;
-                        padding: $st_name_padding;
-                        color: #555;
-                    }
                 }
-            }
-            
-            > .numbers {
-                @include center;
                 
-                > .activity-percentage {
-                    @include inline;
-                    margin: { top: 10px; }
+                > .numbers {
+                    @include center;
                     
-                    > .number {
-                        @include inline-bottom;
-                        @include sans-titles;
-                        color: #555;
-                        font: {
-                            size: $statisticsFontSize;
+                    > .activity-percentage {
+                        @include inline;
+                        margin: { top: 10px; }
+                        
+                        > .number {
+                            @include inline-bottom;
+                            @include sans-titles;
+                            color: #555;
+                            font: {
+                                size: $statisticsFontSize;
+                            }
+                            line-height: $statisticsFontSize;
+                            height: $statisticsFontSize;
                         }
-                        line-height: $statisticsFontSize;
-                        height: $statisticsFontSize;
-                    }
-                    
-                    > .label {
-                        @include inline-bottom;
-                        @include sans-titles;
-                        @include bold;
-                        @include left;
-                        padding-bottom: $statisticsFontSize * 0.18;
-                        div {
-                            font: {size: $statisticsLabelFontSize;}
-                            line-height: $statisticsLabelFontSize;
-                            height: $statisticsLabelFontSize + 1px;
-                            color: $statisticsLabelColor;
-                            
-                            &.percent {
-                                font: {size: 1.4em;}
+                        
+                        > .label {
+                            @include inline-bottom;
+                            @include sans-titles;
+                            @include bold;
+                            @include left;
+                            padding-bottom: $statisticsFontSize * 0.18;
+                            div {
+                                font: {size: $statisticsLabelFontSize;}
+                                line-height: $statisticsLabelFontSize;
+                                height: $statisticsLabelFontSize + 1px;
+                                color: $statisticsLabelColor;
+                                
+                                &.percent {
+                                    font: {size: 1.4em;}
+                                }
                             }
                         }
                     }

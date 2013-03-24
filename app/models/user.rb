@@ -4,6 +4,8 @@ class User < ActiveRecord::Base
   attr_accessible :id, :email, :password, :admin, :full_name
   
   has_many :measurements, :dependent => :delete_all
+  belongs_to :trainer, :class_name => "User", :foreign_key => "trainer_id"
+  has_many :trainees , :class_name => "User", :foreign_key => "trainer_id"
   
   @@RoleAdmin = 0b1
   

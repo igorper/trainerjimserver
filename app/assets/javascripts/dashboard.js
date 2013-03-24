@@ -3,10 +3,41 @@
 //= require knockout-2.2.1
 //= require knockout.mapping
 
+Array.prototype.sum = function() {
+    if (this.length > 0) {
+        return this.reduce(function(x, y) {
+            return x + y;
+        })
+    }
+    return 0;
+};
+
 var measurementData = [];
 var graphcomments = [];
 
 var debug;
+
+
+
+function KilogramsLifted(array) {
+    flat = $.map(array, function(el) {
+        return el.executions;
+    });
+    return $.map(flat, function(impl) {
+        return impl.num_repetitions * impl.weight;
+    }).sum();
+}
+;
+
+function Duration(array) {
+    flat = $.map(array, function(el) {
+        return el.executions;
+    });
+    return $.map(flat, function(impl) {
+        return impl.duration;
+    }).sum();
+}
+;
 
 $("document").ready(function() {
     var placeholder = $("#placeholder");
@@ -14,6 +45,25 @@ $("document").ready(function() {
     placeholder.bind("plothover", onHover);
 
     $.getJSON('/users/list.json', function(data) {
+        
+        
+        function StatisticsPanel(exerciseTypes){
+            self.exerciseTypes = exerciseTypes;
+            self.weightLifted = ko.computed(function() {
+                if (self.exerciseTypes.length > 0) {
+                    return KilogramsLifted(self.exerciseTypes);
+                }
+                return 0;
+            });
+
+            self.duration = ko.computed(function() {
+                if (self.exerciseTypes.length > 0) {
+                    return Duration(self.exerciseTypes);
+                }
+                return 0;
+            });
+        }
+        
         function CommentsViewModel() {
             var self = this;
             self.comments = ko.observable([]);
@@ -76,11 +126,16 @@ $("document").ready(function() {
                         measurementData = eval(data.measurement.data);
 
                         self.parent.clearGraphs();
+
+                        self.parent.statistics(new StatisticsPanel(data.types));
                     });
                 }
             };
         }
         ;
+
+
+
 
         function UsersViewModel() {
             var self = this;
@@ -94,13 +149,19 @@ $("document").ready(function() {
                 self.selectedExercise(null);
                 self.exerciseExecutions([]);
             };
+            
+            self.userChanged = function(){
+                self.statistics(null);
+                self.clearGraphs();
+            }
 
             ///Users display
             self.users = ko.mapping.fromJS(data);
-            self.selected = ko.observable(2);
+            self.selectedUser = ko.observable(null);
 
             self.commentsVM = new CommentsViewModel();
             self.calendarVM = new CalendarViewModel(self);
+            self.statistics = ko.observable(null);
 
             ///Measurements
             self.measurement = ko.observable(),
@@ -110,16 +171,19 @@ $("document").ready(function() {
                 return self.selectedExercise() !== null && self.selectedExercise().executions.length > 0 && self.selectedExercise().executions[0].start_timestamp !== null;
             });
 
+
             self.selectedExerciseWeightInfo = ko.computed(function() {
                 if (self.selectedExercise() !== null) {
                     var ex = self.selectedExercise().executions[0];
                     return ex.num_repetitions + "X<br>" + ex.weight + "kg"
                 }
             });
-            self.exerciseTypes = ko.observable(),
-                    self.typesVisible = ko.computed(function() {
+            self.exerciseTypes = ko.observable([]);
+
+            self.typesVisible = ko.computed(function() {
                 return self.exerciseTypes() !== undefined && self.exerciseTypes().length > 0;
             });
+
             self.onExerciseClick = function(element) {
                 self.selectedExercise(element);
                 self.exerciseExecutions(element.executions);
@@ -131,22 +195,25 @@ $("document").ready(function() {
 
 
             };
-            self.selectedUser = ko.computed(function() {
-                return self.users()[self.selected()];
+
+            self.statisticsVisible = ko.computed(function() {
+                return self.selectedUser() !== null;
             });
-            self.statisticsVisible = ko.observable(function() {
-                return self.selected() >= 0 && self.selected() < self.users().length;
-            });
-            self.selectUsers = function(index) {
-                self.selected(index);
-                self.clearGraphs();
-                $.getJSON("/dashboard/exercisedates/" + self.selectedUser().id() + ".json", function(data) {
-                    self.calendarVM.calendar(data);
-                    self.calendarVM.currentMonthIndex(0);
-                });
-                $.getJSON("/conversations/list/" + self.selectedUser().id() + ".json", function(data) {
-                    self.commentsVM.comments(data);
-                });
+
+
+            self.selectUsers = function(index, element) {
+                if (element !== self.selectedUser()) {
+                    self.selectedUser(element);
+                    self.clearGraphs();
+                    $.getJSON("/dashboard/exercisedates/" + element.id() + ".json", function(data) {
+                        self.calendarVM.calendar(data);
+                        self.calendarVM.currentMonthIndex(0);
+                    });
+                    $.getJSON("/conversations/list/" + self.selectedUser().id() + ".json", function(data) {
+                        self.commentsVM.comments(data);
+                    });
+                    self.userChanged();
+                }
             };
         }
         ;
@@ -180,8 +247,6 @@ function getGraphData(measurements, start, stop) {
         }
     }
 
-    console.log(measurements.slice(startindex - 1, stopindex + 1));
-    console.log(commentList);
 
     return [measurements.slice(startindex - 1, stopindex + 1), commentList];
 }

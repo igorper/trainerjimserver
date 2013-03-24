@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130323214230) do
+ActiveRecord::Schema.define(:version => 20130324120846) do
 
   create_table "conversations", :force => true do |t|
     t.integer  "user1_id"
@@ -104,6 +104,7 @@ ActiveRecord::Schema.define(:version => 20130323214230) do
     t.integer "weight"
     t.integer "rest_time"
     t.integer "measurement_id"
+    t.integer "duration_seconds", :default => 0
   end
 
   create_table "sessions", :force => true do |t|
