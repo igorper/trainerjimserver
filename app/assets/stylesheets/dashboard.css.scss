@@ -55,17 +55,46 @@ div#graphWindow{
     margin-left: 30px;
 }
 
-.horizontalstack { 
+.horizontalstack {
+    @include center;
     height:100px; 
     width:150px; 
     margin-left:5px; 
     display: inline-block; /*Here you can also used display-inline:block instead of float:left*/
-    @include sans-titles;
-    color: #555;
-    font: {
-        size: $statisticsFontSize;
+    
+    > .number{
+        @include sans-titles;
+        vertical-align: bottom;
+        
+        display: inline-block;
+        color: #555;
+        font: {
+            size: $statisticsFontSize;
+        }
+    }
+    
+    > .label {
+        @include inline-bottom;
+        @include sans-titles;
+        @include bold;
+        @include left;
+        vertical-align: bottom;
+        display: inline-block;
+        padding-bottom: $statisticsFontSize * 0.18;
+        div {
+            font: {size: $statisticsLabelFontSize;}
+            line-height: $statisticsLabelFontSize;
+            height: $statisticsLabelFontSize + 1px;
+            color: $statisticsLabelColor;
+            
+            &.percent {
+                font: {size: 1.4em;}
+            }
+        }
     }
 }
+
+
 
 .verticalline{
     position: absolute;

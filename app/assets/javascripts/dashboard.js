@@ -41,8 +41,7 @@ function Duration(array) {
 
 $("document").ready(function() {
     var placeholder = $("#placeholder");
-    placeholder.bind("plotclick", onClick);
-    placeholder.bind("plothover", onHover);
+    var graphDrawn = false;
 
     $.getJSON('/users/list.json', function(data) {
 
@@ -121,7 +120,6 @@ $("document").ready(function() {
                     i = self.calendar().length - 1;
                 }
                 self.currentMonthIndex(i);
-                self.measurementSelected(self.currentMonth().days[0]);
 
                 //Clear graph display
                 self.parent.clearGraphs();
@@ -159,8 +157,11 @@ $("document").ready(function() {
 
             self.clearGraphs = function() {
                 self.selectedExercise(null);
-                self.exerciseExecutions([]);
-                $.plot(placeholder,[],options);
+                self.exerciseExecutions(null);
+                self.selectedExecution(null);
+                $.plot(placeholder, [], options);
+                placeholder.unbind("plotclick");
+                placeholder.unbind("plothover");
             };
 
             self.userChanged = function() {
@@ -191,15 +192,15 @@ $("document").ready(function() {
                     return ex.num_repetitions + "X<br>" + ex.weight + "kg"
                 }
             });
-            
-            
+
+
             self.selectedExecution = ko.observable(null);
 
             ///Draw the grapsh here
             self.measurementsAvailable = ko.computed(function() {
                 return self.selectedExercise() !== null && self.selectedExercise().executions.length > 0 && self.selectedExercise()[0].start_timestamp !== null;
             });
-            
+
             ///Just text info
             self.alternateExerciseInfo = ko.computed(function() {
                 return self.selectedExecution() !== null && self.selectedExecution().start_timestamp === null;
@@ -217,7 +218,10 @@ $("document").ready(function() {
             };
             self.onGraphChangeButton = function(element) {
                 self.selectedExecution(element);
+
                 setUpGraph(placeholder, getGraphData(measurementData, element.start_timestamp, element.end_timestamp));
+                placeholder.bind("plotclick", onClick);
+                placeholder.bind("plothover", onHover);
 
 
             };
@@ -233,11 +237,12 @@ $("document").ready(function() {
                     self.clearGraphs();
                     self.exerciseTypes([]);
 
-                    $.getJSON("/dashboard/exercisedates/" + element.id() + ".json", function(data) {
-                        self.calendarVM.setup(data);
-                    });
+
                     $.getJSON("/conversations/list/" + self.selectedUser().id() + ".json", function(data) {
                         self.commentsVM.comments(data);
+                        $.getJSON("/dashboard/exercisedates/" + element.id() + ".json", function(data) {
+                            self.calendarVM.setup(data);
+                        });
                     });
                     self.userChanged();
                 }

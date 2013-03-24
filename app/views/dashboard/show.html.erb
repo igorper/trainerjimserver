@@ -1,3 +1,4 @@
+
 <div id="dashboard-show">
   <div class="people-exercises" data-bind="foreach: users">
 
@@ -76,7 +77,7 @@
 
   </div>
 
-  <div class="measurements" data-bind="visible: statisticsVisible">
+  <div class="measurements" data-bind="visible: statisticsVisible && calendarVM.calendarVisible">
 
 
 
@@ -104,14 +105,31 @@
         <div id="placeholder" data-bind="visible: !alternateExerciseInfo()">
 
         </div>
-        <div class="exercisetextinfo" data-bind="visible: alternateExerciseInfo">
-<div id="stack">
-  <div class="horizontalstack">ONe</div>
-  <div class="verticalline"></div>
-  <div class="horizontalstack">Two</div>  
-  <div class="verticalline"></div>
-  <div class="horizontalstack">three</div>
-</div></div>
+        <div class="exercisetextinfo" data-bind="visible: alternateExerciseInfo, with: selectedExecution">
+          <div id="stack">
+            <div class="horizontalstack">
+              <div class="number" data-bind="text: duration_seconds"></div><div class="label">
+                <div>min</div>
+                <div>active</div>
+              </div>              
+            </div>
+            <div class="verticalline" ></div>
+            <div class="horizontalstack">              
+              <div class="number" data-bind="text: num_repetitions"></div>
+              <div class="label">
+                <div>reps</div>
+              </div>              
+            </div>
+            <div class="verticalline"></div>
+            <div class="horizontalstack">
+              <div class="number" data-bind="text: weight"></div>
+              <div class="label">
+                <div>kg</div>
+                <div>lifted</div>
+              </div>
+            </div>
+          </div>
+        </div>
         <div class="exerciseinfo" data-bind="visible: selectedExercise() !== null">
           <div id="workoutSets" data-bind="foreach: exerciseExecutions">
             <button class="btn" data-bind="text: $index(), click: $parent.onGraphChangeButton, css: { disabled: $data === $parent.selectedExecution()}"></button>
