@@ -210,6 +210,81 @@ body.home.welcome {
                     }
                 }
             }
+            
+            $fistBumpMarginLeft: 12px;
+            $fistBumpWidth: 149px;
+            $fistBumpheight: 47px;
+            div.fist-bump {
+                @include size($fistBumpWidth, $fistBumpheight);
+                margin-top: 80px;
+                margin-left: $fistBumpMarginLeft;
+                position: absolute;
+                background: {
+                    image: image-url('Welcome_FistBumbFooter.png');
+                    repeat: no-repeat;
+                    position: center;
+                }
+            }
+            
+            div.pocket-trousers {
+                @include size(157px, 254px);
+                margin-top: 0px;
+                margin-left: $fistBumpWidth + $fistBumpMarginLeft + 650px;
+                position: absolute;
+                background: {
+                    image: image-url('Welcome_PocketFooter.png');
+                    repeat: no-repeat;
+                    position: center;
+                }
+            }
+            
+            div.subscription {
+                position: absolute;
+                margin-left: $fistBumpWidth + $fistBumpMarginLeft;
+                margin-top: 50px;
+                
+                div.sub-notice {
+                    width: 100%;
+                    text-align: center;
+                    @include bold;
+                    font-size: 0.9em;
+                    color: #666;
+                }
+                
+                div.the-form {
+                    background-color: white;
+                    padding: 4px;
+                    margin-bottom: 70px;
+                    margin-top: 5px;
+                    
+                    form {
+                        margin: 0px;
+                        
+                        input.subscription-email {
+                            border: none;
+                            box-shadow: none;
+                            margin: 0px;
+                            width: 270px;
+                        }
+                        
+                        input.subscribe-btn {
+                            @include flat-btn;
+                            @include bold;
+                            font-size: 0.95em;
+                            color: white;
+                            /*position: absolute;*/
+                            padding: 5px 10px;
+                            background-color: #067cff;
+                        }
+                        input.subscribe-btn:hover {
+                            background-color: lighten(#067cff, 15%);
+                        }
+                        input.subscribe-btn:active {
+                            background-color: darken(#067cff, 15%);
+                        }
+                    }
+                }
+            }
         }
     }
 }
