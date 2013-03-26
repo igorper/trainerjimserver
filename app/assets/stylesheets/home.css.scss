@@ -92,6 +92,9 @@ div#soon-welcome {
 $welcomeHeaderHeight: 252px;
 $featureImageHeight: 346px;
 $welcomeImagesWidth: 966px;
+$featuresBtnHeight: 102px;
+$explanationHeight: 168px;
+$headerColour: #FCCA00;
 
 @mixin welcome-image-width {
     width: $welcomeImagesWidth;
@@ -106,27 +109,102 @@ body.home.welcome {
     
     div.welcome-page {
         
-        > div.central-strip {
-            
-            div.header {
-                height: $welcomeHeaderHeight;
-                background: {
-                    image: image-url('Welcome_Header.png');
-                    repeat: no-repeat;
-                    position: center;
-                    color: #FCCA00;
-                }
+        div.header {
+            height: $welcomeHeaderHeight;
+            background: {
+                image: image-url('Welcome_Header.png');
+                repeat: no-repeat;
+                position: center;
+                color: $headerColour;
             }
+        }
+        
+        > div.central-strip {
             
             div.for-whom {
                 @include welcome-image-width;
-                
                 margin-top: 20px;
+                
+                div.buttons {
+                    height: $featuresBtnHeight;
+                    
+                    > div {
+                        height: $featuresBtnHeight;
+                        width: $welcomeImagesWidth / 2;
+                        position: absolute;
+                        
+                        &.btn-for-trainees {
+                            margin-left: $welcomeImagesWidth / 2;
+                            background: {
+                                image: image-url("Welcome_TraineesButtonON.png");
+                            }
+                        }
+                        
+                        &.btn-for-trainers {
+                            background: {
+                                image: image-url("Welcome_TrainersButton_Off.png");
+                            }
+                        }
+                    }
+                }
                 
                 div.features-details {
                     height: $featureImageHeight;
                     background: {
                         image: image-url('Welcome_FeaturesTrainees.png');
+                        repeat: no-repeat;
+                        position: center;
+                    }
+                }
+            }
+            
+            div.explanation {
+                @include welcome-image-width;
+                height: $explanationHeight;
+                margin-top: 20px;
+                background: {
+                    image: image-url('Welcome_JIM_Explain.png');
+                    repeat: no-repeat;
+                    position: center;
+                }
+            }
+            
+            div.social {
+                @include welcome-image-width;
+                height: $explanationHeight;
+                margin-top: 20px;
+                background: {
+                    image: image-url('Welcome_Info_GetSocial.png');
+                    repeat: no-repeat;
+                    position: center;
+                }
+                
+                $socialBtnDim: 37px;
+                div.twitter {
+                    @include size($socialBtnDim, $socialBtnDim);
+                    position: absolute;
+                    margin: {
+                        top: 85px;
+                        left: 520px - $socialBtnDim - 35px;
+                    }
+                    
+                    background: {
+                        image: image-url('Welcome_TwitterIcon_OFF.png');
+                        repeat: no-repeat;
+                        position: center;
+                    }
+                }
+                
+                div.tumblr {
+                    @include size($socialBtnDim, $socialBtnDim);
+                    position: absolute;
+                    margin: {
+                        top: 85px;
+                        left: 520px;
+                    }
+                    
+                    background: {
+                        image: image-url('Welcome_TumblrIcon_OFF.png');
                         repeat: no-repeat;
                         position: center;
                     }
