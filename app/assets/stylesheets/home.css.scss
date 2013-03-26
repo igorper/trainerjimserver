@@ -82,3 +82,56 @@ div#soon-welcome {
         width: 100%;
     }
 }
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// WELCOME PAGE
+//
+
+$welcomeHeaderHeight: 252px;
+$featureImageHeight: 346px;
+$welcomeImagesWidth: 966px;
+
+@mixin welcome-image-width {
+    width: $welcomeImagesWidth;
+    margin: {
+        left: auto;
+        right: auto;
+    }
+}
+
+body.home.welcome {
+    background-color: #EEEEEE;
+    
+    div.welcome-page {
+        
+        > div.central-strip {
+            
+            div.header {
+                height: $welcomeHeaderHeight;
+                background: {
+                    image: image-url('Welcome_Header.png');
+                    repeat: no-repeat;
+                    position: center;
+                    color: #FCCA00;
+                }
+            }
+            
+            div.for-whom {
+                @include welcome-image-width;
+                
+                margin-top: 20px;
+                
+                div.features-details {
+                    height: $featureImageHeight;
+                    background: {
+                        image: image-url('Welcome_FeaturesTrainees.png');
+                        repeat: no-repeat;
+                        position: center;
+                    }
+                }
+            }
+        }
+    }
+}

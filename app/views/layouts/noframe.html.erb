@@ -8,7 +8,7 @@
     <%= javascript_include_tag controller_name %>
     <%= csrf_meta_tags %>
   </head>
-  <body class="main-layout">
+  <body class="main-layout <%= controller_name %> <%= action_name  %> ">
     <div class="skeleton">
       <%= yield %>
     </div>
