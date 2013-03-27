@@ -3,19 +3,19 @@
   <%= form_tag(upload_training_url, :multipart => true) do |f| %>
     <table class="form-table">
       <tr>
-        <td class="label"><div class="form-text-element"><%= t 'shared.login-panel.email' %></div></td>
+        <td class="jimlabel"><div class="form-text-element"><%= t 'shared.login-panel.email' %></div></td>
         <td><div class="form-text-element"><input type="text" class="email standard-input-field" name="email" value="<%= (defined? email) ? email : '' %>" /></div></td>
       </tr>
       <tr>
-        <td class="label"><div class="form-text-element"><%= t 'shared.login-panel.password' %></div></td>
+        <td class="jimlabel"><div class="form-text-element"><%= t 'shared.login-panel.password' %></div></td>
         <td><div class="form-text-element"><input type="password" class="password standard-input-field" name="password" value="" /></div></td>
       </tr>
       <tr>
-        <td class="label"><div class="form-text-element">Training data ZIP file:</div></td>
+        <td class="jimlabel"><div class="form-text-element">Training data ZIP file:</div></td>
         <td><div class="form-text-element"><%= file_field_tag 'trainingData' %></div></td>
       </tr>
       <tr>
-        <td class="label"><div class="form-text-element">Training ID:</div></td>
+        <td class="jimlabel"><div class="form-text-element">Training ID:</div></td>
         <td>
           <div class="form-text-element">
             <select name="trainingId">

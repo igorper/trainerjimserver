@@ -22,11 +22,11 @@ r_url = (defined?(redirect_url) && !redirect_url.blank?) ? redirect_url : home_u
       <%= form_tag(authenticate_url, :class => 'login-panel-form') do |f| %>
         <table class="form-table">
           <tr>
-            <td class="label"><div class="form-text-element"><%= t 'shared.login-panel.email' %></div></td>
+            <td class="jimlabel"><div class="form-text-element"><%= t 'shared.login-panel.email' %></div></td>
             <td><div class="form-text-element"><input type="text" class="email standard-input-field" name="email" value="<%= (defined? email) ? email : '' %>" /></div></td>
           </tr>
           <tr>
-            <td class="label"><div class="form-text-element"><%= t 'shared.login-panel.password' %></div></td>
+            <td class="jimlabel"><div class="form-text-element"><%= t 'shared.login-panel.password' %></div></td>
             <td><div class="form-text-element"><input type="password" class="password standard-input-field" name="password" value="" /></div></td>
           </tr>
           <tr>

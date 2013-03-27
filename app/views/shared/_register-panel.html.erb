@@ -23,19 +23,19 @@ r_url = (defined? redirect_url) ? redirect_url : home_url
       <%= form_tag(authenticate_url, :class => 'register-panel-form') do |f| %>
         <table class="form-table">
           <tr>
-            <td class="label"><div class="form-text-element"><%= t 'shared.register-panel.full-name' %></div></td>
+            <td class="jimlabel"><div class="form-text-element"><%= t 'shared.register-panel.full-name' %></div></td>
             <td><div class="form-text-element"><input type="text" class="full_name standard-input-field" name="full_name" value="<%= (defined? full_name) ? full_name : '' %>" /></div></td>
           </tr>
           <tr>
-            <td class="label"><div class="form-text-element"><%= t 'shared.register-panel.email' %></div></td>
+            <td class="jimlabel"><div class="form-text-element"><%= t 'shared.register-panel.email' %></div></td>
             <td><div class="form-text-element"><input type="text" class="email standard-input-field" name="email" value="<%= (defined? email) ? email : '' %>" /></div></td>
           </tr>
           <tr>
-            <td class="label"><div class="form-text-element"><%= t 'shared.register-panel.password' %></div></td>
+            <td class="jimlabel"><div class="form-text-element"><%= t 'shared.register-panel.password' %></div></td>
             <td><div class="form-text-element"><input type="password" class="first password standard-input-field" name="password" value="" /></div></td>
           </tr>
           <tr>
-            <td class="label"><div class="form-text-element"><%= t 'shared.register-panel.password_retype' %></div></td>
+            <td class="jimlabel"><div class="form-text-element"><%= t 'shared.register-panel.password_retype' %></div></td>
             <td><div class="form-text-element"><input type="password" class="second password standard-input-field" name="retyped_password" value="" /></div></td>
           </tr>
           <tr>
