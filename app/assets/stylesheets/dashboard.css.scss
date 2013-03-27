@@ -14,6 +14,66 @@ $graphHeight : 300px;
 
 
 
+.day:hover{                        
+    background-color: $jimColor;
+}
+
+div.calendar-new{
+    $monthWidth: 150px;
+    height: 50px;
+
+        
+    > .days{
+        float: right;
+        display:inline-block;
+        width: 500px;
+        border-bottom: 1px solid #cecece;
+        > .day{
+            display:inline-table;
+                padding: 2px 9px 2px 12px;
+                text-align: center;
+            
+            border-left: 1px solid #cecece;
+
+        }
+    }
+    > .month-tab{
+        float: left;
+        display: inline-block;
+        
+        > .month
+        {
+            width: $monthWidth;
+            min-width: $monthWidth;
+            display:inline;
+        }     
+        > .arrow{
+        display:inline-table;
+        margin-left: 15px;
+        margin-right:15px;
+
+            > .arrow-right {
+                width: 0; 
+                height: 0; 
+                border-top: 5px solid transparent;
+                border-bottom: 5px solid transparent;	
+                border-left: 5px solid grey;
+        }
+
+            > .arrow-left {
+                    width: 0; 
+                    height: 0; 
+                    border-top: 5px solid transparent;
+                    border-bottom: 5px solid transparent;
+
+                    border-right: 5px solid grey;
+            }
+    }        
+    }
+
+}
+
+
 div.emoticons{
     > div {
         width: 36px;
@@ -147,21 +207,14 @@ a:visited{ color: black }
 
 
 
-div.calendar{
-    border-bottom: 1px solid #cecece;
-    padding-left: 50px;
-}
+
 
 #types{
     border-top: 1px solid #cecece;  
     padding-left: 50px;
 }
 
-div.day{
-    border-left: 1px solid #cecece;
-    padding: 0px 5px 0px 5px;
-    text-align: center;
-}
+
 
 
 
