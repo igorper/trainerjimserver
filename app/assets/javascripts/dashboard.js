@@ -465,5 +465,5 @@ function showTooltip(x, y, contents) {
         padding: '2px',
         'background-color': '#fee',
         opacity: 0.80
-    }).appendTo("body").fadeIn(200);
+    }).appendTo("body").fadeIn(100);
 }
