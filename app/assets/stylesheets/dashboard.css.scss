@@ -73,7 +73,7 @@ div#graphWindow{
         }
     }
     
-    > .label {
+    > .jimlabel {
         @include inline-bottom;
         @include sans-titles;
         @include bold;
@@ -261,7 +261,7 @@ div#placeholder,{
                             height: $statisticsFontSize;
                         }
                         
-                        > .label {
+                        > .jimlabel {
                             @include inline-bottom;
                             @include sans-titles;
                             @include bold;

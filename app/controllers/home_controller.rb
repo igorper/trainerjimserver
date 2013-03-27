@@ -13,4 +13,8 @@ class HomeController < ApplicationController
   def soon
     render :layout => 'noframe'
   end
+  
+  def welcome
+    render :layout => 'noframe'
+  end
 end

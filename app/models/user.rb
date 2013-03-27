@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   has_secure_password
   
-  attr_accessible :id, :email, :password, :admin, :full_name
+  attr_accessible :id, :email, :password, :admin, :full_name, :trainees, :trainer
   
   has_many :measurements, :dependent => :delete_all
   belongs_to :trainer, :class_name => "User", :foreign_key => "trainer_id"

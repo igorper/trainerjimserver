@@ -7,7 +7,7 @@ Trainerjim::Application.routes.draw do
 
   # Homepage
   match 'index' => "home#index", :as => :home
-  root :to => 'home#soon', :as => :soon
+  root :to => 'home#welcome', :as => :welcome
   
   # Login
   match "login" => 'authentication#login', :as => :login
@@ -43,8 +43,8 @@ Trainerjim::Application.routes.draw do
   
   # Trainings
   resources :training
-  match 'mapi/training/tests' => 'training#tests'
   # MOBILE API
+  match 'mapi/training/tests' => 'training#tests'
   match 'mapi/training/get' => 'training#m_get'
   match 'mapi/training/list' => 'training#m_list'
   match 'mapi/training/upload' => 'training#m_upload', :as => :upload_training

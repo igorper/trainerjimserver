@@ -11,7 +11,7 @@
         exCounter += 1
       %>
         <div class="exercise-entry <%= exCounter % 2 == 1 ? 'odd' : 'even' %>">
-          <div class="exercise-name"><%= exCounter  %>. <%= ex.name %></div>
+          <div class="exercise-name"><%= exCounter  %>. <%= ex.exercise_type.name %></div>
           <div class="series-list">
             <%
             sCounter = 0

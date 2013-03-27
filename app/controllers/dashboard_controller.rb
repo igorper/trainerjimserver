@@ -13,14 +13,17 @@ class DashboardController < ApplicationController
   end
   
   def exercisedates
-    
     #Group by month first, then by date
-    @measurements = Measurement.select("start_time, id,end_time").find_all_by_user_id(params[:user])
+    @measurements = Measurement
+    .select("start_time, id,end_time").find_all_by_user_id(params[:user])
     .group_by{|m| m.start_time.strftime("%B") }
-    .map{|k,v| {:month => k, :days => v.group_by{|m| m.start_time.day }.map{ |k,v| {:day => k, :measurements => v}}.sort_by{|k,v| v}.reverse}}
+    .map{|k,v| {:month => k, :days => v.group_by{|m| m.start_time.day }
+        .map{ |k,v| {:day => k, :measurements => v}}
+        .sort_by{|k,v| v}
+        .reverse}
+    }
     respond_to do |format|
-      format.json  { render :json => @measurements.to_json(
-        )   }
+      format.json  { render :json => @measurements.to_json() }
     end
   end
   
@@ -51,7 +54,4 @@ class DashboardController < ApplicationController
     
     end 
   end
-    
-  
-  
 end

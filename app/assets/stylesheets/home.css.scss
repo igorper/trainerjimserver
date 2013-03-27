@@ -82,3 +82,266 @@ div#soon-welcome {
         width: 100%;
     }
 }
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// WELCOME PAGE
+//
+
+$welcomeHeaderHeight: 252px;
+$featureImageHeight: 346px;
+$welcomeImagesWidth: 966px;
+$featuresBtnHeight: 102px;
+$explanationHeight: 168px;
+$headerColour: #FCCA00;
+$welcomePageBtnColor: #067cff;
+$fistBumpMarginLeft: 12px;
+$fistBumpWidth: 149px;
+$fistBumpheight: 47px;
+$subscriptionFormWidth: 400px;
+
+@mixin welcome-image-width {
+    width: $welcomeImagesWidth;
+    margin: {
+        left: auto;
+        right: auto;
+    }
+}
+
+body.home.welcome {
+    background-color: #EEEEEE;
+    
+    div.welcome-page {
+        
+        div.header {
+            height: $welcomeHeaderHeight + 70px;
+            background: {
+                image: image-url('Welcome_Header.png');
+                repeat: no-repeat;
+                position: center top;
+                color: $headerColour;
+            }
+            
+            div.sign-in-tab {
+                @include bold;
+                cursor: pointer;
+                float: right;
+                margin-right: 12px;
+                display: inline-block;
+                padding: 5px 20px;
+                font-size: 0.9em;
+                color: white;
+                background-color: $welcomePageBtnColor;
+                
+                &:hover {
+                    background-color: lighten($welcomePageBtnColor, 15%);
+                    
+                }
+            }
+            
+            div.registration-form {
+                float: right;
+                width: 280px;
+                height: 220px;
+                background-color: $welcomePageBtnColor;
+                clear: both;
+                margin-right: 12px;
+            }
+            
+            div.subscription {
+                width: $subscriptionFormWidth;
+                margin-top: $welcomeHeaderHeight;
+                margin-left: ($pageWidth - $subscriptionFormWidth) / 2;
+                clear: both;
+            }
+        }
+        
+        > div.central-strip {
+            
+            div.for-whom {
+                @include welcome-image-width;
+                margin-top: 20px;
+                
+                div.buttons {
+                    height: $featuresBtnHeight;
+                    
+                    > div {
+                        height: $featuresBtnHeight;
+                        width: $welcomeImagesWidth / 2;
+                        position: absolute;
+                        
+                        &.btn-for-trainees {
+                            margin-left: $welcomeImagesWidth / 2;
+                            background: {
+                                image: image-url("Welcome_TraineesButtonON.png");
+                            }
+                        }
+                        
+                        &.btn-for-trainers {
+                            background: {
+                                image: image-url("Welcome_TrainersButton_Off.png");
+                            }
+                        }
+                    }
+                }
+                
+                div.features-details {
+                    height: $featureImageHeight;
+                    background: {
+                        image: image-url('Welcome_FeaturesTrainees.png');
+                        repeat: no-repeat;
+                        position: center;
+                    }
+                }
+            }
+            
+            div.explanation {
+                @include welcome-image-width;
+                height: $explanationHeight;
+                margin-top: 20px;
+                background: {
+                    image: image-url('Welcome_JIM_Explain.png');
+                    repeat: no-repeat;
+                    position: center;
+                }
+            }
+            
+            div.social {
+                @include welcome-image-width;
+                height: $explanationHeight;
+                margin-top: 20px;
+                background: {
+                    image: image-url('Welcome_Info_GetSocial.png');
+                    repeat: no-repeat;
+                    position: center;
+                }
+                
+                $socialBtnDim: 37px;
+                div.twitter {
+                    @include size($socialBtnDim, $socialBtnDim);
+                    position: absolute;
+                    cursor: pointer;
+                    
+                    margin: {
+                        top: 85px;
+                        left: 520px - $socialBtnDim - 25px;
+                    }
+                    
+                    background: {
+                        image: image-url('Welcome_TwitterIcon_OFF.png');
+                        repeat: no-repeat;
+                        position: center;
+                    }
+                    
+                    &:hover {
+                        background-image: image-url('Welcome_TwitterIcon_MouseOver.png');
+                    }
+                }
+                
+                div.tumblr {
+                    @include size($socialBtnDim, $socialBtnDim);
+                    position: absolute;
+                    cursor: pointer;
+                    
+                    margin: {
+                        top: 85px;
+                        left: 520px;
+                    }
+                    
+                    background: {
+                        image: image-url('Welcome_TumblrIcon_OFF.png');
+                        repeat: no-repeat;
+                        position: center;
+                    }
+                    
+                    &:hover {
+                        background-image: image-url('Welcome_TumblrIcon_MouseOver.png');
+                    }
+                }
+            }
+            
+            div.fist-bump {
+                @include size($fistBumpWidth, $fistBumpheight);
+                margin-top: 80px;
+                margin-left: $fistBumpMarginLeft;
+                position: absolute;
+                background: {
+                    image: image-url('Welcome_FistBumbFooter.png');
+                    repeat: no-repeat;
+                    position: center;
+                }
+            }
+            
+            div.pocket-trousers {
+                @include size(157px, 254px);
+                margin-top: 0px;
+                margin-left: $fistBumpWidth + $fistBumpMarginLeft + 650px;
+                position: absolute;
+                background: {
+                    image: image-url('Welcome_PocketFooter.png');
+                    repeat: no-repeat;
+                    position: center;
+                }
+            }
+            
+            div.subscription {
+                margin-left: $fistBumpWidth + $fistBumpMarginLeft;
+                margin-top: 50px;
+            }
+        }
+        
+        
+        div.subscription {
+            position: absolute;
+            width: $subscriptionFormWidth;
+            
+            div.sub-notice {
+                width: 100%;
+                text-align: center;
+                @include bold;
+                font-size: 0.9em;
+                color: #666;
+            }
+            
+            div.the-form {
+                background-color: white;
+                padding: 4px;
+                margin-bottom: 70px;
+                margin-top: 5px;
+                border: 1px solid #e0e0e0;
+                
+                form {
+                    margin: 0px;
+                    
+                    input.subscription-email {
+                        border: none;
+                        box-shadow: none;
+                        margin: 0px;
+                        width: 270px;
+                    }
+                    
+                    input.subscribe-btn {
+                        @include flat-btn;
+                        /*@include bold;*/
+                        float: right;
+                        font-size: 0.95em;
+                        line-height: 28px;
+                        height: 28px;
+                        color: white;
+                        padding: 0px 10px;
+                        background-color: $welcomePageBtnColor;
+                    }
+                    
+                    input.subscribe-btn:hover {
+                        background-color: lighten($welcomePageBtnColor, 15%);
+                    }
+                    
+                    input.subscribe-btn:active {
+                        background-color: darken($welcomePageBtnColor, 15%);
+                    }
+                }
+            }
+        }
+    }
+}
