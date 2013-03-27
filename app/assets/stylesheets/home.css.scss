@@ -284,6 +284,11 @@ body.home.welcome {
             div.subscription-bottom {
                 margin-top: 50px;
                 margin-bottom: 70px;
+                
+                div.subscription-alert {
+                    width: $fistBumpWidth + $fistBumpMarginLeft + $subscriptionFormWidth;
+                }
+                
                 div.subscription {
                     position: absolute;
                     margin-left: $fistBumpWidth + $fistBumpMarginLeft;
