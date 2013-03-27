@@ -170,6 +170,7 @@ body.home.welcome {
             div.for-whom {
                 @include welcome-image-width;
                 margin-top: 20px;
+                height: $featuresBtnHeight + $featureImageHeight;
                 
                 div.buttons {
                     height: $featuresBtnHeight;
@@ -179,16 +180,26 @@ body.home.welcome {
                         width: $welcomeImagesWidth / 2;
                         position: absolute;
                         
-                        &.btn-for-trainees {
-                            margin-left: $welcomeImagesWidth / 2;
-                            background: {
-                                image: image-url("Welcome_TraineesButtonON.png");
+                        &.btn-for-whom {
+                            &.trainees {
+                                margin-left: $welcomeImagesWidth / 2;
+                                &.on {
+                                    background-image: image-url("Welcome_TraineesButtonON.png");
+                                }
+                                
+                                &.off {
+                                    background-image: image-url("Welcome_TraineesButton_OFF.png");
+                                }
                             }
-                        }
-                        
-                        &.btn-for-trainers {
-                            background: {
-                                image: image-url("Welcome_TrainersButton_Off.png");
+                            
+                            &.trainers {
+                                &.on {
+                                    background-image: image-url("Welcome_TrainersButton_ON.png");
+                                }
+                                
+                                &.off {
+                                    background-image: image-url("Welcome_TrainersButton_Off.png");
+                                }
                             }
                         }
                     }
@@ -197,9 +208,20 @@ body.home.welcome {
                 div.features-details {
                     height: $featureImageHeight;
                     background: {
-                        image: image-url('Welcome_FeaturesTrainees.png');
                         repeat: no-repeat;
                         position: center;
+                    }
+                    
+                    &.trainees {
+                        background: {
+                            image: image-url('Welcome_FeaturesTrainees.png');
+                        }
+                    }
+                    
+                    &.trainers {
+                        background: {
+                            image: image-url('Welcome_FeaturesTrainers.png');
+                        }
                     }
                 }
             }

@@ -32,12 +32,51 @@
   <div class="central-strip">
     <div class="for-whom">
       <div class="buttons">
-        <div class="btn-for-trainees">
-        </div>
-        <div class="btn-for-trainers">
+        <div class="btn-for-whom trainees on" data-slide-number="1"></div>
+        <div class="btn-for-whom trainers off" data-slide-number="0"></div>
+      </div>
+      <div id="for-whom-features" class="carousel slide">
+        <div class="carousel-inner">
+          <div class="features-details trainers item"></div>
+          <div class="features-details trainees active item"></div>
         </div>
       </div>
-      <div class="features-details"></div>
+      <script type="text/javascript">
+        $(function() {
+          var btns = $('.btn-for-whom ');
+          var details = $('#for-whom-features');
+
+          details.carousel({interval: 4000});
+
+          details.bind('slid', function(e) {
+            setBtnOff(btns);
+            if (details.find('.active').hasClass('trainees')) {
+              setBtnOn(btns.filter('.trainees'));
+            } else {
+              setBtnOn(btns.filter('.trainers'));
+            }
+          });
+
+          btns.click(function() {
+            details.carousel('pause');
+            details.carousel(parseInt($(this).attr('data-slide-number')));
+            setBtnOff(btns);
+            setBtnOn($(this));
+          });
+
+          function setBtnOff(btns) {
+            btns.removeClass('on');
+            btns.addClass('off');
+          }
+
+          function setBtnOn(btns) {
+            btns.removeClass('off');
+            btns.addClass('on');
+          }
+
+
+        });
+      </script>
     </div>
 
     <div class="explanation"></div>
@@ -46,7 +85,6 @@
       <div class="twitter"></div>
       <div class="tumblr"></div>
     </div>
-
 
     <div class="pocket-trousers"></div>
 
