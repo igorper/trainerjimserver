@@ -89,7 +89,7 @@ div#soon-welcome {
 /// WELCOME PAGE
 //
 
-$welcomeHeaderHeight: 252px;
+$welcomeHeaderHeight: 240px;
 $featureImageHeight: 346px;
 $welcomeImagesWidth: 966px;
 $featuresBtnHeight: 102px;
@@ -115,45 +115,53 @@ body.home.welcome {
     div.welcome-page {
         
         div.header {
-            height: $welcomeHeaderHeight + 70px;
             background: {
-                image: image-url('Welcome_Header.png');
-                repeat: no-repeat;
-                position: center top;
                 color: $headerColour;
             }
             
-            div.sign-in-tab {
-                @include bold;
-                cursor: pointer;
-                float: right;
-                margin-right: 12px;
-                display: inline-block;
-                padding: 5px 20px;
-                font-size: 0.9em;
-                color: white;
-                background-color: $welcomePageBtnColor;
+            div.header-logo {
+                height: $welcomeHeaderHeight;
+                background: {
+                    image: image-url('Welcome_Header.png');
+                    repeat: no-repeat;
+                    position: center top;
+                    color: $headerColour;
+                }
                 
-                &:hover {
-                    background-color: lighten($welcomePageBtnColor, 15%);
+                div.sign-in-tab {
+                    @include bold;
+                    cursor: pointer;
+                    float: right;
+                    margin-right: 12px;
+                    display: inline-block;
+                    padding: 5px 20px;
+                    font-size: 0.9em;
+                    color: white;
+                    background-color: $welcomePageBtnColor;
                     
+                    &:hover {
+                        background-color: lighten($welcomePageBtnColor, 15%);
+                        
+                    }
+                }
+                
+                div.registration-form {
+                    float: right;
+                    width: 280px;
+                    height: 220px;
+                    background-color: $welcomePageBtnColor;
+                    clear: both;
+                    margin-right: 12px;
                 }
             }
             
-            div.registration-form {
-                float: right;
-                width: 280px;
-                height: 220px;
-                background-color: $welcomePageBtnColor;
-                clear: both;
-                margin-right: 12px;
-            }
-            
-            div.subscription {
-                width: $subscriptionFormWidth;
-                margin-top: $welcomeHeaderHeight;
-                margin-left: ($pageWidth - $subscriptionFormWidth) / 2;
-                clear: both;
+            div.subscription-top {
+                padding-bottom: 20px;
+                
+                div.subscription {
+                    width: $subscriptionFormWidth;
+                    margin: 0px auto;
+                }
             }
         }
         
@@ -261,18 +269,6 @@ body.home.welcome {
                 }
             }
             
-            div.fist-bump {
-                @include size($fistBumpWidth, $fistBumpheight);
-                margin-top: 80px;
-                margin-left: $fistBumpMarginLeft;
-                position: absolute;
-                background: {
-                    image: image-url('Welcome_FistBumbFooter.png');
-                    repeat: no-repeat;
-                    position: center;
-                }
-            }
-            
             div.pocket-trousers {
                 @include size(157px, 254px);
                 margin-top: 0px;
@@ -285,15 +281,30 @@ body.home.welcome {
                 }
             }
             
-            div.subscription {
-                margin-left: $fistBumpWidth + $fistBumpMarginLeft;
+            div.subscription-bottom {
                 margin-top: 50px;
+                margin-bottom: 70px;
+                div.subscription {
+                    position: absolute;
+                    margin-left: $fistBumpWidth + $fistBumpMarginLeft;
+                    
+                    div.fist-bump {
+                        @include size($fistBumpWidth, $fistBumpheight);
+                        margin-top: 23px;
+                        margin-left: -$fistBumpWidth;
+                        position: absolute;
+                        background: {
+                            image: image-url('Welcome_FistBumbFooter.png');
+                            repeat: no-repeat;
+                            position: center;
+                        }
+                    }
+                }
             }
         }
         
         
         div.subscription {
-            position: absolute;
             width: $subscriptionFormWidth;
             
             div.sub-notice {
@@ -307,39 +318,35 @@ body.home.welcome {
             div.the-form {
                 background-color: white;
                 padding: 4px;
-                margin-bottom: 70px;
                 margin-top: 5px;
                 border: 1px solid #e0e0e0;
                 
-                form {
+                
+                input.subscription-email {
+                    border: none;
+                    box-shadow: none;
                     margin: 0px;
-                    
-                    input.subscription-email {
-                        border: none;
-                        box-shadow: none;
-                        margin: 0px;
-                        width: 270px;
-                    }
-                    
-                    input.subscribe-btn {
-                        @include flat-btn;
-                        /*@include bold;*/
-                        float: right;
-                        font-size: 0.95em;
-                        line-height: 28px;
-                        height: 28px;
-                        color: white;
-                        padding: 0px 10px;
-                        background-color: $welcomePageBtnColor;
-                    }
-                    
-                    input.subscribe-btn:hover {
-                        background-color: lighten($welcomePageBtnColor, 15%);
-                    }
-                    
-                    input.subscribe-btn:active {
-                        background-color: darken($welcomePageBtnColor, 15%);
-                    }
+                    width: 270px;
+                }
+                
+                input.subscribe-btn {
+                    @include flat-btn;
+                    /*@include bold;*/
+                    float: right;
+                    font-size: 0.95em;
+                    line-height: 28px;
+                    height: 28px;
+                    color: white;
+                    padding: 0px 10px;
+                    background-color: $welcomePageBtnColor;
+                }
+                
+                input.subscribe-btn:hover {
+                    background-color: lighten($welcomePageBtnColor, 15%);
+                }
+                
+                input.subscribe-btn:active {
+                    background-color: darken($welcomePageBtnColor, 15%);
                 }
             }
         }

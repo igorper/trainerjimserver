@@ -32,3 +32,5 @@ gem 'rubyzip'
 gem "flot-rails"
 
 gem 'bootstrap-sass'
+
+gem 'valid_email'

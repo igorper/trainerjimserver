@@ -22,8 +22,8 @@ module AjaxHelper
     render :json => response
   end
   
-  def ajax_render_symerr(response, i18n_prefix = 'ajax_call')
-    ajax_render response, :symbol_error => true, :i18n_error => i18n_prefix
+  def ajax_render_symerr(response, i18n_prefix = nil)
+    ajax_render response, :symbol_error => true, :i18n_error => i18n_prefix.nil? ? (controller_name + '.' + action_name) : i18n_prefix
   end
   
   def with_auth_mapi(&block)

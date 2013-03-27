@@ -1,6 +1,7 @@
 class HomeController < ApplicationController
   
   include AuthenticationHelper
+  include AjaxHelper
   
   def index
     if logged_in? then
@@ -16,5 +17,15 @@ class HomeController < ApplicationController
   
   def welcome
     render :layout => 'noframe'
+  end
+  
+  # @param email
+  def m_subscribe
+    ns = NewsletterSubscription.create(:email => params[:email])
+    if ns && ns.save then
+      ajax_render true
+    else
+      ajax_render_symerr :invalid_email
+    end
   end
 end
