@@ -126,6 +126,9 @@ GEM
       execjs (>= 0.3.0)
       multi_json (~> 1.0, >= 1.0.2)
     unicode (0.4.4)
+    valid_email (0.0.4)
+      activemodel
+      mail
 
 PLATFORMS
   ruby
@@ -148,3 +151,4 @@ DEPENDENCIES
   therubyracer
   uglifier (>= 1.0.3)
   unicode
+  valid_email

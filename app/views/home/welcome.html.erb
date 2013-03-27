@@ -1,8 +1,8 @@
 <div class="welcome-page">
 
   <div class="header">
-    <div class="central-strip">
-      <div class="sign-in-tab">sign in</div>
+    <div class="header-logo central-strip">
+      <div class="sign-in-tab" style="display: none;">sign in</div>
       <div class="registration-form" style="display: none;">
         <input type="text" value=""/>
         <input type="text" value=""/>
@@ -17,12 +17,13 @@
         });
       </script>
 
+    </div>
+
+    <div class="subscription-top central-strip">
       <div class="subscription">
         <div class="the-form">
-          <form>
-            <input class="subscription-email" type="text" placeholder="eg. train@trainerjim.com" value=""/>
-            <input class="subscribe-btn" type="submit" value="subscribe" />
-          </form>
+          <input class="subscription-email" type="text" placeholder="eg. train@trainerjim.com" value=""/>
+          <input class="subscribe-btn" type="submit" value="subscribe" />
         </div>
       </div>
     </div>
@@ -31,12 +32,51 @@
   <div class="central-strip">
     <div class="for-whom">
       <div class="buttons">
-        <div class="btn-for-trainees">
-        </div>
-        <div class="btn-for-trainers">
+        <div class="btn-for-whom trainees on" data-slide-number="1"></div>
+        <div class="btn-for-whom trainers off" data-slide-number="0"></div>
+      </div>
+      <div id="for-whom-features" class="carousel slide">
+        <div class="carousel-inner">
+          <div class="features-details trainers item"></div>
+          <div class="features-details trainees active item"></div>
         </div>
       </div>
-      <div class="features-details"></div>
+      <script type="text/javascript">
+        $(function() {
+          var btns = $('.btn-for-whom ');
+          var details = $('#for-whom-features');
+
+          details.carousel({interval: 4000});
+
+          details.bind('slid', function(e) {
+            setBtnOff(btns);
+            if (details.find('.active').hasClass('trainees')) {
+              setBtnOn(btns.filter('.trainees'));
+            } else {
+              setBtnOn(btns.filter('.trainers'));
+            }
+          });
+
+          btns.click(function() {
+            details.carousel('pause');
+            details.carousel(parseInt($(this).attr('data-slide-number')));
+            setBtnOff(btns);
+            setBtnOn($(this));
+          });
+
+          function setBtnOff(btns) {
+            btns.removeClass('on');
+            btns.addClass('off');
+          }
+
+          function setBtnOn(btns) {
+            btns.removeClass('off');
+            btns.addClass('on');
+          }
+
+
+        });
+      </script>
     </div>
 
     <div class="explanation"></div>
@@ -46,20 +86,67 @@
       <div class="tumblr"></div>
     </div>
 
-    <div class="fist-bump"></div>
-
     <div class="pocket-trousers"></div>
 
-    <div class="subscription">
-      <div class="sub-notice">be the first to know when JIM launches</div>
-      <div class="the-form">
-        <form>
+    <div class="subscription-bottom">
+      <div class="subscription">
+        <div class="fist-bump"></div>
+        <div class="sub-notice">be the first to know when JIM launches</div>
+        <div class="the-form">
           <input class="subscription-email" type="text" placeholder="eg. train@trainerjim.com" value=""/>
           <input class="subscribe-btn" type="submit" value="subscribe" />
-        </form>
+        </div>
       </div>
     </div>
 
   </div>
 
 </div>
+
+<div class="subscription-error-alert subscription-alert alert alert-block alert-error fade in hide">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <h4 class="alert-heading">Darn it! We couldn't subscribe you.</h4>
+  <p class="alert-content">Please check your email and try again.</p>
+</div>
+
+<div class="subscription-success-alert subscription-alert alert alert-block alert-success fade in hide">
+  <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <h4 class="alert-heading">Great stuff, champ!</h4>
+  <p class="alert-content">When Jim starts pumping, we'll send you an email and you'll be the first to know.</p>
+</div>
+
+<script type="text/javascript">
+  $(function() {
+    var subAlert = $('.subscription-error-alert');
+    var subAlertSuccess = $('.subscription-success-alert');
+
+    function showAlert(el) {
+      var al = subAlert.clone();
+      al.addClass('displayed');
+      el.parents('.subscription').before(al);
+      al.show();
+    }
+
+    function showAlertSuccess(el) {
+      var al = subAlertSuccess.clone();
+      al.addClass('displayed');
+      el.parents('.subscription').before(al);
+      al.show();
+    }
+
+    function hideAlerts() {
+      $('.subscription-alert.displayed').remove();
+    }
+
+    $('.subscribe-btn').click(function() {
+      hideAlerts();
+      var email = $(this).prev('.subscription-email').val();
+      var subscriptionBtn = $(this);
+      callJSON('<%= subscription_url  %>', {email: email}, function() {
+        showAlertSuccess(subscriptionBtn);
+      }, function() {
+        showAlert(subscriptionBtn);
+      });
+    });
+  });
+</script>

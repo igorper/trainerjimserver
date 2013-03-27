@@ -8,6 +8,9 @@ Trainerjim::Application.routes.draw do
   # Homepage
   match 'index' => "home#index", :as => :home
   root :to => 'home#welcome', :as => :welcome
+  # MOBILE API
+  match 'mapi/subscription/newsletter' => 'home#m_subscribe', :as => :subscription
+  
   
   # Login
   match "login" => 'authentication#login', :as => :login

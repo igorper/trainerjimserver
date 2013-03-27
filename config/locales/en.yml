@@ -32,3 +32,6 @@ en:
     email_invalid: "Email address is not valid."
   mapi-err:
     authentication_failure: "Authentication failed. Invalid username or password."
+  home:
+    m_subscribe:
+      invalid_email: "The provided email is not valid."
