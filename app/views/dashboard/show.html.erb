@@ -46,8 +46,11 @@
             <div>lifted</div>
           </div>
         </div>
-        <div class="ex-workout-switch">
-          exercise | <a href="#">workout</a>
+        <div class="ex-workout-switch" data-bind="if: exerciseSelected">
+          exercise | <button class="btn-link" data-bind="click: toggle">workout</button>          
+        </div>
+        <div class="ex-workout-switch" data-bind="if: workoutSelected">
+          <button class="btn-link" data-bind="click: toggle">exercise</button>| workout
         </div>
       </div>
     </div>
@@ -146,7 +149,7 @@
         Ta trening niste opravili nobene vaje.
       </div>  
       <div class="btn-toolbar" data-bind="foreach: exerciseTypes">
-        <button class="btn exercisetype" data-bind="text: name, click: $parent.onExerciseClick, css: { disabled: $parent.selectedExercise()==$data }" ></button>
+        <button class="btn exercisetype" data-bind="text: name, click: $parent.onExerciseClick, css: { disabled: $parent.selectedExercise() === $data }" ></button>
       </div>
       <div id="serijareport"></div>
     </div>

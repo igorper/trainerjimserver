@@ -20,21 +20,19 @@ var debug;
 
 
 function KilogramsLifted(array) {
-    flat = $.map(array, function(el) {
-        return el.executions;
-    });
-    return $.map(flat, function(impl) {
+    return $.map(array, function(impl) {
         return impl.num_repetitions * impl.weight;
     }).sum();
-}
-;
+};
 
-function Duration(array) {
-    flat = $.map(array, function(el) {
+function Flatten(array){
+    return $.map(array, function(el) {
         return el.executions;
     });
+}
 
-    return $.map(flat, function(impl) {
+function Duration(array) {
+    return $.map(array, function(impl) {
         return impl.duration_seconds;
     }).sum();
 }
@@ -47,18 +45,37 @@ $("document").ready(function() {
     $.getJSON('/users/list.json', function(data) {
 
 
-        function StatisticsPanel(exerciseTypes) {
+        function StatisticsPanel(exerciseTypes, root) {
+            var self = this;
+            self.parent = root;
             self.exerciseTypes = exerciseTypes;
+            self.exerciseSelected = ko.observable(false);
+            self.workoutSelected = ko.computed(function() {
+                return !self.exerciseSelected();
+            });
+
+            self.toggle = function() {
+                return self.exerciseSelected(!self.exerciseSelected());
+            };
+
             self.weightLifted = ko.computed(function() {
-                if (self.exerciseTypes.length > 0) {
-                    return KilogramsLifted(self.exerciseTypes);
+                if (self.workoutSelected()) {
+                    if (self.exerciseTypes.length > 0) {
+                        return KilogramsLifted(Flatten(self.exerciseTypes));
+                    }
+                }else{
+                    return KilogramsLifted(self.parent.selectedExercise().executions);
                 }
                 return 0;
             });
 
             self.duration = ko.computed(function() {
-                if (self.exerciseTypes.length > 0) {
-                    return Duration(self.exerciseTypes);
+                if (self.workoutSelected()) {
+                    if (self.exerciseTypes.length > 0) {
+                        return Duration(Flatten(self.exerciseTypes));
+                    }
+                }else{
+                    return Duration(self.parent.selectedExercise().executions);
                 }
                 return 0;
             });
@@ -124,6 +141,9 @@ $("document").ready(function() {
 
                 //Clear graph display
                 self.parent.clearGraphs();
+
+                ///Selectet first measurement                
+                self.measurementSelected(self.currentMonth().days[0]);
             };
 
             self.measurementSelected = function(el) {
@@ -138,7 +158,10 @@ $("document").ready(function() {
                         measurementData = eval(data.measurement.data);
 
                         self.parent.clearGraphs();
-                        self.parent.statistics(new StatisticsPanel(data.types));
+                        self.parent.statistics(new StatisticsPanel(data.types,self.parent));
+                        
+                        ///Select first exercise type
+                        self.parent.onExerciseClick(self.parent.exerciseTypes()[0]);
                     });
                 }
             };
@@ -288,7 +311,7 @@ function getGraphData(measurements, start, stop) {
             break;
         }
     }
-    
+
     slice = measurements.slice(startindex - 1, stopindex + 1);
 
     //find comments
