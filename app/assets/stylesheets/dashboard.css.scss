@@ -10,7 +10,25 @@ $statisticsLabelColor: #e9af2e;
 $statisticsLabelFontSize: 14px;
 $graphHeight : 300px;
 
-
+div.emoticons{
+    > div {
+        width: 36px;
+        height: 33px;
+        display: inline-block;
+        &.one{
+            @include emoticon($sadOff,$sadOn);
+        }
+        &.two{
+            @include emoticon($sweatOff,$sweatOn);
+        }
+        &.three{
+            @include emoticon($boredOff,$boredOn);
+        }
+        &.four{
+            @include emoticon($happyOff,$happyOn);
+        }
+    }    
+}
 
 div.measurements{
     width: $measurementsWidth;

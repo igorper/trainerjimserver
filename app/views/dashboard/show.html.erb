@@ -64,8 +64,11 @@
           </div>
         </div>
         <div class="separator"></div>
-        <div class="emoticons">
-          Emoticons
+        <div class="emoticons" data-bind="with: $parent.measurement"> 
+          <div class="one" data-bind="css: {on: rating == 1}"></div>
+          <div class="two" data-bind="css: {on: rating == 2}"></div>
+          <div class="three" data-bind="css: {on: rating == 3}"></div>
+          <div class="four" data-bind="css: {on: rating == 4}"></div>
         </div>
         <div class="separator"></div>
         <div class="message">
