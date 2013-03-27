@@ -33,7 +33,7 @@ function Duration(array) {
     flat = $.map(array, function(el) {
         return el.executions;
     });
-    
+
     return $.map(flat, function(impl) {
         return impl.duration_seconds;
     }).sum();
@@ -160,9 +160,9 @@ $("document").ready(function() {
                 self.selectedExercise(null);
                 self.exerciseExecutions(null);
                 self.selectedExecution(null);
-                $.plot(placeholder, [], options);
                 placeholder.unbind("plotclick");
                 placeholder.unbind("plothover");
+                $.plot(placeholder, [], options);
             };
 
             self.userChanged = function() {
@@ -220,11 +220,30 @@ $("document").ready(function() {
             self.onGraphChangeButton = function(element) {
                 self.selectedExecution(element);
 
-                setUpGraph(placeholder, getGraphData(measurementData, element.start_timestamp, element.end_timestamp));
+                graphcomments = element.measurement_comments;
+
+                placeholder.unbind("plotclick");
+                placeholder.unbind("plothover");
+                self.drawGraph();
                 placeholder.bind("plotclick", onClick);
                 placeholder.bind("plothover", onHover);
 
 
+            };
+
+            self.drawGraph = function() {
+                element = self.selectedExecution();
+                setUpGraph(placeholder, getGraphData(measurementData, element.start_timestamp, element.end_timestamp));
+            };
+
+            self.addComment = function(comment) {
+                self.selectedExecution().measurement_comments.push(comment);
+                self.drawGraph();
+            };
+
+            self.removeComment = function(indx) {
+                self.selectedExecution().measurement_comments.splice(indx, 1);
+                self.drawGraph();
             };
 
             self.statisticsVisible = ko.computed(function() {
@@ -269,19 +288,19 @@ function getGraphData(measurements, start, stop) {
             break;
         }
     }
+    
+    slice = measurements.slice(startindex - 1, stopindex + 1);
 
     //find comments
     commentList = [];
     for (i = 0; i < graphcomments.length; i++) {
         var time = graphcomments[i].timestamp;
-        if (time >= startindex && time <= stopindex) {
-            commentList.push(
-                    [measurements[time], measurements[time - 1], graphcomments[i].comment]);
-        }
+        commentList.push(
+                [slice[2 * time + 1], slice[2 * time], graphcomments[i].comment, graphcomments[i].id]);
     }
 
 
-    return [measurements.slice(startindex - 1, stopindex + 1), commentList];
+    return [slice, commentList];
 }
 
 var plot;
@@ -377,17 +396,36 @@ function onClick(event, pos, item) {
         if (item.series.label === "podatki") {
             $("#clickdata").text("You clicked point " + item.dataIndex + ".");
             var komentar = prompt("Dodajte komentar", "");
-            var comment = [item.datapoint[0], item.datapoint[1], komentar];
+
+            $.ajax({
+                url: "/measurements/comment",
+                type: "POST",
+                data: {seriesExecutionId: debug.selectedExecution().id, text: komentar, timestamp: item.dataIndex},
+                success: function(data) {
+                    debug.addComment(data.comment);
+                },
+                error: function(data) {
+                    console.log("error");
+                }
+            });
+
             //dodamo izbrano točko in na novo izrišemo graf
-            plotData[1].data.push(comment);
-            plot.setData(plotData);
-            plot.draw();
+
         } else {
-            $("#clickdata").text("You clicked point " + item.dataIndex + ".");
-            //brisemo tocko
-            plotData[1].data[item.dataIndex] = null;
-            plot.setData(plotData);
-            plot.draw();
+
+            idToRemove = plotData[1].data[item.dataIndex][3];
+            indexToRemove = item.dataIndex;
+            $.ajax({
+                url: "/measurements/comment",
+                type: "DELETE",
+                data: {id: idToRemove},
+                success: function(data) {
+                    debug.removeComment(indexToRemove);
+                },
+                error: function(data) {
+                    console.log("error");
+                }
+            });
         }
     } else {
         $("#clickdata").text("Click mimo tocke.");

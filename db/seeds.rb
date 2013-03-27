@@ -44,10 +44,6 @@ measurement3 = Measurement.create(:user_id => matej.id, :data =>  "[-100097,2789
   :start_time => DateTime.new(2012,1,15,15),
   :end_time => DateTime.new(2012,1,15,16))
 
-comment1 = MeasurementComment.create(:timestamp => 3, :comment => "Very good!")
-comment1.measurement = measurement1
-comment1.save
-
 conversation1 = Conversation.create(:user1 => matej, :user2 => igor, :date => DateTime.now, :text => "Good job.")
 conversation2 = Conversation.create(:user1 => matej, :user2 => igor, :date => DateTime.now, :text => "Yeah, I Tried^^")
 conversation1 = Conversation.create(:user1 => igor, :user2 => matej, :date => DateTime.now, :text => "Lalala.")

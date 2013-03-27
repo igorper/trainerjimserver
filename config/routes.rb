@@ -36,6 +36,10 @@ Trainerjim::Application.routes.draw do
   match 'measurements/upload' => 'measurements#upload'
   match 'measurements/new' => 'measurements#new'
   match 'measurements/list' => 'measurements#show'
+
+  # MeasuremntComments
+  match 'measurements/comment' => 'MeasurementComments#new', :via => :post
+  match 'measurements/comment' => 'MeasurementComments#delete', :via => :delete
   
   # Trainings
   resources :training
