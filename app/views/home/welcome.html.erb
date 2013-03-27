@@ -1,8 +1,33 @@
 <div class="welcome-page">
-  
+
   <div class="header">
+    <div class="central-strip">
+      <div class="sign-in-tab">sign in</div>
+      <div class="registration-form" style="display: none;">
+        <input type="text" value=""/>
+        <input type="text" value=""/>
+        <input type="text" value=""/>
+        <input type="text" value=""/>
+      </div>
+      <script type="text/javascript">
+        $(function() {
+          $('.sign-in-tab').click(function() {
+            $('.registration-form').show();
+          });
+        });
+      </script>
+
+      <div class="subscription">
+        <div class="the-form">
+          <form>
+            <input class="subscription-email" type="text" placeholder="eg. train@trainerjim.com" value=""/>
+            <input class="subscribe-btn" type="submit" value="subscribe" />
+          </form>
+        </div>
+      </div>
+    </div>
   </div>
-  
+
   <div class="central-strip">
     <div class="for-whom">
       <div class="buttons">
@@ -13,18 +38,18 @@
       </div>
       <div class="features-details"></div>
     </div>
-    
+
     <div class="explanation"></div>
-    
+
     <div class="social">
       <div class="twitter"></div>
       <div class="tumblr"></div>
     </div>
-    
+
     <div class="fist-bump"></div>
-    
+
     <div class="pocket-trousers"></div>
-    
+
     <div class="subscription">
       <div class="sub-notice">be the first to know when JIM launches</div>
       <div class="the-form">
@@ -34,7 +59,7 @@
         </form>
       </div>
     </div>
-    
+
   </div>
-  
+
 </div>
