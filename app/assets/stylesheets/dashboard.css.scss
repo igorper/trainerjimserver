@@ -51,7 +51,7 @@ $hoverColor :  #1f94d2;
 .types{
     height: 93px;
     > .typestable{
-        width: $graphWidth - 2px;
+        width: $graphWidth;
         border-top: 1px solid #cecece;
         border-right: 1px solid #cecece;
         font-size: 0px;
@@ -63,7 +63,7 @@ $hoverColor :  #1f94d2;
             height: 30px;
             font-size: 12px;
             display:inline-table;
-            width: $graphWidth / 4 - 1;
+            width: $graphWidth / 4 - 1px;
             border: 1px solid #cecece;
             border-top: 0px;
             margin-right: -1px;
