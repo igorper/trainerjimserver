@@ -16,3 +16,5 @@ Trainerjim::Application.configure do
     :enable_starttls_auto => true
   }
 end
+
+ActionMailer::Base.default :from => 'hello@trainerjim.com'

@@ -34,3 +34,6 @@ gem "flot-rails"
 gem 'bootstrap-sass'
 
 gem 'valid_email'
+
+# Multi-source authentication (e.g. from facebook, twitter, google, etc.)
+gem 'devise'
