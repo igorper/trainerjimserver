@@ -1,5 +1,7 @@
 Trainerjim::Application.routes.draw do
   
+  devise_for :users
+
   # NOTE: Mobile API or MAPI means that sessions aren't processed and most
   # privileged actions require explicit authentication (through email/password or
   # Google Token Authentication or otherwise). It will be written in the

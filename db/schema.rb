@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130327164834) do
+ActiveRecord::Schema.define(:version => 20130328201914) do
 
   create_table "conversations", :force => true do |t|
     t.integer  "user1_id"
@@ -134,15 +134,24 @@ ActiveRecord::Schema.define(:version => 20130327164834) do
 
   create_table "users", :force => true do |t|
     t.string   "email"
-    t.string   "password_digest"
     t.integer  "role"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
     t.string   "full_name"
     t.integer  "trainer_id"
+    t.string   "encrypted_password",     :default => "", :null => false
+    t.string   "reset_password_token"
+    t.datetime "reset_password_sent_at"
+    t.datetime "remember_created_at"
+    t.integer  "sign_in_count",          :default => 0
+    t.datetime "current_sign_in_at"
+    t.datetime "last_sign_in_at"
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
+  add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   add_foreign_key "conversations", "measurements", :name => "conversations_measurement_id_fk", :dependent => :delete
   add_foreign_key "conversations", "users", :name => "conversations_user1_id_fk", :column => "user1_id", :dependent => :delete
