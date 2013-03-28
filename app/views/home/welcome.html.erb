@@ -2,21 +2,11 @@
 
   <div class="header">
     <div class="header-logo central-strip">
-      <div class="sign-in-tab" style="display: none;">sign in</div>
-      <div class="registration-form" style="display: none;">
-        <input type="text" value=""/>
-        <input type="text" value=""/>
-        <input type="text" value=""/>
-        <input type="text" value=""/>
-      </div>
-      <script type="text/javascript">
-        $(function() {
-          $('.sign-in-tab').click(function() {
-            $('.registration-form').show();
-          });
-        });
-      </script>
-
+            <% if user_signed_in? then %>
+              <a href="<%= destroy_user_session_path %>"><div class="sign-in-tab"><%= current_user.display_name %> :: log out</div></a>
+            <% else %>
+      <a href="<%= new_user_registration_path %>"><div class="sign-in-tab">sign up</div></a>
+            <% end %>
     </div>
 
     <div class="subscription-top central-strip">

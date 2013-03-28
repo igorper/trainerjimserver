@@ -14,7 +14,11 @@ class HomeController < ApplicationController
   end
   
   def welcome
-    render :layout => 'noframe'
+    if user_signed_in? then
+      redirect_to home_url
+    else
+      render :layout => 'noframe'
+    end
   end
   
   # @param email
