@@ -14,27 +14,58 @@ $graphHeight : 300px;
 
 
 
-.day:hover{                        
-    background-color: $jimColor;
-}
 
 div.calendar-new{
     $monthWidth: 150px;
     height: 50px;
-
-        
+    
     > .days{
-        float: right;
-        display:inline-block;
-        width: 500px;
-        border-bottom: 1px solid #cecece;
+        display:inline-table;
+        width: $measurementsWidth - $monthWidth;
+        
         > .day{
             display:inline-table;
-                padding: 2px 9px 2px 12px;
-                text-align: center;
+            padding: 2px 0px 2px 3px;
+            text-align: center;
+            width: 35px;
             
             border-left: 1px solid #cecece;
-
+            border-bottom: 1px solid #cecece;
+            position: relative;
+            
+            &:before,&:after{
+                content: "";
+                position: absolute;
+                border-left: 5px solid transparent;
+                border-right: 5px solid transparent;
+                top: 100%;
+                left: 50%;
+                margin-left: -10px;
+            }
+            
+            &.selected{
+                &:before{
+                    border-top: 5px solid $jimColor;
+                    border-top: 5px solid rgba(0, 0, 0, 0.5);
+                    margin-top: 0px;
+                }
+                &:after{
+                    border-top: 5px solid $jimColor;
+                    margin-top: 0px;
+                    z-index: 1;
+                }
+                
+                background-color: $jimColor;
+            }
+            
+            &:hover{                        
+                background-color: $jimColor;
+            }
+            
+            &:last-child{
+                border-right: 1px solid #cecece;
+            }
+            
         }
     }
     > .month-tab{
@@ -48,29 +79,29 @@ div.calendar-new{
             display:inline;
         }     
         > .arrow{
-        display:inline-table;
-        margin-left: 15px;
-        margin-right:15px;
-
+            display:inline-table;
+            margin-left: 15px;
+            margin-right:15px;
+            
             > .arrow-right {
                 width: 0; 
                 height: 0; 
                 border-top: 5px solid transparent;
                 border-bottom: 5px solid transparent;	
                 border-left: 5px solid grey;
-        }
-
-            > .arrow-left {
-                    width: 0; 
-                    height: 0; 
-                    border-top: 5px solid transparent;
-                    border-bottom: 5px solid transparent;
-
-                    border-right: 5px solid grey;
             }
-    }        
+            
+            > .arrow-left {
+                width: 0; 
+                height: 0; 
+                border-top: 5px solid transparent;
+                border-bottom: 5px solid transparent;
+                
+                border-right: 5px solid grey;
+            }
+        }        
     }
-
+    
 }
 
 
