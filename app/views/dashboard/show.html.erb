@@ -3,7 +3,7 @@
   <div class="people-exercises" data-bind="foreach: users">
 
     <div class="entry" data-bind="click: $parent.selectUsers.bind($data), css: {selected: $parent.selectedUser() == $data, even: $index() % 2 == 1}">
-      <div class="title" data-bind="text: full_name">
+      <div class="title" data-bind="text: display_name">
       </div>
       <div class="icon"></div>
     </div>
