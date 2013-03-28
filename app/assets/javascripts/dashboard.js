@@ -23,9 +23,10 @@ function KilogramsLifted(array) {
     return $.map(array, function(impl) {
         return impl.num_repetitions * impl.weight;
     }).sum();
-};
+}
+;
 
-function Flatten(array){
+function Flatten(array) {
     return $.map(array, function(el) {
         return el.executions;
     });
@@ -63,7 +64,8 @@ $("document").ready(function() {
                     if (self.exerciseTypes.length > 0) {
                         return KilogramsLifted(Flatten(self.exerciseTypes));
                     }
-                }else{
+                } else if (self.parent.selectedExercise() !== null) {
+
                     return KilogramsLifted(self.parent.selectedExercise().executions);
                 }
                 return 0;
@@ -74,7 +76,7 @@ $("document").ready(function() {
                     if (self.exerciseTypes.length > 0) {
                         return Duration(Flatten(self.exerciseTypes));
                     }
-                }else{
+                } else if (self.parent.selectedExercise() !== null) {
                     return Duration(self.parent.selectedExercise().executions);
                 }
                 return 0;
@@ -108,7 +110,8 @@ $("document").ready(function() {
                 if (data.length > 0) {
                     self.calendar(data);
                     self.currentMonthIndex(0);
-                    self.measurementSelected(self.currentMonth().days[0]);
+                    days = self.currentMonth().days;
+                    self.measurementSelected(days[days.length - 1]);
                 } else {
                     self.calendar([]);
                     self.currentMonthIndex(0);
@@ -142,8 +145,9 @@ $("document").ready(function() {
                 //Clear graph display
                 self.parent.clearGraphs();
 
-                ///Selectet first measurement                
-                self.measurementSelected(self.currentMonth().days[0]);
+                ///Selectet first measurement          
+                days = self.currentMonth().days;
+                self.measurementSelected(days[days.length - 1]);
             };
 
             self.measurementSelected = function(el) {
@@ -158,8 +162,8 @@ $("document").ready(function() {
                         measurementData = eval(data.measurement.data);
 
                         self.parent.clearGraphs();
-                        self.parent.statistics(new StatisticsPanel(data.types,self.parent));
-                        
+                        self.parent.statistics(new StatisticsPanel(data.types, self.parent));
+
                         ///Select first exercise type
                         self.parent.onExerciseClick(self.parent.exerciseTypes()[0]);
                     });
@@ -222,12 +226,12 @@ $("document").ready(function() {
 
             ///Draw the grapsh here
             self.measurementsAvailable = ko.computed(function() {
-                return self.selectedExercise() !== null && self.selectedExercise().executions.length > 0 && self.selectedExercise()[0].start_timestamp !== null;
+                return self.selectedExecution() !== null && self.selectedExecution().start_timestamp !== null;
             });
 
             ///Just text info
             self.alternateExerciseInfo = ko.computed(function() {
-                return self.selectedExecution() !== null && self.selectedExecution().start_timestamp === null;
+                return  self.selectedExecution() !== null && self.selectedExecution().start_timestamp === null;
             });
 
             self.exerciseTypes = ko.observable([]);

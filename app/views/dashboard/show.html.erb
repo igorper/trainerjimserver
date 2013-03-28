@@ -84,7 +84,7 @@
   </div>
 
   <div class="measurements" data-bind="visible: statisticsVisible && calendarVM.calendarVisible">
-<div data-bind="with: calendarVM">
+    <div data-bind="with: calendarVM">
       <div data-bind="visible: !calendarVisible()">  
         Uporabnik se ni treniral.
       </div>
@@ -95,16 +95,15 @@
           <div class="arrow"  data-bind="click: scrollMonth.bind(null,1)"><div class="arrow-right"></div></div>
         </div>
         <div class="days" data-bind="foreach: currentMonth().days">
-              <div class="day" data-bind="text: day + '.', click: $parent.measurementSelected.bind($data), css: { selected: $data === $parent.selectedDay() }"></div>
+          <div class="day" data-bind="text: day + '.', click: $parent.measurementSelected.bind($data), css: { selected: $data === $parent.selectedDay() }"></div>
         </div>
         <div class="fill"></div>
+      </div>
     </div>
-</div>
 
     <div id="graphWindow">
       <div data-bind="visible: selectedExercise !== null">
         <div id="placeholder" data-bind="visible: !alternateExerciseInfo()">
-
         </div>
         <div class="exercisetextinfo" data-bind="visible: alternateExerciseInfo, with: selectedExecution">
           <div id="stack">
@@ -131,26 +130,31 @@
             </div>
           </div>
         </div>
-        <div class="exerciseinfo" data-bind="visible: selectedExercise() !== null">
+        <div class="exerciseinfotab" data-bind="visible: selectedExecution() !== null">
+          <div class="title">Series</div>
           <div id="workoutSets" data-bind="foreach: exerciseExecutions">
-            <button class="btn" data-bind="text: $index(), click: $parent.onGraphChangeButton, css: { disabled: $data === $parent.selectedExecution()}"></button>
-          </div>   
-          <div class="seen" data-bind="visible: selectedExercise() !== null"> 
-            <div class="abc"><div class="text" data-bind="html: selectedExerciseWeightInfo()"></div></div></div>
+            <div class="row-box">
+              <div class="text" data-bind="text: $index() + 1"></div>
+              <div class="box" data-bind="click: $parent.onGraphChangeButton"><i class="icon-black icon-ok" data-bind="visible: $data === $parent.selectedExecution()"></i></div>
+            </div>
+          </div>
+
         </div>
       </div>      
     </div>
 
 
-    <div id="types">
-      <div data-bind="ifnot: typesVisible">  
-        Ta trening niste opravili nobene vaje.
-      </div>  
-      <div class="btn-toolbar" data-bind="foreach: exerciseTypes">
-        <button class="btn exercisetype" data-bind="text: name, click: $parent.onExerciseClick, css: { disabled: $parent.selectedExercise() === $data }" ></button>
+    <div class="types">
+      <div class="typestable" data-bind="foreach: exerciseTypes">
+        <div class="type" data-bind="text: name, click: $parent.onExerciseClick, css: { selected: $parent.selectedExercise() === $data }">Bench press</div>
       </div>
-      <div id="serijareport"></div>
+      <div class="weight-picture-box">
+        <div class="seen" data-bind="visible: selectedExercise !== null"> 
+          <div class="abc">
+            <div class="text" data-bind="html: selectedExerciseWeightInfo()"></div>
+          </div>
+        </div>
+      </div>
     </div>
   </div>
-</div>
 </div>

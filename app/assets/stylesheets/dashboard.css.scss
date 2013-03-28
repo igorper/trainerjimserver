@@ -9,14 +9,109 @@ $statisticsFontSize: 75px;
 $statisticsLabelColor: #e9af2e;
 $statisticsLabelFontSize: 14px;
 $graphHeight : 300px;
+$graphWidth : 500px;
+$hoverColor :  #1f94d2;
 
+.text{
+    display:inline;
+}
 
+.series-checkbox{
+    vertical-align:top;
+}
 
+.row-box{
+    > .text{
+        
+    }
+    
+    > .box{
+        width:15px;
+        height:20px;
+        background-color: #cecece;
+        margin-bottom: 3px;
+        display: inline-table;
+        vertical-align: top;
+        margin-left: 10px;
+    }
+}
 
+.exerciseinfotab{
+    display:inline-block;
+    vertical-align:top;    
+    margin-left: 30px;
+    @include sans;
+    font-size: 15px;
+    
+    > .title{
+        margin-bottom: 5px;
+    }
+}
+
+.types{
+    height: 93px;
+    > .typestable{
+        width: $graphWidth - 2px;
+        border-top: 1px solid #cecece;
+        border-right: 1px solid #cecece;
+        font-size: 0px;
+        height: 90px;
+        display: inline-block;
+        margin-left: -1px;
+        
+        > .type{
+            height: 30px;
+            font-size: 12px;
+            display:inline-table;
+            width: $graphWidth / 4 - 1;
+            border: 1px solid #cecece;
+            border-top: 0px;
+            margin-right: -1px;
+            text-align:center;
+            
+            &:hover{
+                background-color: $hoverColor;
+            }
+            
+            &.selected{
+                background-color: $jimColor;
+                
+            }
+        }
+        
+        
+    }
+    
+    > .weight-picture-box{
+        display: inline;
+        
+        > div.seen{
+            float: right;
+            margin-top: -20px;
+            width: 100px;
+            > div.abc{    
+                margin-top: 10px;
+                position: relative;
+                @include size(63px,65px);
+                background: {
+                    image: image-url("Weight.png");        
+                    repeat: no-repeat;
+                }
+                > div.text{
+                    @include sans;
+                    position: absolute;
+                    font-size: 14px;
+                    top: 20px;
+                    left: 17px;
+                }
+            }
+        }
+    }
+}
 
 
 div.calendar-new{
-    $monthWidth: 150px;
+    $monthWidth : 150px;
     height: 50px;
     
     > .days{
@@ -59,7 +154,7 @@ div.calendar-new{
             }
             
             &:hover{                        
-                background-color: $jimColor;
+                background-color: $hoverColor;
             }
             
             &:last-child{
@@ -74,9 +169,8 @@ div.calendar-new{
         
         > .month
         {
-            width: $monthWidth;
-            min-width: $monthWidth;
-            display:inline;
+            width: 60px;
+            display:inline-block;
         }     
         > .arrow{
             display:inline-table;
@@ -129,8 +223,13 @@ div.measurements{
     width: $measurementsWidth;
 }
 
+label {
+    display: inline;
+}
+
+
 div#graphWindow{
-    height: $graphHeight+50px;
+    height: $graphHeight;
     
     > div {
         > div.exerciseinfo{
@@ -139,25 +238,6 @@ div#graphWindow{
                 float: left;
                 margin-left: 250px;
             }
-            
-            > div.seen{
-                float: right;
-                margin-top: -20px;
-                width: 100px;
-                > div.abc{    
-                    position: relative;
-                    @include size(63px,65px);
-                    background: {
-                        image: image-url("Weight.png");        
-                        repeat: no-repeat;
-                    }
-                    > div.text{
-                        position: absolute;
-                        top: 20px;
-                        left: 20px;
-                    }
-                }
-            }
         }
     }
 }
@@ -165,7 +245,7 @@ div#graphWindow{
 #stack{
     position: absolute;
     margin-top: 120px;
-    margin-left: 30px;
+    margin-left: 10px;
 }
 
 .horizontalstack {
@@ -225,6 +305,7 @@ div#graphWindow{
 .exercisetextinfo{
     width: 500px;
     height: $graphHeight;
+    display:inline-block;
 }
 
 
@@ -250,8 +331,9 @@ a:visited{ color: black }
 
 
 div#placeholder,{    
-    width: 500px;
+    width: $graphWidth;
     height: $graphHeight;
+    display:inline-block;
 }
 
 #dashboard-show {
