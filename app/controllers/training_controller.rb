@@ -1,7 +1,6 @@
 class TrainingController < ApplicationController
   
   include AjaxHelper
-  include AuthenticationHelper
   
   def show
     @t = Training.find_by_id(params[:id])

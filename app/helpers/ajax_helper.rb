@@ -1,4 +1,14 @@
 module AjaxHelper
+  # @param string msg The message to be included in the object
+  # @param string id An id of the error. It may be used as an identifier for the
+  #                  type of error.
+  # @param Hash attributes Additional attributes the returned error object
+  #             should contain.
+  # @returns Hash An object with (at least) three attributes: `message`,
+  #               `error_id` and `error`. The attribute `error` is always set to
+  #               "ajax_error". This may be used on the client to identify with
+  #               certainty that an error occurred and that the Ajax call was
+  #               not successful.
   def ajax_error(msg, id, attributes = nil)
     res = {:message => msg, :error_id => id, :error => :ajax_error}
     if attributes.class == Hash

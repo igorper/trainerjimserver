@@ -13,15 +13,6 @@ Trainerjim::Application.routes.draw do
   # MOBILE API
   match 'mapi/subscription/newsletter' => 'home#m_subscribe', :as => :subscription
   
-  
-  # Login
-  match "login" => 'authentication#login', :as => :login
-  match "logout" => 'authentication#logout', :as => :logout
-  match "register" => 'authentication#register', :as => :register
-  # AJAX API:
-  post "authentication/authenticate", :as => :authenticate
-  post "authentication/create_user", :as => :create_user
-  
   # Dashboard
   match 'dashboard' => 'dashboard#show', :as => :dashboard
   match 'dashboard/statistics/:user' => 'dashboard#statistics'

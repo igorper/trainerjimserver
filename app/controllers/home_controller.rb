@@ -1,12 +1,10 @@
 class HomeController < ApplicationController
   
-  include AuthenticationHelper
   include AjaxHelper
   
   def index
-    if logged_in? then
+    if user_signed_in? then
       render 'training_list'
-    else
     end
     # Display the list of available training programmes:
   end
