@@ -20,19 +20,8 @@ $hoverColor :  #1f94d2;
     vertical-align:top;
 }
 
-.reply-box{
 
-    > .comment-input{
-       width: 175px;
-       margin-left: 5px;
-   }
 
-    > div{
-    >button{
-        width: 70px;    
-        }
-    }
-    }
 
 .row-box{
     > .text{
@@ -533,13 +522,82 @@ div#placeholder,{
                     }
                     
                     > .message {
-                        text-align: justify;
+                        text-align: center;;
                         margin: 0px 10px 10px 10px;
+                        color: $hoverColor;
+                        font-weight: bold;
+                        
+                        &.answered{
+                            color: black;
+                            font-weight: normal;
+                        }
                     }
-                }
-                
-                > .responded-flag {
-                    margin: 10px;
+                    
+                    > .responded-flag {
+                        margin: 10px;
+                        > .no-answer{
+                            > .respond-box{
+                                float:right;
+                                
+                                > .reply-icon{
+                                    background: image-url("Reply_Icon.png");
+                                    width: 23px;
+                                    height: 12px;
+                                    display: inline-block;
+                                    vertical-align: middle;
+                                    margin-right: -10px;
+                                }
+                            }
+                            
+                            > .reply-box{                            
+                                >form {
+                                    > .comment-input{
+                                        width: 165px;
+                                        margin-botom: 5px;
+                                    }
+                                    
+                                    > .reply-buttons{
+                                        text-align:center;
+                                        margin-bottom: 5px;
+                                        >button{
+                                            width: 70px;   
+                                            &:first-child{
+                                                margin-right: 20px;
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                        
+                        > .answer{
+                            > div, button{
+                                display: inline-block;
+                            }
+                            
+                            > .text{
+                                vertical-align: top;
+                            }
+                            
+                            > button{
+                                padding-left: 0px;
+                                padding-right: 0px;
+                                margin-right: -10px;
+                                margin-top: -3px;
+                            }
+                            
+                            > .box{
+                                width:15px;
+                                height:20px;
+                                background-color: #cecece;
+                                margin-bottom: 3px;
+                                display: inline-table;
+                                vertical-align: top;
+                                margin-left: -5px;
+                            }
+                        }
+                    }
+                    
                 }
             }
         }

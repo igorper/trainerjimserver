@@ -50,8 +50,8 @@ $("document").ready(function() {
             var self = this;
             self.parent = root;
             self.exerciseTypes = exerciseTypes;
-            
-            
+
+
             self.exerciseSelected = ko.observable(false);
             self.workoutSelected = ko.computed(function() {
                 return !self.exerciseSelected();
@@ -88,25 +88,45 @@ $("document").ready(function() {
         function CommentsViewModel() {
             var self = this;
             self.comments = ko.observable([]);
+            
+            self.setup = function(data){
+                self.answered(false);
+                self.inputText("");
+                self.answer("");
+                self.comments(data);
+            };
+            
             self.anyComments = ko.computed(function() {
                 return self.comments().length > 0;
             });
             self.last = ko.computed(function() {
                 return self.comments()[0];
             });
+
+            ///Not yet implemented so always set to false from the start
+            self.answered = ko.observable(false);
+
             self.replyFormVisible = ko.observable(false);
             self.toggleReply = function() {
                 selfC.replyFormVisible(!self.replyFormVisible());
             };
 
-            self.postReply = function(text, element) {
-                console.log("Posting..." + text);
+            self.inputText = ko.observable("");
+            self.answer = ko.observable();
+
+            self.postReply = function() {
+                self.answer(self.inputText());
+                self.answered(true);
+                $("#view-popup").attr("data-original-title",self.answer());
+                $("#view-popup").hover(function() {
+                   $(this).tooltip("show");
+                });
             };
-            
-            
+
+
             self.replyInputOn = ko.observable(false);
-            self.replyToggle = function(){
-              self.replyInputOn(!self.replyInputOn());
+            self.replyToggle = function() {
+                self.replyInputOn(!self.replyInputOn());
             };
         }
 
@@ -294,7 +314,7 @@ $("document").ready(function() {
 
 
                     $.getJSON("/conversations/list/" + self.selectedUser().id() + ".json", function(data) {
-                        self.commentsVM.comments(data);
+                        self.commentsVM.setup(data);
                         $.getJSON("/dashboard/exercisedates/" + element.id() + ".json", function(data) {
                             self.calendarVM.setup(data);
                         });
