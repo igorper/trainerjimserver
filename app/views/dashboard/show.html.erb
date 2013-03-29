@@ -74,8 +74,10 @@
         <div class="message">
           <span data-bind="text: text"></span>
         </div>       
-        <div class="responded-flag">
-          <button class="btn-link" data-bind="">Reply</button>
+        <div class="responded-flag" data-bind="with: $parent.commentsVM">
+          <button class="btn-link" data-bind="click: replyToggle, visible: !replyInputOn()">Reply</button>
+          <div class="reply-box" data-bind="visible: replyInputOn"><textarea class="comment-input" rows="3" ></textarea>
+            <button class="btn">Cancel</button><button class="btn">Post</button></div>
         </div>
       </div>
     </div>

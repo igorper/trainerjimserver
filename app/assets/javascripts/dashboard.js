@@ -50,6 +50,8 @@ $("document").ready(function() {
             var self = this;
             self.parent = root;
             self.exerciseTypes = exerciseTypes;
+            
+            
             self.exerciseSelected = ko.observable(false);
             self.workoutSelected = ko.computed(function() {
                 return !self.exerciseSelected();
@@ -99,6 +101,12 @@ $("document").ready(function() {
 
             self.postReply = function(text, element) {
                 console.log("Posting..." + text);
+            };
+            
+            
+            self.replyInputOn = ko.observable(false);
+            self.replyToggle = function(){
+              self.replyInputOn(!self.replyInputOn());
             };
         }
 

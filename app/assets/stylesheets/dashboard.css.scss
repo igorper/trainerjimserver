@@ -20,6 +20,20 @@ $hoverColor :  #1f94d2;
     vertical-align:top;
 }
 
+.reply-box{
+
+    > .comment-input{
+       width: 175px;
+       margin-left: 5px;
+   }
+
+    > div{
+    >button{
+        width: 70px;    
+        }
+    }
+    }
+
 .row-box{
     > .text{
         
