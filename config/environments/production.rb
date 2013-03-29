@@ -48,8 +48,6 @@ Trainerjim::Application.configure do
   # Precompile additional assets (application.js, application.css, and all non-JS/CSS are already added)
   # config.assets.precompile += %w( search.js )
 
-  # Disable delivery errors, bad email addresses will be ignored
-  # config.action_mailer.raise_delivery_errors = false
 
   # Enable threaded mode
   # config.threadsafe!
@@ -65,5 +63,16 @@ Trainerjim::Application.configure do
   # with SQLite, MySQL, and PostgreSQL)
   # config.active_record.auto_explain_threshold_in_seconds = 0.5
   
+  config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+  config.action_mailer.smtp_settings = {
+    :address => 'smtp.gmail.com',
+    :port => 587,
+    :user_name => 'hello@trainerjim.com',
+    :password => 'Treniraj/Z/Jimom',
+    :domain => 'trainerjim.com',
+    :authentication => :plain,
+    :enable_starttls_auto => true
+  }
   config.action_mailer.default_url_options = { :host => 'dev.trainerjim.com' }
 end
