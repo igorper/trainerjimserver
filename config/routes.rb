@@ -44,6 +44,7 @@ Trainerjim::Application.routes.draw do
   
   # Trainings
   resources :training
+  match 'workouts' => 'training#workouts', :as => :workouts
   # MOBILE API
   match 'mapi/training/tests' => 'training#tests'
   match 'mapi/training/get' => 'training#m_get'

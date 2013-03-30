@@ -1,5 +1,85 @@
 @import "definitions.scss";
 
+$leftPanelWidth : 200px;
+$borderColor : #cecece; 
+
+div.wrapper{
+    padding-top: 30px;
+    font-size: 0px;
+    
+    > div.workouts{
+        display: inline-block;
+        width: $leftPanelWidth;
+        margin-top: 15px;
+        font-size: 12px;
+        
+        > div{
+            float: right;
+            width: 140px;
+        }
+        
+        > .title{
+            font-size: 20px;
+            margin-bottom: 20px;
+        }
+        
+        > .box{
+            border: 1px solid $borderColor;
+            border-bottom: 0px;
+            > .text{
+                margin: 10px 10px 10px 10px;
+            }
+        }
+        
+        > .select-box{
+            border: 1px solid $borderColor;
+            border-top: 0px;
+            height: 60px;
+            
+            background-color: $jimBlue;
+            color: white;
+            
+            > .text{
+                font-size: 14px;
+                display: inline-block;
+                margin-left: 10px;
+                margin-right: 10px;
+                
+                
+                .underline{
+                    display: inline-block;
+                    text-decoration: underline;
+                }
+            }
+            
+            > .plus{
+                background-color: $jimColor;
+                display: inline-block;
+                float: right;
+                width: 30px;
+                height: 60px;
+                
+                > i{
+                    margin-left: 9px;
+                    margin-top: 19px;
+                }
+                
+            }
+        }
+        
+        
+    }
+    > div.workout{
+        margin-left: -1px;
+        font-size: 12px;
+        display: inline-block;
+        vertical-align: top;
+        border: 1px solid $borderColor;
+        min-height: 500px;
+        min-width: 700px;
+    }
+}
+
 div#show-training {
     padding: 25px 0px;
     
@@ -52,4 +132,4 @@ div#show-training {
             }
         }
     }
-}
+} 

@@ -2,6 +2,9 @@ class TrainingController < ApplicationController
   
   include AjaxHelper
   
+  def workouts
+  end
+  
   def show
     @t = Training.find_by_id(params[:id])
   end
