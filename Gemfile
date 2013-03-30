@@ -37,3 +37,7 @@ gem 'valid_email'
 
 # Multi-source authentication (e.g. from facebook, twitter, google, etc.)
 gem 'devise'
+
+# Deployment
+gem 'capistrano'
+gem 'rvm-capistrano'

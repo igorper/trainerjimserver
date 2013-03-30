@@ -43,6 +43,12 @@ GEM
     bootstrap-sass (2.3.1.0)
       sass (~> 3.2)
     builder (3.0.4)
+    capistrano (2.14.2)
+      highline
+      net-scp (>= 1.0.0)
+      net-sftp (>= 2.0.0)
+      net-ssh (>= 2.0.14)
+      net-ssh-gateway (>= 1.1.0)
     coffee-rails (3.2.2)
       coffee-script (>= 2.2.0)
       railties (~> 3.2.0)
@@ -60,6 +66,7 @@ GEM
       multi_json (~> 1.0)
     flot-rails (0.0.2)
       jquery-rails
+    highline (1.6.16)
     hike (1.2.1)
     i18n (0.6.1)
     journey (1.0.4)
@@ -78,6 +85,13 @@ GEM
     mime-types (1.21)
     minitest (4.7.0)
     multi_json (1.7.2)
+    net-scp (1.1.0)
+      net-ssh (>= 2.6.5)
+    net-sftp (2.1.1)
+      net-ssh (>= 2.6.5)
+    net-ssh (2.6.6)
+    net-ssh-gateway (1.2.0)
+      net-ssh (>= 2.6.5)
     orm_adapter (0.4.0)
     pg (0.15.0)
     pg (0.15.0-x86-mingw32)
@@ -109,6 +123,8 @@ GEM
       json (~> 1.4)
     ref (1.0.4)
     rubyzip (0.9.9)
+    rvm-capistrano (1.2.7)
+      capistrano (>= 2.0.0)
     sass (3.2.7)
     sass-rails (3.2.6)
       railties (~> 3.2.0)
@@ -145,6 +161,7 @@ PLATFORMS
 DEPENDENCIES
   bcrypt-ruby
   bootstrap-sass
+  capistrano
   coffee-rails (>= 3.2.1)
   devise
   flot-rails
@@ -156,6 +173,7 @@ DEPENDENCIES
   pg
   rails (>= 3.2.8)
   rubyzip
+  rvm-capistrano
   sass-rails (>= 3.2.3)
   therubyracer
   uglifier (>= 1.0.3)
