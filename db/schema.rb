@@ -90,13 +90,13 @@ ActiveRecord::Schema.define(:version => 20130328200816) do
   end
 
   create_table "series", :force => true do |t|
-    t.integer  "exercise_id",  :null => false
+    t.integer  "exercise_id",                 :null => false
     t.integer  "order"
     t.integer  "repeat_count"
     t.integer  "weight"
-    t.datetime "created_at",   :null => false
-    t.datetime "updated_at",   :null => false
-    t.integer  "rest_time"
+    t.integer  "rest_time",    :default => 0, :null => false
+    t.datetime "created_at",                  :null => false
+    t.datetime "updated_at",                  :null => false
   end
 
   add_index "series", ["exercise_id"], :name => "index_series_on_exercise_id"
@@ -128,10 +128,12 @@ ActiveRecord::Schema.define(:version => 20130328200816) do
   create_table "trainings", :force => true do |t|
     t.integer  "trainee_id"
     t.string   "name"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.integer  "original_training_id"
+    t.datetime "created_at",           :null => false
+    t.datetime "updated_at",           :null => false
   end
 
+  add_index "trainings", ["original_training_id"], :name => "index_trainings_on_original_training_id"
   add_index "trainings", ["trainee_id"], :name => "index_trainings_on_trainee_id"
 
   create_table "users", :force => true do |t|
@@ -173,6 +175,7 @@ ActiveRecord::Schema.define(:version => 20130328200816) do
   add_foreign_key "series_executions", "exercise_types", :name => "series_executions_exercise_type_id_fk", :dependent => :delete
   add_foreign_key "series_executions", "measurements", :name => "series_executions_measurement_id_fk", :dependent => :delete
 
+  add_foreign_key "trainings", "trainings", :name => "trainings_original_training_id_fk", :column => "original_training_id", :dependent => :nullify
   add_foreign_key "trainings", "users", :name => "trainings_trainee_id_fk", :column => "trainee_id", :dependent => :delete
 
 end

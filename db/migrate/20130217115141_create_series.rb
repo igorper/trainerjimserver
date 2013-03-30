@@ -5,6 +5,7 @@ class CreateSeries < ActiveRecord::Migration
       t.integer :order
       t.integer :repeat_count
       t.integer :weight
+      t.integer :rest_time, :null => false, :default => 0
 
       t.foreign_key :exercises, :column => 'exercise_id', :dependent => :delete, :on_update => :cascade
 
