@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130328201914) do
+ActiveRecord::Schema.define(:version => 20130330120053) do
 
   create_table "conversations", :force => true do |t|
     t.integer  "user1_id"
@@ -92,16 +92,6 @@ ActiveRecord::Schema.define(:version => 20130328201914) do
 
   add_index "series", ["exercise_id"], :name => "index_series_on_exercise_id"
 
-  create_table "series_events", :force => true do |t|
-    t.integer  "measurement_id"
-    t.integer  "event_type"
-    t.datetime "timestamp"
-    t.datetime "created_at",     :null => false
-    t.datetime "updated_at",     :null => false
-  end
-
-  add_index "series_events", ["measurement_id"], :name => "index_series_events_on_measurement_id"
-
   create_table "series_executions", :force => true do |t|
     t.integer "start_timestamp"
     t.integer "end_timestamp"
@@ -168,8 +158,6 @@ ActiveRecord::Schema.define(:version => 20130328201914) do
   add_foreign_key "measurements", "users", :name => "measurements_user_id_fk", :dependent => :delete
 
   add_foreign_key "series", "exercises", :name => "series_exercise_id_fk", :dependent => :delete
-
-  add_foreign_key "series_events", "measurements", :name => "series_events_measurement_id_fk", :dependent => :delete
 
   add_foreign_key "series_executions", "exercises", :name => "series_executions_exercise_id_fk", :dependent => :delete
   add_foreign_key "series_executions", "measurements", :name => "series_executions_measurement_id_fk", :dependent => :delete
