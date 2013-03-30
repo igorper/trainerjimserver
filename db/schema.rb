@@ -11,28 +11,33 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130330120053) do
+ActiveRecord::Schema.define(:version => 20130328200816) do
 
   create_table "conversations", :force => true do |t|
-    t.integer  "user1_id"
-    t.integer  "user2_id"
+    t.integer  "sender_id"
     t.string   "text"
-    t.integer  "measurement_id"
     t.datetime "date"
+    t.integer  "measurement_id", :null => false
   end
 
+  add_index "conversations", ["measurement_id"], :name => "index_conversations_on_measurement_id"
+  add_index "conversations", ["sender_id"], :name => "index_conversations_on_sender_id"
+
   create_table "exercise_types", :force => true do |t|
-    t.string "name"
+    t.string   "name"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "exercises", :force => true do |t|
     t.integer  "training_id",      :null => false
+    t.integer  "exercise_type_id", :null => false
     t.integer  "order"
     t.datetime "created_at",       :null => false
     t.datetime "updated_at",       :null => false
-    t.integer  "exercise_type_id"
   end
 
+  add_index "exercises", ["exercise_type_id"], :name => "index_exercises_on_exercise_type_id"
   add_index "exercises", ["training_id"], :name => "index_exercises_on_training_id"
 
   create_table "i18n_keys", :force => true do |t|
@@ -57,22 +62,26 @@ ActiveRecord::Schema.define(:version => 20130330120053) do
   create_table "measurement_comments", :force => true do |t|
     t.integer "timestamp"
     t.string  "comment"
-    t.integer "series_executions_id"
+    t.integer "series_execution_id"
   end
 
+  add_index "measurement_comments", ["series_execution_id"], :name => "index_measurement_comments_on_series_execution_id"
+
   create_table "measurements", :force => true do |t|
-    t.integer  "user_id",     :null => false
+    t.integer  "trainee_id",  :null => false
+    t.integer  "trainer_id",  :null => false
+    t.integer  "training_id", :null => false
     t.binary   "data"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
-    t.integer  "training_id"
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer  "rating"
+    t.datetime "created_at",  :null => false
+    t.datetime "updated_at",  :null => false
   end
 
+  add_index "measurements", ["trainee_id"], :name => "index_measurements_on_trainee_id"
+  add_index "measurements", ["trainer_id"], :name => "index_measurements_on_trainer_id"
   add_index "measurements", ["training_id"], :name => "index_measurements_on_training_id"
-  add_index "measurements", ["user_id"], :name => "index_measurements_on_user_id"
 
   create_table "newsletter_subscriptions", :force => true do |t|
     t.string   "email"
@@ -95,13 +104,16 @@ ActiveRecord::Schema.define(:version => 20130330120053) do
   create_table "series_executions", :force => true do |t|
     t.integer "start_timestamp"
     t.integer "end_timestamp"
-    t.integer "exercise_id"
+    t.integer "exercise_type_id"
     t.integer "num_repetitions"
     t.integer "weight"
     t.integer "rest_time"
-    t.integer "measurement_id"
+    t.integer "measurement_id",                  :null => false
     t.integer "duration_seconds", :default => 0
   end
+
+  add_index "series_executions", ["exercise_type_id"], :name => "index_series_executions_on_exercise_type_id"
+  add_index "series_executions", ["measurement_id"], :name => "index_series_executions_on_measurement_id"
 
   create_table "sessions", :force => true do |t|
     t.string   "session_id", :null => false
@@ -114,21 +126,20 @@ ActiveRecord::Schema.define(:version => 20130330120053) do
   add_index "sessions", ["updated_at"], :name => "index_sessions_on_updated_at"
 
   create_table "trainings", :force => true do |t|
+    t.integer  "trainee_id"
     t.string   "name"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
-    t.integer  "trainee_user_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
-  add_index "trainings", ["trainee_user_id"], :name => "index_trainings_on_trainee_user_id"
+  add_index "trainings", ["trainee_id"], :name => "index_trainings_on_trainee_id"
 
   create_table "users", :force => true do |t|
     t.string   "email"
+    t.string   "full_name"
     t.integer  "role"
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
-    t.string   "full_name"
-    t.integer  "trainer_id"
     t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
@@ -144,26 +155,24 @@ ActiveRecord::Schema.define(:version => 20130330120053) do
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
 
   add_foreign_key "conversations", "measurements", :name => "conversations_measurement_id_fk", :dependent => :delete
-  add_foreign_key "conversations", "users", :name => "conversations_user1_id_fk", :column => "user1_id", :dependent => :delete
-  add_foreign_key "conversations", "users", :name => "conversations_user2_id_fk", :column => "user2_id", :dependent => :delete
+  add_foreign_key "conversations", "users", :name => "conversations_sender_id_fk", :column => "sender_id", :dependent => :delete
 
   add_foreign_key "exercises", "exercise_types", :name => "exercises_exercise_type_id_fk", :dependent => :delete
   add_foreign_key "exercises", "trainings", :name => "exercises_training_id_fk", :dependent => :delete
 
   add_foreign_key "i18n_strings", "i18n_keys", :name => "i18n_strings_i18n_key_id_fk", :dependent => :delete
 
-  add_foreign_key "measurement_comments", "series_executions", :name => "measurement_comments_series_executions_id_fk", :column => "series_executions_id", :dependent => :delete
+  add_foreign_key "measurement_comments", "series_executions", :name => "measurement_comments_series_execution_id_fk", :dependent => :delete
 
   add_foreign_key "measurements", "trainings", :name => "measurements_training_id_fk", :dependent => :delete
-  add_foreign_key "measurements", "users", :name => "measurements_user_id_fk", :dependent => :delete
+  add_foreign_key "measurements", "users", :name => "measurements_trainee_id_fk", :column => "trainee_id", :dependent => :delete
+  add_foreign_key "measurements", "users", :name => "measurements_trainer_id_fk", :column => "trainer_id", :dependent => :nullify
 
   add_foreign_key "series", "exercises", :name => "series_exercise_id_fk", :dependent => :delete
 
-  add_foreign_key "series_executions", "exercises", :name => "series_executions_exercise_id_fk", :dependent => :delete
+  add_foreign_key "series_executions", "exercise_types", :name => "series_executions_exercise_type_id_fk", :dependent => :delete
   add_foreign_key "series_executions", "measurements", :name => "series_executions_measurement_id_fk", :dependent => :delete
 
-  add_foreign_key "trainings", "users", :name => "trainings_trainee_user_id_fk", :column => "trainee_user_id", :dependent => :delete
-
-  add_foreign_key "users", "users", :name => "users_trainer_id_fk", :column => "trainer_id", :dependent => :delete
+  add_foreign_key "trainings", "users", :name => "trainings_trainee_id_fk", :column => "trainee_id", :dependent => :delete
 
 end

@@ -1,10 +1,9 @@
 class SeriesExecution < ActiveRecord::Base
-  attr_accessible :start_timestamp, :end_timestamp, :exercise, :num_repetitions, :weight, :rest_time, :measurement, :duration_seconds, :measurement_comments
+  attr_accessible :start_timestamp, :end_timestamp, :exercise_type, :num_repetitions, :weight, :rest_time, :measurement, :duration_seconds, :measurement_comments
  
-  belongs_to :exercise
+  belongs_to :exercise_type
   belongs_to :measurement
-  has_many :measurement_comments, :class_name => "MeasurementComment", :foreign_key => "series_executions_id"
-  
+  has_many :measurement_comments
   
   def as_json(options={})
     super(options.merge({:include => :measurement_comments}))    

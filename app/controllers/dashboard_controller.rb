@@ -17,7 +17,7 @@ class DashboardController < ApplicationController
   def exercisedates
     #Group by month first, then by date
     @measurements = Measurement
-    .select("start_time, id,end_time").find_all_by_user_id(params[:user])
+    .select("start_time, id,end_time").find_all_by_trainee_id(params[:user])
     .group_by{|m| m.start_time.strftime("%B") }
     .map{|k,v| {:month => k, :days => v.group_by{|m| m.start_time.day }.sort_by{ |k,v| k}
         .map{ |k,v| {:day => k, :measurements => v}}}
@@ -42,7 +42,7 @@ class DashboardController < ApplicationController
   # @returns JSON
   def measurement
     @measurement = Measurement.find_by_id(params[:id])
-    @exerciseTypes = SeriesExecution.where("measurement_id=?",params[:id]).group_by{|k| k.exercise.exercise_type.name }
+    @exerciseTypes = SeriesExecution.find_all_by_measurement_id(@measurement.id).group_by{|k| k.exercise_type.name }
     .map{ |k,v| {:name => k, :executions => v}}
     respond_to do |format|
       format.json { render:json => {:types => @exerciseTypes, :measurement => @measurement.as_json(
