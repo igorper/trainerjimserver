@@ -88,14 +88,14 @@ $("document").ready(function() {
         function CommentsViewModel() {
             var self = this;
             self.comments = ko.observable([]);
-            
-            self.setup = function(data){
+
+            self.setup = function(data) {
                 self.answered(false);
                 self.inputText("");
                 self.answer("");
                 self.comments(data);
             };
-            
+
             self.anyComments = ko.computed(function() {
                 return self.comments().length > 0;
             });
@@ -117,9 +117,9 @@ $("document").ready(function() {
             self.postReply = function() {
                 self.answer(self.inputText());
                 self.answered(true);
-                $("#view-popup").attr("data-original-title",self.answer());
+                $("#view-popup").attr("data-original-title", self.answer());
                 $("#view-popup").hover(function() {
-                   $(this).tooltip("show");
+                    $(this).tooltip("show");
                 });
             };
 
@@ -445,24 +445,41 @@ function onHover(event, pos, item) {
     }
 
 }
-
+var el;
 function onClick(event, pos, item) {
     if (item) {
         if (item.series.label === "podatki") {
             $("#clickdata").text("You clicked point " + item.dataIndex + ".");
-            var komentar = prompt("Dodajte komentar", "");
-
-            $.ajax({
-                url: "/measurements/comment",
-                type: "POST",
-                data: {seriesExecutionId: debug.selectedExecution().id, text: komentar, timestamp: item.dataIndex},
-                success: function(data) {
-                    debug.addComment(data.comment);
-                },
-                error: function(data) {
-                    console.log("error");
-                }
+            //var komentar = prompt("Dodajte komentar", "");
+            el = $('<div class="popover-box"><div class="input" contenteditable="true">Type your comment here.</div><input type="submit" id="close" value="Close"/><input type="submit" id="post" value="Post"/></div>').css({
+                position: 'absolute',
+                display: 'none',
+                top: item.pageY + 5,
+                left: item.pageX + 5
+            }).appendTo("body");
+            el.fadeIn(100);
+            el.find("#close").click(function() {
+                el.fadeOut(100);
             });
+
+
+            el.find("#post").click(function() {
+                komentar = el.find(".input").text();
+                $.ajax({
+                    url: "/measurements/comment",
+                    type: "POST",
+                    data: {seriesExecutionId: debug.selectedExecution().id, text: komentar, timestamp: item.dataIndex},
+                    success: function(data) {
+                        debug.addComment(data.comment);
+                        el.fadeOut(100);
+                    },
+                    error: function(data) {
+                        console.log("error");
+                        el.fadeOut(100);
+                    }
+                });
+            });
+
 
             //dodamo izbrano točko in na novo izrišemo graf
 
@@ -498,4 +515,7 @@ function showTooltip(x, y, contents) {
         'background-color': '#fee',
         opacity: 0.80
     }).appendTo("body").fadeIn(100);
+
+
+
 }
