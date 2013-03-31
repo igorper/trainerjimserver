@@ -128,6 +128,18 @@ $hoverColor :  #1f94d2;
 
 
 
+/** IMAGES */
+@mixin central-image($url) {
+    background: {
+        image: image-url($url);
+        repeat: no-repeat;
+        position: center;
+    }
+}
+
+
+
+
 /** SHADOWS */
 @mixin shadow($shadows...) {
     -moz-box-shadow: $shadows;

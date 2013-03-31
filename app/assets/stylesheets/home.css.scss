@@ -122,7 +122,7 @@ body.home.welcome {
             div.header-logo {
                 height: $welcomeHeaderHeight;
                 background: {
-                    image: image-url('Welcome_Header.png');
+                    image: image-url('welcome/Welcome_Header.png');
                     repeat: no-repeat;
                     position: center top;
                     color: $headerColour;
@@ -184,21 +184,21 @@ body.home.welcome {
                             &.trainees {
                                 margin-left: $welcomeImagesWidth / 2;
                                 &.on {
-                                    background-image: image-url("Welcome_TraineesButtonON.png");
+                                    background-image: image-url("welcome/Welcome_TraineesButtonON.png");
                                 }
                                 
                                 &.off {
-                                    background-image: image-url("Welcome_TraineesButton_OFF.png");
+                                    background-image: image-url("welcome/Welcome_TraineesButton_OFF.png");
                                 }
                             }
                             
                             &.trainers {
                                 &.on {
-                                    background-image: image-url("Welcome_TrainersButton_ON.png");
+                                    background-image: image-url("welcome/Welcome_TrainersButton_ON.png");
                                 }
                                 
                                 &.off {
-                                    background-image: image-url("Welcome_TrainersButton_Off.png");
+                                    background-image: image-url("welcome/Welcome_TrainersButton_Off.png");
                                 }
                             }
                         }
@@ -214,13 +214,13 @@ body.home.welcome {
                     
                     &.trainees {
                         background: {
-                            image: image-url('Welcome_FeaturesTrainees.png');
+                            image: image-url('welcome/Welcome_FeaturesTrainees.png');
                         }
                     }
                     
                     &.trainers {
                         background: {
-                            image: image-url('Welcome_FeaturesTrainers.png');
+                            image: image-url('welcome/Welcome_FeaturesTrainers.png');
                         }
                     }
                 }
@@ -230,22 +230,36 @@ body.home.welcome {
                 @include welcome-image-width;
                 height: $explanationHeight;
                 margin-top: 20px;
-                background: {
-                    image: image-url('Welcome_JIM_Explain.png');
-                    repeat: no-repeat;
-                    position: center;
+                @include central-image('welcome/Welcome_JIM_Explain.png');
+            }
+            
+            div.features {
+                $mobileWebImageWidth: 473px;
+                $mobileWebImageHeight: 206px;
+                $trainerAdviceImageWidth: 472px;
+                $trainerAdviceImageHeight: 207px;
+                
+                @include welcome-image-width;
+                height: $trainerAdviceImageHeight;
+                text-align: right;
+                
+                div.mobile-web-app {
+                    position: absolute;
+                    @include central-image('welcome/MobileWebApp.png');
+                    @include size($mobileWebImageWidth, $mobileWebImageHeight);
+                }
+                
+                div.trainer-advice {
+                    display: inline-block;
+                    @include central-image('welcome/TrainerAdvice.png');
+                    @include size($trainerAdviceImageWidth, $trainerAdviceImageHeight);
                 }
             }
             
             div.social {
                 @include welcome-image-width;
                 height: $explanationHeight;
-                margin-top: 20px;
-                background: {
-                    image: image-url('Welcome_Info_GetSocial.png');
-                    repeat: no-repeat;
-                    position: center;
-                }
+                @include central-image('welcome/Welcome_Info_GetSocial.png');
                 
                 $socialBtnDim: 37px;
                 div.twitter {
@@ -258,14 +272,10 @@ body.home.welcome {
                         left: 520px - $socialBtnDim - 25px;
                     }
                     
-                    background: {
-                        image: image-url('Welcome_TwitterIcon_OFF.png');
-                        repeat: no-repeat;
-                        position: center;
-                    }
+                    @include central-image('welcome/Welcome_TwitterIcon_OFF.png');
                     
                     &:hover {
-                        background-image: image-url('Welcome_TwitterIcon_MouseOver.png');
+                        @include central-image('welcome/Welcome_TwitterIcon_MouseOver.png');
                     }
                 }
                 
@@ -279,14 +289,10 @@ body.home.welcome {
                         left: 520px;
                     }
                     
-                    background: {
-                        image: image-url('Welcome_TumblrIcon_OFF.png');
-                        repeat: no-repeat;
-                        position: center;
-                    }
+                    @include central-image('welcome/Welcome_TumblrIcon_OFF.png');
                     
                     &:hover {
-                        background-image: image-url('Welcome_TumblrIcon_MouseOver.png');
+                        @include central-image('welcome/Welcome_TumblrIcon_MouseOver.png');
                     }
                 }
             }
@@ -296,11 +302,7 @@ body.home.welcome {
                 margin-top: 0px;
                 margin-left: $fistBumpWidth + $fistBumpMarginLeft + 650px;
                 position: absolute;
-                background: {
-                    image: image-url('Welcome_PocketFooter.png');
-                    repeat: no-repeat;
-                    position: center;
-                }
+                @include central-image('welcome/Welcome_PocketFooter.png');
             }
             
             div.subscription-bottom {
@@ -320,11 +322,7 @@ body.home.welcome {
                         margin-top: 23px;
                         margin-left: -$fistBumpWidth;
                         position: absolute;
-                        background: {
-                            image: image-url('Welcome_FistBumbFooter.png');
-                            repeat: no-repeat;
-                            position: center;
-                        }
+                        @include central-image('welcome/Welcome_FistBumbFooter.png');
                     }
                 }
             }
