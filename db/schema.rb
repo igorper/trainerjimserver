@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130328200816) do
+ActiveRecord::Schema.define(:version => 20130331144815) do
 
   create_table "conversations", :force => true do |t|
     t.integer  "sender_id"
@@ -68,15 +68,16 @@ ActiveRecord::Schema.define(:version => 20130328200816) do
   add_index "measurement_comments", ["series_execution_id"], :name => "index_measurement_comments_on_series_execution_id"
 
   create_table "measurements", :force => true do |t|
-    t.integer  "trainee_id",  :null => false
-    t.integer  "trainer_id",  :null => false
-    t.integer  "training_id", :null => false
+    t.integer  "trainee_id",                       :null => false
+    t.integer  "trainer_id",                       :null => false
+    t.integer  "training_id",                      :null => false
     t.binary   "data"
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer  "rating"
-    t.datetime "created_at",  :null => false
-    t.datetime "updated_at",  :null => false
+    t.datetime "created_at",                       :null => false
+    t.datetime "updated_at",                       :null => false
+    t.boolean  "trainerViewed", :default => false, :null => false
   end
 
   add_index "measurements", ["trainee_id"], :name => "index_measurements_on_trainee_id"
@@ -104,7 +105,7 @@ ActiveRecord::Schema.define(:version => 20130328200816) do
   create_table "series_executions", :force => true do |t|
     t.integer "start_timestamp"
     t.integer "end_timestamp"
-    t.integer "exercise_type_id"
+    t.integer "exercise_type_id",                :null => false
     t.integer "num_repetitions"
     t.integer "weight"
     t.integer "rest_time"

@@ -4,7 +4,7 @@ class CreateSeriesExecutions < ActiveRecord::Migration
     create_table :series_executions do |t|
       t.integer :start_timestamp
       t.integer :end_timestamp
-      t.references :exercise_type
+      t.references :exercise_type, :null => false
       t.integer :num_repetitions
       t.integer :weight
       t.integer :rest_time 
