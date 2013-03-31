@@ -10,8 +10,6 @@
 
 trainer = User.create(:email => 'jim@jim.com', :password => 'trainerjim', :admin => true, :full_name => 'Jim the Trainer')
 matej = User.create(:email => 'matej.urbas@gmail.com', :password => 'Hrt 2309_Vili', :admin => true, :full_name => 'Matej Urbas')
-matej.trainer = trainer
-matej.save
 igor = User.create(:email => 'igor.pernek@gmail.com', :password => '307 Lakih_Pet', :admin => true, :full_name => 'Igor Pernek')
 damjan = User.create(:email => 'damjan.obal@gmail.com', :password => 'Klipni_Ul 103', :admin => true, :full_name => 'Damjan Obal')
 kristjan = User.create(:email => 'kristjan.korez@gmail.com', :password => 'korezina 371', :admin => true, :full_name => 'Kristjan Korez')

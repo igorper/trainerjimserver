@@ -68,16 +68,16 @@ ActiveRecord::Schema.define(:version => 20130331150748) do
   add_index "measurement_comments", ["series_execution_id"], :name => "index_measurement_comments_on_series_execution_id"
 
   create_table "measurements", :force => true do |t|
-    t.integer  "trainee_id",                       :null => false
-    t.integer  "trainer_id",                       :null => false
-    t.integer  "training_id",                      :null => false
+    t.integer  "trainee_id",                      :null => false
+    t.integer  "trainer_id",                      :null => false
+    t.integer  "training_id",                     :null => false
     t.binary   "data"
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer  "rating"
-    t.datetime "created_at",                       :null => false
-    t.datetime "updated_at",                       :null => false
-    t.boolean  "trainerViewed", :default => false, :null => false
+    t.datetime "created_at",                      :null => false
+    t.datetime "updated_at",                      :null => false
+    t.boolean  "trainer_seen", :default => false, :null => false
   end
 
   add_index "measurements", ["trainee_id"], :name => "index_measurements_on_trainee_id"
@@ -152,7 +152,7 @@ ActiveRecord::Schema.define(:version => 20130331150748) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.boolean  "isTrainer",              :default => false, :null => false
+    t.boolean  "is_trainer",             :default => false, :null => false
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
