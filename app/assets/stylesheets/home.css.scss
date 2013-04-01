@@ -1,11 +1,7 @@
 @import "definitions.scss";
 
 div#training-list {
-    padding: 20px 0px;
-    
-    div.main-page-title {
-        margin: {bottom: 15px;}
-    }
+    > div {padding: 20px 0px;}
     
     div.training-entry {
         padding: 15px 20px;

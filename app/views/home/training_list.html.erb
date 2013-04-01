@@ -1,10 +1,15 @@
 <div id="training-list">
-  <div class="main-page-title">
+  
+  <div class="main-page-title span2">
     Seznam razpoložljivih treningov
   </div>
+  
+  <div class="span10">
   <% Training.all.each do |t| %>
     <div class="training-entry">
       <a href="<%= training_url(t.id)  %>"><%= t.name %></a>
     </div>
   <% end  %>
+  </div>
+  
 </div>

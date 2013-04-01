@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html>
-  <head>
+  <head lang="en">
     <title><%= Rails.application.config.page_name %></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= stylesheet_link_tag    "application", :media => "all" %>
@@ -10,8 +10,6 @@
     <%= csrf_meta_tags %>
   </head>
   <body class="main-layout <%= controller_name %> <%= action_name  %>">
-    <div class="skeleton">
-      <%= yield %>
-    </div>
+    <%= yield %>
   </body>
 </html>
