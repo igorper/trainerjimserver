@@ -41,16 +41,6 @@
 body.main-layout {
     @include sans;
     font-size: $bodyFontSize;
-    margin: 0;
-    padding: 0;
-    div.skeleton {
-        padding: 0;
-        margin: 0;
-        height: 100%;
-        
-        div.content {
-        }
-    }
 }
 
 @import "bootstrap-responsive";

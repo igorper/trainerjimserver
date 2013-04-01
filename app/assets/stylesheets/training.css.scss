@@ -6,9 +6,6 @@ $borderColor : #cecece;
 
 
 div.wrapper{
-    padding-top: 30px;
-    font-size: 0px;
-    
     div{
         line-height: normal;
     }
@@ -27,15 +24,8 @@ div.wrapper{
     }
     
     > div.workouts{
-        display: inline-block;
-        width: $leftPanelWidth;
-        margin-top: 15px;
         font-size: 12px;
-        
-        > div{
-            float: right;
-            width: 140px;
-        }
+        margin-top: 20px;
         
         > .title{
             font-size: 20px;
@@ -46,7 +36,7 @@ div.wrapper{
             border: 1px solid $borderColor;
             border-bottom: 0px;
             > .text{
-                margin: 10px 10px 10px 10px;
+                padding: 10px;
             }
         }
         
@@ -63,7 +53,6 @@ div.wrapper{
                 display: inline-block;
                 margin-left: 10px;
                 margin-right: 10px;
-                
                 
                 .underline{
                     display: inline-block;
@@ -89,69 +78,69 @@ div.wrapper{
         
     }
     > div.workout{
-        margin-left: -1px;
-        padding: 10px 20px 20px 20px;
+        margin-top: 20px;
+        margin-bottom: 20px;
         font-size: 12px;
-        display: inline-block;
-        vertical-align: top;
-        border: 1px solid $borderColor;
-        min-height: 500px;
-        min-width: 700px;
-        width: 700px;
         
-        > .seperator{
-            height: 100%;
-            margin-top: 15px;
-            margin-bottom: 5px;
-            border-bottom: 1px solid $borderColor;
-        }
-        
-        > .regimes{
+        div.workout-outer {
+            padding: 10px 20px 20px 20px;
+            border: 1px solid $borderColor;
             
-            margin-top: 20px;
-            
-            > .regime{
-                display: inline-block;
-                width: 60px;
-                
-                margin-left: 10px;
-                &:first-child{
-                    margin-left: 0px;
-                }
-                
-                > .icon{
-                    background: $jimColor;
-                    height: 60px;
-                }
-                
-                > .name{
-                    text-align: center;
-                }
+            > .seperator{
+                height: 100%;
+                margin-top: 15px;
+                margin-bottom: 5px;
+                border-bottom: 1px solid $borderColor;
             }
-        }
-        
-        > .regime-info{
             
-            margin-top: 15px;
-            
-            > .name{
-                padding-left: 20px;
-                font-size: 14px;
+            > .regimes{
                 
+                margin-top: 20px;
                 
-                > .icon{
-                    margin-left: 10px;
-                    witdh: 15px;
-                    height: 15px;
-                    background: $jimColor;
+                > .regime{
                     display: inline-block;
+                    width: 60px;
                     
-                    > i{
+                    margin-left: 10px;
+                    &:first-child{
+                        margin-left: 0px;
+                    }
+                    
+                    > .icon{
+                        background: $jimColor;
+                        height: 60px;
+                    }
+                    
+                    > .name{
+                        text-align: center;
                     }
                 }
             }
+            
+            > .regime-info{
+                
+                margin-top: 15px;
+                
+                > .name{
+                    padding-left: 20px;
+                    font-size: 14px;
+                    
+                    
+                    > .icon{
+                        margin-left: 10px;
+                        witdh: 15px;
+                        height: 15px;
+                        background: $jimColor;
+                        display: inline-block;
+                        
+                        > i{
+                        }
+                    }
+                }
+                
+            }
         }
-       
+        
         
     }
 }
