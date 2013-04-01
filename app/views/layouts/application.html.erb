@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <title>TrainerJim</title>
+    <title><%= Rails.application.config.page_name %></title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <%= stylesheet_link_tag    "application", :media => "all" %>
     <%= stylesheet_link_tag    "frame", :media => "all" %>
     <%= stylesheet_link_tag    controller_name, :media => "all" if Rails.application.assets.find_asset(controller_name + '.css') %>
@@ -10,7 +11,7 @@
     <%= javascript_include_tag controller_name if Rails.application.assets.find_asset(controller_name + '.js') %>
     <%= csrf_meta_tags %>
   </head>
-  <body class="main-layout">
+  <body class="main-layout <%= controller_name %> <%= action_name  %>">
     <div class="skeleton">
       <%= render :partial => 'shared/header' %>
       <div class="central-strip content"><%= yield %></div>
