@@ -115,7 +115,7 @@ $hoverColor :  #1f94d2;
 
 
 
-/** BUTTONS */
+/** BUTTONS, INPUT FIELDS (FORM STUFF) */
 
 @mixin flat-btn {
     filter:progid:DXImageTransform.Microsoft.Gradient(enabled='false');
@@ -124,6 +124,12 @@ $hoverColor :  #1f94d2;
     box-shadow: none;
     background-image: none;
     border: 0;
+}
+
+@mixin flat-text-input {
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
 }
 
 

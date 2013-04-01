@@ -2,11 +2,67 @@
 
   <div class="header">
     <div class="header-logo central-strip">
-      <% if user_signed_in? then %>
-        <a href="<%= destroy_user_session_path %>"><div class="sign-in-tab"><%= current_user.display_name %> :: log out</div></a>
-      <% else %>
-        <a href="<%= new_user_registration_path %>"><div class="sign-in-tab">sign up</div></a>
-      <% end %>
+      <div class="sign-in-tab button-behaviour">sign in</div>
+
+      <div class="sign-in-panel auth-panel" style="display: none;">
+        <div class="close-icon button-behaviour"></div>
+
+        <div class="the-form">
+          <div class="login-part">
+            <div class="title">Welcome back, champ.</div>
+            <div class="sub-title">Back for more strength?</div>
+            <%= render 'devise/shared/login-panel' %>
+          </div>
+          <div class="registration-part" style="display: none;">
+            <div class="title">Welcome champ.</div>
+            <div class="sub-title">Nice to have you on board.</div>
+            <%= render 'devise/shared/register-panel' %>
+          </div>
+        </div>
+
+        <script type="text/javascript">
+          $(function() {
+            var authPanel = $('div.sign-in-panel.auth-panel');
+            var notYetMemberLink = authPanel.find('.sign-up-link a');
+            var alreadyMemberLink = authPanel.find('.login-link a');
+            var regPanel = authPanel.find('.registration-part');
+            var loginPanel = authPanel.find('.login-part');
+
+            function openCloseAuthPanel() {
+              if (authPanel.is(':visible'))
+                authPanel.hide();
+              else
+                authPanel.show();
+            }
+
+            function closeAuthPanel() {
+              authPanel.hide();
+            }
+
+            function openRegPanel() {
+              loginPanel.hide();
+              regPanel.show();
+            }
+
+            function openLoginPanel() {
+              regPanel.hide();
+              loginPanel.show();
+            }
+
+            $('.sign-in-tab').click(openCloseAuthPanel);
+            $('.close-icon').click(closeAuthPanel);
+            notYetMemberLink.click(function(e) {
+              openRegPanel();
+              e.preventDefault();
+            });
+            alreadyMemberLink.click(function(e) {
+              openLoginPanel();
+              e.preventDefault();
+            });
+          });
+        </script>
+
+      </div>
     </div>
 
     <div class="subscription-top central-strip">

@@ -1,10 +1,5 @@
 @import "definitions.scss";
 
-
-
-
-
-
 div#training-list {
     padding: 20px 0px;
     
@@ -124,11 +119,14 @@ body.home.welcome {
                 @include central-image('welcome/Welcome_Header.png');
                 background-color: $headerColour;
                 
+                $closeButtonSize: 16px;
+                $authPanelWidth: 246px;
+                $authMarginRight: 12px;
+                
                 div.sign-in-tab {
                     @include bold;
-                    cursor: pointer;
                     float: right;
-                    margin-right: 12px;
+                    margin-right: $authMarginRight;
                     display: inline-block;
                     padding: 5px 20px;
                     font-size: 0.9em;
@@ -140,13 +138,82 @@ body.home.welcome {
                     }
                 }
                 
-                div.registration-form {
+                $insideAuthPanelPadding: 7px;
+                div.auth-panel {
                     float: right;
-                    width: 280px;
-                    height: 220px;
+                    margin-right: $authMarginRight;
+                    width: $authPanelWidth;
+                    padding: $insideAuthPanelPadding;
                     background-color: $welcomePageBtnColor;
                     clear: both;
-                    margin-right: 12px;
+                    color: white;
+                    text-align: center;
+                    
+                    div.close-icon {
+                        position: absolute;
+                        @include size($closeButtonSize, $closeButtonSize);
+                        @include central-image('welcome/CloseIcon.png');
+                        margin-left: $authPanelWidth - $closeButtonSize;
+                    }
+                }
+                
+                div.sign-in-panel {
+                    
+                    div.the-form {
+                        div.title {
+                            font: {
+                                size: 1.2em;
+                                weight: bold;
+                            }
+                        }
+                        
+                        form {
+                            margin: 15px 0px 0px 0px;
+                        }
+                        
+                        input.text-input {
+                            @include flat-text-input;
+                            background-color: white;
+                            padding: 4px 6px;
+                            width: $authPanelWidth - 2 * 6px;
+                        }
+                        
+                        input.sign-in-btn {
+                            @include flat-btn;
+                            background-color: $jimColor;
+                            width: $authPanelWidth;
+                            padding: 5px 0px;
+                        }
+                        
+                        div.remember-me-fields {
+                            margin-bottom: 10px;
+                            
+                            input#user_remember_me {
+                                display: inline-block;
+                                vertical-align: middle;
+                                margin: 0px;
+                            }
+                            label {
+                                font-size: $bodyFontSize;
+                                margin: 0px;
+                                display: inline-block;
+                                vertical-align: middle;
+                            }
+                        }
+                        
+                        div.sign-up-link,div.login-link {
+                            margin-top: 15px;
+                            color:white;
+                            
+                            a {
+                                color:white;
+                                text-decoration: underline;
+                                &:hover {
+                                    text-decoration: none;
+                                }
+                            }
+                        }
+                    }
                 }
             }
             
