@@ -1,9 +1,3 @@
-<%
-resource_name = :user
-resource ||= User.new
-devise_mapping ||= Devise.mappings[:user]
-%>
-
 <%= form_for(resource, :as => resource_name, :url => session_path(resource_name)) do |f| %>
   <div class="email-fields"><%= f.email_field :email, :autofocus => true, :class => 'text-input', :placeholder => 'your@email.com' %></div>
 
