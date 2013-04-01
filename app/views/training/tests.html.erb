@@ -15,20 +15,6 @@
         <td><div class="form-text-element"><%= file_field_tag 'trainingData' %></div></td>
       </tr>
       <tr>
-        <td class="jimlabel"><div class="form-text-element">Training ID:</div></td>
-        <td>
-          <div class="form-text-element">
-            <select name="trainingId">
-              <% Training.all.each do |t| %>
-                <option value="<%= t.id %>">
-                  <%= t.name %>
-                </option>
-              <% end %>
-            </select>
-          </div>
-        </td>
-      </tr>
-      <tr>
         <td></td>
         <td><div class="error-message"></div></td>
       </tr>

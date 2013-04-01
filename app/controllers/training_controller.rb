@@ -36,8 +36,7 @@ class TrainingController < ApplicationController
   
   # @param email
   # @param password
-  # @param trainingId
-  # @param trainingData [ZIP FILE] a binary stream of data.
+  # @param trainingData [ZIP FILE] a binary stream of data. Should contain files `training` and `raw`.
   # TODO: define ZIP FILE contents.
   def m_upload
     with_auth_mapi do |user|
