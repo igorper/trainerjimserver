@@ -35,7 +35,7 @@ gem 'bootstrap-sass'
 
 gem 'valid_email'
 
-# Multi-source authentication (e.g. from facebook, twitter, google, etc.)
+# Authentication
 gem 'devise'
 
 # Deployment

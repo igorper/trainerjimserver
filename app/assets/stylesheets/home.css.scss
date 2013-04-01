@@ -121,12 +121,8 @@ body.home.welcome {
             
             div.header-logo {
                 height: $welcomeHeaderHeight;
-                background: {
-                    image: image-url('welcome/Welcome_Header.png');
-                    repeat: no-repeat;
-                    position: center top;
-                    color: $headerColour;
-                }
+                @include central-image('welcome/Welcome_Header.png');
+                background-color: $headerColour;
                 
                 div.sign-in-tab {
                     @include bold;
@@ -141,7 +137,6 @@ body.home.welcome {
                     
                     &:hover {
                         background-color: lighten($welcomePageBtnColor, 15%);
-                        
                     }
                 }
                 

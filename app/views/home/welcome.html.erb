@@ -2,11 +2,11 @@
 
   <div class="header">
     <div class="header-logo central-strip">
-            <% if user_signed_in? then %>
-              <a href="<%= destroy_user_session_path %>"><div class="sign-in-tab"><%= current_user.display_name %> :: log out</div></a>
-            <% else %>
-      <a href="<%= new_user_registration_path %>"><div class="sign-in-tab">sign up</div></a>
-            <% end %>
+      <% if user_signed_in? then %>
+        <a href="<%= destroy_user_session_path %>"><div class="sign-in-tab"><%= current_user.display_name %> :: log out</div></a>
+      <% else %>
+        <a href="<%= new_user_registration_path %>"><div class="sign-in-tab">sign up</div></a>
+      <% end %>
     </div>
 
     <div class="subscription-top central-strip">
