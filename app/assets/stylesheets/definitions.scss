@@ -6,6 +6,9 @@ $bodyFontSize: 13px;
 
 $jimBlue :  #1f94d2;
 $hoverColor :  #1f94d2;
+$lightGray : #999999;
+$borderColor: #cecece;
+$darkGray: #424242;
 
 
 
@@ -209,5 +212,18 @@ $sweatOff: "emoticons/SmileyFaded_Sweat.png";
         color: white;
         border: 0px;
         
+    }
+}
+
+
+
+@mixin vertical-align($height){
+    > .bubble{
+        display: table;
+        height: $height;
+        > p{                        
+            vertical-align: middle;
+            display: table-cell;
+        }
     }
 }
