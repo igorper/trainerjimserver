@@ -191,15 +191,18 @@ div.wrapper{
                 $height : 50px;
                 font-size: 0px;
                 $fontSize : 14px;
-                margin-right: 17px;
 
-
+                > .row-border{
+                    font-size: 0px;
+                    border-top: 1px solid $borderColor;
+                    width: 683px;
+                    height:1px;
+                }
 
                 > .exercise-row{       
                     owerflow: visible;
-                    border-bottom: 1px solid $borderColor;
-                    marign-top: -1px;
                     height: $height;
+                    margin-top: -1px;
 
                     & div{
                         display: inline-block;
