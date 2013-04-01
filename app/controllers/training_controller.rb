@@ -1,6 +1,7 @@
 class TrainingController < ApplicationController
   
   include AjaxHelper
+  include TrainingHelper
   
   def workouts
   end
@@ -56,5 +57,7 @@ class TrainingController < ApplicationController
   end
   
   def tests
+    ajax_render clone_training_for_user(Training.find_by_id(1, :include => [:exercises, {:exercises => [:series, :exercise_type]}]), User.find_by_email('matej.urbas@gmail.com')).to_json(TrainingHelper.training_full_view)
+#    ajax_render Training.find_by_id(1, :include => [:exercises, {:exercises => [:series, :exercise_type]}]).to_json(TrainingHelper.training_full_view)
   end
 end

@@ -38,4 +38,24 @@ module TrainingHelper
   # Returns the JSON view filter for the Training model so as to include only
   # information required by the users (the browser).
   @@training_full_view = @@training_view.merge(:include => { :exercises => @@exercise_full_view })
+  
+  ###############################################################################
+  ### CLONING TRAININGS FOR USERS
+  ##
+  def clone_training_for_user(training, user)
+    new_training = training.dup
+    new_training.trainee = user
+    # Add exercises to the training:
+    training.exercises.each do |ex|
+      new_ex = ex.dup
+      # Add series to the training's exercises:
+      ex.series.each do |s|
+        new_s = s.dup
+        new_ex.series << new_s
+      end
+      new_training.exercises << new_ex
+    end
+    
+    return new_training.save
+  end
 end
