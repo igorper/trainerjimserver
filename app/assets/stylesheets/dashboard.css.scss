@@ -13,6 +13,7 @@ $graphWidth : 500px;
 
 .text{
     display:inline;
+
 }
 
 .series-checkbox{
@@ -115,6 +116,7 @@ $graphWidth : 500px;
 div.calendar-new{
     $monthWidth : 150px;
     height: 50px;
+    font-size: 0px;
     
     > .days{
         display:inline-table;
@@ -125,6 +127,7 @@ div.calendar-new{
             padding: 2px 0px 2px 3px;
             text-align: center;
             width: 35px;
+            font-size: 12px;
             
             border-left: 1px solid #cecece;
             border-bottom: 1px solid #cecece;
@@ -168,6 +171,7 @@ div.calendar-new{
     > .month-tab{
         float: left;
         display: inline-block;
+        font-size: 12px;
         
         > .month
         {
@@ -178,7 +182,7 @@ div.calendar-new{
             display:inline-table;
             margin-left: 15px;
             margin-right:15px;
-            
+
             > .arrow-right {
                 width: 0; 
                 height: 0; 

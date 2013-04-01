@@ -105,7 +105,7 @@ ActiveRecord::Schema.define(:version => 20130331150748) do
   create_table "series_executions", :force => true do |t|
     t.integer "start_timestamp"
     t.integer "end_timestamp"
-    t.integer "exercise_type_id",                :null => false
+    t.integer "exercise_type_id"
     t.integer "num_repetitions"
     t.integer "weight"
     t.integer "rest_time"

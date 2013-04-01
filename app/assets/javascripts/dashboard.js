@@ -446,25 +446,33 @@ function onHover(event, pos, item) {
 
 }
 var el;
+
+///Draws the popover form
+function popover(x, y, fadeTime, onClick) {
+    el = $('<div class="popover-box"><textarea class="input" placeholder="Type your comment here....." ></textarea><input type="submit" id="close" value="Close"/><input type="submit" id="post" value="Post"/></div>').css({
+        position: 'absolute',
+        display: 'none',
+        top: y + 5,
+        left: x + 5
+    }).appendTo("body");
+    el.fadeIn(fadeTime);
+    el.find("#close").click(function() {
+        el.fadeOut(fadeTime);
+    });
+
+    el.find("#post").click(function() {
+        komentar = el.find(".input").text();
+        onClick(komentar);
+    });
+}
+
 function onClick(event, pos, item) {
     if (item) {
         if (item.series.label === "podatki") {
             $("#clickdata").text("You clicked point " + item.dataIndex + ".");
             //var komentar = prompt("Dodajte komentar", "");
-            el = $('<div class="popover-box"><div class="input" contenteditable="true">Type your comment here.</div><input type="submit" id="close" value="Close"/><input type="submit" id="post" value="Post"/></div>').css({
-                position: 'absolute',
-                display: 'none',
-                top: item.pageY + 5,
-                left: item.pageX + 5
-            }).appendTo("body");
-            el.fadeIn(100);
-            el.find("#close").click(function() {
-                el.fadeOut(100);
-            });
 
-
-            el.find("#post").click(function() {
-                komentar = el.find(".input").text();
+            popover(item.pageX, item.pageY, 100, function(komentar) {
                 $.ajax({
                     url: "/measurements/comment",
                     type: "POST",
@@ -479,10 +487,6 @@ function onClick(event, pos, item) {
                     }
                 });
             });
-
-
-            //dodamo izbrano točko in na novo izrišemo graf
-
         } else {
 
             idToRemove = plotData[1].data[item.dataIndex][3];
