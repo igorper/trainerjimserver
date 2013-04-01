@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130331150748) do
+ActiveRecord::Schema.define(:version => 20130401182536) do
 
   create_table "conversations", :force => true do |t|
     t.integer  "sender_id"
@@ -69,7 +69,7 @@ ActiveRecord::Schema.define(:version => 20130331150748) do
 
   create_table "measurements", :force => true do |t|
     t.integer  "trainee_id",                      :null => false
-    t.integer  "trainer_id",                      :null => false
+    t.integer  "trainer_id"
     t.integer  "training_id",                     :null => false
     t.binary   "data"
     t.datetime "start_time"
@@ -78,6 +78,7 @@ ActiveRecord::Schema.define(:version => 20130331150748) do
     t.datetime "created_at",                      :null => false
     t.datetime "updated_at",                      :null => false
     t.boolean  "trainer_seen", :default => false, :null => false
+    t.string   "comment"
   end
 
   add_index "measurements", ["trainee_id"], :name => "index_measurements_on_trainee_id"

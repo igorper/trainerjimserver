@@ -9,8 +9,9 @@ module AjaxHelper
   #               "ajax_error". This may be used on the client to identify with
   #               certainty that an error occurred and that the Ajax call was
   #               not successful.
-  def ajax_error(msg, id, attributes = nil)
-    res = {:message => msg, :error_id => id, :error => :ajax_error}
+  def ajax_error(id, msg = nil, attributes = nil)
+    res = {:error_id => id, :error => :ajax_error}
+    res[:message] = msg if !msg.nil?
     if attributes.class == Hash
       return attributes.merge res
     else
@@ -27,13 +28,14 @@ module AjaxHelper
   def ajax_render(response, options = {})
     if (options[:symbol_error] || !options[:i18n_error].nil?) && response.is_a?(Symbol) then
       i18n_prefix = options[:i18n_error]
-      response = ajax_error(i18n_prefix.nil? ? response : (t i18n_prefix.blank? ? response : "#{i18n_prefix.to_s}.#{response}"), response)
+      render :json => ajax_error(response, i18n_prefix.nil? ? nil : (t i18n_prefix.blank? ? response : "#{i18n_prefix.to_s}.#{response}")), :status => 400
+    else
+      render :json => response
     end
-    render :json => response
   end
   
-  def ajax_render_symerr(response, i18n_prefix = nil)
-    ajax_render response, :symbol_error => true, :i18n_error => i18n_prefix.nil? ? (controller_name + '.' + action_name) : i18n_prefix
+  def ajax_render_symerr(response, i18n_prefix = nil, options = {})
+    ajax_render response, options.merge({:symbol_error => true, :i18n_error => i18n_prefix.nil? ? nil : i18n_prefix}) 
   end
   
   def with_auth_mapi(&block)

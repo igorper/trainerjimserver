@@ -32,3 +32,9 @@ si:
     email_invalid: "Email naslov je neveljaven."
   mapi-err:
     authentication_failure: "Prijava spodletela. Neveljavno uporabniško ime ali geslo."
+  home:
+    m_subscribe:
+      invalid_email: "The provided email is not valid."
+  training:
+    m_upload:
+      unknown_data_in_archive: "There is unknown data in the measurement archive."

@@ -42,9 +42,12 @@ module TrainingHelper
   ###############################################################################
   ### CLONING TRAININGS FOR USERS
   ##
+  
+  
   def clone_training_for_user(training, user)
     new_training = training.dup
     new_training.trainee = user
+    new_training.original_training = training
     # Add exercises to the training:
     training.exercises.each do |ex|
       new_ex = ex.dup
