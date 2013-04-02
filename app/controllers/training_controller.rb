@@ -37,7 +37,7 @@ class TrainingController < ApplicationController
   # @param email
   # @param password
   # @param trainingData [ZIP FILE] a binary stream of data. Should contain files `training` and `raw`.
-  # TODO: define ZIP FILE contents.
+  # @return the ID of the newly created measurement.
   def m_upload
     with_auth_mapi do |user|
       require 'zip/zipfilesystem'
@@ -99,9 +99,8 @@ class TrainingController < ApplicationController
             measurement.series_executions << new_se
           end
         
-          #          ajax_render training_info
           measurement.save!
-          ajax_render measurement.to_json(:include => :series_executions)
+          ajax_render measurement.id
         end
         
       end
