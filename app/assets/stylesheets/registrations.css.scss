@@ -1,0 +1,68 @@
+@import "definitions.scss";
+
+.registration-page {
+    $fieldsWidth: 250px;
+    
+    .the-form {
+        
+        h2 {
+            font-weight: 400;
+            margin: 25px 0px;
+        }
+        
+        .text-fields {
+            margin-bottom: 5px;
+            
+            input {
+                @include flat-text-input;
+                border: 1px solid #ddd;
+                width: $fieldsWidth;
+            }
+        }
+        
+        .remember-me {
+            margin-bottom: 10px;
+            
+            input#user_remember_me {
+                display: inline-block;
+                vertical-align: middle;
+                margin: 0px;
+            }
+            
+            label {
+                font-size: $bodyFontSize;
+                margin: 0px 0px 0px 5px;
+                display: inline-block;
+                vertical-align: middle;
+                color: $lightBlue;
+            }
+        }
+        
+        .submit-button {
+            input {
+                @include flat-btn;
+                padding: 6px;
+                width: $fieldsWidth + 2*6px + 2px;
+                background-color: $lightBlue;
+                color: white;
+                
+                &:hover {
+                    background-color: darken($lightBlue, 15%);
+                }
+                
+                &:active {
+                    background-color: lighten($lightBlue, 15%);
+                }
+            }
+        }
+        
+        a {
+            color: $lightBlue;
+        }
+    }
+    
+    .why-register {
+        @include central-image('login/why-register.png');
+        @include size(444px, 389px);
+    }
+}
