@@ -1,9 +1,11 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  training_id: 1
-  name: Exercise1
+ex1_templ1:
+  training: template1
+  exercise_type: bench
+  order: 100
 
-two:
-  training_id: 2
-  name: Exercise2
+ex2_templ1:
+  training: template1
+  exercise_type: curl
+  order: 200

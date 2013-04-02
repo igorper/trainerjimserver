@@ -8,11 +8,15 @@
 
 #if !User.find_by_email('matej.urbas@gmail.com') then
 
-trainer = User.create(:email => 'jim@jim.com', :password => 'trainerjim', :admin => true, :full_name => 'Jim the Trainer')
-matej = User.create(:email => 'matej.urbas@gmail.com', :password => 'Hrt 2309_Vili', :admin => true, :full_name => 'Matej Urbas')
-igor = User.create(:email => 'igor.pernek@gmail.com', :password => '307 Lakih_Pet', :admin => true, :full_name => 'Igor Pernek')
-damjan = User.create(:email => 'damjan.obal@gmail.com', :password => 'Klipni_Ul 103', :admin => true, :full_name => 'Damjan Obal')
-kristjan = User.create(:email => 'kristjan.korez@gmail.com', :password => 'korezina 371', :admin => true, :full_name => 'Kristjan Korez')
+admin_role = Role.find_by_name(Role.administrator)
+trainer_role = Role.find_by_name(Role.trainer)
+
+trainer = User.create(:email => 'jim@jim.com', :password => 'trainerjim', :full_name => 'Jim the Trainer', :roles => [trainer_role])
+matej = User.create(:email => 'matej.urbas@gmail.com', :password => 'Hrt 2309_Vili', :full_name => 'Matej Urbas', :roles => [admin_role])
+igor = User.create(:email => 'igor.pernek@gmail.com', :password => '307 Lakih_Pet', :full_name => 'Igor Pernek', :roles => [admin_role])
+damjan = User.create(:email => 'damjan.obal@gmail.com', :password => 'Klipni_Ul 103', :full_name => 'Damjan Obal', :roles => [admin_role])
+blaz = User.create(:email => 'snuderl@gmail.com', :password => 'to je 5 vukov', :full_name => 'Blaz Snuderl', :roles => [admin_role])
+kristjan = User.create(:email => 'kristjan.korez@gmail.com', :password => 'korezina 371', :full_name => 'Kristjan Korez', :roles => [trainer_role])
 #end
 
 bench = ExerciseType.create(:name => "Bench press")

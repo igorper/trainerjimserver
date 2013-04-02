@@ -75,7 +75,7 @@ class TrainingController < ApplicationController
             :comment => training_info['comment']
           )
           measurement.training_id = training_info['training_id']
-          measurement.trainer_id = training_info['trainer_id']
+          measurement.trainer = user.trainer
           
           training_info['series_executions'].each do |se|
             

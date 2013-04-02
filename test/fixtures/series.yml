@@ -1,11 +1,15 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-one:
-  exercise_id: 1
-  repeat_count: 15
-  weight: 70
+s1_ex1_templ1:
+  exercise: ex1_templ1
+  order: 100
+  repeat_count: 16
+  weight: 57
+  rest_time: 41
 
-two:
-  exercise_id: 2
-  repeat_count: 25
-  weight: 79
+s2_ex2_templ1:
+  exercise: ex2_templ1
+  order: 100
+  repeat_count: 16
+  weight: 57
+  rest_time: 41

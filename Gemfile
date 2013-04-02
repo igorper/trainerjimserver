@@ -35,7 +35,7 @@ gem 'bootstrap-sass'
 
 gem 'valid_email'
 
-# Authentication
+# Authentication & Authorisation
 gem 'devise'
 
 # Deployment

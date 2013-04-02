@@ -1,5 +1,8 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
+template1:
+  name: "Super training"
+
 matej1:
   name: "Matej's training"
   trainee: matej

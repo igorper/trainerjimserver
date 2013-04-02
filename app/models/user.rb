@@ -3,23 +3,15 @@ class User < ActiveRecord::Base
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+    :recoverable, :rememberable, :trackable, :validatable
 
   # Setup accessible (or protected) attributes for your model
   attr_accessible :id, :email, :password, :password_confirmation, :remember_me,
-                  :admin, :full_name, :is_trainer
+    :full_name, :trainer, :roles
   
+  belongs_to :trainer, :class_name => "User", :foreign_key => 'trainer_id'
   has_many :measurements, :dependent => :delete_all
-  
-  @@RoleAdmin = 0b1
-  
-  def admin?
-    (self.role & @@RoleAdmin) != 0
-  end
-  
-  def admin=(bool_value)
-    self.role = (bool_value ? (@role | @@RoleAdmin) : (@role & ~@@RoleAdmin))
-  end
+  has_and_belongs_to_many :roles
   
   def display_name()
     if self.full_name.blank? then
@@ -32,5 +24,17 @@ class User < ActiveRecord::Base
   
   def unique_display_name()
     "#{self.display_name} (#{self.email})"
+  end
+  
+  def role?(role)
+    return !!self.roles.find_by_name(role.to_s.camelize)
+  end
+  
+  def administrator?
+    return !!self.roles.find_by_name(Role.administrator)
+  end
+  
+  def trainer?
+    return !!self.roles.find_by_name(Role.trainer)
   end
 end

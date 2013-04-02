@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130401182536) do
+ActiveRecord::Schema.define(:version => 20130402095447) do
 
   create_table "conversations", :force => true do |t|
     t.integer  "sender_id"
@@ -91,6 +91,22 @@ ActiveRecord::Schema.define(:version => 20130401182536) do
     t.datetime "updated_at", :null => false
   end
 
+  create_table "roles", :force => true do |t|
+    t.string   "name",       :null => false
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  add_index "roles", ["name"], :name => "index_roles_on_name", :unique => true
+
+  create_table "roles_users", :force => true do |t|
+    t.integer "user_id"
+    t.integer "role_id"
+  end
+
+  add_index "roles_users", ["role_id"], :name => "index_roles_users_on_role_id"
+  add_index "roles_users", ["user_id"], :name => "index_roles_users_on_user_id"
+
   create_table "series", :force => true do |t|
     t.integer  "exercise_id",                 :null => false
     t.integer  "order"
@@ -106,7 +122,7 @@ ActiveRecord::Schema.define(:version => 20130401182536) do
   create_table "series_executions", :force => true do |t|
     t.integer "start_timestamp"
     t.integer "end_timestamp"
-    t.integer "exercise_type_id"
+    t.integer "exercise_type_id",                :null => false
     t.integer "num_repetitions"
     t.integer "weight"
     t.integer "rest_time"
@@ -141,10 +157,9 @@ ActiveRecord::Schema.define(:version => 20130401182536) do
   create_table "users", :force => true do |t|
     t.string   "email"
     t.string   "full_name"
-    t.integer  "role"
-    t.datetime "created_at",                                :null => false
-    t.datetime "updated_at",                                :null => false
-    t.string   "encrypted_password",     :default => "",    :null => false
+    t.datetime "created_at",                             :null => false
+    t.datetime "updated_at",                             :null => false
+    t.string   "encrypted_password",     :default => "", :null => false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -153,11 +168,12 @@ ActiveRecord::Schema.define(:version => 20130401182536) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
-    t.boolean  "is_trainer",             :default => false, :null => false
+    t.integer  "trainer_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
+  add_index "users", ["trainer_id"], :name => "index_users_on_trainer_id"
 
   add_foreign_key "conversations", "measurements", :name => "conversations_measurement_id_fk", :dependent => :delete
   add_foreign_key "conversations", "users", :name => "conversations_sender_id_fk", :column => "sender_id", :dependent => :delete
@@ -173,6 +189,9 @@ ActiveRecord::Schema.define(:version => 20130401182536) do
   add_foreign_key "measurements", "users", :name => "measurements_trainee_id_fk", :column => "trainee_id", :dependent => :delete
   add_foreign_key "measurements", "users", :name => "measurements_trainer_id_fk", :column => "trainer_id", :dependent => :nullify
 
+  add_foreign_key "roles_users", "roles", :name => "roles_users_role_id_fk", :dependent => :delete
+  add_foreign_key "roles_users", "users", :name => "roles_users_user_id_fk", :dependent => :delete
+
   add_foreign_key "series", "exercises", :name => "series_exercise_id_fk", :dependent => :delete
 
   add_foreign_key "series_executions", "exercise_types", :name => "series_executions_exercise_type_id_fk", :dependent => :delete
@@ -180,5 +199,7 @@ ActiveRecord::Schema.define(:version => 20130401182536) do
 
   add_foreign_key "trainings", "trainings", :name => "trainings_original_training_id_fk", :column => "original_training_id", :dependent => :nullify
   add_foreign_key "trainings", "users", :name => "trainings_trainee_id_fk", :column => "trainee_id", :dependent => :delete
+
+  add_foreign_key "users", "users", :name => "users_trainer_id_fk", :column => "trainer_id", :dependent => :nullify
 
 end
