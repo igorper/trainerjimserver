@@ -319,7 +319,6 @@ body.home.welcome {
                 height: $explanationHeight;
                 @include central-image('welcome/Welcome_Info_GetSocial.png');
                 
-                $socialBtnDim: 37px;
                 div.twitter {
                     @include size($socialBtnDim, $socialBtnDim);
                     position: absolute;

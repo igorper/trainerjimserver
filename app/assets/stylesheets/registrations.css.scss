@@ -4,6 +4,7 @@
     $fieldsWidth: 250px;
     
     .the-form {
+        margin-bottom: 25px;
         
         h2 {
             font-weight: 400;
@@ -64,5 +65,6 @@
     .why-register {
         @include central-image('login/why-register.png');
         @include size(444px, 389px);
+        margin-bottom: 25px;
     }
 }

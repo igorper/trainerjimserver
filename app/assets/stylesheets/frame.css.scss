@@ -1,4 +1,4 @@
-    @import "definitions.scss";
+@import "definitions.scss";
 
 $logoPartWidth: 164px;
 $loginPartWidth: 200px;
@@ -109,20 +109,73 @@ $loginPartWidth: 200px;
     }
 }
 
-div.footer.outer-container {
-    background-color: lighten($jimColor, 43%);
+////////////////////////////////////////////////////////////////////////////////
+/// FOOTER
+//
+.footer.outer-container {
+    background-color: $jimColor;
+    height: $footerHeight;
     
-    > div.inner-container {
-        padding: 25px 0px;
-        
-        > div.central-strip > div.content {
-            > div.copyright-notice {
-                @include text-shadow(1px 1px white);
+    .inner-container {
+        .container {
+            line-height: $footerHeight;
+            .content {
                 display: inline-block;
-                margin: 0px 15px;
-                color: #777;
-                font: {
-                    size: 0.9em;
+                vertical-align: middle;
+                width: 100%;
+                
+                .inner-content {
+                    line-height: normal;
+                    
+                    .top-row {
+                        .links {
+                            float: left;
+                            a {
+                                color: black;
+                                
+                                &.mobile-app {
+                                    font-weight: bold;
+                                    text-decoration: underline;
+                                }
+                            }
+                        }
+                        
+                        .social {
+                            float: right;
+                            font-size: 0.9em;
+                            
+                            .twitter {
+/*                                @include size($socialBtnDim, $socialBtnDim);
+                                display: inline-block;
+                                cursor: pointer;
+                                
+                                @include central-image('welcome/Welcome_TwitterIcon_OFF.png');
+                                
+                                &:hover {
+                                    @include central-image('welcome/Welcome_TwitterIcon_MouseOver.png');
+                                }*/
+                            }
+                            
+                            .tumblr {
+/*                                @include size($socialBtnDim, $socialBtnDim);
+                                display: inline-block;
+                                cursor: pointer;
+                                
+                                @include central-image('welcome/Welcome_TumblrIcon_OFF.png');
+                                
+                                &:hover {
+                                    @include central-image('welcome/Welcome_TumblrIcon_MouseOver.png');
+                                }*/
+                            }
+                        }
+                    }
+                    
+                    .copyright-notice {
+                        clear: both;
+                        padding-top: 8px;
+                        font-size: 0.8em;
+                        color: black;
+                    }
                 }
             }
         }
