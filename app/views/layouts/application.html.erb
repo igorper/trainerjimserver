@@ -1,21 +1,23 @@
-<!DOCTYPE html>
-<html>
-  <head lang="en">
-    <title><%= Rails.application.config.page_name %></title>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <%= stylesheet_link_tag    "application", :media => "all" %>
-    <%= stylesheet_link_tag    "frame", :media => "all" %>
-    <%= stylesheet_link_tag    controller_name, :media => "all" if Rails.application.assets.find_asset(controller_name + '.css') %>
-    <%= javascript_include_tag "application" %>
-    <%= javascript_include_tag "frame" %>
-    <%= javascript_include_tag controller_name if Rails.application.assets.find_asset(controller_name + '.js') %>
-    <%= csrf_meta_tags %>
-  </head>
-  <body class="main-layout <%= controller_name %> <%= action_name  %>">
-      <%= render :partial => 'shared/header' %>
+<% content_for :stylesheets do %>
+    <%= stylesheet_link_tag    'frame', :media => 'all' %>
+<% end %>
+
+<% content_for :scripts do %>
+    <%= javascript_include_tag 'frame' %>
+<% end %>
+
+<% content_for :header do %>
+    <%= render :partial => 'shared/header' %>
+<% end %>
+
+<% content_for :footer do %>
+    <%= render :partial => 'shared/footer' %>
+<% end %>
+
+<% content_for :content do %>
       <div class="container">
         <div class="row content"><%= yield %></div>
       </div>
-      <%= render :partial => 'shared/footer' %>
-  </body>
-</html>
+<% end %>
+
+<%= render :template => 'layouts/basic' %>

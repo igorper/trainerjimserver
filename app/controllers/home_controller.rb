@@ -10,14 +10,14 @@ class HomeController < ApplicationController
   end
   
   def soon
-    render :layout => 'noframe'
+    render :layout => 'basic'
   end
   
   def welcome
     if user_signed_in? then
       redirect_to home_url
     else
-      render :layout => 'noframe'
+      render :layout => 'basic'
     end
   end
   
