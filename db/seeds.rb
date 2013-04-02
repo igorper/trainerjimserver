@@ -12,10 +12,10 @@ admin_role = Role.find_by_name(Role.administrator)
 trainer_role = Role.find_by_name(Role.trainer)
 
 trainer = User.create(:email => 'jim@jim.com', :password => 'trainerjim', :full_name => 'Jim the Trainer', :roles => [trainer_role])
-matej = User.create(:email => 'matej.urbas@gmail.com', :password => 'Hrt 2309_Vili', :full_name => 'Matej Urbas', :roles => [admin_role])
-igor = User.create(:email => 'igor.pernek@gmail.com', :password => '307 Lakih_Pet', :full_name => 'Igor Pernek', :roles => [admin_role])
-damjan = User.create(:email => 'damjan.obal@gmail.com', :password => 'Klipni_Ul 103', :full_name => 'Damjan Obal', :roles => [admin_role])
-blaz = User.create(:email => 'snuderl@gmail.com', :password => 'to je 5 vukov', :full_name => 'Blaz Snuderl', :roles => [admin_role])
+matej = User.create(:email => 'matej.urbas@gmail.com', :password => 'Hrt 2309_Vili', :full_name => 'Matej Urbas', :roles => [admin_role], :trainer => trainer)
+igor = User.create(:email => 'igor.pernek@gmail.com', :password => '307 Lakih_Pet', :full_name => 'Igor Pernek', :roles => [admin_role], :trainer => trainer)
+damjan = User.create(:email => 'damjan.obal@gmail.com', :password => 'Klipni_Ul 103', :full_name => 'Damjan Obal', :roles => [admin_role], :trainer => trainer)
+blaz = User.create(:email => 'snuderl@gmail.com', :password => 'to je 5 vukov', :full_name => 'Blaz Snuderl', :roles => [admin_role], :trainer => trainer)
 kristjan = User.create(:email => 'kristjan.korez@gmail.com', :password => 'korezina 371', :full_name => 'Kristjan Korez', :roles => [trainer_role])
 #end
 
