@@ -13,7 +13,6 @@ $graphWidth : 500px;
 
 .text{
     display:inline;
-
 }
 
 .series-checkbox{
@@ -225,10 +224,6 @@ div.emoticons{
     }    
 }
 
-div.measurements{
-    width: $measurementsWidth;
-}
-
 label {
     display: inline;
 }
@@ -346,8 +341,7 @@ div#placeholder,{
     margin: 20px 0px;
     width: 100%;
     
-    > div {
-        display: inline-block;
+    > div > div {
         border: 1px solid #cecece;
         vertical-align: top;
         
@@ -356,8 +350,6 @@ div#placeholder,{
         /// PEOPLE (left column)
         //
         &.people-exercises {
-            width: $exercisesWidth;
-            margin-right: -3px;
             
             > .entry {
                 @include text-shadow(0 1px 1px white);
@@ -405,8 +397,6 @@ div#placeholder,{
         /// STATISTICS and COMMENTS (middle column)
         //
         &.statistics {
-            width: $statisticsWidth;
-            margin-left: -1px;
             
             > div{
                 > .avatar-name {
@@ -430,7 +420,6 @@ div#placeholder,{
                             @include bold;
                             @include text-shadow(0 1px 1px white);
                             $st_name_padding: 5px;
-                            width: $statisticsWidth - $avatarWidth - $st_name_padding*2;
                             padding: $st_name_padding;
                             color: #555;
                         }
@@ -610,10 +599,6 @@ div#placeholder,{
         /// MEASUREMENTS (right column)
         //
         &.measurements {
-            width: $measurementsWidth;
-            margin-left: -4px;
-            
-            
         }
         
         

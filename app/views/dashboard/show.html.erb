@@ -1,178 +1,182 @@
 
-<div id="dashboard-show">
-  <div class="people-exercises" data-bind="foreach: users">
+<div id="dashboard-show" class="container">
 
-    <div class="entry" data-bind="click: $parent.selectUsers.bind($data), css: {selected: $parent.selectedUser() == $data, even: $index() % 2 == 1}">
-      <div class="title" data-bind="text: display_name">
+  <div class="span2">
+    <div class="people-exercises" data-bind="foreach: users">
+
+      <div class="entry button-behaviour" data-bind="click: $parent.selectUsers.bind($data), css: {selected: $parent.selectedUser() == $data, even: $index() % 2 == 1}">
+        <div class="title" data-bind="text: display_name">
+        </div>
+        <div class="icon"></div>
       </div>
-      <div class="icon"></div>
     </div>
   </div>
 
-
-  <div class="statistics" data-bind="visible: statisticsVisible">
-    <div>
-      <div class="avatar-name" data-bind="with: selectedUser">
-        <div class="avatar"></div><div class="name" data-bind="text: full_name"></div>
+  <div class="span2">
+    <div class="statistics" data-bind="visible: statisticsVisible">
+      <div>
+        <div class="avatar-name" data-bind="with: selectedUser">
+          <div class="avatar"></div><div class="name" data-bind="text: full_name"></div>
+        </div>
+        <div class="numbers" data-bind="with: statistics()">
+          <div class="activity-percentage" data-bind="visible: duration !== false">
+            <div class="number" data-bind="text: duration">
+              72
+            </div>
+            <div class="jimlabel">
+              <div>min</div>
+              <div>active</div>
+            </div>
+          </div>
+          <div class="separator"><div></div></div>
+          <div class="activity-percentage">
+            <div class="number" data-bind="text: Math.ceil(100*Math.random())">
+              91
+            </div>
+            <div class="jimlabel">
+              <div class="percent">%</div>
+              <div>workout</div>
+              <div>done</div>
+            </div>
+          </div>
+          <div class="separator"><div></div></div>
+          <div class="activity-percentage" data-bind="visible: weightLifted !== false">
+            <div class="number" data-bind="text: weightLifted">
+              713
+            </div>
+            <div class="jimlabel">
+              <div>kg</div>
+              <div>lifted</div>
+            </div>
+          </div>
+          <div class="ex-workout-switch" data-bind="if: exerciseSelected">
+            exercise | <button class="btn-link" data-bind="click: toggle">workout</button>          
+          </div>
+          <div class="ex-workout-switch" data-bind="if: workoutSelected">
+            <button class="btn-link" data-bind="click: toggle">exercise</button>| workout
+          </div>
+        </div>
       </div>
-      <div class="numbers" data-bind="with: statistics()">
-        <div class="activity-percentage" data-bind="visible: duration !== false">
-          <div class="number" data-bind="text: duration">
-            72
+      <div class="comments" data-bind="with: commentsVM.last">
+        <div class="comment">
+          <div class="header">
+            <div class="icon"></div>
+            <div class="title-date">
+              <div class="title">Comment</div>
+              <div class="date" data-bind="text: $parent.dateFormat(date)"></div>
+            </div>
           </div>
-          <div class="jimlabel">
-            <div>min</div>
-            <div>active</div>
+          <div class="separator"></div>
+          <div class="emoticons" data-bind="with: $parent.measurement"> 
+            <div class="one" data-bind="css: {on: rating == 1}"></div>
+            <div class="two" data-bind="css: {on: rating == 2}"></div>
+            <div class="three" data-bind="css: {on: rating == 3}"></div>
+            <div class="four" data-bind="css: {on: rating == 4}"></div>
           </div>
-        </div>
-        <div class="separator"><div></div></div>
-        <div class="activity-percentage">
-          <div class="number" data-bind="text: Math.ceil(100*Math.random())">
-            91
+          <div class="separator"></div>
+          <div class="message" data-bind="css: {answered: $parent.commentsVM.answered()}">
+            <span data-bind="text: text"></span>
+          </div>       
+          <div class="responded-flag" data-bind="with: $parent.commentsVM">
+            <div class="no-answer" data-bind="visible: !answered()">
+              <div class="respond-box" data-bind="visible: !replyInputOn()">
+                <div class="reply-icon"></div>
+                <button class="btn-link" data-bind="click: replyToggle">Reply</button>
+              </div>
+              <div class="reply-box" data-bind="visible: replyInputOn">
+                <form data-bind="submit: postReply">
+                  <textarea class="comment-input" id="comment-field" rows="3" data-bind="value: inputText"></textarea>
+                  <div class="reply-buttons">
+                    <button class="btn btn-danger" data-bind="click: replyToggle">Cancel</button>
+                    <button class="btn btn-success" type="submit">Post</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+
+            <div class="answer" data-bind="visible: answered()">
+              <div class="box"><i class="icon-black icon-ok"></i></div>
+              <div class="text">You already responded</div>
+              <button class="btn btn-link btn-small" id="view-popup" data-placement="bottom">view</button>
+            </div>
+
           </div>
-          <div class="jimlabel">
-            <div class="percent">%</div>
-            <div>workout</div>
-            <div>done</div>
-          </div>
-        </div>
-        <div class="separator"><div></div></div>
-        <div class="activity-percentage" data-bind="visible: weightLifted !== false">
-          <div class="number" data-bind="text: weightLifted">
-            713
-          </div>
-          <div class="jimlabel">
-            <div>kg</div>
-            <div>lifted</div>
-          </div>
-        </div>
-        <div class="ex-workout-switch" data-bind="if: exerciseSelected">
-          exercise | <button class="btn-link" data-bind="click: toggle">workout</button>          
-        </div>
-        <div class="ex-workout-switch" data-bind="if: workoutSelected">
-          <button class="btn-link" data-bind="click: toggle">exercise</button>| workout
         </div>
       </div>
     </div>
-    <div class="comments" data-bind="with: commentsVM.last">
-      <div class="comment">
-        <div class="header">
-          <div class="icon"></div>
-          <div class="title-date">
-            <div class="title">Comment</div>
-            <div class="date" data-bind="text: $parent.dateFormat(date)"></div>
+  </div>
+
+  <div class="span8">
+    <div class="measurements" data-bind="visible: statisticsVisible && calendarVM.calendarVisible">
+      <div data-bind="with: calendarVM">
+        <div data-bind="visible: !calendarVisible()">  
+          Uporabnik se ni treniral.
+        </div>
+        <div class="calendar-new" data-bind="visible: calendarVisible">
+          <div class="month-tab">
+            <div class="arrow button-behaviour"  data-bind="click: scrollMonth.bind(null,-1)"><div class="arrow-left"></div></div>
+            <div class="month" data-bind="text: currentMonth().month">February</div>
+            <div class="arrow button-behaviour"  data-bind="click: scrollMonth.bind(null,1)"><div class="arrow-right"></div></div>
           </div>
+          <div class="days" data-bind="foreach: currentMonth().days">
+            <div class="day button-behaviour" data-bind="text: day + '.', click: $parent.measurementSelected.bind($data), css: { selected: $data === $parent.selectedDay() }"></div>
+          </div>
+          <div class="fill"></div>
         </div>
-        <div class="separator"></div>
-        <div class="emoticons" data-bind="with: $parent.measurement"> 
-          <div class="one" data-bind="css: {on: rating == 1}"></div>
-          <div class="two" data-bind="css: {on: rating == 2}"></div>
-          <div class="three" data-bind="css: {on: rating == 3}"></div>
-          <div class="four" data-bind="css: {on: rating == 4}"></div>
-        </div>
-        <div class="separator"></div>
-        <div class="message" data-bind="css: {answered: $parent.commentsVM.answered()}">
-          <span data-bind="text: text"></span>
-        </div>       
-        <div class="responded-flag" data-bind="with: $parent.commentsVM">
-          <div class="no-answer" data-bind="visible: !answered()">
-            <div class="respond-box" data-bind="visible: !replyInputOn()">
-              <div class="reply-icon"></div>
-              <button class="btn-link" data-bind="click: replyToggle">Reply</button>
-            </div>
-            <div class="reply-box" data-bind="visible: replyInputOn">
-              <form data-bind="submit: postReply">
-                <textarea class="comment-input" id="comment-field" rows="3" data-bind="value: inputText"></textarea>
-                <div class="reply-buttons">
-                  <button class="btn btn-danger" data-bind="click: replyToggle">Cancel</button>
-                  <button class="btn btn-success" type="submit">Post</button>
+      </div>
+
+      <div id="graphWindow">
+        <div data-bind="visible: selectedExercise !== null">
+          <div id="placeholder" data-bind="visible: !alternateExerciseInfo()">
+          </div>
+          <div class="exercisetextinfo" data-bind="visible: alternateExerciseInfo, with: selectedExecution">
+            <div id="stack">
+              <div class="horizontalstack">
+                <div class="number" data-bind="text: duration_seconds"></div><div class="jimlabel">
+                  <div>min</div>
+                  <div>active</div>
+                </div>              
+              </div>
+              <div class="verticalline" ></div>
+              <div class="horizontalstack">              
+                <div class="number" data-bind="text: num_repetitions"></div>
+                <div class="jimlabel">
+                  <div>reps</div>
+                </div>              
+              </div>
+              <div class="verticalline"></div>
+              <div class="horizontalstack">
+                <div class="number" data-bind="text: weight"></div>
+                <div class="jimlabel">
+                  <div>kg</div>
+                  <div>lifted</div>
                 </div>
-              </form>
-            </div>
-          </div>
-
-          <div class="answer" data-bind="visible: answered()">
-            <div class="box"><i class="icon-black icon-ok"></i></div>
-            <div class="text">You already responded</div>
-            <button class="btn btn-link btn-small" id="view-popup" data-placement="bottom">view</button>
-          </div>
-
-        </div>
-      </div>
-    </div>
-
-
-  </div>
-
-  <div class="measurements" data-bind="visible: statisticsVisible && calendarVM.calendarVisible">
-    <div data-bind="with: calendarVM">
-      <div data-bind="visible: !calendarVisible()">  
-        Uporabnik se ni treniral.
-      </div>
-      <div class="calendar-new" data-bind="visible: calendarVisible">
-        <div class="month-tab">
-          <div class="arrow"  data-bind="click: scrollMonth.bind(null,-1)"><div class="arrow-left"></div></div>
-          <div class="month" data-bind="text: currentMonth().month">February</div>
-          <div class="arrow"  data-bind="click: scrollMonth.bind(null,1)"><div class="arrow-right"></div></div>
-        </div>
-        <div class="days" data-bind="foreach: currentMonth().days">
-          <div class="day" data-bind="text: day + '.', click: $parent.measurementSelected.bind($data), css: { selected: $data === $parent.selectedDay() }"></div>
-        </div>
-        <div class="fill"></div>
-      </div>
-    </div>
-
-    <div id="graphWindow">
-      <div data-bind="visible: selectedExercise !== null">
-        <div id="placeholder" data-bind="visible: !alternateExerciseInfo()">
-        </div>
-        <div class="exercisetextinfo" data-bind="visible: alternateExerciseInfo, with: selectedExecution">
-          <div id="stack">
-            <div class="horizontalstack">
-              <div class="number" data-bind="text: duration_seconds"></div><div class="jimlabel">
-                <div>min</div>
-                <div>active</div>
-              </div>              
-            </div>
-            <div class="verticalline" ></div>
-            <div class="horizontalstack">              
-              <div class="number" data-bind="text: num_repetitions"></div>
-              <div class="jimlabel">
-                <div>reps</div>
-              </div>              
-            </div>
-            <div class="verticalline"></div>
-            <div class="horizontalstack">
-              <div class="number" data-bind="text: weight"></div>
-              <div class="jimlabel">
-                <div>kg</div>
-                <div>lifted</div>
               </div>
             </div>
           </div>
-        </div>
-        <div class="exerciseinfotab" data-bind="visible: selectedExecution() !== null">
-          <div class="title">Series</div>
-          <div id="workoutSets" data-bind="foreach: exerciseExecutions">
-            <div class="row-box">
-              <div class="text" data-bind="text: $index() + 1"></div>
-              <div class="box" data-bind="click: $parent.onGraphChangeButton"><i class="icon-black icon-ok" data-bind="visible: $data === $parent.selectedExecution()"></i></div>
+          <div class="exerciseinfotab" data-bind="visible: selectedExecution() !== null">
+            <div class="title">Series</div>
+            <div id="workoutSets" data-bind="foreach: exerciseExecutions">
+              <div class="row-box">
+                <div class="text" data-bind="text: $index() + 1"></div>
+                <div class="box button-behaviour" data-bind="click: $parent.onGraphChangeButton"><i class="icon-black icon-ok" data-bind="visible: $data === $parent.selectedExecution()"></i></div>
+              </div>
             </div>
+
           </div>
-
-        </div>
-      </div>      
-    </div>
-
-
-    <div class="types">
-      <div class="typestable" data-bind="foreach: exerciseTypes">
-        <div class="type" data-bind="text: name, click: $parent.onExerciseClick, css: { selected: $parent.selectedExercise() === $data }">Bench press</div>
+        </div>      
       </div>
-      <div class="weight-picture-box">
-        <div class="seen" data-bind="visible: selectedExercise !== null"> 
-          <div class="abc">
-            <div class="text" data-bind="html: selectedExerciseWeightInfo()"></div>
+
+
+      <div class="types">
+        <div class="typestable" data-bind="foreach: exerciseTypes">
+          <div class="type button-behaviour" data-bind="text: name, click: $parent.onExerciseClick, css: { selected: $parent.selectedExercise() === $data }">Bench press</div>
+        </div>
+        <div class="weight-picture-box">
+          <div class="seen" data-bind="visible: selectedExercise !== null"> 
+            <div class="abc">
+              <div class="text" data-bind="html: selectedExerciseWeightInfo()"></div>
+            </div>
           </div>
         </div>
       </div>
