@@ -4,37 +4,37 @@ $leftPanelWidth : 200px;
 $borderColor : #cecece; 
 
 @mixin slider($height){
-  > .slider{
-      font-size: 0px;
-      height: $height;
-      margin-top: 0px;
-      width: $height/2;
-      vertical-align: top;
-
-
-       & div{
-          display: block;
-          width:$height / 2;
-
-          > i{
-            margin-top: 5px;
-            margin-left: 5px;
-          }
-
-          &:hover{
-              background: $jimColor;
-          }
-
-       }
-
-       > .up{
-          height: $height / 2;
-          border-bottom: 1px solid $borderColor;
-       }
-
-       > .down{
-          height: $height / 2- 1;
-       }
+    > .slider{
+        font-size: 0px;
+        height: $height;
+        margin-top: 0px;
+        width: $height/2;
+        vertical-align: top;
+        
+        
+        & div{
+            display: block;
+            width:$height / 2;
+            
+            > i{
+                margin-top: 5px;
+                margin-left: 5px;
+            }
+            
+            &:hover{
+                background: $jimColor;
+            }
+            
+        }
+        
+        > .up{
+            height: $height / 2;
+            border-bottom: 1px solid $borderColor;
+        }
+        
+        > .down{
+            height: $height / 2- 1;
+        }
     }
 }
 
@@ -56,7 +56,7 @@ div.wrapper{
         display: inline-block;
     }
     
-    > div.workouts{
+    > div.workouts {
         font-size: 12px;
         margin-top: 20px;
         
@@ -68,6 +68,7 @@ div.wrapper{
         > .box{
             border: 1px solid $borderColor;
             border-bottom: 0px;
+            background-color: white;
             > .text{
                 padding: 10px;
             }
@@ -110,7 +111,7 @@ div.wrapper{
         
         
     }
-    > div.workout{
+    > div.workout {
         margin-top: 20px;
         margin-bottom: 20px;
         font-size: 12px;
@@ -118,6 +119,7 @@ div.wrapper{
         div.workout-outer {
             padding: 10px 20px 20px 20px;
             border: 1px solid $borderColor;
+            background-color: white;
             
             > .seperator{
                 height: 100%;
@@ -170,130 +172,130 @@ div.wrapper{
                         }
                     }
                 }
-
-
- > .workout-details{
-                $height : 50px;
-                font-size: 0px;
-                $fontSize : 14px;
-
-                > .row-border{
+                
+                
+                > .workout-details{
+                    $height : 50px;
                     font-size: 0px;
-                    border-top: 1px solid $borderColor;
-                    width: 683px;
-                    height:1px;
-                }
-
-                > .exercise-row{       
-                    owerflow: visible;
-                    height: $height;
-                    margin-top: -1px;
-
-                    & div{
-                        display: inline-block;
-                        background: silver;
+                    $fontSize : 14px;
+                    
+                    > .row-border{
+                        font-size: 0px;
+                        border-top: 1px solid $borderColor;
+                        width: 683px;
+                        height:1px;
                     }
-
-                    > .icon{
-                        width: $height;
+                    
+                    > .exercise-row{       
+                        owerflow: visible;
                         height: $height;
-                        background: $lightGray;
-                        vertical-align: top;
-                    }
-
-                    > .type{
-                        padding-left: 10px;
-                        font-size: $fontSize;
-                        height: $height;
-                        width: 140px;
-                        vertical-align: top;
-                        @include vertical-align($height);
-
-                        > .info{
-                            top: -50px;
-                            left: 125px;
-                            width: 15px;
-                            height: 15px;
-                            position: relative;
-                            background: $jimColor;
-
-                            &:hover{
-                                background: $hoverColor;
+                        margin-top: -1px;
+                        
+                        & div{
+                            display: inline-block;
+                            background: silver;
+                        }
+                        
+                        > .icon{
+                            width: $height;
+                            height: $height;
+                            background: $lightGray;
+                            vertical-align: top;
+                        }
+                        
+                        > .type{
+                            padding-left: 10px;
+                            font-size: $fontSize;
+                            height: $height;
+                            width: 140px;
+                            vertical-align: top;
+                            @include vertical-align($height);
+                            
+                            > .info{
+                                top: -50px;
+                                left: 125px;
+                                width: 15px;
+                                height: 15px;
+                                position: relative;
+                                background: $jimColor;
+                                
+                                &:hover{
+                                    background: $hoverColor;
+                                }
                             }
                         }
-                    }
-
-                    .seperator{
-                        height: $height;
-                        border-right: 1px solid $borderColor;
-                    }
-
-                    > .selector{
-                        padding-left: 6px;
-                        height: $height;
-
-                        > .name{
-                            font-size: $fontSize;
-                            @include vertical-align($height);                    
-
-                        }
-
-                         > .value{
-                            font-size: 30px;
-                            margin-left: 5px;
-                            margin-right:   5px;
-                            @include vertical-align($height);
-                         }
-
-                         > .unit{
-                            vertical-align: top;
-                            margin-right: 5px;   
-                            font-size: $fontSize;      
-                            @include vertical-align($height);
-                            min-width: 1px;
-                         }
-
-                         @include slider($height);
-
-                    }
-                    > .series{
-                        height: $height;
-                        vertical-align: top;
-                        width: 80px;
                         
-                        > .slider{
-                            display: inline-block;
+                        .seperator{
+                            height: $height;
+                            border-right: 1px solid $borderColor;
                         }
+                        
+                        > .selector{
+                            padding-left: 6px;
+                            height: $height;
+                            
+                            > .name{
+                                font-size: $fontSize;
+                                @include vertical-align($height);                    
+                                
+                            }
+                            
+                            > .value{
+                                font-size: 30px;
+                                margin-left: 5px;
+                                margin-right:   5px;
+                                @include vertical-align($height);
+                            }
+                            
+                            > .unit{
+                                vertical-align: top;
+                                margin-right: 5px;   
+                                font-size: $fontSize;      
+                                @include vertical-align($height);
+                                min-width: 1px;
+                            }
+                            
+                            @include slider($height);
+                            
+                        }
+                        > .series{
+                            height: $height;
+                            vertical-align: top;
+                            width: 80px;
+                            
+                            > .slider{
+                                display: inline-block;
+                            }
                             > .cols{
-                       > .top-text{
-                           margin-left: 15px;
-                           height: $height / 2;
-                           text-align: center;
-                           font-size: $fontSize;
-                           @include vertical-align($height / 2);
-                       }
-
-                       > .numbers{
-                        display: block;   
-                        margin-top: -5px;
-                        margin-left: 10px;
-                        font-size: 12px;
-                        > .btn{
-                            width: 10px;
-                            padding-left: 0px;
+                                > .top-text{
+                                    margin-left: 15px;
+                                    height: $height / 2;
+                                    text-align: center;
+                                    font-size: $fontSize;
+                                    @include vertical-align($height / 2);
+                                }
+                                
+                                > .numbers{
+                                    display: block;   
+                                    margin-top: -5px;
+                                    margin-left: 10px;
+                                    font-size: 12px;
+                                    > .btn{
+                                        width: 10px;
+                                        padding-left: 0px;
+                                    }
+                                }
+                            }
                         }
-                       }
+                        
+                        > .slider-wrapper{                    
+                            @include slider($height);
+                            vertical-align: top;
                         }
-                    }
-
-                    > .slider-wrapper{                    
-                        @include slider($height);
-                        vertical-align: top;
                     }
                 }
             }
         }
-}
         
         
     }

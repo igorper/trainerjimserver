@@ -19,9 +19,6 @@ $graphWidth : 500px;
     vertical-align:top;
 }
 
-
-
-
 .row-box{
     > .text{
         
@@ -110,7 +107,6 @@ $graphWidth : 500px;
         }
     }
 }
-
 
 div.calendar-new{
     $monthWidth : 150px;
@@ -228,7 +224,6 @@ label {
     display: inline;
 }
 
-
 div#graphWindow{
     height: $graphHeight;
     
@@ -288,8 +283,6 @@ div#graphWindow{
     }
 }
 
-
-
 .verticalline{
     position: absolute;
     margin-top: -35px;
@@ -309,27 +302,17 @@ div#graphWindow{
     display:inline-block;
 }
 
-
 .pagination{
     margin: 0px;
 }
 
-
 a:hover{ color: black }
 a:visited{ color: black }
-
-
-
-
 
 #types{
     border-top: 1px solid #cecece;  
     padding-left: 50px;
 }
-
-
-
-
 
 div#placeholder,{    
     width: $graphWidth;
@@ -379,10 +362,7 @@ div#placeholder,{
                 
                 > .title {
                     @include inline-middle;
-                    width: $exercisesWidth - 50px;
                     padding: 5px;
-                    
-                    
                 }
                 
                 > .icon {
@@ -471,7 +451,6 @@ div#placeholder,{
                     > div {
                         @include inline;
                         border-bottom: 2px dashed $jimColor;
-                        width: $statisticsWidth - 50px;
                     }
                 }
             }
