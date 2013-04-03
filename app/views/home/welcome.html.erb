@@ -2,7 +2,7 @@
 
   <div class="header">
     <div class="header-logo central-strip">
-      <% if !user_signed_in? then %>
+      <% if !user_signed_in? %>
         <div class="sign-in-tab button-behaviour">sign in</div>
 
         <div class="sign-in-panel auth-panel" style="display: none;">
@@ -14,6 +14,7 @@
               <div class="sub-title">Back for more strength?</div>
               <%= render 'devise/shared/login-panel' %>
             </div>
+            
             <% if devise_mapping.registerable? %>
               <div class="registration-part" style="display: none;">
                 <div class="title">Welcome champ.</div>
@@ -21,6 +22,7 @@
                 <%= render 'devise/shared/register-panel' %>
               </div>
             <% end %>
+            
           </div>
 
           <script type="text/javascript">

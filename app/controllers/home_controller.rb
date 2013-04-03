@@ -2,20 +2,9 @@ class HomeController < ApplicationController
   
   include AjaxHelper
   
-  def index
-    if user_signed_in? then
-      render 'training_list'
-    end
-    # Display the list of available training programmes:
-  end
-  
-  def soon
-    render :layout => 'basic'
-  end
-  
   def welcome
     if user_signed_in? then
-      redirect_to home_url
+      redirect_to workouts_url
     else
       render :layout => 'basic'
     end

@@ -1,40 +1,22 @@
 Trainerjim::Application.routes.draw do
   
-#  devise_for :users
+  ##############################################################################
+  ### AUTHENTICATION
+  ##
   devise_for :users, :path => '', :path_names => {
     :sign_in => 'login',
     :sign_up => 'register',
     :sign_out => 'logout'
   }
 
-  # NOTE: Mobile API or MAPI means that sessions aren't processed and most
-  # privileged actions require explicit authentication (through email/password or
-  # Google Token Authentication or otherwise). It will be written in the
-  # documentation of provided of the controller's action.
-
   ##############################################################################
-  ### PUBLIC PAGES (html-render
+  ### PUBLIC PAGES
   ##
-  # Homepage
-  match 'index' => "home#index", :as => :home
+  # Home
   root :to => 'home#welcome', :as => :welcome
   # Dashboard
   match 'dashboard' => 'dashboard#show', :as => :dashboard
-  match 'dashboard/statistics/:user' => 'dashboard#statistics'
-  match 'dashboard/measurements/:user' => 'dashboard#measurements'
-  match 'dashboard/measurement/:id' => 'dashboard#measurement'
-  match 'dashboard/series_executions_by_type/:measurement/:exercise' => 'dashboard#series_executions_by_type'
-  match 'dashboard/exercise/:measurement/:exercise' => 'dashboard#exercise'
-  match 'dashboard/exercisedates/:user' => 'dashboard#exercisedates'
-  # Measurements
-  match 'measurements/upload' => 'measurements#upload'
-  match 'measurements/new' => 'measurements#new'
-  match 'measurements/list' => 'measurements#show'
-  # MeasuremntComments
-  match 'measurements/comment' => 'MeasurementComments#new', :via => :post
-  match 'measurements/comment' => 'MeasurementComments#delete', :via => :delete
-  # Trainings
-  resources :training
+  # Training
   match 'workouts' => 'training#workouts', :as => :workouts
   
   
@@ -47,6 +29,16 @@ Trainerjim::Application.routes.draw do
   match 'users/list' => 'users#list'
   # Conversations
   match 'conversations/list/:user' => 'conversations#list'
+  # Measurement comments
+  match 'measurements/comment' => 'MeasurementComments#new', :via => :post
+  match 'measurements/comment' => 'MeasurementComments#delete', :via => :delete
+  # Dashboard
+  match 'dashboard/statistics/:user' => 'dashboard#statistics'
+  match 'dashboard/measurements/:user' => 'dashboard#measurements'
+  match 'dashboard/measurement/:id' => 'dashboard#measurement'
+  match 'dashboard/series_executions_by_type/:measurement/:exercise' => 'dashboard#series_executions_by_type'
+  match 'dashboard/exercise/:measurement/:exercise' => 'dashboard#exercise'
+  match 'dashboard/exercisedates/:user' => 'dashboard#exercisedates'
   
   
   
@@ -54,6 +46,11 @@ Trainerjim::Application.routes.draw do
   ### MOBILE API (these can be called from mobile apps---some of these require
   ##              authentication parameters passed through POST params)
   ##
+  # NOTE: Mobile API or MAPI means that sessions aren't processed (no cookies)
+  # and most privileged actions require explicit authentication (through
+  # email/password or Google Token Authentication or otherwise). It will be
+  # written in the documentation of provided of the controller's action.
+
   # Newsletter
   match 'mapi/subscription/newsletter' => 'home#m_subscribe', :as => :subscription
   # Training
