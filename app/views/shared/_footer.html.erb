@@ -1,27 +1,25 @@
 <div id="footer" class="footer outer-container">
-  <div class="inner-container">
-    <div class="container">
-      <div class="content">
-        <div class="inner-content">
-          <div class="top-row">
-            <div class="links">
-              <a href="<%= home_url %>">HOME</a> |
-              <a href="<%= home_url %>">FEATURES</a> |
-              <a href="<%= home_url %>">TEAM</a> |
-              <a href="<%= home_url %>">FEEDBACK, QA & COMMENTS</a> |
-              <a href="<%= home_url %>" class="mobile-app">GET THE MOBILE APP</a>
-            </div>
+  <div class="container">
+    <div class="content">
+      <div class="left">
+        <div class="links">
+          <a href="<%= home_url %>" class="first">HOME</a> |
+          <a href="<%= home_url %>">FEATURES</a> |
+          <a href="<%= home_url %>">TEAM</a> |
+          <a href="<%= home_url %>">FEEDBACK, QA & COMMENTS</a> |
+          <a href="<%= home_url %>" class="mobile-app">GET THE MOBILE APP</a>
+        </div>
 
-            <div class="social">
-              <div>We're social. A lot.</div>
-              <div class="twitter"></div>
-              <div class="tumblr"></div>
-            </div>
-          </div>
-
-          <div class="copyright-notice">
-            Trainer JIM. Copyright &copy; 2012
-          </div>
+        <div class="copyright-notice">
+          Trainer JIM. Copyright &copy; 2012
+        </div>
+      </div>
+      
+      <div class="right">
+        <div class="social">
+          <div class="text">We're social. A lot.</div>
+          <a href="<%= Rails.application.config.jim_twitter_url %>"><div class="twitter"></div></a>
+          <a href="<%= Rails.application.config.jim_tumblr_url %>"><div class="tumblr"></div></a>
         </div>
       </div>
     </div>

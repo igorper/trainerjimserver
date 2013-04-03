@@ -12,6 +12,8 @@ end
 module Trainerjim
   class Application < Rails::Application
     config.page_name = 'TrainerJim'
+    config.jim_twitter_url = 'https://twitter.com/trainwithJIM/'
+    config.jim_tumblr_url = 'http://trainerjim.tumblr.com/'
     
     config.to_prepare do
       Devise::SessionsController.layout "login" 

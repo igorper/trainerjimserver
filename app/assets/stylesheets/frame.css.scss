@@ -116,69 +116,70 @@ $loginPartWidth: 200px;
     background-color: $jimColor;
     height: $footerHeight;
     
-    .inner-container {
-        .container {
-            line-height: $footerHeight;
-            .content {
-                display: inline-block;
-                vertical-align: middle;
-                width: 100%;
+    .container {
+        line-height: $footerHeight;
+        .content {
+            display: inline-block;
+            vertical-align: middle;
+            width: 100%;
+            
+            > div {line-height: normal;}
+            
+            .left {
+                float: left;
                 
-                .inner-content {
-                    line-height: normal;
+                .links a {
+                    color: black;
+                    margin: 0px 5px;
                     
-                    .top-row {
-                        .links {
-                            float: left;
-                            a {
-                                color: black;
-                                
-                                &.mobile-app {
-                                    font-weight: bold;
-                                    text-decoration: underline;
-                                }
-                            }
-                        }
-                        
-                        .social {
-                            float: right;
-                            font-size: 0.9em;
-                            
-                            .twitter {
-/*                                @include size($socialBtnDim, $socialBtnDim);
-                                display: inline-block;
-                                cursor: pointer;
-                                
-                                @include central-image('welcome/Welcome_TwitterIcon_OFF.png');
-                                
-                                &:hover {
-                                    @include central-image('welcome/Welcome_TwitterIcon_MouseOver.png');
-                                }*/
-                            }
-                            
-                            .tumblr {
-/*                                @include size($socialBtnDim, $socialBtnDim);
-                                display: inline-block;
-                                cursor: pointer;
-                                
-                                @include central-image('welcome/Welcome_TumblrIcon_OFF.png');
-                                
-                                &:hover {
-                                    @include central-image('welcome/Welcome_TumblrIcon_MouseOver.png');
-                                }*/
-                            }
+                    &.first {margin-left: 0px;}
+                    
+                    &.mobile-app {
+                        font-weight: bold;
+                        text-decoration: underline;
+                        &:hover {
+                            text-decoration: none;
                         }
                     }
+                }
+                
+                .copyright-notice {
+                    padding-top: 8px;
+                    font-size: 0.8em;
+                    color: black;
+                }
+            }
+            
+            .right {
+                float: right;
+                
+                .social {
+                    font-size: 0.9em;
+                    $ftrTwitterIconSize: 25px;
+                    margin-top: 7px;
                     
-                    .copyright-notice {
-                        clear: both;
-                        padding-top: 8px;
-                        font-size: 0.8em;
-                        color: black;
+                    div {display: inline-block; vertical-align: middle;margin-left: 10px;}
+                    
+                    .twitter {
+                        @include square($ftrTwitterIconSize);
+                        cursor: pointer;
+                        @include central-image('login/Twitter_Off.png');
+                        &:hover {@include central-image('login/Twitter_ON.png');}
+                    }
+                    
+                    .tumblr {
+                        margin-left: 5px;
+                        @include square($ftrTwitterIconSize);
+                        cursor: pointer;
+                        @include central-image('login/Tumblr_Off.png');
+                        &:hover {@include central-image('login/Tumblr_ON.png');}
                     }
                 }
             }
+            
+            
         }
+        
     }
 }
 

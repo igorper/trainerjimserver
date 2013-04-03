@@ -114,6 +114,11 @@ $socialBtnDim: 37px;
     height: $height;
 }
 
+@mixin square($dim) {
+    width: $dim;
+    height: $dim;
+}
+
 
 
 /** BORDERS */
