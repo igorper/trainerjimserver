@@ -1,5 +1,17 @@
 module ApplicationHelper
   ##############################################################################
+  ### NAVIGATION
+  ##
+  def controller?(name)
+    return controller_name == name.to_s
+  end
+  ##
+  ### END: NAVIGATION
+  ##############################################################################
+  
+  
+  
+  ##############################################################################
   ### DEVISE (stuff for login/registration panels)
   ##
   def resource_name

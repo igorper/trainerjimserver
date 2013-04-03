@@ -55,6 +55,10 @@ $loginPartWidth: 200px;
                         cursor: pointer;
                         width: $headMainBtnWidth;
                         
+                        &.active a {
+                            background-image: image-url("Gradient_ClickedState_1px.png");
+                        }
+                        
                         &.last {
                             border-right: 2px solid #fee170;
                         }

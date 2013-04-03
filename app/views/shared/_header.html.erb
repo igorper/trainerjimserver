@@ -8,11 +8,11 @@
         <td class="main-part">
           <table class="buttons">
             <tr>
-              <td class="main-button"><a href="<%= dashboard_url %>" class="dashboard"><div></div></a></td>
-              <td class="main-button"><a href="<%= dashboard_url %>" class="people"><div></div></a></td>
-              <td class="main-button"><a href="<%= workouts_url %>" class="workout"><div></div></a></td>
-              <td class="main-button"><a href="<%= dashboard_url %>" class="calendar"><div></div></a></td>
-              <td class="main-button last"><a href="<%= dashboard_url %>" class="messages"><div></div></a></td>
+              <td class="main-button <%= 'active' if controller? :dashboard  %>"><a href="<%= dashboard_url %>" class="dashboard"><div></div></a></td>
+              <td class="main-button <%= 'active' if controller? :users  %>"><a href="#" class="people"><div></div></a></td>
+              <td class="main-button <%= 'active' if controller? :training  %>"><a href="<%= workouts_url %>" class="workout"><div></div></a></td>
+              <td class="main-button <%= 'active' if controller? :calendar  %>"><a href="#" class="calendar"><div></div></a></td>
+              <td class="main-button last <%= 'active' if controller? :messages  %>"><a href="#" class="messages"><div></div></a></td>
             </tr>
           </table>
         </td>
