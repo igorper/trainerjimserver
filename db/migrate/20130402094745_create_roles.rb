@@ -7,9 +7,5 @@ class CreateRoles < ActiveRecord::Migration
     end
     
     add_index :roles, :name, :unique => true
-    
-    # Add the admin and trainer roles:
-    Role.new(:name => Role.administrator).save()
-    Role.new(:name => Role.trainer).save()
   end
 end

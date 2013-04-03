@@ -1,4 +1,4 @@
-set :stages, %w(production staging localdev matej)
+set :stages, %w(production staging localdev matej dev)
 set :default_stage, 'staging'
 require 'capistrano/ext/multistage'
 
