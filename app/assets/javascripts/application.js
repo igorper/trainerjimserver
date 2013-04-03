@@ -31,6 +31,15 @@ function callJSON(url, parameters, successCallback, errorCallback) {
         } else {
             successCallback(data, textStatus, jqXHR);
         }
+    }).fail(function(jqXHR, textStatus) {
+        var errMsg = "Unknown exception";
+        var errId = "unknown_exception";
+        if (jqXHR.responseText) {
+            data = $.parseJSON(jqXHR.responseText);
+            errMsg = data['message'];
+            errId = data['error_id'];
+        }
+        errorCallback(errMsg, errId, data, textStatus, jqXHR);
     });
 }
 
@@ -56,11 +65,11 @@ $(function() {
      * Buttons
      */
     $('.button-behaviour').disableSelection();
-    
+
     $('.button-behaviour').mousedown(function() {
         $(this).addClass("pressed");
     });
-    
+
     $('.button-behaviour').mouseup(function() {
         $(this).removeClass("pressed");
     });
