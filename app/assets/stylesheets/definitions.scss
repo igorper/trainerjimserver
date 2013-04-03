@@ -1,19 +1,22 @@
-$jimColor: #FBC912;
-$headerHeight: 57px;
-$footerHeight: 85px;
-$logo-margin-left: 20px;
-$errorShadowColor: lighten(#ff6d00, 7%);
-$pageWidth: 990px;
-$bodyFontSize: 13px;
 
+// Main colors
+$jimColor: #FBC912;
 $jimBlue :  #1f94d2;
-$lightBlue: #0083ce;
+$bodyBackgroundColor: #eee;
+$lightBlue: #0083ce; // Used in our flat buttons (like the login/signup buttons)
 $hoverColor :  #1f94d2;
 $lightGray : #999999;
 $borderColor: #cecece;
 $darkGray: #424242;
+$errorShadowColor: lighten(#ff6d00, 7%);
 
+// Main dimensions
 $socialBtnDim: 37px;
+$headerHeight: 57px;
+$footerHeight: 85px;
+$logo-margin-left: 20px;
+$pageWidth: 990px;
+$bodyFontSize: 13px;
 
 
 

@@ -41,6 +41,7 @@
 body.main-layout {
     @include sans;
     font-size: $bodyFontSize;
+    background-color: $bodyBackgroundColor;
 }
 
 @import "bootstrap-responsive";
