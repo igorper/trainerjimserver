@@ -12,12 +12,12 @@ Trainerjim::Application.routes.draw do
   # Google Token Authentication or otherwise). It will be written in the
   # documentation of provided of the controller's action.
 
+  ##############################################################################
+  ### PUBLIC PAGES (html-render
+  ##
   # Homepage
   match 'index' => "home#index", :as => :home
   root :to => 'home#welcome', :as => :welcome
-  # MOBILE API
-  match 'mapi/subscription/newsletter' => 'home#m_subscribe', :as => :subscription
-  
   # Dashboard
   match 'dashboard' => 'dashboard#show', :as => :dashboard
   match 'dashboard/statistics/:user' => 'dashboard#statistics'
@@ -26,85 +26,39 @@ Trainerjim::Application.routes.draw do
   match 'dashboard/series_executions_by_type/:measurement/:exercise' => 'dashboard#series_executions_by_type'
   match 'dashboard/exercise/:measurement/:exercise' => 'dashboard#exercise'
   match 'dashboard/exercisedates/:user' => 'dashboard#exercisedates'
-  
-  #Conversations
-  match 'conversations/list/:user' => 'conversations#list'
-  
-  #Users
-  match 'users/list' => 'users#list'
-  
   # Measurements
   match 'measurements/upload' => 'measurements#upload'
   match 'measurements/new' => 'measurements#new'
   match 'measurements/list' => 'measurements#show'
-
   # MeasuremntComments
   match 'measurements/comment' => 'MeasurementComments#new', :via => :post
   match 'measurements/comment' => 'MeasurementComments#delete', :via => :delete
-  
   # Trainings
   resources :training
   match 'workouts' => 'training#workouts', :as => :workouts
-  # MOBILE API
+  
+  
+  
+  ##############################################################################
+  ### Ajax (e.g., json data requests, other Ajax requests made from the browser;
+  ##        authentication is handled through cookies and sessions)
+  ##
+  # Users
+  match 'users/list' => 'users#list'
+  # Conversations
+  match 'conversations/list/:user' => 'conversations#list'
+  
+  
+  
+  ##############################################################################
+  ### MOBILE API (these can be called from mobile apps---some of these require
+  ##              authentication parameters passed through POST params)
+  ##
+  # Newsletter
+  match 'mapi/subscription/newsletter' => 'home#m_subscribe', :as => :subscription
+  # Training
   match 'mapi/training/tests' => 'training#tests'
   match 'mapi/training/get' => 'training#m_get'
   match 'mapi/training/list' => 'training#m_list'
   match 'mapi/training/upload' => 'training#m_upload', :as => :upload_training
-
-  # The priority is based upon order of creation:
-  # first created -> highest priority.
-
-  # Sample of regular route:
-  #   match 'products/:id' => 'catalog#view'
-  # Keep in mind you can assign values other than :controller and :action
-
-  # Sample of named route:
-  #   match 'products/:id/purchase' => 'catalog#purchase', :as => :purchase
-  # This route can be invoked with purchase_url(:id => product.id)
-
-  # Sample resource route (maps HTTP verbs to controller actions automatically):
-  #   resources :products
-
-  # Sample resource route with options:
-  #   resources :products do
-  #     member do
-  #       get 'short'
-  #       post 'toggle'
-  #     end
-  #
-  #     collection do
-  #       get 'sold'
-  #     end
-  #   end
-
-  # Sample resource route with sub-resources:
-  #   resources :products do
-  #     resources :comments, :sales
-  #     resource :seller
-  #   end
-
-  # Sample resource route with more complex sub-resources
-  #   resources :products do
-  #     resources :comments
-  #     resources :sales do
-  #       get 'recent', :on => :collection
-  #     end
-  #   end
-
-  # Sample resource route within a namespace:
-  #   namespace :admin do
-  #     # Directs /admin/products/* to Admin::ProductsController
-  #     # (app/controllers/admin/products_controller.rb)
-  #     resources :products
-  #   end
-
-  # You can have the root of your site routed with "root"
-  # just remember to delete public/index.html.
-  # root :to => 'welcome#index'
-
-  # See how all your routes lay out with "rake routes"
-
-  # This is a legacy wild controller route that's not recommended for RESTful applications.
-  # Note: This route will make all actions in every controller accessible via GET requests.
-  # match ':controller(/:action(/:id))(.:format)'
 end
