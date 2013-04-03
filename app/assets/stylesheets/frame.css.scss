@@ -6,6 +6,17 @@ $loginPartWidth: 200px;
 ////////////////////////////////////////////////////////////////////////////////
 /// HEADER (with buttons)
 //
+@media (max-width: 767px) {
+    .header.outer-container {
+        margin-left: -20px;
+        margin-right: -20px;
+        .container {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    }
+}
+
 .header.outer-container {
     height: $headerHeight;
     background-color: $jimColor;
@@ -116,18 +127,27 @@ $loginPartWidth: 200px;
 ////////////////////////////////////////////////////////////////////////////////
 /// FOOTER
 //
+@media (max-width: 767px) {
+    .footer.outer-container {
+        margin-left: -20px;
+        margin-right: -20px;
+        .container {
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+    }
+}
+
 .footer.outer-container {
     background-color: $jimColor;
-    height: $footerHeight;
     
     .container {
-        line-height: $footerHeight;
+        padding:{top: 20px; bottom: 20px;}
+        
         .content {
             display: inline-block;
             vertical-align: middle;
             width: 100%;
-            
-            > div {line-height: normal;}
             
             .left {
                 float: left;
@@ -162,7 +182,7 @@ $loginPartWidth: 200px;
                     $ftrTwitterIconSize: 25px;
                     margin-top: 7px;
                     
-                    div {display: inline-block; vertical-align: middle;margin-left: 10px;}
+                    div {display: inline-block; vertical-align: middle; margin-left: 10px;}
                     
                     .twitter {
                         @include square($ftrTwitterIconSize);
