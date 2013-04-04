@@ -6,7 +6,6 @@ set :application, "TrainerJim"
 set :repository, "git@bitbucket.org:urbas/trainerjimserver.git"
 set :scm, 'git'
 
-set :rails_env, 'production'
 
 set :deploy_to, "/maco/rails/deployments/#{application}"
 set :user, 'root'
