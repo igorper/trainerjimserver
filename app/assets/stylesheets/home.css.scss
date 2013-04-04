@@ -215,6 +215,15 @@ body.home.welcome {
             
             div.subscription-top {
                 padding-bottom: 20px;
+                margin-top: -60px;
+                padding-top: 60px;
+                
+                $earlyAccessCircleDim: 148px;
+                background: {
+                    image: image-url('welcome/EarlyAccessCircle.png');
+                    repeat: no-repeat;
+                    position: (($pageWidth + $subscriptionFormWidth) / 2 - 7px) (0px);
+                }
                 
                 div.subscription {
                     width: $subscriptionFormWidth;
