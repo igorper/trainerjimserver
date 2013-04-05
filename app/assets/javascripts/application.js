@@ -74,3 +74,13 @@ $(function() {
         $(this).removeClass("pressed");
     });
 });
+
+
+
+///Makes all ajax request automaticly send over CSRF token too.
+$.ajaxSetup({
+    beforeSend: function(xhr) {
+        xhr.setRequestHeader('X-CSRF-Token',
+                             $('meta[name="csrf-token"]').attr('content'));
+    }
+});

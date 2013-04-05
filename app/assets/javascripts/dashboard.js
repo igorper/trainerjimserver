@@ -3,6 +3,14 @@
 //= require knockout-2.2.1
 //= require knockout.mapping
 
+
+$.ajaxSetup({
+    beforeSend: function(xhr) {
+        xhr.setRequestHeader('X-CSRF-Token',
+                             $('meta[name="csrf-token"]').attr('content'));
+    }
+});
+
 Array.prototype.sum = function() {
     if (this.length > 0) {
         return this.reduce(function(x, y) {
@@ -193,6 +201,7 @@ $("document").ready(function() {
                 $.ajax({
                     url: "/conversations/new",
                     data: {text: text, measurement_id: measurementId},
+                    
                     type: "POST",
                     success: function(data){
                         $.getJSON("/conversations/list_by_measurement/" + measurementId + ".json", function(data) {

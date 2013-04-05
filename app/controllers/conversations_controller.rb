@@ -1,5 +1,5 @@
 class ConversationsController < ApplicationController
-  
+  before_filter :authenticate_user!
   include AjaxHelper
   
   ### Returns last 5 conversations for given measurement
@@ -20,9 +20,10 @@ class ConversationsController < ApplicationController
       :measurement => Measurement.find_by_id(params[:measurement_id]),
       :date => DateTime.now,
       :sender =>  current_user)   
-    conversation.save
-    respond_to do |format|
-      format.json {render:json => current_user}      
+    if conversation.save
+      ajax_render conversation  
+    else
+      ajax_error conversation
     end
   end
   

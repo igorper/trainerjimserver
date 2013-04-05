@@ -12,6 +12,7 @@
     <%= csrf_meta_tags %>
   </head>
   <body class="main-layout <%= controller_name %> <%= action_name  %>">
+    <%= csrf_meta_tag %>
     <%= yield(:header) if content_for?(:header) %>
     <% if content_for?(:content) then %>
       <%= yield(:content) %>

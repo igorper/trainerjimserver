@@ -240,21 +240,20 @@ div#graphWindow{
 }
 
 #stack{
-    position: absolute;
     margin-top: 120px;
-    margin-left: 10px;
 }
 
 .horizontalstack {
     @include center;
     height:100px; 
-    width:150px; 
-    margin-left:5px; 
+    min-width: 100px;
     display: inline-block; /*Here you can also used display-inline:block instead of float:left*/
+    vertical-align: top;
+    margin-left: 5%;
     
     > .number{
         @include sans-titles;
-        vertical-align: bottom;
+        vertical-align: top;
         
         display: inline-block;
         color: #555;
@@ -298,7 +297,7 @@ div#graphWindow{
 }
 
 .exercisetextinfo{
-    width: 500px;
+    width: 80%;
     height: $graphHeight;
     display:inline-block;
 }
