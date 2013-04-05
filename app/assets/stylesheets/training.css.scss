@@ -3,6 +3,14 @@
 $leftPanelWidth : 200px;
 $borderColor : #cecece; 
 
+@mixin big-font{
+    @include sans;
+    font-size: 36px;
+    color: #373939;
+}
+
+
+
 @mixin slider($height){
     > .slider{
         font-size: 0px;
@@ -17,8 +25,8 @@ $borderColor : #cecece;
             width:$height / 2;
             
             > i{
-                margin-top: 5px;
-                margin-left: 5px;
+                margin-top: 10px;
+                margin-left: 10px;
             }
             
             &:hover{
@@ -45,10 +53,11 @@ div.wrapper{
     
     .title{
         font-weight: bold;;
-        font-size: 35px;
+        @include big-font;
     }
     .big{
-        font-size: 30px;
+       @include big-font;
+       font-weight: 200;
     }
     
     .underline{
@@ -175,20 +184,20 @@ div.wrapper{
                 
                 
                 > .workout-details{
-                    $height : 50px;
+                    $row-height : 66px;
                     font-size: 0px;
                     $fontSize : 14px;
                     
                     > .row-border{
                         font-size: 0px;
                         border-top: 1px solid $borderColor;
-                        width: 683px;
+                        width: 888px;
                         height:1px;
                     }
                     
                     > .exercise-row{       
                         owerflow: visible;
-                        height: $height;
+                        height: $row-height;
                         margin-top: -1px;
                         
                         & div{
@@ -197,23 +206,23 @@ div.wrapper{
                         }
                         
                         > .icon{
-                            width: $height;
-                            height: $height;
+                            width: $row-height;
+                            height: $row-height;
                             background: $lightGray;
                             vertical-align: top;
                         }
                         
                         > .type{
                             padding-left: 10px;
-                            font-size: $fontSize;
-                            height: $height;
-                            width: 140px;
+                            font-size: 20px;
+                            height: $row-height;
+                            width: 170px;
                             vertical-align: top;
-                            @include vertical-align($height);
+                            @include vertical-align($row-height);
                             
                             > .info{
-                                top: -50px;
-                                left: 125px;
+                                top: -73px;
+                                left: 155px;
                                 width: 15px;
                                 height: 15px;
                                 position: relative;
@@ -226,40 +235,41 @@ div.wrapper{
                         }
                         
                         .seperator{
-                            height: $height;
+                            height: $row-height;
                             border-right: 1px solid $borderColor;
                         }
                         
                         > .selector{
                             padding-left: 6px;
-                            height: $height;
+                            height: $row-height;
                             
                             > .name{
-                                font-size: $fontSize;
-                                @include vertical-align($height);                    
+                                font-size: 16px;
+                                @include vertical-align($row-height);                    
                                 
                             }
                             
                             > .value{
-                                font-size: 30px;
+                                font-size: 36px;
                                 margin-left: 5px;
+                                width: 70px;
                                 margin-right:   5px;
-                                @include vertical-align($height);
+                                @include vertical-align($row-height);
                             }
                             
                             > .unit{
                                 vertical-align: top;
                                 margin-right: 5px;   
-                                font-size: $fontSize;      
-                                @include vertical-align($height);
+                                font-size: 16px;      
+                                @include vertical-align($row-height);
                                 min-width: 1px;
                             }
                             
-                            @include slider($height);
+                            @include slider($row-height);
                             
                         }
                         > .series{
-                            height: $height;
+                            height: $row-height;
                             vertical-align: top;
                             width: 80px;
                             
@@ -269,10 +279,10 @@ div.wrapper{
                             > .cols{
                                 > .top-text{
                                     margin-left: 15px;
-                                    height: $height / 2;
+                                    height: $row-height / 2;
                                     text-align: center;
                                     font-size: $fontSize;
-                                    @include vertical-align($height / 2);
+                                    @include vertical-align($row-height / 2);
                                 }
                                 
                                 > .numbers{
@@ -289,7 +299,7 @@ div.wrapper{
                         }
                         
                         > .slider-wrapper{                    
-                            @include slider($height);
+                            @include slider($row-height);
                             vertical-align: top;
                         }
                     }
