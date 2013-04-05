@@ -248,7 +248,7 @@ $("document").ready(function() {
             debug = this;
 
             self.dateFormat = function(time) {
-                return $.datepicker.formatDate('dd, MM ,yy', new Date(time));
+                return $.datepicker.formatDate('dd, MM, yy', new Date(time));
             };
 
             self.clearGraphs = function() {
