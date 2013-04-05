@@ -56,24 +56,24 @@
           </div>
         </div>
       </div>
-      <div class="comments" data-bind="with: commentsVM.last">
+      <div class="comments" data-bind="with: measurement">
         <div class="comment">
           <div class="header">
             <div class="icon"></div>
             <div class="title-date">
               <div class="title">Comment</div>
-              <div class="date" data-bind="text: $parent.dateFormat(date)"></div>
+              <div class="date" data-bind="text: $parent.dateFormat(created_at)"></div>
             </div>
           </div>
           <div class="separator"></div>
-          <div class="emoticons" data-bind="with: $parent.measurement"> 
+          <div class="emoticons"> 
             <div class="one" data-bind="css: {on: rating == 1}"></div>
             <div class="two" data-bind="css: {on: rating == 2}"></div>
             <div class="three" data-bind="css: {on: rating == 3}"></div>
             <div class="four" data-bind="css: {on: rating == 4}"></div>
           </div>
           <div class="separator"></div>
-          <div class="message" data-bind="css: {answered: $parent.commentsVM.answered()}, with: $parent.measurement">
+          <div class="message" data-bind="css: {answered: $parent.commentsVM.answered()}">
             <span data-bind="text: comment"></span>
           </div>       
           <div class="responded-flag" data-bind="with: $parent.commentsVM">
