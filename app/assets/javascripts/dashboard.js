@@ -20,11 +20,17 @@ var debug;
 
 
 function KilogramsLifted(array) {
-    return $.map(array, function(impl) {
+    var kgs = $.map(array, function(impl) {
         return impl.num_repetitions * impl.weight;
     }).sum();
+
+    if (kgs >= 1000) {
+        return [(kgs / 1000).toFixed(1), 't'];
+    } else {
+        return [kgs, 'kg'];
+    }
 }
-;
+
 
 function Flatten(array) {
     return $.map(array, function(el) {
@@ -33,11 +39,16 @@ function Flatten(array) {
 }
 
 function Duration(array) {
-    return $.map(array, function(impl) {
+    var duration = $.map(array, function(impl) {
         return impl.duration_seconds;
     }).sum();
+    
+    if (duration >= 60) {
+        return [Math.round(duration / 60), 'min'];
+    } else {
+        return [duration, 'sec'];
+    }
 }
-;
 
 $("document").ready(function() {
     var placeholder = $("#placeholder");
@@ -48,6 +59,40 @@ $("document").ready(function() {
 
         function StatisticsPanel(exerciseTypes, root) {
             var self = this;
+
+            ////////////////////////////////////////////////////////////////////
+            /// Operations:
+            //
+            /**
+             * @returns {Array} [liftedAmount, unit]
+             */
+            self.getWeightLifted = function() {
+                if (self.workoutSelected()) {
+                    if (self.exerciseTypes.length > 0) {
+                        return KilogramsLifted(Flatten(self.exerciseTypes));
+                    }
+                } else if (self.parent.selectedExercise() !== null) {
+                    return KilogramsLifted(self.parent.selectedExercise().executions);
+                }
+                return [0, 'kg'];
+            }
+            /**
+             * @returns {Array} [duration, unit]
+             */
+            self.getDuration = function() {
+                if (self.workoutSelected()) {
+                    if (self.exerciseTypes.length > 0) {
+                        return Duration(Flatten(self.exerciseTypes));
+                    }
+                } else if (self.parent.selectedExercise() !== null) {
+                    return Duration(self.parent.selectedExercise().executions);
+                }
+                return [0, 'sec'];
+            }
+
+            ////////////////////////////////////////////////////////////////////
+            /// Fields:
+            //
             self.parent = root;
             self.exerciseTypes = exerciseTypes;
 
@@ -61,27 +106,22 @@ $("document").ready(function() {
                 return self.exerciseSelected(!self.exerciseSelected());
             };
 
-            self.weightLifted = ko.computed(function() {
-                if (self.workoutSelected()) {
-                    if (self.exerciseTypes.length > 0) {
-                        return KilogramsLifted(Flatten(self.exerciseTypes));
-                    }
-                } else if (self.parent.selectedExercise() !== null) {
+            self.workoutDonePercentage = 86;
 
-                    return KilogramsLifted(self.parent.selectedExercise().executions);
-                }
-                return 0;
+            self.weightLifted = ko.computed(function() {
+                return self.getWeightLifted()[0];
+            });
+
+            self.weightLiftedUnit = ko.computed(function() {
+                return self.getWeightLifted()[1];
             });
 
             self.duration = ko.computed(function() {
-                if (self.workoutSelected()) {
-                    if (self.exerciseTypes.length > 0) {
-                        return Duration(Flatten(self.exerciseTypes));
-                    }
-                } else if (self.parent.selectedExercise() !== null) {
-                    return Duration(self.parent.selectedExercise().executions);
-                }
-                return 0;
+                return self.getDuration()[0];
+            });
+
+            self.durationUnit = ko.computed(function() {
+                return self.getDuration()[1];
             });
         }
 

@@ -23,13 +23,13 @@
               72
             </div>
             <div class="jimlabel">
-              <div>min</div>
+              <div data-bind="text: durationUnit">min</div>
               <div>active</div>
             </div>
           </div>
           <div class="separator"><div></div></div>
           <div class="activity-percentage">
-            <div class="number" data-bind="text: Math.ceil(100*Math.random())">
+            <div class="number" data-bind="text: workoutDonePercentage">
               91
             </div>
             <div class="jimlabel">
@@ -44,7 +44,7 @@
               713
             </div>
             <div class="jimlabel">
-              <div>kg</div>
+              <div data-bind="text: weightLiftedUnit">kg</div>
               <div>lifted</div>
             </div>
           </div>
@@ -73,8 +73,8 @@
             <div class="four" data-bind="css: {on: rating == 4}"></div>
           </div>
           <div class="separator"></div>
-          <div class="message" data-bind="css: {answered: $parent.commentsVM.answered()}">
-            <span data-bind="text: text"></span>
+          <div class="message" data-bind="css: {answered: $parent.commentsVM.answered()}, with: $parent.measurement">
+            <span data-bind="text: comment"></span>
           </div>       
           <div class="responded-flag" data-bind="with: $parent.commentsVM">
             <div class="no-answer" data-bind="visible: !answered()">
@@ -132,7 +132,7 @@
             <div id="stack">
               <div class="horizontalstack">
                 <div class="number" data-bind="text: duration_seconds"></div><div class="jimlabel">
-                  <div>min</div>
+                  <div>sec</div>
                   <div>active</div>
                 </div>              
               </div>
@@ -145,7 +145,7 @@
               </div>
               <div class="verticalline"></div>
               <div class="horizontalstack">
-                <div class="number" data-bind="text: weight"></div>
+                <div class="number" data-bind="text: weight * num_repetitions"></div>
                 <div class="jimlabel">
                   <div>kg</div>
                   <div>lifted</div>

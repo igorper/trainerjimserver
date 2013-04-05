@@ -75,18 +75,10 @@ class TrainingController < ApplicationController
           
           training_info['series_executions'].each do |se|
             
-            # TODO: Igor should pass the exercise type rather than the exercise ID.
-            assoc_ex = Exercise.find_by_id(se['exercise_id'])
-            if assoc_ex
-              ex_type = assoc_ex.exercise_type
-            else
-              ex_type = ExerciseType.first
-            end
-            
             new_se = SeriesExecution.new(
               :start_timestamp => se['start_timestamp'],
               :end_timestamp => se['end_timestamp'],
-              :exercise_type => ex_type,
+              :exercise_type_id => se['exercise_type_id'],
               :num_repetitions => se['num_repetitions'],
               :weight => se['weight'],
               :rest_time => se['rest_time'],
