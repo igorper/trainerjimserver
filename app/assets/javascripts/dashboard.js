@@ -3,14 +3,6 @@
 //= require knockout-2.2.1
 //= require knockout.mapping
 
-
-$.ajaxSetup({
-    beforeSend: function(xhr) {
-        xhr.setRequestHeader('X-CSRF-Token',
-                             $('meta[name="csrf-token"]').attr('content'));
-    }
-});
-
 Array.prototype.sum = function() {
     if (this.length > 0) {
         return this.reduce(function(x, y) {
@@ -510,7 +502,7 @@ function setUpGraph(placeholder, data) {
 
 
 
-function showTooltip(x, y, contents) {
+function showTooltip2(x, y, contents) {
     $('<div id="tooltip" contenteditable="true">' + contents + '</div>').css({
         position: 'absolute',
         display: 'none',
@@ -521,14 +513,14 @@ function showTooltip(x, y, contents) {
         'background-color': '#fee',
         opacity: 0.80
     }).appendTo("body").fadeIn(200);
-}
+};
 
 var previousPoint = null;
 function onHover(event, pos, item) {
     $("#x").text(pos.x.toFixed(2));
     $("#y").text(pos.y.toFixed(2));
     if (item && item.series.label === "selected") {
-        if (previousPoint != item.datapoint) {
+        if (previousPoint !== item.datapoint) {
             previousPoint = item.datapoint;
             $("#tooltip").remove();
             var x = item.datapoint[0].toFixed(2),
@@ -539,7 +531,7 @@ function onHover(event, pos, item) {
             showTooltip(item.pageX, item.pageY, content);
         }
     }
-    else {
+    else {        
         $("#tooltip").remove();
         previousPoint = null;
     }
@@ -549,7 +541,8 @@ var el;
 
 ///Draws the popover form
 function popover(x, y, fadeTime, onClick) {
-    el = $('<div class="popover-box"><textarea class="input" placeholder="Type your comment here....." ></textarea><input type="submit" id="close" value="Close"/><input type="submit" id="post" value="Post"/></div>').css({
+    console.log("popover");
+    el = $('<div class="popover-box"><textarea class="input" id="graph-input" placeholder="Type your comment here....." ></textarea><input type="submit" id="close" value="Close"/><input type="submit" id="post" value="Post"/></div>').css({
         position: 'absolute',
         display: 'none',
         top: y + 5,
@@ -557,12 +550,14 @@ function popover(x, y, fadeTime, onClick) {
     }).appendTo("body");
     el.fadeIn(fadeTime);
     el.find("#close").click(function() {
-        el.fadeOut(fadeTime);
+        el.fadeOut(fadeTime,function(){ el.remove();});
+       
     });
 
     el.find("#post").click(function() {
-        komentar = el.find(".input").text();
+        komentar = el.find("textarea").val();
         onClick(komentar);
+        el.remove();
     });
 }
 
@@ -570,7 +565,6 @@ function onClick(event, pos, item) {
     if (item) {
         if (item.series.label === "podatki") {
             $("#clickdata").text("You clicked point " + item.dataIndex + ".");
-            //var komentar = prompt("Dodajte komentar", "");
 
             popover(item.pageX, item.pageY, 100, function(komentar) {
                 $.ajax({
