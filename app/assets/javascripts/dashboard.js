@@ -42,13 +42,14 @@ function Duration(array) {
     var duration = $.map(array, function(impl) {
         return impl.duration_seconds;
     }).sum();
-    
+
     if (duration >= 60) {
         return [Math.round(duration / 60), 'min'];
     } else {
         return [duration, 'sec'];
     }
-};
+}
+;
 
 $("document").ready(function() {
     var placeholder = $("#placeholder");
@@ -125,44 +126,80 @@ $("document").ready(function() {
             });
         }
 
-        function CommentsViewModel() {
+        function CommentsViewModel(parent) {
+            ///Comments view model got 2 main states.
+            ///1) No comments.
+            ///2) The user commented but trainer didnt reply yet.
+            ///3) Trainer replied to the user.
+
+            ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ///Fields
+            ///
+            ///            
+            ///
             var self = this;
-            self.comments = ko.observable([]);
+            self.parent = parent;
+            self.comments = ko.observableArray();
+            self.question = ko.observable();
+
+            ///Not yet implemented so always set to false from the start
+            self.answered = ko.observable(false);
+            self.replyFormVisible = ko.observable(false);
+
+            self.inputText = ko.observable("");
+            self.answer = ko.observable();
 
             self.setup = function(data) {
                 self.answered(false);
                 self.inputText("");
-                self.answer("");
-                self.comments(data);
+                self.answer(null);
+                ko.utils.arrayPushAll(self.comments, data);
+
+
+                //If no comments leave everything
+                if (data.length > 0) {
+                    ///Check if ID of selected user is same as commentators id
+
+                    ///If last comment is by User, we allow replying
+                    if (data[0].sender_id === self.parent.selectedUser().id() || data.length === 1) {
+                        self.question(data[0]);
+                    } else
+                    {
+                        ///Otherwise post is answered, and we set the answer value
+                        self.question(data[1]);
+                        self.answer(data[0]);
+                        self.answered(true);
+                    }
+                }
             };
 
             self.anyComments = ko.computed(function() {
                 return self.comments().length > 0;
             });
-            self.last = ko.computed(function() {
-                return self.comments()[0];
-            });
 
-            ///Not yet implemented so always set to false from the start
-            self.answered = ko.observable(false);
 
-            self.replyFormVisible = ko.observable(false);
+
             self.toggleReply = function() {
-                selfC.replyFormVisible(!self.replyFormVisible());
+                self.replyFormVisible(!self.replyFormVisible());
             };
 
-            self.inputText = ko.observable("");
-            self.answer = ko.observable();
 
             self.postReply = function() {
-                self.answer(self.inputText());
-                self.answered(true);
-                $("#view-popup").attr("data-original-title", self.answer());
-                $("#view-popup").hover(function() {
-                    $(this).tooltip("show");
-                });
-            };
+                text = self.inputText();
+                measurementId = self.parent.measurement().id;
+                self.toggleReply();
 
+
+                $.ajax({
+                    url: "/conversations/new",
+                    data: {text: text, measurement_id: measurementId},
+                    type: "POST",
+                    success: function(data){
+                        $.getJSON("/conversations/list_by_measurement/" + measurementId + ".json", function(data) {
+                            self.parent.commentsVM.setup(data);
+                        });
+                    }});
+            };
 
             self.replyInputOn = ko.observable(false);
             self.replyToggle = function() {
@@ -170,9 +207,18 @@ $("document").ready(function() {
             };
         }
 
-        function CalendarViewModel(parent) {
-            ///Calendar
+        function CalendarViewModel(root) {
+            ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ///Fields
+            ///
+            ///
+            ///
+
             var self = this;
+            self.parent = root;
+            self.calendar = ko.observable([]);
+            self.currentMonthIndex = ko.observable(0);
+            self.selectedDay = ko.observable();
 
             self.setup = function(data) {
                 if (data.length > 0) {
@@ -187,10 +233,7 @@ $("document").ready(function() {
                 }
             };
 
-            self.parent = parent;
-            self.calendar = ko.observable([]);
-            self.currentMonthIndex = ko.observable(0);
-            self.selectedDay = ko.observable();
+
             self.calendarVisible = ko.computed(function() {
                 return self.calendar() && self.calendar().length > 0;
             });
@@ -221,7 +264,9 @@ $("document").ready(function() {
             self.measurementSelected = function(el) {
                 if (self.selectedDay() !== el) {
                     self.selectedDay(el);
-                    $.getJSON("/dashboard/measurement/" + el.measurements[0].id, function(data) {
+
+                    measurementId = el.measurements[0].id;
+                    $.getJSON("/dashboard/measurement/" + measurementId, function(data) {
 
                         self.parent.exerciseTypes(data.types);
                         self.parent.measurement(data.measurement);
@@ -234,6 +279,11 @@ $("document").ready(function() {
 
                         ///Select first exercise type
                         self.parent.onExerciseClick(self.parent.exerciseTypes()[0]);
+
+                        ///Loads comments for given measurement
+                        $.getJSON("/conversations/list_by_measurement/" + measurementId + ".json", function(data) {
+                            self.parent.commentsVM.setup(data);
+                        });
                     });
                 }
             };
@@ -243,8 +293,9 @@ $("document").ready(function() {
 
 
 
-        function UsersViewModel() {
+        function UsersViewModel(parent) {
             var self = this;
+            self.parent = parent;
             debug = this;
 
             self.dateFormat = function(time) {
@@ -269,7 +320,7 @@ $("document").ready(function() {
             self.users = ko.mapping.fromJS(data);
             self.selectedUser = ko.observable(null);
 
-            self.commentsVM = new CommentsViewModel();
+            self.commentsVM = new CommentsViewModel(self);
             self.calendarVM = new CalendarViewModel(self);
             self.statistics = ko.observable(null);
 
@@ -292,7 +343,6 @@ $("document").ready(function() {
 
             self.selectedExecution = ko.observable(null);
 
-            ///Draw the grapsh here
             self.measurementsAvailable = ko.computed(function() {
                 return self.selectedExecution() !== null && self.selectedExecution().start_timestamp !== null;
             });
@@ -307,11 +357,15 @@ $("document").ready(function() {
                 return self.exerciseTypes() !== null && self.exerciseTypes().length > 0;
             });
 
+            ///Triggers when new exercise type is selected.
+            ///Selects first series by default.
             self.onExerciseClick = function(element) {
                 self.selectedExercise(element);
                 self.exerciseExecutions(element.executions);
                 self.onGraphChangeButton(element.executions[0]);
             };
+
+            ///Trigers when new series is selected
             self.onGraphChangeButton = function(element) {
                 self.selectedExecution(element);
 
@@ -345,7 +399,7 @@ $("document").ready(function() {
                 return self.selectedUser() !== null;
             });
 
-
+            ///Event that triggers when new user is selected
             self.selectUsers = function(element) {
                 if (element !== self.selectedUser()) {
                     self.selectedUser(element);
@@ -353,11 +407,8 @@ $("document").ready(function() {
                     self.exerciseTypes([]);
 
 
-                    $.getJSON("/conversations/list/" + self.selectedUser().id() + ".json", function(data) {
-                        self.commentsVM.setup(data);
-                        $.getJSON("/dashboard/exercisedates/" + element.id() + ".json", function(data) {
-                            self.calendarVM.setup(data);
-                        });
+                    $.getJSON("/dashboard/exercisedates/" + element.id() + ".json", function(data) {
+                        self.calendarVM.setup(data);
                     });
                     self.userChanged();
                 }

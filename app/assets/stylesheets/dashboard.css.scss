@@ -545,37 +545,18 @@ div#placeholder,{
                                     }
                                 }
                             }
-                        }
-                        
-                        > .answer{
-                            > div, button{
-                                display: inline-block;
-                            }
-                            
-                            > .text{
-                                vertical-align: top;
-                            }
-                            
-                            > button{
-                                padding-left: 0px;
-                                padding-right: 0px;
-                                margin-right: -10px;
-                                margin-top: -3px;
-                            }
-                            
-                            > .box{
-                                width:15px;
-                                height:20px;
-                                background-color: #cecece;
-                                margin-bottom: 3px;
-                                display: inline-table;
-                                vertical-align: top;
-                                margin-left: -5px;
-                            }
-                        }
+                        }  
                     }
-                    
+                    > .answer{
+                        margin-bottom: 5px;
+                        > .text{
+                            vertical-align: top;
+                            display: block;
+                            text-align: center;
+                        }
+                    }      
                 }
+
             }
         }
         

@@ -30,7 +30,8 @@ Trainerjim::Application.routes.draw do
   match 'users/list' => 'users#list'
   match 'users/list_trainees' => 'users#list_trainees'
   # Conversations
-  match 'conversations/list/:user' => 'conversations#list'
+  match 'conversations/list_by_measurement/:measurement' => 'conversations#list_by_measurement'
+  match 'conversations/new/' => 'conversations#new', :via => :post
   # Measurement comments
   match 'measurements/comment' => 'MeasurementComments#new', :via => :post
   match 'measurements/comment' => 'MeasurementComments#delete', :via => :delete

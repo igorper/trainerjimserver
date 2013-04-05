@@ -73,8 +73,10 @@
             <div class="four" data-bind="css: {on: rating == 4}"></div>
           </div>
           <div class="separator"></div>
-          <div class="message" data-bind="css: {answered: $parent.commentsVM.answered()}">
-            <span data-bind="text: comment"></span>
+          <div class="message">
+            <div data-bind="with: $parent.commentsVM.question">
+              <span data-bind="text: text"></span>
+            </div>
           </div>       
           <div class="responded-flag" data-bind="with: $parent.commentsVM">
             <div class="no-answer" data-bind="visible: !answered()">
@@ -87,18 +89,16 @@
                   <textarea class="comment-input" id="comment-field"rows="3" data-bind="value: inputText"></textarea>
                   <div class="reply-buttons btn-group">
                     <button class="btn btn-danger" data-bind="click: replyToggle">Cancel</button>
-                    <button class="btn btn-success" type="submit">Post</button>
+                    <button class="btn btn-success" data-bind="click: postReply" type="submit">Post</button>
                   </div>
                 </form>
               </div>
             </div>
+          </div>
 
-            <div class="answer" data-bind="visible: answered()">
-              <div class="box"><i class="icon-black icon-ok"></i></div>
-              <div class="text">You already responded</div>
-              <button class="btn btn-link btn-small" id="view-popup" data-placement="bottom">view</button>
-            </div>
-
+          <div class="separator" data-bind="visible: $parent.commentsVM.answered"></div>
+          <div class="answer" data-bind="visible: $parent.commentsVM.answered(), with: $parent.commentsVM.answer">            
+            <div class="text" data-bind="text: text"></div>
           </div>
         </div>
       </div>
