@@ -19,7 +19,7 @@
         <td class="login-part">
           <div>
             <% if user_signed_in? then %>
-              <%= current_user.display_name %>
+              <%= current_user.display_name %> |
               <a href="<%= destroy_user_session_path %>">Log out</a>
             <% else %>
               <a href="<%= new_user_session_path %>">Log in</a>

@@ -43,7 +43,7 @@ $("document").ready(function() {
     var placeholder = $("#placeholder");
     var graphDrawn = false;
 
-    $.getJSON('/users/list.json', function(data) {
+    $.getJSON('/users/list_trainees', function(data) {
 
 
         function StatisticsPanel(exerciseTypes, root) {

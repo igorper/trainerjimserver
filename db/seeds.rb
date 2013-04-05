@@ -12,19 +12,21 @@ admin_role = Role.find_by_name(Role.administrator)
 trainer_role = Role.find_by_name(Role.trainer)
 
 trainer = User.create(:email => 'jim@jim.com', :password => 'trainerjim', :full_name => 'Jim the Trainer', :roles => [trainer_role])
-matej = User.create(:email => 'matej.urbas@gmail.com', :password => 'Hrt 2309_Vili', :full_name => 'Matej Urbas', :roles => [admin_role], :trainer => trainer)
-igor = User.create(:email => 'igor.pernek@gmail.com', :password => '307 Lakih_Pet', :full_name => 'Igor Pernek', :roles => [admin_role], :trainer => trainer)
-damjan = User.create(:email => 'damjan.obal@gmail.com', :password => 'Klipni_Ul 103', :full_name => 'Damjan Obal', :roles => [admin_role], :trainer => trainer)
-blaz = User.create(:email => 'snuderl@gmail.com', :password => 'to je 5 vukov', :full_name => 'Blaz Snuderl', :roles => [admin_role], :trainer => trainer)
-kristjan = User.create(:email => 'kristjan.korez@gmail.com', :password => 'korezina 371', :full_name => 'Kristjan Korez', :roles => [trainer_role])
+matej = User.create(:email => 'matej.urbas@gmail.com', :password => 'Hrt 2309_Vili', :full_name => 'Matej', :roles => [admin_role], :trainer => trainer)
+igor = User.create(:email => 'igor.pernek@gmail.com', :password => '307 Lakih_Pet', :full_name => 'Igor', :roles => [admin_role], :trainer => trainer)
+damjan = User.create(:email => 'damjan.obal@gmail.com', :password => 'Klipni_Ul 103', :full_name => 'Damjan', :roles => [admin_role], :trainer => trainer)
+blaz = User.create(:email => 'snuderl@gmail.com', :password => 'to je 5 vukov', :full_name => 'Blaz', :roles => [admin_role], :trainer => trainer)
+marusa = User.create(:email => 'marusa@example.com', :password => 'test1234', :full_name => 'Marusa', :roles => [], :trainer => trainer)
+kristjan = User.create(:email => 'kristjan.korez@gmail.com', :password => 'korezina 371', :full_name => 'Kristjan', :roles => [trainer_role])
 #end
 
 bench = ExerciseType.create(:name => "Bench press")
 incline = ExerciseType.create(:name => "Incline press")
-vertical = ExerciseType.create(:name => "Vertical press")
-lat = ExerciseType.create(:name => "Lat pulldown")
+vertical = ExerciseType.create(:name => "Shoulder press")
+lat = ExerciseType.create(:name => "Lat machine")
 leg = ExerciseType.create(:name => "Leg press")
-tricep = ExerciseType.create(:name => "Tricep pushdown")
+triceps = ExerciseType.create(:name => "Triceps")
+biceps = ExerciseType.create(:name => "Biceps")
 
 
 # Create some dummy trainings:
@@ -34,7 +36,7 @@ training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 
 training1_ex3 = training1.exercises.create(:exercise_type => vertical, :order => 3)
 training1_ex4 = training1.exercises.create(:exercise_type => lat, :order => 4)
 training1_ex5 = training1.exercises.create(:exercise_type => leg, :order => 5)
-training1_ex6 = training1.exercises.create(:exercise_type => tricep, :order => 6)
+training1_ex6 = training1.exercises.create(:exercise_type => triceps, :order => 6)
 
 
 measurement1 = Measurement.create(

@@ -27,6 +27,7 @@ Trainerjim::Application.routes.draw do
   ##
   # Users
   match 'users/list' => 'users#list'
+  match 'users/list_trainees' => 'users#list_trainees'
   # Conversations
   match 'conversations/list/:user' => 'conversations#list'
   # Measurement comments
