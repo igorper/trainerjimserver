@@ -11,6 +11,7 @@ $statisticsLabelFontSize: 14px;
 $graphHeight : 300px;
 $graphWidth : 500px;
 
+
 .text{
     display:inline;
 }
@@ -315,7 +316,7 @@ a:visited{ color: black }
 }
 
 div#placeholder,{    
-    width: $graphWidth;
+    width: 80%;
     height: $graphHeight;
     display:inline-block;
 }
@@ -525,18 +526,21 @@ div#placeholder,{
                             > .reply-box{                            
                                 >form {
                                     > .comment-input{
-                                        width: 165px;
+                                        width: 90%;
                                         margin-botom: 5px;
+                                        margin-left: 1%;
                                     }
-                                    
+
+                                    > textarea{
+                                        resize: vertical;
+                                    }
+
                                     > .reply-buttons{
                                         text-align:center;
+                                        margin-left: 2%;
                                         margin-bottom: 5px;
                                         >button{
-                                            width: 70px;   
-                                            &:first-child{
-                                                margin-right: 20px;
-                                            }
+                                            width: 56%;   
                                         }
                                     }
                                 }

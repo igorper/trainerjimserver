@@ -215,6 +215,16 @@ $sweatOff: "emoticons/SmileyFaded_Sweat.png";
         width: 290px;
         height: 120px;
     }
+
+
+    ///Removes unwandted browser effects
+    > textarea{
+            resize: none;
+            *:focus {outline:0px none transparent;}
+            outline:none;
+            border: none;
+
+        }
     
     > input{
         float: right;

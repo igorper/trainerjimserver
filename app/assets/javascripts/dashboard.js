@@ -48,7 +48,7 @@ function Duration(array) {
     } else {
         return [duration, 'sec'];
     }
-}
+};
 
 $("document").ready(function() {
     var placeholder = $("#placeholder");
