@@ -12,6 +12,14 @@ $graphHeight : 300px;
 $graphWidth : 500px;
 
 
+.graph-comment.top:after {
+    border-color: #F3961C transparent;
+    border-width: 0 15px 15px;
+    bottom: auto;
+    left: 15px;
+    top: -15px;
+}
+
 .text{
     display:inline;
 }
@@ -567,4 +575,35 @@ div#placeholder,{
             background-color: white;
         }
     }
+}
+
+/////////////////////////////////////////////////////////////////
+/// Graph 
+/// Popup comments
+//
+
+.graph-comment:after {
+    border-color: #F3961C transparent;
+    border-style: solid;
+    border-width: 15px 15px 0;
+    bottom: -15px;
+    content: "";
+    display: block;
+    left: 50px;
+    position: absolute;
+    width: 0;
+}
+.graph-comment.top {
+    background: linear-gradient(#F3961C, #F9D835) repeat scroll 0 0 transparent;
+}
+.graph-comment {
+
+    min-width: 50px;
+    max-width: 300px;
+    background: linear-gradient(#F9D835, #F3961C) repeat scroll 0 0 transparent;
+    border-radius: 10px 10px 10px 10px;
+    color: #000000;
+    margin: 1em 0 3em;
+    padding: 5px;
+    position: relative;
 }
