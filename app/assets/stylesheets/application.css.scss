@@ -1,9 +1,8 @@
+////////////////////////////////////////////////////////////////////////////////
+/// FONTS & IMPORTS
+//
 @import url(https://fonts.googleapis.com/css?family=Open+Sans:700,700italic,400italic,400,300italic,300|Droid+Serif:400,400italic,700,700italic&subset=latin,latin-ext);
 
-
-////////////////////////////////////////////////////////////////////////////////
-/// FONTS
-//
 @font-face {
     font-family: 'fineness';
     src: url('Fineness Regular.ttf') format('truetype');
@@ -25,13 +24,10 @@
     font-style: normal;
 }
 
-
-
-////////////////////////////////////////////////////////////////////////////////
-/// COMMON STUFF
-//
 @import "definitions.scss";
 @import "bootstrap";
+@import "bootstrap-responsive";
+
 
 
 
@@ -44,7 +40,6 @@ body.main-layout {
     background-color: $bodyBackgroundColor;
 }
 
-@import "bootstrap-responsive";
 
 
 
@@ -54,26 +49,6 @@ body.main-layout {
 .central-strip {
     width: $pageWidth;
     margin: 0 auto 0 auto;
-}
-
-.shadowed-central-strip {
-    @extend .central-strip;
-    
-    border-radius: 5px;
-    border-bottom: 1px solid #b5b5b5;
-    border-top: 1px solid white;
-    border-right: 1px solid #b5b5b5;
-    border-left: 1px solid white;
-    margin-top: 15px;
-    box-shadow: 0 0 3px 3px #dddddd;
-}
-
-.main-content {
-    padding: 10px;
-}
-
-.zero-spacing {
-    @include zero-spacing;
 }
 
 
@@ -90,6 +65,13 @@ body.main-layout {
 ////////////////////////////////////////////////////////////////////////////////
 /// COMMON UI CLASSES
 //
+.jim-box {
+    background-color: $boxBackgroundColor;
+    border: 1px solid $borderColor;
+}
+
+.underline {text-decoration: underline;}
+
 .clickable-link {
     cursor: pointer;
 }
@@ -139,11 +121,26 @@ body.main-layout {
     @include shadow(0 0 5px 5px lighten($errorShadowColor, 15%));
 }
 
-.main-page-title {
-    @include sans;
-    font: {
-        size: 1.5em;
-    }
+
+
+/** TITLES */
+h1.jim-title {
+    font: {size: 2.8em; weight: 400;}
+}
+h1.jim-sub-title {
+    font: {size: 2.3em; weight: 200;}
+}
+h2.jim-title {
+    font: {size: 2.4em; weight: 400;}
+}
+h2.jim-sub-title {
+    font: {size: 2.0em; weight: 200;}
+}
+h3.jim-title {
+    font: {size: 1.9em; weight: 400;}
+}
+h3.jim-sub-title {
+    font: {size: 1.6em; weight: 200;}
 }
 
 

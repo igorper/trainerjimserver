@@ -9,6 +9,7 @@ $lightGray : #999999;
 $borderColor: #cecece;
 $darkGray: #424242;
 $errorShadowColor: lighten(#ff6d00, 7%);
+$boxBackgroundColor: white;
 
 // Main dimensions
 $socialBtnDim: 37px;
@@ -128,10 +129,15 @@ $bodyFontSize: 13px;
     border-radius: $radius;
 }
 
+@mixin no-rounding {
+    -webkit-border-radius: 0;
+    -moz-border-radius: 0;
+    border-radius: 0;
+}
+
 
 
 /** BUTTONS, INPUT FIELDS (FORM STUFF) */
-
 @mixin flat-btn {
     filter:progid:DXImageTransform.Microsoft.Gradient(enabled='false');
     -webkit-box-shadow: none;
@@ -160,7 +166,6 @@ $bodyFontSize: 13px;
 
 
 
-
 /** SHADOWS */
 @mixin shadow($shadows...) {
     -moz-box-shadow: $shadows;
@@ -183,6 +188,7 @@ $bodyFontSize: 13px;
     }
 }
 
+/** EMOTICONS */
 $happyOn:"emoticons/SmileyON_Happy.png";
 $happyOff: "emoticons/SmileyFaded_Happy.png";
 $sadOn: "emoticons/SmileyON_Sad.png";
@@ -192,7 +198,6 @@ $boredOff: "emoticons/SmileyFaded_Bored.png";
 $sweatOn: "emoticons/SmileyON_Sweat.png";
 $sweatOff: "emoticons/SmileyFaded_Sweat.png";
 
-// Emoticons */
 @mixin emoticon($url1,$url2){
     background: image-url($url1);
     background-repeat: no-repeat;
@@ -217,16 +222,16 @@ $sweatOff: "emoticons/SmileyFaded_Sweat.png";
         width: 290px;
         height: 120px;
     }
-
-
+    
+    
     ///Removes unwandted browser effects
     > textarea{
-            resize: none;
-            *:focus {outline:0px none transparent;}
-            outline:none;
-            border: none;
-
-        }
+        resize: none;
+        *:focus {outline:0px none transparent;}
+        outline:none;
+        border: none;
+        
+    }
     
     > input{
         float: right;

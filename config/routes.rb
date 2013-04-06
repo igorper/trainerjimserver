@@ -18,6 +18,7 @@ Trainerjim::Application.routes.draw do
   match 'dashboard' => 'dashboard#show', :as => :dashboard
   # Training
   match 'workouts' => 'training#workouts', :as => :workouts
+  # Development stuff
   match 'training/tests' => 'training#tests'
   
   
