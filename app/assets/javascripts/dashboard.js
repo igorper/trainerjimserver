@@ -610,13 +610,11 @@ function onClick(event, pos, item) {
 }
 
 function showTooltip(x, y, contents) {
-    $('<div id="tooltip">' + contents + '</div>').css({
+    $('<div id="tooltip" class="graph-comment top">' + contents + '</div>').css({
         position: 'absolute',
         display: 'none',
-        top: y + 5,
-        left: x + 5,
-        border: '1px solid #fdd',
-        padding: '2px',
+        top: y + 15,
+        left: x - 30,
         'background-color': '#fee',
         opacity: 0.80
     }).appendTo("body").fadeIn(100);
