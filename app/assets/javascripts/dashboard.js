@@ -148,11 +148,16 @@ $("document").ready(function() {
 
             self.inputText = ko.observable("");
             self.answer = ko.observable();
-
-            self.setup = function(data) {
+            
+            self.clear = function(){
                 self.answered(false);
                 self.inputText("");
                 self.answer(null);
+                self.question(null);
+            };
+
+            self.setup = function(data) {
+                self.clear();                
                 ko.utils.arrayPushAll(self.comments, data);
 
 
@@ -313,9 +318,11 @@ $("document").ready(function() {
             };
 
             self.userChanged = function() {
+                self.measurement(null);
                 self.statistics(null);
                 self.clearGraphs();
-            }
+                self.commentsVM.clear();
+            };
 
             ///Users display
             self.users = ko.mapping.fromJS(data);
@@ -326,7 +333,7 @@ $("document").ready(function() {
             self.statistics = ko.observable(null);
 
             ///Measurements
-            self.measurement = ko.observable();
+            self.measurement = ko.observable(null);
             self.selectedExercise = ko.observable(null);
             self.exerciseExecutions = ko.observable();
             self.hasExerciseMeasurements = ko.computed(function() {
