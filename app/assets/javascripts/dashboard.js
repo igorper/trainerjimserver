@@ -140,20 +140,15 @@ $("document").ready(function() {
             var self = this;
             self.parent = parent;
             self.comments = ko.observableArray();
-            self.question = ko.observable();
-
-            ///Not yet implemented so always set to false from the start
-            self.answered = ko.observable(false);
-            self.replyFormVisible = ko.observable(false);
-
             self.inputText = ko.observable("");
-            self.answer = ko.observable();
+            self.replyInputOn = ko.observable(false);
+            self.replyToggle = function() {
+                self.replyInputOn(!self.replyInputOn());
+            };
 
             self.clear = function() {
-                self.answered(false);
+                self.comments([]);
                 self.inputText("");
-                self.answer(null);
-                self.question(null);
             };
 
             self.setup = function(data) {
@@ -161,6 +156,13 @@ $("document").ready(function() {
                 data.reverse();
                 ko.utils.arrayPushAll(self.comments, data);
             };
+
+            self.replyLinkText = ko.computed(function() {                
+                if (self.comments().length > 0 && self.comments()[self.comments().length - 1].sender_id === parent.selectedUser().id()) {
+                    return "Reply";
+                }
+                return "Comment";
+            });
 
             self.latest = ko.computed(function() {
                 if (self.comments().length <= 5) {
@@ -189,11 +191,6 @@ $("document").ready(function() {
 
 
                 self.replyToggle();
-            };
-
-            self.replyInputOn = ko.observable(false);
-            self.replyToggle = function() {
-                self.replyInputOn(!self.replyInputOn());
             };
         }
 
