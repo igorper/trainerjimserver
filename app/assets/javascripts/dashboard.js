@@ -158,41 +158,25 @@ $("document").ready(function() {
 
             self.setup = function(data) {
                 self.clear();
+                data.reverse();
                 ko.utils.arrayPushAll(self.comments, data);
-
-
-                //If no comments leave everything
-                if (data.length > 0) {
-                    ///Check if ID of selected user is same as commentators id
-
-                    ///If last comment is by User, we allow replying
-                    if (data[0].sender_id === self.parent.selectedUser().id() || data.length === 1) {
-                        self.question(data[0]);
-                    } else
-                    {
-                        ///Otherwise post is answered, and we set the answer value
-                        self.question(data[1]);
-                        self.answer(data[0]);
-                        self.answered(true);
-                    }
-                }
             };
+
+            self.latest = ko.computed(function() {
+                if (self.comments().length <= 5) {
+                    return self.comments();
+                }
+                return self.comments().slice(self.comments().length - 5, self.comments().length);
+            });
 
             self.anyComments = ko.computed(function() {
                 return self.comments().length > 0;
             });
 
-
-
-            self.toggleReply = function() {
-                self.replyFormVisible(!self.replyFormVisible());
-            };
-
-
             self.postReply = function() {
                 text = self.inputText();
+                self.inputText("");
                 measurementId = self.parent.measurement().id;
-                self.toggleReply();
 
 
                 $.ajax({
@@ -200,10 +184,11 @@ $("document").ready(function() {
                     data: {text: text, measurement_id: measurementId},
                     type: "POST",
                     success: function(data) {
-                        $.getJSON("/conversations/list_by_measurement/" + measurementId + ".json", function(data) {
-                            self.parent.commentsVM.setup(data);
-                        });
+                        self.comments.push(data);
                     }});
+
+
+                self.replyToggle();
             };
 
             self.replyInputOn = ko.observable(false);

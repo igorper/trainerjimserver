@@ -72,33 +72,29 @@
             <div class="four" data-bind="css: {on: rating == 4}"></div>
           </div>
           <div class="separator"></div>
-          <div class="message">
-            <div data-bind="with: $parent.commentsVM.question">
-              <span data-bind="text: text"></span>
-            </div>
-          </div>       
+          <div data-bind="foreach: $parent.commentsVM.latest">
+            <div class="message" data-bind="css: {answer: ($root.selectedUser().id() === sender_id)}">
+              <span data-bind="text: $data.text"></span>
+            </div>    
+            <div class="separator" data-bind="visible: !($index() === ($root.commentsVM.latest().length - 1))"></div>
+          </div>
+
           <div class="responded-flag" data-bind="with: $parent.commentsVM">
-            <div class="no-answer" data-bind="visible: !answered()">
-              <div class="respond-box" data-bind="visible: !replyInputOn()">
-                <div class="reply-icon"></div>
-                <button class="btn-link" data-bind="click: replyToggle">Reply</button>
-              </div>
-              <div class="reply-box" data-bind="visible: replyInputOn">
-                <form data-bind="submit: postReply">
-                  <textarea class="comment-input" id="comment-field"rows="3" data-bind="value: inputText"></textarea>
-                  <div class="reply-buttons btn-group">
-                    <button class="btn btn-danger" data-bind="click: replyToggle">Cancel</button>
-                    <button class="btn btn-success" data-bind="click: postReply" type="submit">Post</button>
-                  </div>
-                </form>
-              </div>
+            <div class="respond-box" data-bind="visible: !replyInputOn()">
+              <div class="reply-icon"></div>
+              <button class="btn-link" data-bind="click: replyToggle">Reply</button>
+            </div>
+            <div class="reply-box" data-bind="visible: replyInputOn">
+              <form data-bind="submit: postReply">
+                <textarea class="comment-input" id="comment-field"rows="3" data-bind="value: inputText" placeholder="Your comment here..."></textarea>
+                <div class="reply-buttons btn-group">
+                  <button class="btn btn-danger" data-bind="click: replyToggle">Cancel</button>
+                  <button class="btn btn-success" data-bind="click: postReply" type="submit">Post</button>
+                </div>
+              </form>
             </div>
           </div>
 
-          <div class="separator" data-bind="visible: $parent.commentsVM.answered"></div>
-          <div class="answer" data-bind="visible: $parent.commentsVM.answered(), with: $parent.commentsVM.answer">            
-            <div class="text" data-bind="text: text"></div>
-          </div>
         </div>
       </div>
     </div>

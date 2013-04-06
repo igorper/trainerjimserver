@@ -492,31 +492,38 @@ div#placeholder,{
                             }
                         }
                     }
-                    
+
                     > .separator {
                         border-bottom: 1px solid #cecece;
                         margin: 10px;
                     }
                     
-                    > .emoticons {
-                        @include center;
-                    }
-                    
-                    > .message {
-                        text-align: center;;
-                        margin: 0px 10px 10px 10px;
-                        color: $hoverColor;
-                        font-weight: bold;
-                        
-                        &.answered{
+                    > div {
+                        > .separator {
+                        border-bottom: 1px solid #cecece;
+                        margin: 10px;
+                        }
+
+                        > .message {
+                            text-align: center;;
+                            margin: 0px 10px 10px 10px;
                             color: black;
                             font-weight: normal;
+
+                            &.answer{
+                                color: $hoverColor;
+                                font-weight: bold;
+                            }
                         }
                     }
                     
+                    > .emoticons {
+                        @include center;
+                    }
+                   
+                    
                     > .responded-flag {
                         margin: 10px;
-                        > .no-answer{
                             > .respond-box{
                                 float:right;
                                 
@@ -551,7 +558,6 @@ div#placeholder,{
                                         }
                                     }
                                 }
-                            }
                         }  
                     }
                     > .answer{
