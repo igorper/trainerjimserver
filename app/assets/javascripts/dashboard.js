@@ -148,8 +148,8 @@ $("document").ready(function() {
 
             self.inputText = ko.observable("");
             self.answer = ko.observable();
-            
-            self.clear = function(){
+
+            self.clear = function() {
                 self.answered(false);
                 self.inputText("");
                 self.answer(null);
@@ -157,7 +157,7 @@ $("document").ready(function() {
             };
 
             self.setup = function(data) {
-                self.clear();                
+                self.clear();
                 ko.utils.arrayPushAll(self.comments, data);
 
 
@@ -198,9 +198,8 @@ $("document").ready(function() {
                 $.ajax({
                     url: "/conversations/new",
                     data: {text: text, measurement_id: measurementId},
-                    
                     type: "POST",
-                    success: function(data){
+                    success: function(data) {
                         $.getJSON("/conversations/list_by_measurement/" + measurementId + ".json", function(data) {
                             self.parent.commentsVM.setup(data);
                         });
@@ -520,7 +519,8 @@ function showTooltip2(x, y, contents) {
         'background-color': '#fee',
         opacity: 0.80
     }).appendTo("body").fadeIn(200);
-};
+}
+;
 
 var previousPoint = null;
 function onHover(event, pos, item) {
@@ -538,7 +538,7 @@ function onHover(event, pos, item) {
             showTooltip(item.pageX, item.pageY, content);
         }
     }
-    else {        
+    else {
         $("#tooltip").remove();
         previousPoint = null;
     }
@@ -549,22 +549,24 @@ var el;
 ///Draws the popover form
 function popover(x, y, fadeTime, onClick) {
     console.log("popover");
-    el = $('<div class="popover-box"><textarea class="input" id="graph-input" placeholder="Type your comment here....." ></textarea><input type="submit" id="close" value="Close"/><input type="submit" id="post" value="Post"/></div>').css({
+    var element = $('<div class="popover-box"><textarea class="input" id="graph-input" placeholder="Type your comment here....." ></textarea><input type="submit" id="close" value="Close"/><input type="submit" id="post" value="Post"/></div>').css({
         position: 'absolute',
         display: 'none',
         top: y + 5,
         left: x + 5
     }).appendTo("body");
-    el.fadeIn(fadeTime);
-    el.find("#close").click(function() {
-        el.fadeOut(fadeTime,function(){ el.remove();});
-       
+    element.fadeIn(fadeTime);
+    element.find("#close").click(function() {
+        element.fadeOut(fadeTime, function() {
+            element.remove();
+        });
+
     });
 
-    el.find("#post").click(function() {
-        komentar = el.find("textarea").val();
+    element.find("#post").click(function() {
+        komentar = element.find("textarea").val();
         onClick(komentar);
-        el.remove();
+        element.remove();
     });
 }
 
@@ -590,22 +592,39 @@ function onClick(event, pos, item) {
             });
         } else {
 
-            idToRemove = plotData[1].data[item.dataIndex][3];
-            indexToRemove = item.dataIndex;
-            $.ajax({
-                url: "/measurements/comment",
-                type: "DELETE",
-                data: {id: idToRemove},
-                success: function(data) {
-                    debug.removeComment(indexToRemove);
-                },
-                error: function(data) {
-                    console.log("error");
-                }
+            var del = $('<div class="popover-delete-box"><span>Are you sure you want to delete this comment.</span><div class="inputs"><input type="submit" id="delete" value="Yes!"/><input type="submit" id="close" value="No"/></div></div></div>').
+                    css({
+                position: 'absolute',
+                display: 'none',
+                top: item.pageY + 5,
+                left: item.pageX + 5
+            }).appendTo("body");
+            del.fadeIn(100);
+            del.find("#close").click(function() {
+                del.fadeOut(100, function() {
+                    del.remove();
+                });
+
+            });
+
+            del.find("#delete").click(function() {
+                idToRemove = plotData[1].data[item.dataIndex][3];
+                indexToRemove = item.dataIndex;
+                $.ajax({
+                    url: "/measurements/comment",
+                    type: "DELETE",
+                    data: {id: idToRemove},
+                    success: function(data) {
+                        debug.removeComment(indexToRemove);
+                        del.remove();
+                    },
+                    error: function(data) {
+                        console.log("error");
+                        del.remove();
+                    }
+                });
             });
         }
-    } else {
-        $("#clickdata").text("Click mimo tocke.");
     }
 }
 
