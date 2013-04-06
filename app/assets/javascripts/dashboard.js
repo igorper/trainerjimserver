@@ -582,11 +582,9 @@ function onClick(event, pos, item) {
                     data: {seriesExecutionId: debug.selectedExecution().id, text: komentar, timestamp: item.dataIndex},
                     success: function(data) {
                         debug.addComment(data.comment);
-                        el.fadeOut(100);
                     },
                     error: function(data) {
                         console.log("error");
-                        el.fadeOut(100);
                     }
                 });
             });
