@@ -1,9 +1,31 @@
 class TrainingController < ApplicationController
   
   include AjaxHelper
-  include TrainingHelper
+#  include TrainingHelper
   
   def workouts
+  end
+  
+  # Returns the list of global training templates (provided for all users).
+  # @returns a list of training templates (view: `TrainingHelper.training_view`).
+  def templates
+    @global_trainings = Training.find_all_by_trainee_id(nil)
+    respond_to do |f|
+      f.json {render :json => @global_trainings.to_json(TrainingHelper.training_view)}
+    end
+  end
+  
+  # Returns the list of the user's own training regimes.
+  # @returns a list of training templates (view: `TrainingHelper.training_view`).
+  def my_templates
+    if user_signed_in?
+      @global_trainings = Training.find_all_by_trainee_id(current_user.id)
+      respond_to do |f|
+        f.json {render :json => @global_trainings.to_json(TrainingHelper.training_view)}
+      end
+    else
+      ajax_render_symerr :user_not_logged_in
+    end
   end
   
   # Returns an entire training for the user.
