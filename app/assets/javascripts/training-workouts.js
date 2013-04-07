@@ -32,6 +32,29 @@ $(function() {
         self.repeat_count = ko.observable(repeat_count);
         self.rest_time = ko.observable(rest_time);
         self.weight = ko.observable(weight);
+
+        // Operations
+        self.increaseReps = function() {
+            self.repeat_count(self.repeat_count() + 1);
+        }
+        self.decreaseReps = function() {
+            if (self.repeat_count() > 0)
+                self.repeat_count(self.repeat_count() - 1);
+        }
+        self.increaseWeight = function() {
+            self.weight(self.weight() + 5);
+        }
+        self.decreaseWeight = function() {
+            if (self.weight() > 5)
+                self.weight(self.weight() - 5);
+        }
+        self.increaseRestTime = function() {
+            self.rest_time(self.rest_time() + 1);
+        }
+        self.decreaseRestTime = function() {
+            if (self.rest_time() > 0)
+                self.rest_time(self.rest_time() - 1);
+        }
     }
 
     function Exercise(id, exercise_type, order, series) {
@@ -42,6 +65,14 @@ $(function() {
         self.order = ko.observable(order);
         self.series = ko.observableArray(series);
         self.exercise_type = ko.observable(exercise_type);
+
+        // Operations
+        self.removeSeries = function(series) {
+            self.series.remove(series);
+        }
+        self.addSeries = function() {
+            self.series.push(new Series(-1, 0, 0, 0));
+        }
     }
 
     function Regime(id, name, exercises) {
@@ -50,6 +81,11 @@ $(function() {
         self.id = id;
         self.name = ko.observable(name);
         self.exercises = ko.observableArray(exercises);
+
+        // Operations
+        self.removeExercise = function(exercise) {
+            self.exercises.remove(exercise);
+        }
     }
 
     function ExerciseType(id, name) {
@@ -112,12 +148,12 @@ $(function() {
         self.onSelectTraining = function(trainingTemplate) {
             callJSON(training_my_template_url, {id: trainingTemplate.id}, function(t) {
                 self.selected_training(regimeFromJson(t));
-                
+
                 workouts.find('.selected-regime .exercises').sortable();
                 workouts.find('.selected-regime .exercises').disableSelection();
                 workouts.find('.selected-regime .exercises .series-list').sortable();
                 workouts.find('.selected-regime .exercises .series-list').disableSelection();
-                
+
                 $('html, body').animate({
                     scrollTop: $("#my-workout").offset().top
                 }, 500);

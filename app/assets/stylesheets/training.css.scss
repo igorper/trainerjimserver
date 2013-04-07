@@ -105,16 +105,18 @@
                     background-color: $bodyBackgroundColor;
                     margin-bottom: 5px;
                     
-                    button {@include flat-btn;padding-right: 4px;background-color: white;float: right;}
+                    button {@include flat-btn;padding-right: 4px;float: right;}
                     button:hover {background-color: $hoverColor; color: white;}
                     
                     .details {
                         .name .exercise-label {font-weight: normal;}
                         .name {@include light; font-size: 1.5em; text-shadow: 1px 1px white; padding-top: 5px; padding-left: 5px;}
-                        .add-series {padding: 5px;}
-                        .add-series .btn {background-color: white; margin-top: 2px;}
-                        .add-series .btn:hover {background-color: $hoverColor;}
-                        .add-series .btn i {margin-left: 5px;}
+                        .exercise-top-btns {padding: 5px;}
+                        .exercise-top-btns .btn {@include no-rounding;margin-top: 2px;}
+                        .exercise-top-btns .btn i {margin-left: 5px;}
+                        .exercise-top-btns .delete-btn {margin-right: 10px;}
+                        .exercise-top-btns .add-btn {background-color: white;}
+                        .exercise-top-btns .add-btn:hover {background-color: $hoverColor;}
                     }
                     
                     .series-list {

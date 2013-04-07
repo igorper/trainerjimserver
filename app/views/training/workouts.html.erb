@@ -67,12 +67,13 @@
 
         <div class="exercise">
           <div class="details row-fluid button-behaviour">
-            <div class="name span7">
+            <div class="name span8">
               <span class="exercise-label">Exercise:</span>
               <span class="exercise-name"data-bind="text: exercise_type().name"></span>
             </div>
-            <div class="add-series span5">
-              <button class="btn">Add series <i class="icon-plus-sign"></i></button>
+            <div class="exercise-top-btns span4">
+              <button class="add-btn btn" data-bind="click: addSeries">Add series <i class="icon-plus-sign"></i></button>
+              <button class="delete-btn btn btn-danger" data-bind="click: $parent.removeExercise">Delete <i class="icon-remove-sign icon-white"></i></button>
             </div>
           </div>
 
@@ -83,26 +84,26 @@
                 <div class="reps span4 data-field">
                   <table class="content">
                     <tr>
-                      <td class="text"><div>reps: <span class="value" data-bind="text: repeat_count">10</span></div></td>
-                      <td class="plus-minus-btns"><div><button class="plus-btn btn"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn"><i class="icon-minus icon-white"></i></button></div></td>
+                      <td class="text"><div>reps: <span class="value" data-bind="text: repeat_count"></span></div></td>
+                      <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></div></td>
                     </tr>
                   </table>
                 </div><div class="weight span4 data-field">
                   <table class="content">
                     <tr>
-                      <td class="text"><div>weight: <span class="value" data-bind="text: weight">7</span> kg</div></td>
-                      <td class="plus-minus-btns"><div><button class="plus-btn btn"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn"><i class="icon-minus icon-white"></i></button></div></td>
+                      <td class="text"><div>weight: <span class="value" data-bind="text: weight"></span> kg</div></td>
+                      <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseWeight"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseWeight"><i class="icon-minus icon-white"></i></button></div></td>
                     </tr>
                   </table>
                 </div><div class="rest span3 data-field">
                   <table class="content">
                     <tr>
-                      <td class="text"><div>rest: <span class="value" data-bind="text: rest_time">15</span> s</div></td>
-                      <td class="plus-minus-btns"><div><button class="plus-btn btn"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn"><i class="icon-minus icon-white"></i></button></div></td>
+                      <td class="text"><div>rest: <span class="value" data-bind="text: rest_time"></span> s</div></td>
+                      <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseRestTime"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseRestTime"><i class="icon-minus icon-white"></i></button></div></td>
                     </tr>
                   </table>
                 </div><div class="remove-btn span1">
-                  <button class="btn"><i class="icon-remove-sign"></i></button>
+                  <button class="btn" data-bind="click: $parent.removeSeries"><i class="icon-remove-sign"></i></button>
                 </div>
               </div>
             </div>
