@@ -273,3 +273,43 @@ $sweatOff: "emoticons/SmileyFaded_Sweat.png";
         }
     }
 }
+
+/////////////////////////////////////////////////////////////////
+////////Media queries for difrent screen sizes
+/////
+$large: 1170px;
+$medium: 940px;
+$small: 724px;
+
+@mixin fonts($l,$m,$s){
+    @media all and (min-width: $large) {
+        font-size: $l;
+    }
+    @media all and (min-width: $medium)  and (max-width: $large){
+        font-size: $m;
+    }
+
+    @media all and (max-width: $medium){
+        font-size: $s;
+    }
+}
+
+@mixin media($type){
+    @if $type == small {
+
+    @media all and (max-width: $medium){
+      @content;
+    }
+
+    }
+    @else if $type == medium {
+        @media all and (min-width: $medium)  and (max-width: $large){
+          @content;
+        }
+    }
+    @else{
+        @media all and (min-width: $large) {
+            @content;
+        }
+    }
+}

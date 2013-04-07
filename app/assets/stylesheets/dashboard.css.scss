@@ -12,6 +12,8 @@ $graphHeight : 300px;
 $graphWidth : 500px;
 
 
+
+
 .graph-comment.top:after {
     border-color: #F3961C transparent;
     border-width: 0 15px 15px;
@@ -19,6 +21,8 @@ $graphWidth : 500px;
     left: 15px;
     top: -15px;
 }
+
+
 
 .text{
     display:inline;
@@ -49,7 +53,7 @@ $graphWidth : 500px;
     vertical-align:top;    
     margin-left: 30px;
     @include sans;
-    font-size: 15px;
+    @include fonts(15px,13px,11px);
     
     > .title{
         margin-bottom: 5px;
@@ -59,6 +63,7 @@ $graphWidth : 500px;
 .types{
     height: 93px;
     > .typestable{
+
         width: $graphWidth;
         border-top: 1px solid #cecece;
         border-right: 1px solid #cecece;
@@ -69,7 +74,7 @@ $graphWidth : 500px;
         
         > .type{
             height: 30px;
-            font-size: 12px;
+            @include fonts(12px,10px,9px);
             display:inline-table;
             width: $graphWidth / 4 - 1px;
             border: 1px solid #cecece;
@@ -108,7 +113,7 @@ $graphWidth : 500px;
                 > div.text{
                     @include sans;
                     position: absolute;
-                    font-size: 14px;
+                    @include fonts(14px,12px,11px);
                     top: 20px;
                     left: 17px;
                 }
@@ -175,7 +180,7 @@ div.calendar-new{
     > .month-tab{
         float: left;
         display: inline-block;
-        font-size: 12px;
+        @include fonts(12px,10px,9px);
         
         > .month
         {
@@ -346,6 +351,7 @@ div#placeholder,{
             > .entry {
                 @include text-shadow(0 1px 1px white);
                 height: 50px;
+                @include fonts(13px,12px,11px);
                 
                 &:hover{                                
                     background-color: #1f94d2;
@@ -476,6 +482,7 @@ div#placeholder,{
                             &.icon {
                                 @include size(48px, 31px);
                                 margin: 10px;
+                                margin-right: 5px;
                                 background: {
                                     image: image-url("SPeechBubbles.png");
                                     repeat: no-repeat;
@@ -483,11 +490,12 @@ div#placeholder,{
                             }
                             
                             .title {
-                                font-size: 1.4em;
+                                @include fonts(1.4em, 1.1em, 1em);
                             }
+
                             
                             .date {
-                                font-size: 0.85em;
+                                @include fonts(0.8em,0.6em,0.7em);
                                 color: #1f94d2;
                             }
                         }
