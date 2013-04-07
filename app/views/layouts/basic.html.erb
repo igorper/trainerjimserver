@@ -22,6 +22,6 @@
     <% else %>
       <%= yield %>
     <% end %>
-    <%= yield(:footer) if content_for?(:header) %>
+    <%= yield(:footer) if content_for?(:footer) %>
   </body>
 </html>
