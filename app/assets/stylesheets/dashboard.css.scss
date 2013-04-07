@@ -62,31 +62,34 @@ $graphWidth : 500px;
     > div{
         
         > table{
-            height: 120px;
             width: 100%;
             border: 1px solid #cecece;
             border-left: 0px;
             border-bottom: 0px;
             > tbody{
+                > #hidden-row{
+                    display: none;
+                }
+            
                 > tr{
                     border-bottom: 1px solid #cecece;
-                    height: 50px;
+                    height: 55px;
 
                     &:last-child{
-
-                        > td{
-                            &:last-child{
+                        > .normal:last-child{
                                 border-right: 1px solid #cecece;
-                            }
                         }
                     }
 
-                     > td  {
+
+                     > .normal  {
                         text-align: center;
                         width: 25%;
-
+                        
+                        border-right: 1px solid #cecece;
                         &:hover{
                             background-color: $hoverColor;
+                            cursor: pointer;
                         }
 
                         &.selected{

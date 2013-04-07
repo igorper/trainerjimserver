@@ -169,8 +169,14 @@
       <div class="types row-fluid">
         <div class="span9">
           <table class="typestable" data-bind="foreach: exerciseTypesRow()">
-            <tr data-bind="foreach: {data: $data, as: 'type'}">
-              <td data-bind="text: name, click: $parents[1].onExerciseClick, css: { selected: $parents[1].selectedExercise() === type }">Bench press</td>
+            <tr id='hidden-row'><td></td><td></td><td></td><td></td></tr>
+            <tr data-bind="foreach: {data: $data, as: 'type'}">     
+              <!-- ko if: type.name !== 'empty' -->
+              <td class='normal' data-bind="text: name, click: $parents[1].onExerciseClick, css: { selected: $parents[1].selectedExercise() === type }">Bench press</td>          
+              <!-- /ko -->              
+              <!-- ko if: type.name === 'empty' -->
+              <td class='filler'></td>
+              <!-- /ko -->
             </tr>
         </div>
         </tr>

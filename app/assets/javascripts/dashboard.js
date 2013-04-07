@@ -360,9 +360,14 @@ $("document").ready(function() {
 
                     rows = new Array();
                     while (i < numTypes) {
-                        rows.push(self.exerciseTypes().slice(i, i + Math.min(typesPerRow, numTypes - i)));
+                        slic = self.exerciseTypes().slice(i, i + Math.min(typesPerRow, numTypes - i));
                         i += typesPerRow;
+                        if (!(i < numTypes) && numTypes % 4 !== 0) {
+                            slic.push({ name: 'empty'})
+                        }
+                        rows.push(slic);
                     }
+
                     return rows;
                 }
             });
@@ -370,9 +375,11 @@ $("document").ready(function() {
             ///Triggers when new exercise type is selected.
             ///Selects first series by default.
             self.onExerciseClick = function(element) {
-                self.selectedExercise(element);
-                self.exerciseExecutions(element.executions);
-                self.onGraphChangeButton(element.executions[0]);
+                if (element !== 1) {
+                    self.selectedExercise(element);
+                    self.exerciseExecutions(element.executions);
+                    self.onGraphChangeButton(element.executions[0]);
+                }
             };
 
             ///Trigers when new series is selected
