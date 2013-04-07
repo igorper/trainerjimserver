@@ -16,7 +16,7 @@ class HomeController < ApplicationController
     if ns && ns.save then
       ajax_render true
     else
-      ajax_render_symerr :invalid_email
+      ajax_error :invalid_email
     end
   end
 end

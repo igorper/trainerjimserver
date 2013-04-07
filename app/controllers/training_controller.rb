@@ -1,9 +1,12 @@
 class TrainingController < ApplicationController
   
   include AjaxHelper
-#  include TrainingHelper
+  #  include TrainingHelper
   
   def workouts
+    if !user_signed_in?
+      redirect_to welcome_url
+    end
   end
   
   # Returns the list of global training templates (provided for all users).
@@ -24,7 +27,24 @@ class TrainingController < ApplicationController
         f.json {render :json => @global_trainings.to_json(TrainingHelper.training_view)}
       end
     else
-      ajax_render_symerr :user_not_logged_in
+      respond_to do |f|
+        f.json {ajax_error_i18n :user_not_logged_in}
+      end
+    end
+  end
+  
+  # Returns a full specification of the training template. If the requested
+  # training template belongs to a user, it will be checked that the current user
+  # is the owner.
+  # 
+  # @param id the id of the training template
+  # @returns the full specification of a single training template (view: `TrainingHelper.training_view`).
+  def my_template
+    if user_signed_in?
+      @training = Training.where(:trainee_id => current_user.id, :id => params[:id]).first
+      respond_to do |f|
+        f.json {render :json => @training.to_json(TrainingHelper.training_full_view)}
+      end
     end
   end
   
@@ -74,7 +94,7 @@ class TrainingController < ApplicationController
             raw_measurements = file.get_input_stream.read
           else
             # There are some unknown files in the zip. Report this error.
-            ajax_render_symerr :unknown_data_in_archive
+            ajax_error :unknown_data_in_archive
             return
           end
         end
@@ -82,7 +102,7 @@ class TrainingController < ApplicationController
         # Check whether we actually got the data:
         if training_info.nil? || raw_measurements.nil? then
           # We didn't get all the data. Throw an error: 
-          ajax_render_symerr :some_measurement_data_missing
+          ajax_error :some_measurement_data_missing
         else
           measurement = Measurement.new(
             :data => raw_measurements,

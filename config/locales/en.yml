@@ -38,3 +38,5 @@ en:
   training:
     m_upload:
       unknown_data_in_archive: "There is unknown data in the measurement archive."
+    my_templates:
+      user_not_logged_in: "Could not fetch your personal training templates. You have to be logged in."

@@ -6,11 +6,11 @@ module AjaxHelper
   #             should contain.
   # @returns Hash An object with (at least) three attributes: `message`,
   #               `error_id` and `error`. The attribute `error` is always set to
-  #               "ajax_error". This may be used on the client to identify with
+  #               "create_error". This may be used on the client to identify with
   #               certainty that an error occurred and that the Ajax call was
   #               not successful.
-  def ajax_error(id, msg = nil, attributes = nil)
-    res = {:error_id => id, :error => :ajax_error}
+  def create_error(id, msg = nil, attributes = nil)
+    res = {:error_id => id, :error => :create_error}
     res[:message] = msg if !msg.nil?
     if attributes.class == Hash
       return attributes.merge res
@@ -23,19 +23,36 @@ module AjaxHelper
   # Otherwise it renders the response object.
   # 
   # @param Hash options may have these options:
+  #                     :force_error (bool)  - indicates that an error should be rendered.
   #                     :symbol_error (bool) - indicates whether a symbol `response` should indicate an error.
-  #                     :i18n_error (string) - this prefix will be used when fetching the localised string based on the error-symbol (this option implies :symbol_error `true`). If not given on `nil`, then no internationalization will be applied
+  #                     :i18n_prefix (string) - this is used when generating the translation key. This one is used only when :symbol_error is set to `true`.
+  #                     :i18n_key (string) - this is the translation key used when generating the error message (if not specified.
   def ajax_render(response, options = {})
-    if (options[:symbol_error] || !options[:i18n_error].nil?) && response.is_a?(Symbol) then
-      i18n_prefix = options[:i18n_error]
-      render :json => ajax_error(response, i18n_prefix.nil? ? nil : (t i18n_prefix.blank? ? response : "#{i18n_prefix.to_s}.#{response}")), :status => 400
+    if options[:force_error] || (options[:symbol_error] && response.is_a?(Symbol)) then
+      # Get the error translated message:
+      t_key = options[:i18n_key]
+      if t_key.nil? then
+        if options[:symbol_error] && response.is_a?(Symbol) && !options[:i18n_prefix].nil? then
+          t_key = options[:i18n_prefix].to_s + '.' + response.to_s
+        else
+          t_key = nil
+        end
+      else
+        t_key = t_key.to_s
+      end
+      # Finally render the whole thing:
+      render :json => create_error(response, t_key.nil? ? nil : (t t_key)), :status => 400
     else
       render :json => response
     end
   end
   
-  def ajax_render_symerr(response, i18n_prefix = nil, options = {})
-    ajax_render response, options.merge({:symbol_error => true, :i18n_error => i18n_prefix.nil? ? nil : i18n_prefix}) 
+  def ajax_error(response, i18n_prefix = nil, options = {})
+    ajax_render response, options.merge({:force_error => true, :symbol_error => true, :i18n_prefix => i18n_prefix.nil? ? nil : i18n_prefix}) 
+  end
+  
+  def ajax_error_i18n(response, options = {})
+    ajax_error response, controller_name + '.' + action_name 
   end
   
   def with_auth_mapi(&block)
@@ -43,7 +60,7 @@ module AjaxHelper
     if user.is_a?(User) then
       yield user
     else
-      ajax_render_symerr :authentication_failure, 'mapi-err'
+      ajax_error :authentication_failure, 'mapi-err'
     end
   end
 end

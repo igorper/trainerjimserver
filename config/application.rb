@@ -68,9 +68,9 @@ module Trainerjim
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     
-    files = Dir[Rails.root.join('app', 'assets', '{javascripts,stylesheets}', '**', '[^_]*.{js,css}*')]
+    files = Dir[Rails.root.join('app', 'assets', '{javascripts,stylesheets}', '**', '[^_]*.{js,css,erb}*')]
     files.map! {|file| file.sub(%r(#{Rails.root}/app/assets/(javascripts|stylesheets)/), '') }
-    files.map! {|file| file.sub(%r(\.(coffee|scss)), '') }
+    files.map! {|file| file.sub(%r(\.(coffee|scss|js\.erb|scss\.erb)), '') }
     config.assets.precompile += files
   
     # Add the fonts path

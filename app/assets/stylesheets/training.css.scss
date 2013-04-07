@@ -60,9 +60,9 @@ $borderColor : #cecece;
         .workout-list {
             > li {
                 > a {@include zero-spacing; @include no-rounding;background-color: white;color: black; height: $workoutItemHeight; line-height: $workoutItemHeight; border-color: $borderColor;}
-                &.active > a {background-color: $jimBlue; color: white;}
-                &.active > a > .content .right {width: 20%; height: $workoutItemHeight; float: right; background-color: $jimColor;max-width: 30px; display: block;}
-                &.active > a > .content .left {width: 80%;}
+                &.highlighted > a {background-color: $jimBlue; color: white;}
+                &.highlighted > a > .content .right {width: 20%; height: $workoutItemHeight; float: right; background-color: $jimColor;max-width: 30px; display: block;}
+                &.highlighted > a > .content .left {width: 80%;}
                 > a > .content {
                     padding-left: 5px;
                     height: $workoutItemHeight;
@@ -147,7 +147,7 @@ $borderColor : #cecece;
                         .name .exercise-label {font-weight: normal;}
                         .name {@include light; font-size: 1.5em; text-shadow: 1px 1px white; padding-top: 5px; padding-left: 5px;}
                         .add-series {padding: 5px;}
-                        .add-series .btn {background-color: $bodyBackgroundColor; margin-right: 10px;}
+                        .add-series .btn {background-color: white; margin-top: 2px;}
                         .add-series .btn:hover {background-color: $hoverColor;}
                         .add-series .btn i {margin-left: 5px;}
                     }
@@ -187,6 +187,14 @@ $borderColor : #cecece;
                         
                     }
                 }
+            }
+            
+            .workout-buttons {
+                .row-fluid > div {text-align: right;}
+                
+                .btn {@include flat-btn; @include no-rounding;}
+                .btn.save {background-color: $lightBlue; margin-left: 10px;}
+                .btn.save:hover {background-color: $hoverColor;}
             }
         }
     }
