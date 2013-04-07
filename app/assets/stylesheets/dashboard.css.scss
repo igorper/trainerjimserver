@@ -550,16 +550,20 @@ div#placeholder,{
                     
                     > .responded-flag {
                         margin: 10px;
-                            > .respond-box{
-                                float:right;
-                                
-                                > .reply-icon{
-                                    background: image-url("Reply_Icon.png");
-                                    width: 23px;
-                                    height: 12px;
-                                    display: inline-block;
-                                    vertical-align: middle;
-                                    margin-right: -10px;
+                            
+                            > div{
+                            
+                                > .respond-box{
+                                    float:right;
+
+                                    > .reply-icon{
+                                        background: image-url("Reply_Icon.png");
+                                        width: 23px;
+                                        height: 12px;
+                                        display: inline-block;
+                                        vertical-align: middle;
+                                        margin-right: -10px;
+                                    }
                                 }
                             }
                             

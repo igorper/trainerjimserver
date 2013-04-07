@@ -78,11 +78,16 @@
             </div>    
             <div class="separator" data-bind="visible: !($index() === ($root.commentsVM.latest().length - 1))"></div>
           </div>
-
+          
+          
+          <div class="separator"></div>
           <div class="responded-flag" data-bind="with: $parent.commentsVM">
-            <div class="respond-box" data-bind="visible: !replyInputOn()">
-              <div class="reply-icon"></div>
-              <button class="btn-link" data-bind="click: replyToggle, text: replyLinkText"></button>
+            <div>
+              <div class="respond-box" data-bind="visible: !replyInputOn()">              
+                <div class="reply-icon"></div>
+                <button class="btn-link" data-bind="click: replyToggle, text: replyLinkText"></button>
+              </div>
+              <div class="clearfix"></div>
             </div>
             <div class="reply-box" data-bind="visible: replyInputOn">
               <form data-bind="submit: postReply">
