@@ -70,7 +70,7 @@ module Trainerjim
     
     files = Dir[Rails.root.join('app', 'assets', '{javascripts,stylesheets}', '**', '[^_]*.{js,css,erb}*')]
     files.map! {|file| file.sub(%r(#{Rails.root}/app/assets/(javascripts|stylesheets)/), '') }
-    files.map! {|file| file.sub(%r(\.(coffee|scss|js\.erb|scss\.erb)), '') }
+    files.map! {|file| file.sub(%r(\.(coffee|scss|erb|scss\.erb)), '') }
     config.assets.precompile += files
   
     # Add the fonts path
