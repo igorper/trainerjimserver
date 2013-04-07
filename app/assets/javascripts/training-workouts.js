@@ -8,10 +8,6 @@ $(function() {
     /// WORKOUTS
     //
     var workouts = $('.training.workouts');
-    workouts.find('.selected-regime .exercises').sortable();
-    workouts.find('.selected-regime .exercises').disableSelection();
-    workouts.find('.selected-regime .exercises .series-list').sortable();
-    workouts.find('.selected-regime .exercises .series-list').disableSelection();
 
     // KNOCKOUT MODELS:
     function TrainingTemplate(id, name) {
@@ -20,28 +16,83 @@ $(function() {
         self.id = id;
         self.name = ko.observable(name);
 
-        self.href = ko.computed(function() {
-            if (self.id < 0) {
-                return '#workout-templates';
-            } else {
-                return '#my-workout';
-            }
+        // Operations
+        self.compareTo = function(other) {
+            return self.name().localeCompare(other.name());
+        }
+        self.compareToById = function(other) {
+            return self.id - other.id;
+        }
+    }
+
+    function Series(id, repeat_count, rest_time, weight) {
+        var self = this;
+
+        self.id = id;
+        self.repeat_count = ko.observable(repeat_count);
+        self.rest_time = ko.observable(rest_time);
+        self.weight = ko.observable(weight);
+    }
+
+    function Exercise(id, exercise_type, order, series) {
+        var self = this;
+
+        self.id = id;
+        self.name = ko.observable(name);
+        self.order = ko.observable(order);
+        self.series = ko.observableArray(series);
+        self.exercise_type = ko.observable(exercise_type);
+    }
+
+    function Regime(id, name, exercises) {
+        var self = this;
+
+        self.id = id;
+        self.name = ko.observable(name);
+        self.exercises = ko.observableArray(exercises);
+    }
+
+    function ExerciseType(id, name) {
+        var self = this;
+
+        self.id = id;
+        self.name = name;
+
+        // Operations
+        self.compareTo = function(other) {
+            return self.name.localeCompare(other.name);
+        }
+    }
+
+    // HELPER METHODS
+    function seriesFromJson(seriesJson) {
+        return new Series(seriesJson.id, seriesJson.repeat_count, seriesJson.rest_time, seriesJson.weight);
+    }
+
+    function multiSeriesFromJson(seriesJson) {
+        return $.map(seriesJson, function(s) {
+            return seriesFromJson(s);
         });
     }
 
-    function Series() {
-        var self = this;
+    function exerciseTypeFromJson(extJson) {
+        return new ExerciseType(extJson.id, extJson.name);
     }
 
-    function Exercise() {
-        var self = this;
+    function exerciseFromJson(exJson) {
+        return new Exercise(exJson.id, exerciseTypeFromJson(exJson.exercise_type), exJson.order, multiSeriesFromJson(exJson.series));
     }
 
-    function Regime() {
-        var self = this;
+    function exercisesFromJson(exsJson) {
+        return $.map(exsJson, function(ex) {
+            return exerciseFromJson(ex);
+        });
     }
-    
-    // Helper Methods
+
+    function regimeFromJson(rJson) {
+        return new Regime(rJson.id, rJson.name, exercisesFromJson(rJson.exercises));
+    }
+
     function createDummyTrainingTemplate(message) {
         return new TrainingTemplate(-1, message ? message : 'Create or choose one <span class="underline">here</span>');
     }
@@ -52,13 +103,38 @@ $(function() {
         var self = this;
 
         // Data
+        self.exercise_types = ko.observableArray(); // type: [ExerciseType]
         self.my_templates = ko.observableArray(); // type: [TrainingTemplate]
         self.templates = ko.observableArray(); // type: [TrainingTemplate]
         self.selected_training = ko.observable(); // type: TrainingTemplate
 
         // Operations
+        self.onSelectTraining = function(trainingTemplate) {
+            callJSON(training_my_template_url, {id: trainingTemplate.id}, function(t) {
+                self.selected_training(regimeFromJson(t));
+                
+                workouts.find('.selected-regime .exercises').sortable();
+                workouts.find('.selected-regime .exercises').disableSelection();
+                workouts.find('.selected-regime .exercises .series-list').sortable();
+                workouts.find('.selected-regime .exercises .series-list').disableSelection();
+                
+                $('html, body').animate({
+                    scrollTop: $("#my-workout").offset().top
+                }, 500);
+            });
+        }
+
+        self.displayableIndex = function(idx) {
+            return idx + 1;
+        }
 
         // Initialisation
+        callJSON(exercise_types_url, {}, function(exs) {
+            self.exercise_types($.map(exs, function(et) {
+                return new ExerciseType(et.id, et.name);
+            }));
+        });
+
         callJSON(training_templates_url, {}, function(templates) {
             self.templates($.map(templates, function(template) {
                 return new TrainingTemplate(template.id, template.name);
@@ -68,6 +144,9 @@ $(function() {
         callJSON(training_my_templates_url, {}, function(templates) {
             var my_templates = $.map(templates, function(template) {
                 return new TrainingTemplate(template.id, template.name);
+            });
+            my_templates.sort(function(a, b) {
+                return a.compareToById(b);
             });
             my_templates.push(createDummyTrainingTemplate());
             self.my_templates(my_templates);

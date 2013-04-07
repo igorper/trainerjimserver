@@ -228,3 +228,76 @@ series_ex31 = SeriesExecution.create(:start_timestamp => 362331, :end_timestamp 
   :rest_time => 279, :measurement => measurement2, :duration_seconds => Random.rand(5))
 series_ex41 = SeriesExecution.create(:start_timestamp => 444178, :end_timestamp => 475336, :exercise_type => training1_ex1.exercise_type, :weight => 80, :num_repetitions => 13,
   :rest_time => 279, :measurement => measurement2, :duration_seconds => Random.rand(5))
+
+
+
+
+training1 = Training.create(:name => 'Winter warmup', :trainee => marusa)
+training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1)
+training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2)
+training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3)
+training1_ex4 = training1.exercises.create(:exercise_type => lat, :order => 4)
+
+training1_ex1.series.create(:order => 1, :repeat_count => 10, :weight => 50)
+training1_ex1.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 15)
+training1_ex1.series.create(:order => 3, :repeat_count => 10, :weight => 45)
+
+training1_ex2.series.create(:order => 1, :repeat_count => 10, :weight => 50, :rest_time => 17)
+training1_ex2.series.create(:order => 2, :repeat_count => 15, :weight => 55)
+training1_ex2.series.create(:order => 3, :repeat_count => 10, :weight => 45, :rest_time => 25)
+
+training1_ex3.series.create(:order => 1, :repeat_count => 10, :weight => 50)
+training1_ex3.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 13)
+training1_ex3.series.create(:order => 3, :repeat_count => 10, :weight => 45, :rest_time => 9)
+
+training1_ex4.series.create(:order => 1, :repeat_count => 10, :weight => 50, :rest_time => 27)
+training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 18)
+training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
+
+
+
+training1 = Training.create(:name => 'Spring fat trim', :trainee => marusa)
+training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1)
+training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2)
+training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3)
+training1_ex4 = training1.exercises.create(:exercise_type => lat, :order => 4)
+
+training1_ex1.series.create(:order => 1, :repeat_count => 10, :weight => 50)
+training1_ex1.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 15)
+training1_ex1.series.create(:order => 3, :repeat_count => 10, :weight => 45)
+
+training1_ex2.series.create(:order => 1, :repeat_count => 10, :weight => 50, :rest_time => 17)
+training1_ex2.series.create(:order => 2, :repeat_count => 15, :weight => 55)
+training1_ex2.series.create(:order => 3, :repeat_count => 10, :weight => 45, :rest_time => 25)
+
+training1_ex3.series.create(:order => 1, :repeat_count => 10, :weight => 50)
+training1_ex3.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 13)
+training1_ex3.series.create(:order => 3, :repeat_count => 10, :weight => 45, :rest_time => 9)
+
+training1_ex4.series.create(:order => 1, :repeat_count => 10, :weight => 50, :rest_time => 27)
+training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 18)
+training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
+
+
+
+training1 = Training.create(:name => 'Summer action', :trainee => marusa)
+training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1)
+training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2)
+training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3)
+training1_ex4 = training1.exercises.create(:exercise_type => lat, :order => 4)
+
+training1_ex1.series.create(:order => 1, :repeat_count => 10, :weight => 50)
+training1_ex1.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 15)
+training1_ex1.series.create(:order => 3, :repeat_count => 10, :weight => 45)
+
+training1_ex2.series.create(:order => 1, :repeat_count => 10, :weight => 50, :rest_time => 17)
+training1_ex2.series.create(:order => 2, :repeat_count => 15, :weight => 55)
+training1_ex2.series.create(:order => 3, :repeat_count => 10, :weight => 45, :rest_time => 25)
+
+training1_ex3.series.create(:order => 1, :repeat_count => 10, :weight => 50)
+training1_ex3.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 13)
+training1_ex3.series.create(:order => 3, :repeat_count => 10, :weight => 45, :rest_time => 9)
+
+training1_ex4.series.create(:order => 1, :repeat_count => 10, :weight => 50, :rest_time => 27)
+training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 18)
+training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
