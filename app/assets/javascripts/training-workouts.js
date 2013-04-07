@@ -1,5 +1,6 @@
 //= require knockout-2.2.1
 //= require knockout.mapping
+//= require knockout-sortable
 
 on_json_error_behaviour = alertOnJsonError;
 
@@ -148,11 +149,6 @@ $(function() {
         self.onSelectTraining = function(trainingTemplate) {
             callJSON(training_my_template_url, {id: trainingTemplate.id}, function(t) {
                 self.selected_training(regimeFromJson(t));
-
-                workouts.find('.selected-regime .exercises').sortable();
-                workouts.find('.selected-regime .exercises').disableSelection();
-                workouts.find('.selected-regime .exercises .series-list').sortable();
-                workouts.find('.selected-regime .exercises .series-list').disableSelection();
 
                 $('html, body').animate({
                     scrollTop: $("#my-workout").offset().top
