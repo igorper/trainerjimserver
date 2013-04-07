@@ -2,8 +2,8 @@
   <h3 class="jim-title">My workouts</h3>
 
   <ul class="workout-list nav nav-tabs nav-stacked" data-bind="foreach: my_templates, visible: my_templates().length > 0" style="display: none;">
-    <li data-bind="css: {highlighted: id < 0}">
-      <a data-bind="attr: {href: href()}">
+    <li data-bind="css: {highlighted: id < 0}, click: $root.onSelectTraining">
+      <a href="#">
         <div class="content">
           <div class="left" data-bind="html: name"></div>
           <div class="right"><i class="icon-chevron-right icon-white">​</i>​</div>
@@ -28,7 +28,7 @@
       <div class="row-fluid">
         <div class="span4">
           <span class="marginalium">1</span>
-          <span class="contentium">Select & modify a training. It will be pushed to your mobile</span>
+          <span class="contentium">Select & customise a training. It will be pushed to your mobile</span>
         </div>
         <div class="span4">
           <span class="marginalium">2</span>
@@ -40,7 +40,7 @@
         </div>
       </div>
     </div>
-
+    
     <div class="separator"></div>
 
     <div id="workout-templates" class="header">
@@ -49,57 +49,61 @@
     </div>
 
     <div class="regimes" data-bind="foreach: templates, visible: templates().length > 0" style="display: none;">
-      <div class="regime" data-bind="css: { active: id % 3 == 2 }">
+      <a class="regime" href="#selected-workout" data-bind="css: { active: id % 3 == 2 }, click: $root.onSelectTraining">
         <div class="icon"><div class="tick-icon"><i class="icon-ok"></i></div><div class="image"></div></div>
         <div class="name" data-bind="text: name"></div>
-      </div>
+      </a>
     </div>
 
-    <div id="my-workout" class="selected-regime">
-      <div class="name">Fit before summer training <div class="icon"><i class="icon-ok"></i></div></div>
+    <div id="my-workout" class="selected-regime" data-bind="with: selected_training, visible: !!selected_training()" style="display: none;">
 
-      <div class="exercises">
+      <div class="separator"></div>
+
+      <h1 class="jim-title">Customise your workout</h1>
+      <h1 class="name jim-sub-title"><span data-bind="text: name"></span> <div class="icon"><i class="icon-ok"></i></div></h1>
+
+
+      <div class="exercises" data-bind="sortable: exercises">
 
         <div class="exercise">
-          <div class="details row-fluid">
-            <div class="name span7">
-              <span class="exercise-label">Exercise 1:</span>
-              <span class="exercise-name">Incline Dumbbell Press</span>
+          <div class="details row-fluid button-behaviour">
+            <div class="name span8">
+              <span class="exercise-label">Exercise:</span>
+              <span class="exercise-name"data-bind="text: exercise_type().name"></span>
             </div>
-            <div class="add-series span5">
-              <button class="btn">Add series <i class="icon-plus-sign"></i></button>
+            <div class="exercise-top-btns span4">
+              <button class="add-btn btn" data-bind="click: addSeries">Add series <i class="icon-plus-sign"></i></button>
+              <button class="delete-btn btn btn-danger" data-bind="click: $parent.removeExercise">Delete <i class="icon-remove-sign icon-white"></i></button>
             </div>
           </div>
 
-          <div class="series-list">
+          <div class="series-list" data-bind="sortable: series">
 
             <div class="series">
               <div class="row-fluid">
-                <div class="icon span1">
-                  1
-                </div><div class="reps span3">
+                <div class="reps span4 data-field">
                   <table class="content">
                     <tr>
-                      <td class="plus-minus-btns"><div><button class="plus-btn btn"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn"><i class="icon-minus icon-white"></i></button></div></td>
-                      <td class="text"><div>reps: <span class="value">10</span></div></td>
+                      <td class="text"><div>reps: <span class="value" data-bind="text: repeat_count"></span></div></td>
+                      <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></div></td>
                     </tr>
                   </table>
-                </div><div class="weight span4">
+                </div><div class="weight span4 data-field">
                   <table class="content">
                     <tr>
-                      <td class="plus-minus-btns"><div><button class="plus-btn btn"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn"><i class="icon-minus icon-white"></i></button></div></td>
-                      <td class="text"><div>weight: <span class="value">7</span> kg</div></td>
+                      <td class="text"><div>weight: <span class="value" data-bind="text: weight"></span> kg</div></td>
+                      <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseWeight"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseWeight"><i class="icon-minus icon-white"></i></button></div></td>
                     </tr>
                   </table>
-                </div><div class="rest span3">
+                </div><div class="rest span3 data-field">
                   <table class="content">
                     <tr>
-                      <td class="plus-minus-btns"><div><button class="plus-btn btn"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn"><i class="icon-minus icon-white"></i></button></div></td>
-                      <td class="text"><div>rest: <span class="value">15</span> s</div></td>
+                      <td class="text"><div>rest: <span class="value" data-bind="text: rest_time"></span> s</div></td>
+                      <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseRestTime"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseRestTime"><i class="icon-minus icon-white"></i></button></div></td>
                     </tr>
                   </table>
                 </div><div class="remove-btn span1">
-                  <button class="btn"><i class="icon-remove-sign"></i></button>
+                  <button class="btn" data-bind="click: $parent.removeSeries"><i class="icon-remove-sign"></i></button>
                 </div>
               </div>
             </div>

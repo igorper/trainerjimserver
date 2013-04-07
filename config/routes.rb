@@ -47,6 +47,7 @@ Trainerjim::Application.routes.draw do
   match '/training/templates' => 'training#templates'
   match '/training/my_templates' => 'training#my_templates'
   match '/training/my_template' => 'training#my_template'
+  match '/training/exercise_types' => 'training#exercise_types'
   
   
   

@@ -24,7 +24,7 @@
 var on_json_error_behaviour = null;
 
 function logOnJsonError(errMsg, errId, data, textStatus, jqXHR, requestUrl) {
-    console.log("Ajax Call Error :: Url: " + requestUrl + " :: Message: " + data['message'] + " :: Error ID: " + data['error_id']);
+    console.log("Ajax Call Error :: Url: " + requestUrl + " :: Message: " + errMsg + " :: Error ID: " + errId);
 }
 
 function alertOnJsonError(errMsg, errId, data, textStatus, jqXHR, requestUrl) {

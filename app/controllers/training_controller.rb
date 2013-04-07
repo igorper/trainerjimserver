@@ -41,10 +41,22 @@ class TrainingController < ApplicationController
   # @returns the full specification of a single training template (view: `TrainingHelper.training_view`).
   def my_template
     if user_signed_in?
-      @training = Training.where(:trainee_id => current_user.id, :id => params[:id]).first
-      respond_to do |f|
-        f.json {render :json => @training.to_json(TrainingHelper.training_full_view)}
+      @training = Training.includes(:exercises => [:exercise_type, :series]).where(:id => params[:id]).first
+      if @training.nil?
+        ajax_error :training_does_not_exist
+      elsif !@training.trainee_id.nil? && @training.trainee_id != current_user.id
+        ajax_error :training_belongs_to_someone_else
+      else
+        respond_to do |f|
+          f.json {render :json => @training.to_json(TrainingHelper.training_full_view)}
+        end
       end
+    end
+  end
+  
+  def exercise_types
+    respond_to do |f|
+      f.json {render :json => ExerciseType.all.to_json(TrainingHelper.exercise_type_view)}
     end
   end
   
