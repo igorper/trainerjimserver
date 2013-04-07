@@ -76,11 +76,10 @@
             <div class="message" data-bind="css: {answer: ($root.selectedUser().id() === sender_id)}">
               <span data-bind="text: $data.text"></span>
             </div>    
-            <div class="separator" data-bind="visible: !($index() === ($root.commentsVM.latest().length - 1))"></div>
+            <div class="separator"></div>
           </div>
           
           
-          <div class="separator"></div>
           <div class="responded-flag" data-bind="with: $parent.commentsVM">
             <div>
               <div class="respond-box" data-bind="visible: !replyInputOn()">              
