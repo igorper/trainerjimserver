@@ -49,9 +49,7 @@ $graphWidth : 500px;
 }
 
 .exerciseinfotab{
-    display:inline-block;
     vertical-align:top;    
-    margin-left: 30px;
     @include sans;
     @include fonts(15px,13px,11px);
     
@@ -61,38 +59,50 @@ $graphWidth : 500px;
 }
 
 .types{
-    height: 93px;
-    > .typestable{
-
-        width: $graphWidth;
-        border-top: 1px solid #cecece;
-        border-right: 1px solid #cecece;
-        font-size: 0px;
-        height: 90px;
-        display: inline-block;
-        margin-left: -1px;
+    > div{
         
-        > .type{
-            height: 30px;
-            @include fonts(12px,10px,9px);
-            display:inline-table;
-            width: $graphWidth / 4 - 1px;
+        > table{
+            height: 120px;
+            width: 100%;
             border: 1px solid #cecece;
-            border-top: 0px;
-            margin-right: -1px;
-            text-align:center;
-            
-            &:hover{
-                background-color: $hoverColor;
+            border-left: 0px;
+            border-bottom: 0px;
+            > tbody{
+                > tr{
+                    border-bottom: 1px solid #cecece;
+                    height: 50px;
+
+                    &:last-child{
+
+                        > td{
+                            &:last-child{
+                                border-right: 1px solid #cecece;
+                            }
+                        }
+                    }
+
+                     > td  {
+                        text-align: center;
+                        width: 25%;
+
+                        &:hover{
+                            background-color: $hoverColor;
+                        }
+
+                        &.selected{
+                            background-color: $jimColor;
+                        }
+                        
+                        &:first-child{
+                            border-left: 0px;
+                        }
+                        
+                        border-left: 1px solid #cecece;
+                     }
+                }
             }
-            
-            &.selected{
-                background-color: $jimColor;
-                
-            }
+
         }
-        
-        
     }
     
     > .weight-picture-box{
@@ -127,70 +137,74 @@ div.calendar-new{
     height: 50px;
     font-size: 0px;
     
-    > .days{
-        display:inline-table;
-        width: $measurementsWidth - $monthWidth;
-        
-        > .day{
+    > div{
+        > .days{
             display:inline-table;
-            padding: 2px 0px 2px 3px;
-            text-align: center;
-            width: 35px;
-            font-size: 12px;
-            
-            border-left: 1px solid #cecece;
-            border-bottom: 1px solid #cecece;
-            position: relative;
-            
-            &:before,&:after{
-                content: "";
-                position: absolute;
-                border-left: 5px solid transparent;
-                border-right: 5px solid transparent;
-                top: 100%;
-                left: 50%;
-                margin-left: -10px;
-            }
-            
-            &.selected{
-                &:before{
-                    border-top: 5px solid $jimColor;
-                    border-top: 5px solid rgba(0, 0, 0, 0.5);
-                    margin-top: 0px;
+
+            > .day{
+                display:inline-table;
+                padding: 2px 0px 2px 3px;
+                text-align: center;
+                width: 35px;
+                font-size: 12px;
+
+                border-left: 1px solid #cecece;
+                border-bottom: 1px solid #cecece;
+                position: relative;
+
+                &:before,&:after{
+                    content: "";
+                    position: absolute;
+                    border-left: 5px solid transparent;
+                    border-right: 5px solid transparent;
+                    top: 100%;
+                    left: 50%;
+                    margin-left: -10px;
                 }
-                &:after{
-                    border-top: 5px solid $jimColor;
-                    margin-top: 0px;
-                    z-index: 1;
+
+                &.selected{
+                    &:before{
+                        border-top: 5px solid $jimColor;
+                        border-top: 5px solid rgba(0, 0, 0, 0.5);
+                        margin-top: 0px;
+                    }
+                    &:after{
+                        border-top: 5px solid $jimColor;
+                        margin-top: 0px;
+                        z-index: 1;
+                    }
+
+                    background-color: $jimColor;
                 }
-                
-                background-color: $jimColor;
+
+                &:hover{                        
+                    background-color: $hoverColor;
+                }
+
+                &:last-child{
+                    border-right: 1px solid #cecece;
+                }
+
             }
-            
-            &:hover{                        
-                background-color: $hoverColor;
-            }
-            
-            &:last-child{
-                border-right: 1px solid #cecece;
-            }
-            
         }
     }
     > .month-tab{
         float: left;
         display: inline-block;
-        @include fonts(12px,10px,9px);
+        @include fonts(13px,10px,9px);
         
-        > .month
-        {
-            width: 60px;
+        > .month        {
             display:inline-block;
+            width: 45%;
+            text-align: center;
+            margin-left: 10%;
+            margin-right: 10%;
         }     
         > .arrow{
             display:inline-table;
-            margin-left: 15px;
-            margin-right:15px;
+            &:first-child{
+                margin-left:10%;
+            }
             
             > .arrow-right {
                 width: 0; 
@@ -198,9 +212,10 @@ div.calendar-new{
                 border-top: 5px solid transparent;
                 border-bottom: 5px solid transparent;	
                 border-left: 5px solid grey;
+                
             }
             
-            > .arrow-left {
+            > .arrow-left { 
                 width: 0; 
                 height: 0; 
                 border-top: 5px solid transparent;
@@ -328,8 +343,8 @@ a:visited{ color: black }
 }
 
 div#placeholder,{    
-    width: 80%;
-    height: $graphHeight;
+    width: 95%;
+        height: $graphHeight;
     display:inline-block;
 }
 

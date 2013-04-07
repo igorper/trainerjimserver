@@ -157,7 +157,7 @@ $("document").ready(function() {
                 ko.utils.arrayPushAll(self.comments, data);
             };
 
-            self.replyLinkText = ko.computed(function() {                
+            self.replyLinkText = ko.computed(function() {
                 if (self.comments().length > 0 && self.comments()[self.comments().length - 1].sender_id === parent.selectedUser().id()) {
                     return "Reply";
                 }
@@ -256,6 +256,7 @@ $("document").ready(function() {
                     $.getJSON("/dashboard/measurement/" + measurementId, function(data) {
 
                         self.parent.exerciseTypes(data.types);
+
                         self.parent.measurement(data.measurement);
 
                         graphcomments = data.measurement.measurement_comment;
@@ -291,7 +292,8 @@ $("document").ready(function() {
 
             self.clearGraphs = function() {
                 self.selectedExercise(null);
-                self.exerciseExecutions(null);
+                self.exerciseExecutions.removeAll()
+                        ;
                 self.selectedExecution(null);
                 placeholder.unbind("plotclick");
                 placeholder.unbind("plothover");
@@ -316,7 +318,11 @@ $("document").ready(function() {
             ///Measurements
             self.measurement = ko.observable(null);
             self.selectedExercise = ko.observable(null);
-            self.exerciseExecutions = ko.observable();
+            self.exerciseExecutions = ko.observableArray([]);
+
+
+
+
             self.hasExerciseMeasurements = ko.computed(function() {
                 return self.selectedExercise() !== null && self.selectedExercise().executions.length > 0 && self.selectedExercise().executions[0].start_timestamp !== null;
             });
@@ -341,9 +347,24 @@ $("document").ready(function() {
                 return  self.selectedExecution() !== null && self.selectedExecution().start_timestamp === null;
             });
 
-            self.exerciseTypes = ko.observable([]);
+            self.exerciseTypes = ko.observable(null);
             self.typesVisible = ko.computed(function() {
                 return self.exerciseTypes() !== null && self.exerciseTypes().length > 0;
+            });
+
+            self.exerciseTypesRow = ko.computed(function() {
+                if (self.exerciseTypes() !== null) {
+                    var i = 0;
+                    var typesPerRow = 4;
+                    var numTypes = self.exerciseTypes().length;
+
+                    rows = new Array();
+                    while (i < numTypes) {
+                        rows.push(self.exerciseTypes().slice(i, i + Math.min(typesPerRow, numTypes - i)));
+                        i += typesPerRow;
+                    }
+                    return rows;
+                }
             });
 
             ///Triggers when new exercise type is selected.
@@ -393,7 +414,6 @@ $("document").ready(function() {
                 if (element !== self.selectedUser()) {
                     self.selectedUser(element);
                     self.clearGraphs();
-                    self.exerciseTypes([]);
 
 
                     $.getJSON("/dashboard/exercisedates/" + element.id() + ".json", function(data) {
