@@ -93,7 +93,6 @@
             padding: $paddingTB $paddingLR;
             
             > .name {
-                font-size: 1.5em;
                 .icon {display: inline-block; vertical-align: middle; padding: 3px; @include square(14px); background-color: $jimColor; margin-left: 10px;}
                 .icon .icon-ok {margin: 0;}
             }

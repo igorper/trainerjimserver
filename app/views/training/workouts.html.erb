@@ -28,7 +28,7 @@
       <div class="row-fluid">
         <div class="span4">
           <span class="marginalium">1</span>
-          <span class="contentium">Select & modify a training. It will be pushed to your mobile</span>
+          <span class="contentium">Select & customise a training. It will be pushed to your mobile</span>
         </div>
         <div class="span4">
           <span class="marginalium">2</span>
@@ -40,6 +40,8 @@
         </div>
       </div>
     </div>
+    
+    <div class="separator"></div>
 
     <div id="workout-templates" class="header">
       <h1 class="jim-title">Workouts</h1>
@@ -54,9 +56,12 @@
     </div>
 
     <div id="my-workout" class="selected-regime" data-bind="with: selected_training, visible: !!selected_training()" style="display: none;">
-      <h1 class="jim-title">Edit your workout</h1>
-      
-      <div class="name"><span data-bind="text: name"></span> <div class="icon"><i class="icon-ok"></i></div></div>
+
+      <div class="separator"></div>
+
+      <h1 class="jim-title">Customise your workout</h1>
+      <h1 class="name jim-sub-title"><span data-bind="text: name"></span> <div class="icon"><i class="icon-ok"></i></div></h1>
+
 
       <div class="exercises" data-bind="foreach: exercises">
 
