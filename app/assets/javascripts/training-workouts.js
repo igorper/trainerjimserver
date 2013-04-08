@@ -76,8 +76,8 @@ $(function() {
         self.addSeries = function() {
             self.series.push(new Series(-1, 0, 0, 0));
         }
-        
-        self.setExerciseType = function (exType) {
+
+        self.setExerciseType = function(exType) {
             self.exercise_type(exType);
         }
     }
@@ -92,6 +92,14 @@ $(function() {
         // Operations
         self.removeExercise = function(exercise) {
             self.exercises.remove(exercise);
+        }
+
+        self.addExerciseOfType = function(exType) {
+            self.exercises.push(new Exercise(-1, exType, 0, []));
+            // Focus the newly added exercise:
+            $('html, body').animate({
+                scrollTop: $(".exercises .exercise:last-child").offset().top
+            }, 500);
         }
     }
 
@@ -168,6 +176,13 @@ $(function() {
                     }, 500);
                 });
             }
+        }
+
+        self.addExerciseOfType = function(exType) {
+            if (!self.selected_training()) {
+                self.selected_training(new Regime(-1, 'My new training', []));
+            }
+            self.selected_training().addExerciseOfType(exType);
         }
 
         self.displayableIndex = function(idx) {
