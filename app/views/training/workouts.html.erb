@@ -40,7 +40,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="separator"></div>
 
     <div id="workout-templates" class="header">
@@ -68,8 +68,18 @@
         <div class="exercise">
           <div class="details row-fluid button-behaviour">
             <div class="name span8">
-              <span class="exercise-label">Exercise:</span>
-              <span class="exercise-name"data-bind="text: exercise_type().name"></span>
+              <div class="exercise-label">Exercise:</div>
+              <div class="exercise-name btn-group">
+                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                  <span class="the-name-value" data-bind="text: exercise_type().name"></span>
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" data-bind="foreach: $root.exercise_types">
+                  <li>
+                    <a href="#" data-bind="text: name, click: $parent.setExerciseType, css: {active: id == $parent.exercise_type().id}"></a>
+                  </li>
+                </ul>
+              </div>
             </div>
             <div class="exercise-top-btns span4">
               <button class="add-btn btn" data-bind="click: addSeries">Add series <i class="icon-plus-sign"></i></button>

@@ -76,6 +76,10 @@ $(function() {
         self.addSeries = function() {
             self.series.push(new Series(-1, 0, 0, 0));
         }
+        
+        self.setExerciseType = function (exType) {
+            self.exercise_type(exType);
+        }
     }
 
     function Regime(id, name, exercises) {
