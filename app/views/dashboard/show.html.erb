@@ -1,12 +1,13 @@
 <div id="dashboard-show" class="container">
   <div class="span2">
     <div class="people-exercises" data-bind="foreach: users">
-
-      <div class="entry button-behaviour" data-bind="click: $parent.selectUsers.bind($data), css: {selected: $parent.selectedUser() == $data, even: $index() % 2 == 1}">
-        <div class="title" data-bind="text: display_name">
+      <a data-bind='page-href: full_name'>
+        <div class="entry button-behaviour" data-bind="css: {selected: $parent.selectedUser() == $data, even: $index() % 2 == 1}">
+          <div class="title" data-bind="text: display_name">
+          </div>
+          <div class="icon"></div>
         </div>
-        <div class="icon"></div>
-      </div>
+      </a>
     </div>
   </div>
 
@@ -78,8 +79,8 @@
             </div>    
             <div class="separator"></div>
           </div>
-          
-          
+
+
           <div class="responded-flag" data-bind="with: $parent.commentsVM">
             <div>
               <div class="respond-box" data-bind="visible: !replyInputOn()">              
@@ -104,18 +105,18 @@
     </div>
   </div>
 
-  <div class="span8">
+  <div class="span8" data-bind='page: {id: "?"}'>
     <div class="measurements" data-bind="visible: statisticsVisible && calendarVM.calendarVisible">
       <div data-bind="with: calendarVM">
         <div class="calendar-new row-fluid" data-bind="visible: calendarVisible">
           <div class="month-tab span2">
-            <div class="arrow button-behaviour"  data-bind="click: scrollMonth.bind(null,-1)"><div class="arrow-left"></div></div>
+            <a class="arrow button-behaviour"  data-bind="page-href: prevMonth()"><div class="arrow-left"></div></a>
             <div class="month" data-bind="text: currentMonth().month">February</div>
-            <div class="arrow button-behaviour"  data-bind="click: scrollMonth.bind(null,1)"><div class="arrow-right"></div></div>
+            <a class="arrow button-behaviour"  data-bind="page-href: nextMonth()"><div class="arrow-right"></div></a>
           </div>
           <div class="span10">
             <div class="days" data-bind="foreach: currentMonth().days">
-              <div class="day button-behaviour" data-bind="text: day + '.', click: $parent.measurementSelected.bind($data), css: { selected: $data === $parent.selectedDay() }"></div>
+              <a class="day button-behaviour" data-bind='page-href: $parent.currentMonth().month+"/"+day,text: day,css: { selected: $data === $parent.selectedDay() }'></a>
             </div>
             <div class="fill"></div>
           </div>

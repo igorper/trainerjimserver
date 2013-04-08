@@ -2,6 +2,9 @@
 //= require jquery.flot.resize
 //= require knockout-2.2.1
 //= require knockout.mapping
+//= require pager.min
+//= require sammy-0.7.4.min
+
 
 Array.prototype.sum = function() {
     if (this.length > 0) {
@@ -55,7 +58,7 @@ $("document").ready(function() {
     var placeholder = $("#placeholder");
     var graphDrawn = false;
 
-    $.getJSON('/users/list_trainees', function(data) {
+    $.getJSON(users_list, function(data) {
 
 
         function StatisticsPanel(exerciseTypes, root) {
@@ -239,7 +242,40 @@ $("document").ready(function() {
                     i = self.calendar().length - 1;
                 }
                 self.currentMonthIndex(i);
+                self.onMonthChanged();
+            };
+            
+            self.prevMonth = ko.computed(function(){
+                if(self.calendarVisible()){
+                 i = self.currentMonthIndex();
+                 i += -1;
+                    if (i >= self.calendar().length)
+                    {
+                        i = 0;
+                    } else if (i < 0) {
+                        i = self.calendar().length - 1;
+                    }
+                    month = self.calendar()[i];
+                    return month.month + "/" + month.days[0].day;
+                }
+            });
+            
+            self.nextMonth = ko.computed(function(){
+                if(self.calendarVisible()){
+                 i = self.currentMonthIndex();
+                 i += 1;
+                    if (i >= self.calendar().length)
+                    {
+                        i = 0;
+                    } else if (i < 0) {
+                        i = self.calendar().length - 1;
+                    }
+                    month = self.calendar()[i];
+                    return month.month + "/" + month.days[0].day;
+                }
+            });
 
+            self.onMonthChanged = function() {
                 //Clear graph display
                 self.parent.clearGraphs();
 
@@ -363,7 +399,7 @@ $("document").ready(function() {
                         slic = self.exerciseTypes().slice(i, i + Math.min(typesPerRow, numTypes - i));
                         i += typesPerRow;
                         if (!(i < numTypes) && numTypes % 4 !== 0) {
-                            slic.push({ name: 'empty'})
+                            slic.push({name: 'empty'})
                         }
                         rows.push(slic);
                     }
@@ -419,19 +455,80 @@ $("document").ready(function() {
             ///Event that triggers when new user is selected
             self.selectUsers = function(element) {
                 if (element !== self.selectedUser()) {
+                    self.changeUser(element,function(){});
+                }
+            };
+
+            self.changeUser=function(element, callback){
                     self.selectedUser(element);
                     self.clearGraphs();
 
 
                     $.getJSON("/dashboard/exercisedates/" + element.id() + ".json", function(data) {
-                        self.calendarVM.setup(data);
+                        self.calendarVM.setup(data);          
+                        if(callback!==null){
+                            callback();
+                        }
                     });
                     self.userChanged();
-                }
             };
+
+            $.sammy(function() {
+                var ref = this;
+                ///Functions that containt ajax calls need to be called with callback parameter.
+                this.setUser = function(context, finished) {
+                    var username = context.params["username"];
+                    var users = self.users();
+                    for (i = 0; i < users.length; i++) {
+                        if (users[i].full_name() === username) {
+                            self.changeUser(users[i],finished);
+                            break;
+                        }
+                    }
+                };
+
+                this.setMonth = function(context) {
+                    var month = context.params["month"];
+                    var months = self.calendarVM.calendar();
+                    for (i = 0; i < months.length; i++) {
+                        if (months[i].month === month) {
+                            self.calendarVM.currentMonthIndex(i);
+                            self.calendarVM.onMonthChanged();
+                            break;
+                        }
+                    }
+                };
+                
+                this.setDay = function(context) {
+                    var day = context.params["day"];
+
+                    var days = self.calendarVM.currentMonth().days;
+                    for (i = 0; i < days.length; i++) {
+                        if (days[i].day+"" === day+"") {
+                            self.calendarVM.measurementSelected(days[i]);
+                            break;
+                        }
+                    }
+                };
+
+                this.get('#:username/:month/:day', function(context) {
+                    ref.setUser(context,function(){
+                            ref.setMonth(context);
+                            ref.setDay(context);
+                    });       
+                });
+                this.get('#:username', function(context) {
+                    ref.setUser(context,null);
+                });
+
+            }).run();
         }
         ;
-        ko.applyBindings(new UsersViewModel());
+
+        vm = new UsersViewModel();
+        pager.extendWithPage(vm);
+        ko.applyBindings(vm);
+        pager.start();
     });
 });
 

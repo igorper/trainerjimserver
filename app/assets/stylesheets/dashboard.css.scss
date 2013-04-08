@@ -9,10 +9,21 @@ $statisticsFontSize: 75px;
 $statisticsLabelColor: #e9af2e;
 $statisticsLabelFontSize: 14px;
 $graphHeight : 300px;
-$graphWidth : 500px;
 
 
+a:link {
+    text-decoration:  none;
+}
 
+a:hover{
+    text-decoration:  none;
+}
+a:visited{
+    text-decoration:  none;
+}
+a:active{
+    text-decoration:  none;
+}
 
 .graph-comment.top:after {
     border-color: #F3961C transparent;
@@ -256,8 +267,17 @@ label {
     display: inline;
 }
 
+
 div#graphWindow{
-    height: $graphHeight;
+    @include media(large){
+        height: $graphHeight;
+    };
+    @include media(medium){
+        height: 250px;
+    };
+    @include media(small){
+        height: 200px;
+    };
     
     > div {
         > div.exerciseinfo{
@@ -347,7 +367,15 @@ a:visited{ color: black }
 
 div#placeholder,{    
     width: 95%;
+    @include media(large){
         height: $graphHeight;
+    };
+    @include media(medium){
+        height: 250px;
+    };
+    @include media(small){
+        height: 200px;
+    };
     display:inline-block;
 }
 
@@ -366,44 +394,47 @@ div#placeholder,{
         &.people-exercises {
             background-color: white;
             
-            > .entry {
-                @include text-shadow(0 1px 1px white);
-                height: 50px;
-                @include fonts(13px,12px,11px);
-                
-                &:hover{                                
-                    background-color: #1f94d2;
-                }
-                
-                &.even {
-                    background: {
-                        color: #ececec;
-                    }
-                    
+             > a{
+
+                > .entry {
+                    @include text-shadow(0 1px 1px white);
+                    height: 50px;
+                    @include fonts(13px,12px,11px);
+
                     &:hover{                                
                         background-color: #1f94d2;
                     }
-                    
-                }
-                
-                &.selected {
-                    background: {
-                        color: $jimColor;
+
+                    &.even {
+                        background: {
+                            color: #ececec;
+                        }
+
+                        &:hover{                                
+                            background-color: #1f94d2;
+                        }
+
+                    }
+
+                    &.selected {
+                        background: {
+                            color: $jimColor;
+                        }
+                    }
+
+                    > .title {
+                        @include inline-middle;
+                        padding: 5px;
+                    }
+
+                    > .icon {
+                        @include inline-middle;
+                        height: 50px;
+                        width: 30px;
                     }
                 }
-                
-                > .title {
-                    @include inline-middle;
-                    padding: 5px;
-                }
-                
-                > .icon {
-                    @include inline-middle;
-                    height: 50px;
-                    width: 30px;
-                }
             }
-        }
+         }
         
         
         ////////////////////////////////////////////////////////////////////////////////

@@ -312,11 +312,9 @@ $small: 724px;
 
 @mixin media($type){
     @if $type == small {
-
-    @media all and (max-width: $medium){
-      @content;
-    }
-
+        @media all and (max-width: $medium){
+          @content;
+        }
     }
     @else if $type == medium {
         @media all and (min-width: $medium)  and (max-width: $large){
