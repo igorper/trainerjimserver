@@ -40,7 +40,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="separator"></div>
 
     <div id="workout-templates" class="header">
@@ -60,18 +60,46 @@
       <div class="separator"></div>
 
       <h1 class="jim-title">Customise your workout</h1>
-      <h1 class="name jim-sub-title"><span data-bind="text: name"></span> <div class="icon"><i class="icon-ok"></i></div></h1>
+      <div class="name row-fluid">
+        <div class="left span9">
+          <div class="the-name-value" data-bind="text: name"></div> 
+          <div class="icon"><i class="icon-ok"></i></div>
+        </div>
+        <div class="right span3">
+          <div class="btn-group">
+            <button class="btn btn-large btn-success dropdown-toggle" data-toggle="dropdown">
+              Add exercise
+              <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" data-bind="foreach: $root.exercise_types">
+              <li>
+                <a data-bind="text: name, click: $root.addExerciseOfType"></a>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
 
 
       <div class="exercises" data-bind="sortable: exercises">
 
         <div class="exercise">
           <div class="details row-fluid button-behaviour">
-            <div class="name span8">
-              <span class="exercise-label">Exercise:</span>
-              <span class="exercise-name"data-bind="text: exercise_type().name"></span>
+            <div class="name span7">
+              <div class="exercise-label">Exercise:</div>
+              <div class="exercise-name btn-group">
+                <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+                  <span class="the-name-value" data-bind="text: exercise_type().name"></span>
+                  <span class="caret"></span>
+                </a>
+                <ul class="dropdown-menu" data-bind="foreach: $root.exercise_types">
+                  <li>
+                    <a data-bind="text: name, click: $parent.setExerciseType, css: {active: id == $parent.exercise_type().id}"></a>
+                  </li>
+                </ul>
+              </div>
             </div>
-            <div class="exercise-top-btns span4">
+            <div class="exercise-top-btns span5">
               <button class="add-btn btn" data-bind="click: addSeries">Add series <i class="icon-plus-sign"></i></button>
               <button class="delete-btn btn btn-danger" data-bind="click: $parent.removeExercise">Delete <i class="icon-remove-sign icon-white"></i></button>
             </div>

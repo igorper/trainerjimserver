@@ -34,27 +34,29 @@ $(function() {
         self.rest_time = ko.observable(rest_time);
         self.weight = ko.observable(weight);
 
+        // Constants:
+        var weight_increment = 5;
+        var rest_time_increment = 5;
+        var reps_increment = 1;
+
         // Operations
         self.increaseReps = function() {
-            self.repeat_count(self.repeat_count() + 1);
+            self.repeat_count(self.repeat_count() + reps_increment);
         }
         self.decreaseReps = function() {
-            if (self.repeat_count() > 0)
-                self.repeat_count(self.repeat_count() - 1);
+            self.repeat_count(Math.max(self.repeat_count() - reps_increment, 0));
         }
         self.increaseWeight = function() {
-            self.weight(self.weight() + 5);
+            self.weight(self.weight() + weight_increment);
         }
         self.decreaseWeight = function() {
-            if (self.weight() > 5)
-                self.weight(self.weight() - 5);
+            self.weight(Math.max(self.weight() - weight_increment, 0));
         }
         self.increaseRestTime = function() {
-            self.rest_time(self.rest_time() + 1);
+            self.rest_time(self.rest_time() + rest_time_increment);
         }
         self.decreaseRestTime = function() {
-            if (self.rest_time() > 0)
-                self.rest_time(self.rest_time() - 1);
+            self.rest_time(Math.max(self.rest_time() - rest_time_increment, 0));
         }
     }
 
@@ -74,6 +76,10 @@ $(function() {
         self.addSeries = function() {
             self.series.push(new Series(-1, 0, 0, 0));
         }
+
+        self.setExerciseType = function(exType) {
+            self.exercise_type(exType);
+        }
     }
 
     function Regime(id, name, exercises) {
@@ -86,6 +92,14 @@ $(function() {
         // Operations
         self.removeExercise = function(exercise) {
             self.exercises.remove(exercise);
+        }
+
+        self.addExerciseOfType = function(exType) {
+            self.exercises.push(new Exercise(-1, exType, 0, []));
+            // Focus the newly added exercise:
+            $('html, body').animate({
+                scrollTop: $(".exercises .exercise:last-child").offset().top
+            }, 500);
         }
     }
 
@@ -135,7 +149,7 @@ $(function() {
     }
 
 
-    // KNOCKOUT VIEWMODEL:
+    // MAIN VIEWMODEL:
     function WorkoutsViewModel() {
         var self = this;
 
@@ -147,13 +161,28 @@ $(function() {
 
         // Operations
         self.onSelectTraining = function(trainingTemplate) {
-            callJSON(training_my_template_url, {id: trainingTemplate.id}, function(t) {
-                self.selected_training(regimeFromJson(t));
-
+            // Is it a dummy training template? If so, scroll the user down to 
+            // existing templates:
+            if (trainingTemplate.id < 0) {
                 $('html, body').animate({
-                    scrollTop: $("#my-workout").offset().top
+                    scrollTop: $("#workout-templates").offset().top
                 }, 500);
-            });
+            } else {
+                callJSON(training_my_template_url, {id: trainingTemplate.id}, function(t) {
+                    self.selected_training(regimeFromJson(t));
+
+                    $('html, body').animate({
+                        scrollTop: $("#my-workout").offset().top
+                    }, 500);
+                });
+            }
+        }
+
+        self.addExerciseOfType = function(exType) {
+            if (!self.selected_training()) {
+                self.selected_training(new Regime(-1, 'My new training', []));
+            }
+            self.selected_training().addExerciseOfType(exType);
         }
 
         self.displayableIndex = function(idx) {

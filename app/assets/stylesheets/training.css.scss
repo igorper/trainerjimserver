@@ -92,9 +92,19 @@
         .selected-regime {
             padding: $paddingTB $paddingLR;
             
+            button {@include sans;}
+            button i {margin-top: 3px;}
+            
             > .name {
-                .icon {display: inline-block; vertical-align: middle; padding: 3px; @include square(14px); background-color: $jimColor; margin-left: 10px;}
+                > div > div {@include inline; @include middle;}
+                .the-name-value {@include light; font-size: 2.3em;}
+                .icon {padding: 3px; @include square(14px); background-color: $jimColor; margin-left: 10px;}
                 .icon .icon-ok {margin: 0;}
+                
+                .btn-group {text-align: right;}
+                .btn-group button {@include flat-btn; @include no-rounding;}
+                .btn-group button .caret {margin-left: 10px;}
+                .btn-group ul {text-align: left;}
             }
             
             .exercises {
@@ -109,12 +119,16 @@
                     button:hover {background-color: $hoverColor; color: white;}
                     
                     .details {
-                        .name .exercise-label {font-weight: normal;}
-                        .name {@include light; font-size: 1.5em; text-shadow: 1px 1px white; padding-top: 5px; padding-left: 5px;}
+                        .name .exercise-label {font-weight: normal; text-shadow: 1px 1px white; font-size: 20px; @include inline; @include middle; margin-right: 5px;}
+                        .name {padding-top: 5px; padding-left: 5px;}
+                        .name a.btn {@include flat-btn;}
+                        .name a.active {background-color: #eee;}
+                        .name span.the-name-value {@include light; font-size: 20px; text-shadow: 1px 1px white; margin-right: 5px;}
+                        
                         .exercise-top-btns {padding: 5px;}
                         .exercise-top-btns .btn {@include no-rounding;margin-top: 2px;}
                         .exercise-top-btns .btn i {margin-left: 5px;}
-                        .exercise-top-btns .delete-btn {margin-right: 10px;}
+                        .exercise-top-btns .delete-btn {margin-right: 5px;}
                         .exercise-top-btns .add-btn {background-color: white;}
                         .exercise-top-btns .add-btn:hover {background-color: $hoverColor;}
                     }

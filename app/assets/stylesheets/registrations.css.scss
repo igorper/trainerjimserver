@@ -1,7 +1,9 @@
 @import "definitions.scss";
 
 .registration-page {
+    $fieldsWidthWider: 300px;
     $fieldsWidth: 250px;
+    $fieldsWidthSmaller: 200px;
     
     .the-form {
         margin-bottom: 25px;
@@ -18,7 +20,14 @@
                 @include flat-text-input;
                 border: 1px solid #ddd;
                 width: $fieldsWidth;
+                @media (min-width: 768px) and (max-width: 979px) {
+                    width: $fieldsWidthSmaller;
+                }
+                @media (min-width: 1200px) {
+                    width: $fieldsWidthWider;
+                }
             }
+            
         }
         
         .remember-me {
@@ -40,10 +49,19 @@
         }
         
         .submit-button {
+            @mixin btn-login-adjusted-width($theWidth) {
+                width:$theWidth + 2*6px + 2px;
+            }
             input {
                 @include flat-btn;
                 padding: 6px;
-                width: $fieldsWidth + 2*6px + 2px;
+                @include btn-login-adjusted-width($fieldsWidth);
+                @media (min-width: 768px) and (max-width: 979px) {
+                    @include btn-login-adjusted-width($fieldsWidthSmaller);
+                }
+                @media (min-width: 1200px) {
+                    @include btn-login-adjusted-width($fieldsWidthWider);
+                }
                 background-color: $lightBlue;
                 color: white;
                 
@@ -63,8 +81,13 @@
     }
     
     .why-register {
-        @include central-image('login/why-register.png');
-        @include size(444px, 389px);
+        background: {
+            image: image-url('login/why-register.png');
+            position: 0px center;
+            repeat: no-repeat;
+        }
+        min-width: 432px;
+        height: 380px;
         margin-bottom: 25px;
     }
 }
