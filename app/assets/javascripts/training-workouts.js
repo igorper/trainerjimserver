@@ -1,6 +1,8 @@
 //= require knockout-2.2.1
 //= require knockout.mapping
 //= require knockout-sortable
+//= require pager.min
+//= require sammy-0.7.4.min
 
 on_json_error_behaviour = alertOnJsonError;
 
@@ -9,13 +11,22 @@ $(function() {
     /// WORKOUTS
     //
     var workouts = $('.training.workouts');
+    var SubPage_Template = 'Template';
 
     // KNOCKOUT MODELS:
-    function TrainingTemplate(id, name) {
+    function TrainingTemplate(id, name, isMyTeplate) {
         var self = this;
 
         self.id = id;
+        self.isMyTemplate = !!isMyTeplate;
         self.name = ko.observable(name);
+        self.href = ko.computed(function() {
+            if (id < 0) {
+                return 'workout-templates';
+            } else {
+                return getSammyLink(SubPage_Template, self.id, self.name());
+            }
+        });
 
         // Operations
         self.compareTo = function(other) {
@@ -163,15 +174,15 @@ $(function() {
         self.selected_training = ko.observable(); // type: TrainingTemplate
 
         // Operations
-        self.onSelectTraining = function(trainingTemplate) {
+        self.onSelectTraining = function(templateId) {
             // Is it a dummy training template? If so, scroll the user down to 
             // existing templates:
-            if (trainingTemplate.id < 0) {
+            if (templateId < 0) {
                 $('html, body').animate({
                     scrollTop: $("#workout-templates").offset().top
                 }, 500);
             } else {
-                callJSON(training_my_template_url, {id: trainingTemplate.id}, function(t) {
+                callJSON(training_my_template_url, {id: templateId}, function(t) {
                     self.selected_training(regimeFromJson(t));
 
                     $('html, body').animate({
@@ -201,13 +212,13 @@ $(function() {
 
         callJSON(training_templates_url, {}, function(templates) {
             self.templates($.map(templates, function(template) {
-                return new TrainingTemplate(template.id, template.name);
+                return new TrainingTemplate(template.id, template.name, false);
             }));
         });
 
         callJSON(training_my_templates_url, {}, function(templates) {
             var my_templates = $.map(templates, function(template) {
-                return new TrainingTemplate(template.id, template.name);
+                return new TrainingTemplate(template.id, template.name, true);
             });
             my_templates.sort(function(a, b) {
                 return a.compareToById(b);
@@ -215,7 +226,18 @@ $(function() {
             my_templates.push(createDummyTrainingTemplate());
             self.my_templates(my_templates);
         });
+
+        // Handling Sammy URL links:
+        $.sammy(function() {
+            this.get(getSammyLink(SubPage_Template, ':id', ':name'), function(context) {
+                self.onSelectTraining(this.params['id']);
+            });
+
+        }).run();
     }
 
-    ko.applyBindings(new WorkoutsViewModel());
+    var workoutsVV = new WorkoutsViewModel();
+    pager.extendWithPage(workoutsVV);
+    ko.applyBindings(workoutsVV);
+    pager.start();
 });

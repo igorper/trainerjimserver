@@ -5,9 +5,9 @@
 
 
 
-/*******************************************************************************
- * Ajax Helpers
- */
+////////////////////////////////////////////////////////////////////////////////
+/// Ajax Helpers
+//
 
 /**
  * This function is called whenever there's an error when calling an AJAX
@@ -83,9 +83,18 @@ function callJSON(url, parameters, successCallback, errorCallback) {
 
 
 
-/**
- * jQuery Initialisation
- */
+////////////////////////////////////////////////////////////////////////////////
+/// Sammy Helpers
+//
+function getSammyLink(pathElement1, pathElement2, etc) {
+    return Array.prototype.join.call(arguments, '/');
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// jQuery Initialisation
+//
 $(function() {
     /**
      * UI Utilities
@@ -115,6 +124,9 @@ $(function() {
 
 
 
+////////////////////////////////////////////////////////////////////////////////
+/// Ajax Initialisation
+//
 ///Makes all ajax request automaticly send over CSRF token too.
 $.ajaxSetup({
     beforeSend: function(xhr) {
