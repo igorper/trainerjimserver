@@ -83,16 +83,16 @@ $(function() {
         // Operations
         self.removeSeries = function() {
             if (self.selected_series()) {
+                var idxOf = self.series().indexOf(self.selected_series());
                 self.series.remove(self.selected_series());
-                if (self.series().length > 0)
-                    self.selected_series(self.series()[0]);
-                else {
+                if (self.series().length > 0) {
+                    self.selected_series(self.series()[Math.max(0, idxOf - 1)]);
+                } else {
                     workoutsVV.selected_training().removeExercise(self);
                     self.selected_series(null);
                 }
             } else {
                 workoutsVV.selected_training().removeExercise(self);
-
             }
         }
 
@@ -128,7 +128,9 @@ $(function() {
         }
 
         self.addExerciseOfType = function(exType) {
-            self.exercises.push(new Exercise(-1, exType, 0, []));
+            var newEx = new Exercise(-1, exType, 0, []);
+            newEx.addSeries();
+            self.exercises.push(newEx);
             // Focus the newly added exercise:
             $('html, body').animate({
                 scrollTop: $(".exercises .exercise:last-child").offset().top
