@@ -10,7 +10,6 @@ $(function() {
     /////////////////////////////////////////////////////////////////////////////
     /// WORKOUTS
     //
-    var workouts = $('.training.workouts');
     var SubPage_Template = 'Template';
 
     // KNOCKOUT MODELS:
@@ -21,11 +20,7 @@ $(function() {
         self.isMyTemplate = !!isMyTeplate;
         self.name = ko.observable(name);
         self.href = ko.computed(function() {
-            if (id < 0) {
-                return 'workout-templates';
-            } else {
-                return getSammyLink(SubPage_Template, self.id, self.name());
-            }
+            return (id < 0) ? 'workout-templates' : getSammyLink(SubPage_Template, self.id, self.name());
         });
 
         // Operations
@@ -229,10 +224,12 @@ $(function() {
 
         // Handling Sammy URL links:
         $.sammy(function() {
-            this.get(getSammyLink(SubPage_Template, ':id', ':name'), function(context) {
+            this.get(getSammyLink(SubPage_Template, ':id', ':name'), function() {
                 self.onSelectTraining(this.params['id']);
             });
-
+            this.get(getSammyLink('workout-templates'), function() {
+                self.onSelectTraining(-1);
+            });
         }).run();
     }
 
