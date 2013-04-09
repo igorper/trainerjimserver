@@ -50,7 +50,7 @@
 
     <div class="regimes" data-bind="foreach: templates, visible: templates().length > 0" style="display: none;">
       <a class="regime" href="#selected-workout" data-bind="css: { active: id % 3 == 2 }, click: $root.onSelectTraining">
-        <div class="icon"><div class="tick-icon"><i class="icon-ok"></i></div><div class="image"></div></div>
+        <div class="icon"><div class="tick-icon"><i class="icon-ok"></i></div><div class="image"><img src="" data-bind="attr: { src: getIconPath($index), alt: name }"/></div></div>
         <div class="name" data-bind="text: name"></div>
       </a>
     </div>

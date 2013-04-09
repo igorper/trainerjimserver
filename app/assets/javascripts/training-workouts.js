@@ -24,6 +24,9 @@ $(function() {
         self.compareToById = function(other) {
             return self.id - other.id;
         }
+        self.getIconPath = function(idx) {
+            return 'assets/workouts/Treningi_template_' + ((parseInt(idx()) % 5) + 1).toString() + '.png';
+        }
     }
 
     function Series(id, repeat_count, rest_time, weight) {
