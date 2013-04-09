@@ -73,7 +73,7 @@
             </button>
             <ul class="dropdown-menu" data-bind="foreach: $root.exercise_types">
               <li>
-                <a data-bind="text: name, click: $root.addExerciseOfType"></a>
+                <a data-bind="text: name, click: $root.addExerciseOfType" class="button-behaviour"></a>
               </li>
             </ul>
           </div>
@@ -105,37 +105,40 @@
             </div>
           </div>
 
-          <div class="series-list" data-bind="sortable: series">
-
+          <div class="series-list">
             <div class="series">
               <div class="row-fluid">
-                <div class="reps span4 data-field">
+                <div class="reps span3 data-field" data-bind="with: selected_series">
                   <table class="content">
                     <tr>
                       <td class="text"><div>reps: <span class="value" data-bind="text: repeat_count"></span></div></td>
                       <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></div></td>
                     </tr>
                   </table>
-                </div><div class="weight span4 data-field">
+                </div><div class="weight span3 data-field" data-bind="with: selected_series">
                   <table class="content">
                     <tr>
                       <td class="text"><div>weight: <span class="value" data-bind="text: weight"></span> kg</div></td>
                       <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseWeight"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseWeight"><i class="icon-minus icon-white"></i></button></div></td>
                     </tr>
                   </table>
-                </div><div class="rest span3 data-field">
+                </div><div class="rest span3 data-field" data-bind="with: selected_series">
                   <table class="content">
                     <tr>
                       <td class="text"><div>rest: <span class="value" data-bind="text: rest_time"></span> s</div></td>
                       <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseRestTime"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseRestTime"><i class="icon-minus icon-white"></i></button></div></td>
                     </tr>
                   </table>
+                </div><div class="series-list span2 data-field">
+                  <div class="title">Series:</div>
+                  <div class="the-list" data-bind="foreach: series">
+                    <div class="the-series label button-behaviour" data-bind="click: $parent.setSelectedSeries, text: $index() + 1, css: {selected: $parent.isSelectedSeries($data)}"></div>
+                  </div>
                 </div><div class="remove-btn span1">
-                  <button class="btn" data-bind="click: $parent.removeSeries"><i class="icon-remove-sign"></i></button>
+                  <button class="btn" data-bind="click: removeSeries"><i class="icon-remove-sign"></i></button>
                 </div>
               </div>
             </div>
-
           </div>
         </div>
 

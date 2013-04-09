@@ -72,18 +72,42 @@ $(function() {
     function Exercise(id, exercise_type, order, series) {
         var self = this;
 
+        // Fields
         self.id = id;
         self.name = ko.observable(name);
         self.order = ko.observable(order);
         self.series = ko.observableArray(series);
         self.exercise_type = ko.observable(exercise_type);
+        self.selected_series = (series && series.length > 0) ? ko.observable(series[0]) : ko.observable();
 
         // Operations
-        self.removeSeries = function(series) {
-            self.series.remove(series);
+        self.removeSeries = function() {
+            if (self.selected_series()) {
+                self.series.remove(self.selected_series());
+                if (self.series().length > 0)
+                    self.selected_series(self.series()[0]);
+                else {
+                    workoutsVV.selected_training().removeExercise(self);
+                    self.selected_series(null);
+                }
+            } else {
+                workoutsVV.selected_training().removeExercise(self);
+
+            }
         }
+
         self.addSeries = function() {
             self.series.push(new Series(-1, 0, 0, 0));
+            if (!self.selected_series())
+                self.selected_series(self.series()[0]);
+        }
+
+        self.setSelectedSeries = function(series) {
+            self.selected_series(series);
+        }
+
+        self.isSelectedSeries = function(series) {
+            return self.selected_series() == series;
         }
 
         self.setExerciseType = function(exType) {
