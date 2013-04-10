@@ -531,8 +531,16 @@ $("document").ready(function() {
                     }
                 };
 
-                this.setExType = function(context,callback){          
-                    console.log(context.params["type"]);
+                this.setExType = function(context,callback){     
+                    type = context.params["type"];
+                    types = self.exerciseTypes();
+
+                    for(i=0;i<types.length;i++){
+                        if(types[i].name.replace(" ","")===type){
+                            self.onExerciseClick(types[i]);
+                            return;
+                        }
+                    }
                 };
                 
                 this.setDay = function(context,callback) {
