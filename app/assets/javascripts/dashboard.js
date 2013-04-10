@@ -208,14 +208,16 @@ $("document").ready(function() {
             self.parent = root;
             self.calendar = ko.observable([]);
             self.currentMonthIndex = ko.observable(0);
-            self.selectedDay = ko.observable();
+            self.selectedDay = ko.observable(null);
 
-            self.setup = function(data) {
+            self.setup = function(data,finish) {
                 if (data.length > 0) {
                     self.calendar(data);
-                    self.currentMonthIndex(0);
-                    days = self.currentMonth().days;
-                    self.measurementSelected(days[days.length - 1]);
+                    if(finish){
+                        self.currentMonthIndex(0);
+                        days = self.currentMonth().days;
+                        self.measurementSelected(days[days.length - 1]);
+                    }
                 } else {
                     self.calendar([]);
                     self.currentMonthIndex(0);
@@ -287,30 +289,42 @@ $("document").ready(function() {
             self.measurementSelected = function(el) {
                 if (self.selectedDay() !== el) {
                     self.selectedDay(el);
-
-                    measurementId = el.measurements[0].id;
-                    $.getJSON("/dashboard/measurement/" + measurementId, function(data) {
-
-                        self.parent.exerciseTypes(data.types);
-
-                        self.parent.measurement(data.measurement);
-
-                        graphcomments = data.measurement.measurement_comment;
-                        measurementData = eval(data.measurement.data);
-
-                        self.parent.clearGraphs();
-                        self.parent.statistics(new StatisticsPanel(data.types, self.parent));
-
-                        ///Select first exercise type
-                        self.parent.onExerciseClick(self.parent.exerciseTypes()[0]);
-
-                        ///Loads comments for given measurement
-                        $.getJSON("/conversations/list_by_measurement/" + measurementId + ".json", function(data) {
-                            self.parent.commentsVM.setup(data);
-                        });
-                    });
+                    self.measurementChange(el,null);
                 }
             };
+
+            self.measurementChange = function(day, callback){
+
+                self.selectedDay(day);
+                measurementId = day.measurements[0].id;
+                $.getJSON("/dashboard/measurement/" + measurementId, function(data) {
+
+                    self.parent.exerciseTypes(data.types);
+
+                    self.parent.measurement(data.measurement);
+
+                    graphcomments = data.measurement.measurement_comment;
+                    measurementData = eval(data.measurement.data);
+
+                    self.parent.clearGraphs();
+                    self.parent.statistics(new StatisticsPanel(data.types, self.parent));
+
+
+                    ///If callback we dont need to load first type
+                    if(callback !==undefined && callback !== null){
+                        callback();
+                    }else{
+                        ///Select first exercise type
+                        self.parent.onExerciseClick(self.parent.exerciseTypes()[0]);
+                    }
+
+                    ///Loads comments for given measurement
+                    $.getJSON("/conversations/list_by_measurement/" + measurementId + ".json", function(data) {
+                        self.parent.commentsVM.setup(data);
+                    });
+                });
+            };
+
         }
         ;
 
@@ -328,8 +342,7 @@ $("document").ready(function() {
 
             self.clearGraphs = function() {
                 self.selectedExercise(null);
-                self.exerciseExecutions.removeAll()
-                        ;
+                self.exerciseExecutions.removeAll();
                 self.selectedExecution(null);
                 placeholder.unbind("plotclick");
                 placeholder.unbind("plothover");
@@ -355,6 +368,10 @@ $("document").ready(function() {
             self.measurement = ko.observable(null);
             self.selectedExercise = ko.observable(null);
             self.exerciseExecutions = ko.observableArray([]);
+
+            self.calculatePath = function(el){
+                return self.calendarVM.selectedDay().day+"/"+el.name.replace(" ","");
+            };
 
 
 
@@ -461,65 +478,109 @@ $("document").ready(function() {
 
             self.changeUser=function(element, callback){
                     self.selectedUser(element);
-                    self.clearGraphs();
+                    self.clearGraphs();                    
+                    self.userChanged();
+
+                    var gotCB = callback!==undefined && callback!==null;
 
 
                     $.getJSON("/dashboard/exercisedates/" + element.id() + ".json", function(data) {
-                        self.calendarVM.setup(data);          
-                        if(callback!==null){
+                        self.calendarVM.setup(data,!gotCB);          
+                        if(gotCB){
                             callback();
                         }
                     });
-                    self.userChanged();
             };
 
             $.sammy(function() {
                 var ref = this;
+
+                ref.safeCBCall= function(callback){
+                    if(callback!==undefined && callback!==null)
+                        callback();
+                }
+
                 ///Functions that containt ajax calls need to be called with callback parameter.
                 this.setUser = function(context, finished) {
                     var username = context.params["username"];
-                    var users = self.users();
-                    for (i = 0; i < users.length; i++) {
-                        if (users[i].full_name() === username) {
-                            self.changeUser(users[i],finished);
-                            break;
+                    if(self.selectedUser() === null || self.selectedUser().full_name()!==username){
+                        var users = self.users();
+                        for (i = 0; i < users.length; i++) {
+                            if (users[i].full_name() === username) {
+                                self.changeUser(users[i],finished);
+                                break;
+                            }
                         }
+                    }else{
+                        ref.safeCBCall(finished);
                     }
                 };
 
-                this.setMonth = function(context) {
+                this.setMonth = function(context,callback) {
                     var month = context.params["month"];
                     var months = self.calendarVM.calendar();
                     for (i = 0; i < months.length; i++) {
                         if (months[i].month === month) {
                             self.calendarVM.currentMonthIndex(i);
-                            self.calendarVM.onMonthChanged();
+                            if(callback!==undefined && callback!==null)
+                                    callback();
+                            else
+                                self.calendarVM.onMonthChanged();
                             break;
                         }
                     }
+                };
+
+                this.setExType = function(context,callback){          
+                    console.log(context.params["type"]);
                 };
                 
-                this.setDay = function(context) {
+                this.setDay = function(context,callback) {
                     var day = context.params["day"];
-
-                    var days = self.calendarVM.currentMonth().days;
-                    for (i = 0; i < days.length; i++) {
-                        if (days[i].day+"" === day+"") {
-                            self.calendarVM.measurementSelected(days[i]);
-                            break;
+                    if(self.calendarVM.selectedDay() === null || self.calendarVM.selectedDay().day+"" !== day){
+                        var days = self.calendarVM.currentMonth().days;
+                        for (i = 0; i < days.length; i++) {
+                            if (days[i].day+"" === day+"") {
+                                self.calendarVM.measurementChange(days[i],callback);
+                                return;
+                            }
                         }
+                    }
+                    if(callback!=undefined && callback!=null){
+                        callback();
                     }
                 };
 
-                this.get('#:username/:month/:day', function(context) {
+
+                ref.get('#:username/:month/:day/:type', function(context) {
                     ref.setUser(context,function(){
-                            ref.setMonth(context);
-                            ref.setDay(context);
+                        ref.setMonth(context,function(){});
+                        ref.setDay(context, function(){
+                            ref.setExType(context,null);
+                        });
                     });       
                 });
-                this.get('#:username', function(context) {
+
+                ref.get('#:username/:month/:day', function(context) {
+                    ref.setUser(context,function(){
+                        ref.setMonth(context,function(){});
+                        ref.setDay(context,null);
+                    });       
+                });
+
+
+                ref.get('#:username/:month', function(context) {
+                    ref.setUser(context,function(){
+                        ref.setMonth(context,null);
+                    });       
+                });
+
+                ref.get('#:username', function(context) {
                     ref.setUser(context,null);
                 });
+
+
+
 
             }).run();
         }
