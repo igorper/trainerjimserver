@@ -101,7 +101,8 @@
             </div>
             <div class="exercise-top-btns span5">
               <button class="add-btn btn" data-bind="click: addSeries">Add series <i class="icon-plus-sign"></i></button>
-              <button class="delete-btn btn btn-danger" data-bind="click: $parent.removeExercise">Delete <i class="icon-remove-sign icon-white"></i></button>
+              <button class="delete-btn btn" data-bind="click: $parent.removeExercise">Delete <i class="icon-remove-sign"></i></button>
+              <button class="btn" data-toggle="collapse" data-bind="attr: { 'data-target': '#exercise-' + $index() }">Help me <i class="icon-question-sign"></i></button>
             </div>
           </div>
 
@@ -139,6 +140,9 @@
                 </div>
               </div>
             </div>
+          </div>
+          
+          <div data-bind="attr: { id: 'exercise-' + $index() }" class="collapse">
           </div>
         </div>
 

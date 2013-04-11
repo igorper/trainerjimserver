@@ -128,7 +128,7 @@
                         .exercise-top-btns {padding: 5px;}
                         .exercise-top-btns .btn {@include no-rounding;margin-top: 2px;}
                         .exercise-top-btns .btn i {margin-left: 5px;}
-                        .exercise-top-btns .delete-btn {margin-right: 5px;}
+                        .exercise-top-btns .delete-btn {margin-right: 5px; margin-left: 5px;}
                         .exercise-top-btns .add-btn {background-color: white;}
                         .exercise-top-btns .add-btn:hover {background-color: $hoverColor;}
                     }
