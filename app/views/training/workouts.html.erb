@@ -102,7 +102,7 @@
             <div class="exercise-top-btns span5">
               <button class="add-btn btn" data-bind="click: addSeries">Add series <i class="icon-plus-sign"></i></button>
               <button class="delete-btn btn" data-bind="click: $parent.removeExercise">Delete <i class="icon-remove-sign"></i></button>
-              <button class="btn" data-toggle="collapse" data-bind="attr: { 'data-target': '#exercise-' + $index() }">Help me <i class="icon-question-sign"></i></button>
+              <button class="btn" data-toggle="collapse" data-bind="attr: { 'data-target': '#exercise-' + $index() }" style="display: none;">Help me <i class="icon-question-sign"></i></button>
             </div>
           </div>
 
@@ -152,8 +152,8 @@
         <div class="row-fluid">
           <div class="span8"></div>
           <div class="span4">
-            <button class="delete btn">Delete</button>
-            <button class="save btn btn-success">Save</button>
+            <a class="delete btn" href="./workouts?delete=3793472">Delete</a>
+            <a class="save btn btn-success" href="./workouts?save=3793472">Save</a>
           </div>
         </div>
 

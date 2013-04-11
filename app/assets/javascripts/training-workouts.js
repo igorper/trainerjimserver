@@ -195,6 +195,9 @@ $(function() {
         self.selected_training = ko.observable(); // type: TrainingTemplate
 
         // Operations
+        self.clearTraining = function() {
+            self.selected_training(null);
+        }
         self.onSelectTraining = function(templateId) {
             // Is it a dummy training template? If so, scroll the user down to 
             // existing templates:
@@ -255,6 +258,9 @@ $(function() {
             });
             this.get(getSammyLink('workout-templates'), function() {
                 self.onSelectTraining(-1);
+            });
+            this.get(getSammyLink('save'), function() {
+            self.clearTraining();
             });
         }).run();
     }
