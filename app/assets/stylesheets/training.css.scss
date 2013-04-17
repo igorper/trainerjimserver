@@ -28,7 +28,7 @@
                 &.highlighted > a:hover {background-color: $hoverColor;}
                 &.highlighted > a:hover > .content .right {background-color: lighten($jimColor, 15%);}
                 &.highlighted > a > .content .right {width: 20%; height: $workoutItemHeight; float: right; background-color: $jimColor;max-width: 30px; display: block;}
-                &.highlighted > a > .content .left {width: 80%;}
+                &.highlighted > a > .content .left {width: 78%;}
                 > a > .content {
                     padding-left: 5px;
                     height: $workoutItemHeight;
@@ -47,7 +47,6 @@
         margin: 25px 0px;
         $paddingLR: 25px;
         $paddingTB: 15px;
-        
         
         .header {
             padding: $paddingTB $paddingLR;
@@ -101,7 +100,7 @@
                 .icon {padding: 3px; @include square(14px); background-color: $jimColor; margin-left: 10px;}
                 .icon .icon-ok {margin: 0;}
                 
-                .btn-group {text-align: right;}
+                .btn-group {text-align: right; width: 100%;}
                 .btn-group button {@include flat-btn; @include no-rounding;}
                 .btn-group button .caret {margin-left: 10px;}
                 .btn-group ul {text-align: left;}
@@ -182,6 +181,9 @@
                         
                     }
                 }
+            }
+            
+            #delete-confirmation {
             }
             
             .workout-buttons {

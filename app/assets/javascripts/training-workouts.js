@@ -10,8 +10,6 @@ $(function() {
     /////////////////////////////////////////////////////////////////////////////
     /// WORKOUTS
     //
-    var SubPage_Template = 'Template';
-
     // KNOCKOUT MODELS:
     function TrainingTemplate(id, name, isMyTeplate) {
         var self = this;
@@ -20,7 +18,7 @@ $(function() {
         self.isMyTemplate = !!isMyTeplate;
         self.name = ko.observable(name);
         self.href = ko.computed(function() {
-            return (id < 0) ? 'workout-templates' : getSammyLink(SubPage_Template, self.id, self.name());
+            return (id < 0) ? 'existing' : joinPaths(self.id, self.name());
         });
 
         // Operations
@@ -123,6 +121,14 @@ $(function() {
         self.exercises = ko.observableArray(exercises);
 
         // Operations
+        self.onSaveClicked = function() {
+            alert('Saving...');
+        }
+        
+        self.onDeleteClicked = function() {
+            $('#delete-confirmation').modal('show');
+        }
+        
         self.removeExercise = function(exercise) {
             self.exercises.remove(exercise);
         }
@@ -195,9 +201,16 @@ $(function() {
         self.selected_training = ko.observable(); // type: TrainingTemplate
 
         // Operations
+        self.deleteTraining = function () {
+            $('#delete-confirmation').modal('hide');
+            self.clearTraining();
+            window.location = '#';
+        }
+        
         self.clearTraining = function() {
             self.selected_training(null);
         }
+        
         self.onSelectTraining = function(templateId) {
             // Is it a dummy training template? If so, scroll the user down to 
             // existing templates:
@@ -253,14 +266,14 @@ $(function() {
 
         // Handling Sammy URL links:
         $.sammy(function() {
-            this.get(getSammyLink(SubPage_Template, ':id', ':name'), function() {
-                self.onSelectTraining(this.params['id']);
-            });
-            this.get(getSammyLink('workout-templates'), function() {
+            this.get(getSammyLink('existing'), function() {
                 self.onSelectTraining(-1);
             });
+            this.get(getSammyLink(':id', ':name'), function() {
+                self.onSelectTraining(this.params['id']);
+            });
             this.get(getSammyLink('save'), function() {
-            self.clearTraining();
+                self.clearTraining();
             });
         }).run();
     }

@@ -43,9 +43,9 @@ class TrainingController < ApplicationController
     if user_signed_in?
       @training = Training.includes(:exercises => [:exercise_type, :series]).where(:id => params[:id]).first
       if @training.nil?
-        ajax_error :training_does_not_exist
+        ajax_error_i18n :training_does_not_exist
       elsif !@training.trainee_id.nil? && @training.trainee_id != current_user.id
-        ajax_error :training_belongs_to_someone_else
+        ajax_error_i18n :training_belongs_to_someone_else
       else
         respond_to do |f|
           f.json {render :json => @training.to_json(TrainingHelper.training_full_view)}

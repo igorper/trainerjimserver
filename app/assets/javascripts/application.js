@@ -86,8 +86,11 @@ function callJSON(url, parameters, successCallback, errorCallback) {
 ////////////////////////////////////////////////////////////////////////////////
 /// Sammy Helpers
 //
-function getSammyLink(pathElement1, pathElement2, etc) {
+function joinPaths(pathElement1, pathElement2, etc) {
     return Array.prototype.join.call(arguments, '/');
+}
+function getSammyLink(pathElement1, pathElement2, etc) {
+    return '#' + Array.prototype.join.call(arguments, '/');
 }
 
 
