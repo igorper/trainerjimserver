@@ -101,7 +101,7 @@
                 .icon .icon-ok {margin: 0;}
                 
                 .btn-group {text-align: right; width: 100%;}
-                .btn-group button {@include flat-btn; @include no-rounding;}
+                .btn-group button {@include flat-btn; @include no-rounding; padding: 10px 8px;}
                 .btn-group button .caret {margin-left: 10px;}
                 .btn-group ul {text-align: left;}
             }
@@ -127,8 +127,8 @@
                         .exercise-top-btns {padding: 5px;}
                         .exercise-top-btns .btn {@include no-rounding;margin-top: 2px;}
                         .exercise-top-btns .btn i {margin-left: 5px;}
-                        .exercise-top-btns .delete-btn {margin-right: 5px; margin-left: 5px;}
-                        .exercise-top-btns .add-btn {background-color: white;}
+                        .exercise-top-btns .delete-btn {}
+                        .exercise-top-btns .add-btn {background-color: white; margin-left: 5px;}
                         .exercise-top-btns .add-btn:hover {background-color: $hoverColor;}
                     }
                     
