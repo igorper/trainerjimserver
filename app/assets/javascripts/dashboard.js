@@ -587,15 +587,6 @@ $("document").ready(function() {
                     ref.setUser(context,null);
                 });
 
-                ref.get("",function(context)         {
-                        if(self.users().length  > 0)
-                        {
-                            context.params["username"]=self.users()[0].full_name();
-                            ref.setUser(context,null);
-                        }
-                    }
-                ) ;
-
 
 
 
