@@ -67,27 +67,25 @@ $(function() {
         }
     }
 
-    function Exercise(id, exercise_type, order, series) {
+    function Exercise(id, exercise_type, series) {
         var self = this;
 
         // Fields
         self.id = id;
-        self.name = ko.observable(name);
-        self.order = ko.observable(order);
         self.series = ko.observableArray(series);
+        self.series.selected = (series && series.length > 0) ? ko.observable(series[0]) : ko.observable();
         self.exercise_type = ko.observable(exercise_type);
-        self.selected_series = (series && series.length > 0) ? ko.observable(series[0]) : ko.observable();
 
         // Operations
         self.removeSeries = function() {
-            if (self.selected_series()) {
-                var idxOf = self.series().indexOf(self.selected_series());
-                self.series.remove(self.selected_series());
+            if (self.series.selected()) {
+                var idxOf = self.series().indexOf(self.series.selected());
+                self.series.remove(self.series.selected());
                 if (self.series().length > 0) {
-                    self.selected_series(self.series()[Math.max(0, idxOf - 1)]);
+                    self.series.selected(self.series()[Math.max(0, idxOf - 1)]);
                 } else {
                     workoutsVV.selected_training().removeExercise(self);
-                    self.selected_series(null);
+                    self.series.selected(null);
                 }
             } else {
                 workoutsVV.selected_training().removeExercise(self);
@@ -96,16 +94,16 @@ $(function() {
 
         self.addSeries = function() {
             self.series.push(new Series(-1, 0, 0, 0));
-            if (!self.selected_series())
-                self.selected_series(self.series()[0]);
+            if (!self.series.selected())
+                self.series.selected(self.series()[0]);
         }
 
         self.setSelectedSeries = function(series) {
-            self.selected_series(series);
+            self.series.selected(series);
         }
 
         self.isSelectedSeries = function(series) {
-            return self.selected_series() == series;
+            return self.series.selected() == series;
         }
 
         self.setExerciseType = function(exType) {
@@ -134,7 +132,7 @@ $(function() {
         }
 
         self.addExerciseOfType = function(exType) {
-            var newEx = new Exercise(-1, exType, 0, []);
+            var newEx = new Exercise(-1, exType, []);
             newEx.addSeries();
             self.exercises.push(newEx);
             // Focus the newly added exercise:
@@ -172,7 +170,7 @@ $(function() {
     }
 
     function exerciseFromJson(exJson) {
-        return new Exercise(exJson.id, exerciseTypeFromJson(exJson.exercise_type), exJson.order, multiSeriesFromJson(exJson.series));
+        return new Exercise(exJson.id, exerciseTypeFromJson(exJson.exercise_type), multiSeriesFromJson(exJson.series));
     }
 
     function exercisesFromJson(exsJson) {

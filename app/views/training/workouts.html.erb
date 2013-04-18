@@ -62,8 +62,7 @@
       <h1 class="jim-title">Customise your workout</h1>
       <div class="name row-fluid">
         <div class="left span8">
-          <div class="the-name-value" data-bind="text: name"></div> 
-          <div class="icon"><i class="icon-ok"></i></div>
+          <input class="the-name-value" data-bind="value: name"/>
         </div>
         <div class="right span4">
           <div class="btn-group">
@@ -109,21 +108,21 @@
           <div class="series-list">
             <div class="series">
               <div class="row-fluid">
-                <div class="reps span3 data-field" data-bind="with: selected_series">
+                <div class="reps span3 data-field" data-bind="with: series.selected">
                   <table class="content">
                     <tr>
                       <td class="text"><div>reps: <span class="value" data-bind="text: repeat_count"></span></div></td>
                       <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></div></td>
                     </tr>
                   </table>
-                </div><div class="weight span3 data-field" data-bind="with: selected_series">
+                </div><div class="weight span3 data-field" data-bind="with: series.selected">
                   <table class="content">
                     <tr>
                       <td class="text"><div>weight: <span class="value" data-bind="text: weight"></span> kg</div></td>
                       <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseWeight"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseWeight"><i class="icon-minus icon-white"></i></button></div></td>
                     </tr>
                   </table>
-                </div><div class="rest span3 data-field" data-bind="with: selected_series">
+                </div><div class="rest span3 data-field" data-bind="with: series.selected">
                   <table class="content">
                     <tr>
                       <td class="text"><div>rest: <span class="value" data-bind="text: rest_time"></span> s</div></td>

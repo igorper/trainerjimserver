@@ -125,6 +125,10 @@ $bodyFontSize: 13px;
 
 
 /** BORDERS */
+@mixin no-border {
+    border: none;
+}
+
 @mixin rounded($radius: 5px) {
     border-radius: $radius;
 }
@@ -140,17 +144,15 @@ $bodyFontSize: 13px;
 /** BUTTONS, INPUT FIELDS (FORM STUFF) */
 @mixin flat-btn {
     filter:progid:DXImageTransform.Microsoft.Gradient(enabled='false');
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
+    @include no-shadow;
     background-image: none;
     border: 0;
 }
 
 @mixin flat-text-input {
-    border: none;
-    box-shadow: none;
-    border-radius: 0;
+    @include no-shadow;
+    @include no-border;
+    @include no-rounding;
 }
 
 
@@ -171,6 +173,12 @@ $bodyFontSize: 13px;
     -moz-box-shadow: $shadows;
     -webkit-box-shadow: $shadows;
     box-shadow: $shadows;
+}
+
+@mixin no-shadow {
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
 }
 
 @mixin text-shadow($shadow: 0 1px 1px rgba(0, 0, 0, 0.5)) {
