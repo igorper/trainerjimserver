@@ -49,7 +49,7 @@
             </div>
           </div>
           <div class="ex-workout-switch" data-bind="if: exerciseSelected">
-            exercise | <button class="btn-link" data-bind="click: toggle">workout</button>          
+            exercise | <button class="btn-link" data-bind="click: toggle">workout</button>
           </div>
           <div class="ex-workout-switch" data-bind="if: workoutSelected">
             <button class="btn-link" data-bind="click: toggle">exercise</button>| workout
@@ -66,7 +66,7 @@
             </div>
           </div>
           <div class="separator"></div>
-          <div class="emoticons"> 
+          <div class="emoticons">
             <div class="one" data-bind="css: {on: rating == 1}"></div>
             <div class="two" data-bind="css: {on: rating == 2}"></div>
             <div class="three" data-bind="css: {on: rating == 3}"></div>
@@ -76,14 +76,14 @@
           <div data-bind="foreach: $parent.commentsVM.latest">
             <div class="message" data-bind="css: {answer: ($root.selectedUser().id() === sender_id)}">
               <span data-bind="text: $data.text"></span>
-            </div>    
+            </div>
             <div class="separator"></div>
           </div>
 
 
           <div class="responded-flag" data-bind="with: $parent.commentsVM">
             <div>
-              <div class="respond-box" data-bind="visible: !replyInputOn()">              
+              <div class="respond-box" data-bind="visible: !replyInputOn()">
                 <div class="reply-icon"></div>
                 <button class="btn-link" data-bind="click: replyToggle, text: replyLinkText"></button>
               </div>
@@ -135,14 +135,14 @@
                     <div class="number" data-bind="text: duration_seconds"></div><div class="jimlabel">
                       <div>sec</div>
                       <div>active</div>
-                    </div>              
+                    </div>
                   </div>
                   <div class="verticalline" ></div>
-                  <div class="horizontalstack">              
+                  <div class="horizontalstack">
                     <div class="number" data-bind="text: num_repetitions"></div>
                     <div class="jimlabel">
                       <div>reps</div>
-                    </div>              
+                    </div>
                   </div>
                   <div class="verticalline"></div>
                   <div class="horizontalstack">
@@ -166,7 +166,7 @@
                 </div>
               </div>
             </div>
-          </div>      
+          </div>
         </div>
       </div>
 
@@ -175,10 +175,10 @@
         <div class="span9">
           <table class="typestable" data-bind="foreach: exerciseTypesRow()">
             <tr id='hidden-row'><td></td><td></td><td></td><td></td></tr>
-            <tr data-bind="foreach: {data: $data, as: 'type'}">     
+            <tr data-bind="foreach: {data: $data, as: 'type'}">
               <!-- ko if: type.name !== 'empty' -->
-              <td class='normal' data-bind="css: { selected: $parents[1].selectedExercise() === type }"><a data-bind="text: name, page-href: $parents[1].calculatePath(type)"></a></td>          
-              <!-- /ko -->              
+              <td class='normal' data-bind="css: { selected: $parents[1].selectedExercise() === type }"><a data-bind="text: name, page-href: $parents[1].calculatePath(type)"></a></td>
+              <!-- /ko -->
               <!-- ko if: type.name === 'empty' -->
               <td class='filler'></td>
               <!-- /ko -->
@@ -188,7 +188,7 @@
         </table>
       </div>
       <div class="weight-picture-box">
-        <div class="seen" data-bind="visible: selectedExercise !== null"> 
+        <div class="seen" data-bind="visible: selectedExercise !== null">
           <div class="abc">
             <div class="text" data-bind="html: selectedExerciseWeightInfo()"></div>
           </div>
