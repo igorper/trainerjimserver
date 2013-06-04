@@ -1,3 +1,11 @@
+# Dumping the database
+
+    pg_dump -C -h localhost -U trainerjim trainerjim_production > "trainerjim_production.$(date '+%Y-%m-%d-%H%M').sql"
+
+# Restoring the database
+
+    psql -U trainerjim -h localhost postgres < the_dump.sql
+
 # Installation instructions (new server)
 
 1.  Clone from git repo.

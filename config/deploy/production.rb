@@ -1,7 +1,7 @@
-role :web, "demo.trainerjim.com"
-role :app, "demo.trainerjim.com"
-role :db,  "demo.trainerjim.com", :primary => true
+role :web, "www.trainerjim.com"
+role :app, "www.trainerjim.com"
+role :db,  "www.trainerjim.com", :primary => true
 
 set :rails_env, 'production'
 set :branch, 'stable'
-set :port, 59937
+#set :port, 59937
