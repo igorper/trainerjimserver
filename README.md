@@ -104,7 +104,7 @@ On first deployment run:
 
     psql -U trainerjim -h localhost postgres < the_dump.sql
 
-# RVM
+# Updating
 
 ## Updating RVM
 
@@ -119,3 +119,30 @@ On first deployment run:
     gem install passenger && passenger-install-apache2-module
 
 Then update the 'vim /etc/httpd/conf.d/passenger.conf' file (or another Apach HTTPD configuration file, where you store your Passenger config).
+
+## Updating dependencies (Gems)
+
+    bundle update
+
+## Updating the production server
+
+1.  Open a background shell (it will remain active even after you log out or if your connection drops):
+
+        screen
+
+2.  Run the update command:
+
+        yum --skip-broken -y update
+
+3.  You can detach the screen by pressing:
+
+        Ctrl + a, d
+
+4.  To close the screen, run:
+
+        screen -r
+
+    If there is more than one screen, you'll have to fetch a list of detached screens and kill the right one:
+
+        screen -ls
+        screen -r <pid.tty.host>
