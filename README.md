@@ -98,7 +98,11 @@ On first deployment run:
 
 ## Dumping the database
 
-    pg_dump -C -h localhost -U trainerjim trainerjim_production > "trainerjim_production.$(date '+%Y-%m-%d-%H%M').sql"
+    pg_dump -C --quote-all-identifiers -h localhost -U trainerjim trainerjim_production > "trainerjim_production.$(date '+%Y-%m-%d-%H%M').sql"
+
+If you have trouble restoring the database because of bytea encoding, run this before dumping:
+
+    ALTER DATABASE <your db> SET bytea_output = 'escape';
 
 ## Restoring the database
 
