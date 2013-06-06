@@ -1,9 +1,9 @@
 //= require jquery.flot
 //= require jquery.flot.resize
-//= require knockout-2.2.1
+//= require knockout
 //= require knockout.mapping
 //= require pager.min
-//= require sammy-0.7.4.min
+//= require sammy.min
 
 
 Array.prototype.sum = function() {

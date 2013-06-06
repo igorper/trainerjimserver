@@ -7,7 +7,7 @@ set :repository, "git@bitbucket.org:urbas/trainerjimserver.git"
 set :scm, 'git'
 
 
-set :deploy_to, "/maco/rails/deployments/#{application}"
+set(:deploy_to) { "/maco/rails/deployments/#{stage}/#{application}" }
 set :user, 'root'
 set :use_sudo, false
 

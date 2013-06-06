@@ -1,8 +1,8 @@
-//= require knockout-2.2.1
+//= require knockout
 //= require knockout.mapping
 //= require knockout-sortable
 //= require pager.min
-//= require sammy-0.7.4.min
+//= require sammy.min
 
 on_json_error_behaviour = alertOnJsonError;
 

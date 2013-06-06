@@ -1,3 +1,13 @@
+# Deploy
+
+Targets: localdev, dev, staging, or production
+
+    cap <target> deploy
+
+On first deployment run:
+
+    cap <target> deploy:setup
+
 # Dumping the database
 
     pg_dump -C -h localhost -U trainerjim trainerjim_production > "trainerjim_production.$(date '+%Y-%m-%d-%H%M').sql"
@@ -5,6 +15,21 @@
 # Restoring the database
 
     psql -U trainerjim -h localhost postgres < the_dump.sql
+
+# Updating RVM
+
+    rvm get stable
+
+# Updating Ruby
+
+    rvm upgrade ruby-1.9.3-p392 ruby-1.9.3-p429
+
+# Updating Passenger
+
+    gem install passenger
+    passenger-install-apache2-module
+
+Then update the 'vim /etc/httpd/conf.d/passenger.conf' file (or another Apach HTTPD configuration file, where you store your Passenger config).
 
 # Installation instructions (new server)
 
