@@ -4,4 +4,8 @@ class Training < ActiveRecord::Base
   has_many :exercises
   belongs_to :trainee, :class_name => "User", :foreign_key => 'trainee_id'
   belongs_to :original_training, :class_name => "Training", :foreign_key => 'original_training_id'
+  
+  def common?
+    return trainee.nil?
+  end
 end

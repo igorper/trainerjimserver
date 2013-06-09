@@ -40,9 +40,48 @@ module TrainingHelper
   @@training_full_view = @@training_view.merge(:include => { :exercises => @@exercise_full_view })
   
   ###############################################################################
-  ### CLONING TRAININGS FOR USERS
+  ### HELPER METHODS
   ##
   
+  # Saves the given training (in JSON form) as the user's new training.
+  # This method also assigns the original training to the new training, if
+  # original is given.
+  #
+  # @return the newly saved training
+  def save_new_training(training_json, original_training = nil)
+    new_training = training_from_json(training_json)
+    if original_training
+      new_training.original_training = original_training
+    end
+    new_training.trainee_id = current_user.id
+    new_training.save
+    return new_training
+  end
+  
+  # @return   a training model that contains all the info from the given JSON.
+  #           the new training is not stored into the DB.
+  def training_from_json(training_json)
+    exercises = training_json['exercises'].map { |ex| exercise_from_json(ex) }
+    new_training = Training.new(training_json.merge({
+          'exercises' => exercises
+        }))
+    return new_training
+  end
+  
+  def exercise_from_json(exercise_json)
+    series = exercise_json['series'].map { |serie| series_from_json(serie) }
+    exercise_type = ExerciseType.find_by_id(exercise_json['exercise_type']['id'])
+    
+    new_exercise = Exercise.new(exercise_json.merge({
+          'series' => series,
+          'exercise_type' => exercise_type
+        }))
+    return new_exercise
+  end
+  
+  def series_from_json(serie_json)
+    return Series.new(serie_json)
+  end
   
   def clone_training_for_user(training, user)
     new_training = training.dup

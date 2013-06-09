@@ -120,13 +120,16 @@ $(function() {
 
         // Operations
         self.onSaveClicked = function() {
-            alert('Saving...: ' + ko.toJSON(self));
+            callJSON(training_save_workout_url, {workout: ko.toJSON(self)}, function(t) {
+                window.location = '#';
+                workoutsVV.refresh()
+            });
         }
-        
+
         self.onDeleteClicked = function() {
             $('#delete-confirmation').modal('show');
         }
-        
+
         self.removeExercise = function(exercise) {
             self.exercises.remove(exercise);
         }
@@ -199,16 +202,16 @@ $(function() {
         self.selected_training = ko.observable(); // type: TrainingTemplate
 
         // Operations
-        self.deleteTraining = function () {
+        self.deleteTraining = function() {
             $('#delete-confirmation').modal('hide');
             self.clearTraining();
             window.location = '#';
         }
-        
+
         self.clearTraining = function() {
             self.selected_training(null);
         }
-        
+
         self.onSelectTraining = function(templateId) {
             // Is it a dummy training template? If so, scroll the user down to 
             // existing templates:
@@ -237,30 +240,45 @@ $(function() {
         self.displayableIndex = function(idx) {
             return idx + 1;
         }
+        
+        self.refresh = function () {
+            self.refreshExerciseTypes()
+            self.refreshGlobalTemplates()
+            self.refreshMyTemplates()
+            self.selected_training(null);
+        }
 
         // Initialisation
-        callJSON(exercise_types_url, {}, function(exs) {
-            self.exercise_types($.map(exs, function(et) {
-                return new ExerciseType(et.id, et.name);
-            }));
-        });
-
-        callJSON(training_templates_url, {}, function(templates) {
-            self.templates($.map(templates, function(template) {
-                return new TrainingTemplate(template.id, template.name, false);
-            }));
-        });
-
-        callJSON(training_my_templates_url, {}, function(templates) {
-            var my_templates = $.map(templates, function(template) {
-                return new TrainingTemplate(template.id, template.name, true);
+        self.refreshExerciseTypes = function() {
+            callJSON(exercise_types_url, {}, function(exs) {
+                self.exercise_types($.map(exs, function(et) {
+                    return new ExerciseType(et.id, et.name);
+                }));
             });
-            my_templates.sort(function(a, b) {
-                return a.compareToById(b);
+        }
+
+        self.refreshGlobalTemplates = function() {
+            callJSON(training_templates_url, {}, function(templates) {
+                self.templates($.map(templates, function(template) {
+                    return new TrainingTemplate(template.id, template.name, false);
+                }));
             });
-            my_templates.push(createDummyTrainingTemplate());
-            self.my_templates(my_templates);
-        });
+        }
+
+        self.refreshMyTemplates = function() {
+            callJSON(training_my_templates_url, {}, function(templates) {
+                var my_templates = $.map(templates, function(template) {
+                    return new TrainingTemplate(template.id, template.name, true);
+                });
+                my_templates.sort(function(a, b) {
+                    return a.compareToById(b);
+                });
+                my_templates.push(createDummyTrainingTemplate());
+                self.my_templates(my_templates);
+            });
+        }
+
+        self.refresh()
 
         // Handling Sammy URL links:
         $.sammy(function() {

@@ -60,7 +60,7 @@ function callJSON(url, parameters, successCallback, errorCallback) {
             if (errorCallback) {
                 errorCallback(data['message'], data['error_id'], data, textStatus, jqXHR);
             } else {
-                onJSONError(errMsg, errId, data, textStatus, jqXHR, url);
+                onJSONError(data['message'], data['error_id'], data, textStatus, jqXHR, url);
             }
         } else {
             successCallback(data, textStatus, jqXHR);
@@ -68,6 +68,7 @@ function callJSON(url, parameters, successCallback, errorCallback) {
     }).fail(function(jqXHR, textStatus) {
         var errMsg = "Unknown exception";
         var errId = "unknown_exception";
+        var data = null;
         if (jqXHR.responseText) {
             data = $.parseJSON(jqXHR.responseText);
             errMsg = data['message'];

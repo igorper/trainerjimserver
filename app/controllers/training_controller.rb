@@ -1,7 +1,7 @@
 class TrainingController < ApplicationController
   
   include AjaxHelper
-  #  include TrainingHelper
+  include TrainingHelper
   
   # Shows the workout selection and building page 
   def workouts
@@ -27,7 +27,29 @@ class TrainingController < ApplicationController
   #                     id - the ID of the training this one is based on.
   #                   }
   def save_workout
-    
+    if user_signed_in?
+      the_workout = ActiveSupport::JSON.decode(params['workout'])
+      respond_to do |f|
+        # The user can edit an existing workout. If the existing workout belongs
+        # to them, it will be changed. If it does not belong to them (if it is
+        # a common one), then a duplicate has to be created.
+        existing_training = Training.find_by_id(the_workout['id'])
+        if existing_training
+          if existing_training.common?
+            # Save new training based on another one:
+            f.json {render :json => save_new_training(the_workout, existing_training)}
+          else
+            f.json {render :json => "Saving an own training."}
+          end
+        else
+          f.json {render :json => "Saving a new training."}
+        end
+      end
+    else
+      respond_to do |f|
+        f.json {ajax_error_i18n :user_not_logged_in}
+      end
+    end
   end
   
   # Returns the list of the user's own training regimes.
