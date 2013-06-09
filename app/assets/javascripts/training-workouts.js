@@ -120,7 +120,7 @@ $(function() {
 
         // Operations
         self.onSaveClicked = function() {
-            alert('Saving...');
+            alert('Saving...: ' + ko.toJSON(self));
         }
         
         self.onDeleteClicked = function() {

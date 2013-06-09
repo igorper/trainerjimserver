@@ -3,6 +3,7 @@ class TrainingController < ApplicationController
   include AjaxHelper
   #  include TrainingHelper
   
+  # Shows the workout selection and building page 
   def workouts
     if !user_signed_in?
       redirect_to welcome_url
@@ -10,7 +11,10 @@ class TrainingController < ApplicationController
   end
   
   # Returns the list of global training templates (provided for all users).
+  # 
   # @returns a list of training templates (view: `TrainingHelper.training_view`).
+  #
+  # @formats json
   def templates
     @global_trainings = Training.find_all_by_trainee_id(nil)
     respond_to do |f|
@@ -18,8 +22,19 @@ class TrainingController < ApplicationController
     end
   end
   
+  # @param workout    A JSON `training` object:
+  #                   {
+  #                     id - the ID of the training this one is based on.
+  #                   }
+  def save_workout
+    
+  end
+  
   # Returns the list of the user's own training regimes.
+  # 
   # @returns a list of training templates (view: `TrainingHelper.training_view`).
+  #
+  # @formats json
   def my_templates
     if user_signed_in?
       @global_trainings = Training.find_all_by_trainee_id(current_user.id)
@@ -38,7 +53,10 @@ class TrainingController < ApplicationController
   # is the owner.
   # 
   # @param id the id of the training template
+  # 
   # @returns the full specification of a single training template (view: `TrainingHelper.training_view`).
+  #
+  # @formats json
   def my_template
     if user_signed_in?
       @training = Training.includes(:exercises => [:exercise_type, :series]).where(:id => params[:id]).first
@@ -54,6 +72,9 @@ class TrainingController < ApplicationController
     end
   end
   
+  # @returns all currently known exercise types.
+  #
+  # @formats json
   def exercise_types
     respond_to do |f|
       f.json {render :json => ExerciseType.all.to_json(TrainingHelper.exercise_type_view)}
@@ -84,9 +105,13 @@ class TrainingController < ApplicationController
     end
   end
   
+  # Receives and stores a training measurement session from the mobile app.
+  # 
   # @param email
   # @param password
-  # @param trainingData [ZIP FILE] a binary stream of data. Should contain files `training` and `raw`.
+  # @param trainingData [ZIP FILE] a binary stream of data. Should contain files:
+  #                     - `training`
+  #                     - `raw`.
   # @return the ID of the newly created measurement.
   def m_upload
     with_auth_mapi do |user|

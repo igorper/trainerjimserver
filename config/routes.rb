@@ -43,7 +43,7 @@ Trainerjim::Application.routes.draw do
   match 'dashboard/series_executions_by_type/:measurement/:exercise' => 'dashboard#series_executions_by_type'
   match 'dashboard/exercise/:measurement/:exercise' => 'dashboard#exercise'
   match 'dashboard/exercisedates/:user' => 'dashboard#exercisedates'
-  # Training stuff
+  # Training and workouts
   match '/training/templates' => 'training#templates'
   match '/training/my_templates' => 'training#my_templates'
   match '/training/my_template' => 'training#my_template'
