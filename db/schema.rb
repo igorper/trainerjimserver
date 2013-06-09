@@ -175,31 +175,31 @@ ActiveRecord::Schema.define(:version => 20130402095447) do
   add_index "users", ["reset_password_token"], :name => "index_users_on_reset_password_token", :unique => true
   add_index "users", ["trainer_id"], :name => "index_users_on_trainer_id"
 
-  add_foreign_key "conversations", "measurements", :name => "conversations_measurement_id_fk", :dependent => :delete
-  add_foreign_key "conversations", "users", :name => "conversations_sender_id_fk", :column => "sender_id", :dependent => :delete
+  add_foreign_key "conversations", "measurements", :name => "conversations_measurement_id_fk", :dependent => :delete, :on_update => :cascade
+  add_foreign_key "conversations", "users", :name => "conversations_sender_id_fk", :column => "sender_id", :dependent => :delete, :on_update => :cascade
 
-  add_foreign_key "exercises", "exercise_types", :name => "exercises_exercise_type_id_fk", :dependent => :delete
-  add_foreign_key "exercises", "trainings", :name => "exercises_training_id_fk", :dependent => :delete
+  add_foreign_key "exercises", "exercise_types", :name => "exercises_exercise_type_id_fk", :dependent => :delete, :on_update => :cascade
+  add_foreign_key "exercises", "trainings", :name => "exercises_training_id_fk", :dependent => :delete, :on_update => :cascade
 
-  add_foreign_key "i18n_strings", "i18n_keys", :name => "i18n_strings_i18n_key_id_fk", :dependent => :delete
+  add_foreign_key "i18n_strings", "i18n_keys", :name => "i18n_strings_i18n_key_id_fk", :dependent => :delete, :on_update => :cascade
 
-  add_foreign_key "measurement_comments", "series_executions", :name => "measurement_comments_series_execution_id_fk", :dependent => :delete
+  add_foreign_key "measurement_comments", "series_executions", :name => "measurement_comments_series_execution_id_fk", :dependent => :delete, :on_update => :cascade
 
-  add_foreign_key "measurements", "trainings", :name => "measurements_training_id_fk", :dependent => :delete
-  add_foreign_key "measurements", "users", :name => "measurements_trainee_id_fk", :column => "trainee_id", :dependent => :delete
-  add_foreign_key "measurements", "users", :name => "measurements_trainer_id_fk", :column => "trainer_id", :dependent => :nullify
+  add_foreign_key "measurements", "trainings", :name => "measurements_training_id_fk", :dependent => :delete, :on_update => :cascade
+  add_foreign_key "measurements", "users", :name => "measurements_trainee_id_fk", :column => "trainee_id", :dependent => :delete, :on_update => :cascade
+  add_foreign_key "measurements", "users", :name => "measurements_trainer_id_fk", :column => "trainer_id", :dependent => :nullify, :on_update => :cascade
 
-  add_foreign_key "roles_users", "roles", :name => "roles_users_role_id_fk", :dependent => :delete
-  add_foreign_key "roles_users", "users", :name => "roles_users_user_id_fk", :dependent => :delete
+  add_foreign_key "roles_users", "roles", :name => "roles_users_role_id_fk", :dependent => :delete, :on_update => :cascade
+  add_foreign_key "roles_users", "users", :name => "roles_users_user_id_fk", :dependent => :delete, :on_update => :cascade
 
-  add_foreign_key "series", "exercises", :name => "series_exercise_id_fk", :dependent => :delete
+  add_foreign_key "series", "exercises", :name => "series_exercise_id_fk", :dependent => :delete, :on_update => :cascade
 
-  add_foreign_key "series_executions", "exercise_types", :name => "series_executions_exercise_type_id_fk", :dependent => :delete
-  add_foreign_key "series_executions", "measurements", :name => "series_executions_measurement_id_fk", :dependent => :delete
+  add_foreign_key "series_executions", "exercise_types", :name => "series_executions_exercise_type_id_fk", :dependent => :delete, :on_update => :cascade
+  add_foreign_key "series_executions", "measurements", :name => "series_executions_measurement_id_fk", :dependent => :delete, :on_update => :cascade
 
-  add_foreign_key "trainings", "trainings", :name => "trainings_original_training_id_fk", :column => "original_training_id", :dependent => :nullify
-  add_foreign_key "trainings", "users", :name => "trainings_trainee_id_fk", :column => "trainee_id", :dependent => :delete
+  add_foreign_key "trainings", "trainings", :name => "trainings_original_training_id_fk", :column => "original_training_id", :dependent => :nullify, :on_update => :cascade
+  add_foreign_key "trainings", "users", :name => "trainings_trainee_id_fk", :column => "trainee_id", :dependent => :delete, :on_update => :cascade
 
-  add_foreign_key "users", "users", :name => "users_trainer_id_fk", :column => "trainer_id", :dependent => :nullify
+  add_foreign_key "users", "users", :name => "users_trainer_id_fk", :column => "trainer_id", :dependent => :nullify, :on_update => :cascade
 
 end
