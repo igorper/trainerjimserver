@@ -167,6 +167,7 @@ DEPENDENCIES
   jquery-ui-rails
   mail
   minitest
+  multi_json
   pg
   rails (>= 3.2.8)
   rubyzip

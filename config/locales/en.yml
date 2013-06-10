@@ -36,9 +36,7 @@ en:
     m_subscribe:
       invalid_email: "The provided email is not valid."
   training:
-    m_upload:
-      unknown_data_in_archive: "There is unknown data in the measurement archive."
-    my_templates:
-      user_not_logged_in: "Could not fetch your personal training templates. You have to be logged in."
-    my_template:
-      training_does_not_exist: "The training does not exist."
+    unknown_data_in_archive: "There is unknown data in the measurement archive."
+    user_not_logged_in: "Could not fetch your personal training templates. You have to be logged in."
+    training_does_not_exist: "The training does not exist."
+    no_training_to_delete: "This training cannot be deleted."

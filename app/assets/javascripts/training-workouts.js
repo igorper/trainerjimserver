@@ -196,16 +196,21 @@ $(function() {
         var self = this;
 
         // Data
-        self.exercise_types = ko.observableArray(); // type: [ExerciseType]
-        self.my_templates = ko.observableArray(); // type: [TrainingTemplate]
-        self.templates = ko.observableArray(); // type: [TrainingTemplate]
-        self.selected_training = ko.observable(); // type: TrainingTemplate
+        self.exercise_types = ko.observableArray(); // type: ExerciseType[]
+        self.my_templates = ko.observableArray(); // type: TrainingTemplate[]
+        self.templates = ko.observableArray(); // type: TrainingTemplate[]
+        self.selected_training = ko.observable(); // type: Regime
 
         // Operations
         self.deleteTraining = function() {
             $('#delete-confirmation').modal('hide');
-            self.clearTraining();
-            window.location = '#';
+            callJSON(
+                    training_delete_workout_url,
+                    {id: self.selected_training().id},
+            function(response) {
+                self.refresh();
+                window.location = '#';
+            })
         }
 
         self.clearTraining = function() {
@@ -240,12 +245,12 @@ $(function() {
         self.displayableIndex = function(idx) {
             return idx + 1;
         }
-        
-        self.refresh = function () {
+
+        self.refresh = function() {
             self.refreshExerciseTypes()
             self.refreshGlobalTemplates()
             self.refreshMyTemplates()
-            self.selected_training(null);
+            self.clearTraining();
         }
 
         // Initialisation
@@ -290,6 +295,8 @@ $(function() {
             });
             this.get(getSammyLink('save'), function() {
                 self.clearTraining();
+            });
+            this.get('', function() {
             });
         }).run();
     }

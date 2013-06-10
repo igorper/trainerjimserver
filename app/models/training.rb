@@ -1,5 +1,5 @@
 class Training < ActiveRecord::Base
-  attr_accessible :name, :exercises, :trainee, :original_training
+  attr_accessible :id, :name, :exercises, :trainee, :trainee_id, :original_training
   
   has_many :exercises
   belongs_to :trainee, :class_name => "User", :foreign_key => 'trainee_id'

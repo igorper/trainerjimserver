@@ -52,7 +52,7 @@ module AjaxHelper
   end
   
   def ajax_error_i18n(response, options = {})
-    ajax_error response, controller_name + '.' + action_name 
+    ajax_error response, controller_name
   end
   
   def with_auth_mapi(&block)

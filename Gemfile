@@ -24,6 +24,8 @@ gem 'bcrypt-ruby'
 gem 'mail'
 gem 'unicode'
 
+gem 'multi_json'
+
 # For foreign key constraints on databases
 gem 'foreigner', :git => 'git://github.com/urbas/foreigner.git'
 

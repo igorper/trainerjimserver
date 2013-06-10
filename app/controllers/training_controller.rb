@@ -52,6 +52,28 @@ class TrainingController < ApplicationController
     end
   end
   
+  # @param id   The id of the workout to delete. Must be a personal workout of
+  #             the logged-in user.
+  #
+  # @return     `true` on success.
+  def delete_workout
+    if user_signed_in?
+      existing_workout = Training.where(:id => params['id'], :trainee_id => current_user.id).first
+      respond_to do |f|
+        if existing_workout
+          existing_workout.destroy
+          f.json {render :json => true}
+        else
+          f.json {ajax_error_i18n :no_training_to_delete}
+        end
+      end
+    else
+      respond_to do |f|
+        f.json {ajax_error_i18n :user_not_logged_in}
+      end
+    end
+  end
+  
   # Returns the list of the user's own training regimes.
   # 
   # @returns a list of training templates (view: `TrainingHelper.training_view`).
