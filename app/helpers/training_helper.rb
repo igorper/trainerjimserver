@@ -74,6 +74,7 @@ module TrainingHelper
     return new_training
   end
   
+  # @return   a new exercise model associated to the parent training.
   def exercise_from_json(exercise_json, parent_training)
     new_exercise = parent_training.exercises.build()
     exercise_json['series'].each { |serie| series_from_json(serie, new_exercise) }
@@ -81,10 +82,14 @@ module TrainingHelper
     return new_exercise
   end
   
+  # @return   a new serie model associated to the parent exercise.
   def series_from_json(serie_json, parent_exercise)
     return parent_exercise.series.build(serie_json)
   end
   
+  # @param  training    the training we want to copy (must be a [[Training]] instance).
+  # @param  user        the user who should own this training (the trainee).
+  # @return a copy of the given training
   def clone_training_for_user(training, user)
     new_training = training.dup
     new_training.trainee = user
