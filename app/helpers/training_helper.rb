@@ -58,29 +58,31 @@ module TrainingHelper
     return new_training
   end
   
+  def save_edited_training(training_json, original_training)
+    # Edit training details
+    original_training.name = training_json['name']
+    original_training.save
+    return original_training
+  end
+  
   # @return   a training model that contains all the info from the given JSON.
   #           the new training is not stored into the DB.
   def training_from_json(training_json)
-    exercises = training_json['exercises'].map { |ex| exercise_from_json(ex) }
-    new_training = Training.new(training_json.merge({
-          'exercises' => exercises
-        }))
+    new_training = Training.new()
+    new_training.name = training_json['name']
+    training_json['exercises'].each { |ex| exercise_from_json(ex, new_training) }
     return new_training
   end
   
-  def exercise_from_json(exercise_json)
-    series = exercise_json['series'].map { |serie| series_from_json(serie) }
-    exercise_type = ExerciseType.find_by_id(exercise_json['exercise_type']['id'])
-    
-    new_exercise = Exercise.new(exercise_json.merge({
-          'series' => series,
-          'exercise_type' => exercise_type
-        }))
+  def exercise_from_json(exercise_json, parent_training)
+    new_exercise = parent_training.exercises.build()
+    exercise_json['series'].each { |serie| series_from_json(serie, new_exercise) }
+    new_exercise.exercise_type = ExerciseType.find_by_id(exercise_json['exercise_type']['id'])
     return new_exercise
   end
   
-  def series_from_json(serie_json)
-    return Series.new(serie_json)
+  def series_from_json(serie_json, parent_exercise)
+    return parent_exercise.series.build(serie_json)
   end
   
   def clone_training_for_user(training, user)

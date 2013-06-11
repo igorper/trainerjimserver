@@ -16,6 +16,10 @@ group :test do
   gem 'minitest'
 end
 
+group :development do
+  gem 'ruby-debug-ide'
+end
+
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
