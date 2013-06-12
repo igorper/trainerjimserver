@@ -69,4 +69,6 @@ Trainerjim::Application.routes.draw do
   match 'mapi/training/get' => 'training#m_get'
   match 'mapi/training/list' => 'training#m_list'
   match 'mapi/training/upload' => 'training#m_upload', :as => :upload_training
+  # Users
+  match 'mapi/users/authenticate' => 'users#m_authenticate'
 end

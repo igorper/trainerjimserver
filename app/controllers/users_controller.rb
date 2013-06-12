@@ -22,4 +22,14 @@ class UsersController < ApplicationController
       :methods => [:display_name]
     )
   end
+  
+  # @method POST, GET
+  # @param email 
+  # @param password
+  # @returns `true` if the user was authenticated. Otherwise it returns `false`.
+  def m_authenticate
+    user = AuthenticationHelper.multi_auth(params)
+    ajax_render user.is_a?(User)
+  end
+  
 end
