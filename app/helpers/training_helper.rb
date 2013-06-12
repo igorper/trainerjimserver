@@ -58,9 +58,12 @@ module TrainingHelper
     return new_training
   end
   
+  # Modifies the given training with the new information
   def save_edited_training(training_json, original_training)
     # Edit training details
     original_training.name = training_json['name']
+    original_training.exercises.clear
+    add_exercises_from_json(training_json['exercises'], original_training)
     original_training.save
     return original_training
   end
@@ -70,16 +73,34 @@ module TrainingHelper
   def training_from_json(training_json)
     new_training = Training.new()
     new_training.name = training_json['name']
-    training_json['exercises'].each { |ex| exercise_from_json(ex, new_training) }
+    add_exercises_from_json(training_json['exercises'], new_training)
     return new_training
+  end
+  
+  def add_exercises_from_json(exercises_json, to_training)
+    order = 0
+    exercises_json.each { |ex| 
+      ex['order'] = order
+      exercise_from_json(ex, to_training)
+      order = order + 100
+    }
   end
   
   # @return   a new exercise model associated to the parent training.
   def exercise_from_json(exercise_json, parent_training)
     new_exercise = parent_training.exercises.build()
-    exercise_json['series'].each { |serie| series_from_json(serie, new_exercise) }
+    add_series_from_json(exercise_json['series'], new_exercise)
     new_exercise.exercise_type = ExerciseType.find_by_id(exercise_json['exercise_type']['id'])
     return new_exercise
+  end
+  
+  def add_series_from_json(series_json, to_exercise)
+    order = 0
+    series_json.each { |serie|
+      serie['order'] = order
+      series_from_json(serie, to_exercise)
+      order = order + 100
+    }
   end
   
   # @return   a new serie model associated to the parent exercise.
