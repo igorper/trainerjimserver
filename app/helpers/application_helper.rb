@@ -17,6 +17,22 @@ module ApplicationHelper
   def resource_name
     :user
   end
+  
+  def signup_url
+    if Rails.env.production? || Rails.env.staging? then
+      registration_url(resource_name, :protocol => 'https')
+    else
+      registration_url(resource_name)
+    end
+  end
+  
+  def login_url
+    if Rails.env.production? || Rails.env.staging? then
+      session_url(resource_name, :protocol => 'https')
+    else
+      session_url(resource_name)
+    end
+  end
  
   def resource
     @resource ||= User.new

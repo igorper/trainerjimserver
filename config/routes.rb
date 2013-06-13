@@ -3,13 +3,12 @@ Trainerjim::Application.routes.draw do
   ##############################################################################
   ### AUTHENTICATION
   ##
-  constraints :protocol => "https" do
-    devise_for :users, :path => '', :path_names => {
-      :sign_in => 'login',
-      :sign_up => 'register',
-      :sign_out => 'logout'
-    }
-  end
+  devise_for :users, :path => '', :path_names => {
+    :sign_in => 'login',
+    :sign_up => 'signup',
+    :sign_out => 'logout',
+    :registration => 'register'
+  }
 
   ##############################################################################
   ### PUBLIC PAGES
