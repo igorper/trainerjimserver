@@ -3,13 +3,13 @@ Trainerjim::Application.routes.draw do
   ##############################################################################
   ### AUTHENTICATION
   ##
-  scope defaults: (Rails.env.production? || Rails.env.staging? ? { protocol: 'https' } : {}) do
-    devise_for :users, :path => '', :path_names => {
-      :sign_in => 'login',
-      :sign_up => 'register',
-      :sign_out => 'logout'
-    }
-  end
+  #  scope defaults: (Rails.env.production? || Rails.env.staging? ? { protocol: 'https' } : {}) do
+  devise_for :users, :path => '', :path_names => {
+    :sign_in => 'login',
+    :sign_up => 'register',
+    :sign_out => 'logout'
+  }
+  #  end
 
   ##############################################################################
   ### PUBLIC PAGES
