@@ -41,6 +41,10 @@ module ApplicationHelper
   def devise_mapping
     @devise_mapping ||= Devise.mappings[:user]
   end
+  
+  def after_sign_out_path_for(resource_or_scope)
+    welcome_url :protocol => 'http'
+  end
   ##
   ### END: DEVISE (stuff for login/registration panels)
   ##############################################################################
