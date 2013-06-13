@@ -3,7 +3,7 @@ Trainerjim::Application.routes.draw do
   ##############################################################################
   ### AUTHENTICATION
   ##
-  constraints(Rails.env.production? || Rails.env.staging? ? {:protocol => "https"} : {}) do
+  constraints :protocol => "https" do
     devise_for :users, :path => '', :path_names => {
       :sign_in => 'login',
       :sign_up => 'register',
