@@ -99,7 +99,6 @@
               </div>
             </div>
             <div class="exercise-top-btns span5">
-              <button class="add-btn btn" data-bind="click: addSeries">Add series <i class="icon-plus-sign"></i></button>
               <button class="delete-btn btn" data-bind="click: $parent.removeExercise">Delete <i class="icon-remove-sign"></i></button>
               <button class="btn" data-toggle="collapse" data-bind="attr: { 'data-target': '#exercise-' + $index() }" style="display: none;">Help me <i class="icon-question-sign"></i></button>
             </div>
@@ -134,8 +133,9 @@
                   <div class="the-list" data-bind="foreach: series">
                     <div class="the-series label button-behaviour" data-bind="click: $parent.setSelectedSeries, text: $index() + 1, css: {selected: $parent.isSelectedSeries($data)}"></div>
                   </div>
-                </div><div class="remove-btn span1">
-                  <button class="btn" data-bind="click: removeSeries"><i class="icon-remove-sign"></i></button>
+                </div><div class="plus-minus-btns span1">
+                  <button class="plus-btn btn" data-bind="click: addSeries"><i class="icon-plus icon-white"></i></button>
+                  <button class="minus-btn btn" data-bind="click: removeSeries"><i class="icon-minus icon-white"></i></button>
                 </div>
               </div>
             </div>

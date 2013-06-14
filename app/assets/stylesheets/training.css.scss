@@ -126,7 +126,6 @@
                         .exercise-top-btns .btn {@include no-rounding;margin-top: 2px;}
                         .exercise-top-btns .btn i {margin-left: 5px;}
                         .exercise-top-btns .delete-btn {}
-                        .exercise-top-btns .add-btn {background-color: white; margin-left: 5px;}
                         .exercise-top-btns .add-btn:hover {background-color: $hoverColor;}
                     }
                     
@@ -153,7 +152,7 @@
                                 
                                 > div {display: inline-block;}
                                 
-                                .btn {display: block; padding: 2px 3px 1px 4px; float: none;}
+                                .btn {display: block; padding: 4px 3px 1px 4px; float: none;}
                                 .btn.plus-btn {background-color: $jimColor; margin-bottom: 2px;}
                                 .btn.plus-btn:hover {background-color: darken($jimColor, 15%);}
                                 .btn.minus-btn {background-color: $jimBlue;}
@@ -173,8 +172,6 @@
                                     .the-series.selected {@include shadow(0 0 1px 1px $jimBlue); background-color: white; color: black;}
                                 }
                             }
-                            
-                            .remove-btn .btn {display: inline-block; padding: 3px 5px; margin-top: 4px;}
                         }
                         
                     }
