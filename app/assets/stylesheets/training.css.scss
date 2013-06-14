@@ -152,7 +152,7 @@
                                 
                                 > div {display: inline-block;}
                                 
-                                .btn {display: block; padding: 4px 3px 1px 4px; float: none;}
+                                .btn {@include flat-btn; @include no-rounding; display: block; padding: 4px 3px 1px 4px; float: none;}
                                 .btn.plus-btn {background-color: $jimColor; margin-bottom: 2px;}
                                 .btn.plus-btn:hover {background-color: darken($jimColor, 15%);}
                                 .btn.minus-btn {background-color: $jimBlue;}
