@@ -137,7 +137,7 @@
                             
                             .icon {font-size: 1.5em; text-align: center; background-color: #f6f6f6; @include rounded(3px);}
                             
-                            .value {font-size: 2em;}
+                            input.value {font-size: 2em; @include sans; @include flat-text-input; height: auto; line-height: normal; margin: 0 0 -5px 0; background: none; padding: 0px; width: 30px; display: inline-block; vertical-align: bottom;}
                             
                             .row-fluid > div {display: inline-block; vertical-align: middle; float: none;}
                             .row-fluid > div.data-field:hover {@include rounded(3px); background-color: #f6f6f6;}

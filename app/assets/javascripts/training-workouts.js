@@ -48,22 +48,22 @@ $(function() {
 
         // Operations
         self.increaseReps = function() {
-            self.repeat_count(self.repeat_count() + reps_increment);
+            self.repeat_count(parseInt(self.repeat_count()) + reps_increment);
         }
         self.decreaseReps = function() {
-            self.repeat_count(Math.max(self.repeat_count() - reps_increment, 0));
+            self.repeat_count(Math.max(parseInt(self.repeat_count()) - reps_increment, 0));
         }
         self.increaseWeight = function() {
-            self.weight(self.weight() + weight_increment);
+            self.weight(parseInt(self.weight()) + weight_increment);
         }
         self.decreaseWeight = function() {
-            self.weight(Math.max(self.weight() - weight_increment, 0));
+            self.weight(Math.max(parseInt(self.weight()) - weight_increment, 0));
         }
         self.increaseRestTime = function() {
-            self.rest_time(self.rest_time() + rest_time_increment);
+            self.rest_time(parseInt(self.rest_time()) + rest_time_increment);
         }
         self.decreaseRestTime = function() {
-            self.rest_time(Math.max(self.rest_time() - rest_time_increment, 0));
+            self.rest_time(Math.max(parseInt(self.rest_time()) - rest_time_increment, 0));
         }
     }
 
@@ -142,6 +142,17 @@ $(function() {
             $('html, body').animate({
                 scrollTop: $(".exercises .exercise:last-child").offset().top
             }, 500);
+        }
+
+        self.updateExercisePanel = function(elements) {
+            for (var idx in elements) {
+                console.log("Element " + idx + ": " + elements[idx])
+                $(elements[idx]).find('input.value').autoGrowInput({
+                    comfortZone: 0,
+                    minWidth: 0,
+                    maxWidth: 60
+                });
+            }
         }
     }
 

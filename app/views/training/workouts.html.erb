@@ -80,7 +80,7 @@
       </div>
 
 
-      <div class="exercises" data-bind="sortable: exercises">
+      <div class="exercises" data-bind="sortable: {data: exercises, afterRender: updateExercisePanel }">
 
         <div class="exercise">
           <div class="details row-fluid button-behaviour">
@@ -110,21 +110,21 @@
                 <div class="reps span3 data-field" data-bind="with: series.selected">
                   <table class="content">
                     <tr>
-                      <td class="text"><div>reps: <span class="value" data-bind="text: repeat_count"></span></div></td>
+                      <td class="text"><div>reps: <input class="value" type="text" data-bind="value: repeat_count"/></div></td>
                       <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></div></td>
                     </tr>
                   </table>
                 </div><div class="weight span3 data-field" data-bind="with: series.selected">
                   <table class="content">
                     <tr>
-                      <td class="text"><div>weight: <span class="value" data-bind="text: weight"></span> kg</div></td>
+                      <td class="text"><div>weight: <input class="value" type="text" data-bind="value: weight"/> kg</div></td>
                       <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseWeight"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseWeight"><i class="icon-minus icon-white"></i></button></div></td>
                     </tr>
                   </table>
                 </div><div class="rest span3 data-field" data-bind="with: series.selected">
                   <table class="content">
                     <tr>
-                      <td class="text"><div>rest: <span class="value" data-bind="text: rest_time"></span> s</div></td>
+                      <td class="text"><div>rest: <input class="value" type="text" data-bind="value: rest_time"/> s</div></td>
                       <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseRestTime"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseRestTime"><i class="icon-minus icon-white"></i></button></div></td>
                     </tr>
                   </table>
