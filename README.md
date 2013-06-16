@@ -80,9 +80,7 @@
 
         bundle exec rake db:setup RAILS_ENV=production
 
-12. Whenever you want to update the app, run something like this:
-
-        cd /maco/rails/apps/trainerjimserver && git pull && bundle exec rake db:migrate assets:precompile RAILS_ENV=production && touch /maco/rails/apps/trainerjimserver/tmp/restart.txt
+12. Deploy the app whenever you want to update a site (see section `Deployment`).
 
 # Deployment
 
