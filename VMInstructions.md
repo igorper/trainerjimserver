@@ -49,6 +49,14 @@
 
     2.  __Debug the application__: just press the debug button. You can also put breakpoints into Ruby code. It is a bit flaky though.
 
+-   __Local Application Instance__: There is a server running in this VM. You can access it via `Firefox` or `Chromium` on these URLs:
+
+        http://localhost/
+
+    or
+
+        https://localhost/
+
 -   __SSH to Server__: To connect to the server via SSH, open the terminal and type:
 
         jim
