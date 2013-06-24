@@ -16,9 +16,11 @@ group :test do
   gem 'minitest'
 end
 
-group :development do
-  gem 'ruby-debug-ide'
-end
+# The 'ruby-debug-ide' gem should just be installed onto the system. It does not
+# need to be included in the Gemfile of this project.
+#group :development do
+#  gem 'ruby-debug-ide'
+#end
 
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
