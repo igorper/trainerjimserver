@@ -27,11 +27,13 @@
 
 5.  Paste the key into the `Key` field and set the label to `trainerjim@devel-vm`.
 
-6.  Go to the trainerjim development folder:
+6.  Fork the `trainerjimserver` repository on Bitbucket.
+
+7.  Go to the trainerjim development folder:
 
         cd ~/Programming/trainerjimserver
 
-    And make the URL of the `origin` remote point to your personal repository (replace `<your username>` with your Bitbucket username):
+    And make the URL of the `origin` remote point to your personal for of the repository (replace `<your username>` with your Bitbucket username):
 
         git remote set-url origin git@bitbucket.org:<your username>/trainerjimserver.git
 
