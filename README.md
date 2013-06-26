@@ -4,42 +4,56 @@
 
 2.  Install Ruby & Rails through RVM:
 
-        \curl -L https://get.rvm.io | bash -s stable --autolibs=3 --rails
+        \curl -L https://get.rvm.io | sudo bash -s stable --auto-dotfiles
 
-3.  Add RVM initialisation to bashrc (so that you get the PATH to RVM binaries/tools):
+3.  Install the stable Ruby:
 
-        echo "source /usr/local/rvm/scripts/rvm" >> ~/.bashrc
+        rvm install 2.0.0
 
-4.  Install Gem dependencies:
+    Select the default Ruby:
 
-        bundle install --deployment
+        rvm use --default 2.0.0
 
-5.  If 4. doesn't work. Try installing Ruby 1.9.3:
+    You can list available Ruby versions with:
 
-        rvm install ruby-1.9.3
-        rvm --default use 1.9.3
+        rvm list known
 
-6.  You'll maybe need these dependencies:
-
-        apt-get -y install libpq-dev build-essential libcurl4-openssl-dev apache2-mpm-prefork apache2-prefork-dev libapr1-dev libaprutil1-dev
-
-7.  PostgreSQL:
+4.  PostgreSQL:
 
         apt-get -y install postgresql
 
-8.  Passenger (instructions: https://www.phusionpassenger.com/download):
+    Create the `trainerjim` user (with password `trainerjim`):
+
+        sudo su postgres
+        psql
+        CREATE ROLE trainerjim LOGIN
+            ENCRYPTED PASSWORD 'md53cc7cd3df4abff9c7954bcd4979cea67'
+            SUPERUSER INHERIT CREATEDB NOCREATEROLE REPLICATION;
+
+5.  Passenger (instructions: [https://www.phusionpassenger.com/download]):
 
         gem install passenger
         cd ~
         passenger-install-apache2-module
 
-9.  Configure Apache (so that passenger will run). Add this to '/etc/apache2/sites-enabled/000-default':
+    Passenger will instruct you about what you have to put into the Apache config file `/etc/apache2/apache2.conf`.
+
+6.  Enable the following Apache mods:
+
+        cd /etc/apache2/mods-enabled/
+        ln -s ../mods-available/headers.load .
+        ln -s ../mods-available/expires.load .
+
+7.  Tell Apache where our app will be deployed. Add this to `/etc/apache2/sites-enabled/000-default`:
 
         <VirtualHost *:80>
-            ServerName dev.trainerjim.com
+        #    ServerName dev.trainerjim.com
+        #    ServerAlias jim.fzv.uni-mb.si
 
-            DocumentRoot "/maco/rails/apps/trainerjimserver/public"
-            <Directory "/maco/rails/apps/trainerjimserver/public">
+            DocumentRoot "/maco/rails/deployments/TrainerJim/localdev/current/public"
+            RackEnv "localdev"
+
+            <Directory "/maco/rails/deployments/TrainerJim/localdev/current/public">
                 AllowOverride all
                 Options -MultiViews
                 AuthType None
@@ -56,31 +70,11 @@
             </LocationMatch>
         </VirtualHost>
 
-    And this to '/etc/apache2/apache2.conf' (before sites-enabled is included):
+8.  Set up the application:
 
-        LoadModule passenger_module /usr/local/rvm/gems/ruby-1.9.3-p392/gems/passenger-3.0.19/ext/apache2/mod_passenger.so
-        PassengerRoot /usr/local/rvm/gems/ruby-1.9.3-p392/gems/passenger-3.0.19
-        PassengerRuby /usr/local/rvm/wrappers/ruby-1.9.3-p392/ruby
+        rake db:create db:migrate db:bootstrap
 
-    In apache enable the mod_headers module:
-
-        cd /etc/apache2/mods-enabled/
-        ln -s ../mods-available/headers.load .
-        ln -s ../mods-available/expires.load .
-
-10. Configure PgSQL:
-
-    Create the `trainerjim` user (with password `trainerjim`):
-
-        CREATE ROLE trainerjim LOGIN
-            ENCRYPTED PASSWORD 'md53cc7cd3df4abff9c7954bcd4979cea67'
-            SUPERUSER INHERIT CREATEDB NOCREATEROLE REPLICATION;
-
-11. Finally set up the application:
-
-        bundle exec rake db:setup RAILS_ENV=production
-
-12. Deploy the app whenever you want to update a site (see section `Deployment`).
+9.  Deploy the app whenever you want to update a site (see section `Deployment`).
 
 # Deployment
 
@@ -100,7 +94,7 @@ On first deployment run:
 
 If you have trouble restoring the database because of bytea encoding, run this before dumping:
 
-    ALTER DATABASE <your db> SET bytea_output = 'escape';
+    ALTER DATABASE <your_db> SET bytea_output = 'escape';
 
 ## Restoring the database
 
@@ -120,7 +114,7 @@ If you have trouble restoring the database because of bytea encoding, run this b
 
     gem install passenger && passenger-install-apache2-module
 
-Then update the 'vim /etc/httpd/conf.d/passenger.conf' file (or another Apach HTTPD configuration file, where you store your Passenger config).
+Then update the `vim /etc/httpd/conf.d/passenger.conf` file (or another Apach HTTPD configuration file, where you store your Passenger config).
 
 ## Updating dependencies (Gems)
 

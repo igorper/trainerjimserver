@@ -85,4 +85,10 @@
 
             cap production deploy
 
+## Installing Aptana
+
+Aptana is a Web Development IDE that claims good support for Ruby on Rails.
+
+TODO: Aptana install...
+
 ## TODO: Mobile applications...
