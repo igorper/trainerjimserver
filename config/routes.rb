@@ -16,11 +16,11 @@ Trainerjim::Application.routes.draw do
   # Home
   root :to => 'home#welcome', :as => :welcome
   # Dashboard
-  match 'dashboard' => 'dashboard#show', :as => :dashboard
+  get 'dashboard' => 'dashboard#show', :as => :dashboard
   # Training
-  match 'workouts' => 'training#workouts', :as => :workouts
+  get 'workouts' => 'training#workouts', :as => :workouts
   # Development stuff
-  match 'training/tests' => 'training#tests'
+  get 'training/tests' => 'training#tests'
   
   
   
@@ -29,28 +29,30 @@ Trainerjim::Application.routes.draw do
   ##        authentication is handled through cookies and sessions)
   ##
   # Users
-  match 'users/list' => 'users#list'
-  match 'users/list_trainees' => 'users#list_trainees'
+  match 'users/list' => 'users#list', :via => [:post, :get]
+  match 'users/list_trainees' => 'users#list_trainees', :via => [:post, :get]
   # Conversations
-  match 'conversations/list_by_measurement/:measurement' => 'conversations#list_by_measurement'
-  match 'conversations/new/' => 'conversations#new', :via => :post
+  match 'conversations/list_by_measurement/:measurement' => 'conversations#list_by_measurement', :via => [:post, :get]
+  post 'conversations/new/' => 'conversations#new'
   # Measurement comments
-  match 'measurements/comment' => 'MeasurementComments#new', :via => :post
-  match 'measurements/comment' => 'MeasurementComments#delete', :via => :delete
+  post 'measurements/comment' => 'measurements/comments#new'
+  match 'measurements/comment' => 'measurements/comments#delete', :via => :delete
   # Dashboard
-  match 'dashboard/statistics/:user' => 'dashboard#statistics'
-  match 'dashboard/measurements/:user' => 'dashboard#measurements'
-  match 'dashboard/measurement/:id' => 'dashboard#measurement'
-  match 'dashboard/series_executions_by_type/:measurement/:exercise' => 'dashboard#series_executions_by_type'
-  match 'dashboard/exercise/:measurement/:exercise' => 'dashboard#exercise'
-  match 'dashboard/exercisedates/:user' => 'dashboard#exercisedates'
+  match 'dashboard/statistics/:user' => 'dashboard#statistics', :via => [:post, :get]
+  match 'dashboard/measurements/:user' => 'dashboard#measurements', :via => [:post, :get]
+  match 'dashboard/measurement/:id' => 'dashboard#measurement', :via => [:post, :get]
+  match 'dashboard/series_executions_by_type/:measurement/:exercise' => 'dashboard#series_executions_by_type', :via => [:post, :get]
+  match 'dashboard/exercise/:measurement/:exercise' => 'dashboard#exercise', :via => [:post, :get]
+  match 'dashboard/exercisedates/:user' => 'dashboard#exercisedates', :via => [:post, :get]
   # Training and workouts
-  match '/training/templates' => 'training#templates'
-  match '/training/my_templates' => 'training#my_templates'
-  match '/training/my_template' => 'training#my_template'
-  match '/training/exercise_types' => 'training#exercise_types'
-  match '/training/save_workout' => 'training#save_workout'
-  match '/training/delete_workout' => 'training#delete_workout'
+  match '/training/templates' => 'training#templates', :via => [:post, :get]
+  match '/training/my_templates' => 'training#my_templates', :via => [:post, :get]
+  match '/training/my_template' => 'training#my_template', :via => [:post, :get]
+  match '/training/exercise_types' => 'training#exercise_types', :via => [:post, :get]
+  match '/training/save_workout' => 'training#save_workout', :via => [:post, :get]
+  match '/training/delete_workout' => 'training#delete_workout', :via => [:post, :get]
+  # Utils/Assets
+  get 'resource' => 'utils/assets#asset'
   
   
   
@@ -64,12 +66,12 @@ Trainerjim::Application.routes.draw do
   # written in the documentation of provided of the controller's action.
 
   # Newsletter
-  match 'mapi/subscription/newsletter' => 'home#m_subscribe', :as => :subscription
+  match 'mapi/subscription/newsletter' => 'home#m_subscribe', :as => :subscription, :via => [:post, :get]
   # Training
-  match 'mapi/training/tests' => 'training#tests'
-  match 'mapi/training/get' => 'training#m_get'
-  match 'mapi/training/list' => 'training#m_list'
-  match 'mapi/training/upload' => 'training#m_upload', :as => :upload_training
+  match 'mapi/training/tests' => 'training#tests', :via => [:post, :get]
+  match 'mapi/training/get' => 'training#m_get', :via => [:post, :get]
+  match 'mapi/training/list' => 'training#m_list', :via => [:post, :get]
+  match 'mapi/training/upload' => 'training#m_upload', :as => :upload_training, :via => [:post, :get]
   # Users
-  match 'mapi/users/authenticate' => 'users#m_authenticate'
+  match 'mapi/users/authenticate' => 'users#m_authenticate', :via => [:post, :get]
 end
