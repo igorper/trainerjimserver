@@ -3,7 +3,7 @@ set :default_stage, 'staging'
 require 'capistrano/ext/multistage'
 
 set :application, "TrainerJim"
-set :repository, "git@bitbucket.org:urbas/trainerjimserver.git"
+set :repository, "git@bitbucket.org:trainerjim/trainerjimserver.git"
 set :scm, 'git'
 
 
