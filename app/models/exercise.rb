@@ -1,5 +1,5 @@
 class Exercise < ActiveRecord::Base
-  attr_accessible :training, :series, :order, :exercise_type, :id
+  # attr_accessible :training, :series, :order, :exercise_type, :id
   
   belongs_to :training
   has_many :series, :dependent => :delete_all

@@ -1,4 +1,4 @@
-class MeasurementCommentsController < ApplicationController
+class Measurements::CommentsController < ApplicationController
   
   #Creates new measuremnt comment.
   # @Method POST
