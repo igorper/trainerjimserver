@@ -105,7 +105,13 @@ module TrainingHelper
   
   # @return   a new serie model associated to the parent exercise.
   def series_from_json(serie_json, parent_exercise)
-    return parent_exercise.series.build(serie_json)
+    serie_params = ActionController::Parameters.new(serie_json)
+    return parent_exercise.series.build(serie_params.permit(
+      :order,
+      :repeat_count,
+      :weight,
+      :rest_time
+    ))
   end
   
   # @param  training    the training we want to copy (must be a [[Training]] instance).
