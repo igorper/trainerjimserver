@@ -29,7 +29,7 @@ $(function() {
             return self.id - other.id;
         }
         self.getIconPath = function(idx) {
-            return 'assets/workouts/Treningi_template_' + ((parseInt(idx()) % 5) + 1).toString() + '.png';
+            return 'resource?name=workouts/Treningi_template_' + ((parseInt(idx()) % 5) + 1).toString() + '.png';
         }
     }
 
@@ -146,7 +146,6 @@ $(function() {
 
         self.updateExercisePanel = function(elements) {
             for (var idx in elements) {
-                console.log("Element " + idx + ": " + elements[idx])
                 $(elements[idx]).find('input.value').autoGrowInput({
                     comfortZone: 0,
                     minWidth: 0,
@@ -307,7 +306,7 @@ $(function() {
             this.get(getSammyLink('save'), function() {
                 self.clearTraining();
             });
-            this.get('#', function() {
+            this.get('', function() {
             });
         }).run();
     }

@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+  include ActiveModel::ForbiddenAttributesProtection
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
@@ -10,9 +11,8 @@ class User < ActiveRecord::Base
       :recoverable, :rememberable, :trackable, :validatable
   end
 
-  # Setup accessible (or protected) attributes for your model
-  attr_accessible :id, :email, :password, :password_confirmation, :remember_me,
-    :full_name, :trainer, :roles
+  # attr_accessible :id, :email, :password, :password_confirmation, :remember_me,
+    # :full_name, :trainer, :roles
   
   belongs_to :trainer, :class_name => "User", :foreign_key => 'trainer_id'
   has_many :measurements, :dependent => :delete_all

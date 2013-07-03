@@ -1,7 +1,7 @@
 require 'valid_email'
 
 class NewsletterSubscription < ActiveRecord::Base
-  attr_accessible :email
+  include ActiveModel::ForbiddenAttributesProtection
   
   validates :email, :presence => true, :email => true
 end
