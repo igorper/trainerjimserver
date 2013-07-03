@@ -146,7 +146,6 @@ $(function() {
 
         self.updateExercisePanel = function(elements) {
             for (var idx in elements) {
-                console.log("Element " + idx + ": " + elements[idx])
                 $(elements[idx]).find('input.value').autoGrowInput({
                     comfortZone: 0,
                     minWidth: 0,
@@ -307,7 +306,7 @@ $(function() {
             this.get(getSammyLink('save'), function() {
                 self.clearTraining();
             });
-            this.get('#', function() {
+            this.get('', function() {
             });
         }).run();
     }
