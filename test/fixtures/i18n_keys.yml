@@ -1,0 +1,5 @@
+article_title:
+  key: article.title
+
+article_content:
+  key: article.content
