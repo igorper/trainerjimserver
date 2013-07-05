@@ -34,7 +34,7 @@ require 'bundler/capistrano'
 
 namespace :do do  
   desc "Run a task on a remote server."  
-  # run like: cap staging rake:invoke task=a_certain_task  
+  # run like: cap staging do:invoke task=a_certain_task  
   task :invoke do  
     run("cd #{deploy_to}/current; #{rake} RAILS_ENV=#{rails_env} #{ENV['task']}")
   end  
