@@ -8,6 +8,7 @@ Trainerjim::Application.configure do
 
   # Do not eager load code on boot.
   config.eager_load = false
+  config.log_level = :debug
 
   # Show full error reports and disable caching.
   config.consider_all_requests_local       = true
@@ -22,23 +23,11 @@ Trainerjim::Application.configure do
   # Raise an error on page load if there are pending migrations
   config.active_record.migration_error = :page_load
 
-  # Only use best-standards-support built into browsers
-  config.action_dispatch.best_standards_support = :builtin
-
   # Debug mode disables concatenation and preprocessing of assets.
   # This option may cause significant delays in view rendering with a large
   # number of complex assets.
   config.assets.debug = true
   
   config.action_mailer.delivery_method = :sendmail
-#  config.action_mailer.smtp_settings = {
-#    :address => 'smtp.gmail.com',
-#    :port => 587,
-#    :user_name => 'hello@trainerjim.com',
-#    :password => 'Treniraj/Z/Jimom',
-#    :domain => 'trainerjim.com',
-#    :authentication => :plain,
-#    :enable_starttls_auto => true
-#  }
   config.action_mailer.default_url_options = { :host => 'trainerjim.banda.si' }
 end
