@@ -15,6 +15,7 @@ class HomeController < ApplicationController
     ns = NewsletterSubscription.create(:email => params[:email])
     if ns && ns.save then
       ajax_render true
+      UserMailer.subscribe_email(ns).deliver
     else
       ajax_error :invalid_email
     end
