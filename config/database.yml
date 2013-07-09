@@ -35,3 +35,15 @@ test:
 production:
   <<: *defaults
   database: trainerjim_production
+
+rok:
+  <<: *defaults
+  database: trainerjim_rok
+
+igor:
+  <<: *defaults
+  database: trainerjim_igor
+
+matej:
+  <<: *defaults
+  database: trainerjim_matej
