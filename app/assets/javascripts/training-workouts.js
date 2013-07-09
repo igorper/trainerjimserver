@@ -306,7 +306,7 @@ $(function() {
             this.get(getSammyLink('save'), function() {
                 self.clearTraining();
             });
-            this.get('', function() {
+            this.get('/#', function() {
             });
         }).run();
     }
