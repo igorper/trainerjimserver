@@ -78,13 +78,15 @@
 
 # Deployment
 
-Targets: localdev, dev, staging, or production
+Initial deployment should be done with:
+
+	cap <target> deploy:bootstrap
+
+Afterwards, for every update deployment you must call:
 
     cap <target> deploy
 
-On first deployment run:
-
-    cap <target> deploy:setup
+For a list of deployment `<targets>` see `config/deploy` (every file in this directory is a target).
 
 # Database
 
