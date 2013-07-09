@@ -31,8 +31,8 @@ biceps = ExerciseType.create(:name => "Biceps")
 
 # Create some dummy trainings:
 training1 = Training.create(:name => 'Super training')
-training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1)
-training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2)
+training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1, :machine_setting => "1")
+training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2, :machine_setting => "A")
 training1_ex3 = training1.exercises.create(:exercise_type => vertical, :order => 3)
 training1_ex4 = training1.exercises.create(:exercise_type => lat, :order => 4)
 training1_ex5 = training1.exercises.create(:exercise_type => leg, :order => 5)
