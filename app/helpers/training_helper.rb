@@ -22,7 +22,7 @@ module TrainingHelper
   ##
   
   # A JSON field include filter that contains only fields relevant to the end user.
-  @@exercise_view = {:only => [:id, :order]}
+  @@exercise_view = {:only => [:id, :order, :machine_setting]}
   
   # Returns the JSON view filter for the Exercise model so as to include only
   # information required by the users (the browser).
