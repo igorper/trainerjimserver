@@ -65,6 +65,6 @@ namespace :rails do
   task :console, :roles => :app do
     hostname = find_servers_for_task(current_task).first
     port = exists?(:port) ? fetch(:port) : 22
-    exec "ssh -l #{user} #{hostname} -p #{port} -t 'source ~/.profile && #{current_path}/script/rails c #{rails_env}'"
+    exec "ssh -l #{user} #{hostname} -p #{port} -t '#{current_path}/script/rails c #{rails_env}'"
   end
 end
