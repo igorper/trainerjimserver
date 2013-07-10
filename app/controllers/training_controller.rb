@@ -145,7 +145,7 @@ class TrainingController < ApplicationController
   # @returns JSON a JSON encoded list all trainings
   def m_list
     with_auth_mapi do |user|
-      ajax_render Training.all.to_json(TrainingHelper.training_view)
+      ajax_render Training.where(trainee_id: User.where(email: params[:email]).select(:id).first).to_json(TrainingHelper.training_view)
     end
   end
   
