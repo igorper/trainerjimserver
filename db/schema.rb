@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130710123338) do
+ActiveRecord::Schema.define(version: 20130710151303) do
 
   create_table "conversations", force: true do |t|
     t.integer  "sender_id"
@@ -133,6 +133,8 @@ ActiveRecord::Schema.define(version: 20130710123338) do
     t.integer "rest_time"
     t.integer "measurement_id",               null: false
     t.integer "duration_seconds", default: 0
+    t.integer "rating"
+    t.string  "guidance_type"
   end
 
   add_index "series_executions", ["exercise_type_id"], name: "index_series_executions_on_exercise_type_id", using: :btree
