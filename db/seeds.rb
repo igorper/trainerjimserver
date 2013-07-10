@@ -233,9 +233,9 @@ series_ex41 = SeriesExecution.create(:start_timestamp => 444178, :end_timestamp 
 
 
 training1 = Training.create(:name => 'Winter warmup', :trainee => marusa)
-training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1)
+training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1, :machine_setting => "6")
 training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2)
-training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3)
+training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3, :machine_setting => "B")
 training1_ex4 = training1.exercises.create(:exercise_type => lat, :order => 4)
 
 training1_ex1.series.create(:order => 1, :repeat_count => 10, :weight => 50)
@@ -258,9 +258,9 @@ training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
 training1 = Training.create(:name => 'Spring fat trim', :trainee => marusa)
 training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1)
-training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2)
+training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2, :machine_setting => "C")
 training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3)
-training1_ex4 = training1.exercises.create(:exercise_type => lat, :order => 4)
+training1_ex4 = training1.exercises.create(:exercise_type => lat, :order => 4, :machine_setting => "4")
 
 training1_ex1.series.create(:order => 1, :repeat_count => 10, :weight => 50)
 training1_ex1.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 15)
