@@ -17,6 +17,8 @@ class SeriesExecution < ActiveRecord::Base
   # attr_accessible :start_timestamp, :end_timestamp, :exercise_type,
     # :num_repetitions, :weight, :rest_time, :measurement, :duration_seconds,
     # :measurement_comments, :exercise_type_id
+    
+  validates_inclusion_of :guidance_type, :in => ["duration", "tempo", "manual"]
  
   belongs_to :exercise_type
   belongs_to :measurement
