@@ -15,7 +15,7 @@ module TrainingHelper
   
   # Returns the JSON view filter for the Series model so as to include only
   # information required by the users (the browser).
-  @@series_view = {:only => [:id, :repeat_count, :weight, :rest_time]}
+  @@series_view = {:only => [:id, :repeat_count, :weight, :rest_time, :duration_after_repetition, :duration_up_repetition, :duration_middle_repetition, :duration_down_repetition]}
   
   ###############################################################################
   ### EXERCISE VIEWS

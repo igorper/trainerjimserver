@@ -238,7 +238,9 @@ training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 
 training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3, :machine_setting => "B")
 training1_ex4 = training1.exercises.create(:exercise_type => lat, :order => 4)
 
-training1_ex1.series.create(:order => 1, :repeat_count => 10, :weight => 50)
+training1_ex1.series.create(:order => 1, :repeat_count => 10, :weight => 50, 
+  :duration_after_repetition => 1500, :duration_up_repetition => 1000, :duration_middle_repetition => 0, 
+  :duration_down_repetition => 2000)
 training1_ex1.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 15)
 training1_ex1.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
