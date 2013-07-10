@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130402095447) do
+ActiveRecord::Schema.define(version: 20130709183851) do
 
   create_table "conversations", force: true do |t|
     t.integer  "sender_id"
@@ -35,6 +35,7 @@ ActiveRecord::Schema.define(version: 20130402095447) do
     t.integer  "order"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "machine_setting"
   end
 
   add_index "exercises", ["exercise_type_id"], name: "index_exercises_on_exercise_type_id", using: :btree
