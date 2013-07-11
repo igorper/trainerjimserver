@@ -101,6 +101,12 @@ If you have trouble restoring the database because of bytea encoding, run this b
 ## Restoring the database
 
     psql -U trainerjim -h localhost postgres < the_dump.sql
+    
+## Killing all existing database connections (needed to drop the database to reseed)
+
+    psql -c "SELECT procpid, pg_terminate_backend(procpid) as terminated FROM pg_stat_activity WHERE procpid <> pg_backend_pid();" -d <database_name>
+
+Use `sudo -u postgres <command>` to do this as root via ssh on production server.
 
 # Updating
 
