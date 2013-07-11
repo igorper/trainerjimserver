@@ -16,6 +16,10 @@ For a list of deployment targets see files in directory `config/deploy`.
 
     cap <deployment_target> rails:console
 
+## Running tests
+
+    rake test
+
 ## Deployment
 
 Whenever you update your local repository, commit to your local master and run:
