@@ -208,3 +208,85 @@ $.ajaxSetup({
     };
 
 })(jQuery);
+
+var element;
+/////////////////////// TESTING TEMPO POPUP (Todo: move to a local file)
+  $(document).ready(function() {
+    $("#button-div").click(function() {
+      // show popup
+      popover(400, 100, 100);
+    });
+    $("#button-div1").click(function() {
+      // show popup
+      //popover(200, 100, 100)
+      console.log("div1 click");
+      RepetitionUp();
+    });
+  });
+
+  function popover(x, y, fadeTime, onClick) {
+    console.log("popover");
+    element = $(
+            '<div class="popup-tempo">\n\
+    <div class="outer-border">\n\
+        <div class="left">\n\
+            <div class="control-border">\n\
+                <div class="control-fill"></div>\n\
+            </div>\n\
+        </div>\n\
+        <div class="right">\n\
+            <div id="button-div1" onclick="RepetitionUp();" style="width:30px; height:50px;background:blue">Click</div>\n\
+        </div>\n\
+    </div>\n\
+</div>'
+  ).css({
+      position: 'absolute',
+      display: 'none',
+      top: y + 5,
+      left: x + 5
+    }).appendTo("body");
+    element.fadeIn(fadeTime);
+    element.find("#close").click(function() {
+      element.fadeOut(fadeTime, function() {
+        element.remove();
+      });
+    });
+    
+    counter = 0;
+    
+//    $("#popup-tempo").load(function(){
+//         RepetitionUp();
+//    });
+
+    
+       
+          
+
+//<%#*element.find("#post").click(function() {%>
+//<%#*komentar = element.find("textarea").val();%>
+//<%#*onClick(komentar);%>
+//<%#*element.remove();%>
+//<%#*});%>
+  }
+  
+  function RepetitionUp() {
+        if (counter < 3) {
+          console.log("up");
+          element.find(".control-fill").animate({height: "100%"}, 1000, RepetitionMiddle);
+        }
+      }
+
+      function RepetitionMiddle() {
+          console.log("middle");
+        $(".control-fill").animate({height: "100%"}, 500, RepetitionDown);
+      }
+
+      function RepetitionDown() {
+        $(".control-fill").animate({height: "0%"}, 2000, RepetitionAfter);
+      }
+
+      function RepetitionAfter() {
+        $(".control-fill").animate({height: "0%"}, 0, RepetitionUp);
+
+        counter++;
+      }

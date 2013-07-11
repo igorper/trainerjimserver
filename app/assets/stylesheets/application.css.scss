@@ -225,3 +225,55 @@ div.middle-box-panel {
         }
     }
 }
+
+
+/////////////////////////////////////////////////////////////////////// TEST TEMPO GUIDANCE (Todo: move to a local file)
+div.popup-tempo{
+    position:relative;
+    width:600px;
+    height:400px;
+    background:white;
+    
+    div.outer-border{
+        position:absolute;
+        border: 10px solid $jimColor;
+        background: $bodyBackgroundColor;
+        top:10px;
+        bottom:10px;
+        left:10px;
+        right:10px;
+
+        div.left{
+            float:left;
+            width:50%;
+            height:100%;
+
+            div.control-border{
+                position:relative;
+                height:90%;
+                width:70%;
+                margin: 5% auto;
+                border: 5px solid $jimBlue;
+            }
+
+            div.control-fill{
+                position:absolute;
+                height:0%;
+                width:100%;
+                background: $jimBlue;
+                bottom:0px;
+            }
+        }
+
+        div.right{
+            float:left;
+            width:50%;
+            height:100%;
+        }
+    }
+}
+
+
+
+
+
