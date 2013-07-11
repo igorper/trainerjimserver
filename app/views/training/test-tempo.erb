@@ -1,0 +1,36 @@
+<%#
+# To change this template, choose Tools | Templates
+# and open the template in the editor.
+%>
+
+<script>
+  $(document).ready(function(){
+    RepetitionUp();
+  });
+  
+  counter = 0;
+  
+  function RepetitionUp(){
+    if(counter < 3){
+      $("#tempo_animator").animate({height:"300px"}, 1000, RepetitionMiddle);
+    }
+  }
+  
+  function RepetitionMiddle(){
+    $("#tempo_animator").animate({height:"300px"}, 500, RepetitionDown);
+  }
+  
+  function RepetitionDown(){
+    $("#tempo_animator").animate({height:"0px"}, 2000, RepetitionAfter);
+  }
+  
+  function RepetitionAfter(){
+    $("#tempo_animator").animate({height:"0px"}, 0, RepetitionUp);
+    
+    counter++;
+  }
+</script>
+
+<div style="height:500px;">
+  <div id="tempo_animator" style="background:red;height:0px;width:50px;"></div>
+</div>
