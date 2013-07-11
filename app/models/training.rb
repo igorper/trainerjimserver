@@ -1,3 +1,15 @@
+# == Schema Information
+#
+# Table name: trainings
+#
+#  id                   :integer          not null, primary key
+#  trainee_id           :integer
+#  name                 :string(255)
+#  original_training_id :integer
+#  created_at           :datetime
+#  updated_at           :datetime
+#
+
 class Training < ActiveRecord::Base
   # attr_accessible :id, :name, :exercises, :trainee, :trainee_id, :original_training
   
