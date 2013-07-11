@@ -205,7 +205,9 @@ class TrainingController < ApplicationController
               :num_repetitions => se['num_repetitions'],
               :weight => se['weight'],
               :rest_time => se['rest_time'],
-              :duration_seconds => se['duration']
+              :duration_seconds => se['duration'],
+              :rating => se['rating'],
+              :guidance_type => se['guidance_type']
             )
             measurement.series_executions << new_se
           end
