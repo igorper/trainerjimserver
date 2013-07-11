@@ -1,5 +1,19 @@
 @import "definitions.scss";
 
+// defined as mixin to be used for workout creation and tempo guidance popup
+@mixin plus-minus-btns-mixin {
+    text-align: right;
+
+    > div {display: inline-block;}
+
+    .btn {@include flat-btn; @include no-rounding; display: block; padding: 4px 3px 1px 4px; float: none;}
+    .btn.plus-btn {background-color: $jimColor; margin-bottom: 2px;}
+    .btn.plus-btn:hover {background-color: darken($jimColor, 15%);}
+    .btn.minus-btn {background-color: $jimBlue;}
+    .btn.minus-btn:hover {background-color: darken($jimBlue, 15%);}
+    .btn i {margin: 0;}
+}
+
 ////////////////////////////////////////////////////////////////////////////////
 /// WORKOUT PAGE
 //
@@ -147,17 +161,8 @@
                             table.content td > div {padding: 5px;}
                             table.content .text > div {margin-left: 10px; display: inline-block;}
                             
-                            .plus-minus-btns {
-                                text-align: right;
-                                
-                                > div {display: inline-block;}
-                                
-                                .btn {@include flat-btn; @include no-rounding; display: block; padding: 4px 3px 1px 4px; float: none;}
-                                .btn.plus-btn {background-color: $jimColor; margin-bottom: 2px;}
-                                .btn.plus-btn:hover {background-color: darken($jimColor, 15%);}
-                                .btn.minus-btn {background-color: $jimBlue;}
-                                .btn.minus-btn:hover {background-color: darken($jimBlue, 15%);}
-                                .btn i {margin: 0;}
+                            .plus-minus-btns{
+                                @include plus-minus-btns-mixin;
                             }
                             
                             .series-list {

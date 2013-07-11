@@ -228,10 +228,11 @@ div.middle-box-panel {
 
 
 /////////////////////////////////////////////////////////////////////// TEST TEMPO GUIDANCE (Todo: move to a local file)
+@import "training.css.scss";
 div.popup-tempo{
     position:relative;
-    width:600px;
-    height:400px;
+    width:350px;
+    height:450px;
     background:white;
     
     div.outer-border{
@@ -251,7 +252,7 @@ div.popup-tempo{
             div.control-border{
                 position:relative;
                 height:90%;
-                width:70%;
+                width:85%;
                 margin: 5% auto;
                 border: 5px solid $jimBlue;
             }
@@ -269,10 +270,29 @@ div.popup-tempo{
             float:left;
             width:50%;
             height:100%;
+            background:pink;
+
+            div.row{
+                position:relative;
+                clear:both;
+                height:15%;
+                //background:red;
+
+                div.timer-label{
+                    float:right; 
+                    position:absolute;
+                    bottom:10px;
+                    font: {size: 2.0em; weight: 400;}
+                }
+
+                div.plus-minus-btns{
+                    float:right;
+                    @include plus-minus-btns-mixin
+                }
+            }
         }
     }
 }
-
 
 
 

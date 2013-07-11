@@ -228,17 +228,29 @@ var element;
     console.log("popover");
     element = $(
             '<div class="popup-tempo">\n\
-    <div class="outer-border">\n\
-        <div class="left">\n\
-            <div class="control-border">\n\
-                <div class="control-fill"></div>\n\
-            </div>\n\
-        </div>\n\
-        <div class="right">\n\
-            <div id="button-div1" onclick="RepetitionUp();" style="width:30px; height:50px;background:blue">Click</div>\n\
-        </div>\n\
-    </div>\n\
-</div>'
+                <div class="outer-border">\n\
+                    <div class="left">\n\
+                        <div class="control-border">\n\
+                            <div class="control-fill"></div>\n\
+                        </div>\n\
+                    </div>\n\
+                    <div class="right">\n\
+                        <div class="row">\n\
+                            <div class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></div><div class="timer-label">up</div>\n\
+                        </div>\n\
+                        <div class="row">\n\
+                            <div class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></div>\n\
+                        </div>\n\
+                        <div class="row">\n\
+                            <div class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></div>\n\
+                        </div>\n\
+                        <div class="row">\n\
+                            <div class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></div>\n\
+                        </div>\n\
+                        <div id="button-div1" onclick="RepetitionUp();" style="width:30px; height:50px;background:blue">Click</div>\n\
+                    </div>\n\
+                </div>\n\
+            </div>'
   ).css({
       position: 'absolute',
       display: 'none',
