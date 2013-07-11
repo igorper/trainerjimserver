@@ -1,17 +1,15 @@
 # == Schema Information
 #
-# Table name: newsletter_subscriptions
+# Table name: i18n_keys
 #
 #  id         :integer          not null, primary key
-#  email      :string(255)
+#  key        :string(255)
 #  created_at :datetime
 #  updated_at :datetime
 #
 
-require 'valid_email'
-
-class NewsletterSubscription < ActiveRecord::Base
+class I18nKey < ActiveRecord::Base
   include ActiveModel::ForbiddenAttributesProtection
   
-  validates :email, :presence => true, :email => true
+  has_many :i18n_string
 end

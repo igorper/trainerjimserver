@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130709183851) do
+ActiveRecord::Schema.define(version: 20130710123338) do
 
   create_table "conversations", force: true do |t|
     t.integer  "sender_id"
@@ -109,13 +109,17 @@ ActiveRecord::Schema.define(version: 20130709183851) do
   add_index "roles_users", ["user_id"], name: "index_roles_users_on_user_id", using: :btree
 
   create_table "series", force: true do |t|
-    t.integer  "exercise_id",              null: false
+    t.integer  "exercise_id",                            null: false
     t.integer  "order"
     t.integer  "repeat_count"
     t.integer  "weight"
-    t.integer  "rest_time",    default: 0, null: false
+    t.integer  "rest_time",                  default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "duration_after_repetition"
+    t.integer  "duration_up_repetition"
+    t.integer  "duration_middle_repetition"
+    t.integer  "duration_down_repetition"
   end
 
   add_index "series", ["exercise_id"], name: "index_series_on_exercise_id", using: :btree

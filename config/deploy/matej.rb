@@ -4,7 +4,6 @@ role :db,  "matej.trainerjim.com", :primary => true
 
 set :rails_env, 'matej'
 set :repository, "git@bitbucket.org:urbas/trainerjimserver.git"
-set :branch, 'per-developer-deployments'
 
 # role :web, "localhost"
 # role :app, "localhost"

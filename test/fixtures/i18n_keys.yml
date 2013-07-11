@@ -1,13 +1,15 @@
 # == Schema Information
 #
-# Table name: exercise_types
+# Table name: i18n_keys
 #
 #  id         :integer          not null, primary key
-#  name       :string(255)
+#  key        :string(255)
 #  created_at :datetime
 #  updated_at :datetime
 #
 
-class ExerciseType < ActiveRecord::Base
-  # attr_accessible :name
-end
+article_title:
+  key: article.title
+
+article_content:
+  key: article.content
