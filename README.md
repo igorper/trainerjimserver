@@ -1,3 +1,41 @@
+# Day-to-day development
+
+## Re-seed the database
+
+Locally:
+
+    rake db:truncate db:bootstrap db:seed
+
+Remotely:
+
+    cap <deployment_target> do:invoke task="db:truncate db:bootstrap db:seed"
+
+For a list of deployment targets see files in directory `config/deploy`.
+
+## Open Rails console remotely
+
+    cap <deployment_target> rails:console
+
+## Deployment
+
+Whenever you update your local repository, commit to your local master and run:
+
+    cap localdev deploy
+
+This will update your local server, which you can access through `http://localhost/`.
+
+Before opening a _pull request_, push your changes to the `master` branch in your Bitbucket remote. Afterwards run:
+
+    cap <your_name> deploy
+
+This will deploy your changes to the site `http://<your_name>.trainerjim.com/`.
+
+When you deploy for the first time, do the following:
+
+    cap <target> deploy:bootstrap
+
+For a list of deployment `<targets>` see `config/deploy` (every file in this directory is a target).
+
 # Installation instructions (new server)
 
 1.  Clone from git repo.
@@ -18,6 +56,10 @@
 
         rvm list known
 
+
+Afterwards, for every update deployment you must call:
+
+    cap <target> deploy
 4.  PostgreSQL:
 
         apt-get -y install postgresql
@@ -76,18 +118,6 @@
 
 9.  Deploy the app whenever you want to update a site (see section `Deployment`).
 
-# Deployment
-
-Initial deployment should be done with:
-
-	cap <target> deploy:bootstrap
-
-Afterwards, for every update deployment you must call:
-
-    cap <target> deploy
-
-For a list of deployment `<targets>` see `config/deploy` (every file in this directory is a target).
-
 # Database
 
 ## Dumping the database
@@ -122,7 +152,7 @@ Then update the `vim /etc/httpd/conf.d/passenger.conf` file (or another Apach HT
 
     bundle update
 
-## Updating the production server
+## Updating the OS of the production server
 
 1.  Open a background shell (it will remain active even after you log out or if your connection drops):
 
