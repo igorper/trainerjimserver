@@ -231,8 +231,8 @@ div.middle-box-panel {
 @import "training.css.scss";
 div.popup-tempo{
     position:relative;
-    width:350px;
-    height:450px;
+    width:420px;
+    height:400px;
     background:white;
     
     div.outer-border{
@@ -246,7 +246,7 @@ div.popup-tempo{
 
         div.left{
             float:left;
-            width:50%;
+            width:55%;
             height:100%;
 
             div.control-border{
@@ -268,32 +268,40 @@ div.popup-tempo{
 
         div.right{
             float:left;
-            width:50%;
+            width:45%;
             height:100%;
-            background:pink;
+
+            table.selector-controls{
+                width:100%;
+
+                td.timer{
+                    padding:10px 0px 10px 0px;
+                    text-align:right;
+
+                    span.segment{
+                        font: {size: 1.5em; weight: 400; }
+                    }
+
+                     span.value{
+                        font: {size: 3.0em; weight: 600;}
+                    }
+                }
+
+                td.plus-minus-btns{
+                    padding:10px;
+                    @include plus-minus-btns-mixin
+                }
+                
+            }
 
             div.row{
                 position:relative;
                 clear:both;
                 height:15%;
-                //background:red;
+                background:red;
 
-                div.timer-label{
-                    float:right; 
-                    position:absolute;
-                    bottom:10px;
-                    font: {size: 2.0em; weight: 400;}
-                }
-
-                div.plus-minus-btns{
-                    float:right;
-                    @include plus-minus-btns-mixin
-                }
+               
             }
         }
     }
 }
-
-
-
-
