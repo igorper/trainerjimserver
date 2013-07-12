@@ -109,6 +109,10 @@ $(function() {
         self.setExerciseType = function(exType) {
             self.exercise_type(exType);
         }
+        
+        self.showTempoPopup = function(data, event){
+            popover(event.target.offsetLeft, event.target.offsetTop, 100);
+        }
     }
 
     function Regime(id, name, exercises) {
