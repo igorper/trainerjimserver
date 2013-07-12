@@ -279,10 +279,16 @@ div.popup-tempo{
                     text-align:right;
 
                     span.segment{
+                        display: inline-block;
+    vertical-align: baseline;
                         font: {size: 1.5em; weight: 400; }
                     }
 
-                     span.value{
+                     input.value{
+                        display: inline-block;
+    vertical-align: baseline;
+                        background: $bodyBackgroundColor;
+                        border: 0px;        
                         font: {size: 3.0em; weight: 600;}
                     }
                 }

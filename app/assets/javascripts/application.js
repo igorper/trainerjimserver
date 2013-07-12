@@ -237,19 +237,19 @@ var element;
                     <div class="right">\n\
                         <table class="selector-controls">\n\
                         <tr>\n\
-                            <td class="timer"><span class="segment">up:</span><span class="value">1,6</span></td>\n\
+                            <td class="timer"><span class="segment">up:</span><input style="width:60px;" size="3" class="value" value="1,6" /></td>\n\
+                            <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: RepetitionUp"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></td>\n\
+                        </tr>\n\
+                        <tr class="timer">\n\
+                            <td class="timer"><span class="segment">middle:</span><input style="width:60px;" size="3" class="value" value="1,6" /></td>\n\
                             <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></td>\n\
                         </tr>\n\
                         <tr class="timer">\n\
-                            <td class="timer"><span class="segment">middle:</span><span class="value">1,6</span></td>\n\
+                            <td class="timer"><span class="segment">down:</span><input style="width:60px;" size="3" class="value" value="1,6" /></td>\n\
                             <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></td>\n\
                         </tr>\n\
                         <tr class="timer">\n\
-                            <td class="timer"><span class="segment">down:</span><span class="value">1,6</span></td>\n\
-                            <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></td>\n\
-                        </tr>\n\
-                        <tr class="timer">\n\
-                            <td class="timer"><span class="segment">after:</span><span class="value">1,6</span></td>\n\
+                            <td class="timer"><span class="segment">after:</span><input style="width:60px;" size="3" class="value" value="1,6" /></td>\n\
                             <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></td>\n\
                         </tr>\n\
                         </table>\n\
