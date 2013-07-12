@@ -209,7 +209,6 @@ $.ajaxSetup({
 
 })(jQuery);
 
-var element;
 /////////////////////// TESTING TEMPO POPUP (Todo: move to a local file)
   $(document).ready(function() {
     $("#button-div").click(function() {
@@ -226,8 +225,14 @@ var element;
 
   function popover(x, y, fadeTime, onClick) {
     console.log("popover");
-    element = $(
-            '<div class="popup-tempo">\n\
+    if($("#popup-tempo-control").length){
+        $("#popup-tempo-control").remove();
+        // also reset all animation data
+    }
+    
+    
+    var element = $(
+            '<div id="popup-tempo-control" class="popup-tempo">\n\
                 <div class="outer-border">\n\
                     <div class="left">\n\
                         <div class="control-border">\n\
@@ -291,7 +296,7 @@ var element;
   function RepetitionUp() {
         if (counter < 3) {
           console.log("up");
-          element.find(".control-fill").animate({height: "100%"}, 1000, RepetitionMiddle);
+          $(".control-fill").animate({height: "100%"}, 1000, RepetitionMiddle);
         }
       }
 
