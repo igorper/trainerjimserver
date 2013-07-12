@@ -231,8 +231,8 @@ div.middle-box-panel {
 @import "training.css.scss";
 div.popup-tempo{
     position:relative;
-    width:420px;
-    height:400px;
+    width:440px;
+    height:420px;
     background:white;
     
     div.outer-border{
@@ -304,10 +304,12 @@ div.popup-tempo{
                 position:relative;
                 clear:both;
                 height:15%;
-                background:red;
-
-               
+                background:red;               
             }
+
+            .btn {@include flat-btn; @include no-rounding; display: block; width:90%; margin: auto; margin-bottom:5px; }
+            .btn.save {background-color: $lightBlue;}
+            .btn.save:hover {background-color: $hoverColor;}
         }
     }
 }

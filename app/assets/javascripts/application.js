@@ -253,7 +253,8 @@ var element;
                             <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></td>\n\
                         </tr>\n\
                         </table>\n\
-                        <div id="button-div1" onclick="RepetitionUp();" style="width:30px; height:50px;background:blue">Click</div>\n\
+                        <button class="save btn btn-success" onclick="RepetitionUp();">Save</button>\n\
+                        <button class="cancel btn">Cancel</button>\n\
                     </div>\n\
                 </div>\n\
             </div>'
