@@ -109,8 +109,8 @@ $(function() {
         self.setExerciseType = function(exType) {
             self.exercise_type(exType);
         }
-        
-        self.showTempoPopup = function(data, event){
+
+        self.showTempoPopup = function(data, event) {
             popover(event.target.offsetLeft, event.target.offsetTop, 100);
         }
     }
@@ -313,6 +313,103 @@ $(function() {
             this.get('/#', function() {
             });
         }).run();
+    }
+
+    function popover(x, y, fadeTime, onClick) {
+        console.log("popover");
+        if ($("#popup-tempo-control").length) {
+            $("#popup-tempo-control").remove();
+            // also reset all animation data
+        }
+
+
+        var element = $(
+                '<div id="popup-tempo-control" class="popup-tempo">\n\
+                <div class="outer-border">\n\
+                    <div class="left">\n\
+                        <div class="control-border">\n\
+                            <div class="control-fill"></div>\n\
+                        </div>\n\
+                    </div>\n\
+                    <div class="right">\n\
+                        <table class="selector-controls">\n\
+                        <tr>\n\
+                            <td class="timer"><span class="segment">up:</span><input style="width:60px;" size="3" class="value" value="1,6" /></td>\n\
+                            <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: RepetitionUp"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></td>\n\
+                        </tr>\n\
+                        <tr class="timer">\n\
+                            <td class="timer"><span class="segment">middle:</span><input style="width:60px;" size="3" class="value" value="1,6" /></td>\n\
+                            <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></td>\n\
+                        </tr>\n\
+                        <tr class="timer">\n\
+                            <td class="timer"><span class="segment">down:</span><input style="width:60px;" size="3" class="value" value="1,6" /></td>\n\
+                            <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></td>\n\
+                        </tr>\n\
+                        <tr class="timer">\n\
+                            <td class="timer"><span class="segment">after:</span><input style="width:60px;" size="3" class="value" value="1,6" /></td>\n\
+                            <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></td>\n\
+                        </tr>\n\
+                        </table>\n\
+                        <button class="save btn btn-success" onclick="RepetitionUp();">Save</button>\n\
+                        <button id="cancel" class="cancel btn">Cancel</button>\n\
+                    </div>\n\
+                </div>\n\
+            </div>'
+                ).css({
+            position: 'absolute',
+            display: 'none',
+            top: y + 5,
+            left: x + 5
+        }).appendTo("body");
+        element.fadeIn(fadeTime);
+        element.find("#cancel").click(function() {
+            element.fadeOut(fadeTime, function() {
+                element.remove();
+            });
+        });
+
+        // scroll to the element
+        $('html, body').animate({
+            scrollTop: $("#popup-tempo-control").offset().top
+        }, 500);
+
+        counter = 0;
+
+//    $("#popup-tempo").load(function(){
+//         RepetitionUp();
+//    });
+
+
+
+
+
+//<%#*element.find("#post").click(function() {%>
+//<%#*komentar = element.find("textarea").val();%>
+//<%#*onClick(komentar);%>
+//<%#*element.remove();%>
+//<%#*});%>
+
+        self.RepetitionUp = function() {
+            if (counter < 3) {
+                console.log("up");
+                $(".control-fill").animate({height: "100%"}, 1000, RepetitionMiddle);
+            }
+        }
+
+        self.RepetitionMiddle = function() {
+            console.log("middle");
+            $(".control-fill").animate({height: "100%"}, 500, RepetitionDown);
+        }
+
+        self.RepetitionDown = function() {
+            $(".control-fill").animate({height: "0%"}, 2000, RepetitionAfter);
+        }
+
+        self.RepetitionAfter = function() {
+            $(".control-fill").animate({height: "0%"}, 0, RepetitionUp);
+
+            counter++;
+        }
     }
 
     var workoutsVV = new WorkoutsViewModel();

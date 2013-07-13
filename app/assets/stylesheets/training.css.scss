@@ -196,3 +196,91 @@
         }
     }
 }
+
+/////////////////////////
+/// TEMPO GUIADANCE POPUP
+//
+div.popup-tempo{
+    position:relative;
+    width:440px;
+    height:420px;
+    background:white;
+    
+    div.outer-border{
+        position:absolute;
+        border: 10px solid $jimColor;
+        background: $bodyBackgroundColor;
+        top:10px;
+        bottom:10px;
+        left:10px;
+        right:10px;
+
+        div.left{
+            float:left;
+            width:55%;
+            height:100%;
+
+            div.control-border{
+                position:relative;
+                height:90%;
+                width:85%;
+                margin: 5% auto;
+                border: 5px solid $jimBlue;
+            }
+
+            div.control-fill{
+                position:absolute;
+                height:0%;
+                width:100%;
+                background: $jimBlue;
+                bottom:0px;
+            }
+        }
+
+        div.right{
+            float:left;
+            width:45%;
+            height:100%;
+
+            table.selector-controls{
+                width:100%;
+
+                td.timer{
+                    padding:10px 0px 10px 0px;
+                    text-align:right;
+
+                    span.segment{
+                        display: inline-block;
+    vertical-align: baseline;
+                        font: {size: 1.5em; weight: 400; }
+                    }
+
+                     input.value{
+                        display: inline-block;
+    vertical-align: baseline;
+                        background: $bodyBackgroundColor;
+                        border: 0px;        
+                        font: {size: 3.0em; weight: 600;}
+                    }
+                }
+
+                td.plus-minus-btns{
+                    padding:10px;
+                    @include plus-minus-btns-mixin
+                }
+                
+            }
+
+            div.row{
+                position:relative;
+                clear:both;
+                height:15%;
+                background:red;               
+            }
+
+            .btn {@include flat-btn; @include no-rounding; display: block; width:90%; margin: auto; margin-bottom:5px; }
+            .btn.save {background-color: $lightBlue;}
+            .btn.save:hover {background-color: $hoverColor;}
+        }
+    }
+}
