@@ -40,6 +40,7 @@ $(function() {
         self.repeat_count = ko.observable(repeat_count);
         self.rest_time = ko.observable(rest_time);
         self.weight = ko.observable(weight);
+        self.dura = ko.observable("2,2");
 
         // Constants:
         var weight_increment = 5;
@@ -75,6 +76,10 @@ $(function() {
         self.series = ko.observableArray(series);
         self.series.selected = (series && series.length > 0) ? ko.observable(series[0]) : ko.observable();
         self.exercise_type = ko.observable(exercise_type);
+        self.duration_up = 1.3;
+        self.duration_middle = 1.2;
+        self.duration_down = 0.5;
+        self.duration_after = 0.8;
 
         // Operations
         self.removeSeries = function() {
@@ -111,7 +116,7 @@ $(function() {
         }
 
         self.showTempoPopup = function(data, event) {
-            popover(event.target.offsetLeft, event.target.offsetTop, 100);
+            popover(event.target.offsetLeft, event.target.offsetTop, self.duration_up, self.duration_middle, self.duration_down, self.duration_after, 100);
         }
     }
 
@@ -315,42 +320,98 @@ $(function() {
         }).run();
     }
 
-    function popover(x, y, fadeTime, onClick) {
+    function RepetitionDurationViewModel(duration_up, duration_middle, duration_down, duration_after) {
+        var self = this;
+        self.duration_up = ko.observable(duration_up);
+        self.duration_middle = ko.observable(duration_middle);
+        self.duration_down = ko.observable(duration_down);
+        self.duration_after = ko.observable(duration_after);
+
+        var duration_increment = 0.1;
+
+        self.counter = 0;
+
+        // Operations
+        self.increaseDurationUp = function() {
+            self.ResetAnimation();
+            self.duration_up((parseFloat(self.duration_up()) + duration_increment).toFixed(1));
+        }
+        self.decreaseDurationUp = function() {
+            self.duration_up(Math.max(parseFloat(self.duration_up() - duration_increment), 0).toFixed(1));
+        }
+
+        self.RepetitionUp = function() {
+            if (self.counter < 3) {
+                console.log("up");
+                $(".control-fill").animate({height: "100%"}, self.duration_up() * 1000, self.RepetitionMiddle);
+            } else {
+                self.ResetAnimation();
+            }
+        }
+
+        self.RepetitionMiddle = function() {
+            console.log("middle");
+            $(".control-fill").animate({height: "100%"}, self.duration_middle() * 1000, self.RepetitionDown);
+        }
+
+        self.RepetitionDown = function() {
+            $(".control-fill").animate({height: "0%"}, self.duration_down() * 1000, self.RepetitionAfter);
+        }
+
+        self.RepetitionAfter = function() {
+            $(".control-fill").animate({height: "0%"}, self.duration_after() * 1000, self.RepetitionUp);
+
+            self.counter++;
+        }
+        
+        self.ResetAnimation = function(){
+            $(".control-fill").stop(true);
+            $(".control-fill").height("0%");  
+            $("#tap_tempo_note").show();
+        }
+        
+        self.StartAnimation = function(){
+            self.RepetitionUp();
+            $("#tap_tempo_note").hide();
+        }
+    }
+
+    function popover(x, y, duration_up, duration_middle, duration_down, duration_after, fadeTime, onClick) {
         console.log("popover");
         if ($("#popup-tempo-control").length) {
             $("#popup-tempo-control").remove();
             // also reset all animation data
         }
 
-
         var element = $(
                 '<div id="popup-tempo-control" class="popup-tempo">\n\
                 <div class="outer-border">\n\
                     <div class="left">\n\
-                        <div class="control-border">\n\
+                        <div class="control-border" data-bind="click: StartAnimation">\n\
+                            <table id="tap_tempo_note"><tr><td>Tap to try!</td></tr></table>\n\
                             <div class="control-fill"></div>\n\
                         </div>\n\
                     </div>\n\
                     <div class="right">\n\
                         <table class="selector-controls">\n\
                         <tr>\n\
-                            <td class="timer"><span class="segment">up:</span><input style="width:60px;" size="3" class="value" value="1,6" /></td>\n\
-                            <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: RepetitionUp"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></td>\n\
+                            <td class="timer"><span class="segment">up:</span><input style="width:60px;" size="3" class="value" data-bind="value: duration_up" /></td>\n\
+                            <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseDurationUp"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseDurationUp"><i class="icon-minus icon-white"></i></button></td>\n\
                         </tr>\n\
                         <tr class="timer">\n\
-                            <td class="timer"><span class="segment">middle:</span><input style="width:60px;" size="3" class="value" value="1,6" /></td>\n\
+                            <td class="timer"><span class="segment">middle:</span><input style="width:60px;" size="3" class="value" value="' + duration_middle + '" /></td>\n\
                             <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></td>\n\
                         </tr>\n\
                         <tr class="timer">\n\
-                            <td class="timer"><span class="segment">down:</span><input style="width:60px;" size="3" class="value" value="1,6" /></td>\n\
+                            <td class="timer"><span class="segment">down:</span><input style="width:60px;" size="3" class="value" value="' + duration_down + '" /></td>\n\
                             <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></td>\n\
                         </tr>\n\
                         <tr class="timer">\n\
-                            <td class="timer"><span class="segment">after:</span><input style="width:60px;" size="3" class="value" value="1,6" /></td>\n\
+                            <td class="timer"><span class="segment">after:</span><input style="width:60px;" size="3" class="value" value="' + duration_after + '" /></td>\n\
                             <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></td>\n\
                         </tr>\n\
                         </table>\n\
-                        <button class="save btn btn-success" onclick="RepetitionUp();">Save</button>\n\
+                        <button class="save btn btn-success">Save</button>\n\
                         <button id="cancel" class="cancel btn">Cancel</button>\n\
                     </div>\n\
                 </div>\n\
@@ -373,14 +434,14 @@ $(function() {
             scrollTop: $("#popup-tempo-control").offset().top
         }, 500);
 
-        counter = 0;
+
 
 //    $("#popup-tempo").load(function(){
 //         RepetitionUp();
 //    });
 
 
-
+        ko.applyBindings(new RepetitionDurationViewModel(duration_up, duration_middle, duration_down, duration_after), document.getElementById("popup-tempo-control"));
 
 
 //<%#*element.find("#post").click(function() {%>
@@ -389,27 +450,7 @@ $(function() {
 //<%#*element.remove();%>
 //<%#*});%>
 
-        self.RepetitionUp = function() {
-            if (counter < 3) {
-                console.log("up");
-                $(".control-fill").animate({height: "100%"}, 1000, RepetitionMiddle);
-            }
-        }
 
-        self.RepetitionMiddle = function() {
-            console.log("middle");
-            $(".control-fill").animate({height: "100%"}, 500, RepetitionDown);
-        }
-
-        self.RepetitionDown = function() {
-            $(".control-fill").animate({height: "0%"}, 2000, RepetitionAfter);
-        }
-
-        self.RepetitionAfter = function() {
-            $(".control-fill").animate({height: "0%"}, 0, RepetitionUp);
-
-            counter++;
-        }
     }
 
     var workoutsVV = new WorkoutsViewModel();

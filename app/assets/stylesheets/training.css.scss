@@ -200,6 +200,12 @@
 /////////////////////////
 /// TEMPO GUIADANCE POPUP
 //
+div.popup-tempo-container{ 
+    position:absolute; 
+    z-index:2; 
+    display:none;
+}
+
 div.popup-tempo{
     position:relative;
     width:440px;
@@ -226,6 +232,14 @@ div.popup-tempo{
                 width:85%;
                 margin: 5% auto;
                 border: 5px solid $jimBlue;
+
+                #tap_tempo_note {
+                    width:100%; 
+                    height:100%; 
+                    text-align:center;
+                    font: {size: 1.5em; weight: 400;}
+                    color: $jimBlue;
+                }
             }
 
             div.control-fill{
