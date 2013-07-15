@@ -116,7 +116,7 @@ $(function() {
         }
 
         self.showTempoPopup = function(data, event) {
-            popover(event.target.offsetLeft, event.target.offsetTop, self.duration_up, self.duration_middle, self.duration_down, self.duration_after, 100);
+            ShowTempoPopup(event.target.offsetLeft, event.target.offsetTop, self, self.duration_up, self.duration_middle, self.duration_down, self.duration_after);
         }
     }
 
@@ -320,8 +320,11 @@ $(function() {
         }).run();
     }
 
-    function RepetitionDurationViewModel(duration_up, duration_middle, duration_down, duration_after) {
+    function RepetitionDurationViewModel(selected_exercise, duration_up, duration_middle, duration_down, duration_after) {
+        var REPEAT_ANIMATION = 2;
+
         var self = this;
+        self.selected_exercise = selected_exercise;
         self.duration_up = ko.observable(duration_up);
         self.duration_middle = ko.observable(duration_middle);
         self.duration_down = ko.observable(duration_down);
@@ -330,53 +333,154 @@ $(function() {
         var duration_increment = 0.1;
 
         self.counter = 0;
+        self.is_animating = false;
 
         // Operations
         self.increaseDurationUp = function() {
-            self.ResetAnimation();
+            was_animating = self.is_animating;
+
+            self.resetAnimation();
             self.duration_up((parseFloat(self.duration_up()) + duration_increment).toFixed(1));
+            if (was_animating) {
+                self.startAnimation();
+            }
         }
         self.decreaseDurationUp = function() {
-            self.duration_up(Math.max(parseFloat(self.duration_up() - duration_increment), 0).toFixed(1));
-        }
+            was_animating = self.is_animating;
 
-        self.RepetitionUp = function() {
-            if (self.counter < 3) {
-                console.log("up");
-                $(".control-fill").animate({height: "100%"}, self.duration_up() * 1000, self.RepetitionMiddle);
-            } else {
-                self.ResetAnimation();
+            self.resetAnimation();
+            self.duration_up(Math.max(parseFloat(self.duration_up() - duration_increment), 0).toFixed(1));
+
+            if (was_animating) {
+                self.startAnimation();
             }
         }
 
-        self.RepetitionMiddle = function() {
+        self.increaseDurationMiddle = function() {
+            was_animating = self.is_animating;
+            
+            self.resetAnimation();
+            self.duration_middle((parseFloat(self.duration_middle()) + duration_increment).toFixed(1));
+
+            if (was_animating) {
+                self.startAnimation();
+            }
+
+        }
+        self.decreaseDurationMiddle = function() {
+            was_animating = self.is_animating;
+            
+            self.resetAnimation();
+            self.duration_middle(Math.max(parseFloat(self.duration_middle() - duration_increment), 0).toFixed(1));
+
+            if (was_animating) {
+                self.startAnimation();
+            }
+        }
+
+        self.increaseDurationDown = function() {
+            was_animating = self.is_animating;
+            
+            self.resetAnimation();
+            self.duration_down((parseFloat(self.duration_down()) + duration_increment).toFixed(1));
+
+            if (was_animating) {
+                self.startAnimation();
+            }
+        }
+        self.decreaseDurationDown = function() {
+            was_animating = self.is_animating;
+            
+            self.resetAnimation();
+            self.duration_down(Math.max(parseFloat(self.duration_down() - duration_increment), 0).toFixed(1));
+            
+            if (was_animating) {
+                self.startAnimation();
+            }
+        }
+
+        self.increaseDurationAfter = function() {
+            was_animating = self.is_animating;
+            
+            self.resetAnimation();
+            self.duration_after((parseFloat(self.duration_after()) + duration_increment).toFixed(1));
+
+            if (was_animating) {
+                self.startAnimation();
+            }
+        }
+
+        self.decreaseDurationAfter = function() {
+            was_animating = self.is_animating;
+            
+            self.resetAnimation();
+            self.duration_after(Math.max(parseFloat(self.duration_after() - duration_increment), 0).toFixed(1));
+
+            if (was_animating) {
+                self.startAnimation();
+            }
+        }
+
+        self.repetitionUp = function() {
+            if (self.counter < REPEAT_ANIMATION) {
+                console.log("up");
+                $(".control-fill").animate({height: "100%"}, self.duration_up() * 1000, self.repetitionMiddle);
+            } else {
+                self.resetAnimation();
+            }
+        }
+
+        self.repetitionMiddle = function() {
             console.log("middle");
-            $(".control-fill").animate({height: "100%"}, self.duration_middle() * 1000, self.RepetitionDown);
+            $(".control-fill").animate({height: "100%"}, self.duration_middle() * 1000, self.repetitionDown);
         }
 
-        self.RepetitionDown = function() {
-            $(".control-fill").animate({height: "0%"}, self.duration_down() * 1000, self.RepetitionAfter);
+        self.repetitionDown = function() {
+            $(".control-fill").animate({height: "0%"}, self.duration_down() * 1000, self.repetitionAfter);
         }
 
-        self.RepetitionAfter = function() {
-            $(".control-fill").animate({height: "0%"}, self.duration_after() * 1000, self.RepetitionUp);
+        self.repetitionAfter = function() {
+            $(".control-fill").animate({height: "0%"}, self.duration_after() * 1000, self.repetitionUp);
 
             self.counter++;
         }
-        
-        self.ResetAnimation = function(){
+
+        self.resetAnimation = function() {
+            self.is_animating = false;
+            self.counter = 0;
             $(".control-fill").stop(true);
-            $(".control-fill").height("0%");  
+            $(".control-fill").height("0%");
             $("#tap_tempo_note").show();
         }
-        
-        self.StartAnimation = function(){
-            self.RepetitionUp();
-            $("#tap_tempo_note").hide();
+
+        self.startAnimation = function() {
+            if (!self.is_animating) {
+                self.is_animating = true;
+                self.repetitionUp();
+                $("#tap_tempo_note").hide();
+            }
+            else {
+                self.resetAnimation();
+            }
+        }
+
+        self.save = function() {
+
+            // on save update the selected exercise duration values
+            selected_exercise.duration_up = self.duration_up();
+            selected_exercise.duration_middle = self.duration_middle();
+            selected_exercise.duration_down = self.duration_down();
+            selected_exercise.duration_after = self.duration_after();
+
+            // and close the popup
+            var element = $("#popup-tempo-control");
+            element.fadeOut(FADE_TIME, function() {
+                element.remove();
+            });
         }
     }
 
-    function popover(x, y, duration_up, duration_middle, duration_down, duration_after, fadeTime, onClick) {
+    function ShowTempoPopup(x, y, selected_exercise, duration_up, duration_middle, duration_down, duration_after) {
         console.log("popover");
         if ($("#popup-tempo-control").length) {
             $("#popup-tempo-control").remove();
@@ -387,7 +491,7 @@ $(function() {
                 '<div id="popup-tempo-control" class="popup-tempo">\n\
                 <div class="outer-border">\n\
                     <div class="left">\n\
-                        <div class="control-border" data-bind="click: StartAnimation">\n\
+                        <div class="control-border" data-bind="click: startAnimation">\n\
                             <table id="tap_tempo_note"><tr><td>Tap to try!</td></tr></table>\n\
                             <div class="control-fill"></div>\n\
                         </div>\n\
@@ -399,19 +503,19 @@ $(function() {
                             <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseDurationUp"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseDurationUp"><i class="icon-minus icon-white"></i></button></td>\n\
                         </tr>\n\
                         <tr class="timer">\n\
-                            <td class="timer"><span class="segment">middle:</span><input style="width:60px;" size="3" class="value" value="' + duration_middle + '" /></td>\n\
-                            <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></td>\n\
+                            <td class="timer"><span class="segment">middle:</span><input style="width:60px;" size="3" class="value" data-bind="value: duration_middle" /></td>\n\
+                            <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseDurationMiddle"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseDurationMiddle"><i class="icon-minus icon-white"></i></button></td>\n\
                         </tr>\n\
                         <tr class="timer">\n\
-                            <td class="timer"><span class="segment">down:</span><input style="width:60px;" size="3" class="value" value="' + duration_down + '" /></td>\n\
-                            <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></td>\n\
+                            <td class="timer"><span class="segment">down:</span><input style="width:60px;" size="3" class="value" data-bind="value: duration_down" /></td>\n\
+                            <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseDurationDown"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseDurationDown"><i class="icon-minus icon-white"></i></button></td>\n\
                         </tr>\n\
                         <tr class="timer">\n\
-                            <td class="timer"><span class="segment">after:</span><input style="width:60px;" size="3" class="value" value="' + duration_after + '" /></td>\n\
-                            <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></td>\n\
+                            <td class="timer"><span class="segment">after:</span><input style="width:60px;" size="3" class="value" data-bind="value: duration_after" /></td>\n\
+                            <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseDurationAfter"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseDurationAfter"><i class="icon-minus icon-white"></i></button></td>\n\
                         </tr>\n\
                         </table>\n\
-                        <button class="save btn btn-success">Save</button>\n\
+                        <button class="save btn btn-success" data-bind="click: save">Save</button>\n\
                         <button id="cancel" class="cancel btn">Cancel</button>\n\
                     </div>\n\
                 </div>\n\
@@ -422,9 +526,9 @@ $(function() {
             top: y + 5,
             left: x + 5
         }).appendTo("body");
-        element.fadeIn(fadeTime);
+        element.fadeIn(FADE_TIME);
         element.find("#cancel").click(function() {
-            element.fadeOut(fadeTime, function() {
+            element.fadeOut(FADE_TIME, function() {
                 element.remove();
             });
         });
@@ -432,26 +536,13 @@ $(function() {
         // scroll to the element
         $('html, body').animate({
             scrollTop: $("#popup-tempo-control").offset().top
-        }, 500);
+        }, FADE_TIME);
 
-
-
-//    $("#popup-tempo").load(function(){
-//         RepetitionUp();
-//    });
-
-
-        ko.applyBindings(new RepetitionDurationViewModel(duration_up, duration_middle, duration_down, duration_after), document.getElementById("popup-tempo-control"));
-
-
-//<%#*element.find("#post").click(function() {%>
-//<%#*komentar = element.find("textarea").val();%>
-//<%#*onClick(komentar);%>
-//<%#*element.remove();%>
-//<%#*});%>
-
-
+        ko.applyBindings(new RepetitionDurationViewModel(selected_exercise, duration_up, duration_middle, duration_down, duration_after), document.getElementById("popup-tempo-control"));
     }
+
+    // to smooth the animations 
+    var FADE_TIME = 500;
 
     var workoutsVV = new WorkoutsViewModel();
     pager.extendWithPage(workoutsVV);
