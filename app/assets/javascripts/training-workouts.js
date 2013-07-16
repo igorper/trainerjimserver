@@ -116,7 +116,68 @@ $(function() {
         }
 
         self.showTempoPopup = function(data, event) {
-            ShowTempoPopup(event.target.offsetLeft, event.target.offsetTop, self, self.duration_up, self.duration_middle, self.duration_down, self.duration_after);
+            console.log("popover");
+            if ($("#popup-tempo-control").length) {
+                $("#popup-tempo-control").remove();
+                // also reset all animation data
+            }
+            
+            // this values have to be the same as the ones defined in the '.popup-tempo' css
+            var popup_width = 440;
+            var popup_height = 420;
+
+            var element = $(
+                    '<div id="popup-tempo-control" class="popup-tempo">\n\
+                <div class="outer-border">\n\
+                    <div class="left">\n\
+                        <div class="control-border" data-bind="click: startAnimation">\n\
+                            <table id="tap_tempo_note"><tr><td>Tap to try!</td></tr></table>\n\
+                            <div class="control-fill"></div>\n\
+                        </div>\n\
+                    </div>\n\
+                    <div class="right">\n\
+                        <table class="selector-controls">\n\
+                        <tr>\n\
+                            <td class="timer"><span class="segment">up:</span><input style="width:60px;" size="3" class="value" data-bind="value: duration_up" /></td>\n\
+                            <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseDurationUp"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseDurationUp"><i class="icon-minus icon-white"></i></button></td>\n\
+                        </tr>\n\
+                        <tr class="timer">\n\
+                            <td class="timer"><span class="segment">middle:</span><input style="width:60px;" size="3" class="value" data-bind="value: duration_middle" /></td>\n\
+                            <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseDurationMiddle"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseDurationMiddle"><i class="icon-minus icon-white"></i></button></td>\n\
+                        </tr>\n\
+                        <tr class="timer">\n\
+                            <td class="timer"><span class="segment">down:</span><input style="width:60px;" size="3" class="value" data-bind="value: duration_down" /></td>\n\
+                            <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseDurationDown"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseDurationDown"><i class="icon-minus icon-white"></i></button></td>\n\
+                        </tr>\n\
+                        <tr class="timer">\n\
+                            <td class="timer"><span class="segment">after:</span><input style="width:60px;" size="3" class="value" data-bind="value: duration_after" /></td>\n\
+                            <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseDurationAfter"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseDurationAfter"><i class="icon-minus icon-white"></i></button></td>\n\
+                        </tr>\n\
+                        </table>\n\
+                        <button class="save btn btn-success" data-bind="click: save">Save</button>\n\
+                        <button id="cancel" class="cancel btn">Cancel</button>\n\
+                    </div>\n\
+                </div>\n\
+            </div>'
+                    ).css({
+                position: 'absolute',
+                display: 'none',
+                top: event.target.offsetTop - popup_height + 5,
+                left: event.target.offsetLeft - popup_width + 5
+            }).appendTo("body");
+            element.fadeIn(FADE_TIME);
+            element.find("#cancel").click(function() {
+                element.fadeOut(FADE_TIME, function() {
+                    element.remove();
+                });
+            });            
+
+            // scroll to the element
+            $('html, body').animate({
+                scrollTop: $("#popup-tempo-control").offset().top
+            }, FADE_TIME);
+
+            ko.applyBindings(new RepetitionDurationViewModel(self, self.duration_up, self.duration_middle, self.duration_down, self.duration_after), document.getElementById("popup-tempo-control"));
         }
 
         self.toggleDetails = function(data, event) {
@@ -487,67 +548,6 @@ $(function() {
                 element.remove();
             });
         }
-    }
-
-    function ShowTempoPopup(x, y, selected_exercise, duration_up, duration_middle, duration_down, duration_after) {
-        console.log("popover");
-        if ($("#popup-tempo-control").length) {
-            $("#popup-tempo-control").remove();
-            // also reset all animation data
-        }
-
-        var element = $(
-                '<div id="popup-tempo-control" class="popup-tempo">\n\
-                <div class="outer-border">\n\
-                    <div class="left">\n\
-                        <div class="control-border" data-bind="click: startAnimation">\n\
-                            <table id="tap_tempo_note"><tr><td>Tap to try!</td></tr></table>\n\
-                            <div class="control-fill"></div>\n\
-                        </div>\n\
-                    </div>\n\
-                    <div class="right">\n\
-                        <table class="selector-controls">\n\
-                        <tr>\n\
-                            <td class="timer"><span class="segment">up:</span><input style="width:60px;" size="3" class="value" data-bind="value: duration_up" /></td>\n\
-                            <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseDurationUp"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseDurationUp"><i class="icon-minus icon-white"></i></button></td>\n\
-                        </tr>\n\
-                        <tr class="timer">\n\
-                            <td class="timer"><span class="segment">middle:</span><input style="width:60px;" size="3" class="value" data-bind="value: duration_middle" /></td>\n\
-                            <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseDurationMiddle"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseDurationMiddle"><i class="icon-minus icon-white"></i></button></td>\n\
-                        </tr>\n\
-                        <tr class="timer">\n\
-                            <td class="timer"><span class="segment">down:</span><input style="width:60px;" size="3" class="value" data-bind="value: duration_down" /></td>\n\
-                            <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseDurationDown"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseDurationDown"><i class="icon-minus icon-white"></i></button></td>\n\
-                        </tr>\n\
-                        <tr class="timer">\n\
-                            <td class="timer"><span class="segment">after:</span><input style="width:60px;" size="3" class="value" data-bind="value: duration_after" /></td>\n\
-                            <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseDurationAfter"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseDurationAfter"><i class="icon-minus icon-white"></i></button></td>\n\
-                        </tr>\n\
-                        </table>\n\
-                        <button class="save btn btn-success" data-bind="click: save">Save</button>\n\
-                        <button id="cancel" class="cancel btn">Cancel</button>\n\
-                    </div>\n\
-                </div>\n\
-            </div>'
-                ).css({
-            position: 'absolute',
-            display: 'none',
-            top: y + 5,
-            left: x + 5
-        }).appendTo("body");
-        element.fadeIn(FADE_TIME);
-        element.find("#cancel").click(function() {
-            element.fadeOut(FADE_TIME, function() {
-                element.remove();
-            });
-        });
-
-        // scroll to the element
-        $('html, body').animate({
-            scrollTop: $("#popup-tempo-control").offset().top
-        }, FADE_TIME);
-
-        ko.applyBindings(new RepetitionDurationViewModel(selected_exercise, duration_up, duration_middle, duration_down, duration_after), document.getElementById("popup-tempo-control"));
     }
 
     // to smooth the animations 
