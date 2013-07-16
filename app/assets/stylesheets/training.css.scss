@@ -142,6 +142,38 @@
                         .exercise-top-btns .delete-btn {}
                         .exercise-top-btns .add-btn:hover {background-color: $hoverColor;}
                     }
+
+                    .description {
+                        background-color: white; margin: 5px;  @include rounded(3px);
+
+                        div.description-container{
+                            padding-top: 10px;
+                            padding-right: 20px;
+                            p.title {
+                                @include bold;
+                            }
+
+                            p.text {
+                                text-align: justify;
+                            }
+                        }
+
+                        input.value {font-size: 2em; @include sans; @include flat-text-input; height: auto; line-height: normal; margin: 0 0 -5px 0; background: none; padding: 0px; width: 30px; display: inline-block; vertical-align: bottom;}
+                            
+                        .row-fluid > div {display: inline-block; vertical-align: middle; float: none;}
+                        .row-fluid > div.data-field:hover {@include rounded(3px); background-color: #f6f6f6;}
+
+                        table.content {@include zero-spacing; width: 100%}
+
+                        table.content td > div {padding: 5px;}
+                        table.content .text {text-align:right;}
+                        table.content .text > div {margin-left: 10px; display: inline-block; }
+
+                        td.plus-minus-btns{text-align:center;}
+                        .plus-minus-btns{
+                            @include plus-minus-btns-mixin;
+                        }
+                    }
                     
                     .series-list {
                         padding: 5px 5px 0px 5px;
