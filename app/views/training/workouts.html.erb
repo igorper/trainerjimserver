@@ -82,7 +82,7 @@
 
       <div class="exercises" data-bind="sortable: {data: exercises, afterRender: updateExercisePanel }">
 
-        <div class="exercise">
+        <div class="exercise" data-bind="click: toggleDetails">
           <div class="details row-fluid button-behaviour">
             <div class="name span7">
               <div class="exercise-label" data-bind="click: showTempoPopup">Exercise:</div>
@@ -140,7 +140,7 @@
               </div>
             </div>
           </div>
-          <div class="description">
+          <div class="description" style="display:none;">
             <div class="row-fluid">
               <div class="span12">
                 <div class="span4">

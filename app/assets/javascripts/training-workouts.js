@@ -118,6 +118,15 @@ $(function() {
         self.showTempoPopup = function(data, event) {
             ShowTempoPopup(event.target.offsetLeft, event.target.offsetTop, self, self.duration_up, self.duration_middle, self.duration_down, self.duration_after);
         }
+
+        self.toggleDetails = function(data, event) {
+            var description = $(event.target).parents(".exercise").find(".description");
+            if (description.is(":hidden")) {
+                description.show("slow");
+            } else {
+                description.slideUp();
+            }
+        }
     }
 
     function Regime(id, name, exercises) {
@@ -358,7 +367,7 @@ $(function() {
 
         self.increaseDurationMiddle = function() {
             was_animating = self.is_animating;
-            
+
             self.resetAnimation();
             self.duration_middle((parseFloat(self.duration_middle()) + duration_increment).toFixed(1));
 
@@ -369,7 +378,7 @@ $(function() {
         }
         self.decreaseDurationMiddle = function() {
             was_animating = self.is_animating;
-            
+
             self.resetAnimation();
             self.duration_middle(Math.max(parseFloat(self.duration_middle() - duration_increment), 0).toFixed(1));
 
@@ -380,7 +389,7 @@ $(function() {
 
         self.increaseDurationDown = function() {
             was_animating = self.is_animating;
-            
+
             self.resetAnimation();
             self.duration_down((parseFloat(self.duration_down()) + duration_increment).toFixed(1));
 
@@ -390,10 +399,10 @@ $(function() {
         }
         self.decreaseDurationDown = function() {
             was_animating = self.is_animating;
-            
+
             self.resetAnimation();
             self.duration_down(Math.max(parseFloat(self.duration_down() - duration_increment), 0).toFixed(1));
-            
+
             if (was_animating) {
                 self.startAnimation();
             }
@@ -401,7 +410,7 @@ $(function() {
 
         self.increaseDurationAfter = function() {
             was_animating = self.is_animating;
-            
+
             self.resetAnimation();
             self.duration_after((parseFloat(self.duration_after()) + duration_increment).toFixed(1));
 
@@ -412,7 +421,7 @@ $(function() {
 
         self.decreaseDurationAfter = function() {
             was_animating = self.is_animating;
-            
+
             self.resetAnimation();
             self.duration_after(Math.max(parseFloat(self.duration_after() - duration_increment), 0).toFixed(1));
 
