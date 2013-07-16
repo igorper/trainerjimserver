@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130710151303) do
+ActiveRecord::Schema.define(version: 20130716074450) do
 
   create_table "conversations", force: true do |t|
     t.integer  "sender_id"
@@ -30,12 +30,17 @@ ActiveRecord::Schema.define(version: 20130710151303) do
   end
 
   create_table "exercises", force: true do |t|
-    t.integer  "training_id",      null: false
-    t.integer  "exercise_type_id", null: false
+    t.integer  "training_id",                                   null: false
+    t.integer  "exercise_type_id",                              null: false
     t.integer  "order"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "machine_setting"
+    t.integer  "duration_after_repetition"
+    t.integer  "duration_up_repetition"
+    t.integer  "duration_middle_repetition"
+    t.integer  "duration_down_repetition"
+    t.string   "guidance_type",              default: "manual", null: false
   end
 
   add_index "exercises", ["exercise_type_id"], name: "index_exercises_on_exercise_type_id", using: :btree
@@ -109,17 +114,13 @@ ActiveRecord::Schema.define(version: 20130710151303) do
   add_index "roles_users", ["user_id"], name: "index_roles_users_on_user_id", using: :btree
 
   create_table "series", force: true do |t|
-    t.integer  "exercise_id",                            null: false
+    t.integer  "exercise_id",              null: false
     t.integer  "order"
     t.integer  "repeat_count"
     t.integer  "weight"
-    t.integer  "rest_time",                  default: 0, null: false
+    t.integer  "rest_time",    default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "duration_after_repetition"
-    t.integer  "duration_up_repetition"
-    t.integer  "duration_middle_repetition"
-    t.integer  "duration_down_repetition"
   end
 
   add_index "series", ["exercise_id"], name: "index_series_on_exercise_id", using: :btree
