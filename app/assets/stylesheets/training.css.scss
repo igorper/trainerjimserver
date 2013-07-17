@@ -144,7 +144,9 @@
                     }
 
                     .description {
-                        background-color: white; margin: 5px;  @include rounded(3px);
+                        $bottom-controls-height: 70px;
+
+                        background-color: white; margin: 5px;  @include rounded(3px); display:none;
 
                         div.description-container{
                             padding-top: 10px;
@@ -158,21 +160,33 @@
                             }
                         }
 
-                        input.value {font-size: 2em; @include sans; @include flat-text-input; height: auto; line-height: normal; margin: 0 0 -5px 0; background: none; padding: 0px; width: 30px; display: inline-block; vertical-align: bottom;}
-                            
-                        .row-fluid > div {display: inline-block; vertical-align: middle; float: none;}
-                        .row-fluid > div.data-field:hover {@include rounded(3px); background-color: #f6f6f6;}
+                        table.guidance {
+                            width: 100%; 
+                            height: $bottom-controls-height;
 
-                        table.content {@include zero-spacing; width: 100%}
+                            input.value {font-size: 2em; @include sans; @include flat-text-input; height: auto; margin: 0 0 0px 0; background: none; padding: 0px; width: 30px; display: inline-block; vertical-align: baseline;}
 
-                        table.content td > div {padding: 5px;}
-                        table.content .text {text-align:right;}
-                        table.content .text > div {margin-left: 10px; display: inline-block; }
-
-                        td.plus-minus-btns{text-align:center;}
-                        .plus-minus-btns{
-                            @include plus-minus-btns-mixin;
+                            a.btn {@include flat-btn; }
+                            a.active {background-color: #eee;}
+                            span.the-name-value {@include light; font-size: 2em; text-shadow: 1px 1px white; margin-right: 5px;}
                         }
+
+                        table.content {
+                            width: 100%; 
+                            height: $bottom-controls-height;
+
+                            input.value {font-size: 2em; @include sans; @include flat-text-input; height: auto; margin: 0 0 0px 0; background: none; padding: 0px; width: 30px; display: inline-block; vertical-align: baseline;}
+
+                            a.btn {@include flat-btn;}
+                            a.active {background-color: #eee;}
+                            span.the-name-value {font-size: 20px; text-shadow: 1px 1px white; margin-right: 5px;}
+                        }
+                        table.content .text {text-align:right; }
+                        table.content .text > div {display: inline-block; }
+                        td.plus-minus-btns{text-align:center;}
+                        .plus-minus-btns{ @include plus-minus-btns-mixin; }
+
+
                     }
                     
                     .series-list {

@@ -82,10 +82,10 @@
 
       <div class="exercises" data-bind="sortable: {data: exercises, afterRender: updateExercisePanel }">
 
-        <div class="exercise" data-bind="click: toggleDetails">
+        <div class="exercise">
           <div class="details row-fluid button-behaviour">
             <div class="name span7">
-              <div class="exercise-label">Exercise:</div>
+              <div class="exercise-label" data-bind="click: toggleDetails">Exercise:</div>
               <div class="exercise-name btn-group">
                 <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
                   <span class="the-name-value" data-bind="text: exercise_type().name"></span>
@@ -111,36 +111,36 @@
                   <table class="content">
                     <tr>
                       <td class="text"><div>reps: <input class="value" type="text" data-bind="value: repeat_count"/></div></td>
-                      <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseReps, clickBubble: false"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps, clickBubble: false"><i class="icon-minus icon-white"></i></button></div></td>
+                      <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></div></td>
                     </tr>
                   </table>
                 </div><div class="weight span3 data-field" data-bind="with: series.selected">
                   <table class="content">
                     <tr>
-                      <td class="text"><div>weight: <input class="value" type="text" data-bind="value: weight, clickBubble: false"/> kg</div></td>
-                      <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseWeight, clickBubble: false"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseWeight, clickBubble: false"><i class="icon-minus icon-white"></i></button></div></td>
+                      <td class="text"><div>weight: <input class="value" type="text" data-bind="value: weight"/> kg</div></td>
+                      <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseWeight"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseWeight"><i class="icon-minus icon-white"></i></button></div></td>
                     </tr>
                   </table>
                 </div><div class="rest span3 data-field" data-bind="with: series.selected">
                   <table class="content">
                     <tr>
                       <td class="text"><div>rest: <input class="value" type="text" data-bind="value: rest_time"/> s</div></td>
-                      <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseRestTime, clickBubble: false"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseRestTime, clickBubble: false"><i class="icon-minus icon-white"></i></button></div></td>
+                      <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseRestTime"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseRestTime"><i class="icon-minus icon-white"></i></button></div></td>
                     </tr>
                   </table>
                 </div><div class="series-list span2 data-field">
                   <div class="title">Series:</div>
                   <div class="the-list" data-bind="foreach: series">
-                    <div class="the-series label button-behaviour" data-bind="click: $parent.setSelectedSeries, text: $index() + 1, css: {selected: $parent.isSelectedSeries($data)}, clickBubble: false"></div>
+                    <div class="the-series label button-behaviour" data-bind="click: $parent.setSelectedSeries, text: $index() + 1, css: {selected: $parent.isSelectedSeries($data)}"></div>
                   </div>
                 </div><div class="plus-minus-btns span1">
-                  <button class="plus-btn btn" data-bind="click: addSeries, clickBubble: false"><i class="icon-plus icon-white"></i></button>
-                  <button class="minus-btn btn" data-bind="click: removeSeries, clickBubble: false"><i class="icon-minus icon-white"></i></button>
+                  <button class="plus-btn btn" data-bind="click: addSeries"><i class="icon-plus icon-white"></i></button>
+                  <button class="minus-btn btn" data-bind="click: removeSeries"><i class="icon-minus icon-white"></i></button>
                 </div>
               </div>
             </div>
           </div>
-          <div class="description" style="display:none;">
+          <div class="description">
             <div class="row-fluid">
               <div class="span12">
                 <div class="span4">
@@ -151,17 +151,38 @@
                   <p class="text">Lie on bench with bar above chest. Grasp bar from rack with shoulder width or slightly narrower grip. Disengage bar by rotating bar back.</p>
                   <p class="title">Execution</p>
                   <p class="text">The biarticulate long head of the triceps brachii [1 ] enters passive insufficiency through the completion of elbow flexion when the shoulders are more flexed and abducted or through the completion of shoulder flexion and abduction when the elbows are more flexed. The biarticulate long head of the triceps brachii [1 ] enters active insufficiency through the completion of elbow extension when the shoulders are more extended and adducted (other heads of the triceps becomes more active) or through the completion of shoulder extension and adduction when the elbows are more extended.</p>
-                  <button data-bind="click: showTempoPopup, clickBubble: false">Test</button>
                 </div>
               </div>
             </div>
             <div class="row-fluid">
               <div class="span12">
-                <div class="span8"></div>
-                <div class="span4">
-                  <table class="content">
+                <div class="span4"></div>
+                <div class="span5">
+                  <table class="guidance" border="0" style="text-align:right;">
                     <tr>
-                      <td class="text span2"><div>chair settings: <input class="value" type="text" value="10"/></div></td>
+                      <td>
+                        <span style="">guidance: </span>
+                        <a class="btn dropdown-toggle" data-toggle="dropdown" href="#" style="vertical-align:baseline;">
+                          <span class="the-name-value">tempo</span>
+                          <span class="caret"></span>
+                        </a>
+                        <ul class="dropdown-menu" style="top: auto; bottom: 100%;">
+                          <li>
+                            <a>tempo</a>
+                            <a>duration</a>
+                            <a>none</a>
+                          </li>
+                        </ul>
+                        </div>
+                      </td>
+                    </tr>
+                  </table>
+                </div>
+                <div class="span3">
+                  <table class="content" border="0">
+                    <tr>
+                      <td class="text span2"><span style="">chair settings: </span><input class="value" type="text" value="10"/>
+                      </td>
                       <td class="plus-minus-btns span1"><div><button class="plus-btn btn"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn"><i class="icon-minus icon-white"></i></button></div></td>
                     </tr>
                   </table>
