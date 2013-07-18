@@ -68,11 +68,12 @@ $(function() {
         }
     }
 
-    function Exercise(id, exercise_type, series) {
+    function Exercise(id, guidance_type, exercise_type, series) {
         var self = this;
 
         // Fields
         self.id = id;
+        self.guidance_type = guidance_type;
         self.series = ko.observableArray(series);
         self.series.selected = (series && series.length > 0) ? ko.observable(series[0]) : ko.observable();
         self.exercise_type = ko.observable(exercise_type);
@@ -262,7 +263,7 @@ $(function() {
     }
 
     function exerciseFromJson(exJson) {
-        return new Exercise(exJson.id, exerciseTypeFromJson(exJson.exercise_type), multiSeriesFromJson(exJson.series));
+        return new Exercise(exJson.id, exJson.guidance_type, exerciseTypeFromJson(exJson.exercise_type), multiSeriesFromJson(exJson.series));
     }
 
     function exercisesFromJson(exsJson) {

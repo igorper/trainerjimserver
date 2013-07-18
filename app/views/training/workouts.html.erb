@@ -48,7 +48,7 @@
       <h1 class="jim-sub-title">For starters select and modify one of the <span class="underline">existing regimes</span> below.</h1>
     </div>
 
-    <div class="regimes" data-bind="foreach: templates, visible: templates().length > 0" style="display: none;">
+    <div class="regimes" data-bind="foreach: templates, visible: templates().length > 0" style="display: none; ">
       <a class="regime" href="#selected-workout" data-bind="css: { active: id % 3 == 1 }, page-href: href">
         <div class="icon"><div class="tick-icon"><i class="icon-ok"></i></div><div class="image"><img src="" data-bind="attr: { src: getIconPath($index), alt: name }"/></div></div>
         <div class="name" data-bind="text: name"></div>
@@ -164,7 +164,7 @@
                         <span style="">guidance: </span>
                         <span class="btn-group">
                           <a class="btn dropdown-toggle" data-toggle="dropdown" href="#">
-                            <span class="the-name-value">tempo</span>
+                            <span class="the-name-value" data-bind="text: guidance_type"></span>
                             <span class="caret"></span>
                           </a>
                           <ul class="dropdown-menu" style="top: auto; bottom: 75%;">
