@@ -77,10 +77,10 @@ $(function() {
         self.series = ko.observableArray(series);
         self.series.selected = (series && series.length > 0) ? ko.observable(series[0]) : ko.observable();
         self.exercise_type = ko.observable(exercise_type);
-        self.duration_up_repetition = duration_up_repetition;
-        self.duration_middle_repetition = duration_middle_repetition;
-        self.duration_down_repetition = duration_down_repetition;
-        self.duration_after_repetition = duration_after_repetition;
+        self.duration_up_repetition = parseFloat(duration_up_repetition).toFixed(1);
+        self.duration_middle_repetition = parseFloat(duration_middle_repetition).toFixed(1);
+        self.duration_down_repetition = parseFloat(duration_down_repetition).toFixed(1);
+        self.duration_after_repetition = parseFloat(duration_after_repetition).toFixed(1);
         self.shouldShowDetailsButton = ko.computed(function() {
             return !(self.guidance_type() === 'manual');
         });
@@ -154,19 +154,19 @@ $(function() {
                     <div class="right">\n\
                         <table class="selector-controls">\n\
                         <tr>\n\
-                            <td class="timer"><span class="segment">up:</span><input style="width:60px;" size="3" class="value" data-bind="value: duration_up" /></td>\n\
+                            <td class="timer"><span class="segment">up:</span><input style="width:60px;" size="3" class="value" data-bind="value: duration_up, hasFocus: inputHasFocus" /></td>\n\
                             <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseDurationUp"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseDurationUp"><i class="icon-minus icon-white"></i></button></td>\n\
                         </tr>\n\
                         <tr class="timer">\n\
-                            <td class="timer"><span class="segment">middle:</span><input style="width:60px;" size="3" class="value" data-bind="value: duration_middle" /></td>\n\
+                            <td class="timer"><span class="segment">middle:</span><input style="width:60px;" size="3" class="value" data-bind="value: duration_middle, hasFocus: inputHasFocus" /></td>\n\
                             <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseDurationMiddle"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseDurationMiddle"><i class="icon-minus icon-white"></i></button></td>\n\
                         </tr>\n\
                         <tr class="timer">\n\
-                            <td class="timer"><span class="segment">down:</span><input style="width:60px;" size="3" class="value" data-bind="value: duration_down" /></td>\n\
+                            <td class="timer"><span class="segment">down:</span><input style="width:60px;" size="3" class="value" data-bind="value: duration_down, hasFocus: inputHasFocus" /></td>\n\
                             <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseDurationDown"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseDurationDown"><i class="icon-minus icon-white"></i></button></td>\n\
                         </tr>\n\
                         <tr class="timer">\n\
-                            <td class="timer"><span class="segment">after:</span><input style="width:60px;" size="3" class="value" data-bind="value: duration_after" /></td>\n\
+                            <td class="timer"><span class="segment">after:</span><input style="width:60px;" size="3" class="value" data-bind="value: duration_after, hasFocus: inputHasFocus" /></td>\n\
                             <td class="plus-minus-btns"><button class="plus-btn btn" data-bind="click: increaseDurationAfter"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseDurationAfter"><i class="icon-minus icon-white"></i></button></td>\n\
                         </tr>\n\
                         </table>\n\
@@ -424,6 +424,15 @@ $(function() {
         self.duration_middle = ko.observable(duration_middle);
         self.duration_down = ko.observable(duration_down);
         self.duration_after = ko.observable(duration_after);
+        self.inputHasFocus = ko.observable(false);
+        self.convertInputToOneDecimal = ko.computed(function() {
+            if (!self.inputHasFocus()) {
+                self.duration_up(parseFloat(self.duration_up()).toFixed(1));
+                self.duration_middle(parseFloat(self.duration_middle()).toFixed(1));
+                self.duration_down(parseFloat(self.duration_down()).toFixed(1));
+                self.duration_after(parseFloat(self.duration_after()).toFixed(1));
+            }
+        });
 
         var duration_increment = 0.1;
 
