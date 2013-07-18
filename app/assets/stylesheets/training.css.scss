@@ -163,19 +163,22 @@
                         table.guidance {
                             width: 100%; 
                             height: $bottom-controls-height;
-
-                            input.value {font-size: 2em; @include sans; @include flat-text-input; height: auto; margin: 0 0 0px 0; background: none; padding: 0px; width: 30px; display: inline-block; vertical-align: baseline;}
-
-                            a.btn {@include flat-btn; }
+                            text-align:right;
+                            
+                            td.text {line-height:$bottom-controls-height;}                            
+                            a.btn {@include flat-btn; vertical-align: middle;}
                             a.active {background-color: #eee;}
-                            span.the-name-value {@include light; font-size: 2em; text-shadow: 1px 1px white; margin-right: 5px;}
+                            span.the-name-value {@include light; font-size: 1.5em; text-shadow: 1px 1px white; margin-right: 5px;}
                         }
 
                         table.content {
                             width: 100%; 
                             height: $bottom-controls-height;
-
+                            
+                            td.text {line-height:$bottom-controls-height;}
                             input.value {font-size: 2em; @include sans; @include flat-text-input; height: auto; margin: 0 0 0px 0; background: none; padding: 0px; width: 30px; display: inline-block; vertical-align: baseline;}
+                            
+                            .no-padding { padding: 0px; }
 
                             a.btn {@include flat-btn;}
                             a.active {background-color: #eee;}
