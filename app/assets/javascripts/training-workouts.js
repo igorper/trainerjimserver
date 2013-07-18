@@ -68,7 +68,7 @@ $(function() {
         }
     }
 
-    function Exercise(id, guidance_type, exercise_type, series) {
+    function Exercise(id, guidance_type, duration_up_repetition, duration_middle_repetition, duration_down_repetition, duration_after_repetition, exercise_type, series) {
         var self = this;
 
         // Fields
@@ -77,10 +77,10 @@ $(function() {
         self.series = ko.observableArray(series);
         self.series.selected = (series && series.length > 0) ? ko.observable(series[0]) : ko.observable();
         self.exercise_type = ko.observable(exercise_type);
-        self.duration_up = 1.3;
-        self.duration_middle = 1.2;
-        self.duration_down = 0.5;
-        self.duration_after = 0.8;
+        self.duration_up_repetition = duration_up_repetition;
+        self.duration_middle_repetition = duration_middle_repetition;
+        self.duration_down_repetition = duration_down_repetition;
+        self.duration_after_repetition = duration_after_repetition;
         self.shouldShowDetailsButton = ko.computed(function() {
             return !(self.guidance_type() === 'manual');
         });
@@ -127,7 +127,7 @@ $(function() {
         }
 
         self.showAdvancedPopup = function(data, event) {
-            if (self.guidance_type() == 'tempo') {
+            if (self.guidance_type() === 'tempo') {
                 console.log("popover");
                 if ($("#popup-tempo-control").length) {
                     $("#popup-tempo-control").remove();
@@ -189,14 +189,14 @@ $(function() {
                 });
 
                 // scroll to have the whole popup in view
-                if ($(window).scrollTop() - off_top >= 0) {
+                if ($(window).scrollTop() - off_top > 0) {
                     $('html, body').animate({
                         scrollTop: $("#popup-tempo-control").offset().top
                     }, FADE_TIME);
                 }
 
-                ko.applyBindings(new RepetitionDurationViewModel(self, self.duration_up, self.duration_middle, self.duration_down, self.duration_after), document.getElementById("popup-tempo-control"));
-            } else if (self.guidance_type() == 'duration') {
+                ko.applyBindings(new RepetitionDurationViewModel(self, self.duration_up_repetition, self.duration_middle_repetition, self.duration_down_repetition, self.duration_after_repetition), document.getElementById("popup-tempo-control"));
+            } else if (self.guidance_type() === 'duration') {
                 alert("We will show a duration settings popup!")
             }
         }
@@ -235,7 +235,9 @@ $(function() {
         }
 
         self.addExerciseOfType = function(exType) {
-            var newEx = new Exercise(-1, exType, []);
+            var DEFAULT_GUIDANCE_TYPE = 'manual';
+            var DEFAULT_UP = 2, DEFAULT_DOWN = 1, DEFAULT_MIDDLE = 0, DEFAULT_AFTER = 0;
+            var newEx = new Exercise(-1, DEFAULT_GUIDANCE_TYPE, DEFAULT_UP, DEFAULT_MIDDLE, DEFAULT_DOWN, DEFAULT_AFTER, exType, []);
             newEx.addSeries();
             self.exercises.push(newEx);
             // Focus the newly added exercise:
@@ -283,7 +285,7 @@ $(function() {
     }
 
     function exerciseFromJson(exJson) {
-        return new Exercise(exJson.id, exJson.guidance_type, exerciseTypeFromJson(exJson.exercise_type), multiSeriesFromJson(exJson.series));
+        return new Exercise(exJson.id, exJson.guidance_type, exJson.duration_up_repetition, exJson.duration_middle_repetition, exJson.duration_down_repetition, exJson.duration_after_repetition, exerciseTypeFromJson(exJson.exercise_type), multiSeriesFromJson(exJson.series));
     }
 
     function exercisesFromJson(exsJson) {
@@ -560,10 +562,10 @@ $(function() {
         self.save = function() {
 
             // on save update the selected exercise duration values
-            selected_exercise.duration_up = self.duration_up();
-            selected_exercise.duration_middle = self.duration_middle();
-            selected_exercise.duration_down = self.duration_down();
-            selected_exercise.duration_after = self.duration_after();
+            selected_exercise.duration_up_repetition = self.duration_up();
+            selected_exercise.duration_middle_repetition = self.duration_middle();
+            selected_exercise.duration_down_repetition = self.duration_down();
+            selected_exercise.duration_after_repetition = self.duration_after();
 
             // and close the popup
             var element = $("#popup-tempo-control");

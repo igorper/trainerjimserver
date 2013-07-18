@@ -91,6 +91,11 @@ module TrainingHelper
     new_exercise = parent_training.exercises.build()
     add_series_from_json(exercise_json['series'], new_exercise)
     new_exercise.exercise_type = ExerciseType.find_by_id(exercise_json['exercise_type']['id'])
+    new_exercise.guidance_type = exercise_json['guidance_type']
+    new_exercise.duration_after_repetition = exercise_json['duration_after_repetition']
+    new_exercise.duration_up_repetition = exercise_json['duration_up_repetition']
+    new_exercise.duration_middle_repetition = exercise_json['duration_middle_repetition']
+    new_exercise.duration_down_repetition = exercise_json['duration_down_repetition']
     return new_exercise
   end
   
