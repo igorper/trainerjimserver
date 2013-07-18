@@ -73,7 +73,7 @@ $(function() {
 
         // Fields
         self.id = id;
-        self.guidance_type = guidance_type;
+        self.guidance_type = ko.observable(guidance_type);
         self.series = ko.observableArray(series);
         self.series.selected = (series && series.length > 0) ? ko.observable(series[0]) : ko.observable();
         self.exercise_type = ko.observable(exercise_type);
@@ -81,6 +81,12 @@ $(function() {
         self.duration_middle = 1.2;
         self.duration_down = 0.5;
         self.duration_after = 0.8;
+        self.shouldShowDetailsButton = ko.computed(function() {
+            return !(self.guidance_type() === 'manual');
+        });
+        self.detailsButtonAction = ko.computed(function() {
+            return "showTempoPopup";
+        });
 
         // Operations
         self.removeSeries = function() {
@@ -116,19 +122,28 @@ $(function() {
             self.exercise_type(exType);
         }
 
-        self.showTempoPopup = function(data, event) {
-            console.log("popover");
-            if ($("#popup-tempo-control").length) {
-                $("#popup-tempo-control").remove();
-                // also reset all animation data
-            }
-            
-            // this values have to be the same as the ones defined in the '.popup-tempo' css
-            var popup_width = 440;
-            var popup_height = 420;
+        self.setGuidanceType = function(guType) {
+            self.guidance_type(guType);
+        }
 
-            var element = $(
-                    '<div id="popup-tempo-control" class="popup-tempo">\n\
+        self.showAdvancedPopup = function(data, event) {
+            if (self.guidance_type() == 'tempo') {
+                console.log("popover");
+                if ($("#popup-tempo-control").length) {
+                    $("#popup-tempo-control").remove();
+                    // also reset all animation data
+                }
+
+                // this values have to be the same as the ones defined in the '.popup-tempo' css
+                var popup_width = 440;
+                var popup_height = 420;
+
+                var ref_offset = $(event.target).offset();
+                var off_top = ref_offset.top - popup_height + 5;
+                var off_left = ref_offset.left - popup_width + 5;
+
+                var element = $(
+                        '<div id="popup-tempo-control" class="popup-tempo">\n\
                 <div class="outer-border">\n\
                     <div class="left">\n\
                         <div class="control-border" data-bind="click: startAnimation">\n\
@@ -160,25 +175,30 @@ $(function() {
                     </div>\n\
                 </div>\n\
             </div>'
-                    ).css({
-                position: 'absolute',
-                display: 'none',
-                top: event.target.offsetTop - popup_height + 5,
-                left: event.target.offsetLeft - popup_width + 5
-            }).appendTo("body");
-            element.fadeIn(FADE_TIME);
-            element.find("#cancel").click(function() {
-                element.fadeOut(FADE_TIME, function() {
-                    element.remove();
+                        ).css({
+                    position: 'absolute',
+                    display: 'none',
+                    top: off_top,
+                    left: off_left
+                }).appendTo("body");
+                element.fadeIn(FADE_TIME);
+                element.find("#cancel").click(function() {
+                    element.fadeOut(FADE_TIME, function() {
+                        element.remove();
+                    });
                 });
-            });            
 
-            // scroll to the element
-            $('html, body').animate({
-                scrollTop: $("#popup-tempo-control").offset().top
-            }, FADE_TIME);
+                // scroll to have the whole popup in view
+                if ($(window).scrollTop() - off_top >= 0) {
+                    $('html, body').animate({
+                        scrollTop: $("#popup-tempo-control").offset().top
+                    }, FADE_TIME);
+                }
 
-            ko.applyBindings(new RepetitionDurationViewModel(self, self.duration_up, self.duration_middle, self.duration_down, self.duration_after), document.getElementById("popup-tempo-control"));
+                ko.applyBindings(new RepetitionDurationViewModel(self, self.duration_up, self.duration_middle, self.duration_down, self.duration_after), document.getElementById("popup-tempo-control"));
+            } else if (self.guidance_type() == 'duration') {
+                alert("We will show a duration settings popup!")
+            }
         }
 
         self.toggleDetails = function(data, event) {
@@ -290,6 +310,8 @@ $(function() {
         self.my_templates = ko.observableArray(); // type: TrainingTemplate[]
         self.templates = ko.observableArray(); // type: TrainingTemplate[]
         self.selected_training = ko.observable(); // type: Regime
+        self.all_guidance_types = ['tempo', 'duration', 'manual']
+
 
         // Operations
         self.deleteTraining = function() {

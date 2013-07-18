@@ -167,15 +167,13 @@
                             <span class="the-name-value" data-bind="text: guidance_type"></span>
                             <span class="caret"></span>
                           </a>
-                          <ul class="dropdown-menu" style="top: auto; bottom: 75%;">
+                          <ul class="dropdown-menu" data-bind="foreach: $root.all_guidance_types" style="top: auto; bottom: 75%;">
                             <li>
-                              <a>tempo</a>
-                              <a>duration</a>
-                              <a>none</a>
+                              <a data-bind="text: $data, click: $parent.setGuidanceType"></a>
                             </li>
                           </ul>
                         </span>
-                        <span><a class="btn no-padding"><img src="resource?name=workouts/arrow_NE.png" /></a></span>
+                        <span><a class="btn no-padding" data-bind="click: showAdvancedPopup, visible: shouldShowDetailsButton"><img src="resource?name=workouts/arrow_NE.png" /></a></span>
                       </td>
                     </tr>
                   </table>

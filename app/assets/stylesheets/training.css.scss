@@ -169,6 +169,12 @@
                             a.btn {@include flat-btn; vertical-align: middle;}
                             a.active {background-color: #eee;}
                             span.the-name-value {@include light; font-size: 1.5em; text-shadow: 1px 1px white; margin-right: 5px;}
+
+                            .dropdown-menu {
+                                top: auto; 
+                                bottom: 75%;
+                                cursor: pointer;
+                            }
                         }
 
                         table.content {
