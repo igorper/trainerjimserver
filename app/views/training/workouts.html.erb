@@ -181,9 +181,9 @@
                 <div class="span3">
                   <table class="content" border="0">
                     <tr>
-                      <td class="text span2"><span style="">chair settings: </span><input class="value" type="text" value="10"/>
+                      <td class="text span2"><span style="">chair settings: </span><input class="value" type="text" data-bind="value: machine_setting"/>
                       </td>
-                      <td class="plus-minus-btns span1"><div><button class="plus-btn btn"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn"><i class="icon-minus icon-white"></i></button></div></td>
+                      <td class="plus-minus-btns span1"><div><button class="plus-btn btn" data-bind="click: increaseMachineSetting"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseMachineSetting"><i class="icon-minus icon-white"></i></button></div></td>
                     </tr>
                   </table>
                 </div>

@@ -96,6 +96,7 @@ module TrainingHelper
     new_exercise.duration_up_repetition = exercise_json['duration_up_repetition']
     new_exercise.duration_middle_repetition = exercise_json['duration_middle_repetition']
     new_exercise.duration_down_repetition = exercise_json['duration_down_repetition']
+    new_exercise.machine_setting = exercise_json['machine_setting']
     return new_exercise
   end
   

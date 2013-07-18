@@ -68,7 +68,7 @@ $(function() {
         }
     }
 
-    function Exercise(id, guidance_type, duration_up_repetition, duration_middle_repetition, duration_down_repetition, duration_after_repetition, exercise_type, series) {
+    function Exercise(id, machine_setting, guidance_type, duration_up_repetition, duration_middle_repetition, duration_down_repetition, duration_after_repetition, exercise_type, series) {
         var self = this;
 
         // Fields
@@ -77,18 +77,29 @@ $(function() {
         self.series = ko.observableArray(series);
         self.series.selected = (series && series.length > 0) ? ko.observable(series[0]) : ko.observable();
         self.exercise_type = ko.observable(exercise_type);
-        self.duration_up_repetition = parseFloat(duration_up_repetition).toFixed(1);
-        self.duration_middle_repetition = parseFloat(duration_middle_repetition).toFixed(1);
-        self.duration_down_repetition = parseFloat(duration_down_repetition).toFixed(1);
-        self.duration_after_repetition = parseFloat(duration_after_repetition).toFixed(1);
+        self.duration_up_repetition = parseFloat(duration_up_repetition === null ? 0 : duration_up_repetition).toFixed(1);
+        self.duration_middle_repetition = parseFloat(duration_middle_repetition === null ? 0 : duration_middle_repetition).toFixed(1);
+        self.duration_down_repetition = parseFloat(duration_down_repetition === null ? 0 : duration_down_repetition).toFixed(1);
+        self.duration_after_repetition = parseFloat(duration_after_repetition === null ? 0 : duration_after_repetition).toFixed(1);
+        self.machine_setting = ko.observable(machine_setting === null ? 0 : machine_setting);
         self.shouldShowDetailsButton = ko.computed(function() {
             return !(self.guidance_type() === 'manual');
         });
         self.detailsButtonAction = ko.computed(function() {
             return "showTempoPopup";
         });
+        
+        var machine_increment = 1;
 
         // Operations
+        self.increaseMachineSetting = function() {
+            self.machine_setting(parseInt(self.machine_setting()) + machine_increment);
+        }
+        
+        self.decreaseMachineSetting = function() {
+            self.machine_setting(Math.max(parseInt(self.machine_setting()) - machine_increment, 0));
+        }
+        
         self.removeSeries = function() {
             if (self.series.selected()) {
                 var idxOf = self.series().indexOf(self.series.selected());
@@ -236,8 +247,7 @@ $(function() {
 
         self.addExerciseOfType = function(exType) {
             var DEFAULT_GUIDANCE_TYPE = 'manual';
-            var DEFAULT_UP = 2, DEFAULT_DOWN = 1, DEFAULT_MIDDLE = 0, DEFAULT_AFTER = 0;
-            var newEx = new Exercise(-1, DEFAULT_GUIDANCE_TYPE, DEFAULT_UP, DEFAULT_MIDDLE, DEFAULT_DOWN, DEFAULT_AFTER, exType, []);
+            var newEx = new Exercise(-1, null, DEFAULT_GUIDANCE_TYPE, null, null, null, null, exType, []);
             newEx.addSeries();
             self.exercises.push(newEx);
             // Focus the newly added exercise:
@@ -285,7 +295,7 @@ $(function() {
     }
 
     function exerciseFromJson(exJson) {
-        return new Exercise(exJson.id, exJson.guidance_type, exJson.duration_up_repetition, exJson.duration_middle_repetition, exJson.duration_down_repetition, exJson.duration_after_repetition, exerciseTypeFromJson(exJson.exercise_type), multiSeriesFromJson(exJson.series));
+        return new Exercise(exJson.id, exJson.machine_setting, exJson.guidance_type, exJson.duration_up_repetition, exJson.duration_middle_repetition, exJson.duration_down_repetition, exJson.duration_after_repetition, exerciseTypeFromJson(exJson.exercise_type), multiSeriesFromJson(exJson.series));
     }
 
     function exercisesFromJson(exsJson) {

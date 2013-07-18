@@ -36,10 +36,10 @@ ActiveRecord::Schema.define(version: 20130716074450) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "machine_setting"
-    t.integer  "duration_after_repetition"
-    t.integer  "duration_up_repetition"
-    t.integer  "duration_middle_repetition"
-    t.integer  "duration_down_repetition"
+    t.decimal  "duration_after_repetition"
+    t.decimal  "duration_up_repetition"
+    t.decimal  "duration_middle_repetition"
+    t.decimal  "duration_down_repetition"
     t.string   "guidance_type",              default: "manual", null: false
   end
 
