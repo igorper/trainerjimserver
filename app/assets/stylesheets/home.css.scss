@@ -22,6 +22,7 @@ $commingSoonWidth: 178px;
 $centralLogoHeight: 193px;
 $centralLogoWidth: 293px;
 $welcomeHeaderHeight: 240px;
+$welcomeHeaderWidth: 1024px;
 $featureImageHeight: 346px;
 $welcomeImagesWidth: 966px;
 $featuresBtnHeight: 102px;
@@ -55,18 +56,20 @@ body.home.welcome {
                 height: $welcomeHeaderHeight;
                 background-color: $headerColour;
 
-                div.comming-soon {
-                    position: absolute;
-                    top: $welcomeHeaderHeight - $commingSoonHeight;
-                    width: $commingSoonWidth;
-                    height: $commingSoonHeight;
-                    @include central-image('welcome/commingSoon.png');
-                }
-
                 div.logo-button-container {
                     width:$centralLogoWidth;
                     height:0px; 
                     margin:auto; 
+                    position:relative;
+
+                    div.comming-soon {
+                        position: absolute;
+                        top: $welcomeHeaderHeight - $commingSoonHeight;
+                        left: - $welcomeHeaderWidth/4;
+                        width: $commingSoonWidth;
+                        height: $commingSoonHeight;
+                        @include central-image('welcome/commingSoon.png');
+                    }
 
                     .logo-button{
                         position:absolute;
