@@ -2,6 +2,7 @@
 //= require jquery.ui.all
 //= require bootstrap
 //= require_self
+//= require colorbox-rails
 
 
 
