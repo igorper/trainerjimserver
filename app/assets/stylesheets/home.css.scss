@@ -17,6 +17,8 @@ div#training-list {
 /// WELCOME PAGE
 //
 
+$commingSoonHeight: 179px;
+$commingSoonWidth: 178px;
 $centralLogoHeight: 193px;
 $centralLogoWidth: 293px;
 $welcomeHeaderHeight: 240px;
@@ -52,6 +54,14 @@ body.home.welcome {
             div.header-logo {
                 height: $welcomeHeaderHeight;
                 background-color: $headerColour;
+
+                div.comming-soon {
+                    position: absolute;
+                    top: $welcomeHeaderHeight - $commingSoonHeight;
+                    width: $commingSoonWidth;
+                    height: $commingSoonHeight;
+                    @include central-image('welcome/commingSoon.png');
+                }
 
                 div.logo-button-container {
                     width:$centralLogoWidth;
