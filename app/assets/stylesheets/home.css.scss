@@ -17,6 +17,8 @@ div#training-list {
 /// WELCOME PAGE
 //
 
+$centralLogoHeight: 193px;
+$centralLogoWidth: 293px;
 $welcomeHeaderHeight: 240px;
 $featureImageHeight: 346px;
 $welcomeImagesWidth: 966px;
@@ -49,8 +51,35 @@ body.home.welcome {
             
             div.header-logo {
                 height: $welcomeHeaderHeight;
-                @include central-image('welcome/Welcome_Header.png');
                 background-color: $headerColour;
+
+                div.logo-button-container {
+                    width:$centralLogoWidth;
+                    height:0px; 
+                    margin:auto; 
+
+                    .logo-button{
+                        position:absolute;
+                        height: $centralLogoHeight;
+                        width: $centralLogoWidth;
+                        top: $welcomeHeaderHeight - $centralLogoHeight;
+
+                        @include no-shadow;
+                        border: 0;
+                        @include central-image('welcome/JimLogo.png');
+                    }
+
+                    .logo-button:hover{
+                        position:absolute;
+                        height: $centralLogoHeight;
+                        width: $centralLogoWidth;
+                        top: $welcomeHeaderHeight - $centralLogoHeight;
+
+                        @include no-shadow;
+                        border: 0;
+                        @include central-image('welcome/VideoMouseOverLogo.png');
+                    }
+                }
                 
                 $closeButtonSize: 16px;
                 $authPanelWidth: 246px;
