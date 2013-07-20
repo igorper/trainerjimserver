@@ -129,45 +129,21 @@ training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 
 training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3, :machine_setting => "B")
 training1_ex4 = training1.exercises.create(:exercise_type => lat, :order => 4)
 
-training1_ex1.series.create(:order => 1, :repeat_count => 10, :weight => 50, 
-  :duration_after_repetition => 1500, :duration_up_repetition => 1000, :duration_middle_repetition => 0, 
-  :duration_down_repetition => 2000)
-training1_ex1.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 15, 
-  :duration_after_repetition => 1500, :duration_up_repetition => 1000, :duration_middle_repetition => 0, 
-  :duration_down_repetition => 2000)
-training1_ex1.series.create(:order => 3, :repeat_count => 10, :weight => 45, 
-  :duration_after_repetition => 1500, :duration_up_repetition => 1000, :duration_middle_repetition => 0, 
-  :duration_down_repetition => 2000)
+training1_ex1.series.create(:order => 1, :repeat_count => 10, :weight => 50)
+training1_ex1.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 15)
+training1_ex1.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
-training1_ex2.series.create(:order => 1, :repeat_count => 10, :weight => 50, :rest_time => 17, 
-  :duration_after_repetition => 1500, :duration_up_repetition => 1000, :duration_middle_repetition => 0, 
-  :duration_down_repetition => 2000)
-training1_ex2.series.create(:order => 2, :repeat_count => 15, :weight => 55, 
-  :duration_after_repetition => 1500, :duration_up_repetition => 1000, :duration_middle_repetition => 0, 
-  :duration_down_repetition => 2000)
-training1_ex2.series.create(:order => 3, :repeat_count => 10, :weight => 45, :rest_time => 25, 
-  :duration_after_repetition => 1500, :duration_up_repetition => 1000, :duration_middle_repetition => 0, 
-  :duration_down_repetition => 2000)
+training1_ex2.series.create(:order => 1, :repeat_count => 10, :weight => 50, :rest_time => 17)
+training1_ex2.series.create(:order => 2, :repeat_count => 15, :weight => 55)
+training1_ex2.series.create(:order => 3, :repeat_count => 10, :weight => 45, :rest_time => 25)
 
-training1_ex3.series.create(:order => 1, :repeat_count => 10, :weight => 50, 
-  :duration_after_repetition => 1500, :duration_up_repetition => 1000, :duration_middle_repetition => 0, 
-  :duration_down_repetition => 2000)
-training1_ex3.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 13, 
-  :duration_after_repetition => 1500, :duration_up_repetition => 1000, :duration_middle_repetition => 0, 
-  :duration_down_repetition => 2000)
-training1_ex3.series.create(:order => 3, :repeat_count => 10, :weight => 45, :rest_time => 9, 
-  :duration_after_repetition => 1500, :duration_up_repetition => 1000, :duration_middle_repetition => 0, 
-  :duration_down_repetition => 2000)
+training1_ex3.series.create(:order => 1, :repeat_count => 10, :weight => 50)
+training1_ex3.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 13)
+training1_ex3.series.create(:order => 3, :repeat_count => 10, :weight => 45, :rest_time => 9)
 
-training1_ex4.series.create(:order => 1, :repeat_count => 10, :weight => 50, :rest_time => 27, 
-  :duration_after_repetition => 1500, :duration_up_repetition => 1000, :duration_middle_repetition => 0, 
-  :duration_down_repetition => 2000)
-training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 18, 
-  :duration_after_repetition => 1500, :duration_up_repetition => 1000, :duration_middle_repetition => 0, 
-  :duration_down_repetition => 2000)
-training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45, 
-  :duration_after_repetition => 1500, :duration_up_repetition => 1000, :duration_middle_repetition => 0, 
-  :duration_down_repetition => 2000)
+training1_ex4.series.create(:order => 1, :repeat_count => 10, :weight => 50, :rest_time => 27)
+training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 18)
+training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
 
 
@@ -216,3 +192,13 @@ training1_ex3.series.create(:order => 3, :repeat_count => 10, :weight => 45, :re
 training1_ex4.series.create(:order => 1, :repeat_count => 10, :weight => 50, :rest_time => 27)
 training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 18)
 training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
+
+db_shoulder_press = ExerciseType.create(:name => "Db shoulder press")
+triceps_push_down = ExerciseType.create(:name => "Triceps push down")
+bic_cable_curl = ExerciseType.create(:name => "Biceps cable curl")
+chest_butterfly = ExerciseType.create(:name => "Chest butterfly")
+mch_abd_crunch = ExerciseType.create(:name => "Mch abdominal crunch")
+mch_bench_press = ExerciseType.create(:name => "Mc bench press")
+lower_back = ExerciseType.create(:name => "Lower back")
+upper_back = ExerciseType.create(:name => "Upper back")
+free_ab_cruch = ExerciseType.create(:name => "Free abdominal crunch")
