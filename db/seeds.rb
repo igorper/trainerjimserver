@@ -11,7 +11,7 @@
 admin_role = Role.find_by_name(Role.administrator)
 trainer_role = Role.find_by_name(Role.trainer)
 
-trainer = User.create(:email => 'jim@jim.comf', :password => 'trainerjim', :full_name => 'Jim the Trainer', :roles => [trainer_role])
+trainer = User.create(:email => 'jim@jim.com', :password => 'trainerjim', :full_name => 'Jim the Trainer', :roles => [trainer_role])
 matej = User.create(:email => 'matej.urbas@gmail.com', :password => 'Hrt 2309_Vili', :full_name => 'Matej', :roles => [admin_role], :trainer => trainer)
 igor = User.create(:email => 'igor.pernek@gmail.com', :password => '307 Lakih_Pet', :full_name => 'Igor', :roles => [admin_role], :trainer => trainer)
 damjan = User.create(:email => 'damjan.obal@gmail.com', :password => 'Klipni_Ul 103', :full_name => 'Damjan', :roles => [admin_role], :trainer => trainer)
@@ -232,7 +232,7 @@ training1_ex4.series.create(:order => 1, :repeat_count => 10, :weight => 50, :re
 training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 18)
 training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
-training1 = Training.create(:name => 'Spring fat trim',  :trainee => autotest_user, :created_at => '1/3/2012'.to_date, :updated_at => '1/3/2012'.to_date)
+training1 = Training.create(:id => 81, :name => 'Spring fat trim',  :trainee => autotest_user, :created_at => '1/3/2012'.to_date, :updated_at => '1/3/2012'.to_date)
 training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1)
 training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2, :machine_setting => "C")
 training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3)
@@ -255,5 +255,28 @@ training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :re
 training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
 Training.record_timestamps = true
+
+training1 = Training.create(:id => 10, :name => 'Summer action', :trainee => igor)
+training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1)
+training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2)
+training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3)
+training1_ex4 = training1.exercises.create(:exercise_type => lat, :order => 4)
+
+training1_ex1.series.create(:order => 1, :repeat_count => 10, :weight => 50)
+training1_ex1.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 15)
+training1_ex1.series.create(:order => 3, :repeat_count => 10, :weight => 45)
+
+training1_ex2.series.create(:order => 1, :repeat_count => 10, :weight => 50, :rest_time => 17)
+training1_ex2.series.create(:order => 2, :repeat_count => 15, :weight => 55)
+training1_ex2.series.create(:order => 3, :repeat_count => 10, :weight => 45, :rest_time => 25)
+
+training1_ex3.series.create(:order => 1, :repeat_count => 10, :weight => 50)
+training1_ex3.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 13)
+training1_ex3.series.create(:order => 3, :repeat_count => 10, :weight => 45, :rest_time => 9)
+
+training1_ex4.series.create(:order => 1, :repeat_count => 10, :weight => 50, :rest_time => 27)
+training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 18)
+training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
+
 
 ######################## END AUTOMATED TESTING SEEDS
