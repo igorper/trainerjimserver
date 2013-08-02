@@ -1,0 +1,31 @@
+# == Schema Information
+#
+# Table name: i18n_strings
+#
+#  id          :integer          not null, primary key
+#  i18n_key_id :integer
+#  locale      :string(255)
+#  data        :text
+#  created_at  :datetime
+#  updated_at  :datetime
+#
+
+article_title_en:
+  i18n_key: article_title
+  locale: en
+  data: This is a super title!
+  
+article_title_si:
+  i18n_key: article_title
+  locale: si
+  data: To je super naslov!
+  
+article_content_en:
+  i18n_key: article_content
+  locale: en
+  data: This is some super content!
+  
+article_content_si:
+  i18n_key: article_content
+  locale: si
+  data: To je super vsebina!

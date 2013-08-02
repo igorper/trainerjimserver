@@ -30,8 +30,8 @@ ActiveRecord::Schema.define(version: 20130716074450) do
   end
 
   create_table "exercises", force: true do |t|
-    t.integer  "training_id",                                   null: false
-    t.integer  "exercise_type_id",                              null: false
+    t.integer  "training_id",      null: false
+    t.integer  "exercise_type_id", null: false
     t.integer  "order"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -121,6 +121,10 @@ ActiveRecord::Schema.define(version: 20130716074450) do
     t.integer  "rest_time",    default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.integer  "duration_after_repetition"
+    t.integer  "duration_up_repetition"
+    t.integer  "duration_middle_repetition"
+    t.integer  "duration_down_repetition"
   end
 
   add_index "series", ["exercise_id"], name: "index_series_on_exercise_id", using: :btree
