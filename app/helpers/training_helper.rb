@@ -22,7 +22,7 @@ module TrainingHelper
   ##
   
   # A JSON field include filter that contains only fields relevant to the end user.
-  @@exercise_view = {:only => [:id, :order, :machine_setting]}
+  @@exercise_view = {:only => [:id, :order, :machine_setting, :duration_after_repetition, :duration_up_repetition, :duration_middle_repetition, :duration_down_repetition, :guidance_type]}
   
   # Returns the JSON view filter for the Exercise model so as to include only
   # information required by the users (the browser).
@@ -33,7 +33,7 @@ module TrainingHelper
   ##
   
   # A JSON field include filter that contains only fields relevant to the end user.
-  @@training_view = {:only => [:id, :name]}
+  @@training_view = {:only => [:id, :name, :updated_at]}
   
   # Returns the JSON view filter for the Training model so as to include only
   # information required by the users (the browser).
@@ -91,6 +91,12 @@ module TrainingHelper
     new_exercise = parent_training.exercises.build()
     add_series_from_json(exercise_json['series'], new_exercise)
     new_exercise.exercise_type = ExerciseType.find_by_id(exercise_json['exercise_type']['id'])
+    new_exercise.guidance_type = exercise_json['guidance_type']
+    new_exercise.duration_after_repetition = exercise_json['duration_after_repetition']
+    new_exercise.duration_up_repetition = exercise_json['duration_up_repetition']
+    new_exercise.duration_middle_repetition = exercise_json['duration_middle_repetition']
+    new_exercise.duration_down_repetition = exercise_json['duration_down_repetition']
+    new_exercise.machine_setting = exercise_json['machine_setting']
     return new_exercise
   end
   

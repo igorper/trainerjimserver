@@ -65,6 +65,8 @@ group :test do
   gem 'minitest'
 end
 
+gem 'colorbox-rails'
+
 # The 'ruby-debug-ide' gem should just be installed onto the system. It does not
 # need to be included in the Gemfile of this project.
 #group :development do

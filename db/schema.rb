@@ -11,7 +11,10 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130710123338) do
+ActiveRecord::Schema.define(version: 20130719064923) do
+
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
 
   create_table "conversations", force: true do |t|
     t.integer  "sender_id"
@@ -30,12 +33,17 @@ ActiveRecord::Schema.define(version: 20130710123338) do
   end
 
   create_table "exercises", force: true do |t|
-    t.integer  "training_id",      null: false
-    t.integer  "exercise_type_id", null: false
+    t.integer  "training_id",                                   null: false
+    t.integer  "exercise_type_id",                              null: false
     t.integer  "order"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "machine_setting"
+    t.decimal  "duration_after_repetition"
+    t.decimal  "duration_up_repetition"
+    t.decimal  "duration_middle_repetition"
+    t.decimal  "duration_down_repetition"
+    t.string   "guidance_type",              default: "manual", null: false
   end
 
   add_index "exercises", ["exercise_type_id"], name: "index_exercises_on_exercise_type_id", using: :btree
@@ -92,6 +100,8 @@ ActiveRecord::Schema.define(version: 20130710123338) do
     t.datetime "updated_at"
   end
 
+  add_index "newsletter_subscriptions", ["email"], name: "index_newsletter_subscriptions_on_email", unique: true, using: :btree
+
   create_table "roles", force: true do |t|
     t.string   "name",       null: false
     t.datetime "created_at"
@@ -109,17 +119,13 @@ ActiveRecord::Schema.define(version: 20130710123338) do
   add_index "roles_users", ["user_id"], name: "index_roles_users_on_user_id", using: :btree
 
   create_table "series", force: true do |t|
-    t.integer  "exercise_id",                            null: false
+    t.integer  "exercise_id",              null: false
     t.integer  "order"
     t.integer  "repeat_count"
     t.integer  "weight"
-    t.integer  "rest_time",                  default: 0, null: false
+    t.integer  "rest_time",    default: 0, null: false
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "duration_after_repetition"
-    t.integer  "duration_up_repetition"
-    t.integer  "duration_middle_repetition"
-    t.integer  "duration_down_repetition"
   end
 
   add_index "series", ["exercise_id"], name: "index_series_on_exercise_id", using: :btree
@@ -133,6 +139,8 @@ ActiveRecord::Schema.define(version: 20130710123338) do
     t.integer "rest_time"
     t.integer "measurement_id",               null: false
     t.integer "duration_seconds", default: 0
+    t.integer "rating"
+    t.string  "guidance_type"
   end
 
   add_index "series_executions", ["exercise_type_id"], name: "index_series_executions_on_exercise_type_id", using: :btree

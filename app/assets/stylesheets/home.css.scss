@@ -17,7 +17,12 @@ div#training-list {
 /// WELCOME PAGE
 //
 
+$commingSoonHeight: 179px;
+$commingSoonWidth: 178px;
+$centralLogoHeight: 193px;
+$centralLogoWidth: 293px;
 $welcomeHeaderHeight: 240px;
+$welcomeHeaderWidth: 1024px;
 $featureImageHeight: 346px;
 $welcomeImagesWidth: 966px;
 $featuresBtnHeight: 102px;
@@ -49,8 +54,45 @@ body.home.welcome {
             
             div.header-logo {
                 height: $welcomeHeaderHeight;
-                @include central-image('welcome/Welcome_Header.png');
                 background-color: $headerColour;
+
+                div.logo-button-container {
+                    width:$centralLogoWidth;
+                    height:0px; 
+                    margin:auto; 
+                    position:relative;
+
+                    div.comming-soon {
+                        position: absolute;
+                        top: $welcomeHeaderHeight - $commingSoonHeight;
+                        left: - $welcomeHeaderWidth/4;
+                        width: $commingSoonWidth;
+                        height: $commingSoonHeight;
+                        @include central-image('welcome/commingSoon.png');
+                    }
+
+                    .logo-button{
+                        position:absolute;
+                        height: $centralLogoHeight;
+                        width: $centralLogoWidth;
+                        top: $welcomeHeaderHeight - $centralLogoHeight;
+
+                        @include no-shadow;
+                        border: 0;
+                        @include central-image('welcome/JimLogo.png');
+                    }
+
+                    .logo-button:hover{
+                        position:absolute;
+                        height: $centralLogoHeight;
+                        width: $centralLogoWidth;
+                        top: $welcomeHeaderHeight - $centralLogoHeight;
+
+                        @include no-shadow;
+                        border: 0;
+                        @include central-image('welcome/VideoMouseOverLogo.png');
+                    }
+                }
                 
                 $closeButtonSize: 16px;
                 $authPanelWidth: 246px;

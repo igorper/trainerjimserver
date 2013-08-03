@@ -20,8 +20,7 @@ Trainerjim::Application.routes.draw do
   # Training
   get 'workouts' => 'training#workouts', :as => :workouts
   # Development stuff
-  get 'training/tests' => 'training#tests'
-  
+  get 'training/tests' => 'training#tests'  
   
   
   ##############################################################################
