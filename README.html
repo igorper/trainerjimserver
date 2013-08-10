@@ -1,0 +1,204 @@
+<h1>Day-to-day development</h1>
+
+<h2>Re-seed the database</h2>
+
+<p>Locally:</p>
+
+<pre><code>rake db:truncate db:bootstrap db:seed
+</code></pre>
+
+<p>Remotely:</p>
+
+<pre><code>cap &lt;deployment_target&gt; do:invoke task="db:truncate db:bootstrap db:seed"
+</code></pre>
+
+<p>For a list of deployment targets see files in directory <code>config/deploy</code>.</p>
+
+<h2>Open Rails console remotely</h2>
+
+<pre><code>cap &lt;deployment_target&gt; rails:console
+</code></pre>
+
+<h2>Deployment</h2>
+
+<p>Whenever you update your local repository, commit to your local master and run:</p>
+
+<pre><code>cap localdev deploy
+</code></pre>
+
+<p>This will update your local server, which you can access through <code>http://localhost/</code>.</p>
+
+<p>Before opening a <em>pull request</em>, push your changes to the <code>master</code> branch in your Bitbucket remote. Afterwards run:</p>
+
+<pre><code>cap &lt;your_name&gt; deploy
+</code></pre>
+
+<p>This will deploy your changes to the site <code>http://&lt;your_name&gt;.trainerjim.com/</code>.</p>
+
+<p>When you deploy for the first time, do the following:</p>
+
+<pre><code>cap &lt;target&gt; deploy:bootstrap
+</code></pre>
+
+<p>For a list of deployment <code>&lt;targets&gt;</code> see <code>config/deploy</code> (every file in this directory is a target).</p>
+
+<h1>Installation instructions (new server)</h1>
+
+<ol>
+<li><p>Clone from git repo.</p></li>
+<li><p>Install Ruby &amp; Rails through RVM:</p>
+
+<pre><code>\curl -L https://get.rvm.io | sudo bash -s stable --auto-dotfiles
+</code></pre></li>
+<li><p>Install the stable Ruby:</p>
+
+<pre><code>rvm install 2.0.0
+</code></pre>
+
+<p>Select the default Ruby:</p>
+
+<pre><code>rvm use --default 2.0.0
+</code></pre>
+
+<p>You can list available Ruby versions with:</p>
+
+<pre><code>rvm list known
+</code></pre></li>
+</ol>
+
+
+<p>Afterwards, for every update deployment you must call:</p>
+
+<pre><code>cap &lt;target&gt; deploy
+</code></pre>
+
+<ol>
+<li><p>PostgreSQL:</p>
+
+<pre><code>apt-get -y install postgresql
+</code></pre>
+
+<p>Create the <code>trainerjim</code> user (with password <code>trainerjim</code>):</p>
+
+<pre><code>sudo su postgres
+psql
+CREATE ROLE trainerjim LOGIN
+    ENCRYPTED PASSWORD 'md53cc7cd3df4abff9c7954bcd4979cea67'
+    SUPERUSER INHERIT CREATEDB NOCREATEROLE REPLICATION;
+</code></pre></li>
+<li><p>Passenger (instructions: [https://www.phusionpassenger.com/download]):</p>
+
+<pre><code>gem install passenger
+cd ~
+passenger-install-apache2-module
+</code></pre>
+
+<p>Passenger will instruct you about what you have to put into the Apache config file <code>/etc/apache2/apache2.conf</code>.</p></li>
+<li><p>Enable the following Apache mods:</p>
+
+<pre><code>cd /etc/apache2/mods-enabled/
+ln -s ../mods-available/headers.load .
+ln -s ../mods-available/expires.load .
+</code></pre></li>
+<li><p>Tell Apache where our app will be deployed. Add this to <code>/etc/apache2/sites-enabled/000-default</code>:</p>
+
+<pre><code>&lt;VirtualHost *:80&gt;
+#    ServerName dev.trainerjim.com
+#    ServerAlias jim.fzv.uni-mb.si
+
+    DocumentRoot "/maco/rails/deployments/TrainerJim/localdev/current/public"
+    RackEnv "localdev"
+
+    &lt;Directory "/maco/rails/deployments/TrainerJim/localdev/current/public"&gt;
+        AllowOverride all
+        Options -MultiViews
+        AuthType None
+        Order deny,allow
+        Allow from all
+    &lt;/Directory&gt;
+
+    &lt;LocationMatch "^/assets/.*$"&gt;
+        Header unset ETag
+        FileETag None
+        ExpiresActive On
+        ExpiresDefault "access plus 1 year"
+        Header append Cache-Control public
+    &lt;/LocationMatch&gt;
+&lt;/VirtualHost&gt;
+</code></pre></li>
+<li><p>Set up the application:</p>
+
+<pre><code>rake db:create db:migrate db:bootstrap
+</code></pre></li>
+<li><p>Deploy the app whenever you want to update a site (see section <code>Deployment</code>).</p></li>
+</ol>
+
+
+<h1>Database</h1>
+
+<h2>Dumping the database</h2>
+
+<pre><code>pg_dump -C --quote-all-identifiers -h localhost -U trainerjim trainerjim_production &gt; "trainerjim_production.$(date '+%Y-%m-%d-%H%M').sql"
+</code></pre>
+
+<p>If you have trouble restoring the database because of bytea encoding, run this before dumping:</p>
+
+<pre><code>ALTER DATABASE &lt;your_db&gt; SET bytea_output = 'escape';
+</code></pre>
+
+<h2>Restoring the database</h2>
+
+<pre><code>psql -U trainerjim -h localhost postgres &lt; the_dump.sql
+</code></pre>
+
+<h1>Updating</h1>
+
+<h2>Updating RVM</h2>
+
+<pre><code>rvm get stable
+</code></pre>
+
+<h2>Updating Ruby</h2>
+
+<pre><code>rvm upgrade ruby-1.9.3-p392 ruby-1.9.3-p429
+</code></pre>
+
+<h2>Updating Passenger</h2>
+
+<pre><code>gem install passenger &amp;&amp; passenger-install-apache2-module
+</code></pre>
+
+<p>Then update the <code>vim /etc/httpd/conf.d/passenger.conf</code> file (or another Apach HTTPD configuration file, where you store your Passenger config).</p>
+
+<h2>Updating dependencies (Gems)</h2>
+
+<pre><code>bundle update
+</code></pre>
+
+<h2>Updating the OS of the production server</h2>
+
+<ol>
+<li><p>Open a background shell (it will remain active even after you log out or if your connection drops):</p>
+
+<pre><code>screen
+</code></pre></li>
+<li><p>Run the update command:</p>
+
+<pre><code>yum --skip-broken -y update
+</code></pre></li>
+<li><p>You can detach the screen by pressing:</p>
+
+<pre><code>Ctrl + a, d
+</code></pre></li>
+<li><p>To close the screen, run:</p>
+
+<pre><code>screen -r
+</code></pre>
+
+<p>If there is more than one screen, you&rsquo;ll have to fetch a list of detached screens and kill the right one:</p>
+
+<pre><code>screen -ls
+screen -r &lt;pid.tty.host&gt;
+</code></pre></li>
+</ol>
+

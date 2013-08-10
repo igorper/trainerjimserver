@@ -1,11 +1,3 @@
-//= require jquery.flot
-//= require jquery.flot.resize
-//= require knockout
-//= require knockout.mapping
-//= require pager.min
-//= require sammy.min
-
-
 Array.prototype.sum = function() {
     if (this.length > 0) {
         return this.reduce(function(x, y) {
@@ -50,7 +42,8 @@ function Duration(array) {
     } else {
         return [duration, 'sec'];
     }
-};
+}
+;
 
 $("document").ready(function() {
     var placeholder = $("#placeholder");
@@ -324,13 +317,15 @@ $("document").ready(function() {
                 });
             };
 
-        };
+        }
+        ;
 
 
         function UsersViewModel(parent) {
             var self = this;
             self.parent = parent;
             debug = this;
+            self.traineesDropdown = ko.observable(new TraineeDropDown());
 
             self.dateFormat = function(time) {
                 return $.datepicker.formatDate('dd, MM, yy', new Date(time));
@@ -468,8 +463,13 @@ $("document").ready(function() {
             ///Event that triggers when new user is selected
             self.selectUsers = function(element) {
                 if (element !== self.selectedUser()) {
-                    self.changeUser(element, function() {});
+                    self.changeUser(element, function() {
+                    });
                 }
+            };
+            
+            self.onTraineeClicked = function (trainee) {
+                window.location = '#' + trainee.full_name();
             };
 
             self.changeUser = function(element, callback) {
@@ -494,7 +494,8 @@ $("document").ready(function() {
 
                 ///Some sane checking that callback is not null
                 ref.safeCBCall = function(callback) {
-                    if (callback !== undefined && callback !== null) callback();
+                    if (callback !== undefined && callback !== null)
+                        callback();
                 }
 
                 ///Functions that containt ajax calls should to be called with callback parameter.
@@ -519,8 +520,10 @@ $("document").ready(function() {
                     for (i = 0; i < months.length; i++) {
                         if (months[i].month === month) {
                             self.calendarVM.currentMonthIndex(i);
-                            if (callback !== undefined && callback !== null) callback();
-                            else self.calendarVM.onMonthChanged();
+                            if (callback !== undefined && callback !== null)
+                                callback();
+                            else
+                                self.calendarVM.onMonthChanged();
                             break;
                         }
                     }
@@ -555,30 +558,32 @@ $("document").ready(function() {
                 };
 
 
-                ref.get(home+'#:username/:month/:day/:type', function(context) {
+                ref.get(home + '#:username/:month/:day/:type', function(context) {
                     ref.setUser(context, function() {
-                        ref.setMonth(context, function() {});
+                        ref.setMonth(context, function() {
+                        });
                         ref.setDay(context, function() {
                             ref.setExType(context, null);
                         });
                     });
                 });
 
-                ref.get(home+'#:username/:month/:day', function(context) {
+                ref.get(home + '#:username/:month/:day', function(context) {
                     ref.setUser(context, function() {
-                        ref.setMonth(context, function() {});
+                        ref.setMonth(context, function() {
+                        });
                         ref.setDay(context, function() {
                             var types = self.exerciseTypes();
                             if (types.length > 0) {
                                 var type = types[0];
-                                context.redirect("#" + context.params["username"], context.params["month"], context.params["day"],type.name.replace(" ", ""));
+                                context.redirect("#" + context.params["username"], context.params["month"], context.params["day"], type.name.replace(" ", ""));
                             }
                         });
                     });
                 });
 
 
-                ref.get(home+'#:username/:month', function(context) {
+                ref.get(home + '#:username/:month', function(context) {
                     ref.setUser(context, function() {
                         ref.setMonth(context, function() {
                             var days = self.calendarVM.currentMonth().days;
@@ -590,7 +595,7 @@ $("document").ready(function() {
                     });
                 });
 
-                ref.get(home+'#:username', function(context) {
+                ref.get(home + '#:username', function(context) {
                     ref.setUser(context, function() {
                         var months = self.calendarVM.calendar();
                         if (months.length > 0) {
@@ -609,7 +614,8 @@ $("document").ready(function() {
                 });
 
             }).run();
-        };
+        }
+        ;
 
         vm = new UsersViewModel();
         pager.extendWithPage(vm);
@@ -640,7 +646,7 @@ function getGraphData(measurements, start, stop) {
     for (i = 0; i < graphcomments.length; i++) {
         var time = graphcomments[i].timestamp;
         commentList.push(
-        [slice[2 * time + 1], slice[2 * time], graphcomments[i].comment, graphcomments[i].id]);
+                [slice[2 * time + 1], slice[2 * time], graphcomments[i].comment, graphcomments[i].id]);
     }
 
 
@@ -710,7 +716,8 @@ function showTooltip2(x, y, contents) {
         'background-color': '#fee',
         opacity: 0.80
     }).appendTo("body").fadeIn(200);
-};
+}
+;
 
 var previousPoint = null;
 
@@ -722,9 +729,9 @@ function onHover(event, pos, item) {
             previousPoint = item.datapoint;
             $("#tooltip").remove();
             var x = item.datapoint[0].toFixed(2),
-                y = item.datapoint[1].toFixed(2),
-                //set default content for tooltip
-                content = plotData[1].data[item.dataIndex][2];
+                    y = item.datapoint[1].toFixed(2),
+                    //set default content for tooltip
+                    content = plotData[1].data[item.dataIndex][2];
             //now show tooltip
             showTooltip(item.pageX, item.pageY, content);
         }
@@ -786,7 +793,7 @@ function onClick(event, pos, item) {
         } else {
 
             var del = $('<div class="popover-delete-box"><span>Are you sure you want to delete this comment.</span><div class="inputs"><input type="submit" id="delete" value="Yes!"/><input type="submit" id="close" value="No"/></div></div></div>').
-            css({
+                    css({
                 position: 'absolute',
                 display: 'none',
                 top: item.pageY + 5,

@@ -63,6 +63,8 @@ end
 
 group :test do
   gem 'minitest'
+  gem 'rspec-rails'
+  gem 'webrat'
 end
 
 gem 'colorbox-rails'

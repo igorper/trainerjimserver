@@ -32,4 +32,23 @@ class UsersController < ApplicationController
     ajax_render user.is_a?(User)
   end
   
+  # @method GET
+  # @returns json the json of all trainees (their names and IDs)
+  def trainees
+    if user_signed_in? && current_user.trainer?
+      # trainees = User.includes(:roles).where('roles.name IS NULL')
+      @my_trainees = User.where(:trainer_id => current_user.id)
+      respond_to do |format|
+        format.html
+        format.json { render :json => @my_trainees.to_json(
+            :only => [:id, :email, :full_name],
+            :methods => []
+          )}
+      end
+    else
+      render :nothing => true, :status => :forbidden
+    end
+  end
+  
+  
 end
