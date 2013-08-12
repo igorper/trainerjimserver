@@ -1,5 +1,5 @@
 <div id="dashboard-show" class="container">
-  <div class="span2">
+  <div class="span4">
     <div class="people-exercises" data-bind="foreach: users">
       <a data-bind='page-href: full_name'>
         <div class="entry button-behaviour" data-bind="css: {selected: $parent.selectedUser() == $data, even: $index() % 2 == 1}">
@@ -9,9 +9,40 @@
         </div>
       </a>
     </div>
+
+    <div class="numbers-widget">
+      <div class="numbers-header">
+        <div class="numbers-header-tab">month</div>
+        <div class="numbers-header-tab numbers-header-tab-selected">total</div>
+        <div class="numbers-header-caption">You. In numbers.</div>
+      </div>
+      <div class="numbers-rows">
+        <div class="numbers-row numbers-row-non-bottom">
+          <div class="numbers-row-bg-text">active</div>
+          <div class="numbers-row-text">
+            <span class="numbers-input">2</span>
+            days
+            <span class="numbers-input">11</span>
+            hours
+          </div>
+        </div>
+        <div class="numbers-row numbers-row-non-bottom">
+          <div class="numbers-row-bg-text">lifted</div>
+          <div class="numbers-row-text">
+            <span class="numbers-input">798</span> kg
+          </div>
+        </div>
+        <div class="numbers-row">
+          <div class="numbers-row-bg-text">done</div>
+          <div class="numbers-row-text">
+            <span class="numbers-input">89</span> % workouts
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <div class="span2">
+  <div class="span8">
     <div class="statistics" data-bind="visible: statisticsVisible">
       <div>
         <div class="avatar-name" data-bind="with: selectedUser">
@@ -104,97 +135,4 @@
       </div>
     </div>
   </div>
-
-  <div class="span8" data-bind='page: {id: "?"}'>
-    <div class="measurements" data-bind="visible: statisticsVisible && calendarVM.calendarVisible">
-      <div data-bind="with: calendarVM">
-        <div class="calendar-new row-fluid" data-bind="visible: calendarVisible">
-          <div class="month-tab span2">
-            <a class="arrow button-behaviour"  data-bind="page-href: prevMonth()"><div class="arrow-left"></div></a>
-            <div class="month" data-bind="text: currentMonth().month">February</div>
-            <a class="arrow button-behaviour"  data-bind="page-href: nextMonth()"><div class="arrow-right"></div></a>
-          </div>
-          <div class="span10">
-            <div class="days" data-bind="foreach: currentMonth().days">
-              <a class="day button-behaviour" data-bind='page-href: $parent.currentMonth().month+"/"+day,text: day,css: { selected: $data === $parent.selectedDay() }'></a>
-            </div>
-            <div class="fill"></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="row-fluid">
-        <div id="graphWindow">
-          <div data-bind="visible: selectedExercise !== null">
-            <div class="span10">
-              <div id="placeholder" data-bind="visible: !alternateExerciseInfo()">
-              </div>
-              <div class="exercisetextinfo" data-bind="visible: alternateExerciseInfo, with: selectedExecution">
-                <div id="stack">
-                  <div class="horizontalstack">
-                    <div class="number" data-bind="text: duration_seconds"></div><div class="jimlabel">
-                      <div>sec</div>
-                      <div>active</div>
-                    </div>
-                  </div>
-                  <div class="verticalline" ></div>
-                  <div class="horizontalstack">
-                    <div class="number" data-bind="text: num_repetitions"></div>
-                    <div class="jimlabel">
-                      <div>reps</div>
-                    </div>
-                  </div>
-                  <div class="verticalline"></div>
-                  <div class="horizontalstack">
-                    <div class="number" data-bind="text: weight * num_repetitions"></div>
-                    <div class="jimlabel">
-                      <div>kg</div>
-                      <div>lifted</div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div class="span2">
-              <div class="exerciseinfotab" data-bind="visible: selectedExecution() !== null">
-                <div class="title">Series</div>
-                <div id="workoutSets" data-bind="foreach: exerciseExecutions">
-                  <div class="row-box">
-                    <div class="text" data-bind="text: $index() + 1"></div>
-                    <div class="box button-behaviour" data-bind="click: $parent.onGraphChangeButton"><i class="icon-black icon-ok" data-bind="visible: $data === $parent.selectedExecution()"></i></div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="types row-fluid" data-bind="page: {id: '?'}">
-        <div class="span9">
-          <table class="typestable" data-bind="foreach: exerciseTypesRow()">
-            <tr id='hidden-row'><td></td><td></td><td></td><td></td></tr>
-            <tr data-bind="foreach: {data: $data, as: 'type'}">
-              <!-- ko if: type.name !== 'empty' -->
-              <td class='normal' data-bind="css: { selected: $parents[1].selectedExercise() === type }"><a data-bind="text: name, page-href: $parents[1].calculatePath(type)"></a></td>
-              <!-- /ko -->
-              <!-- ko if: type.name === 'empty' -->
-              <td class='filler'></td>
-              <!-- /ko -->
-            </tr>
-        </div>
-        </tr>
-        </table>
-      </div>
-      <div class="weight-picture-box">
-        <div class="seen" data-bind="visible: selectedExercise !== null">
-          <div class="abc">
-            <div class="text" data-bind="html: selectedExerciseWeightInfo()"></div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</div>
 </div>
