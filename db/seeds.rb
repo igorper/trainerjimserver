@@ -207,10 +207,10 @@ free_ab_cruch = ExerciseType.create(:name => "Free abdominal crunch")
 # This seeds are only for automated tests purposes and shouldn't be changed
 autotest_user = User.create(:email => 'auto@test.user', :password => 'valid_pass', :full_name => 'AutoTest', :roles => [])
 
-db_shoulder_press = ExerciseType.create(:id => 23, :name => "Db shoulder press")
+db_shoulder_press = ExerciseType.create(:name => "Db shoulder press")
 
 Training.record_timestamps = false
-training1 = Training.create(:id => 24, :name => 'Summer action', :trainee => autotest_user, :created_at => '1/2/2012'.to_date, :updated_at => '1/2/2012'.to_date)
+training1 = Training.create(:name => 'Summer action', :trainee => autotest_user, :created_at => '1/2/2012'.to_date, :updated_at => '1/2/2012'.to_date)
 training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1)
 training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2)
 training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3)
@@ -232,7 +232,7 @@ training1_ex4.series.create(:order => 1, :repeat_count => 10, :weight => 50, :re
 training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 18)
 training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
-training1 = Training.create(:id => 81, :name => 'Spring fat trim',  :trainee => autotest_user, :created_at => '1/3/2012'.to_date, :updated_at => '1/3/2012'.to_date)
+training1 = Training.create(:name => 'Spring fat trim',  :trainee => autotest_user, :created_at => '1/3/2012'.to_date, :updated_at => '1/3/2012'.to_date)
 training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1)
 training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2, :machine_setting => "C")
 training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3)
@@ -256,7 +256,7 @@ training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
 Training.record_timestamps = true
 
-training1 = Training.create(:id => 10, :name => 'Summer action', :trainee => igor)
+training1 = Training.create(:name => 'Summer action', :trainee => igor)
 training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1)
 training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2)
 training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3)

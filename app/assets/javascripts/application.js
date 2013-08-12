@@ -1,6 +1,22 @@
 //= require jquery
 //= require jquery.ui.all
 //= require bootstrap
+//= require jquery.flot
+//= require jquery.flot.resize
+//
+//MVC:
+//= require knockout
+//= require knockout.mapping
+//= require knockout-sortable
+//
+//NAVIGATION:
+//= require pager.min
+//= require sammy.min
+//
+// Visualisations:
+//= require d3
+//
+//
 //= require_self
 //= require colorbox-rails
 
@@ -104,6 +120,21 @@ $(function() {
     /**
      * UI Utilities
      */
+    
+    
+    /**
+     * Row stripes
+     */
+    ko.bindingHandlers.stripe = {
+        update: function(element, valueAccessor, allBindingsAccessor) {
+            var value = ko.utils.unwrapObservable(valueAccessor());
+            var allBindings = allBindingsAccessor();
+            var even = allBindings.evenClass;
+            var odd = allBindings.oddClass;
+            $(element).children(":nth-child(odd)").addClass(odd).removeClass(even);
+            $(element).children(":nth-child(even)").addClass(even).removeClass(odd);
+        }
+    }
 
     /**
      * Common UI Behaviour
@@ -207,5 +238,6 @@ $.ajaxSetup({
         return this;
 
     };
+
 
 })(jQuery);

@@ -31,7 +31,7 @@ $loginPartWidth: 250px;
             color: white;
             width: 100%;
             
-            a {
+            a.white-link {
                 color: white;
             }
             
@@ -66,7 +66,7 @@ $loginPartWidth: 250px;
                         cursor: pointer;
                         width: $headMainBtnWidth;
                         
-                        &.active a {
+                        &.active a.nav-button-icon {
                             background-image: image-url("Gradient_ClickedState_1px.png");
                         }
                         
@@ -80,7 +80,7 @@ $loginPartWidth: 250px;
                             }
                         }
                         
-                        a {
+                        a.nav-button-icon {
                             display: block;
                             width: $headMainBtnWidth;
                             height: $headerHeight;
@@ -224,6 +224,73 @@ $loginPartWidth: 250px;
             margin-left: $logo-margin-left;
             @include central-image('frame/logo-hanging.png');
             @include size(91px, 44px);
+        }
+    }
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// Trainees Dropdown
+//
+div.trainees-dropdown {
+    
+    .dropdown-menu {
+        width: 240px;
+        @include no-rounding;
+        padding:5px;
+        font-size: $bodyFontSize*1.1;
+        text-align: left;
+        
+        div.new-trainee-container {
+            background-color: $jimBlue;
+            color: white;
+            
+            div.new-trainee {
+                line-height: 32px;
+                margin: 5px 0px 0px 0px;
+                text-align: center;
+                text-shadow: darken($jimBlue, 20%) 0px 1px 0px;
+            }
+            
+            &:hover {background-color: lighten($jimBlue, 10%);}
+        }
+        
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style-type: none;
+            
+            li.trainee {
+                &.dark {
+                    background-color: #EEEEEE;
+                    a.trainee {text-shadow: white 0px 1px 0px;}
+                }
+                
+                &:hover {
+                    cursor: pointer;
+                    background-color: lighten($jimBlue, 5%);
+                    a.trainee {color: white; text-shadow: darken($jimBlue, 20%) 0px 1px 0px;}
+                }
+                
+                a.trainee {
+                    @include light;
+                    text-shadow: none;
+                    color: darken($jimColor, 40%);
+                    
+                    div {
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                    
+                    div.avatar {
+                        height: 32px;
+                        width: 32px;
+                        margin: 0px 10px 0px 0px;
+                    }
+                }
+                
+            }
         }
     }
 }

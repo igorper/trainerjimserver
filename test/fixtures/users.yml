@@ -46,3 +46,8 @@ joe:
   email: joe@example.com
   encrypted_password: $2a$10$uSotUNLftI3zXYSSRcgrxe2f5eCsUyxH7DgDN13fDuS0Cwe2osj2G
   trainer: jim
+
+notrainer:
+  full_name: No Trainer
+  email: no@trainer.com
+  encrypted_password: $2a$10$uSotUNLftI3zXYSSRcgrxe2f5eCsUyxH7DgDN13fDuS0Cwe2osj2G

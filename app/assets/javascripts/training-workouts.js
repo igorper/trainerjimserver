@@ -1,9 +1,3 @@
-//= require knockout
-//= require knockout.mapping
-//= require knockout-sortable
-//= require pager.min
-//= require sammy.min
-
 on_json_error_behaviour = alertOnJsonError;
 
 $(function() {
@@ -322,7 +316,8 @@ $(function() {
         self.my_templates = ko.observableArray(); // type: TrainingTemplate[]
         self.templates = ko.observableArray(); // type: TrainingTemplate[]
         self.selected_training = ko.observable(); // type: Regime
-        self.all_guidance_types = ['tempo', 'duration', 'manual']
+        self.all_guidance_types = ['tempo', 'duration', 'manual'];
+        self.traineesDropdown = ko.observable(new TraineeDropDown());
 
 
         // Operations
