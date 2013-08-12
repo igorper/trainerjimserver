@@ -66,7 +66,9 @@ end
 group :test do
   gem 'minitest'
   gem 'rspec-rails'
-  gem 'webrat'
+  gem 'capybara'
+  gem 'factory_girl_rails'
+  gem 'factory_girl'
 end
 
 gem 'colorbox-rails'
