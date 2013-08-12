@@ -59,6 +59,8 @@ GEM
     colorbox-rails (0.0.16)
       jquery-rails
       rails (>= 3.1.1)
+    d3-rails (0.0.5)
+      railties (>= 3.1)
     devise (3.0.0.rc)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -195,6 +197,7 @@ DEPENDENCIES
   capistrano
   coffee-rails (>= 4.0.0)
   colorbox-rails
+  d3-rails
   devise (~> 3.0.0.rc)
   flot-rails
   foreigner!
