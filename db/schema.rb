@@ -11,10 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20130719064923) do
-
-  # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+ActiveRecord::Schema.define(version: 20130716074450) do
 
   create_table "conversations", force: true do |t|
     t.integer  "sender_id"
@@ -28,16 +25,16 @@ ActiveRecord::Schema.define(version: 20130719064923) do
 
   create_table "exercise_types", force: true do |t|
     t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "exercises", force: true do |t|
     t.integer  "training_id",                                   null: false
     t.integer  "exercise_type_id",                              null: false
     t.integer  "order"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                                    null: false
+    t.datetime "updated_at",                                    null: false
     t.string   "machine_setting"
     t.decimal  "duration_after_repetition"
     t.decimal  "duration_up_repetition"
@@ -51,8 +48,8 @@ ActiveRecord::Schema.define(version: 20130719064923) do
 
   create_table "i18n_keys", force: true do |t|
     t.string   "key"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "i18n_keys", ["key"], name: "index_i18n_keys_on_key", unique: true, using: :btree
@@ -61,8 +58,8 @@ ActiveRecord::Schema.define(version: 20130719064923) do
     t.integer  "i18n_key_id"
     t.string   "locale"
     t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
   end
 
   add_index "i18n_strings", ["i18n_key_id"], name: "index_i18n_strings_on_i18n_key_id", using: :btree
@@ -84,8 +81,8 @@ ActiveRecord::Schema.define(version: 20130719064923) do
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer  "rating"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.boolean  "trainer_seen", default: false, null: false
     t.string   "comment"
   end
@@ -96,16 +93,14 @@ ActiveRecord::Schema.define(version: 20130719064923) do
 
   create_table "newsletter_subscriptions", force: true do |t|
     t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
-
-  add_index "newsletter_subscriptions", ["email"], name: "index_newsletter_subscriptions_on_email", unique: true, using: :btree
 
   create_table "roles", force: true do |t|
     t.string   "name",       null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "roles", ["name"], name: "index_roles_on_name", unique: true, using: :btree
@@ -124,8 +119,8 @@ ActiveRecord::Schema.define(version: 20130719064923) do
     t.integer  "repeat_count"
     t.integer  "weight"
     t.integer  "rest_time",    default: 0, null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",               null: false
+    t.datetime "updated_at",               null: false
   end
 
   add_index "series", ["exercise_id"], name: "index_series_on_exercise_id", using: :btree
@@ -149,8 +144,8 @@ ActiveRecord::Schema.define(version: 20130719064923) do
   create_table "sessions", force: true do |t|
     t.string   "session_id", null: false
     t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   add_index "sessions", ["session_id"], name: "index_sessions_on_session_id", using: :btree
@@ -160,8 +155,8 @@ ActiveRecord::Schema.define(version: 20130719064923) do
     t.integer  "trainee_id"
     t.string   "name"
     t.integer  "original_training_id"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",           null: false
+    t.datetime "updated_at",           null: false
   end
 
   add_index "trainings", ["original_training_id"], name: "index_trainings_on_original_training_id", using: :btree
@@ -170,8 +165,8 @@ ActiveRecord::Schema.define(version: 20130719064923) do
   create_table "users", force: true do |t|
     t.string   "email"
     t.string   "full_name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.datetime "created_at",                          null: false
+    t.datetime "updated_at",                          null: false
     t.string   "encrypted_password",     default: "", null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
