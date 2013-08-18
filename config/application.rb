@@ -11,6 +11,7 @@ module Trainerjim
     config.page_name = 'TrainerJim'
     config.jim_twitter_url = 'https://twitter.com/trainwithJIM/'
     config.jim_tumblr_url = 'http://trainerjim.tumblr.com/'
+    config.jim_use_ssl_login_url = true
     
     config.to_prepare do
       Devise::SessionsController.layout "login" 

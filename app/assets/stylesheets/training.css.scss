@@ -3,9 +3,9 @@
 // defined as mixin to be used for workout creation and tempo guidance popup
 @mixin plus-minus-btns-mixin {
     text-align: right;
-
+    
     > div {display: inline-block;}
-
+    
     .btn {@include flat-btn; @include no-rounding; display: block; padding: 4px 3px 1px 4px; float: none;}
     .btn.plus-btn {background-color: $jimColor; margin-bottom: 2px;}
     .btn.plus-btn:hover {background-color: darken($jimColor, 15%);}
@@ -130,11 +130,28 @@
                     button:hover {background-color: $hoverColor; color: white;}
                     
                     .details {
-                        .name .exercise-label {font-weight: normal; text-shadow: 1px 1px white; font-size: 20px; @include inline; @include middle; margin-right: 5px;}
-                        .name {padding-top: 5px; padding-left: 5px;}
-                        .name a.btn {@include flat-btn;}
-                        .name a.active {background-color: #eee;}
-                        .name span.the-name-value {@include light; font-size: 20px; text-shadow: 1px 1px white; margin-right: 5px;}
+                        .name {
+                            padding-top: 5px; padding-left: 5px;                     
+                            .exercise-label {
+                                @include rounded(3px);
+                                font-weight: normal;
+                                text-shadow: 1px 1px white;
+                                font-size: 20px;
+                                @include inline;
+                                @include middle;
+                                margin-right: 5px;
+                                padding: 0px 5px 2px 5px;
+                                
+                                .exercise-expand-icon {
+                                    text-shadow: 1px 1px white; margin: 7px 5px 5px 5px;
+                                }
+                                
+                                &:hover {text-shadow: none; background-color: white;}
+                            }
+                            a.btn {@include flat-btn;}
+                            a.active {background-color: #eee;}
+                            span.the-name-value {@include light; font-size: 20px; text-shadow: 1px 1px white; margin-right: 5px;}
+                        }
                         
                         .exercise-top-btns {padding: 5px;}
                         .exercise-top-btns .btn {@include no-rounding;margin-top: 2px;}
@@ -142,24 +159,24 @@
                         .exercise-top-btns .delete-btn {}
                         .exercise-top-btns .add-btn:hover {background-color: $hoverColor;}
                     }
-
+                    
                     .description {
                         $bottom-controls-height: 70px;
-
+                        
                         background-color: white; margin: 5px;  @include rounded(3px); display:none;
-
+                        
                         div.description-container{
                             padding-top: 10px;
                             padding-right: 20px;
                             p.title {
                                 @include bold;
                             }
-
+                            
                             p.text {
                                 text-align: justify;
                             }
                         }
-
+                        
                         table.guidance {
                             width: 100%; 
                             height: $bottom-controls-height;
@@ -169,14 +186,14 @@
                             a.btn {@include flat-btn; vertical-align: middle;}
                             a.active {background-color: #eee;}
                             span.the-name-value {@include light; font-size: 1.5em; text-shadow: 1px 1px white; margin-right: 5px;}
-
+                            
                             .dropdown-menu {
                                 top: auto; 
                                 bottom: 75%;
                                 cursor: pointer;
                             }
                         }
-
+                        
                         table.content {
                             width: 100%; 
                             height: $bottom-controls-height;
@@ -185,7 +202,7 @@
                             input.value {font-size: 2em; @include sans; @include flat-text-input; height: auto; margin: 0 0 0px 0; background: none; padding: 0px; width: 30px; display: inline-block; vertical-align: baseline;}
                             
                             .no-padding { padding: 0px; }
-
+                            
                             a.btn {@include flat-btn;}
                             a.active {background-color: #eee;}
                             span.the-name-value {font-size: 20px; text-shadow: 1px 1px white; margin-right: 5px;}
@@ -194,8 +211,8 @@
                         table.content .text > div {display: inline-block; }
                         td.plus-minus-btns{text-align:center;}
                         .plus-minus-btns{ @include plus-minus-btns-mixin; }
-
-
+                        
+                        
                     }
                     
                     .series-list {
@@ -215,6 +232,23 @@
                             
                             table.content td > div {padding: 5px;}
                             table.content .text > div {margin-left: 10px; display: inline-block;}
+                            
+                            .assign-to-all-series {
+                                margin-bottom: 3px;
+                                cursor: pointer;
+                                span.the-icon {margin: 3px 0px;}
+                                span.the-button {
+                                    @include flat-btn;
+                                    color: white;
+                                    padding: 1px 5px;
+                                    font-size: 0.9em;
+                                    text-shadow: none;
+                                    background-color: lighten($jimBlue, 10%);
+                                }
+                                    &:hover {
+                                        span.the-button {background-color: darken($jimBlue, 10%);}
+                                    }
+                            }
                             
                             .plus-minus-btns{
                                 @include plus-minus-btns-mixin;
@@ -275,12 +309,12 @@ div.popup-tempo{
         bottom:10px;
         left:10px;
         right:10px;
-
+        
         div.left{
             float:left;
             width:55%;
             height:100%;
-
+            
             div.control-border{
                 position:relative;
                 height:90%;
@@ -288,7 +322,7 @@ div.popup-tempo{
                 margin: 5% auto;
                 border: 5px solid $jimBlue;
                 cursor: pointer;
-
+                
                 #tap_tempo_note {
                     width:100%; 
                     height:100%; 
@@ -297,7 +331,7 @@ div.popup-tempo{
                     color: $jimBlue;
                 }
             }
-
+            
             div.control-fill{
                 position:absolute;
                 height:0%;
@@ -306,48 +340,48 @@ div.popup-tempo{
                 bottom:0px;
             }
         }
-
+        
         div.right{
             float:left;
             width:45%;
             height:100%;
-
+            
             table.selector-controls{
                 width:100%;
-
+                
                 td.timer{
                     padding:10px 0px 10px 0px;
                     text-align:right;
-
+                    
                     span.segment{
                         display: inline-block;
-    vertical-align: baseline;
+                        vertical-align: baseline;
                         font: {size: 1.5em; weight: 400; }
                     }
-
-                     input.value{
+                    
+                    input.value{
                         display: inline-block;
-    vertical-align: baseline;
+                        vertical-align: baseline;
                         background: $bodyBackgroundColor;
                         border: 0px;        
                         font: {size: 3.0em; weight: 600;}
                     }
                 }
-
+                
                 td.plus-minus-btns{
                     padding:10px;
                     @include plus-minus-btns-mixin
                 }
                 
             }
-
+            
             div.row{
                 position:relative;
                 clear:both;
                 height:15%;
                 background:red;               
             }
-
+            
             .btn {@include flat-btn; @include no-rounding; display: block; width:90%; margin: auto; margin-bottom:5px; }
             .btn.save {background-color: $lightBlue;}
             .btn.save:hover {background-color: $hoverColor;}

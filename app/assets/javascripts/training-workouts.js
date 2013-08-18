@@ -130,6 +130,24 @@ $(function() {
         self.setGuidanceType = function(guType) {
             self.guidance_type(guType);
         }
+        
+        self.setRepsForAll = function (series) {
+            $.each(self.series(), function (idx, el) {
+                el.repeat_count(series.repeat_count());
+            });
+        }
+        
+        self.setWeightForAll = function (series) {
+            $.each(self.series(), function (idx, el) {
+                el.weight(series.weight());
+            });
+        }
+        
+        self.setRestForAll = function (series) {
+            $.each(self.series(), function (idx, el) {
+                el.rest_time(series.rest_time());
+            });
+        }
 
         self.showAdvancedPopup = function(data, event) {
             if (self.guidance_type() === 'tempo') {
@@ -207,11 +225,15 @@ $(function() {
         }
 
         self.toggleDetails = function(data, event) {
-            var description = $(event.target).parents(".exercise").find(".description");
+            var theExercise = $(event.target).parents(".exercise");
+            var description = theExercise.find(".description");
+            var expandIcon = theExercise.find(".exercise-expand-icon");
             if (description.is(":hidden")) {
                 description.show("slow");
+                expandIcon.removeClass('icon-resize-full').addClass('icon-resize-small')
             } else {
                 description.slideUp();
+                expandIcon.addClass('icon-resize-full').removeClass('icon-resize-small')
             }
         }
     }

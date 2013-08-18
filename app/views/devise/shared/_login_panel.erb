@@ -1,4 +1,4 @@
-<%= form_for(resource, :as => resource_name, :url => login_url) do |f| %>
+<%= form_for(resource, :as => resource_name, :url => login_panel_url()) do |f| %>
   <div class="email-fields"><%= f.email_field :email, :autofocus => true, :class => 'text-input', :placeholder => 'your@email.com' %></div>
 
   <div class="pwd-fields"><%= f.password_field :password, :class => 'text-input', :placeholder => 'password' %></div>
