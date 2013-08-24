@@ -131,18 +131,44 @@ $(function() {
             self.guidance_type(guType);
         }
         
+        /**
+         * Takes the settings of the currently active series and applies it to
+         * the others in this exercise.
+         */
+        self.applySettingsToAllSeries = function () {
+            var theSeries = self.series.selected();
+            self.setRepsForAll(theSeries);
+            self.setWeightForAll(theSeries);
+            self.setRestForAll(theSeries);
+        }
+        
+        /**
+         * Sets the reps count of the given series to the other series in this
+         * exercise.
+         * @param {Series} series
+         */
         self.setRepsForAll = function (series) {
             $.each(self.series(), function (idx, el) {
                 el.repeat_count(series.repeat_count());
             });
         }
         
+        /**
+         * Sets the weight of the given series to the other series in this
+         * exercise.
+         * @param {Series} series
+         */
         self.setWeightForAll = function (series) {
             $.each(self.series(), function (idx, el) {
                 el.weight(series.weight());
             });
         }
         
+        /**
+         * Sets the rest time of the given series to the other series in this
+         * exercise.
+         * @param {Series} series
+         */
         self.setRestForAll = function (series) {
             $.each(self.series(), function (idx, el) {
                 el.rest_time(series.rest_time());

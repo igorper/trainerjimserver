@@ -153,11 +153,17 @@
                             span.the-name-value {@include light; font-size: 20px; text-shadow: 1px 1px white; margin-right: 5px;}
                         }
                         
-                        .exercise-top-btns {padding: 5px;}
-                        .exercise-top-btns .btn {@include no-rounding;margin-top: 2px;}
-                        .exercise-top-btns .btn i {margin-left: 5px;}
-                        .exercise-top-btns .delete-btn {}
-                        .exercise-top-btns .add-btn:hover {background-color: $hoverColor;}
+                        .exercise-top-btns {
+                            padding: 5px;
+                            .btn {@include no-rounding;margin-top: 2px;}
+                            .btn i {margin-left: 5px;}
+                            .delete-btn {}
+                            .add-btn:hover {background-color: $hoverColor;}
+                            
+                            .assign-to-all-series {
+                                margin-left: 5px;
+                            }
+                        }
                     }
                     
                     .description {
@@ -211,8 +217,6 @@
                         table.content .text > div {display: inline-block; }
                         td.plus-minus-btns{text-align:center;}
                         .plus-minus-btns{ @include plus-minus-btns-mixin; }
-                        
-                        
                     }
                     
                     .series-list {
@@ -232,23 +236,6 @@
                             
                             table.content td > div {padding: 5px;}
                             table.content .text > div {margin-left: 10px; display: inline-block;}
-                            
-                            .assign-to-all-series {
-                                margin-bottom: 3px;
-                                cursor: pointer;
-                                span.the-icon {margin: 3px 0px;}
-                                span.the-button {
-                                    @include flat-btn;
-                                    color: white;
-                                    padding: 1px 5px;
-                                    font-size: 0.9em;
-                                    text-shadow: none;
-                                    background-color: lighten($jimBlue, 10%);
-                                }
-                                    &:hover {
-                                        span.the-button {background-color: darken($jimBlue, 10%);}
-                                    }
-                            }
                             
                             .plus-minus-btns{
                                 @include plus-minus-btns-mixin;

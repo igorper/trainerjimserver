@@ -101,6 +101,10 @@
               </div>
             </div>
             <div class="exercise-top-btns span5">
+              <button class="btn assign-to-all-series" data-bind="click: applySettingsToAllSeries">
+                <span class="the-icon icon-list"></span>
+                <span class="the-button">Apply to all series</span>
+              </button>
               <button class="delete-btn btn" data-bind="click: $parent.removeExercise">Delete <i class="icon-remove-sign"></i></button>
               <button class="btn" data-toggle="collapse" data-bind="attr: { 'data-target': '#exercise-' + $index() }" style="display: none;">Help me <i class="icon-question-sign"></i></button>
             </div>
@@ -114,7 +118,6 @@
                     <tr>
                       <td class="text">
                         <div>reps: <input class="value" type="text" data-bind="value: repeat_count"/></div>
-                        <div class="assign-to-all-series" data-bind="click: $parent.setRepsForAll"><span class="the-icon icon-list"></span> <span class="the-button btn">Apply to all</span></div>
                       </td>
                       <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseReps"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseReps"><i class="icon-minus icon-white"></i></button></div></td>
                     </tr>
@@ -124,7 +127,6 @@
                     <tr>
                       <td class="text">
                         <div>weight: <input class="value" type="text" data-bind="value: weight"/> kg</div>
-                        <div class="assign-to-all-series" data-bind="click: $parent.setWeightForAll"><span class="the-icon icon-list"></span> <span class="the-button btn">Apply to all</span></div>
                       </td>
                       <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseWeight"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseWeight"><i class="icon-minus icon-white"></i></button></div></td>
                     </tr>
@@ -134,7 +136,6 @@
                     <tr>
                       <td class="text">
                         <div>rest: <input class="value" type="text" data-bind="value: rest_time"/> s</div>
-                        <div class="assign-to-all-series" data-bind="click: $parent.setRestForAll"><span class="the-icon icon-list"></span> <span class="the-button btn">Apply to all</span></div>
                       </td>
                       <td class="plus-minus-btns"><div><button class="plus-btn btn" data-bind="click: increaseRestTime"><i class="icon-plus icon-white"></i></button><button class="minus-btn btn" data-bind="click: decreaseRestTime"><i class="icon-minus icon-white"></i></button></div></td>
                     </tr>
