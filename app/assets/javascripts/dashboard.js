@@ -64,19 +64,46 @@ $(function () {
     });
   });
 
-  function getAttr(attr) {return function(obj) {return obj[attr];}}
+  function getAttr(attr) {return function(obj) {return obj[attr];};}
+
+  function getTooltipText(interval) {
+    var text = "Type: " + interval.type + "\n";
+    if (interval.percentage)
+      text += "Percentage: " + interval.percentage + "\n";
+    text += "Time: " + interval.seconds + "s";
+    return text;
+  }
+
+  function getSessionCaption(session) {
+    return session.totalPercentage + "%";
+  }
 
   var chart = d3.select("div[class='statistics']").append("svg")
     .attr("class", "chart")
     .attr("width", "100%")
     .attr("height", "100%");
-  chart.selectAll("g").data(data).enter().append("g")
-    .attr("transform", getAttr("transform"));
-  chart.selectAll("g").selectAll("rect")
-    .data(getAttr("intervals"))
-    .enter().append("rect")
+  var sessions = chart.selectAll("g").data(data).enter().append("g");
+  sessions.attr("transform", getAttr("transform"));
+  var intervals = sessions.selectAll("g").data(getAttr("intervals"))
+    .enter().append("g");
+  intervals.append("title").text(getTooltipText);
+  intervals.append("rect")
     .attr("y", getAttr("y"))
     .attr("width", sessionWidth)
     .attr("height", getAttr("height"))
     .attr("fill", getAttr("color"));
+  sessions.append("text")
+    .attr("x", sessionWidth / 2)
+    .attr("y", graphHeight - 5)
+    .attr("font-size", 20)
+    .attr("fill", "white")
+    .attr("style", "writing-mode: tb; text-anchor: end")
+    .text(getSessionCaption);
+  sessions.append("text")
+    .attr("x", sessionWidth / 2)
+    .attr("y", graphHeight + 100)
+    .attr("font-size", 20)
+    .attr("fill", "#555")
+    .attr("style", "writing-mode: tb; text-anchor: middle")
+    .text(getAttr("name"));
 });
