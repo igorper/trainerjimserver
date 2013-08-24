@@ -15,8 +15,15 @@
 template1:
   name: "Super training"
 
+template2:
+  name: "Another global training"
+
 matej1:
   name: "Matej's training"
+  trainee: matej
+
+matej2:
+  name: "Matej's other training"
   trainee: matej
 
 igor1:
