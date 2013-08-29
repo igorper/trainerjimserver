@@ -18,7 +18,7 @@ For a list of deployment targets see files in directory `config/deploy`.
 
 ## Running tests
 
-    rake test
+    rake spec test
 
 ## Deployment
 
