@@ -8,11 +8,19 @@
         <td class="main-part">
           <table class="buttons">
             <tr>
-              <td class="main-button <%= 'active' if controller? :dashboard  %>"><a href="<%= dashboard_url %>" class="dashboard"><div></div></a></td>
-              <td class="main-button <%= 'active' if controller? :users  %>"><a href="#" class="people"><div></div></a></td>
-              <td class="main-button <%= 'active' if controller? :training  %>"><a href="<%= workouts_url %>" class="workout"><div></div></a></td>
-              <td class="main-button <%= 'active' if controller? :calendar  %>"><a href="#" class="calendar"><div></div></a></td>
-              <td class="main-button last <%= 'active' if controller? :messages  %>"><a href="#" class="messages"><div></div></a></td>
+              <td class="main-button <%= 'active' if controller? :dashboard  %>"><a href="<%= dashboard_url %>" class="nav-button-icon dashboard"><div></div></a></td>
+              <td class="main-button">
+                <% if user_signed_in? && current_user.trainer? && content_for?(:trainees) %>
+                  <%= yield(:trainees) %>
+                <% else %>
+                  <a href="#" class="nav-button-icon people">
+                    <div></div>
+                  </a>
+                <% end %>
+              </td>
+              <td class="main-button <%= 'active' if controller? :training  %>"><a href="<%= workouts_url %>" class="nav-button-icon workout"><div></div></a></td>
+              <td class="main-button <%= 'active' if controller? :calendar  %>"><a href="#" class="nav-button-icon calendar"><div></div></a></td>
+              <td class="main-button last <%= 'active' if controller? :messages  %>"><a href="#" class="nav-button-icon messages"><div></div></a></td>
             </tr>
           </table>
         </td>
@@ -20,9 +28,9 @@
           <div>
             <% if user_signed_in? then %>
               <%= current_user.display_name %> |
-              <a href="<%= destroy_user_session_path %>">Log out</a>
+              <a class="white-link" href="<%= destroy_user_session_path %>">Log out</a>
             <% else %>
-              <a href="<%= new_user_session_path %>">Log in</a>
+              <a class="white-link" href="<%= new_user_session_path %>">Log in</a>
             <% end %>
           </div>
         </td>

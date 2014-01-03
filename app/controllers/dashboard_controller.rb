@@ -2,7 +2,7 @@ class DashboardController < ApplicationController
   before_filter :authenticate_user!
   
   def show
-    @trainees = User.find(:all)
+    @trainees = User.all
   end
     
   def measurements
@@ -17,7 +17,7 @@ class DashboardController < ApplicationController
   def exercisedates
     #Group by month first, then by date
     @measurements = Measurement
-    .select("start_time, id,end_time").find_all_by_trainee_id(params[:user])
+    .select("start_time,id,end_time").where(:id => params[:user])
     .group_by{|m| m.start_time.strftime("%B") }
     .map{|k,v| {:month => k, :days => v.group_by{|m| m.start_time.day }.sort_by{ |k,v| k}
         .map{ |k,v| {:day => k, :measurements => v}}}

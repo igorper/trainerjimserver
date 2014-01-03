@@ -22,6 +22,9 @@ gem 'therubyracer', platforms: :ruby
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
 
+# d3.js visualisation for our graphs and stuff:
+gem 'd3-rails'
+
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
 
@@ -48,7 +51,6 @@ gem 'bootstrap-sass'
 gem 'valid_email'
 
 # Authentication & Authorisation
-#gem 'devise'
 # We have to include the 'rails4' version for the time being.
 gem 'devise', "~> 3.0.0.rc"
 
@@ -63,6 +65,10 @@ end
 
 group :test do
   gem 'minitest'
+  gem 'rspec-rails'
+  gem 'capybara'
+  gem 'factory_girl_rails'
+  gem 'factory_girl'
 end
 
 gem 'colorbox-rails'

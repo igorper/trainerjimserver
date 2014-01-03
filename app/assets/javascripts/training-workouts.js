@@ -1,9 +1,3 @@
-//= require knockout
-//= require knockout.mapping
-//= require knockout-sortable
-//= require pager.min
-//= require sammy.min
-
 on_json_error_behaviour = alertOnJsonError;
 
 $(function() {
@@ -136,6 +130,50 @@ $(function() {
         self.setGuidanceType = function(guType) {
             self.guidance_type(guType);
         }
+        
+        /**
+         * Takes the settings of the currently active series and applies it to
+         * the others in this exercise.
+         */
+        self.applySettingsToAllSeries = function () {
+            var theSeries = self.series.selected();
+            self.setRepsForAll(theSeries);
+            self.setWeightForAll(theSeries);
+            self.setRestForAll(theSeries);
+        }
+        
+        /**
+         * Sets the reps count of the given series to the other series in this
+         * exercise.
+         * @param {Series} series
+         */
+        self.setRepsForAll = function (series) {
+            $.each(self.series(), function (idx, el) {
+                el.repeat_count(series.repeat_count());
+            });
+        }
+        
+        /**
+         * Sets the weight of the given series to the other series in this
+         * exercise.
+         * @param {Series} series
+         */
+        self.setWeightForAll = function (series) {
+            $.each(self.series(), function (idx, el) {
+                el.weight(series.weight());
+            });
+        }
+        
+        /**
+         * Sets the rest time of the given series to the other series in this
+         * exercise.
+         * @param {Series} series
+         */
+        self.setRestForAll = function (series) {
+            $.each(self.series(), function (idx, el) {
+                el.rest_time(series.rest_time());
+            });
+        }
 
         self.showAdvancedPopup = function(data, event) {
             if (self.guidance_type() === 'tempo') {
@@ -213,11 +251,15 @@ $(function() {
         }
 
         self.toggleDetails = function(data, event) {
-            var description = $(event.target).parents(".exercise").find(".description");
+            var theExercise = $(event.target).parents(".exercise");
+            var description = theExercise.find(".description");
+            var expandIcon = theExercise.find(".exercise-expand-icon");
             if (description.is(":hidden")) {
                 description.show("slow");
+                expandIcon.removeClass('icon-resize-full').addClass('icon-resize-small')
             } else {
                 description.slideUp();
+                expandIcon.addClass('icon-resize-full').removeClass('icon-resize-small')
             }
         }
     }
@@ -322,7 +364,8 @@ $(function() {
         self.my_templates = ko.observableArray(); // type: TrainingTemplate[]
         self.templates = ko.observableArray(); // type: TrainingTemplate[]
         self.selected_training = ko.observable(); // type: Regime
-        self.all_guidance_types = ['tempo', 'duration', 'manual']
+        self.all_guidance_types = ['tempo', 'duration', 'manual'];
+        self.traineesDropdown = ko.observable(new TraineeDropDown());
 
 
         // Operations

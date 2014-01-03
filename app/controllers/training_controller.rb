@@ -16,7 +16,7 @@ class TrainingController < ApplicationController
   #
   # @formats json
   def templates
-    @global_trainings = Training.find_all_by_trainee_id(nil)
+    @global_trainings = Training.where(:trainee_id => nil)
     respond_to do |f|
       f.json {render :json => @global_trainings.to_json(TrainingHelper.training_view)}
     end
@@ -81,14 +81,12 @@ class TrainingController < ApplicationController
   # @formats json
   def my_templates
     if user_signed_in?
-      @global_trainings = Training.find_all_by_trainee_id(current_user.id)
+      @global_trainings = Training.where(:trainee_id => current_user.id)
       respond_to do |f|
         f.json {render :json => @global_trainings.to_json(TrainingHelper.training_view)}
       end
     else
-      respond_to do |f|
-        f.json {ajax_error_i18n :user_not_logged_in}
-      end
+      render :nothing => true, :status => :forbidden
     end
   end
   
@@ -107,12 +105,14 @@ class TrainingController < ApplicationController
       if @training.nil?
         ajax_error_i18n :training_does_not_exist
       elsif !@training.trainee_id.nil? && @training.trainee_id != current_user.id
-        ajax_error_i18n :training_belongs_to_someone_else
+        render :nothing => true, :status => :forbidden
       else
         respond_to do |f|
           f.json {render :json => @training.to_json(TrainingHelper.training_full_view)}
         end
       end
+    else
+      render :nothing => true, :status => :forbidden
     end
   end
   
