@@ -1,5 +1,11 @@
 # Day-to-day development
 
+## Open in IntelliJ
+
+1. Select `Open project...`.
+
+2. Find the `trainerjimserver` folder and open it.
+
 ## Re-seed the database
 
 Locally:
@@ -28,7 +34,7 @@ Whenever you update your local repository, commit to your local master and run:
 
 This will update your local server, which you can access through `http://localhost/`.
 
-Before opening a _pull request_, push your changes to the `master` branch in your Bitbucket remote. Afterwards run:
+Before opening a _pull request_, push your changes to the `master` branch in your personal Bitbucket remote. Afterwards run:
 
     cap <your_name> deploy
 
@@ -40,31 +46,17 @@ When you deploy for the first time, do the following:
 
 For a list of deployment `<targets>` see `config/deploy` (every file in this directory is a target).
 
+To deploy to production, you must call:
+
+    cap <target> deploy
+
 # Installation instructions (new server)
 
 1.  Clone from git repo.
 
-2.  Install Ruby & Rails through RVM:
+2.  Install the stable Ruby (use [`rbenv`](https://github.com/sstephenson/rbenv)).
 
-        \curl -L https://get.rvm.io | sudo bash -s stable --auto-dotfiles
-
-3.  Install the stable Ruby:
-
-        rvm install 2.0.0
-
-    Select the default Ruby:
-
-        rvm use --default 2.0.0
-
-    You can list available Ruby versions with:
-
-        rvm list known
-
-
-Afterwards, for every update deployment you must call:
-
-    cap <target> deploy
-4.  PostgreSQL:
+3.  PostgreSQL:
 
         apt-get -y install postgresql
 
@@ -76,51 +68,11 @@ Afterwards, for every update deployment you must call:
             ENCRYPTED PASSWORD 'md53cc7cd3df4abff9c7954bcd4979cea67'
             SUPERUSER INHERIT CREATEDB NOCREATEROLE REPLICATION;
 
-5.  Passenger (instructions: [https://www.phusionpassenger.com/download]):
-
-        gem install passenger
-        cd ~
-        passenger-install-apache2-module
-
-    Passenger will instruct you about what you have to put into the Apache config file `/etc/apache2/apache2.conf`.
-
-6.  Enable the following Apache mods:
-
-        cd /etc/apache2/mods-enabled/
-        ln -s ../mods-available/headers.load .
-        ln -s ../mods-available/expires.load .
-
-7.  Tell Apache where our app will be deployed. Add this to `/etc/apache2/sites-enabled/000-default`:
-
-        <VirtualHost *:80>
-        #    ServerName dev.trainerjim.com
-        #    ServerAlias jim.fzv.uni-mb.si
-
-            DocumentRoot "/maco/rails/deployments/TrainerJim/localdev/current/public"
-            RackEnv "localdev"
-
-            <Directory "/maco/rails/deployments/TrainerJim/localdev/current/public">
-                AllowOverride all
-                Options -MultiViews
-                AuthType None
-                Order deny,allow
-                Allow from all
-            </Directory>
-
-            <LocationMatch "^/assets/.*$">
-                Header unset ETag
-                FileETag None
-                ExpiresActive On
-                ExpiresDefault "access plus 1 year"
-                Header append Cache-Control public
-            </LocationMatch>
-        </VirtualHost>
-
-8.  Set up the application:
+4.  Set up the application:
 
         rake db:create db:migrate db:bootstrap
 
-9.  Deploy the app whenever you want to update a site (see section `Deployment`).
+5.  Deploy the app whenever you want to update a site (see section `Deployment`).
 
 # Database
 
@@ -144,19 +96,13 @@ Use `sudo -u postgres <command>` to do this as root via ssh on production server
 
 # Updating
 
-## Updating RVM
+## Updating Ruby
 
     rvm get stable
 
 ## Updating Ruby
 
-    rvm upgrade ruby-1.9.3-p392 ruby-1.9.3-p429
-
-## Updating Passenger
-
-    gem install passenger && passenger-install-apache2-module
-
-Then update the `vim /etc/httpd/conf.d/passenger.conf` file (or another Apach HTTPD configuration file, where you store your Passenger config).
+    See [rbenv](https://github.com/sstephenson/rbenv)
 
 ## Updating dependencies (Gems)
 
@@ -176,7 +122,7 @@ Then update the `vim /etc/httpd/conf.d/passenger.conf` file (or another Apach HT
 
         Ctrl + a, d
 
-4.  To close the screen, run:
+4.  To reattach to a screen, run:
 
         screen -r
 
