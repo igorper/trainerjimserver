@@ -4,19 +4,17 @@
 # or operating system, you probably want to add a global ignore instead:
 #   git config --global core.excludesfile ~/.gitignore_global
 
-# Ignore bundler config
+# Ignore bundler config and locally bundled gems
 /.bundle
-
-# Ignore the default SQLite database.
-/db/*.sqlite3
+vendor/bundle
 
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
 
-# Ignore netbeans private project files
-/nbproject/private/
-
 # Ignore sublime project files
 *.sublime-project
 *.sublime-workspace
+
+# IntelliJ's stuff
+.idea/workspace.xml

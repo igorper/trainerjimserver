@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="dataSourceStorageLocal">
+    <data-source name="Rails trainerjimserver: development" uuid="9cd5705a-a570-4514-9268-84315cbe4f05">
+      <user-name>trainerjim</user-name>
+      <user-password>dfdedfd8dfcbdfc3dfc4dfcfdfd8dfc0dfc3dfc7</user-password>
+      <schema-pattern>trainerjim_development.pg_catalog trainerjim_development.public</schema-pattern>
+      <default-schemas>trainerjim_development.pg_catalog trainerjim_development.public</default-schemas>
+    </data-source>
+    <data-source name="Rails trainerjimserver: test" uuid="da11b8a5-eaca-4a4e-8361-5d118346b9f7">
+      <user-name>trainerjim</user-name>
+      <user-password>dfdedfd8dfcbdfc3dfc4dfcfdfd8dfc0dfc3dfc7</user-password>
+      <schema-pattern>trainerjim_test.pg_catalog trainerjim_test.public</schema-pattern>
+      <default-schemas>trainerjim_test.pg_catalog trainerjim_test.public</default-schemas>
+    </data-source>
+    <data-source name="Rails trainerjimserver: localdev" uuid="8a8021bf-d9ae-4b79-88ce-7ee7392a5f6a">
+      <first-sync>true</first-sync>
+      <user-name>trainerjim</user-name>
+      <user-password>dfdedfd8dfcbdfc3dfc4dfcfdfd8dfc0dfc3dfc7</user-password>
+    </data-source>
+    <data-source name="Rails trainerjimserver: staging" uuid="fe98e980-fa0e-4088-b0c2-ce0fcf87f3a2">
+      <first-sync>true</first-sync>
+      <user-name>trainerjim</user-name>
+      <user-password>dfdedfd8dfcbdfc3dfc4dfcfdfd8dfc0dfc3dfc7</user-password>
+    </data-source>
+    <data-source name="Rails trainerjimserver: production" uuid="765a6569-5e47-469c-9c2b-25faac34e8c9">
+      <first-sync>true</first-sync>
+      <user-name>trainerjim</user-name>
+      <user-password>dfdedfd8dfcbdfc3dfc4dfcfdfd8dfc0dfc3dfc7</user-password>
+    </data-source>
+    <data-source name="Rails trainerjimserver: rok" uuid="ba08a4c0-59ef-4cc7-b87e-60f89f7231ff">
+      <first-sync>true</first-sync>
+      <user-name>trainerjim</user-name>
+      <user-password>dfdedfd8dfcbdfc3dfc4dfcfdfd8dfc0dfc3dfc7</user-password>
+    </data-source>
+    <data-source name="Rails trainerjimserver: igor" uuid="d163682c-23be-4618-bcb5-6478ce8e0341">
+      <first-sync>true</first-sync>
+      <user-name>trainerjim</user-name>
+      <user-password>dfdedfd8dfcbdfc3dfc4dfcfdfd8dfc0dfc3dfc7</user-password>
+    </data-source>
+    <data-source name="Rails trainerjimserver: matej" uuid="9ac2615b-f57b-4954-b824-76a61f938609">
+      <first-sync>true</first-sync>
+      <user-name>trainerjim</user-name>
+      <user-password>dfdedfd8dfcbdfc3dfc4dfcfdfd8dfc0dfc3dfc7</user-password>
+    </data-source>
+  </component>
+</project>
