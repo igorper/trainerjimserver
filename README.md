@@ -40,10 +40,6 @@ When you deploy for the first time, do the following:
 
 For a list of deployment `<targets>` see `config/deploy` (every file in this directory is a target).
 
-Afterwards, for every update deployment you must call:
-
-    cap <target> deploy
-
 # Installation instructions (new server)
 
 1.  Clone from git repo.
@@ -64,6 +60,10 @@ Afterwards, for every update deployment you must call:
 
         rvm list known
 
+
+Afterwards, for every update deployment you must call:
+
+    cap <target> deploy
 4.  PostgreSQL:
 
         apt-get -y install postgresql
