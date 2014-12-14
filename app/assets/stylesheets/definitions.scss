@@ -1,11 +1,11 @@
-
 // Main colors
 $jimColor: #FBC912;
-$jimBlue :  #1f94d2;
+$jimBlue: #1f94d2;
 $bodyBackgroundColor: #eee;
-$lightBlue: #0083ce; // Used in our flat buttons (like the login/signup buttons)
-$hoverColor :  #1f94d2;
-$lightGray : #999999;
+$lightBlue: #0083ce;
+// Used in our flat buttons (like the login/signup buttons)
+$hoverColor: #1f94d2;
+$lightGray: #999999;
 $borderColor: #cecece;
 $darkGray: #424242;
 $errorShadowColor: lighten(#ff6d00, 7%);
@@ -18,275 +18,258 @@ $logo-margin-left: 20px;
 $pageWidth: 990px;
 $bodyFontSize: 13px;
 
-
-
 /** FONTS */
 @mixin sans {
-    font: {
-        family: 'Open Sans', sans-serif;
-        weight: 400;
-    }
+  font: {
+    family: 'Open Sans', sans-serif;
+    weight: 400;
+  }
 }
 
 @mixin serif {
-    font: {
-        family: 'Droid Serif', serif;
-        weight: 400;
-    }
+  font: {
+    family: 'Droid Serif', serif;
+    weight: 400;
+  }
 }
 
 @mixin sans-titles {
-    font: {
-        family: 'fineness';
-        weight: 400;
-    }
+  font: {
+    family: 'fineness';
+    weight: 400;
+  }
 }
 
 @mixin light {
-    font-weight: 300;
+  font-weight: 300;
 }
 
 @mixin bold {
-    font-weight: 700;
+  font-weight: 700;
 }
 
 @mixin italic {
-    font-style: italic;
+  font-style: italic;
 }
-
-
 
 /** TEXT */
 @mixin ellipsise {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 }
 
 @mixin center {
-    text-align: center;
+  text-align: center;
 }
 
 @mixin right {
-    text-align: right;
+  text-align: right;
 }
 
 @mixin left {
-    text-align: left;
+  text-align: left;
 }
-
-
 
 /** LAYOUT */
 @mixin middle {
-    vertical-align: middle;
+  vertical-align: middle;
 }
 
 @mixin inline {
-    display: inline-block;
+  display: inline-block;
 }
 
 @mixin inline-middle {
-    display: inline-block;
-    vertical-align: middle;
+  display: inline-block;
+  vertical-align: middle;
 }
 
 @mixin inline-top {
-    display: inline-block;
-    vertical-align: top;
+  display: inline-block;
+  vertical-align: top;
 }
 
 @mixin inline-bottom {
-    display: inline-block;
-    vertical-align: bottom;
+  display: inline-block;
+  vertical-align: bottom;
 }
 
 @mixin zero-spacing {
-    border-spacing: 0px;
-    padding: 0px;
-    margin: 0px;
+  border-spacing: 0px;
+  padding: 0px;
+  margin: 0px;
 }
 
 @mixin fill {
-    width: 100%;
-    height: 100%;
+  width: 100%;
+  height: 100%;
 }
 
 @mixin size($width, $height) {
-    width: $width;
-    height: $height;
+  width: $width;
+  height: $height;
 }
 
 @mixin square($dim) {
-    width: $dim;
-    height: $dim;
+  width: $dim;
+  height: $dim;
 }
-
-
 
 /** BORDERS */
 @mixin no-border {
-    border: none;
+  border: none;
 }
 
 @mixin rounded($radius: 5px) {
-    border-radius: $radius;
+  border-radius: $radius;
 }
 
 @mixin no-rounding {
-    -webkit-border-radius: 0;
-    -moz-border-radius: 0;
-    border-radius: 0;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
 }
-
-
 
 /** BUTTONS, INPUT FIELDS (FORM STUFF) */
 @mixin flat-btn {
-    filter:progid:DXImageTransform.Microsoft.Gradient(enabled='false');
-    @include no-shadow;
-    background-image: none;
-    border: 0;
+  filter: progid:DXImageTransform.Microsoft.Gradient(enabled='false');
+  @include no-shadow;
+  background-image: none;
+  border: 0;
 }
 
 @mixin flat-text-input {
-    @include no-shadow;
-    @include no-border;
-    @include no-rounding;
+  @include no-shadow;
+  @include no-border;
+  @include no-rounding;
 }
-
-
 
 /** IMAGES */
 @mixin central-image($url) {
-    background: {
-        image: image-url($url);
-        repeat: no-repeat;
-        position: center;
-    }
+  background: {
+    image: image-url($url);
+    repeat: no-repeat;
+    position: center;
+  }
 }
-
-
 
 /** SHADOWS */
 @mixin shadow($shadows...) {
-    -moz-box-shadow: $shadows;
-    -webkit-box-shadow: $shadows;
-    box-shadow: $shadows;
+  -moz-box-shadow: $shadows;
+  -webkit-box-shadow: $shadows;
+  box-shadow: $shadows;
 }
 
 @mixin no-shadow {
-    -webkit-box-shadow: none;
-    -moz-box-shadow: none;
-    box-shadow: none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
 }
 
 @mixin text-shadow($shadow: 0 1px 1px rgba(0, 0, 0, 0.5)) {
-    text-shadow: $shadow;
+  text-shadow: $shadow;
 }
-
-
 
 /** BRANDING */
 @mixin logo {
-    background: {
-        image: image-url("Logo.png");
-        repeat: no-repeat;
-        position: center;
-    }
+  background: {
+    image: image-url("Logo.png");
+    repeat: no-repeat;
+    position: center;
+  }
 }
 
 /** EMOTICONS */
-$happyOn:"emoticons/SmileyON_Happy.png";
+$happyOn: "emoticons/SmileyON_Happy.png";
 $happyOff: "emoticons/SmileyFaded_Happy.png";
 $sadOn: "emoticons/SmileyON_Sad.png";
 $sadOff: "emoticons/SmileyFaded_Sad.png";
-$boredOn:"emoticons/SmileyON_Bored.png";
+$boredOn: "emoticons/SmileyON_Bored.png";
 $boredOff: "emoticons/SmileyFaded_Bored.png";
 $sweatOn: "emoticons/SmileyON_Sweat.png";
 $sweatOff: "emoticons/SmileyFaded_Sweat.png";
 
-@mixin emoticon($url1,$url2){
-    background: image-url($url1);
+@mixin emoticon($url1, $url2) {
+  background: image-url($url1);
+  background-repeat: no-repeat;
+
+  &.on {
+    background: image-url($url2);
     background-repeat: no-repeat;
-    
-    &.on{
-        background: image-url($url2);
-        background-repeat: no-repeat;
-    }
+  }
 }
 
 ////////////////////////////////////////////////////////////////////
 ///Popovers
 
-.popover-box{
-    width: 300px;
-    height: 160px;
-    background: white;
-    border: 20px solid $jimBlue;
-    
-    > .input{
-        padding: 5px 5px 5px 5px;
-        width: 290px;
-        height: 120px;
+.popover-box {
+  width: 300px;
+  height: 160px;
+  background: white;
+  border: 20px solid $jimBlue;
+
+  > .input {
+    padding: 5px 5px 5px 5px;
+    width: 290px;
+    height: 120px;
+  }
+
+  ///Removes unwandted browser effects
+  > textarea {
+    resize: none;
+    *:focus {
+      outline: 0px none transparent;
     }
-    
-    
-    ///Removes unwandted browser effects
-    > textarea{
-        resize: none;
-        *:focus {outline:0px none transparent;}
-        outline:none;
-        border: none;
-        
-    }
-    
-    > input{
-        float: right;
-        margin-right: 10px;
-        margin-bottom: 10px;
-        background-color: $jimBlue;
-        color: white;
-        border: 0px;
-        
-    }
+    outline: none;
+    border: none;
+
+  }
+
+  > input {
+    float: right;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    background-color: $jimBlue;
+    color: white;
+    border: 0px;
+
+  }
 }
 
-.popover-delete-box{
-    width: 180px;
-    height: 80px;
-    background: white;
-    border: 20px solid $jimBlue;
+.popover-delete-box {
+  width: 180px;
+  height: 80px;
+  background: white;
+  border: 20px solid $jimBlue;
 
-    > .inputs{
-        margin-top: 10px;
-        > input{
-            background-color: $jimBlue;
-            color: white;
-            border: 0px;
-            margin-left: 5px;
+  > .inputs {
+    margin-top: 10px;
+    > input {
+      background-color: $jimBlue;
+      color: white;
+      border: 0px;
+      margin-left: 5px;
 
-        }
     }
+  }
 }
 
-
-@mixin vertical-align($height){
-    > .bubble{
-        display: table;
-        height: $height;
-        > p{                        
-            vertical-align: middle;
-            display: table-cell;
-        }
+@mixin vertical-align($height) {
+  > .bubble {
+    display: table;
+    height: $height;
+    > p {
+      vertical-align: middle;
+      display: table-cell;
     }
+  }
 }
 
 ///////////////////////////////////////////////////
 //// Fixing floating divs
 ///
 //
-
 
 .clearfix:after {
   content: ".";
@@ -296,42 +279,42 @@ $sweatOff: "emoticons/SmileyFaded_Sweat.png";
   visibility: hidden;
 }
 
-.clearfix {display: inline-block;}
+.clearfix {
+  display: inline-block;
+}
 
 /////////////////////////////////////////////////////////////////
-////////Media queries for difrent screen sizes
+////////Media queries for different screen sizes
 /////
 $large: 1170px;
 $medium: 940px;
 $small: 724px;
 
-@mixin fonts($l,$m,$s){
-    @media all and (min-width: $large) {
-        font-size: $l;
-    }
-    @media all and (min-width: $medium)  and (max-width: $large){
-        font-size: $m;
-    }
+@mixin fonts($l, $m, $s) {
+  @media all and (min-width: $large) {
+    font-size: $l;
+  }
+  @media all and (min-width: $medium) and (max-width: $large) {
+    font-size: $m;
+  }
 
-    @media all and (max-width: $medium){
-        font-size: $s;
-    }
+  @media all and (max-width: $medium) {
+    font-size: $s;
+  }
 }
 
-@mixin media($type){
-    @if $type == small {
-        @media all and (max-width: $medium){
-          @content;
-        }
+@mixin media($type) {
+  @if $type == small {
+    @media all and (max-width: $medium) {
+      @content;
     }
-    @else if $type == medium {
-        @media all and (min-width: $medium)  and (max-width: $large){
-          @content;
-        }
+  } @else if $type == medium {
+    @media all and (min-width: $medium) and (max-width: $large) {
+      @content;
     }
-    @else{
-        @media all and (min-width: $large) {
-            @content;
-        }
+  } @else {
+    @media all and (min-width: $large) {
+      @content;
     }
+  }
 }

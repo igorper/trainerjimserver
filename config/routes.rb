@@ -1,5 +1,10 @@
 Trainerjim::Application.routes.draw do
-  
+
+  ##############################################################################
+  ### Pages
+  ##
+  get 'welcome' => 'web/welcome#welcome', :as => :web_welcome
+
   ##############################################################################
   ### AUTHENTICATION
   ##
