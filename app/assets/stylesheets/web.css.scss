@@ -1,0 +1,144 @@
+////////////////////////////////////////////////////////////////////////////////
+/// FONTS & IMPORTS
+//
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:700,700italic,400italic,400,300italic,300|Droid+Serif:400,400italic,700,700italic&subset=latin,latin-ext);
+
+@font-face {
+    font-family: 'fineness';
+    src: url(font-path('Fineness Regular.ttf')) format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'fineness';
+    src: url(font-path('Fineness Bold.ttf')) format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'fineness';
+    src: url(font-path('Fineness Light.ttf')) format('truetype');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@import "bootstrap";
+@import "bootstrap-responsive";
+@import "definitions.scss";
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// FIXED COMMON LAYOUT
+//
+body.main-layout {
+    @include sans;
+    font-size: $bodyFontSize;
+    background-color: $bodyBackgroundColor;
+}
+
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// COMMON LAYOUT UTILS
+//
+.central-strip {
+    width: $pageWidth;
+    margin: 0 auto 0 auto;
+}
+
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// JS BEHAVIOUT CLASSES
+//
+/** Disables selection and makes the cursor a pointer. */
+.button-behaviour {
+    cursor: pointer;
+}
+
+
+////////////////////////////////////////////////////////////////////////////////
+/// COMMON UI CLASSES
+//
+.jim-box {
+    background-color: $boxBackgroundColor;
+    border: 1px solid $borderColor;
+}
+
+.underline {text-decoration: underline;}
+
+.clickable-link {
+    cursor: pointer;
+}
+
+.standard-button {
+    @include sans;
+    @include rounded;
+    @include bold;
+    @include text-shadow(0px 1px 1px white);
+    @include shadow(0 0 3px 3px transparentize($jimColor, 0.8));
+    border: 1px solid darken($jimColor, 20%);
+    display: inline-block;
+    padding: 3px 12px;
+    background-color: lighten($jimColor, 20%);
+    color: darken($jimColor, 35%);
+    cursor: pointer;
+}
+
+.standard-button:hover {
+    background-color: lighten($jimColor, 5%);
+    @include shadow(0 0 3px 3px lighten($jimColor, 25%));
+    border: 1px solid darken($jimColor, 30%);
+    color: darken($jimColor, 45%);
+}
+
+.standard-input-field {
+    @include sans;
+    @include rounded;
+    @include shadow(0 0 3px 3px transparentize($jimColor, 0.6));
+    border: 1px solid darken($jimColor, 15%);
+    font-size: 16px;
+    line-height: 22px;
+    padding: 5px 5px;
+}
+
+.standard-input-field:focus {
+    @include shadow(0 0 5px 5px transparentize($jimColor, 0.4));
+}  
+
+.standard-input-field.error {
+    @include shadow(0 0 3px 3px $errorShadowColor);
+    border: 1px solid darken($errorShadowColor, 30%);
+}
+
+.standard-input-field.error:focus {
+    border: 1px solid darken($errorShadowColor, 30%);
+    @include shadow(0 0 5px 5px lighten($errorShadowColor, 15%));
+}
+
+
+
+/** TITLES */
+h1.jim-title {
+    font: {size: 2.8em; weight: 400;}
+}
+h1.jim-sub-title {
+    font: {size: 2.3em; weight: 200;}
+}
+h2.jim-title {
+    font: {size: 2.4em; weight: 400;}
+}
+h2.jim-sub-title {
+    font: {size: 2.0em; weight: 200;}
+}
+h3.jim-title {
+    font: {size: 1.9em; weight: 400;}
+}
+h3.jim-sub-title {
+    font: {size: 1.6em; weight: 200;}
+}
