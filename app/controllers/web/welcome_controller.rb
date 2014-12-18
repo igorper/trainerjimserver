@@ -1,4 +1,4 @@
-class Web::WelcomeController < ApplicationController
+class Web::WelcomeController < ActionController::Base
 
   def welcome
     render layout: false
