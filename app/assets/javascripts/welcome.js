@@ -1,4 +1,4 @@
-//= require api.js.erb
+//= require apiLinks.js.erb
 //= require angular.min.js
 //= require userManagement
 

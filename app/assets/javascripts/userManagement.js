@@ -1,5 +1,5 @@
 //= require angular.min.js
-//= require api.js.erb
+//= require apiLinks.js.erb
 //= require pageLinks.js.erb
 
 angular.module('userManagement', [])
@@ -21,7 +21,7 @@ angular.module('userManagement', [])
 
         $scope.loginSubmit = function () {
           $http
-            .post(api_v1_login_url, {email: $scope.loginEmail, password: $scope.loginPassword})
+            .post(api_login_url, {email: $scope.loginEmail, password: $scope.loginPassword, rememberMe: $scope.loginRememberMe})
             .success(function (data, status, headers) {
               $window.location.href = workouts_url;
             })
