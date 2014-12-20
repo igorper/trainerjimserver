@@ -4,55 +4,64 @@
   <div class="close-icon button-behaviour"></div>
 
   <div class="the-form">
+
     <div class="login-part" ng-show="isLoginActive">
-      <div class="title">Welcome back, champ.</div>
-      <div class="sub-title">Back for more strength?</div>
+      <form>
+        <div class="title">Welcome back, champ.</div>
+        <div class="sub-title">Back for more strength?</div>
 
-      <div class="email-fields">
-        <input type="text" name="loginEmail" autofocus="true" class="text-input" placeholder="your@email.com" ng-model="loginEmail" />
-      </div>
+        <div class="email-fields">
+          <input type="text" name="loginEmail" autofocus="true" class="text-input" placeholder="your@email.com" ng-model="loginEmail"/>
+        </div>
 
-      <div class="pwd-fields">
-        <input type="password" name="loginPassword" class="text-input" placeholder="your password" ng-model="loginPassword" />
-      </div>
+        <div class="pwd-fields">
+          <input type="password" name="loginPassword" class="text-input" placeholder="your password" ng-model="loginPassword"/>
+        </div>
 
-      <div class="remember-me-fields">
-        <input id="rememberMe" type="checkbox" name="rememberMe" ng-model="loginRememberMe" /> <label for="rememberMe">Remember me...</label>
-      </div>
+        <div class="remember-me-fields">
+          <input id="rememberMe" type="checkbox" name="rememberMe" ng-model="loginRememberMe"/>
+          <label for="rememberMe">
+            Remember me...
+          </label>
+        </div>
 
-      <div class="submit-btn">
-        <input type="submit" value="sign in" class="sign-in-btn" ng-click="loginSubmit()" />
-      </div>
+        <div class="submit-btn">
+          <input type="submit" value="log in" class="sign-in-btn" ng-click="loginSubmit()"/>
+        </div>
 
-      <div class="login-link">
-        Not yet a member? <a href="#" ng-click="toggleLoginActive($event)">Click here to register.</a>
-      </div>
+        <div class="login-link">
+          Not yet a member? <a href="#" ng-click="toggleLoginActive($event)">Click here to register.</a>
+        </div>
+      </form>
     </div>
 
     <div class="registration-part" ng-show="!isLoginActive">
-      <div class="title">Welcome champ.</div>
-      <div class="sub-title">Nice to have you on board.</div>
+      <form>
+        <div class="title">Welcome champ.</div>
+        <div class="sub-title">Nice to have you on board.</div>
 
 
-      <div class="email-fields">
-        <input type="text" name="loginEmail" autofocus="true" class="text-input" placeholder="your@email.com" />
-      </div>
+        <div class="email-fields">
+          <input type="text" name="signUpEmail" autofocus="true" class="text-input" placeholder="your@email.com" ng-model="signUpEmail"/>
+        </div>
 
-      <div class="pwd-fields">
-        <input type="password" name="loginPassword" class="text-input" placeholder="your password" />
-      </div>
+        <div class="pwd-fields">
+          <input type="password" name="signUpPassword" class="text-input" placeholder="your password" ng-model="signUpPassword"/>
+        </div>
 
-      <div class="pwd-fields confirmation">
-        <input type="password" name="loginPasswordConfirmation" class="text-input" placeholder="confirm your password" />
-      </div>
+        <div class="pwd-fields confirmation">
+          <input type="password" name="signUpPasswordConfirmation" class="text-input" placeholder="confirm your password" ng-model="signUpPasswordConfirmation"/>
+        </div>
 
-      <div class="submit-btn">
-        <input type="submit" value="sign in" class="sign-in-btn" />
-      </div>
+        <div class="submit-btn">
+          <input type="submit" value="sign up" class="sign-in-btn" ng-click="signUpSubmit()"/>
+        </div>
 
-      <div class="login-link">
-        Already a member? <a href="#" ng-click="toggleLoginActive($event)">Click here to log in.</a>
-      </div>
+        <div class="login-link">
+          Already a member?
+          <a href="#" ng-click="toggleLoginActive($event)">Click here to log in.</a>
+        </div>
+      </form>
     </div>
   </div>
 

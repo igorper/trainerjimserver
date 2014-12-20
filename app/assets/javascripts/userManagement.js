@@ -21,12 +21,31 @@ angular.module('userManagement', [])
 
         $scope.loginSubmit = function () {
           $http
-            .post(api_login_url, {email: $scope.loginEmail, password: $scope.loginPassword, rememberMe: $scope.loginRememberMe})
+            .post(api_login_url, {
+              email: $scope.loginEmail,
+              password: $scope.loginPassword,
+              rememberMe: $scope.loginRememberMe
+            })
             .success(function (data, status, headers) {
               $window.location.href = workouts_url;
             })
             .error(function (data, status, headers) {
               $window.alert("Could not log in. Check your email and password.")
+            });
+        };
+
+        $scope.signUpSubmit = function () {
+          $http
+            .post(api_sign_up_url, {
+              email: $scope.signUpEmail,
+              password: $scope.signUpPassword,
+              passwordConfirmation: $scope.signUpPasswordConfirmation
+            })
+            .success(function (data, status, headers) {
+              $window.location.href = workouts_url;
+            })
+            .error(function (data, status, headers) {
+              $window.alert("Could not register. Please check your registration details.")
             });
         };
       },

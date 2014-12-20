@@ -11,4 +11,8 @@ class Api::V1::LoginController < ActionController::Base
     end
   end
 
+  def sign_up
+    render :json => '{}', :status => 404
+  end
+
 end
