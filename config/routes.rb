@@ -6,6 +6,14 @@ Trainerjim::Application.routes.draw do
   get 'welcome' => 'web/welcome#welcome', :as => :web_welcome
 
   ##############################################################################
+  ### API v1
+  ##
+  post 'api/v1/login' => 'api/v1/login#login', :as => :api_v1_login
+  post 'api/v1/signup' => 'api/v1/login#sign_up', :as => :api_v1_sign_up
+
+  # All the stuff below here is deprecated
+
+  ##############################################################################
   ### AUTHENTICATION
   ##
   devise_for :users, :path => '', :path_names => {

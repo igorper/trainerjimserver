@@ -1,0 +1,7 @@
+<%# environment.context_class.instance_eval { include ApplicationHelper } %>
+<%# environment.context_class.instance_eval { include Rails.application.routes.url_helpers } %>
+<% urls = Rails.application.routes.url_helpers %>
+
+// Web pages URLs
+var welcome_url = '<%= urls.web_welcome_url :only_path => true %>';
+var workouts_url = '<%= urls.workouts_url :only_path => true %>';
