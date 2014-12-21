@@ -24,15 +24,17 @@
   <div class="central-strip">
     <div class="for-whom">
       <div class="buttons">
-        <div class="btn-for-whom trainees on button-behaviour" data-slide-number="1"></div>
-        <div class="btn-for-whom trainers off button-behaviour" data-slide-number="0"></div>
+        <div class="btn-for-whom trainees on button-behaviour" ng-click="onTraineesButtonClicked()"></div>
+        <div class="btn-for-whom trainers off button-behaviour" ng-click="onTrainersButtonClicked()"></div>
       </div>
-      <div id="for-whom-features" class="carousel slide">
-        <div class="carousel-inner">
-          <div class="features-details trainers item"></div>
-          <div class="features-details trainees active item"></div>
-        </div>
-      </div>
+      <carousel interval="5000">
+        <slide active="isTrainersSlideActive">
+          <div class="features-details trainers"></div>
+        </slide>
+        <slide active="isTraineesSlideActive">
+          <div class="features-details trainees"></div>
+        </slide>
+      </carousel>
     </div>
 
     <div class="explanation"></div>
