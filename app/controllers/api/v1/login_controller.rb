@@ -12,7 +12,8 @@ class Api::V1::LoginController < ActionController::Base
   end
 
   def sign_up
-    render :json => '{}', :status => 404
+    User.create(:email => params[:email], :password => params[:password], :full_name => params[:email], :roles => [])
+    render :json => '{}'
   end
 
 end
