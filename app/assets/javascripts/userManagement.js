@@ -42,10 +42,11 @@ angular.module('userManagement', [])
               passwordConfirmation: $scope.signUpPasswordConfirmation
             })
             .success(function (data, status, headers) {
+              $window.alert("A confirmation email has been sent to your email. You will be able to log in through that email.");
               $window.location.href = workouts_url;
             })
             .error(function (data, status, headers) {
-              $window.alert("Could not register. Please check your registration details.")
+              $window.alert("Could not register. Please check your registration details.");
             });
         };
       },
