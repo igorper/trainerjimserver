@@ -10,6 +10,7 @@ Trainerjim::Application.routes.draw do
   ##
   post 'api/v1/login' => 'api/v1/login#login', :as => :api_v1_login
   post 'api/v1/signup' => 'api/v1/login#sign_up', :as => :api_v1_sign_up
+  get 'api/v1/trainings' => 'api/v1/training#trainings', :as => :api_v1_trainings
 
   # All the stuff below here is deprecated
 
