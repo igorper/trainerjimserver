@@ -3,7 +3,7 @@ Trainerjim::Application.routes.draw do
   ##############################################################################
   ### Pages
   ##
-  get 'welcome' => 'web/welcome#welcome', :as => :web_welcome
+  root :to => 'web/welcome#welcome', :as => :welcome
 
   ##############################################################################
   ### API v1
@@ -26,8 +26,6 @@ Trainerjim::Application.routes.draw do
   ##############################################################################
   ### PUBLIC PAGES
   ##
-  # Home
-  root :to => 'home#welcome', :as => :welcome
   # Dashboard
   get 'dashboard' => 'dashboard#show', :as => :dashboard
   # Training

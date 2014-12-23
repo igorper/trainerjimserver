@@ -1936,6 +1936,9 @@
       <column name="current_sign_in_ip" sqlType="varchar" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="last_sign_in_ip" sqlType="varchar" precision="255" scale="0" nullable="true" jdbcType="12"/>
       <column name="trainer_id" sqlType="int4" precision="10" scale="0" nullable="true" jdbcType="4"/>
+      <column name="confirmation_token" sqlType="varchar" precision="255" scale="0" nullable="true" jdbcType="12"/>
+      <column name="confirmed_at" sqlType="timestamp" precision="29" scale="6" nullable="true" jdbcType="93"/>
+      <column name="confirmation_sent_at" sqlType="timestamp" precision="29" scale="6" nullable="true" jdbcType="93"/>
       <primary-key name="users_pkey" columns="id"/>
       <foreign-key name="users_trainer_id_fk" columns="trainer_id" ref-table="users" ref-schema="public" ref-catalog="" ref-columns="id" update-rule="0" delete-rule="2" deferrability="2"/>
       <exported-key name="conversations_sender_id_fk" table="conversations" schema="public" catalog="trainerjim_development" columns="sender_id"/>
@@ -1944,6 +1947,7 @@
       <exported-key name="roles_users_user_id_fk" table="roles_users" schema="public" catalog="trainerjim_development" columns="user_id"/>
       <exported-key name="trainings_trainee_id_fk" table="trainings" schema="public" catalog="trainerjim_development" columns="trainee_id"/>
       <exported-key name="users_trainer_id_fk" table="users" schema="public" catalog="trainerjim_development" columns="trainer_id"/>
+      <index name="index_users_on_confirmation_token" unique="true" columns="confirmation_token"/>
       <index name="index_users_on_email" unique="true" columns="email"/>
       <index name="index_users_on_reset_password_token" unique="true" columns="reset_password_token"/>
       <index name="index_users_on_trainer_id" unique="false" columns="trainer_id"/>
