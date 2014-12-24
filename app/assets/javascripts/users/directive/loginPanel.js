@@ -1,8 +1,8 @@
-//= require angular.min.js
-//= require apiLinks.js.erb
-//= require pageLinks.js.erb
+//= require angular.min
+//= require apiLinks
+//= require pageLinks
 
-angular.module('userManagement', [])
+angular.module('users', [])
   .directive('loginPanel', function () {
     return {
       restrict: 'E',
