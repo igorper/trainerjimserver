@@ -1,4 +1,4 @@
-//= require angular.min
+//= require angular/angular
 //= require apiLinks
 //= require pageLinks
 

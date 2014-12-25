@@ -24,9 +24,10 @@
       <user-password>dfdedfd8dfcbdfc3dfc4dfcfdfd8dfc0dfc3dfc7</user-password>
     </data-source>
     <data-source name="Rails trainerjimserver: production" uuid="765a6569-5e47-469c-9c2b-25faac34e8c9">
-      <first-sync>true</first-sync>
       <user-name>trainerjim</user-name>
       <user-password>dfdedfd8dfcbdfc3dfc4dfcfdfd8dfc0dfc3dfc7</user-password>
+      <schema-pattern>trainerjim_production.pg_catalog trainerjim_production.public</schema-pattern>
+      <default-schemas>trainerjim_production.pg_catalog trainerjim_production.public</default-schemas>
     </data-source>
     <data-source name="Rails trainerjimserver: rok" uuid="ba08a4c0-59ef-4cc7-b87e-60f89f7231ff">
       <first-sync>true</first-sync>
