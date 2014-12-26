@@ -5,15 +5,15 @@ class Api::V1::LoginController < ActionController::Base
     if user_to_log_in && user_to_log_in.valid_password?(params[:password])
       user_to_log_in.remember_me!(extend_period=true) if params[:rememberMe]
       sign_in(:user, user_to_log_in)
-      render :json => '{}'
+      render json: {}
     else
-      render :json => '{}', :status => 404
+      render json: {}, status: 404
     end
   end
 
   def sign_up
-    User.create(:email => params[:email], :password => params[:password], :full_name => params[:email], :roles => [])
-    render :json => '{}'
+    User.create(email: params[:email], password: params[:password], full_name: params[:email], roles: [])
+    render json: {}
   end
 
 end

@@ -6,6 +6,19 @@
 
 2. Find the `trainerjimserver` folder and open it.
 
+## Add javascripts
+
+1. Add a line like this to `Bowerfile`:
+
+    ```ruby
+    asset 'angular'
+    ```
+2. Run the following:
+
+    ```bash
+    bundle exec rake bower:install
+    ```
+
 ## Re-seed the database
 
 Locally:
