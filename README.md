@@ -10,14 +10,13 @@
 
 1. Add a line like this to `Bowerfile`:
 
-    ```ruby
-    asset 'angular'
-    ```
+        #!ruby
+        asset 'angular'
+
 2. Run the following:
 
-    ```bash
-    bundle exec rake bower:install
-    ```
+        #!bash
+        bundle exec rake bower:install
 
 ## Re-seed the database
 
