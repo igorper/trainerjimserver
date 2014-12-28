@@ -1,9 +1,5 @@
 @import "web";
 
-
-
-
-
 ////////////////////////////////////////////////////////////////////////////////
 /// WELCOME PAGE
 //
@@ -48,10 +44,10 @@ body.home.welcome {
         background-color: $headerColour;
 
         div.logo-button-container {
-          width:$centralLogoWidth;
-          height:0px;
-          margin:auto;
-          position:relative;
+          width: $centralLogoWidth;
+          height: 0px;
+          margin: auto;
+          position: relative;
 
           div.comming-soon {
             position: absolute;
@@ -62,8 +58,8 @@ body.home.welcome {
             @include central-image('welcome/commingSoon.png');
           }
 
-          .logo-button{
-            position:absolute;
+          .logo-button {
+            position: absolute;
             height: $centralLogoHeight;
             width: $centralLogoWidth;
             top: $welcomeHeaderHeight - $centralLogoHeight;
@@ -73,8 +69,8 @@ body.home.welcome {
             @include central-image('welcome/JimLogo.png');
           }
 
-          .logo-button:hover{
-            position:absolute;
+          .logo-button:hover {
+            position: absolute;
             height: $centralLogoHeight;
             width: $centralLogoWidth;
             top: $welcomeHeaderHeight - $centralLogoHeight;
@@ -133,6 +129,10 @@ body.home.welcome {
               }
             }
 
+            div.sub-title {
+              margin-bottom: 10px;
+            }
+
             form {
               margin: 15px 0px 0px 0px;
             }
@@ -154,7 +154,7 @@ body.home.welcome {
             div.remember-me-fields {
               margin-bottom: 10px;
 
-              input#user_remember_me {
+              input#rememberMe {
                 display: inline-block;
                 vertical-align: middle;
                 margin: 0px;
@@ -167,12 +167,12 @@ body.home.welcome {
               }
             }
 
-            div.sign-up-link,div.login-link {
+            div.sign-up-link, div.login-link {
               margin-top: 15px;
-              color:white;
+              color: white;
 
               a {
-                color:white;
+                color: white;
                 text-decoration: underline;
                 &:hover {
                   text-decoration: none;
@@ -180,24 +180,6 @@ body.home.welcome {
               }
             }
           }
-        }
-      }
-
-      div.subscription-top {
-        padding-bottom: 20px;
-        margin-top: -60px;
-        padding-top: 60px;
-
-        $earlyAccessCircleDim: 148px;
-        background: {
-          image: image-url('welcome/EarlyAccessCircle.png');
-          repeat: no-repeat;
-          position: (($pageWidth + $subscriptionFormWidth) / 2 - 7px) (0px);
-        }
-
-        div.subscription {
-          width: $subscriptionFormWidth;
-          margin: 0px auto;
         }
       }
     }
@@ -209,35 +191,32 @@ body.home.welcome {
         margin-top: 20px;
         height: $featuresBtnHeight + $featureImageHeight;
 
-        div.buttons {
+        ol.carousel-indicators {
           height: $featuresBtnHeight;
+          position: static;
 
-          > div {
+          > li {
             height: $featuresBtnHeight;
             width: $welcomeImagesWidth / 2;
             position: absolute;
+            margin: 0;
+            @include no-rounding;
 
-            &.btn-for-whom {
-              &.trainees {
-                margin-left: $welcomeImagesWidth / 2;
-                &.on {
-                  background-image: image-url("welcome/Welcome_TraineesButtonON.png");
-                }
-
-                &.off {
-                  background-image: image-url("welcome/Welcome_TraineesButton_OFF.png");
-                }
+            &:nth-child(2) {
+              margin-left: $welcomeImagesWidth / 2;
+              &.active {
+                background-image: image-url("welcome/Welcome_TraineesButtonON.png");
               }
 
-              &.trainers {
-                &.on {
-                  background-image: image-url("welcome/Welcome_TrainersButton_ON.png");
-                }
+              background-image: image-url("welcome/Welcome_TraineesButton_OFF.png");
+            }
 
-                &.off {
-                  background-image: image-url("welcome/Welcome_TrainersButton_Off.png");
-                }
+            &:nth-child(1) {
+              &.active {
+                background-image: image-url("welcome/Welcome_TrainersButton_ON.png");
               }
+
+              background-image: image-url("welcome/Welcome_TrainersButton_Off.png");
             }
           }
         }
@@ -260,6 +239,10 @@ body.home.welcome {
               image: image-url('welcome/Welcome_FeaturesTrainers.png');
             }
           }
+        }
+
+        .carousel-control {
+          display: none;
         }
       }
 
@@ -339,76 +322,6 @@ body.home.welcome {
         margin-left: $fistBumpWidth + $fistBumpMarginLeft + 650px;
         position: absolute;
         @include central-image('welcome/Welcome_PocketFooter.png');
-      }
-
-      div.subscription-bottom {
-        margin-top: 50px;
-        margin-bottom: 70px;
-
-        div.subscription-alert {
-          width: $fistBumpWidth + $fistBumpMarginLeft + $subscriptionFormWidth;
-        }
-
-        div.subscription {
-          position: absolute;
-          margin-left: $fistBumpWidth + $fistBumpMarginLeft;
-
-          div.fist-bump {
-            @include size($fistBumpWidth, $fistBumpheight);
-            margin-top: 23px;
-            margin-left: -$fistBumpWidth;
-            position: absolute;
-            @include central-image('welcome/Welcome_FistBumbFooter.png');
-          }
-        }
-      }
-    }
-
-
-    div.subscription {
-      width: $subscriptionFormWidth;
-
-      div.sub-notice {
-        width: 100%;
-        text-align: center;
-        @include bold;
-        font-size: 0.9em;
-        color: #666;
-      }
-
-      div.the-form {
-        background-color: white;
-        padding: 4px;
-        margin-top: 5px;
-        border: 1px solid #e0e0e0;
-
-
-        input.subscription-email {
-          border: none;
-          box-shadow: none;
-          margin: 0px;
-          width: 270px;
-        }
-
-        input.subscribe-btn {
-          @include flat-btn;
-          /*@include bold;*/
-          float: right;
-          font-size: 0.95em;
-          line-height: 28px;
-          height: 28px;
-          color: white;
-          padding: 0px 10px;
-          background-color: $welcomePageBtnColor;
-        }
-
-        input.subscribe-btn:hover {
-          background-color: lighten($welcomePageBtnColor, 15%);
-        }
-
-        input.subscribe-btn:active {
-          background-color: darken($welcomePageBtnColor, 15%);
-        }
       }
     }
   }

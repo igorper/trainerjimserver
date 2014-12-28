@@ -1,14 +1,12 @@
 <!DOCTYPE html>
-<html ng-app="welcomeApp">
+<html ng-app="welcome">
 <head lang="en">
   <title><%= Rails.application.config.page_name %>/Welcome</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag "welcome", :media => "all" %>
-  <%= javascript_include_tag "welcome" %>
-  <%= csrf_meta_tags %>
+  <%= javascript_include_tag "welcome/welcome" %>
 </head>
-<body class="main-layout home welcome" ng-controller="WelcomeAppCtrl">
-<%= csrf_meta_tag %>
+<body class="main-layout home welcome">
 
 <div class="welcome-page">
 
@@ -17,54 +15,26 @@
 
       <div class="logo-button-container">
         <div class="comming-soon"></div>
-        <%= link_to "", "http://player.vimeo.com/video/63753343", :data => { :colorbox => true, :colorbox_height => '360px', :colorbox_width => '640px', :colorbox_iframe => true }, :class => 'logo-button'  %>
+        <%= link_to "", "http://player.vimeo.com/video/63753343", :data => {:colorbox => true, :colorbox_height => '360px', :colorbox_width => '640px', :colorbox_iframe => true}, :class => 'logo-button' %>
       </div>
-      <% if !user_signed_in? %>
-        <div class="sign-in-tab button-behaviour">sign in</div>
-
-        <div class="sign-in-panel auth-panel" style="display: none;">
-          <div class="close-icon button-behaviour"></div>
-
-          <div class="the-form">
-            <div class="login-part">
-              <div class="title">Welcome back, champ.</div>
-              <div class="sub-title">Back for more strength?</div>
-            </div>
-
-              <div class="registration-part" style="display: none;">
-                <div class="title">Welcome champ.</div>
-                <div class="sub-title">Nice to have you on board.</div>
-              </div>
-
-          </div>
-
-        </div>
-      <% end %>
+      <login-panel></login-panel>
     </div>
-
-    <div class="subscription-top central-strip">
-      <div class="subscription">
-        <div class="the-form">
-          <input class="subscription-email" type="text" placeholder="eg. train@trainerjim.com" value=""/>
-          <input class="subscribe-btn" type="submit" value="subscribe" />
-        </div>
-      </div>
-    </div>
-
   </div>
 
   <div class="central-strip">
     <div class="for-whom">
       <div class="buttons">
-        <div class="btn-for-whom trainees on button-behaviour" data-slide-number="1"></div>
-        <div class="btn-for-whom trainers off button-behaviour" data-slide-number="0"></div>
+        <div class="btn-for-whom trainees on button-behaviour" ng-click="onTraineesButtonClicked()"></div>
+        <div class="btn-for-whom trainers off button-behaviour" ng-click="onTrainersButtonClicked()"></div>
       </div>
-      <div id="for-whom-features" class="carousel slide">
-        <div class="carousel-inner">
-          <div class="features-details trainers item"></div>
-          <div class="features-details trainees active item"></div>
-        </div>
-      </div>
+      <carousel interval="5000">
+        <slide active="isTrainersSlideActive">
+          <div class="features-details trainers"></div>
+        </slide>
+        <slide active="isTraineesSlideActive">
+          <div class="features-details trainees"></div>
+        </slide>
+      </carousel>
     </div>
 
     <div class="explanation"></div>
@@ -75,37 +45,18 @@
     </div>
 
     <div class="social">
-      <a href="<%= Rails.application.config.jim_twitter_url %>"><div class="twitter"></div></a>
-      <a href="<%= Rails.application.config.jim_tumblr_url %>"><div class="tumblr"></div></a>
+      <a href="<%= Rails.application.config.jim_twitter_url %>">
+        <div class="twitter"></div>
+      </a>
+      <a href="<%= Rails.application.config.jim_tumblr_url %>">
+        <div class="tumblr"></div>
+      </a>
     </div>
 
     <div class="pocket-trousers"></div>
 
-    <div class="subscription-bottom">
-      <div class="subscription">
-        <div class="fist-bump"></div>
-        <div class="sub-notice">be the first to know when JIM launches</div>
-        <div class="the-form">
-          <input class="subscription-email" type="text" placeholder="eg. train@trainerjim.com" value=""/>
-          <input class="subscribe-btn" type="submit" value="subscribe" />
-        </div>
-      </div>
-    </div>
-
   </div>
 
-</div>
-
-<div class="subscription-error-alert subscription-alert alert alert-block alert-error fade in hide">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <h4 class="alert-heading">Darn it! We couldn't subscribe you.</h4>
-  <p class="alert-content">Please check your email and try again.</p>
-</div>
-
-<div class="subscription-success-alert subscription-alert alert alert-block alert-success fade in hide">
-  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  <h4 class="alert-heading">Great stuff, champ!</h4>
-  <p class="alert-content">When Jim starts pumping, we'll send you an email and you'll be the first to know.</p>
 </div>
 
 </body>

@@ -3,7 +3,16 @@ Trainerjim::Application.routes.draw do
   ##############################################################################
   ### Pages
   ##
-  get 'welcome' => 'web/welcome#welcome', :as => :web_welcome
+  root :to => 'web/welcome#welcome', :as => :welcome
+
+  ##############################################################################
+  ### API v1
+  ##
+  post 'api/v1/login' => 'api/v1/login#login', :as => :api_v1_login
+  post 'api/v1/signup' => 'api/v1/login#sign_up', :as => :api_v1_sign_up
+  get 'api/v1/trainings' => 'api/v1/training#trainings', :as => :api_v1_trainings
+
+  # All the stuff below here is deprecated
 
   ##############################################################################
   ### AUTHENTICATION
@@ -18,8 +27,6 @@ Trainerjim::Application.routes.draw do
   ##############################################################################
   ### PUBLIC PAGES
   ##
-  # Home
-  root :to => 'home#welcome', :as => :welcome
   # Dashboard
   get 'dashboard' => 'dashboard#show', :as => :dashboard
   # Training

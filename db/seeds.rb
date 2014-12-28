@@ -280,3 +280,5 @@ training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
 
 ######################## END AUTOMATED TESTING SEEDS
+
+User.update_all(:confirmed_at => Time.now)

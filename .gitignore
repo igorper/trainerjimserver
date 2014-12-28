@@ -8,6 +8,9 @@
 /.bundle
 vendor/bundle
 
+# Ignore compiled assets
+public/assets
+
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
@@ -17,4 +20,5 @@ vendor/bundle
 *.sublime-workspace
 
 # IntelliJ's stuff
-.idea/workspace.xml
+.idea/
+*.iml
