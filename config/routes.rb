@@ -1,9 +1,6 @@
 Trainerjim::Application.routes.draw do
 
-  ##############################################################################
-  ### Pages
-  ##
-  root :to => 'web/welcome#welcome', :as => :welcome
+  root :to => 'index#index', :as => :welcome
 
   ##############################################################################
   ### API v1

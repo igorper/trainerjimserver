@@ -7,7 +7,7 @@ angular.module('users', [])
     return {
       restrict: 'E',
       scope: {},
-      controller: function ($scope, $http, $window) {
+      controller: ['$scope', '$http', '$window', function ($scope, $http, $window) {
         $scope.isPanelVisible = false;
         $scope.isLoginActive = true;
 
@@ -49,7 +49,7 @@ angular.module('users', [])
               $window.alert("Could not register. Please check your registration details.");
             });
         };
-      },
+      }],
       templateUrl: 'users/login-panel.html'
     };
   });

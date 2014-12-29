@@ -1,18 +1,16 @@
 //= require apiLinks
-//= require users/loginPanel.js
 //= require angular/angular.min
 //= require angular-bootstrap/ui-bootstrap-tpls.min
 
 angular
-  .module('welcome', [
+  .module('workouts.templates', [
     'ui.router',
-    'ui.bootstrap',
-    'users'
+    'ui.bootstrap'
   ])
   .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider) {
     $stateProvider
-      .state('welcome', {
-        url: "/welcome",
-        templateUrl: "welcome/welcome.html"
+      .state('workouts/templates', {
+        url: "/workouts/templates",
+        templateUrl: "workouts/templates/templates.html"
       });
   }]);
