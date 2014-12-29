@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head lang="en">
+  <title><%= Rails.application.config.page_name %></title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <%= stylesheet_link_tag "app", :media => "all" %>
+  <%= javascript_include_tag "app" %>
+</head>
+<body>
+<ui-view></ui-view>
+</body>
+</html>

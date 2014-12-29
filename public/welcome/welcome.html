@@ -1,13 +1,3 @@
-<!DOCTYPE html>
-<html ng-app="welcome">
-<head lang="en">
-  <title><%= Rails.application.config.page_name %>/Welcome</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <%= stylesheet_link_tag "welcome", :media => "all" %>
-  <%= javascript_include_tag "welcome/welcome" %>
-</head>
-<body class="main-layout home welcome">
-
 <div class="welcome-page">
 
   <div class="header">
@@ -15,7 +5,7 @@
 
       <div class="logo-button-container">
         <div class="comming-soon"></div>
-        <%= link_to "", "http://player.vimeo.com/video/63753343", :data => {:colorbox => true, :colorbox_height => '360px', :colorbox_width => '640px', :colorbox_iframe => true}, :class => 'logo-button' %>
+        <a class="logo-button" data-colorbox-height="360px" data-colorbox-iframe="true" data-colorbox-width="640px" data-colorbox="true" href="http://player.vimeo.com/video/63753343"></a>
       </div>
       <login-panel></login-panel>
     </div>
@@ -45,10 +35,10 @@
     </div>
 
     <div class="social">
-      <a href="<%= Rails.application.config.jim_twitter_url %>">
+      <a href="https://twitter.com/trainwithJIM/">
         <div class="twitter"></div>
       </a>
-      <a href="<%= Rails.application.config.jim_tumblr_url %>">
+      <a href="http://trainerjim.tumblr.com/">
         <div class="tumblr"></div>
       </a>
     </div>
@@ -58,6 +48,3 @@
   </div>
 
 </div>
-
-</body>
-</html>

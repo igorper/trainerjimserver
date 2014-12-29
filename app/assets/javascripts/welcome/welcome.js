@@ -3,4 +3,16 @@
 //= require angular/angular.min
 //= require angular-bootstrap/ui-bootstrap-tpls.min
 
-angular.module('welcome', ['users', 'ui.bootstrap']);
+angular
+  .module('welcome', [
+    'ui.router',
+    'ui.bootstrap',
+    'users'
+  ])
+  .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider) {
+    $stateProvider
+      .state('welcome', {
+        url: "/welcome",
+        templateUrl: "welcome/welcome.html"
+      });
+  }]);
