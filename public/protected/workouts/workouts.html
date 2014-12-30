@@ -15,8 +15,17 @@
                 <li ng-repeat="template in templates">
                     <a href="#">
                         <div class="content">
-                            <div class="left">{{template.name}}</div>
-                            <div class="right"><i class="icon-chevron-right icon-white">​</i>​</div>
+                            {{template.name}}
+                        </div>
+                    </a>
+                </li>
+                <li class="highlighted">
+                    <a href="#">
+                        <div class="content">
+                            <div class="left">Create a new workout</div>
+                            <div class="right">
+                                <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
+                            </div>
                         </div>
                     </a>
                 </li>
@@ -24,11 +33,37 @@
         </div>
         <div class="main-panel col-sm-9">
             <div class="jim-box">
-                <div class="header">
-                    <h1 class="jim-title">Welcome champ!</h1>
-                    <h1 class="jim-sub-title">Let's get you started, shall we?</h1>
+                <div ng-show="false">
+                    <div class="header">
+                        <h1 class="jim-title">No workout selected.</h1>
+                        <h1 class="jim-sub-title">Select or create a workout on the left.</h1>
+                    </div>
+                    <div class="separator"></div>
+                    <img src="assets/workouts/ic_add_circle_outline_24px.svg " style="width:300px; opacity: 0.05; margin: auto; display:block;" />
+                </div>
+                <div ng-show="true" id="my-workout" class="selected-regime">
+                    <div class="row">
+                        <h1 class="jim-title col-sm-12">Customise your workout</h1>
+                    </div>
+                    <div class="name row">
+                        <div class="col-sm-8">
+                            <input class="the-name-value pull-left" data-bind="value: name"/>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-lg btn-success pull-right" data-toggle="dropdown">
+                                Add exercise
+                            </button>
+                        </div>
+
+                    </div>
+                    <div class="row section-split">
+                        <div class="separator"></div>
+                    </div>
+
+
                 </div>
             </div>
+
         </div>
     </div>
 </div>

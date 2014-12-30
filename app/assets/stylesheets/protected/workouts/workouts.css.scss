@@ -36,19 +36,20 @@
 
     .workout-list {
       > li {
+        margin-bottom: -3px;
         > a {@include zero-spacing; @include no-rounding;background-color: white;color: black; height: $workoutItemHeight; line-height: $workoutItemHeight; border-color: $borderColor;}
         > a:hover {background-color: $hoverColor; color: white;}
         &.highlighted > a {background-color: $lightBlue; color: white;}
         &.highlighted > a:hover {background-color: $hoverColor;}
         &.highlighted > a:hover > .content .right {background-color: lighten($jimColor, 15%);}
-        &.highlighted > a > .content .right {width: 20%; height: $workoutItemHeight; float: right; background-color: $jimColor;max-width: 30px; display: block;}
+        &.highlighted > a > .content .right {width: 20%; height: $workoutItemHeight - 2px; float: right; background-color: $jimColor;max-width: 30px; display: block;}
         &.highlighted > a > .content .left {width: 78%;}
         > a > .content {
           padding-left: 5px;
           height: $workoutItemHeight;
           .left {width: 100%; display: inline-block; vertical-align: middle; line-height: normal; margin-top: -5px;}
           .right {display: none;}
-          .right i {margin-left: 7px;}
+          .right span {margin-left: 7px;}
         }
       }
     }
@@ -58,6 +59,7 @@
   /// MAIN PANEL
   //
   .main-panel .jim-box {
+    min-height: 400px;
     margin: 25px 0px;
     $paddingLR: 25px;
     $paddingTB: 15px;
@@ -116,6 +118,10 @@
         .btn-group button {@include flat-btn; @include no-rounding; padding: 10px 8px;}
         .btn-group button .caret {margin-left: 10px;}
         .btn-group ul {text-align: left;}
+      }
+
+      .section-split {
+        margin-top: 20px;
       }
 
       .exercises {
