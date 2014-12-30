@@ -25,11 +25,11 @@
 }
 
 @import "bootstrap";
-@import "bootstrap-responsive";
 @import "definitions.scss";
 
-
-
+body {
+  background-color: $bodyBackgroundColor;
+}
 
 ////////////////////////////////////////////////////////////////////////////////
 /// FIXED COMMON LAYOUT
@@ -39,9 +39,6 @@ body.main-layout {
     font-size: $bodyFontSize;
     background-color: $bodyBackgroundColor;
 }
-
-
-
 
 ////////////////////////////////////////////////////////////////////////////////
 /// COMMON LAYOUT UTILS

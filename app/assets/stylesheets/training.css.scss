@@ -19,7 +19,7 @@
 //
 .training.workouts {
     line-height: normal;
-    
+
     /////////////////////////
     /// LEFT NAVIGATION MENU
     //
@@ -27,13 +27,13 @@
         @media (min-width: 768px) {
             h3.jim-title {margin: 30px 0px 10px 10px;}
         }
-        
+
         @media (max-width: 767px) {
             h3.jim-title {margin: 10px 0px 10px 10px;}
         }
-        
+
         $workoutItemHeight: 44px;
-        
+
         .workout-list {
             > li {
                 > a {@include zero-spacing; @include no-rounding;background-color: white;color: black; height: $workoutItemHeight; line-height: $workoutItemHeight; border-color: $borderColor;}
@@ -53,7 +53,7 @@
             }
         }
     }
-    
+
     /////////////////////////
     /// MAIN PANEL
     //
@@ -61,77 +61,77 @@
         margin: 25px 0px;
         $paddingLR: 25px;
         $paddingTB: 15px;
-        
+
         .header {
             padding: $paddingTB $paddingLR;
             .jim-title {margin: 0;}
             .jim-sub-title {margin: 0; line-height: 1.2em;}
         }
-        
+
         .separator{
             margin: 0px 15px;
             border-bottom: 1px solid $borderColor;
         }
-        
+
         .instructions {
             padding: 10px ($paddingLR + 10px) 25px;
             .span4 {margin-top: 15px;}
             .marginalium {float: left;font-size: 3em;margin-top: -20px; margin-right: 5px; height: 45px;}
             .contentium {@include light; font-size: 1.6em;}
         }
-        
+
         $regimeDim: 65px;
         $borderWid: 3px;
         $regimeDimWithBorder: $regimeDim + 2*$borderWid;
-        
+
         .regimes {
             padding: 0px $paddingLR $paddingTB $paddingLR;
-            
+
             .regime {
                 cursor: pointer; width: $regimeDimWithBorder;margin-right: 5px;margin-top: 10px;display: inline-block; vertical-align: top;
-                
+
                 .icon {@include square($regimeDim);padding: $borderWid;}
                 .icon i.icon-ok {display: none;}
                 &:hover .icon {@include square($regimeDim);padding: 0;border: 3px solid $jimColor;}
                 .icon .image {background-color: #eee;@include square($regimeDim);}
-                
+
                 .name {font-size: 0.8em; text-align: center; margin-top: $borderWid;}
-                
+
                 &.active .icon .tick-icon {position: absolute; background-color: $jimColor; margin: -3px 0 0 -3px; padding: 3px; @include square(14px);}
                 &.active .icon i.icon-ok {display: inline-block;margin: 0px;}
             }
         }
-        
+
         .selected-regime {
             padding: $paddingTB $paddingLR;
-            
+
             button {@include sans;}
             button i {margin-top: 3px;}
-            
+
             > .name {
                 > div > div {@include inline; @include middle;}
                 .the-name-value {@include sans; @include light; @include flat-text-input; font-size: 2.3em; padding: 3px; border: 1px solid #f0f0f0; width: 95%;}
-                
+
                 .btn-group {text-align: right; width: 100%;}
                 .btn-group button {@include flat-btn; @include no-rounding; padding: 10px 8px;}
                 .btn-group button .caret {margin-left: 10px;}
                 .btn-group ul {text-align: left;}
             }
-            
+
             .exercises {
                 margin: 15px 0;
-                
+
                 .exercise {
                     border: 1px solid $borderColor;
                     background-color: $bodyBackgroundColor;
                     margin-bottom: 5px;
-                    
+
                     button {@include flat-btn;padding-right: 4px;float: right;}
                     button:hover {background-color: $hoverColor; color: white;}
-                    
+
                     .details {
                         .name {
-                            padding-top: 5px; padding-left: 5px;                     
+                            padding-top: 5px; padding-left: 5px;
                             .exercise-label {
                                 @include rounded(3px);
                                 font-weight: normal;
@@ -141,74 +141,74 @@
                                 @include middle;
                                 margin-right: 5px;
                                 padding: 0px 5px 2px 5px;
-                                
+
                                 .exercise-expand-icon {
                                     text-shadow: 1px 1px white; margin: 7px 5px 5px 5px;
                                 }
-                                
+
                                 &:hover {text-shadow: none; background-color: white;}
                             }
                             a.btn {@include flat-btn;}
                             a.active {background-color: #eee;}
                             span.the-name-value {@include light; font-size: 20px; text-shadow: 1px 1px white; margin-right: 5px;}
                         }
-                        
+
                         .exercise-top-btns {
                             padding: 5px;
                             .btn {@include no-rounding;margin-top: 2px;}
                             .btn i {margin-left: 5px;}
                             .delete-btn {}
                             .add-btn:hover {background-color: $hoverColor;}
-                            
+
                             .assign-to-all-series {
                                 margin-left: 5px;
                             }
                         }
                     }
-                    
+
                     .description {
                         $bottom-controls-height: 70px;
-                        
+
                         background-color: white; margin: 5px;  @include rounded(3px); display:none;
-                        
+
                         div.description-container{
                             padding-top: 10px;
                             padding-right: 20px;
                             p.title {
                                 @include bold;
                             }
-                            
+
                             p.text {
                                 text-align: justify;
                             }
                         }
-                        
+
                         table.guidance {
-                            width: 100%; 
+                            width: 100%;
                             height: $bottom-controls-height;
                             text-align:right;
-                            
-                            td.text {line-height:$bottom-controls-height;}                            
+
+                            td.text {line-height:$bottom-controls-height;}
                             a.btn {@include flat-btn; vertical-align: middle;}
                             a.active {background-color: #eee;}
                             span.the-name-value {@include light; font-size: 1.5em; text-shadow: 1px 1px white; margin-right: 5px;}
-                            
+
                             .dropdown-menu {
-                                top: auto; 
+                                top: auto;
                                 bottom: 75%;
                                 cursor: pointer;
                             }
                         }
-                        
+
                         table.content {
-                            width: 100%; 
+                            width: 100%;
                             height: $bottom-controls-height;
-                            
+
                             td.text {line-height:$bottom-controls-height;}
                             input.value {font-size: 2em; @include sans; @include flat-text-input; height: auto; margin: 0 0 0px 0; background: none; padding: 0px; width: 30px; display: inline-block; vertical-align: baseline;}
-                            
+
                             .no-padding { padding: 0px; }
-                            
+
                             a.btn {@include flat-btn;}
                             a.active {background-color: #eee;}
                             span.the-name-value {font-size: 20px; text-shadow: 1px 1px white; margin-right: 5px;}
@@ -218,35 +218,35 @@
                         td.plus-minus-btns{text-align:center;}
                         .plus-minus-btns{ @include plus-minus-btns-mixin; }
                     }
-                    
+
                     .series-list {
                         padding: 5px 5px 0px 5px;
-                        
+
                         .series {
                             background-color: white; margin-bottom: 5px; @include rounded(3px); padding: 5px;
-                            
+
                             .icon {font-size: 1.5em; text-align: center; background-color: #f6f6f6; @include rounded(3px);}
-                            
+
                             input.value {font-size: 2em; @include sans; @include flat-text-input; height: auto; line-height: normal; margin: 0 0 -5px 0; background: none; padding: 0px; width: 30px; display: inline-block; vertical-align: bottom;}
-                            
+
                             .row-fluid > div {display: inline-block; vertical-align: middle; float: none;}
                             .row-fluid > div.data-field:hover {@include rounded(3px); background-color: #f6f6f6;}
-                            
+
                             table.content {@include zero-spacing; width: 100%}
-                            
+
                             table.content td > div {padding: 5px;}
                             table.content .text > div {margin-left: 10px; display: inline-block;}
-                            
+
                             .plus-minus-btns{
                                 @include plus-minus-btns-mixin;
                             }
-                            
+
                             .series-list {
                                 text-align: center;
                                 padding: 5px;
-                                
+
                                 .title {@include light; font-size: 13pt; color: #373939;}
-                                
+
                                 .the-list {
                                     .the-series {display: inline-block; padding: 3px 5px;margin-top: 5px;}
                                     .the-series:hover {background-color: #ddd; color: #333;}
@@ -254,17 +254,17 @@
                                 }
                             }
                         }
-                        
+
                     }
                 }
             }
-            
+
             #delete-confirmation {
             }
-            
+
             .workout-buttons {
                 .row-fluid > div {text-align: right;}
-                
+
                 .btn {@include flat-btn; @include no-rounding;}
                 .btn.save {background-color: $lightBlue; margin-left: 10px;}
                 .btn.save:hover {background-color: $hoverColor;}

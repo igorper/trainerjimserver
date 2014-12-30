@@ -3,21 +3,22 @@
 //= require angular-bootstrap/ui-bootstrap-tpls.min
 
 angular
-  .module('workouts.templates', [
+  .module('protected.workouts', [
     'ui.router',
     'ui.bootstrap'
   ])
   .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider) {
     $stateProvider
-      .state('workouts/templates', {
-        url: "/workouts/templates",
-        controller: "TemplatesCtrl",
-        templateUrl: "workouts/templates/templates.html"
+      .state('protected.workouts', {
+        url: "/workouts",
+        controller: "WorkoutsCtrl",
+        templateUrl: "protected/workouts/workouts.html"
       });
   }])
-  .controller("TemplatesCtrl", ["$scope", "$http", "$window",
+  .controller("WorkoutsCtrl", ["$scope", "$http", "$window",
     function($scope, $http, $window){
-      $scope.test = "BLA";
+      $scope.test = "WORKOUTS";
+
       $scope.templates = [];
 
       $http.get(api_trainings_url)

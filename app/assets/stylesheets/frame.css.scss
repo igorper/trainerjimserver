@@ -1,12 +1,196 @@
-@import "definitions.scss";
+  @import "definitions.scss";
 
-$logoPartWidth: 164px;
-$loginPartWidth: 250px;
+  $logoPartWidth: 164px;
+  $loginPartWidth: 250px;
 
-////////////////////////////////////////////////////////////////////////////////
-/// HEADER (with buttons)
-//
-@media (max-width: 767px) {
+  ////////////////////////////////////////////////////////////////////////////////
+  /// HEADER (with buttons)
+  //
+
+  .header-menu {
+    font-weight: bold;
+    height: $headerHeight;
+
+    // JIM logo
+    div.logo-part {
+      width: $logoPartWidth;
+      div.logo {
+        @include middle;
+        @include logo;
+        height: $headerHeight;
+      }
+    }
+
+    // Bootstrap navbar
+    $bgDefault      : $menuBackground;
+    $bgHighlight    : $menuHighlight;
+    $colDefault     : $menuText;
+    $colHighlight   : $menuHighlightText;
+    .navbar-default {
+      background-color: $bgDefault;
+      border-color: $bgHighlight;
+
+      // remove the one pixel empty space above mainav
+      margin-top: -1px;
+      .navbar-brand {
+        color: $colDefault;
+        &:hover, &:focus {
+          color: $colHighlight; }}
+      .navbar-text {
+        color: $colDefault; }
+      .navbar-nav {
+        > li {
+          > a {
+            color: $colDefault;
+            &:hover,  &:focus {
+              background-color: $bgHighlight;
+              color: $colHighlight; }}}
+        > .active {
+          > a, > a:hover, > a:focus {
+            color: $colHighlight;
+            background-image: image-url("Gradient_ClickedState_1px.png"); }}
+        > .open {
+          > a, > a:hover, > a:focus {
+            color: $colHighlight;
+            background-color: $bgHighlight; }}}
+      .navbar-toggle {
+        border-color: $bgHighlight;
+        &:hover, &:focus {
+          background-color: $bgHighlight; }
+        .icon-bar {
+          background-color: $colDefault; }}
+      .navbar-collapse,
+      .navbar-form {
+        border-color: $colDefault; }
+      .navbar-link {
+        color: $colDefault;
+        &:hover {
+          color: $colHighlight; }}}
+    @media (max-width: 767px) {
+      .navbar-default .navbar-nav .open .dropdown-menu {
+        > li > a {
+          color: $colDefault;
+          &:hover, &:focus {
+            color: $colHighlight; }}
+        > .active {
+          > a, > a:hover, > a:focus, {
+            color: $colHighlight;
+            background-color: $bgHighlight; }}}
+    }
+    // END Bootstrap navbar
+  }
+
+  ////////////////////////////////////////////////////////////////////////////////
+  /// FOOTER
+  //
+
+  // Sticky footer
+  html {
+    position: relative;
+    min-height: 100%;
+  }
+  body {
+    /* Margin bottom by footer height */
+    margin-bottom: 100px;
+  }
+  .footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    /* Set the fixed height of the footer here */
+    height: 100px;
+    background-color: #f5f5f5;
+  }
+  // END STICKY FOOTER
+
+  // Footer content styling
+  .footer {
+    background-color: $jimColor;
+
+    .container {
+      padding: {
+        top: 20px;
+        bottom: 20px;
+      }
+
+      .content {
+        display: inline-block;
+        vertical-align: middle;
+        width: 100%;
+
+        .left {
+          float: left;
+
+          .links a {
+            color: black;
+            margin: 0px 5px;
+
+            &.first {
+              margin-left: 0px;
+            }
+
+            &.mobile-app {
+              font-weight: bold;
+              text-decoration: underline;
+              &:hover {
+                text-decoration: none;
+              }
+            }
+          }
+
+          .copyright-notice {
+            padding-top: 8px;
+            font-size: 0.8em;
+            color: black;
+          }
+        }
+
+        .right {
+          float: right;
+
+          .social {
+            font-size: 0.9em;
+            $ftrTwitterIconSize: 25px;
+            margin-top: 7px;
+
+            div {
+              display: inline-block;
+              vertical-align: middle;
+              margin-left: 10px;
+            }
+
+            .twitter {
+              @include square($ftrTwitterIconSize);
+              cursor: pointer;
+              @include central-image('login/Twitter_Off.png');
+              &:hover {
+                @include central-image('login/Twitter_ON.png');
+              }
+            }
+
+            .tumblr {
+              margin-left: 5px;
+              @include square($ftrTwitterIconSize);
+              cursor: pointer;
+              @include central-image('login/Tumblr_Off.png');
+              &:hover {
+                @include central-image('login/Tumblr_ON.png');
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .main-layout {
+    @include sans;
+    font-size: $bodyFontSize;
+    background-color: $bodyBackgroundColor;
+  }
+
+  // OLD STYLES
+/*@media (max-width: 767px) {
     .header.outer-container {
         margin-left: -20px;
         margin-right: -20px;
@@ -123,101 +307,19 @@ $loginPartWidth: 250px;
         }
     }
 }
-
-////////////////////////////////////////////////////////////////////////////////
-/// FOOTER
-//
-@media (max-width: 767px) {
-    .footer.outer-container {
-        margin-left: -20px;
-        margin-right: -20px;
-        .container {
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-    }
-}
-
-.footer.outer-container {
-    background-color: $jimColor;
-    
-    .container {
-        padding:{top: 20px; bottom: 20px;}
-        
-        .content {
-            display: inline-block;
-            vertical-align: middle;
-            width: 100%;
-            
-            .left {
-                float: left;
-                
-                .links a {
-                    color: black;
-                    margin: 0px 5px;
-                    
-                    &.first {margin-left: 0px;}
-                    
-                    &.mobile-app {
-                        font-weight: bold;
-                        text-decoration: underline;
-                        &:hover {
-                            text-decoration: none;
-                        }
-                    }
-                }
-                
-                .copyright-notice {
-                    padding-top: 8px;
-                    font-size: 0.8em;
-                    color: black;
-                }
-            }
-            
-            .right {
-                float: right;
-                
-                .social {
-                    font-size: 0.9em;
-                    $ftrTwitterIconSize: 25px;
-                    margin-top: 7px;
-                    
-                    div {display: inline-block; vertical-align: middle; margin-left: 10px;}
-                    
-                    .twitter {
-                        @include square($ftrTwitterIconSize);
-                        cursor: pointer;
-                        @include central-image('login/Twitter_Off.png');
-                        &:hover {@include central-image('login/Twitter_ON.png');}
-                    }
-                    
-                    .tumblr {
-                        margin-left: 5px;
-                        @include square($ftrTwitterIconSize);
-                        cursor: pointer;
-                        @include central-image('login/Tumblr_Off.png');
-                        &:hover {@include central-image('login/Tumblr_ON.png');}
-                    }
-                }
-            }
-            
-            
-        }
-        
-    }
-}
+*/
 
 ////////////////////////////////////////////////////////////////////////////////
 /// HEADER (no buttons)
 //
 .header.no-buttons {
     $topBarHeight: 13px;
-    
+
     .top-bar {
         @include size(100%, $topBarHeight);
         background-color: $jimColor;
     }
-    
+
     a {
         .logo-hanging {
             display: inline-block;
@@ -234,62 +336,62 @@ $loginPartWidth: 250px;
 /// Trainees Dropdown
 //
 div.trainees-dropdown {
-    
+
     .dropdown-menu {
         width: 240px;
         @include no-rounding;
         padding:5px;
         font-size: $bodyFontSize*1.1;
         text-align: left;
-        
+
         div.new-trainee-container {
             background-color: $jimBlue;
             color: white;
-            
+
             div.new-trainee {
                 line-height: 32px;
                 margin: 5px 0px 0px 0px;
                 text-align: center;
                 text-shadow: darken($jimBlue, 20%) 0px 1px 0px;
             }
-            
+
             &:hover {background-color: lighten($jimBlue, 10%);}
         }
-        
+
         ul {
             margin: 0;
             padding: 0;
             list-style-type: none;
-            
+
             li.trainee {
                 &.dark {
                     background-color: #EEEEEE;
                     a.trainee {text-shadow: white 0px 1px 0px;}
                 }
-                
+
                 &:hover {
                     cursor: pointer;
                     background-color: lighten($jimBlue, 5%);
                     a.trainee {color: white; text-shadow: darken($jimBlue, 20%) 0px 1px 0px;}
                 }
-                
+
                 a.trainee {
                     @include light;
                     text-shadow: none;
                     color: darken($jimColor, 40%);
-                    
+
                     div {
                         display: inline-block;
                         vertical-align: middle;
                     }
-                    
+
                     div.avatar {
                         height: 32px;
                         width: 32px;
                         margin: 0px 10px 0px 0px;
                     }
                 }
-                
+
             }
         }
     }
