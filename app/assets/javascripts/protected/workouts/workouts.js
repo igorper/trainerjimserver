@@ -21,6 +21,8 @@ angular
       $scope.test = "WORKOUTS";
 
       $scope.templates = [];
+      $scope.selectedTraining = null;
+      $scope.selectedSeries = [];
 
       $http.get(api_trainings_url)
         .success(function (data, status, headers) {
@@ -30,36 +32,38 @@ angular
           $window.alert("Could not log in. Check your email and password.")
         });
 
-      var tmpList = [];
+      $scope.showTemplate = function(template){
+        $http.get(api_training_url, {params:{id: template.id}})
+          .success(function (data, status, headers) {
+          $scope.selectedTraining = data;
+            $scope.selectedSeries = [];
 
-      for (var i = 1; i <= 6; i++){
-        tmpList.push({
-          text: 'Item ' + i,
-          value: i
-        });
+            // select default series to show for each exercise
+            for(var i = 0; i < data.exercises.length; i++){
+              data.exercises[i].selectedSeries = 0;
+            }
+
+          })
+          .error(function (data, status, headers) {
+            $window.alert("Unable to fetch the training.")
+          });
+
+        console.log(template);
       }
 
-      $scope.list = tmpList;
-
-
-      $scope.sortingLog = [];
-
-      $scope.sortableOptions = {
-        update: function (e, ui) {
-          var logEntry = tmpList.map(function (i) {
-            return i.value;
-          }).join(', ');
-          $scope.sortingLog.push('Update: ' + logEntry);
-        },
-        stop: function (e, ui) {
-          // this callback has the changed model
-          var logEntry = tmpList.map(function (i) {
-            return i.value;
-          }).join(', ');
-          $scope.sortingLog.push('Stop: ' + logEntry);
+      $scope.createEmptyTraining = function(){
+        $scope.selectedTraining = {
+          name: "Enter training name"
         }
       }
 
+      $scope.changeSelectedSeries = function(exercise, seriesIdx){
+        exercise.selectedSeries = seriesIdx;
+      }
+
+      $scope.sortableOptions = {
+        handle: '.move'
+      };
     }
   ])
 ;
