@@ -10,10 +10,16 @@ $borderColor: #cecece;
 $darkGray: #424242;
 $errorShadowColor: lighten(#ff6d00, 7%);
 $boxBackgroundColor: white;
+// Main navigation colors
+$menuBackground: $jimColor;
+$menuHighlight: #ffbf00;
+$menuText: white;
+$menuHighlightText: white;
 
 // Main dimensions
 $socialBtnDim: 37px;
-$headerHeight: 57px;
+$headerHeight: 50px;
+$footerHeight: 100px;
 $logo-margin-left: 20px;
 $pageWidth: 990px;
 $bodyFontSize: 13px;
