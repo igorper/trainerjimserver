@@ -1,11 +1,12 @@
 //= require apiLinks
-//= require angular/angular.min
-//= require angular-bootstrap/ui-bootstrap-tpls.min
+//= require angular-ui-sortable
+
 
 angular
   .module('protected.workouts', [
     'ui.router',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'ui.sortable'
   ])
   .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider) {
     $stateProvider
@@ -28,6 +29,37 @@ angular
         .error(function (data, status, headers) {
           $window.alert("Could not log in. Check your email and password.")
         });
+
+      var tmpList = [];
+
+      for (var i = 1; i <= 6; i++){
+        tmpList.push({
+          text: 'Item ' + i,
+          value: i
+        });
+      }
+
+      $scope.list = tmpList;
+
+
+      $scope.sortingLog = [];
+
+      $scope.sortableOptions = {
+        update: function (e, ui) {
+          var logEntry = tmpList.map(function (i) {
+            return i.value;
+          }).join(', ');
+          $scope.sortingLog.push('Update: ' + logEntry);
+        },
+        stop: function (e, ui) {
+          // this callback has the changed model
+          var logEntry = tmpList.map(function (i) {
+            return i.value;
+          }).join(', ');
+          $scope.sortingLog.push('Stop: ' + logEntry);
+        }
+      }
+
     }
   ])
 ;
