@@ -6,7 +6,9 @@ angular.module('users', [])
   .directive('loginPanel', function () {
     return {
       restrict: 'E',
-      scope: {},
+      scope: {
+        'onLoggedIn': '&onLoggedIn'
+      },
       controller: ['$scope', '$http', '$window', function ($scope, $http, $window) {
         $scope.isPanelVisible = false;
         $scope.isLoginActive = true;
@@ -27,7 +29,7 @@ angular.module('users', [])
               rememberMe: $scope.loginRememberMe
             })
             .success(function (data, status, headers) {
-              $window.location.href = workouts_url;
+              $scope.onLoggedIn();
             })
             .error(function (data, status, headers) {
               $window.alert("Could not log in. Check your email and password.")
@@ -43,7 +45,7 @@ angular.module('users', [])
             })
             .success(function (data, status, headers) {
               $window.alert("A confirmation email has been sent to your email. You will be able to log in through that email.");
-              $window.location.href = workouts_url;
+              $scope.onLoggedIn();
             })
             .error(function (data, status, headers) {
               $window.alert("Could not register. Please check your registration details.");
