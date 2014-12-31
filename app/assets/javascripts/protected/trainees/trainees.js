@@ -1,6 +1,6 @@
 //= require apiLinks
-//= require angular/angular.min
-//= require angular-bootstrap/ui-bootstrap-tpls.min
+//= require angular/angular
+//= require angular-bootstrap/ui-bootstrap-tpls
 
 angular
   .module('protected.trainees', [

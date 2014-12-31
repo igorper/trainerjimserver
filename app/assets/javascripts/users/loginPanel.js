@@ -1,6 +1,6 @@
 //= require apiLinks
 //= require pageLinks
-//= require angular/angular.min
+//= require angular/angular
 
 angular.module('users', [])
   .directive('loginPanel', function () {
