@@ -50,7 +50,7 @@
                             <input class="the-name-value pull-left" ng-model="selectedTraining.name"/>
                         </div>
                         <div class="col-sm-4">
-                            <button class="btn btn-lg btn-success pull-right" data-toggle="dropdown">
+                            <button class="btn btn-lg btn-success pull-right" ng-click="editExercise(null)">
                                 Add exercise
                             </button>
                         </div>
@@ -66,20 +66,9 @@
                                 <div class="name col-sm-7">
                                     <span class="glyphicon glyphicon-move move" aria-hidden="true"></span>
                                     <div class="exercise-label" data-bind="click: toggleDetails">
-                                        </span> Exercise: {{item.id}}
+                                        </span> Exercise: {{item.exercise_type.name}}
                                     </div>
-                                    <!--<div class="exercise-name btn-group">-->
-                                    <!--<a class="btn dropdown-toggle" data-toggle="dropdown" href="#">-->
-                                    <!--<span class="the-name-value" data-bind="text: exercise_type().name"></span>-->
-                                    <!--<span class="caret"></span>-->
-                                    <!--</a>-->
-                                    <!--<ul class="dropdown-menu" data-bind="foreach: $root.exercise_types">-->
-                                    <!--<li>-->
-                                    <!--<a data-bind="text: name, click: $parent.setExerciseType, css: {active: id == $parent.exercise_type().id}"></a>-->
-                                    <!--</li>-->
-                                    <!--</ul>-->
-                                    <!--</div>-->
-                                </div>
+                                 </div>
                                 <div class="exercise-top-btns col-sm-5">
                                     <button class="btn assign-to-all-series" data-bind="click: applySettingsToAllSeries">
                                         <span class="the-icon icon-list"></span>
@@ -151,15 +140,17 @@
                         </div>
                     </div>
 
-                    <div class="floatleft" style="margin-left: 20px;">
-                        <ul class="list logList">
-                            <li ng-repeat="entry in sortingLog track by $index" class="logItem">
-                                {{entry}}
-                            </li>
-                        </ul>
+                    <div class="workout-buttons">
+                        <div class="row">
+                            <div class="col-sm-8"></div>
+                            <div class="col-sm-4">
+                                <div class="pull-right">
+                                    <button class="delete btn" data-bind="click: onDeleteClicked">Delete</button>
+                                    <button class="save btn btn-success" data-bind="click: onSaveClicked">Save</button>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-
-                    <div class="clear"></div>
 
                 </div>
             </div>

@@ -6,6 +6,8 @@
     "angular": "latest",
     "angular-ui-router": "latest",
     "angular-bootstrap": "latest",
-    "angular-ui-sortable": "latest"
+    "angular-ui-sortable": "latest",
+    "angular-sanitize": "latest",
+    "angular-ui-select": "latest"
   }
 }

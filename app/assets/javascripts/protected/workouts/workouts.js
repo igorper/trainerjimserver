@@ -1,12 +1,16 @@
 //= require apiLinks
 //= require angular-ui-sortable
+//= require angular-sanitize/angular-sanitize
+//= require angular-ui-select/dist/select
 
 
 angular
   .module('protected.workouts', [
     'ui.router',
     'ui.bootstrap',
-    'ui.sortable'
+    'ui.sortable',
+    'ngSanitize',
+    'ui.select'
   ])
   .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider) {
     $stateProvider
@@ -16,8 +20,8 @@ angular
         templateUrl: "protected/workouts/workouts.html"
       });
   }])
-  .controller("WorkoutsCtrl", ["$scope", "$http", "$window",
-    function($scope, $http, $window){
+  .controller("WorkoutsCtrl", ["$scope", "$http", "$window", '$modal',
+    function($scope, $http, $window, $modal){
       var REPETITIONS_STEP = 1;
       var WEIGHT_STEP = 5;
       var REST_STEP = 5;
@@ -97,6 +101,89 @@ angular
         var series = $scope.getSelectedSeries(exercise);
         series.rest_time = series.rest_time < REST_STEP ? 0 : series.rest_time - REST_STEP;
       }
+
+      $scope.editExercise = function(exercise){
+        var modalInstance = $modal.open({
+          templateUrl: 'protected/workouts/select_exercise.html',
+          controller: 'SelectExerciseCtrl',
+          backdrop: 'static',
+          windowClass: 'modal-window'
+        });
+
+        modalInstance.result.then(function(selectedExercise) {
+          $scope.selectedTraining.exercises.unshift(
+            {
+              duration_after_repetition: null,
+              duration_up_repetition: null,
+              duration_middle_repetition: null,
+              duration_down_repetition: null,
+              guidance_type: "manual",
+              selectedSeries: 0,
+              series: [
+                {
+                  repeat_count: 0,
+                  weight: 0,
+                  rest_time: 0
+                }
+              ],
+              exercise_type: selectedExercise
+            });
+        });
+      }
     }
-  ])
+  ]).controller("SelectExerciseCtrl", ["$scope", "$http", '$modalInstance',
+    function($scope, $http, $modalInstance){
+      $scope.exercise = {};
+      $scope.exercises = [];
+
+      $scope.ok = function(){
+        if($scope.exercise.selected == undefined){
+          console.log("You should select it.");
+        } else {
+          $modalInstance.close($scope.exercise.selected);
+        }
+      }
+
+      $scope.cancel = function(){
+        $modalInstance.dismiss();
+      }
+
+      $http.get(api_exercises_url)
+        .success(function (data, status, headers) {
+          $scope.exercises = data;
+        })
+        .error(function (data, status, headers) {
+          console.error("Could not fetch exercises.");
+        });
+    }
+  ]).filter('propsFilter', function() {
+  return function(items, props) {
+    var out = [];
+
+    if (angular.isArray(items)) {
+      items.forEach(function(item) {
+        var itemMatches = false;
+
+        var keys = Object.keys(props);
+        for (var i = 0; i < keys.length; i++) {
+          var prop = keys[i];
+          var text = props[prop].toLowerCase();
+          if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
+            itemMatches = true;
+            break;
+          }
+        }
+
+        if (itemMatches) {
+          out.push(item);
+        }
+      });
+    } else {
+      // Let the output be the input untouched
+      out = items;
+    }
+
+    return out;
+  }
+});
 ;
