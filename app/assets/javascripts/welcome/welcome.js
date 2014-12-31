@@ -17,8 +17,8 @@ angular
         templateUrl: "welcome/welcome.html"
       });
   }])
-  .controller("WelcomeCtrl", ["$scope", "$state", "$window",
-    function ($scope, $state, $window) {
+  .controller("WelcomeCtrl", ["$scope", "$state",
+    function ($scope, $state) {
       $scope.onLoggedIn = function () {
         $state.go('protected.workouts');
       };

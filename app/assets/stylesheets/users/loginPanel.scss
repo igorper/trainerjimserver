@@ -1,0 +1,117 @@
+div.login-tabbed-panel {
+
+  $closeButtonSize: 16px;
+  $authPanelWidth: 246px;
+  $authMarginRight: 12px;
+  $welcomePageBtnColor: #067cff;
+
+  div.sign-in-tab {
+    @include bold;
+    float: right;
+    margin-right: $authMarginRight;
+    display: inline-block;
+    padding: 5px 20px;
+    font-size: 0.9em;
+    color: white;
+    background-color: $welcomePageBtnColor;
+
+    &:hover {
+      background-color: lighten($welcomePageBtnColor, 15%);
+    }
+  }
+
+  $insideAuthPanelPadding: 7px;
+
+  div.auth-panel {
+    float: right;
+    margin-right: $authMarginRight;
+    width: $authPanelWidth;
+    padding: $insideAuthPanelPadding;
+    background-color: $welcomePageBtnColor;
+    clear: both;
+    color: white;
+    text-align: center;
+
+    div.close-icon {
+      position: absolute;
+      @include size($closeButtonSize, $closeButtonSize);
+      @include central-image('welcome/CloseIcon.png');
+      margin-left: $authPanelWidth - $closeButtonSize - 15px;
+    }
+  }
+
+  div.sign-in-panel {
+
+    div.the-form {
+      div.title {
+        font: {
+          size: 1.2em;
+          weight: bold;
+        }
+      }
+
+      div.sub-title {
+        margin-bottom: 10px;
+      }
+
+      form {
+        margin: 15px 0px 0px 0px;
+      }
+
+      input.text-input {
+        @include flat-text-input;
+        background-color: white;
+        padding: 4px 6px;
+        width: $authPanelWidth - 2 * 6px;
+        margin-bottom: 5px;
+        color: #005577;
+      }
+
+      input.sign-in-btn {
+        @include flat-btn;
+        background-color: $jimColor;
+        width: $authPanelWidth - 2 * 6px;
+        padding: 5px 0px;
+      }
+
+      div.remember-me-fields {
+        margin-bottom: 10px;
+
+        input#rememberMe {
+          display: inline-block;
+          vertical-align: middle;
+          margin: 0px;
+        }
+        label {
+          font-size: $bodyFontSize;
+          margin: 0px;
+          display: inline-block;
+          vertical-align: middle;
+        }
+      }
+
+      div.sign-up-link, div.login-link {
+        margin-top: 5px;
+        color: white;
+
+        a {
+          color: white;
+          text-decoration: underline;
+          &:hover {
+            text-decoration: none;
+          }
+        }
+      }
+    }
+  }
+
+  span.swap-panel-link {
+    cursor: pointer;
+    text-decoration: underline;
+
+    &:hover {
+      text-decoration: none;
+    }
+  }
+
+}
