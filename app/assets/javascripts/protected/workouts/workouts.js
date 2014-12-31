@@ -18,7 +18,9 @@ angular
   }])
   .controller("WorkoutsCtrl", ["$scope", "$http", "$window",
     function($scope, $http, $window){
-      $scope.test = "WORKOUTS";
+      var REPETITIONS_STEP = 1;
+      var WEIGHT_STEP = 5;
+      var REST_STEP = 5;
 
       $scope.templates = [];
       $scope.selectedTraining = null;
@@ -64,6 +66,37 @@ angular
       $scope.sortableOptions = {
         handle: '.move'
       };
+
+      $scope.getSelectedSeries = function(exercise){
+        return exercise.series[exercise.selectedSeries];
+      }
+
+      $scope.increaseSeriesRepetitions = function(exercise){
+        $scope.getSelectedSeries(exercise).repeat_count += REPETITIONS_STEP;
+      }
+
+      $scope.decreaseSeriesRepetitions = function(exercise){
+        var series = $scope.getSelectedSeries(exercise);
+        series.repeat_count = series.repeat_count < REPETITIONS_STEP ? 0 : series.repeat_count - REPETITIONS_STEP;
+      }
+
+      $scope.increaseSeriesWeight = function(exercise){
+        $scope.getSelectedSeries(exercise).weight += WEIGHT_STEP;
+      }
+
+      $scope.decreaseSeriesWeight = function(exercise){
+        var series = $scope.getSelectedSeries(exercise);
+        series.weight = series.weight < WEIGHT_STEP ? 0 : series.weight - WEIGHT_STEP;
+      }
+
+      $scope.increaseSeriesRest = function(exercise){
+        $scope.getSelectedSeries(exercise).rest_time += REST_STEP;
+      }
+
+      $scope.decreaseSeriesRest = function(exercise){
+        var series = $scope.getSelectedSeries(exercise);
+        series.rest_time = series.rest_time < REST_STEP ? 0 : series.rest_time - REST_STEP;
+      }
     }
   ])
 ;
