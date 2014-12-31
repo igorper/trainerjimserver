@@ -1,7 +1,7 @@
 //= require jquery
 //= require jquery-ui
 //= require angular/angular
-//= require angular-ui-router/release/angular-ui-router.min.js
+//= require angular-ui-router/release/angular-ui-router
 //= require welcome/welcome
 //= require protected/frame
 
