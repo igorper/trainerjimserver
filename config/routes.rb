@@ -5,16 +5,12 @@ Trainerjim::Application.routes.draw do
   ##############################################################################
   ### API v1
   ##
-  post 'api/v1/login' => 'api/v1/login#login', :as => :api_v1_login
-  post 'api/v1/signup' => 'api/v1/login#sign_up', :as => :api_v1_sign_up
-  get 'api/v1/exercises' => 'api/v1/training#exercises', :as => :api_v1_exercises
-
-  # get 'api/v1/trainings' => 'api/v1/training#trainings', :as => :api_v1_trainings
-  # get 'api/v1/training' => 'api/v1/training#legacy_training', :as => :api_v1_training
-  # get 'api/v1/trainings/:id' => 'api/v1/training#training'
 
   namespace :api do
     namespace :v1 do
+      post 'login' => 'login#login', :as => :api_v1_login
+      post 'signup' => 'login#sign_up', :as => :api_v1_sign_up
+      get 'exercises' => 'training#exercises', :as => :api_v1_exercises
       resources :trainings
     end
   end
@@ -25,11 +21,11 @@ Trainerjim::Application.routes.draw do
   ### AUTHENTICATION
   ##
   devise_for :users, :path => '', :path_names => {
-    :sign_in => 'login',
-    :sign_up => 'signup',
-    :sign_out => 'logout',
-    :registration => 'register'
-  }
+                     :sign_in => 'login',
+                     :sign_up => 'signup',
+                     :sign_out => 'logout',
+                     :registration => 'register'
+                   }
 
   ##############################################################################
   ### PUBLIC PAGES
@@ -39,11 +35,11 @@ Trainerjim::Application.routes.draw do
   # Training
   get 'workouts' => 'training#workouts', :as => :workouts
   # Development stuff
-  get 'training/tests' => 'training#tests'  
+  get 'training/tests' => 'training#tests'
   # Trainees
   get "users/trainees"
-  
-  
+
+
   ##############################################################################
   ### Ajax (e.g., json data requests, other Ajax requests made from the browser;
   ##        authentication is handled through cookies and sessions)
@@ -73,9 +69,8 @@ Trainerjim::Application.routes.draw do
   match '/training/delete_workout' => 'training#delete_workout', :via => [:post, :get]
   # Utils/Assets
   get 'resource' => 'utils/assets#asset'
-  
-  
-  
+
+
   ##############################################################################
   ### MOBILE API (these can be called from mobile apps---some of these require
   ##              authentication parameters passed through POST params)
