@@ -10,7 +10,7 @@ Trainerjim::Application.routes.draw do
     namespace :v1 do
       post 'login' => 'login#login', :as => :api_v1_login
       post 'signup' => 'login#sign_up', :as => :api_v1_sign_up
-      get 'exercises' => 'training#exercises', :as => :api_v1_exercises
+      get 'exercises' => 'trainings#exercises', :as => :api_v1_exercises
       resources :trainings
     end
   end

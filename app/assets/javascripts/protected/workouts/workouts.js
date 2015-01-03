@@ -126,6 +126,11 @@ angular
       };
 
       $scope.onSaveClicked = function (selectedTraining) {
+        Training.save($scope.selectedTraining, function () {
+          console.log("successfully saved!");
+        }, function () {
+          console.log("not saved!");
+        });
       };
     }
   ]).controller("SelectExerciseCtrl", ["$scope", "$http", '$modalInstance',

@@ -24,6 +24,9 @@ class Api::V1::TrainingsController < ActionController::Base
     end
   end
 
+  def create
+  end
+
   def exercises
     render :json => ExerciseType.all.to_json(TrainingHelper.exercise_type_view)
   end
