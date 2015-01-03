@@ -1,8 +1,8 @@
 //= require apiLinks
-//= require angular-ui-sortable
+//= require angular-ui-sortable/sortable
 //= require angular-sanitize/angular-sanitize
 //= require angular-ui-select/dist/select
-
+//= require trainings/training
 
 angular
   .module('protected.workouts', [
@@ -10,9 +10,10 @@ angular
     'ui.bootstrap',
     'ui.sortable',
     'ngSanitize',
-    'ui.select'
+    'ui.select',
+    'trainings'
   ])
-  .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider) {
+  .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('protected.workouts', {
         url: "/workouts",
@@ -20,8 +21,8 @@ angular
         templateUrl: "protected/workouts/workouts.html"
       });
   }])
-  .controller("WorkoutsCtrl", ["$scope", "$http", "$window", '$modal',
-    function($scope, $http, $window, $modal){
+  .controller("WorkoutsCtrl", ["$scope", "$http", "$window", '$modal', 'Training',
+    function ($scope, $http, $window, $modal, Training) {
       var REPETITIONS_STEP = 1;
       var WEIGHT_STEP = 5;
       var REST_STEP = 5;
@@ -30,79 +31,72 @@ angular
       $scope.selectedTraining = null;
       $scope.selectedSeries = [];
 
-      $http.get(api_trainings_url)
-        .success(function (data, status, headers) {
-          $scope.templates = data;
-        })
-        .error(function (data, status, headers) {
-          $window.alert("Could not log in. Check your email and password.")
+      Training.query(function (trainings) {
+        $scope.templates = trainings;
+      }, function () {
+        $window.alert("Could get the list of trainings. Try logging in again.")
+      });
+
+      $scope.showTemplate = function (template) {
+        Training.get(template, function (training) {
+          $scope.selectedTraining = training;
+          $scope.selectedSeries = [];
+          // select default series to show for each exercise
+          for (var i = 0; i < training.exercises.length; i++) {
+            training.exercises[i].selectedSeries = 0;
+          }
+        }, function () {
+          $window.alert("Unable to fetch the training.");
         });
+      };
 
-      $scope.showTemplate = function(template){
-        $http.get(api_training_url, {params:{id: template.id}})
-          .success(function (data, status, headers) {
-          $scope.selectedTraining = data;
-            $scope.selectedSeries = [];
-
-            // select default series to show for each exercise
-            for(var i = 0; i < data.exercises.length; i++){
-              data.exercises[i].selectedSeries = 0;
-            }
-
-          })
-          .error(function (data, status, headers) {
-            $window.alert("Unable to fetch the training.")
-          });
-
-        console.log(template);
-      }
-
-      $scope.createEmptyTraining = function(){
+      $scope.createEmptyTraining = function () {
         $scope.selectedTraining = {
-          name: "Enter training name"
-        }
-      }
+          name: "Enter training name",
+          exercises: []
+        };
+      };
 
-      $scope.changeSelectedSeries = function(exercise, seriesIdx){
+      $scope.changeSelectedSeries = function (exercise, seriesIdx) {
         exercise.selectedSeries = seriesIdx;
-      }
+      };
 
       $scope.sortableOptions = {
         handle: '.move'
       };
 
-      $scope.getSelectedSeries = function(exercise){
+      $scope.getSelectedSeries = function (exercise) {
         return exercise.series[exercise.selectedSeries];
-      }
+      };
 
-      $scope.increaseSeriesRepetitions = function(exercise){
+      $scope.increaseSeriesRepetitions = function (exercise) {
         $scope.getSelectedSeries(exercise).repeat_count += REPETITIONS_STEP;
-      }
+      };
 
-      $scope.decreaseSeriesRepetitions = function(exercise){
+      $scope.decreaseSeriesRepetitions = function (exercise) {
         var series = $scope.getSelectedSeries(exercise);
         series.repeat_count = series.repeat_count < REPETITIONS_STEP ? 0 : series.repeat_count - REPETITIONS_STEP;
-      }
+      };
 
-      $scope.increaseSeriesWeight = function(exercise){
+      $scope.increaseSeriesWeight = function (exercise) {
         $scope.getSelectedSeries(exercise).weight += WEIGHT_STEP;
-      }
+      };
 
-      $scope.decreaseSeriesWeight = function(exercise){
+      $scope.decreaseSeriesWeight = function (exercise) {
         var series = $scope.getSelectedSeries(exercise);
         series.weight = series.weight < WEIGHT_STEP ? 0 : series.weight - WEIGHT_STEP;
-      }
+      };
 
-      $scope.increaseSeriesRest = function(exercise){
+      $scope.increaseSeriesRest = function (exercise) {
         $scope.getSelectedSeries(exercise).rest_time += REST_STEP;
-      }
+      };
 
-      $scope.decreaseSeriesRest = function(exercise){
+      $scope.decreaseSeriesRest = function (exercise) {
         var series = $scope.getSelectedSeries(exercise);
         series.rest_time = series.rest_time < REST_STEP ? 0 : series.rest_time - REST_STEP;
-      }
+      };
 
-      $scope.editExercise = function(exercise){
+      $scope.editExercise = function (exercise) {
         var modalInstance = $modal.open({
           templateUrl: 'protected/workouts/select_exercise.html',
           controller: 'SelectExerciseCtrl',
@@ -110,7 +104,7 @@ angular
           windowClass: 'modal-window'
         });
 
-        modalInstance.result.then(function(selectedExercise) {
+        modalInstance.result.then(function (selectedExercise) {
           $scope.selectedTraining.exercises.unshift(
             {
               duration_after_repetition: null,
@@ -129,24 +123,27 @@ angular
               exercise_type: selectedExercise
             });
         });
-      }
+      };
+
+      $scope.onSaveClicked = function (selectedTraining) {
+      };
     }
   ]).controller("SelectExerciseCtrl", ["$scope", "$http", '$modalInstance',
-    function($scope, $http, $modalInstance){
+    function ($scope, $http, $modalInstance) {
       $scope.exercise = {};
       $scope.exercises = [];
 
-      $scope.ok = function(){
-        if($scope.exercise.selected == undefined){
+      $scope.ok = function () {
+        if ($scope.exercise.selected == undefined) {
           console.log("You should select it.");
         } else {
           $modalInstance.close($scope.exercise.selected);
         }
-      }
+      };
 
-      $scope.cancel = function(){
+      $scope.cancel = function () {
         $modalInstance.dismiss();
-      }
+      };
 
       $http.get(api_exercises_url)
         .success(function (data, status, headers) {
@@ -156,34 +153,33 @@ angular
           console.error("Could not fetch exercises.");
         });
     }
-  ]).filter('propsFilter', function() {
-  return function(items, props) {
-    var out = [];
+  ]).filter('propsFilter', function () {
+    return function (items, props) {
+      var out = [];
 
-    if (angular.isArray(items)) {
-      items.forEach(function(item) {
-        var itemMatches = false;
+      if (angular.isArray(items)) {
+        items.forEach(function (item) {
+          var itemMatches = false;
 
-        var keys = Object.keys(props);
-        for (var i = 0; i < keys.length; i++) {
-          var prop = keys[i];
-          var text = props[prop].toLowerCase();
-          if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
-            itemMatches = true;
-            break;
+          var keys = Object.keys(props);
+          for (var i = 0; i < keys.length; i++) {
+            var prop = keys[i];
+            var text = props[prop].toLowerCase();
+            if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
+              itemMatches = true;
+              break;
+            }
           }
-        }
 
-        if (itemMatches) {
-          out.push(item);
-        }
-      });
-    } else {
-      // Let the output be the input untouched
-      out = items;
+          if (itemMatches) {
+            out.push(item);
+          }
+        });
+      } else {
+        // Let the output be the input untouched
+        out = items;
+      }
+
+      return out;
     }
-
-    return out;
-  }
-});
-;
+  });

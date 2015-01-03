@@ -1,15 +1,15 @@
-class Api::V1::TrainingController < ActionController::Base
+class Api::V1::TrainingsController < ActionController::Base
 
-  def trainings
+  def index
     if user_signed_in?
       @training_list = Training.where(:trainee_id => nil)
-      render formats: ['json']
+      render
     else
-      render json: {}, status: :unauthorized
+      render status: :unauthorized
     end
   end
 
-  def training
+  def show
     if user_signed_in?
       @training = Training.includes(:exercises => [:exercise_type, :series]).where(:id => params[:id]).first
       if @training.nil?
