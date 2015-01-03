@@ -4,7 +4,7 @@ require 'rails/all'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
-Bundler.require(:default, Rails.env)
+Bundler.require(*Rails.groups)
 
 module Trainerjim
   class Application < Rails::Application
@@ -43,11 +43,6 @@ module Trainerjim
     # Version of your assets, change this if you want to expire all your assets
     config.assets.version = '1.0'
     
-    files = Dir[Rails.root.join('app', 'assets', '{javascripts,stylesheets}', '**', '[^_]*.{js,css,erb}*')]
-    files.map! {|file| file.sub(%r(#{Rails.root}/app/assets/(javascripts|stylesheets)/), '') }
-    files.map! {|file| file.sub(%r(\.(coffee|scss|erb|scss\.erb)), '') }
-    config.assets.precompile << files
-
     # Add the fonts path
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
 

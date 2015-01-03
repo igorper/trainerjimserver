@@ -16,14 +16,6 @@ defaults: &defaults
   # The server defaults to notice.
   #min_messages: warning
 
-localdev:
-  <<: *defaults
-  database: trainerjim_localdev
-
-staging:
-  <<: *defaults
-  database: trainerjim_staging
-
 development:
   <<: *defaults
   database: trainerjim_development
@@ -35,15 +27,3 @@ test:
 production:
   <<: *defaults
   database: trainerjim_production
-
-rok:
-  <<: *defaults
-  database: trainerjim_rok
-
-igor:
-  <<: *defaults
-  database: trainerjim_igor
-
-matej:
-  <<: *defaults
-  database: trainerjim_matej
