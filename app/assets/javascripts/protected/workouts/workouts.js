@@ -3,7 +3,7 @@
 //= require angular-sanitize/angular-sanitize
 //= require angular-ui-select/dist/select
 //= require trainings/training
-//= require exercises/exercise
+//= require exerciseTypes/exerciseType
 
 angular
   .module('protected.workouts', [
@@ -13,7 +13,7 @@ angular
     'ngSanitize',
     'ui.select',
     'trainings',
-    'exercises'
+    'exerciseTypes'
   ])
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
@@ -23,8 +23,8 @@ angular
         templateUrl: "protected/workouts/workouts.html"
       });
   }])
-  .controller("WorkoutsCtrl", ["$scope", "$http", "$window", '$modal', 'Training',
-    function ($scope, $http, $window, $modal, Training) {
+  .controller("WorkoutsCtrl", ["$scope", "$window", '$modal', 'Training',
+    function ($scope, $window, $modal, Training) {
       var REPETITIONS_STEP = 1;
       var WEIGHT_STEP = 5;
       var REST_STEP = 5;
@@ -134,8 +134,8 @@ angular
         });
       };
     }
-  ]).controller("SelectExerciseCtrl", ["$scope", "$http", '$modalInstance', 'Exercise',
-    function ($scope, $http, $modalInstance, Exercise) {
+  ]).controller("SelectExerciseCtrl", ["$scope", '$modalInstance', 'ExerciseType',
+    function ($scope, $modalInstance, ExerciseType) {
       $scope.exercise = {};
       $scope.exercises = [];
 
@@ -151,7 +151,7 @@ angular
         $modalInstance.dismiss();
       };
 
-      Exercise.query(function (data) {
+      ExerciseType.query(function (data) {
         $scope.exercises = data;
       }, function (data, status, headers) {
         console.error("Could not fetch exercises.");
