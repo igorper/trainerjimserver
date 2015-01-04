@@ -3,6 +3,7 @@
 //= require angular-sanitize/angular-sanitize
 //= require angular-ui-select/dist/select
 //= require trainings/training
+//= require exercises/exercise
 
 angular
   .module('protected.workouts', [
@@ -11,7 +12,8 @@ angular
     'ui.sortable',
     'ngSanitize',
     'ui.select',
-    'trainings'
+    'trainings',
+    'exercises'
   ])
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
@@ -133,8 +135,8 @@ angular
         });
       };
     }
-  ]).controller("SelectExerciseCtrl", ["$scope", "$http", '$modalInstance',
-    function ($scope, $http, $modalInstance) {
+  ]).controller("SelectExerciseCtrl", ["$scope", "$http", '$modalInstance', 'Exercise',
+    function ($scope, $http, $modalInstance, Exercise) {
       $scope.exercise = {};
       $scope.exercises = [];
 
@@ -150,13 +152,11 @@ angular
         $modalInstance.dismiss();
       };
 
-      $http.get(api_exercises_url)
-        .success(function (data, status, headers) {
-          $scope.exercises = data;
-        })
-        .error(function (data, status, headers) {
-          console.error("Could not fetch exercises.");
-        });
+      Exercise.query(function (data) {
+        $scope.exercises = data;
+      }, function (data, status, headers) {
+        console.error("Could not fetch exercises.");
+      });
     }
   ]).filter('propsFilter', function () {
     return function (items, props) {

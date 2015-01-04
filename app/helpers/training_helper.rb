@@ -1,7 +1,10 @@
 module TrainingHelper
   mattr_reader :series_view, :exercise_view, :training_view,
     :exercise_full_view, :training_full_view, :exercise_type_view
-  
+
+
+  # TODO: Stop using these json views and start using JBuilder views.
+
   ###############################################################################
   ### EXERCISE TYPE VIEWS
   ##
