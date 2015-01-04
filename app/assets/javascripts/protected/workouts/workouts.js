@@ -53,10 +53,9 @@ angular
       };
 
       $scope.createEmptyTraining = function () {
-        $scope.selectedTraining = {
-          name: "Enter training name",
-          exercises: []
-        };
+        $scope.selectedTraining = new Training();
+        $scope.selectedTraining.name = "Enter training name";
+        $scope.selectedTraining.exercises = [];
       };
 
       $scope.changeSelectedSeries = function (exercise, seriesIdx) {
@@ -128,7 +127,7 @@ angular
       };
 
       $scope.onSaveClicked = function (selectedTraining) {
-        Training.save($scope.selectedTraining, function () {
+        $scope.selectedTraining.$save(function () {
           console.log("successfully saved!");
         }, function () {
           console.log("not saved!");

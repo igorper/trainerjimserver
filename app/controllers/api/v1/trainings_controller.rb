@@ -15,9 +15,9 @@ class Api::V1::TrainingsController < ActionController::Base
       if @training.nil?
         ajax_error_i18n :training_does_not_exist
       elsif !@training.trainee_id.nil? && @training.trainee_id != current_user.id
-        render :nothing => true, :status => :forbidden
+        render json: {}, status: :forbidden
       else
-          render :json => @training.to_json(TrainingHelper.training_full_view)
+        render
       end
     else
       render json: {}, status: :unauthorized
@@ -25,10 +25,8 @@ class Api::V1::TrainingsController < ActionController::Base
   end
 
   def create
-  end
-
-  def exercises
-    render :json => ExerciseType.all.to_json(TrainingHelper.exercise_type_view)
+    training = TrainingHelper.to_training(params)
+    render
   end
 
 end
