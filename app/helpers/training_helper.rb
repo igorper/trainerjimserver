@@ -23,4 +23,10 @@ module TrainingHelper
     edited_training
   end
 
+  def save_edited_training(edited_training, original_training)
+    edited_training.id = original_training.id
+    original_training.delete
+    save_new_training(edited_training)
+  end
+
 end

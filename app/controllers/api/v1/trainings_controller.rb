@@ -31,7 +31,7 @@ class Api::V1::TrainingsController < ActionController::Base
         if existing_training.common?
           @saved_training = save_new_training(edited_training, existing_training)
         else
-          # @saved_training = save_edited_training(edited_training, existing_training)
+          @saved_training = save_edited_training(edited_training, existing_training)
         end
       else
         @saved_training = save_new_training(edited_training)
