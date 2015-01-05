@@ -25,11 +25,8 @@ class Api::V1::TrainingsController < ActionController::Base
 
   def create
     if user_signed_in?
-      edited_training = TrainingHelper.to_training(params)
-      # The user can edit an existing workout. If the existing workout belongs
-      # to them, it will be changed. If it does not belong to them (if it is
-      # a common one), then a duplicate has to be created.
-      existing_training = Training.find_by_id(edited_training['id'])
+      edited_training = TrainingHelper.to_new_training(params)
+      existing_training = Training.find_by_id(params[:id])
       if existing_training
         if existing_training.common?
           @saved_training = save_new_training(edited_training, existing_training)

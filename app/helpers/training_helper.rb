@@ -1,10 +1,10 @@
 module TrainingHelper
 
-  def self.to_training(params)
-    filtered_params = params.permit(:id, :name)
+  def self.to_new_training(params)
+    filtered_params = params.permit(:name)
     filtered_params[:exercises] = params[:exercises].map.with_index do |exercise_params, i|
       exercise_params[:order] = i
-      ExerciseHelper.to_exercise(exercise_params)
+      ExerciseHelper.to_new_exercise(exercise_params)
     end
     Training.new(filtered_params)
   end
