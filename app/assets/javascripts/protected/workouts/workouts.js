@@ -33,20 +33,20 @@ angular
       $scope.selectedTraining = null;
       $scope.selectedSeries = [];
 
-      Training.query(function (trainings) {
-        $scope.templates = trainings;
-      }, function () {
-        $window.alert("Could get the list of trainings. Try logging in again.")
-      });
+      function refreshTrainingsList() {
+        Training.query(function (trainings) {
+          $scope.templates = trainings;
+        }, function () {
+          $window.alert("Could get the list of trainings. Try logging in again.")
+        });
+      }
+
+      refreshTrainingsList();
 
       $scope.showTemplate = function (template) {
-        Training.get(template, function (training) {
+        Training.get({id: template.id}, function (training) {
           $scope.selectedTraining = training;
-          $scope.selectedSeries = [];
-          // select default series to show for each exercise
-          for (var i = 0; i < training.exercises.length; i++) {
-            training.exercises[i].selectedSeries = 0;
-          }
+          resetSelectedSeries();
         }, function () {
           $window.alert("Unable to fetch the training.");
         });
@@ -127,12 +127,21 @@ angular
       };
 
       $scope.onSaveClicked = function (selectedTraining) {
-        $scope.selectedTraining.$save(function () {
-          console.log("successfully saved!");
+        $scope.selectedTraining.$save(function (data) {
+          resetSelectedSeries();
+          refreshTrainingsList();
         }, function () {
-          console.log("not saved!");
+          $window.alert("Unable to save the training.");
         });
       };
+
+      function resetSelectedSeries() {
+        $scope.selectedSeries = [];
+        // select default series to show for each exercise
+        for (var i = 0; i < $scope.selectedTraining.exercises.length; i++) {
+          $scope.selectedTraining.exercises[i].selectedSeries = 0;
+        }
+      }
     }
   ]).controller("SelectExerciseCtrl", ["$scope", '$modalInstance', 'ExerciseType',
     function ($scope, $modalInstance, ExerciseType) {
