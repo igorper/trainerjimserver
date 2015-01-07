@@ -18,13 +18,13 @@ angular
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('protected.workouts', {
-        url: "/workouts",
+        url: "/workouts?:id",
         controller: "WorkoutsCtrl",
         templateUrl: "protected/workouts/workouts.html"
       });
   }])
-  .controller("WorkoutsCtrl", ["$scope", "$window", '$modal', 'Training',
-    function ($scope, $window, $modal, Training) {
+  .controller("WorkoutsCtrl", ["$scope", "$window", '$modal', 'Training', '$stateParams',
+    function ($scope, $window, $modal, Training, $stateParams) {
       var REPETITIONS_STEP = 1;
       var WEIGHT_STEP = 5;
       var REST_STEP = 5;
@@ -36,27 +36,32 @@ angular
       function refreshTrainingsList() {
         Training.query(function (trainings) {
           $scope.templates = trainings;
+          $scope.selectedTraining = null;
         }, function () {
           $window.alert("Could get the list of trainings. Try logging in again.")
         });
       }
 
-      refreshTrainingsList();
-
-      $scope.showTemplate = function (template) {
-        Training.get({id: template.id}, function (training) {
-          $scope.selectedTraining = training;
-          resetSelectedSeries();
-        }, function () {
-          $window.alert("Unable to fetch the training.");
-        });
-      };
-
-      $scope.createEmptyTraining = function () {
+      function createEmptyTraining() {
         $scope.selectedTraining = new Training();
         $scope.selectedTraining.name = "Enter training name";
         $scope.selectedTraining.exercises = [];
       };
+
+      refreshTrainingsList();
+
+      if ($stateParams.id != undefined) {
+        if($stateParams.id === 'new'){
+          createEmptyTraining();
+        } else {
+          Training.get({id: $stateParams.id}, function (training) {
+            $scope.selectedTraining = training;
+            resetSelectedSeries();
+          }, function () {
+            $window.alert("Unable to fetch the training.");
+          });
+        }
+      }
 
       $scope.changeSelectedSeries = function (exercise, seriesIdx) {
         exercise.selectedSeries = seriesIdx;

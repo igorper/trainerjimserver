@@ -4,7 +4,7 @@ class Api::V1::TrainingsController < ActionController::Base
 
   def index
     if user_signed_in?
-      @training_list = Training.where('trainee_id is NULL OR trainee_id = ?', current_user.id)
+      @training_list = Training.where(trainee_id: current_user.id)
     else
       render status: :unauthorized
     end
