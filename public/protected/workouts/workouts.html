@@ -4,23 +4,15 @@
             <h3 class="jim-title">My workouts</h3>
 
             <ul class="workout-list nav nav-tabs nav-stacked">
-                <!--<li data-bind="css: {highlighted: id < 0}">
-                    <a href="#" data-bind="page-href: href">
-                        <div class="content">
-                            <div class="left" data-bind="html: name"></div>
-                            <div class="right"><i class="icon-chevron-right icon-white">​</i>​</div>
-                        </div>
-                    </a>
-                </li>-->
-                <li ng-repeat="template in templates">
-                    <a href="" ng-click="showTemplate(template)">
+                <li ng-repeat="template in templates" ui-sref-active="highlighted">
+                    <a href="" ui-sref="protected.workouts({id: template.id})">
                         <div class="content">
                             {{template.name}}
                         </div>
                     </a>
                 </li>
                 <li class="highlighted">
-                    <a href="" ng-click="createEmptyTraining()">
+                    <a href="" ui-sref="protected.workouts({id: 'new'})">
                         <div class="content">
                             <div class="left">Create a new workout</div>
                             <div class="right">
@@ -33,7 +25,7 @@
         </div>
         <div class="main-panel col-sm-9">
             <div class="jim-box">
-                <div ng-show="false">
+                <div ng-hide="selectedTraining">
                     <div class="header">
                         <h1 class="jim-title">No workout selected.</h1>
                         <h1 class="jim-sub-title">Select or create a workout on the left.</h1>
@@ -41,7 +33,7 @@
                     <div class="separator"></div>
                     <img src="assets/workouts/ic_add_circle_outline_24px.svg " style="width:300px; opacity: 0.05; margin: auto; display:block;" />
                 </div>
-                <div ng-show="true" id="my-workout" class="selected-regime">
+                <div ng-show="selectedTraining" id="my-workout" class="selected-regime">
                     <div class="row">
                         <h1 class="jim-title col-sm-12">Customise your workout</h1>
                     </div>
