@@ -4,23 +4,25 @@
 //= require angular-ui-select/dist/select
 //= require trainings/training
 //= require exerciseTypes/exerciseType
+//= require shared/shared
 
 angular
-  .module('protected.workouts', [
+  .module('workouts', [
     'ui.router',
     'ui.bootstrap',
     'ui.sortable',
     'ngSanitize',
     'ui.select',
     'trainings',
-    'exerciseTypes'
+    'exerciseTypes',
+    'shared'
   ])
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
-      .state('protected.workouts', {
+      .state('workouts', {
         url: "/workouts?:id",
         controller: "WorkoutsCtrl",
-        templateUrl: "protected/workouts/workouts.html"
+        templateUrl: "workouts/workouts.html"
       });
   }])
   .controller("WorkoutsCtrl", ["$scope", "$window", '$modal', 'Training', '$stateParams',
@@ -36,7 +38,6 @@ angular
       function refreshTrainingsList() {
         Training.query(function (trainings) {
           $scope.templates = trainings;
-          $scope.selectedTraining = null;
         }, function () {
           $window.alert("Could get the list of trainings. Try logging in again.")
         });
@@ -104,7 +105,7 @@ angular
 
       $scope.editExercise = function (exercise) {
         var modalInstance = $modal.open({
-          templateUrl: 'protected/workouts/select_exercise.html',
+          templateUrl: 'workouts/select_exercise.html',
           controller: 'SelectExerciseCtrl',
           backdrop: 'static',
           windowClass: 'modal-window'
@@ -135,6 +136,7 @@ angular
         $scope.selectedTraining.$save(function (data) {
           resetSelectedSeries();
           refreshTrainingsList();
+          $scope.selectedTraining = null;
         }, function () {
           $window.alert("Unable to save the training.");
         });

@@ -30,7 +30,7 @@
       })();
     </script>
     <%= csrf_meta_tag %>
-    <%= yield(:header) if content_for?(:header) %>
+    <%= yield(:shared) if content_for?(:shared) %>
     <% if content_for?(:content) then %>
       <%= yield(:content) %>
     <% else %>

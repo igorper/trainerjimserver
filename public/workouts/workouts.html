@@ -1,17 +1,18 @@
+<header></header>
 <div class="container">
     <div class="row training">
         <div class="my-workouts col-sm-3">
             <h3 class="jim-title">My workouts</h3>
             <ul class="workout-list nav nav-tabs nav-stacked">
                 <li ng-repeat="template in templates" ui-sref-active="highlighted">
-                    <a href="" ui-sref="protected.workouts({id: template.id})">
+                    <a href="" ui-sref="workouts({id: template.id})">
                         <div class="content">
                             {{template.name}}
                         </div>
                     </a>
                 </li>
                 <li class="highlighted">
-                    <a href="" ui-sref="protected.workouts({id: 'new'})">
+                    <a href="" ui-sref="workouts({id: 'new'})">
                         <div class="content">
                             <div class="left">Create a new workout</div>
                             <div class="right">
@@ -149,3 +150,4 @@
         </div>
     </div>
 </div>
+<footer></footer>

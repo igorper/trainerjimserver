@@ -1,18 +1,20 @@
 //= require apiLinks
 //= require angular/angular
 //= require angular-bootstrap/ui-bootstrap-tpls
+//= require shared/shared
 
 angular
-  .module('protected.trainees', [
+  .module('trainees', [
     'ui.router',
-    'ui.bootstrap'
+    'ui.bootstrap',
+    'shared'
   ])
   .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider) {
     $stateProvider
-      .state('protected.trainees', {
+      .state('trainees', {
         url: "/users",
         controller: "TraineesCtrl",
-        templateUrl: "protected/trainees/trainees.html"
+        templateUrl: "trainees/trainees.html"
       });
   }])
   .controller("TraineesCtrl", ["$scope", "$http", "$window",

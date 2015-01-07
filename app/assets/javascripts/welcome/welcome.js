@@ -20,7 +20,7 @@ angular
   .controller("WelcomeCtrl", ["$scope", "$state",
     function ($scope, $state) {
       $scope.onLoggedIn = function () {
-        $state.go('protected.workouts');
+        $state.go('workouts');
       };
     }
   ]);
