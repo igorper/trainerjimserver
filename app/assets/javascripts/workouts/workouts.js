@@ -5,6 +5,8 @@
 //= require trainings/training
 //= require exerciseTypes/exerciseType
 //= require shared/shared
+//= require angular-animate/angular-animate
+//= require angularjs-toaster/toaster
 
 angular
   .module('workouts', [
@@ -15,7 +17,9 @@ angular
     'ui.select',
     'trainings',
     'exerciseTypes',
-    'shared'
+    'shared',
+    'ngAnimate',
+    'toaster'
   ])
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
@@ -25,8 +29,8 @@ angular
         templateUrl: "workouts/workouts.html"
       });
   }])
-  .controller("WorkoutsCtrl", ["$scope", "$window", '$modal', 'Training', '$stateParams',
-    function ($scope, $window, $modal, Training, $stateParams) {
+  .controller("WorkoutsCtrl", ["$scope", '$modal', 'Training', '$stateParams', 'toaster',
+    function ($scope, $modal, Training, $stateParams, toaster) {
       var REPETITIONS_STEP = 1;
       var WEIGHT_STEP = 5;
       var REST_STEP = 5;
@@ -39,7 +43,7 @@ angular
         Training.query(function (trainings) {
           $scope.templates = trainings;
         }, function () {
-          $window.alert("Could get the list of trainings. Try logging in again.")
+          toaster.pop({ type: 'error', title: "Fetch trainings error", body: "Unable to fetch the trainings list"});
         });
       }
 
@@ -59,7 +63,7 @@ angular
             $scope.selectedTraining = training;
             resetSelectedSeries();
           }, function () {
-            $window.alert("Unable to fetch the training.");
+            toaster.pop({type: 'error', title: "Fetch training error", body: "Unable to fetch the training"});
           });
         }
       }
@@ -147,9 +151,10 @@ angular
         $scope.selectedTraining.$save(function (data) {
           resetSelectedSeries();
           refreshTrainingsList();
+          toaster.pop({ type: 'success', title: "Training saved", body: "Sucessfully saved " + selectedTraining.name});
           $scope.selectedTraining = null;
         }, function () {
-          $window.alert("Unable to save the training.");
+          toaster.pop({ type: 'error', title: "Training save error", body: "Error saving " + selectedTraining.name});
         });
       };
 
