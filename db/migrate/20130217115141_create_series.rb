@@ -7,11 +7,11 @@ class CreateSeries < ActiveRecord::Migration
       t.integer :weight
       t.integer :rest_time, :null => false, :default => 0
 
-      t.foreign_key :exercises, :column => 'exercise_id', :dependent => :delete, :on_update => :cascade
-
       t.timestamps
     end
-    
+
     add_index :series, :exercise_id
+
+    add_foreign_key :series, :exercises, :column => 'exercise_id', :on_delete => :cascade, :on_update => :cascade
   end
 end
