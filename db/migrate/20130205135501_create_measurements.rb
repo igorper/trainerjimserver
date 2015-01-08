@@ -9,15 +9,15 @@ class CreateMeasurements < ActiveRecord::Migration
       t.timestamp :end_time
       t.integer :rating
 
-      t.foreign_key :trainings, :column => :training_id, :dependent => :delete, :on_update => :cascade
-      t.foreign_key :users, :column => :trainee_id, :dependent => :delete, :on_update => :cascade
-      t.foreign_key :users, :column => :trainer_id, :dependent => :nullify, :on_update => :cascade
-
       t.timestamps
     end
-    
+
     add_index :measurements, :training_id
     add_index :measurements, :trainee_id
     add_index :measurements, :trainer_id
+
+      add_foreign_key :measurements, :trainings, :column => :training_id, :on_delete => :cascade, :on_update => :cascade
+      add_foreign_key :measurements, :users, :column => :trainee_id, :on_delete => :cascade, :on_update => :cascade
+      add_foreign_key :measurements, :users, :column => :trainer_id, :on_delete => :nullify, :on_update => :cascade
   end
 end

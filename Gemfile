@@ -2,15 +2,15 @@ source 'https://rubygems.org'
 
 gem 'rails', '>= 4.0.0'
 
-gem 'pg'
+gem 'tzinfo-data'
 
+gem 'pg'
 gem 'activerecord-session_store'
+gem 'bower-rails'
 
 gem 'sass-rails'
-
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
-
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
 
@@ -24,9 +24,6 @@ gem 'mail'
 gem 'unicode'
 
 gem 'multi_json'
-
-# For foreign key constraints on databases
-gem 'foreigner', :git => 'git://github.com/urbas/foreigner.git'
 
 gem 'rubyzip'
 
@@ -54,8 +51,6 @@ group :test do
   gem 'factory_girl_rails'
   gem 'factory_girl'
 end
-
-gem 'bower-rails'
 
 # The 'ruby-debug-ide' gem should just be installed onto the system. It does not
 # need to be included in the Gemfile of this project.

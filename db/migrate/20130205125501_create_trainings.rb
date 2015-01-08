@@ -5,14 +5,15 @@ class CreateTrainings < ActiveRecord::Migration
       t.string :name
       t.integer :original_training_id, :null => true
       
-      t.foreign_key :users, :column => :trainee_id, :dependent => :delete, :on_update => :cascade
-      t.foreign_key :trainings, :column => :original_training_id, :dependent => :nullify, :on_update => :cascade
 
       t.timestamps
     end
 
     add_index :trainings, :trainee_id
     add_index :trainings, :original_training_id
-    
+    add_foreign_key :trainings, :users, :column => :trainee_id, :on_delete => :cascade, :on_update => :cascade
+    add_foreign_key :trainings, :trainings, :column => :original_training_id, :on_delete => :nullify, :on_update => :cascade
+
   end
+
 end
