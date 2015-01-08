@@ -82,7 +82,7 @@ angular
 
       $scope.removeSeries = function(exercise){
         // there has to be at least one exercise
-        if(exercise.series.lengthg > 1) {
+        if(exercise.series.length > 1) {
           exercise.series.splice(exercise.series.indexOf($scope.getSelectedSeries(exercise)), 1);
         }
       }
