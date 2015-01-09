@@ -1,6 +1,5 @@
 //= require apiLinks
 //= require pageLinks
-//= require angular/angular
 
 angular.module('shared', [])
   .directive('header', function () {

@@ -1,6 +1,5 @@
 //= require apiLinks
 //= require users/loginPanel.js
-//= require angular/angular
 //= require angular-bootstrap/ui-bootstrap-tpls
 
 angular

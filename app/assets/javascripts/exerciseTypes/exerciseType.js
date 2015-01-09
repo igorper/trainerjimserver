@@ -1,5 +1,4 @@
 //= require apiLinks
-//= require angular/angular
 //= require angular-resource/angular-resource
 
 angular

@@ -1,5 +1,4 @@
 //= require apiLinks
-//= require angular/angular
 //= require angular-bootstrap/ui-bootstrap-tpls
 //= require shared/shared
 
