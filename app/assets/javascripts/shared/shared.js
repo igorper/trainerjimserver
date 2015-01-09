@@ -18,6 +18,10 @@ angular.module('shared', [])
       {
         name: "Trainees",
         link: "trainees"
+      },
+      {
+        name: "Results",
+        link: "results"
       }
     ]
   }])
