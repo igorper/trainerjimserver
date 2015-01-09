@@ -43,7 +43,7 @@ angular
         Training.query(function (trainings) {
           $scope.templates = trainings;
         }, function () {
-          toaster.pop({ type: 'error', title: "Fetch trainings error", body: "Unable to fetch the trainings list"});
+          toaster.pop("error", "Fetch trainings error", "Unable to fetch the trainings list");
         });
       }
 
@@ -63,7 +63,7 @@ angular
             $scope.selectedTraining = training;
             resetSelectedSeries();
           }, function () {
-            toaster.pop({type: 'error', title: "Fetch training error", body: "Unable to fetch the training"});
+            toaster.pop("error", "Fetch training error", "Unable to fetch the training");
           });
         }
       }
@@ -151,10 +151,10 @@ angular
         $scope.selectedTraining.$save(function (data) {
           resetSelectedSeries();
           refreshTrainingsList();
-          toaster.pop({ type: 'success', title: "Training saved", body: "Sucessfully saved " + selectedTraining.name});
+          toaster.pop("success", "Training saved", "Sucessfully saved " + selectedTraining.name);
           $scope.selectedTraining = null;
         }, function () {
-          toaster.pop({ type: 'error', title: "Training save error", body: "Error saving " + selectedTraining.name});
+          toaster.pop("error", "Training save error", "Error saving " + selectedTraining.name);
         });
       };
 
