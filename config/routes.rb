@@ -12,6 +12,7 @@ Trainerjim::Application.routes.draw do
       post 'signup' => 'login#sign_up'
       resources :trainings
       resources :exercise_types
+      resources :trainees
     end
   end
 
