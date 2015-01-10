@@ -47,7 +47,7 @@ angular
         $scope.selectedTraining = new Training();
         $scope.selectedTraining.name = "Enter training name";
         $scope.selectedTraining.exercises = [];
-      };
+      }
 
       refreshTrainingsList();
 
