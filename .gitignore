@@ -22,3 +22,6 @@ public/assets
 # IntelliJ's stuff
 .idea/
 *.iml
+
+# NPM stuff
+node_modules/
