@@ -16,10 +16,20 @@ angular
         controller: "ResultsCtrl",
         templateUrl: "results/results.html"
       });
+  }]).factory("Result", ["$resource", function ($resource) {
+    return $resource("/api/v1/results/:id.json");
   }])
-  .controller("ResultsCtrl", ["$scope", "$http",
-    function($scope, $http){
+  .controller("ResultsCtrl", ["$scope", "$http", "Result",
+    function($scope, $http, Result){
+
+      var date = new Date();
+      var d = date.getDate();
+      var m = date.getMonth();
+      var y = date.getFullYear();
+
       $scope.eventSources = [];
+
+      $scope.results = null;
       /* config object */
       $scope.uiConfig = {
         calendar:{
@@ -33,6 +43,14 @@ angular
           eventResize: $scope.alertOnResize
         }
       };
+
+      Result.query(function (data) {
+        $scope.results = data;
+
+        $scope.eventSources.push([{start: new Date($scope.results[0].start_time), end: new Date($scope.results[0].end_time), title: "Workout"}])
+      }, function (data, status, headers) {
+        console.error("Could not fetch exercises.");
+      });
     }
   ])
 ;
