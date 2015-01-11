@@ -25,7 +25,7 @@ gem 'unicode'
 
 gem 'multi_json'
 
-gem 'rubyzip'
+gem 'rubyzip', '>= 1.0.0'
 
 gem 'bootstrap-sass', '>= 3.3.1'
 

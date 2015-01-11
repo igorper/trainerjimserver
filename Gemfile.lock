@@ -232,7 +232,7 @@ DEPENDENCIES
   pg
   rails (>= 4.0.0)
   rspec-rails
-  rubyzip
+  rubyzip (>= 1.0.0)
   rvm-capistrano
   sass-rails
   sdoc

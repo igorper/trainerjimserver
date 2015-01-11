@@ -159,9 +159,9 @@ class TrainingController < ApplicationController
   # @return the ID of the newly created measurement.
   def m_upload
     with_auth_mapi do |user|
-      require 'zip/zipfilesystem'
+      require 'zip'
       # Get the zip file that is the training data:
-      Zip::ZipFile.open(params[:trainingData].path) do |zip_file|
+      Zip::File.open(params[:trainingData].path) do |zip_file|
         
         training_info = nil
         raw_measurements = nil
