@@ -212,6 +212,7 @@ measurement = Measurement.create(
 )
 
 measurement.series_executions.create(
+    measurement: measurement,
     start_timestamp: 4200,
     end_timestamp: 9001,
     exercise_type: db_shoulder_press,
@@ -220,7 +221,7 @@ measurement.series_executions.create(
     rest_time: 543,
     duration_seconds: 456,
     rating: 4,
-    guidance_type: 'some guidance type'
+    guidance_type: "duration"
 )
 
 
