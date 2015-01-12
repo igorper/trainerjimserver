@@ -1,1 +1,0 @@
-json.(results_list, :id, :name, :updated_at)
