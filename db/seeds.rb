@@ -6,19 +6,16 @@
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
 
-#if !User.find_by_email('matej.urbas@gmail.com') then
-
 admin_role = Role.find_by_name(Role.administrator)
 trainer_role = Role.find_by_name(Role.trainer)
 
 trainer = User.create(:email => 'jim@jim.com', :password => 'trainerjim', :full_name => 'Jim the Trainer', :roles => [trainer_role])
-matej = User.create(:email => 'matej.urbas@gmail.com', :password => 'Hrt 2309_Vili', :full_name => 'Matej', :roles => [admin_role], :trainer => trainer)
-igor = User.create(:email => 'igor.pernek@gmail.com', :password => '307 Lakih_Pet', :full_name => 'Igor', :roles => [admin_role], :trainer => trainer)
-damjan = User.create(:email => 'damjan.obal@gmail.com', :password => 'Klipni_Ul 103', :full_name => 'Damjan', :roles => [admin_role], :trainer => trainer)
-blaz = User.create(:email => 'snuderl@gmail.com', :password => 'to je 5 vukov', :full_name => 'Blaz', :roles => [admin_role], :trainer => trainer)
-marusa = User.create(:email => 'marusa@example.com', :password => 'test1234', :full_name => 'Marusa', :roles => [], :trainer => trainer)
-kristjan = User.create(:email => 'kristjan.korez@gmail.com', :password => 'korezina 371', :full_name => 'Kristjan', :roles => [trainer_role])
-#end
+matej = User.create(:email => 'matej.urbas@gmail.com', :password => 'trainerjim', :full_name => 'Matej', :roles => [admin_role], :trainer => trainer)
+igor = User.create(:email => 'igor.pernek@gmail.com', :password => 'trainerjim', :full_name => 'Igor', :roles => [admin_role], :trainer => trainer)
+damjan = User.create(:email => 'damjan.obal@gmail.com', :password => 'trainerjim', :full_name => 'Damjan', :roles => [admin_role], :trainer => trainer)
+blaz = User.create(:email => 'snuderl@gmail.com', :password => 'trainerjim', :full_name => 'Blaz', :roles => [admin_role], :trainer => trainer)
+marusa = User.create(:email => 'marusa@example.com', :password => 'trainerjim', :full_name => 'Marusa', :roles => [], :trainer => trainer)
+kristjan = User.create(:email => 'kristjan.korez@gmail.com', :password => 'trainerjim', :full_name => 'Kristjan', :roles => [trainer_role])
 
 bench = ExerciseType.create(:name => "Bench press")
 incline = ExerciseType.create(:name => "Incline press")
@@ -146,7 +143,6 @@ training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :re
 training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
 
-
 training1 = Training.create(:name => 'Spring fat trim', :trainee => marusa)
 training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1)
 training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2, :machine_setting => "C")
@@ -168,7 +164,6 @@ training1_ex3.series.create(:order => 3, :repeat_count => 10, :weight => 45, :re
 training1_ex4.series.create(:order => 1, :repeat_count => 10, :weight => 50, :rest_time => 27)
 training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 18)
 training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
-
 
 
 training1 = Training.create(:name => 'Summer action', :trainee => marusa)
@@ -203,6 +198,32 @@ lower_back = ExerciseType.create(:name => "Lower back")
 upper_back = ExerciseType.create(:name => "Upper back")
 free_ab_cruch = ExerciseType.create(:name => "Free abdominal crunch")
 
+
+measurement = Measurement.create(
+    trainee: marusa,
+    trainer: trainer,
+    training: training1,
+    data: 'somedata',
+    start_time: DateTime.now.ago(300),
+    end_time: DateTime.now,
+    rating: 3,
+    trainer_seen: true,
+    comment: 'This is a comment from my trainer. He is a nice guy.'
+)
+
+measurement.series_executions.create(
+    start_timestamp: 4200,
+    end_timestamp: 9001,
+    exercise_type: db_shoulder_press,
+    num_repetitions: 23,
+    weight: 667,
+    rest_time: 543,
+    duration_seconds: 456,
+    rating: 4,
+    guidance_type: 'some guidance type'
+)
+
+
 ####################### AUTOMATED TESTING SEEDS
 # This seeds are only for automated tests purposes and shouldn't be changed
 autotest_user = User.create(:email => 'auto@test.user', :password => 'valid_pass', :full_name => 'AutoTest', :roles => [])
@@ -232,7 +253,7 @@ training1_ex4.series.create(:order => 1, :repeat_count => 10, :weight => 50, :re
 training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 18)
 training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
-training1 = Training.create(:name => 'Spring fat trim',  :trainee => autotest_user, :created_at => '1/3/2012'.to_date, :updated_at => '1/3/2012'.to_date)
+training1 = Training.create(:name => 'Spring fat trim', :trainee => autotest_user, :created_at => '1/3/2012'.to_date, :updated_at => '1/3/2012'.to_date)
 training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1)
 training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2, :machine_setting => "C")
 training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3)
@@ -277,7 +298,6 @@ training1_ex3.series.create(:order => 3, :repeat_count => 10, :weight => 45, :re
 training1_ex4.series.create(:order => 1, :repeat_count => 10, :weight => 50, :rest_time => 27)
 training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 18)
 training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
-
 
 ######################## END AUTOMATED TESTING SEEDS
 
