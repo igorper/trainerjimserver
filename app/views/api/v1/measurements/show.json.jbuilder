@@ -1,0 +1,1 @@
+json.partial! 'full_measurement', measurement: @measurement

@@ -30,7 +30,7 @@ angular
 
         for(var i=0; i < $scope.results.length; i++){
           var r = $scope.results[i];
-          $scope.calendarSources.push([{start: new Date(r.start_time), end: new Date(r.end_time), title: r.id.toString(), training: r}])
+          $scope.calendarSources.push([{start: new Date(r.start_time), end: new Date(r.end_time), title: r.name.toString(), training: r}])
         }
 
       }, function (data, status, headers) {
@@ -38,8 +38,13 @@ angular
       });
 
       $scope.alertOnEventClick = function( date, jsEvent, view){
+        Measurement.get({id: date.training.id}, function (measurement) {
+          $scope.selectedTraining = measurement;
+          uiCalendarConfig.calendars["myCalendar1"].fullCalendar("render");
+        }, function () {
+          toaster.pop("error", "Fetch measurement error", "Unable to fetch the measurement");
+        });
         $scope.selectedTraining = date;
-        uiCalendarConfig.calendars["myCalendar1"].fullCalendar("render");
       };
 
       /* Render Tooltip */

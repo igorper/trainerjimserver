@@ -1,1 +1,1 @@
-json.array! @measurements
+json.array! @measurements, partial: 'api/v1/measurements/overview_measurement', as: :measurement
