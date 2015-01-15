@@ -324,3 +324,45 @@ $small: 724px;
     }
   }
 }
+
+/////////////////////////////////////////////////////////////////
+////////Definitions of common classes
+/////
+@mixin jim-box($paddingLR, $paddingTB) {
+  min-height: 400px;
+  margin: 25px 0px;
+
+  .box-image {
+    margin-top: 20px;
+    @include size(400px, 400px);
+    background-size: 400px;
+    opacity: 0.05;
+    margin: auto;
+  }
+
+  .header {
+    padding: $paddingTB $paddingLR;
+    .jim-title {margin: 0;}
+    .jim-sub-title {margin: 0; line-height: 1.2em;}
+  }
+
+  .separator{
+    margin: 0px 15px;
+    border-bottom: 1px solid $borderColor;
+  }
+
+  .body {
+    padding: 10px ($paddingLR + 10px) 25px;
+    .span4 {margin-top: 15px;}
+    .marginalium {float: left;font-size: 3em;margin-top: -20px; margin-right: 5px; height: 45px;}
+    .contentium {@include light; font-size: 1.6em;}
+
+    .name {
+      font: {size: 1.3em; weight: 200;}
+    }
+
+    .value {
+      font: {size: 1.3em; weight: 200;}
+    }
+  }
+}

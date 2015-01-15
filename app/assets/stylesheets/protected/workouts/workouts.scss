@@ -60,27 +60,12 @@
   /// MAIN PANEL
   //
   .main-panel .jim-box {
-    min-height: 400px;
-    margin: 25px 0px;
     $paddingLR: 25px;
     $paddingTB: 15px;
+    @include jim-box($paddingLR, $paddingTB);
 
-    .header {
-      padding: $paddingTB $paddingLR;
-      .jim-title {margin: 0;}
-      .jim-sub-title {margin: 0; line-height: 1.2em;}
-    }
-
-    .separator{
-      margin: 0px 15px;
-      border-bottom: 1px solid $borderColor;
-    }
-
-    .instructions {
-      padding: 10px ($paddingLR + 10px) 25px;
-      .span4 {margin-top: 15px;}
-      .marginalium {float: left;font-size: 3em;margin-top: -20px; margin-right: 5px; height: 45px;}
-      .contentium {@include light; font-size: 1.6em;}
+    .box-image {
+      background-image: image_url("workouts/ic_add_circle_outline_24px.svg");
     }
 
     $regimeDim: 65px;

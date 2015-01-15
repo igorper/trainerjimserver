@@ -14,13 +14,13 @@ angular
   .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider) {
     $stateProvider
       .state('results', {
-        url: "/results",
+        url: "/results?:id",
         controller: "ResultsCtrl",
         templateUrl: "results/results.html"
       });
   }])
-  .controller("ResultsCtrl", ["$scope", "$http", "Measurement", '$compile','uiCalendarConfig',
-    function($scope, $http, Measurement, $compile, uiCalendarConfig){
+  .controller("ResultsCtrl", ["$scope", "$http", "Measurement", '$compile','uiCalendarConfig', '$stateParams', '$state',
+    function($scope, $http, Measurement, $compile, uiCalendarConfig, $stateParams, $state){
 
       $scope.selectedTraining = null;
       $scope.calendarSources = [];
@@ -37,14 +37,23 @@ angular
         console.error("Could not fetch exercises.");
       });
 
+      if ($stateParams.id != undefined) {
+        if($stateParams.id){
+          Measurement.get({id: $stateParams.id}, function (measurement) {
+            $scope.selectedTraining = measurement;
+            uiCalendarConfig.calendars["myCalendar1"].fullCalendar("render");
+          }, function () {
+            toaster.pop("error", "Fetch measurement error", "Unable to fetch the measurement");
+          });
+        }
+      }
+
+      $scope.durationInMinutes = function(){
+        return $scope.selectedTraining ? (new Date($scope.selectedTraining.end_time) - new Date($scope.selectedTraining.start_time)) / (1000 * 60) : 0;
+      }
+
       $scope.alertOnEventClick = function( date, jsEvent, view){
-        Measurement.get({id: date.training.id}, function (measurement) {
-          $scope.selectedTraining = measurement;
-          uiCalendarConfig.calendars["myCalendar1"].fullCalendar("render");
-        }, function () {
-          toaster.pop("error", "Fetch measurement error", "Unable to fetch the measurement");
-        });
-        $scope.selectedTraining = date;
+        $state.go('results', { id: date.training.id});
       };
 
       /* Render Tooltip */
@@ -54,12 +63,11 @@ angular
         //  'tooltip-append-to-body': true});
         //$compile(element)($scope);
 
-        if($scope.selectedTraining && $scope.selectedTraining._id === event._id)
+        if($scope.selectedTraining && $scope.selectedTraining.id === event.training.id)
           element.addClass("selectedTraining");
       };
       $scope.uiConfig = {
         calendar:{
-          height: 550,
           header:{
             right: 'today prev,next'
           },
@@ -68,5 +76,4 @@ angular
         }
       };
     }
-  ])
-;
+  ]);

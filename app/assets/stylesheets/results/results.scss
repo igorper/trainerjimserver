@@ -1,5 +1,30 @@
 @import "definitions.scss";
 
-div.selectedTraining {
-  background-color: $jimColor;
+div.page {
+  margin: 30px 0;
+
+  .main-panel .jim-box {
+    $paddingLR: 0px;
+    $paddingTB: 0px;
+    @include jim-box($paddingLR, $paddingTB);
+    .box-image {
+      background-image: image_url("ic_directions_walk_24px.svg");
+    }
+
+    .calendar-overview {
+      padding: 30px;
+    }
+
+    .training-overview {
+      .row {
+        margin: 10px 0;
+      }
+    }
+  }
+
+
+
+  div.selectedTraining {
+    background-color: $jimColor;
+  }
 }

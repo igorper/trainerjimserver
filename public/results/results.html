@@ -1,11 +1,77 @@
 <header></header>
 <div class="container">
-    <div class="row">
-        <div ui-calendar="uiConfig.calendar" ng-model="calendarSources" calendar="myCalendar1"></div>
-    </div>
-    <div class="row">
-        Selected training:
-        <pre>{{selectedTraining | json}}</pre>
+    <div class="page">
+        <div class="main-panel">
+            <div class="jim-box">
+                <div class="row calendar-overview">
+                    <div class="col-sm-5">
+                        <div ui-calendar="uiConfig.calendar" ng-model="calendarSources" calendar="myCalendar1"></div>
+                    </div>
+                    <div class=" col-sm-7">
+                        <div ng-hide="selectedTraining">
+                            <div class="header">
+                                <h1 class="jim-title">No training selected.</h1>
+                                <h1 class="jim-sub-title">Select a training on the calendar.</h1>
+                            </div>
+                            <div class="separator"></div>
+                            <div class="box-image"></div>
+                        </div>
+                        <div ng-show="selectedTraining" id="my-workout" class="selected-regime">
+                            <div class="row header">
+                                <h1 class="jim-title col-sm-12">{{selectedTraining.name}}</h1>
+                            </div>
+                            <div class="separator"></div>
+                            <div class="body training-overview">
+                                <div class="row">
+                                    <div class="col-sm-6 name">Start time</div>
+                                    <div class="col-sm-6 value">{{selectedTraining.start_time | date: 'HH:mm'}}</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 name">Duration</div>
+                                    <div class="col-sm-6 value">{{durationInMinutes() | number:0}} minutes</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 name">Exercises performed</div>
+                                    <div class="col-sm-6 value">5 of 5</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 name">Series performed</div>
+                                    <div class="col-sm-6 value">13 of 15</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 name">Average rest difference</div>
+                                    <div class="col-sm-6 value">15 s</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 name">Weight changes</div>
+                                    <div class="col-sm-6 value">3 (30 +- 10)</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 name">Reps changes (and average diff)</div>
+                                    <div class="col-sm-6 value">3 (3 +- 2)</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 name">Number of series too heavy</div>
+                                    <div class="col-sm-6 value">3</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 name">Number of series too easy</div>
+                                    <div class="col-sm-6 value">3</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 name">Number of comments</div>
+                                    <div class="col-sm-6 value">3</div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-sm-6 name">Training rating</div>
+                                    <div class="col-sm-6 value">3</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 <footer></footer>
