@@ -11,6 +11,49 @@ div.page {
       background-image: image_url("ic_directions_walk_24px.svg");
     }
 
+    div.fc-event {
+      background-color: white;
+      border-color: white;
+    }
+
+    div.fc-event.smile-icon div.fc-event-inner
+    {
+      @include size(40px, 40px);
+      background-position: bottom right;
+      background-repeat: no-repeat;
+    }
+
+    div.fc-event.bored-off div.fc-event-inner
+    {
+      background-image: image_url("emoticons/SmileyFaded_Bored.png");
+    }
+
+    div.fc-event.bored-on div.fc-event-inner
+    {
+      background-image: image_url("emoticons/SmileyON_Bored.png");
+    }
+
+    div.fc-event.happy-off div.fc-event-inner
+    {
+      background-image: image_url("emoticons/SmileyFaded_Happy.png");
+    }
+
+    div.fc-event.happy-on div.fc-event-inner
+    {
+      background-image: image_url("emoticons/SmileyON_Happy.png");
+    }
+
+    div.fc-event.sweat-off div.fc-event-inner
+    {
+      background-image: image_url("emoticons/SmileyFaded_Sweat.png");
+    }
+
+    div.fc-event.sweat-on div.fc-event-inner
+    {
+      background-image: image_url("emoticons/SmileyON_Sweat.png");
+    }
+
+
     .calendar-overview {
       padding: 30px;
     }

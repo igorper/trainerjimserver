@@ -22,6 +22,8 @@ angular
   .controller("ResultsCtrl", ["$scope", "$http", "Measurement", '$compile','uiCalendarConfig', '$stateParams', '$state',
     function($scope, $http, Measurement, $compile, uiCalendarConfig, $stateParams, $state){
 
+      var SMILE_LOOKUP = {0 : "bored", 1: "happy", 2: "sweat"};
+
       $scope.selectedTraining = null;
       $scope.calendarSources = [];
 
@@ -30,7 +32,7 @@ angular
 
         for(var i=0; i < $scope.results.length; i++){
           var r = $scope.results[i];
-          $scope.calendarSources.push([{start: new Date(r.start_time), end: new Date(r.end_time), title: r.name.toString(), training: r}])
+          $scope.calendarSources.push([{start: new Date(r.start_time), end: new Date(r.end_time), className: 'smile-icon', training: r}])
         }
 
       }, function (data, status, headers) {
@@ -63,8 +65,9 @@ angular
         //  'tooltip-append-to-body': true});
         //$compile(element)($scope);
 
-        if($scope.selectedTraining && $scope.selectedTraining.id === event.training.id)
-          element.addClass("selectedTraining");
+        var smileyStatus = $scope.selectedTraining && $scope.selectedTraining.id === event.training.id ? "on" : "off";
+        element.addClass(SMILE_LOOKUP[event.training.rating] + "-" + smileyStatus);
+
       };
       $scope.uiConfig = {
         calendar:{
