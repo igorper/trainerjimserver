@@ -1,7 +1,6 @@
-//= require apiLinks
-//= require pageLinks
+//= require auth/auth
 
-angular.module('shared', [])
+angular.module('shared', ['auth', 'ui.router'])
   .directive('header', function () {
     return {
       restrict: 'E',
@@ -9,7 +8,7 @@ angular.module('shared', [])
       templateUrl: 'shared/header.html'
     }
   })
-  .controller('HeaderCtrl', ['$scope', '$http', '$window', function ($scope, $http, $window) {
+  .controller('HeaderCtrl', ['$scope', '$state', 'Auth', function ($scope, $state, Auth) {
     $scope.topNavigation = [
       {
         name: "Workouts",
@@ -23,7 +22,17 @@ angular.module('shared', [])
         name: "Results",
         link: "results"
       }
-    ]
+    ];
+
+    Auth.username(function (response) {
+      $scope.username = response.username;
+    });
+
+    $scope.logout = function () {
+      Auth.logout(function () {
+        $state.go('welcome');
+      });
+    };
   }])
   .directive('footer', function () {
     return {
@@ -32,7 +41,7 @@ angular.module('shared', [])
       templateUrl: 'shared/footer.html'
     }
   })
-  .controller('FooterCtrl', ['$scope', '$http', '$window', function ($scope, $http, $window) {
+  .controller('FooterCtrl', ['$scope', function ($scope) {
 
   }]);
 

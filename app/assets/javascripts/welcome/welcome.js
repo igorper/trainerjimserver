@@ -1,12 +1,13 @@
-//= require apiLinks
 //= require users/loginPanel.js
 //= require angular-bootstrap/ui-bootstrap-tpls
+//= require auth/auth
 
 angular
   .module('welcome', [
     'ui.router',
     'ui.bootstrap',
-    'users'
+    'users',
+    'auth'
   ])
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
@@ -16,10 +17,16 @@ angular
         templateUrl: "welcome/welcome.html"
       });
   }])
-  .controller("WelcomeCtrl", ["$scope", "$state",
-    function ($scope, $state) {
+  .controller("WelcomeCtrl", ["$scope", "$state", 'Auth',
+    function ($scope, $state, Auth) {
       $scope.onLoggedIn = function () {
         $state.go('workouts');
       };
+
+      Auth.is_logged_in(function (response) {
+        if (response.is_logged_in) {
+          $state.go('workouts');
+        }
+      });
     }
   ]);

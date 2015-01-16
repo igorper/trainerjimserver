@@ -1,398 +1,210 @@
-  @import "definitions.scss";
+@import "definitions.scss";
 
-  $logoPartWidth: 164px;
-  $loginPartWidth: 250px;
+$logoPartWidth: 164px;
+$loginPartWidth: 250px;
 
-  ////////////////////////////////////////////////////////////////////////////////
-  /// HEADER (with buttons)
-  //
+////////////////////////////////////////////////////////////////////////////////
+/// HEADER (with buttons)
+//
 
-  .header-menu {
-    font-weight: bold;
-    height: $headerHeight;
+.header-menu {
+  font-weight: bold;
+  height: $headerHeight;
 
-    // JIM logo
-    div.logo-part {
-      width: $logoPartWidth;
-      div.logo {
-        @include middle;
-        @include logo;
-        height: $headerHeight;
+  // JIM logo
+  div.logo-part {
+    width: $logoPartWidth;
+    div.logo {
+      @include middle;
+      @include logo;
+      height: $headerHeight;
+    }
+  }
+
+  // Bootstrap navbar
+  $bgDefault: $menuBackground;
+  $bgHighlight: $menuHighlight;
+  $colDefault: $menuText;
+  $colHighlight: $menuHighlightText;
+  .navbar-default {
+    background-color: $bgDefault;
+    border-color: $bgHighlight;
+
+    // remove the one pixel empty space above mainav
+    margin-top: -1px;
+    .navbar-brand {
+      color: $colDefault;
+      &:hover, &:focus {
+        color: $colHighlight;
       }
     }
-
-    // Bootstrap navbar
-    $bgDefault      : $menuBackground;
-    $bgHighlight    : $menuHighlight;
-    $colDefault     : $menuText;
-    $colHighlight   : $menuHighlightText;
-    .navbar-default {
-      background-color: $bgDefault;
-      border-color: $bgHighlight;
-
-      // remove the one pixel empty space above mainav
-      margin-top: -1px;
-      .navbar-brand {
-        color: $colDefault;
-        &:hover, &:focus {
-          color: $colHighlight; }}
-      .navbar-text {
-        color: $colDefault; }
-      .navbar-nav {
-        > li {
-          > a {
-            color: $colDefault;
-            &:hover,  &:focus {
-              background-color: $bgHighlight;
-              color: $colHighlight; }}}
-        > .active {
-          > a, > a:hover, > a:focus {
-            color: $colHighlight;
-            background-image: image-url("Gradient_ClickedState_1px.png"); }}
-        > .open {
-          > a, > a:hover, > a:focus {
-            color: $colHighlight;
-            background-color: $bgHighlight; }}}
-      .navbar-toggle {
-        border-color: $bgHighlight;
-        &:hover, &:focus {
-          background-color: $bgHighlight; }
-        .icon-bar {
-          background-color: $colDefault; }}
-      .navbar-collapse,
-      .navbar-form {
-        border-color: $colDefault; }
-      .navbar-link {
-        color: $colDefault;
-        &:hover {
-          color: $colHighlight; }}}
-    @media (max-width: 767px) {
-      .navbar-default .navbar-nav .open .dropdown-menu {
-        > li > a {
+    .navbar-text {
+      color: $colDefault;
+    }
+    .navbar-nav {
+      > li {
+        > a {
           color: $colDefault;
           &:hover, &:focus {
-            color: $colHighlight; }}
-        > .active {
-          > a, > a:hover, > a:focus, {
+            background-color: $bgHighlight;
             color: $colHighlight;
-            background-color: $bgHighlight; }}}
-    }
-    // END Bootstrap navbar
-  }
-
-  ////////////////////////////////////////////////////////////////////////////////
-  /// FOOTER
-  //
-
-  // Sticky footer
-  html {
-    position: relative;
-    min-height: 100%;
-  }
-  body {
-    /* Margin bottom by footer height */
-    margin-bottom: 100px;
-  }
-  .footer {
-    position: absolute;
-    bottom: 0;
-    width: 100%;
-    /* Set the fixed height of the footer here */
-    height: 100px;
-    background-color: #f5f5f5;
-  }
-  // END STICKY FOOTER
-
-  // Footer content styling
-  .footer {
-    background-color: $jimColor;
-
-    .container {
-      padding: {
-        top: 20px;
-        bottom: 20px;
-      }
-
-      .content {
-        display: inline-block;
-        vertical-align: middle;
-        width: 100%;
-
-        .left {
-          float: left;
-
-          .links a {
-            color: black;
-            margin: 0px 5px;
-
-            &.first {
-              margin-left: 0px;
-            }
-
-            &.mobile-app {
-              font-weight: bold;
-              text-decoration: underline;
-              &:hover {
-                text-decoration: none;
-              }
-            }
-          }
-
-          .copyright-notice {
-            padding-top: 8px;
-            font-size: 0.8em;
-            color: black;
           }
         }
-
-        .right {
-          float: right;
-
-          .social {
-            font-size: 0.9em;
-            $ftrTwitterIconSize: 25px;
-            margin-top: 7px;
-
-            div {
-              display: inline-block;
-              vertical-align: middle;
-              margin-left: 10px;
-            }
-
-            .twitter {
-              @include square($ftrTwitterIconSize);
-              cursor: pointer;
-              @include central-image('login/Twitter_Off.png');
-              &:hover {
-                @include central-image('login/Twitter_ON.png');
-              }
-            }
-
-            .tumblr {
-              margin-left: 5px;
-              @include square($ftrTwitterIconSize);
-              cursor: pointer;
-              @include central-image('login/Tumblr_Off.png');
-              &:hover {
-                @include central-image('login/Tumblr_ON.png');
-              }
-            }
-          }
+      }
+      > .active {
+        > a, > a:hover, > a:focus {
+          color: $colHighlight;
+          background-image: image-url("Gradient_ClickedState_1px.png");
+        }
+      }
+      > .open {
+        > a, > a:hover, > a:focus {
+          color: $colHighlight;
+          background-color: $bgHighlight;
+        }
+      }
+    }
+    .navbar-toggle {
+      border-color: $bgHighlight;
+      &:hover, &:focus {
+        background-color: $bgHighlight;
+      }
+      .icon-bar {
+        background-color: $colDefault;
+      }
+    }
+    .navbar-collapse,
+    .navbar-form {
+      border-color: $colDefault;
+    }
+    .navbar-link {
+      color: $colDefault;
+      &:hover {
+        color: $colHighlight;
+      }
+    }
+  }
+  @media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu {
+      > li > a {
+        color: $colDefault;
+        &:hover, &:focus {
+          color: $colHighlight;
+        }
+      }
+      > .active {
+        > a, > a:hover, > a:focus, {
+          color: $colHighlight;
+          background-color: $bgHighlight;
         }
       }
     }
   }
-
-  .main-layout {
-    @include sans;
-    font-size: $bodyFontSize;
-    background-color: $bodyBackgroundColor;
-  }
-
-  // OLD STYLES
-/*@media (max-width: 767px) {
-    .header.outer-container {
-        margin-left: -20px;
-        margin-right: -20px;
-        .container {
-            padding-left: 20px;
-            padding-right: 20px;
-        }
-    }
+  // END Bootstrap navbar
 }
-
-.header.outer-container {
-    height: $headerHeight;
-    background-color: $jimColor;
-    
-    > .container {
-        height: $headerHeight;
-        
-        > table.panel {
-            @include text-shadow(0 1px 0px darken($jimColor, 15%));
-            @include zero-spacing;
-            font-size: 1.3em;
-            color: white;
-            width: 100%;
-            
-            a.white-link {
-                color: white;
-            }
-            
-            td {
-                padding: 0px;
-            }
-            
-            td.logo-part {
-                width: $logoPartWidth;
-                div.logo {
-                    @include middle;
-                    @include logo;
-                    height: $headerHeight;
-                }
-            }
-            
-            td.main-part {
-                width: available;
-                
-                table.buttons {
-                    @include zero-spacing;
-                    height: $headerHeight;
-                    $headMainBtnWidth: 72px;
-                    
-                    ////////////////////////////////////////////////////////////////////////////////
-                    /// TOP NAVIGATION BUTTONS
-                    //
-                    td.main-button {
-                        @include middle;
-                        @include center;
-                        border-left: 2px solid #fee170;
-                        cursor: pointer;
-                        width: $headMainBtnWidth;
-                        
-                        &.active a.nav-button-icon {
-                            background-image: image-url("Gradient_ClickedState_1px.png");
-                        }
-                        
-                        &.last {
-                            border-right: 2px solid #fee170;
-                        }
-                        
-                        &:hover {
-                            background: {
-                                color: #ffbf00;
-                            }
-                        }
-                        
-                        a.nav-button-icon {
-                            display: block;
-                            width: $headMainBtnWidth;
-                            height: $headerHeight;
-                            background: {
-                                repeat: repeat-x;
-                            }
-                            
-                            &:active {
-                                background: {
-                                    image: image-url("Gradient_ClickedState_1px.png");
-                                }
-                            }
-                            
-                            > div {
-                                @include fill;
-                                background: {
-                                    position: center;
-                                    repeat: no-repeat;
-                                }
-                            }
-                            
-                            &.dashboard div {background-image: image-url("Ikona_Dashboard.png");}
-                            &.people div {background-image: image-url("Ikona_People.png");}
-                            &.workout div {background-image: image-url("Ikona_Workout.png");}
-                            &.calendar div {background-image: image-url("Ikona_Cal.png");}
-                            &.messages div {background-image: image-url("Ikona_Msgs.png");}
-                        }
-                    }
-                }
-            }
-            
-            td.login-part {
-                width: $loginPartWidth;
-                > div {
-                    font: {
-                        weight: bold;
-                    }
-                }
-            }
-        }
-    }
-}
-*/
 
 ////////////////////////////////////////////////////////////////////////////////
-/// HEADER (no buttons)
+/// FOOTER
 //
-.header.no-buttons {
-    $topBarHeight: 13px;
 
-    .top-bar {
-        @include size(100%, $topBarHeight);
-        background-color: $jimColor;
+// Sticky footer
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 100px;
+}
+
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 100px;
+  background-color: #f5f5f5;
+}
+
+// END STICKY FOOTER
+
+// Footer content styling
+.footer {
+  background-color: $jimColor;
+
+  .container {
+    padding: {
+      top: 20px;
+      bottom: 20px;
     }
 
-    a {
-        .logo-hanging {
+    .content {
+      display: inline-block;
+      vertical-align: middle;
+      width: 100%;
+
+      .left {
+        float: left;
+
+        .links a {
+          color: black;
+          margin: 0px 5px;
+
+          &.first {
+            margin-left: 0px;
+          }
+
+          &.mobile-app {
+            font-weight: bold;
+            text-decoration: underline;
+            &:hover {
+              text-decoration: none;
+            }
+          }
+        }
+
+        .copyright-notice {
+          padding-top: 8px;
+          font-size: 0.8em;
+          color: black;
+        }
+      }
+
+      .right {
+        float: right;
+
+        .social {
+          font-size: 0.9em;
+          $ftrTwitterIconSize: 25px;
+          margin-top: 7px;
+
+          div {
             display: inline-block;
-            margin-left: $logo-margin-left;
-            @include central-image('frame/logo-hanging.png');
-            @include size(91px, 44px);
-        }
-    }
-}
+            vertical-align: middle;
+            margin-left: 10px;
+          }
 
-
-
-////////////////////////////////////////////////////////////////////////////////
-/// Trainees Dropdown
-//
-div.trainees-dropdown {
-
-    .dropdown-menu {
-        width: 240px;
-        @include no-rounding;
-        padding:5px;
-        font-size: $bodyFontSize*1.1;
-        text-align: left;
-
-        div.new-trainee-container {
-            background-color: $jimBlue;
-            color: white;
-
-            div.new-trainee {
-                line-height: 32px;
-                margin: 5px 0px 0px 0px;
-                text-align: center;
-                text-shadow: darken($jimBlue, 20%) 0px 1px 0px;
+          .twitter {
+            @include square($ftrTwitterIconSize);
+            cursor: pointer;
+            @include central-image('login/Twitter_Off.png');
+            &:hover {
+              @include central-image('login/Twitter_ON.png');
             }
+          }
 
-            &:hover {background-color: lighten($jimBlue, 10%);}
-        }
-
-        ul {
-            margin: 0;
-            padding: 0;
-            list-style-type: none;
-
-            li.trainee {
-                &.dark {
-                    background-color: #EEEEEE;
-                    a.trainee {text-shadow: white 0px 1px 0px;}
-                }
-
-                &:hover {
-                    cursor: pointer;
-                    background-color: lighten($jimBlue, 5%);
-                    a.trainee {color: white; text-shadow: darken($jimBlue, 20%) 0px 1px 0px;}
-                }
-
-                a.trainee {
-                    @include light;
-                    text-shadow: none;
-                    color: darken($jimColor, 40%);
-
-                    div {
-                        display: inline-block;
-                        vertical-align: middle;
-                    }
-
-                    div.avatar {
-                        height: 32px;
-                        width: 32px;
-                        margin: 0px 10px 0px 0px;
-                    }
-                }
-
+          .tumblr {
+            margin-left: 5px;
+            @include square($ftrTwitterIconSize);
+            cursor: pointer;
+            @include central-image('login/Tumblr_Off.png');
+            &:hover {
+              @include central-image('login/Tumblr_ON.png');
             }
+          }
         }
+      }
     }
+  }
 }

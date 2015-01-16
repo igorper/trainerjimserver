@@ -8,8 +8,14 @@ Trainerjim::Application.routes.draw do
 
   namespace :api do
     namespace :v1 do
-      post 'login' => 'login#login'
-      post 'signup' => 'login#sign_up'
+      namespace :auth do
+        post 'login'
+        post 'logout'
+        post 'signup'
+        get 'username'
+        get 'is_logged_in'
+      end
+
       resources :trainings
       resources :exercise_types
       resources :trainees

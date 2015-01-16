@@ -1,4 +1,4 @@
-class Api::V1::LoginController < ActionController::Base
+class Api::V1::AuthController < ActionController::Base
 
   def login
     user_to_log_in = User.find_by_email(params[:email])
@@ -11,9 +11,26 @@ class Api::V1::LoginController < ActionController::Base
     end
   end
 
-  def sign_up
+  def signup
     User.create(email: params[:email], password: params[:password], full_name: params[:email], roles: [])
     render json: {}
+  end
+
+  def logout
+    sign_out
+    render json: {}
+  end
+
+  def is_logged_in
+    render json: {is_logged_in: user_signed_in?}
+  end
+
+  def username
+    if user_signed_in?
+      render json: {username: current_user.email}
+    else
+      render json: {}, status: :unauthorized
+    end
   end
 
 end

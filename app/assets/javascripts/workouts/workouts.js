@@ -1,4 +1,3 @@
-//= require apiLinks
 //= require angular-ui-sortable/sortable
 //= require angular-sanitize/angular-sanitize
 //= require angular-ui-select/dist/select

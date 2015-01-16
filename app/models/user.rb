@@ -34,7 +34,7 @@ class User < ActiveRecord::Base
   has_many :measurements, :dependent => :delete_all
   has_and_belongs_to_many :roles
 
-  def display_name()
+  def display_name
     if self.full_name.blank? then
       require 'mail_utils'
       return MailUtils::extract_display_name(self.email)
@@ -43,7 +43,7 @@ class User < ActiveRecord::Base
     end
   end
 
-  def unique_display_name()
+  def unique_display_name
     "#{self.display_name} (#{self.email})"
   end
 

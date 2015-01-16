@@ -1,4 +1,3 @@
-//= require apiLinks
 //= require angular-bootstrap/ui-bootstrap-tpls
 //= require shared/shared
 //= require measurements/measurement
