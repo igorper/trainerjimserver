@@ -1,0 +1,1 @@
+json.(@trainee, :id, :full_name, :email)

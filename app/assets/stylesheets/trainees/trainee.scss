@@ -1,0 +1,11 @@
+div.trainee {
+  div.main-frame {
+    @include jim-box(0px, 15px);
+    background-color: #FFF;
+    border: 1px solid #CECECE;
+
+    div.top-header {
+      margin: 10px;
+    }
+  }
+}

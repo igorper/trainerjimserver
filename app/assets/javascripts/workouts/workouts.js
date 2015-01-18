@@ -79,16 +79,16 @@ angular
         return exercise.series[exercise.selectedSeries];
       };
 
-      $scope.addSeries = function(exercise){
+      $scope.addSeries = function (exercise) {
         exercise.series.push(angular.copy($scope.getSelectedSeries(exercise)));
-      }
+      };
 
-      $scope.removeSeries = function(exercise){
+      $scope.removeSeries = function (exercise) {
         // there has to be at least one exercise
-        if(exercise.series.length > 1) {
+        if (exercise.series.length > 1) {
           exercise.series.splice(exercise.series.indexOf($scope.getSelectedSeries(exercise)), 1);
         }
-      }
+      };
 
       $scope.increaseSeriesRepetitions = function (exercise) {
         $scope.getSelectedSeries(exercise).repeat_count += REPETITIONS_STEP;
