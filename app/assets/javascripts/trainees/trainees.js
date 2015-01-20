@@ -59,6 +59,8 @@ angular
     function ($scope, $state, Trainee, $stateParams, toaster) {
       Trainee.get({id: $stateParams.id}, function (trainee) {
         $scope.trainee = trainee;
+      }, function () {
+        toaster.pop("error", "Trainee", "Could show the trainee. Try logging in again.");
       });
     }
   ])
