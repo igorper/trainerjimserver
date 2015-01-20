@@ -35,16 +35,14 @@ angular
       }
 
       function createEmptyTraining() {
-        $scope.selectedTraining = new Training();
-        $scope.selectedTraining.name = "Enter training name";
-        $scope.selectedTraining.exercises = [];
+        return new Training({name: "Enter training name", exercises: []});
       }
 
       refreshTrainingsList();
 
       if ($stateParams.id != undefined) {
         if($stateParams.id === 'new'){
-          createEmptyTraining();
+          $scope.selectedTraining = createEmptyTraining();
         } else {
           Training.get({id: $stateParams.id}, function (training) {
             $scope.selectedTraining = training;
@@ -55,7 +53,7 @@ angular
       }
 
       $scope.onSaveClicked = function (selectedTraining) {
-        $scope.selectedTraining.$save(function (data) {
+        $scope.selectedTraining.$save(function () {
           refreshTrainingsList();
           toaster.pop("success", "Training saved", "Sucessfully saved " + selectedTraining.name);
           $scope.selectedTraining = null;
