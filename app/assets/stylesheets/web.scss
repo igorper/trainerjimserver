@@ -24,7 +24,6 @@
     font-style: normal;
 }
 
-@import "bootstrap-sprockets";
 @import "bootstrap";
 @import "definitions.scss";
 
@@ -35,7 +34,7 @@ body {
 ////////////////////////////////////////////////////////////////////////////////
 /// FIXED COMMON LAYOUT
 //
-body.main-layout {
+body.trainerjim-body {
     @include sans;
     font-size: $bodyFontSize;
     background-color: $bodyBackgroundColor;
@@ -72,51 +71,6 @@ body.main-layout {
 
 .clickable-link {
     cursor: pointer;
-}
-
-.standard-button {
-    @include sans;
-    @include rounded;
-    @include bold;
-    @include text-shadow(0px 1px 1px white);
-    @include shadow(0 0 3px 3px transparentize($jimColor, 0.8));
-    border: 1px solid darken($jimColor, 20%);
-    display: inline-block;
-    padding: 3px 12px;
-    background-color: lighten($jimColor, 20%);
-    color: darken($jimColor, 35%);
-    cursor: pointer;
-}
-
-.standard-button:hover {
-    background-color: lighten($jimColor, 5%);
-    @include shadow(0 0 3px 3px lighten($jimColor, 25%));
-    border: 1px solid darken($jimColor, 30%);
-    color: darken($jimColor, 45%);
-}
-
-.standard-input-field {
-    @include sans;
-    @include rounded;
-    @include shadow(0 0 3px 3px transparentize($jimColor, 0.6));
-    border: 1px solid darken($jimColor, 15%);
-    font-size: 16px;
-    line-height: 22px;
-    padding: 5px 5px;
-}
-
-.standard-input-field:focus {
-    @include shadow(0 0 5px 5px transparentize($jimColor, 0.4));
-}  
-
-.standard-input-field.error {
-    @include shadow(0 0 3px 3px $errorShadowColor);
-    border: 1px solid darken($errorShadowColor, 30%);
-}
-
-.standard-input-field.error:focus {
-    border: 1px solid darken($errorShadowColor, 30%);
-    @include shadow(0 0 5px 5px lighten($errorShadowColor, 15%));
 }
 
 
