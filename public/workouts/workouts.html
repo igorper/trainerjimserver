@@ -26,6 +26,7 @@
         </div>
         <div class="main-panel col-sm-9">
             <div class="jim-box">
+                <workout-editor training="selectedTraining" on-save-clicked="onSaveClicked(selectedTraining)" on-delete-clicked="onDeleteClicked(selectedTraining)"></workout-editor>
                 <div ng-hide="selectedTraining">
                     <div class="header">
                         <h1 class="jim-title">No workout selected.</h1>

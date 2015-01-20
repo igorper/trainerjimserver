@@ -6,9 +6,11 @@
 //= require shared/shared
 //= require angular-animate/angular-animate
 //= require angularjs-toaster/toaster
+//= require workouts/editor/workoutEditor.js
 
 angular
   .module('workouts', [
+    'workouts.editor',
     'ui.router',
     'ui.bootstrap',
     'ui.sortable',
@@ -155,6 +157,10 @@ angular
         }, function () {
           toaster.pop("error", "Training save error", "Error saving " + selectedTraining.name);
         });
+      };
+
+      $scope.onDeleteClicked = function (selectedTraining) {
+        toaster.pop("info", "Training delete", "clicked");
       };
 
       function resetSelectedSeries() {

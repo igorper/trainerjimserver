@@ -1,0 +1,112 @@
+<div ng-show="training" id="my-workout" class="selected-regime">
+  <div class="row">
+    <h1 class="jim-title col-sm-12">Customise your workout</h1>
+  </div>
+  <div class="name row">
+    <div class="col-sm-8">
+      <input class="the-name-value pull-left" ng-model="training.name"/>
+    </div>
+    <div class="col-sm-4">
+      <button class="btn btn-lg btn-success pull-right" ng-click="editExercise(null)">
+        Add exercise
+      </button>
+    </div>
+
+  </div>
+  <div class="row section-split">
+    <div class="separator"></div>
+  </div>
+
+  <div class="exercises" ui-sortable="sortableOptions" ng-model="training.exercises" class="list">
+    <div class="exercise" ng-repeat="item in training.exercises" class="item">
+      <div class="details row button-behaviour">
+        <div class="name col-sm-7">
+          <span class="glyphicon glyphicon-move move" aria-hidden="true"></span>
+          <div class="exercise-label" data-bind="click: toggleDetails">
+            </span> Exercise: {{item.exercise_type.name}}
+          </div>
+        </div>
+        <div class="exercise-top-btns col-sm-5">
+          <button class="btn assign-to-all-series" data-bind="click: applySettingsToAllSeries">
+            <span class="the-icon icon-list"></span>
+            <span class="the-button">Apply to all series</span>
+          </button>
+          <button class="delete-btn btn" data-bind="click: $parent.removeExercise">Delete <i class="icon-remove-sign"></i></button>
+          <button class="btn" data-toggle="collapse" data-bind="attr: { 'data-target': '#exercise-' + $index() }" style="display: none;">Help me <i class="icon-question-sign"></i></button>
+        </div>
+      </div>
+
+      <div class="series-list">
+        <div class="series">
+          <div class="row">
+            <div class="reps col-sm-3 data-field">
+              <table class="content">
+                <tr>
+                  <td class="text">
+                    <div>reps: <input class="value" type="text" ng-model="getSelectedSeries(item).repeat_count"/></div>
+                  </td>
+                  <td class="plus-minus-btns">
+                    <div>
+                      <button type="button" class="plus-btn btn" aria-label="Increase Repetitions" ng-click="increaseSeriesRepetitions(item)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                      <button type="button" class="minus-btn btn" aria-label="Decrease Repetitions" ng-click="decreaseSeriesRepetitions(item)"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+                    </div>
+                  </td>
+                </tr>
+              </table>
+            </div><div class="weight col-sm-3 data-field">
+            <table class="content">
+              <tr>
+                <td class="text">
+                  <div>weight: <input class="value" type="text" ng-model="getSelectedSeries(item).weight"/> kg</div>
+                </td>
+                <td class="plus-minus-btns">
+                  <div>
+                    <button type="button" class="plus-btn btn" aria-label="Increase Weight" ng-click="increaseSeriesWeight(item)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                    <button type="button" class="minus-btn btn" aria-label="Decrease Weight" ng-click="decreaseSeriesWeight(item)"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div><div class="rest col-sm-3 data-field">
+            <table class="content">
+              <tr>
+                <td class="text">
+                  <div>rest: <input class="value" type="text" ng-model="getSelectedSeries(item).rest_time"/> s</div>
+                </td>
+                <td class="plus-minus-btns">
+                  <div>
+                    <button type="button" class="plus-btn btn" aria-label="Increase Rest" ng-click="increaseSeriesRest(item)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+                    <button type="button" class="minus-btn btn" aria-label="Decrease Rest" ng-click="decreaseSeriesRest(item)"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+                  </div>
+                </td>
+              </tr>
+            </table>
+          </div><div class="series-list col-sm-2 data-field">
+            <div class="title">Series:</div>
+            <div class="the-list">
+              <div class="the-series label label-default button-behaviour" ng-repeat="s in item.series" ng-class="{selected: $index == item.selectedSeries}" ng-click="changeSelectedSeries(item, $index)">{{$index}}</div>
+            </div>
+          </div>
+            <div class="plus-minus-btns col-sm-1">
+              <button type="button" class="plus-btn btn" aria-label="Add Series" ng-click="addSeries(item)"><span class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
+              <button type="button" class="minus-btn btn" aria-label="Remove Series" ng-click="removeSeries(item)"><span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="workout-buttons">
+    <div class="row">
+      <div class="col-sm-8"></div>
+      <div class="col-sm-4">
+        <div class="pull-right">
+          <button class="delete btn" ng-click="onDeleteClicked(training)">Delete</button>
+          <button class="save btn btn-success" ng-click="onSaveClicked(training)">Save</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
