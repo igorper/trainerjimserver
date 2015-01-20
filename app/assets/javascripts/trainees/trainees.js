@@ -1,6 +1,7 @@
 //= require angular-bootstrap/ui-bootstrap-tpls
 //= require shared/shared
 //= require angular-ui-grid/ui-grid
+//= require trainings/training
 
 angular
   .module('trainees', [
@@ -8,7 +9,8 @@ angular
     'ui.bootstrap',
     'shared',
     'ui.grid',
-    'ui.grid.cellNav'
+    'ui.grid.cellNav',
+    'trainings'
   ])
   .factory("Trainee", ["$resource", function ($resource) {
     return $resource("/api/v1/trainees/:id.json");
@@ -55,13 +57,25 @@ angular
       refreshTraineesList();
     }
   ])
-  .controller("TraineeCtrl", ["$scope", "$state", "Trainee", '$stateParams', 'toaster',
-    function ($scope, $state, Trainee, $stateParams, toaster) {
+  .controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams', 'toaster', 'Training',
+    function ($scope, $state, Trainee, $stateParams, toaster, Training) {
+      $scope.templates = [];
+
       Trainee.get({id: $stateParams.id}, function (trainee) {
         $scope.trainee = trainee;
       }, function () {
         toaster.pop("error", "Trainee", "Could show the trainee. Try logging in again.");
       });
+
+      function refreshTrainingsList() {
+        Training.query(function (trainings) {
+          $scope.templates = trainings;
+        }, function () {
+          toaster.pop("error", "Fetch trainings error", "Unable to fetch the trainings list");
+        });
+      }
+
+      refreshTrainingsList();
     }
   ])
 ;
