@@ -1,12 +1,22 @@
 //= require angular/angular
 //= require angular-ui-sortable/sortable
 //= require angular-sanitize/angular-sanitize
-//= require angular-ui-select/dist/select
+//= require trainings/training
+//= require shared/shared
 //= require angular-animate/angular-animate
 //= require angularjs-toaster/toaster
+//= require exerciseTypes/selector/exerciseTypesSelector
 
 angular.module('workouts.editor', [
-  'ui.sortable'
+  'ui.router',
+  'ui.bootstrap',
+  'ui.sortable',
+  'ngSanitize',
+  'trainings',
+  'shared',
+  'ngAnimate',
+  'toaster',
+  'exerciseTypes.selector'
 ])
   .directive('workoutEditor', function () {
     return {
@@ -20,7 +30,7 @@ angular.module('workouts.editor', [
       templateUrl: 'workouts/editor/workout-editor.html'
     };
   })
-  .controller('WorkoutEditorCtrl', ['$scope', '$modal', function ($scope, $modal) {
+  .controller('WorkoutEditorCtrl', ['$scope', 'ExerciseTypesSelector', function ($scope, ExerciseTypesSelector) {
     var REPETITIONS_STEP = 1;
     var WEIGHT_STEP = 5;
     var REST_STEP = 5;
@@ -75,15 +85,8 @@ angular.module('workouts.editor', [
       series.rest_time = series.rest_time < REST_STEP ? 0 : series.rest_time - REST_STEP;
     };
 
-    $scope.editExercise = function (exercise) {
-      var modalInstance = $modal.open({
-        templateUrl: 'workouts/select_exercise.html',
-        controller: 'SelectExerciseCtrl',
-        backdrop: 'static',
-        windowClass: 'modal-window'
-      });
-
-      modalInstance.result.then(function (selectedExercise) {
+    $scope.editExercise = function () {
+      ExerciseTypesSelector().result.then(function (selectedExerciseType) {
         $scope.training.exercises.unshift(
           {
             duration_after_repetition: null,
@@ -99,7 +102,7 @@ angular.module('workouts.editor', [
                 rest_time: 0
               }
             ],
-            exercise_type: selectedExercise
+            exercise_type: selectedExerciseType
           });
       });
     };

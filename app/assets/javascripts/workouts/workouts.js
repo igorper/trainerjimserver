@@ -1,10 +1,6 @@
-//= require angular-ui-sortable/sortable
-//= require angular-sanitize/angular-sanitize
-//= require angular-ui-select/dist/select
+//= require angular/angular
 //= require trainings/training
-//= require exerciseTypes/exerciseType
 //= require shared/shared
-//= require angular-animate/angular-animate
 //= require angularjs-toaster/toaster
 //= require workouts/editor/workoutEditor.js
 
@@ -13,13 +9,8 @@ angular
     'workouts.editor',
     'ui.router',
     'ui.bootstrap',
-    'ui.sortable',
-    'ngSanitize',
-    'ui.select',
     'trainings',
-    'exerciseTypes',
     'shared',
-    'ngAnimate',
     'toaster'
   ])
   .config(['$stateProvider', function ($stateProvider) {
@@ -86,56 +77,4 @@ angular
         }
       }
     }
-  ]).controller("SelectExerciseCtrl", ["$scope", '$modalInstance', 'ExerciseType',
-    function ($scope, $modalInstance, ExerciseType) {
-      $scope.exercise = {};
-      $scope.exercises = [];
-
-      $scope.ok = function () {
-        if ($scope.exercise.selected == undefined) {
-          console.log("You should select it.");
-        } else {
-          $modalInstance.close($scope.exercise.selected);
-        }
-      };
-
-      $scope.cancel = function () {
-        $modalInstance.dismiss();
-      };
-
-      ExerciseType.query(function (data) {
-        $scope.exercises = data;
-      }, function (data, status, headers) {
-        console.error("Could not fetch exercises.");
-      });
-    }
-  ]).filter('propsFilter', function () {
-    return function (items, props) {
-      var out = [];
-
-      if (angular.isArray(items)) {
-        items.forEach(function (item) {
-          var itemMatches = false;
-
-          var keys = Object.keys(props);
-          for (var i = 0; i < keys.length; i++) {
-            var prop = keys[i];
-            var text = props[prop].toLowerCase();
-            if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
-              itemMatches = true;
-              break;
-            }
-          }
-
-          if (itemMatches) {
-            out.push(item);
-          }
-        });
-      } else {
-        // Let the output be the input untouched
-        out = items;
-      }
-
-      return out;
-    }
-  });
+  ]);
