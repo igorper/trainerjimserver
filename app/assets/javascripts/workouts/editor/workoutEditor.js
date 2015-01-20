@@ -24,7 +24,6 @@ angular.module('workouts.editor', [
     var REPETITIONS_STEP = 1;
     var WEIGHT_STEP = 5;
     var REST_STEP = 5;
-    $scope.selectedSeries = [];
 
     $scope.changeSelectedSeries = function (exercise, seriesIdx) {
       exercise.selectedSeries = seriesIdx;
@@ -104,14 +103,6 @@ angular.module('workouts.editor', [
           });
       });
     };
-
-    function resetSelectedSeries() {
-      $scope.selectedSeries = [];
-      // select default series to show for each exercise
-      for (var i = 0; i < $scope.training.exercises.length; i++) {
-        $scope.training.exercises[i].selectedSeries = 0;
-      }
-    }
   }])
 ;
 
