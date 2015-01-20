@@ -44,6 +44,9 @@ angular.module('workouts.editor', [
     };
 
     $scope.getSelectedSeries = function (exercise) {
+      if (exercise.selectedSeries == undefined) {
+        exercise.selectedSeries = 0;
+      }
       return exercise.series[exercise.selectedSeries];
     };
 
@@ -86,7 +89,7 @@ angular.module('workouts.editor', [
     };
 
     $scope.editExercise = function () {
-      ExerciseTypesSelector().result.then(function (selectedExerciseType) {
+      ExerciseTypesSelector().result.then(function (chosenExerciseType) {
         $scope.training.exercises.unshift(
           {
             duration_after_repetition: null,
@@ -102,7 +105,7 @@ angular.module('workouts.editor', [
                 rest_time: 0
               }
             ],
-            exercise_type: selectedExerciseType
+            exercise_type: chosenExerciseType
           });
       });
     };

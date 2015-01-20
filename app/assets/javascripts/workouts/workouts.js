@@ -48,7 +48,6 @@ angular
         } else {
           Training.get({id: $stateParams.id}, function (training) {
             $scope.selectedTraining = training;
-            resetSelectedSeries();
           }, function () {
             toaster.pop("error", "Fetch training error", "Unable to fetch the training");
           });
@@ -57,7 +56,6 @@ angular
 
       $scope.onSaveClicked = function (selectedTraining) {
         $scope.selectedTraining.$save(function (data) {
-          resetSelectedSeries();
           refreshTrainingsList();
           toaster.pop("success", "Training saved", "Sucessfully saved " + selectedTraining.name);
           $scope.selectedTraining = null;
@@ -70,11 +68,5 @@ angular
         toaster.pop("info", "Training delete", "clicked");
       };
 
-      function resetSelectedSeries() {
-        // select default series to show for each exercise
-        for (var i = 0; i < $scope.selectedTraining.exercises.length; i++) {
-          $scope.selectedTraining.exercises[i].selectedSeries = 0;
-        }
-      }
     }
   ]);
