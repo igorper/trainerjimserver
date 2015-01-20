@@ -26,13 +26,14 @@ angular
         templateUrl: "trainees/trainee.html"
       });
   }])
-  .controller("TraineesCtrl", ["$scope", "$state", "Trainee", '$stateParams', 'toaster',
-    function ($scope, $state, Trainee, $stateParams, toaster) {
+  .controller("TraineesCtrl", ["$scope", "$state", "Trainee", '$stateParams', 'toaster', 'uiGridConstants',
+    function ($scope, $state, Trainee, $stateParams, toaster, uiGridConstants) {
 
       $scope.traineesGridConfig = {
+        enableFiltering: true,
         columnDefs: [
-          {name: 'full_name', enableSorting: false},
-          {name: 'email', enableSorting: false},
+          {name: 'full_name', enableSorting: true, filter: {condition: uiGridConstants.filter.CONTAINS}},
+          {name: 'email', enableSorting: true, filter: {condition: uiGridConstants.filter.CONTAINS}},
           {name: 'id', visible: false}
         ],
         onRegisterApi: function (gridApi) {
