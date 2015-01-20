@@ -32,13 +32,8 @@ angular
   }])
   .controller("WorkoutsCtrl", ["$scope", '$modal', 'Training', '$stateParams', 'toaster',
     function ($scope, $modal, Training, $stateParams, toaster) {
-      var REPETITIONS_STEP = 1;
-      var WEIGHT_STEP = 5;
-      var REST_STEP = 5;
-
       $scope.templates = [];
       $scope.selectedTraining = null;
-      $scope.selectedSeries = [];
 
       function refreshTrainingsList() {
         Training.query(function (trainings) {
@@ -85,7 +80,6 @@ angular
       };
 
       function resetSelectedSeries() {
-        $scope.selectedSeries = [];
         // select default series to show for each exercise
         for (var i = 0; i < $scope.selectedTraining.exercises.length; i++) {
           $scope.selectedTraining.exercises[i].selectedSeries = 0;
