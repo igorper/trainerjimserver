@@ -3,8 +3,7 @@
 //= require angular-ui-grid/ui-grid
 //= require trainings/training
 
-angular
-  .module('trainees', [
+angular.module('trainees', [
     'ui.router',
     'ui.bootstrap',
     'shared',
@@ -57,9 +56,19 @@ angular
       refreshTraineesList();
     }
   ])
-  .controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams', 'toaster', 'Training',
-    function ($scope, $state, Trainee, $stateParams, toaster, Training) {
+  .controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams', 'toaster', 'Training', 'uiGridConstants',
+    function ($scope, $state, Trainee, $stateParams, toaster, Training, uiGridConstants) {
       $scope.templates = [];
+
+      $scope.traineeTrainingsGridConfig = {
+        enableFiltering: true,
+        columnDefs: [
+          {name: 'name', displayName: 'Training name', enableSorting: true, filter: {condition: uiGridConstants.filter.CONTAINS}}
+        ],
+        onRegisterApi: function (gridApi) {
+          $scope.traineeTrainingsGridApi = gridApi;
+        }
+      };
 
       Trainee.get({id: $stateParams.id}, function (trainee) {
         $scope.trainee = trainee;
@@ -69,7 +78,7 @@ angular
 
       function refreshTrainingsList() {
         Training.query(function (trainings) {
-          $scope.templates = trainings;
+          $scope.traineeTrainingsGridConfig.data = trainings;
         }, function () {
           toaster.pop("error", "Fetch trainings error", "Unable to fetch the trainings list");
         });

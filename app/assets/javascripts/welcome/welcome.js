@@ -23,7 +23,7 @@ angular
         $state.go('workouts');
       };
 
-      Auth.is_logged_in(function (response) {
+      Auth.isLoggedIn(function (response) {
         if (response.is_logged_in) {
           $state.go('workouts');
         }
