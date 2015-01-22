@@ -4,31 +4,40 @@
 //= require trainings/training
 
 angular.module('trainees', [
-    'ui.router',
-    'ui.bootstrap',
-    'shared',
-    'ui.grid',
-    'ui.grid.cellNav',
-    'trainings'
-  ])
+  'ui.router',
+  'ui.bootstrap',
+  'shared',
+  'ui.grid',
+  'ui.grid.cellNav',
+  'trainings'
+])
   .factory("Trainee", ["$resource", function ($resource) {
     return $resource("/api/v1/trainees/:id.json");
   }])
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('trainees', {
+        abstract: true,
         url: "/trainees",
-        controller: "TraineesCtrl",
-        templateUrl: "trainees/trainees.html"
+        views: {
+          body: {templateUrl: "trainees/trainees.html"},
+          footer: {templateUrl: 'shared/footer-view.html'},
+          header: {templateUrl: 'shared/header-view.html'}
+        }
       })
-      .state('trainee', {
-        url: "/trainees/:id",
+      .state('trainees.list', {
+        url: '/list',
+        controller: "TraineesCtrl",
+        templateUrl: "trainees/trainees-list.html"
+      })
+      .state('trainees.edit', {
+        url: '/{traineeId:int}',
         controller: "TraineeCtrl",
         templateUrl: "trainees/trainee.html"
       });
   }])
-  .controller("TraineesCtrl", ["$scope", "$state", "Trainee", '$stateParams', 'toaster', 'uiGridConstants',
-    function ($scope, $state, Trainee, $stateParams, toaster, uiGridConstants) {
+  .controller("TraineesCtrl", ['$scope', '$state', 'Trainee', 'toaster', 'uiGridConstants',
+    function ($scope, $state, Trainee, toaster, uiGridConstants) {
 
       $scope.traineesGridConfig = {
         enableFiltering: true,
@@ -40,7 +49,7 @@ angular.module('trainees', [
         onRegisterApi: function (gridApi) {
           $scope.traineesGridApi = gridApi;
           gridApi.cellNav.on.navigate($scope, function (newRowCol, oldRowCol) {
-            $state.go('trainee', {id: newRowCol.row.entity.id});
+            $state.go('trainees.edit', {traineeId: newRowCol.row.entity.id});
           });
         }
       };
@@ -63,14 +72,19 @@ angular.module('trainees', [
       $scope.traineeTrainingsGridConfig = {
         enableFiltering: true,
         columnDefs: [
-          {name: 'name', displayName: 'Training name', enableSorting: true, filter: {condition: uiGridConstants.filter.CONTAINS}}
+          {
+            name: 'name',
+            displayName: 'Training name',
+            enableSorting: true,
+            filter: {condition: uiGridConstants.filter.CONTAINS}
+          }
         ],
         onRegisterApi: function (gridApi) {
           $scope.traineeTrainingsGridApi = gridApi;
         }
       };
 
-      Trainee.get({id: $stateParams.id}, function (trainee) {
+      Trainee.get({id: $stateParams.traineeId}, function (trainee) {
         $scope.trainee = trainee;
       }, function () {
         toaster.pop("error", "Trainee", "Could show the trainee. Try logging in again.");

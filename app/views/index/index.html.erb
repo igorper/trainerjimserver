@@ -11,6 +11,9 @@
   <%= javascript_include_tag "app" %>
 </head>
 <body class="trainerjim-body">
-<ui-view></ui-view>
+<div ui-view="header"></div>
+<toaster-container></toaster-container>
+<div ui-view="body"></div>
+<div ui-view="footer"></div>
 </body>
 </html>

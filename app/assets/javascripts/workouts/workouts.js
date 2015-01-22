@@ -16,15 +16,25 @@ angular
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('workouts', {
-        url: "/workouts?:id",
-        controller: "WorkoutsCtrl",
-        templateUrl: "workouts/workouts.html"
-      });
+        abstract: true,
+        url: "/workouts",
+        views: {
+          'body': {templateUrl: "workouts/workouts.html"},
+          'footer': {templateUrl: 'shared/footer-view.html'},
+          'header': {templateUrl: 'shared/header-view.html'}
+        }
+      })
+      .state('workouts.edit', {
+        url: "/:id",
+        controller: "WorkoutEditCtrl",
+        templateUrl: "workouts/workout-edit.html"
+      })
+    ;
   }])
-  .controller("WorkoutsCtrl", ["$scope", '$modal', 'Training', '$stateParams', 'toaster',
-    function ($scope, $modal, Training, $stateParams, toaster) {
-      $scope.templates = [];
+  .controller("WorkoutEditCtrl", ["$scope", '$modal', 'Training', '$stateParams', 'toaster', '$state',
+    function ($scope, $modal, Training, $stateParams, toaster, $state) {
       $scope.selectedTraining = null;
+      $scope.templates = [];
 
       function refreshTrainingsList() {
         Training.query(function (trainings) {
@@ -34,29 +44,26 @@ angular
         });
       }
 
+      refreshTrainingsList();
+
       function createEmptyTraining() {
         return new Training({name: "Enter training name", exercises: []});
       }
 
-      refreshTrainingsList();
-
-      if ($stateParams.id != undefined) {
-        if($stateParams.id === 'new'){
-          $scope.selectedTraining = createEmptyTraining();
-        } else {
-          Training.get({id: $stateParams.id}, function (training) {
-            $scope.selectedTraining = training;
-          }, function () {
-            toaster.pop("error", "Fetch training error", "Unable to fetch the training");
-          });
-        }
+      if ($stateParams.id === '') {
+        $scope.selectedTraining = createEmptyTraining();
+      } else {
+        Training.get({id: $stateParams.id}, function (training) {
+          $scope.selectedTraining = training;
+        }, function () {
+          toaster.pop("error", "Fetch training error", "Unable to fetch the training");
+        });
       }
 
       $scope.onSaveClicked = function (selectedTraining) {
         $scope.selectedTraining.$save(function () {
-          refreshTrainingsList();
           toaster.pop("success", "Training saved", "Sucessfully saved " + selectedTraining.name);
-          $scope.selectedTraining = null;
+          $state.go('workouts.edit', {id: ''});
         }, function () {
           toaster.pop("error", "Training save error", "Error saving " + selectedTraining.name);
         });
@@ -67,4 +74,5 @@ angular
       };
 
     }
-  ]);
+  ])
+;

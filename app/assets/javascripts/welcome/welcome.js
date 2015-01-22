@@ -13,8 +13,18 @@ angular
     $stateProvider
       .state('welcome', {
         url: "/welcome",
-        controller: "WelcomeCtrl",
-        templateUrl: "welcome/welcome.html"
+        views: {
+          'body': {
+            controller: "WelcomeCtrl",
+            templateUrl: "welcome/welcome.html"
+          },
+          'footer': {
+            template: ""
+          },
+          'header': {
+            template: ""
+          }
+        }
       });
   }])
   .controller("WelcomeCtrl", ["$scope", "$state", 'Auth',

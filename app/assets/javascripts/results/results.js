@@ -14,14 +14,20 @@ angular
     $stateProvider
       .state('results', {
         url: "/results?:id",
-        controller: "ResultsCtrl",
-        templateUrl: "results/results.html"
+        views: {
+          body: {
+            controller: "ResultsCtrl",
+            templateUrl: "results/results.html"
+          },
+          header: {templateUrl: 'shared/header-view.html'},
+          footer: {templateUrl: 'shared/footer-view.html'}
+        }
       });
   }])
-  .controller("ResultsCtrl", ["$scope", "$http", "Measurement", '$compile','uiCalendarConfig', '$stateParams', '$state',
-    function($scope, $http, Measurement, $compile, uiCalendarConfig, $stateParams, $state){
+  .controller("ResultsCtrl", ["$scope", "$http", "Measurement", '$compile', 'uiCalendarConfig', '$stateParams', '$state',
+    function ($scope, $http, Measurement, $compile, uiCalendarConfig, $stateParams, $state) {
 
-      var SMILE_LOOKUP = {0 : "bored", 1: "happy", 2: "sweat"};
+      var SMILE_LOOKUP = {0: "bored", 1: "happy", 2: "sweat"};
 
       $scope.selectedTraining = null;
       $scope.calendarSources = [];
@@ -29,9 +35,14 @@ angular
       Measurement.query(function (data) {
         $scope.results = data;
 
-        for(var i=0; i < $scope.results.length; i++){
+        for (var i = 0; i < $scope.results.length; i++) {
           var r = $scope.results[i];
-          $scope.calendarSources.push([{start: new Date(r.start_time), end: new Date(r.end_time), className: 'smile-icon', training: r}])
+          $scope.calendarSources.push([{
+            start: new Date(r.start_time),
+            end: new Date(r.end_time),
+            className: 'smile-icon',
+            training: r
+          }])
         }
 
       }, function (data, status, headers) {
@@ -39,7 +50,7 @@ angular
       });
 
       if ($stateParams.id != undefined) {
-        if($stateParams.id){
+        if ($stateParams.id) {
           Measurement.get({id: $stateParams.id}, function (measurement) {
             $scope.selectedTraining = measurement;
             uiCalendarConfig.calendars["myCalendar1"].fullCalendar("render");
@@ -49,16 +60,16 @@ angular
         }
       }
 
-      $scope.durationInMinutes = function(){
+      $scope.durationInMinutes = function () {
         return $scope.selectedTraining ? (new Date($scope.selectedTraining.end_time) - new Date($scope.selectedTraining.start_time)) / (1000 * 60) : 0;
       }
 
-      $scope.alertOnEventClick = function( date, jsEvent, view){
-        $state.go('results', { id: date.training.id});
+      $scope.alertOnEventClick = function (date, jsEvent, view) {
+        $state.go('results', {id: date.training.id});
       };
 
       /* Render Tooltip */
-      $scope.eventRender = function( event, element, view ) {
+      $scope.eventRender = function (event, element, view) {
         // TODO: tooltip
         //element.attr({'tooltip': event.title,
         //  'tooltip-append-to-body': true});
@@ -69,8 +80,8 @@ angular
 
       };
       $scope.uiConfig = {
-        calendar:{
-          header:{
+        calendar: {
+          header: {
             right: 'today prev,next'
           },
           eventClick: $scope.alertOnEventClick,

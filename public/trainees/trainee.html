@@ -1,36 +1,26 @@
-<header></header>
-<toaster-container></toaster-container>
+<div class="row">
+  <div class="main-panel">
+    <div class="jim-box">
 
+      <div>
+        <h3>{{trainee.full_name}}'s active trainings</h3>
 
-<div class="container trainee">
-
-  <div class="row">
-    <div class="main-panel">
-      <div class="jim-box">
 
         <div>
-          <h3>{{trainee.full_name}}'s active trainings</h3>
-
-
-          <div>
-            <div>Select a training to edit:</div>
-            <button class="btn btn-lg btn-success" ng-click="addTraining()">
-              Add prepared training
-            </button>
-          </div>
-
-          <div ui-grid="traineeTrainingsGridConfig"
-               ui-grid-cellNav
-               class="trainee-trainings-grid"></div>
+          <div>Select a training to edit:</div>
+          <button class="btn btn-lg btn-success" ng-click="addTraining()">
+            Add prepared training
+          </button>
         </div>
 
-        <workout-editor training="selectedTraining"
-                        on-save-clicked="onSaveClicked(selectedTraining)"
-                        on-delete-clicked="onDeleteClicked(selectedTraining)"></workout-editor>
+        <div ui-grid="traineeTrainingsGridConfig"
+             ui-grid-cellNav
+             class="trainee-trainings-grid"></div>
       </div>
+
+      <workout-editor training="selectedTraining"
+                      on-save-clicked="onSaveClicked(selectedTraining)"
+                      on-delete-clicked="onDeleteClicked(selectedTraining)"></workout-editor>
     </div>
   </div>
-
 </div>
-
-<footer></footer>
