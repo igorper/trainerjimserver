@@ -12,16 +12,10 @@ angular
   ])
   .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider) {
     $stateProvider
-      .state('results', {
+      .state('main.results', {
         url: "/results?:id",
-        views: {
-          body: {
-            controller: "ResultsCtrl",
-            templateUrl: "results/results.html"
-          },
-          header: {templateUrl: 'shared/header-view.html'},
-          footer: {templateUrl: 'shared/footer-view.html'}
-        }
+        controller: "ResultsCtrl",
+        templateUrl: "results/results.html"
       });
   }])
   .controller("ResultsCtrl", ["$scope", "$http", "Measurement", '$compile', 'uiCalendarConfig', '$stateParams', '$state',

@@ -20,7 +20,7 @@ angular.module('shared', ['auth', 'ui.router'])
       },
       {
         name: "Results",
-        link: "results"
+        link: "main.results"
       }
     ];
 
