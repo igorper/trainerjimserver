@@ -16,22 +16,13 @@ angular.module('trainees', [
   }])
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
-      .state('trainees', {
-        abstract: true,
-        url: "/trainees",
-        views: {
-          body: {templateUrl: "trainees/trainees.html"},
-          footer: {templateUrl: 'shared/footer-view.html'},
-          header: {templateUrl: 'shared/header-view.html'}
-        }
-      })
-      .state('trainees.list', {
-        url: '/list',
+      .state('main.trainees', {
+        url: '/trainees',
         controller: "TraineesCtrl",
-        templateUrl: "trainees/trainees-list.html"
+        templateUrl: "trainees/trainees.html"
       })
-      .state('trainees.edit', {
-        url: '/{traineeId:int}',
+      .state('main.trainee', {
+        url: '/trainees/{traineeId:int}',
         controller: "TraineeCtrl",
         templateUrl: "trainees/trainee.html"
       });
@@ -49,7 +40,7 @@ angular.module('trainees', [
         onRegisterApi: function (gridApi) {
           $scope.traineesGridApi = gridApi;
           gridApi.cellNav.on.navigate($scope, function (newRowCol, oldRowCol) {
-            $state.go('trainees.edit', {traineeId: newRowCol.row.entity.id});
+            $state.go('main.trainee', {traineeId: newRowCol.row.entity.id});
           });
         }
       };

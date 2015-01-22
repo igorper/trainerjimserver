@@ -15,17 +15,8 @@ angular
   ])
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
-      .state('workouts', {
-        abstract: true,
-        url: "/workouts",
-        views: {
-          'body': {templateUrl: "workouts/workouts.html"},
-          'footer': {templateUrl: 'shared/footer-view.html'},
-          'header': {templateUrl: 'shared/header-view.html'}
-        }
-      })
-      .state('workouts.edit', {
-        url: "/:id",
+      .state('main.workouts', {
+        url: "/workouts/:id",
         controller: "WorkoutEditCtrl",
         templateUrl: "workouts/workout-edit.html"
       })
@@ -63,7 +54,7 @@ angular
       $scope.onSaveClicked = function (selectedTraining) {
         $scope.selectedTraining.$save(function () {
           toaster.pop("success", "Training saved", "Sucessfully saved " + selectedTraining.name);
-          $state.go('workouts.edit', {id: ''});
+          $state.go('main.workouts', {id: ''});
         }, function () {
           toaster.pop("error", "Training save error", "Error saving " + selectedTraining.name);
         });

@@ -1,12 +1,7 @@
 div.trainees {
-  div.main-frame {
-    @include jim-box(0px, 15px);
-    background-color: #FFF;
-    border: 1px solid #CECECE;
-
-    div.top-header {
-      margin: 10px;
-    }
+  div.jim-box {
+    margin-top: 25px;
+    padding: 15px 25px;
 
     div.trainees-grid {
       margin: 0 10px;

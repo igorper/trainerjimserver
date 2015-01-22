@@ -12,11 +12,11 @@ angular.module('shared', ['auth', 'ui.router'])
     $scope.topNavigation = [
       {
         name: "Workouts",
-        link: "workouts.edit"
+        link: "main.workouts"
       },
       {
         name: "Trainees",
-        link: "trainees.list"
+        link: "main.trainees"
       },
       {
         name: "Results",

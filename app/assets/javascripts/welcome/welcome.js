@@ -18,24 +18,20 @@ angular
             controller: "WelcomeCtrl",
             templateUrl: "welcome/welcome.html"
           },
-          'footer': {
-            template: ""
-          },
-          'header': {
-            template: ""
-          }
+          'footer': {template: ""},
+          'header': {template: ""}
         }
       });
   }])
   .controller("WelcomeCtrl", ["$scope", "$state", 'Auth',
     function ($scope, $state, Auth) {
       $scope.onLoggedIn = function () {
-        $state.go('workouts.edit');
+        $state.go('main.workouts');
       };
 
       Auth.isLoggedIn(function (response) {
         if (response.is_logged_in) {
-          $state.go('workouts.edit');
+          $state.go('main.workouts');
         }
       });
     }

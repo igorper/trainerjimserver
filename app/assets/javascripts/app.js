@@ -17,6 +17,19 @@ angular
     'trainees',
     'results'
   ])
+  .config(['$stateProvider', function ($stateProvider) {
+    $stateProvider
+      .state('main', {
+        abstract: true,
+        url: "",
+        views: {
+          'body': {templateUrl: "main.html"},
+          'footer': {templateUrl: 'shared/footer-view.html'},
+          'header': {templateUrl: 'shared/header-view.html'}
+        }
+      })
+    ;
+  }])
   .config(['$urlRouterProvider', function ($urlRouterProvider) {
     $urlRouterProvider.otherwise("/welcome");
   }]);

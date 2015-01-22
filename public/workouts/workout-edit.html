@@ -4,14 +4,14 @@
       <h3 class="jim-title">My workouts</h3>
       <ul class="workout-list nav nav-tabs nav-stacked">
         <li ng-repeat="template in templates" ui-sref-active="highlighted">
-          <a href="" ui-sref="workouts.edit({id: template.id})">
+          <a href="" ui-sref="main.workouts({id: template.id})">
             <div class="content">
               {{template.name}}
             </div>
           </a>
         </li>
         <li class="highlighted">
-          <a href="" ui-sref="workouts.edit({id: ''})">
+          <a href="" ui-sref="main.workouts({id: ''})">
             <div class="content">
               <div class="left">Create a new workout</div>
               <div class="right">
