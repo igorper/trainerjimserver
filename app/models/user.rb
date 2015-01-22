@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
 
   belongs_to :trainer, :class_name => "User", :foreign_key => 'trainer_id'
   has_many :measurements, :dependent => :delete_all
+  has_many :trainees, class_name: :User, foreign_key: :trainer_id
   has_and_belongs_to_many :roles
 
   def display_name

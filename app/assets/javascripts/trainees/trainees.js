@@ -14,6 +14,9 @@ angular.module('trainees', [
   .factory("Trainee", ["$resource", function ($resource) {
     return $resource("/api/v1/trainees/:id.json");
   }])
+  .factory("TraineeTraining", ["$resource", function ($resource) {
+    return $resource("/api/v1/trainees/:traineeId/trainings/:trainingId.json");
+  }])
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('main.trainees', {
@@ -56,8 +59,8 @@ angular.module('trainees', [
       refreshTraineesList();
     }
   ])
-  .controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams', 'toaster', 'Training', 'uiGridConstants',
-    function ($scope, $state, Trainee, $stateParams, toaster, Training, uiGridConstants) {
+  .controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams', 'toaster', 'Training', 'uiGridConstants', 'TraineeTraining',
+    function ($scope, $state, Trainee, $stateParams, toaster, Training, uiGridConstants, TraineeTraining) {
       $scope.templates = [];
 
       $scope.traineeTrainingsGridConfig = {
@@ -82,7 +85,7 @@ angular.module('trainees', [
       });
 
       function refreshTrainingsList() {
-        Training.query(function (trainings) {
+        TraineeTraining.query({traineeId: $stateParams.traineeId}, function (trainings) {
           $scope.traineeTrainingsGridConfig.data = trainings;
         }, function () {
           toaster.pop("error", "Fetch trainings error", "Unable to fetch the trainings list");

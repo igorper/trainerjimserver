@@ -18,7 +18,9 @@ Trainerjim::Application.routes.draw do
 
       resources :trainings
       resources :exercise_types
-      resources :trainees
+      resources :trainees do
+        resources :trainings
+      end
       resources :results
       resources :measurements
     end
