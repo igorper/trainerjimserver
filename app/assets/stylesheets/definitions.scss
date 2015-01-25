@@ -186,6 +186,26 @@ $bodyFontSize: 13px;
   }
 }
 
+/** EMOTICONS */
+$happyOn: "emoticons/SmileyON_Happy.png";
+$happyOff: "emoticons/SmileyFaded_Happy.png";
+$sadOn: "emoticons/SmileyON_Sad.png";
+$sadOff: "emoticons/SmileyFaded_Sad.png";
+$boredOn: "emoticons/SmileyON_Bored.png";
+$boredOff: "emoticons/SmileyFaded_Bored.png";
+$sweatOn: "emoticons/SmileyON_Sweat.png";
+$sweatOff: "emoticons/SmileyFaded_Sweat.png";
+
+@mixin emoticon($url1, $url2) {
+  background: image-url($url1);
+  background-repeat: no-repeat;
+
+  &.on {
+    background: image-url($url2);
+    background-repeat: no-repeat;
+  }
+}
+
 /////////////////////////////////////////////////////////////////
 ////////Definitions of common classes
 /////
