@@ -28,6 +28,16 @@ angular.module('trainees', [
         url: '/trainees/{traineeId:int}',
         controller: "TraineeCtrl",
         templateUrl: "trainees/trainee.html"
+      })
+      .state('main.trainee.training', {
+        url: '/training/:trainingId',
+        controller: "TraineeTrainingCtrl",
+        templateUrl: "trainees/trainee-training.html",
+        resolve: {
+          traineeId: ['$stateParams', function ($stateParams) {
+            return $stateParams.traineeId;
+          }]
+        }
       });
   }])
   .controller("TraineesCtrl", ['$scope', '$state', 'Trainee', 'toaster', 'uiGridConstants',
@@ -43,7 +53,7 @@ angular.module('trainees', [
         onRegisterApi: function (gridApi) {
           $scope.traineesGridApi = gridApi;
           gridApi.cellNav.on.navigate($scope, function (newRowCol, oldRowCol) {
-            $state.go('main.trainee', {traineeId: newRowCol.row.entity.id});
+            $state.go('main.trainee.training', {traineeId: newRowCol.row.entity.id, trainingId: ''});
           });
         }
       };
@@ -61,22 +71,8 @@ angular.module('trainees', [
   ])
   .controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams', 'toaster', 'Training', 'uiGridConstants', 'TraineeTraining',
     function ($scope, $state, Trainee, $stateParams, toaster, Training, uiGridConstants, TraineeTraining) {
-      $scope.templates = [];
-
-      $scope.traineeTrainingsGridConfig = {
-        enableFiltering: true,
-        columnDefs: [
-          {
-            name: 'name',
-            displayName: 'Training name',
-            enableSorting: true,
-            filter: {condition: uiGridConstants.filter.CONTAINS}
-          }
-        ],
-        onRegisterApi: function (gridApi) {
-          $scope.traineeTrainingsGridApi = gridApi;
-        }
-      };
+      $scope.traineeWorkouts = [];
+      $scope.selectedTraining = [];
 
       Trainee.get({id: $stateParams.traineeId}, function (trainee) {
         $scope.trainee = trainee;
@@ -84,15 +80,44 @@ angular.module('trainees', [
         toaster.pop("error", "Trainee", "Could show the trainee. Try logging in again.");
       });
 
-      function refreshTrainingsList() {
+      function refreshWorkoutsList() {
         TraineeTraining.query({traineeId: $stateParams.traineeId}, function (trainings) {
-          $scope.traineeTrainingsGridConfig.data = trainings;
+          $scope.traineeWorkouts = trainings;
         }, function () {
-          toaster.pop("error", "Fetch trainings error", "Unable to fetch the trainings list");
+          toaster.pop("error", "Fetch workouts error", "Unable to fetch the list of workouts.");
         });
       }
 
-      refreshTrainingsList();
+      $scope.onWorkoutSelected = function (workout) {
+        $scope.selectedTraining = workout;
+        $state.go('main.trainee.training', {trainingId: workout.id});
+      };
+
+      $scope.onWorkoutCreate = function () {
+        $scope.selectedTraining = null;
+        $state.go('main.trainee.training', {trainingId: ''});
+      };
+
+      refreshWorkoutsList();
+    }
+  ])
+  .controller("TraineeTrainingCtrl", ["$scope", "$state", '$stateParams', 'toaster', 'TraineeTraining', 'traineeId',
+    function ($scope, $state, $stateParams, toaster, TraineeTraining, traineeId) {
+      $scope.selectedTraining = [];
+
+      function createEmptyTraining() {
+        return new TraineeTraining({traineeId: traineeId, name: "Enter training name", exercises: []});
+      }
+
+      if ($stateParams.trainingId === '') {
+        $scope.selectedTraining = createEmptyTraining();
+      } else {
+        TraineeTraining.get({traineeId: traineeId, trainingId: $stateParams.trainingId}, function (training) {
+          $scope.selectedTraining = training;
+        }, function () {
+          toaster.pop("error", "Fetch workout error", "Unable to fetch the workout.");
+        });
+      }
     }
   ])
 ;

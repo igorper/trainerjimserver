@@ -1,27 +1,16 @@
-<div class="container trainee">
-  <div class="row">
-    <div class="main-panel">
+<div class="container">
+  <div class="row training">
+    <div class="my-workouts col-sm-3">
+      <h3 class="jim-title">{{trainee.full_name}}'s workouts</h3>
+      <workouts-list workouts="traineeWorkouts"
+                     selected-workout="selectedTraining"
+                     on-workout-selected="onWorkoutSelected(workout)"
+                     on-workout-create="onWorkoutCreate()">
+      </workouts-list>
+    </div>
+    <div class="main-panel col-sm-9">
       <div class="jim-box">
-
-        <div>
-          <h3>{{trainee.full_name}}'s active trainings</h3>
-
-
-          <div>
-            <div>Select a training to edit:</div>
-            <button class="btn btn-lg btn-success" ng-click="addTraining()">
-              Add prepared training
-            </button>
-          </div>
-
-          <div ui-grid="traineeTrainingsGridConfig"
-               ui-grid-cellNav
-               class="trainee-trainings-grid"></div>
-        </div>
-
-        <workout-editor training="selectedTraining"
-                        on-save-clicked="onSaveClicked(selectedTraining)"
-                        on-delete-clicked="onDeleteClicked(selectedTraining)"></workout-editor>
+        <ui-view></ui-view>
       </div>
     </div>
   </div>

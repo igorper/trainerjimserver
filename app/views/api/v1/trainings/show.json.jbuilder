@@ -1,1 +1,1 @@
-json.partial! 'full_training', training: @training
+json.partial! 'api/v1/trainings/full_training', training: @training

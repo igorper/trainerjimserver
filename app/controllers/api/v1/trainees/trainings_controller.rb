@@ -10,6 +10,14 @@ class Api::V1::Trainees::TrainingsController < ActionController::Base
     end
   end
 
+  def show
+    if user_signed_in?
+      @training = Training.includes(:exercises => [:exercise_type, :series]).where(:id => params[:id]).first
+      render 'api/v1/trainings/show'
+    else
+      render status: :unauthorized
+    end
+  end
 
   def trainings_of_trainee(trainee_id)
     if current_user.trainees.exists?(id: trainee_id)
