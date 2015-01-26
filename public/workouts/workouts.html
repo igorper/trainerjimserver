@@ -1,1 +1,20 @@
-<ui-view></ui-view>
+<div class="container">
+  <div class="row training">
+    <div class="my-workouts col-sm-3">
+      <h3 class="jim-title">My workouts</h3>
+      <workouts-list workouts="templates"
+                     selected-workout="selectedTraining"
+                     on-workout-selected="onWorkoutSelected(workout)"
+                     on-workout-create="onWorkoutCreate()">
+      </workouts-list>
+    </div>
+    <div class="main-panel col-sm-9">
+      <div class="jim-box">
+        <workout-editor training="selectedTraining"
+                        on-save-clicked="onSaveClicked(selectedTraining)"
+                        on-delete-clicked="onDeleteClicked(selectedTraining)">
+        </workout-editor>
+      </div>
+    </div>
+  </div>
+</div>

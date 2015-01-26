@@ -3,10 +3,12 @@
 //= require shared/shared
 //= require angularjs-toaster/toaster
 //= require workouts/editor/workoutEditor.js
+//= require workouts/list/workoutsList.js
 
 angular
   .module('workouts', [
     'workouts.editor',
+    'workouts.list',
     'ui.router',
     'ui.bootstrap',
     'trainings',
@@ -17,12 +19,12 @@ angular
     $stateProvider
       .state('main.workouts', {
         url: "/workouts/:id",
-        controller: "WorkoutEditCtrl",
-        templateUrl: "workouts/workout-edit.html"
+        controller: "WorkoutsCtrl",
+        templateUrl: "workouts/workouts.html"
       })
     ;
   }])
-  .controller("WorkoutEditCtrl", ["$scope", '$modal', 'Training', '$stateParams', 'toaster', '$state',
+  .controller("WorkoutsCtrl", ["$scope", '$modal', 'Training', '$stateParams', 'toaster', '$state',
     function ($scope, $modal, Training, $stateParams, toaster, $state) {
       $scope.selectedTraining = null;
       $scope.templates = [];
@@ -50,6 +52,14 @@ angular
           toaster.pop("error", "Fetch training error", "Unable to fetch the training");
         });
       }
+
+      $scope.onWorkoutSelected = function (workout) {
+        $state.go('main.workouts', {id: workout.id});
+      };
+
+      $scope.onWorkoutCreate = function () {
+        $state.go('main.workouts', {id: ''});
+      };
 
       $scope.onSaveClicked = function (selectedTraining) {
         $scope.selectedTraining.$save(function () {
