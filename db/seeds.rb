@@ -172,7 +172,7 @@ training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 
 training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3)
 training1_ex4 = training1.exercises.create(:exercise_type => lat, :order => 4)
 
-training1_ex1.series.create(:order => 1, :repeat_count => 10, :weight => 50)
+training1_ex1_s1 = training1_ex1.series.create(:order => 1, :repeat_count => 10, :weight => 50)
 training1_ex1.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 15)
 training1_ex1.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
@@ -198,7 +198,6 @@ lower_back = ExerciseType.create(:name => "Lower back")
 upper_back = ExerciseType.create(:name => "Upper back")
 free_ab_cruch = ExerciseType.create(:name => "Free abdominal crunch")
 
-
 measurement = Measurement.create(
     trainee: marusa,
     trainer: trainer,
@@ -206,7 +205,7 @@ measurement = Measurement.create(
     data: 'somedata',
     start_time: DateTime.now.ago(300),
     end_time: DateTime.now,
-    rating: 3,
+    rating: 2,
     trainer_seen: true,
     comment: 'This is a comment from my trainer. He is a nice guy.'
 )
@@ -215,13 +214,12 @@ measurement.series_executions.create(
     measurement: measurement,
     start_timestamp: 4200,
     end_timestamp: 9001,
-    exercise_type: db_shoulder_press,
+    parent_series_id: training1_ex1_s1.id,
     num_repetitions: 23,
     weight: 667,
     rest_time: 543,
     duration_seconds: 456,
-    rating: 4,
-    guidance_type: "duration"
+    rating: 1
 )
 
 
