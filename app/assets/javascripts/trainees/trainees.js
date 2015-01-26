@@ -118,6 +118,19 @@ angular.module('trainees', [
           toaster.pop("error", "Fetch workout error", "Unable to fetch the workout.");
         });
       }
+
+      $scope.onSaveClicked = function (selectedTraining) {
+        $scope.selectedTraining.$save({traineeId: traineeId}, function () {
+          toaster.pop("success", "Training saved", "Sucessfully saved " + selectedTraining.name);
+          $state.go('main.trainee.training', {trainingId: ''});
+        }, function () {
+          toaster.pop("error", "Training save error", "Error saving " + selectedTraining.name);
+        });
+      };
+
+      $scope.onDeleteClicked = function (selectedTraining) {
+        toaster.pop("info", "Training delete", "clicked");
+      };
     }
   ])
 ;
