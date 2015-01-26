@@ -173,8 +173,8 @@ training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 
 training1_ex4 = training1.exercises.create(:exercise_type => lat, :order => 4)
 
 training1_ex1_s1 = training1_ex1.series.create(:order => 1, :repeat_count => 10, :weight => 50)
-training1_ex1.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 15)
-training1_ex1.series.create(:order => 3, :repeat_count => 10, :weight => 45)
+training1_ex1_s2 = training1_ex1.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 15)
+training1_ex1_s3 = training1_ex1.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
 training1_ex2.series.create(:order => 1, :repeat_count => 10, :weight => 50, :rest_time => 17)
 training1_ex2.series.create(:order => 2, :repeat_count => 15, :weight => 55)
@@ -212,13 +212,31 @@ measurement = Measurement.create(
 
 measurement.series_executions.create(
     measurement: measurement,
-    start_timestamp: 4200,
-    end_timestamp: 9001,
-    parent_series_id: training1_ex1_s1.id,
-    num_repetitions: 23,
-    weight: 667,
-    rest_time: 543,
-    duration_seconds: 456,
+    series: training1_ex1_s1,
+    num_repetitions: 10,
+    weight: 90,
+    rest_time: 90,
+    duration_seconds: 40,
+    rating: 1
+)
+
+measurement.series_executions.create(
+    measurement: measurement,
+    series: training1_ex1_s2,
+    num_repetitions: 12,
+    weight: 120,
+    rest_time: 88,
+    duration_seconds: 32,
+    rating: 1
+)
+
+measurement.series_executions.create(
+    measurement: measurement,
+    series: training1_ex1_s3,
+    num_repetitions: 10,
+    weight: 33,
+    rest_time: 32,
+    duration_seconds: 78,
     rating: 1
 )
 
