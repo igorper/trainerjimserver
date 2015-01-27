@@ -1,3 +1,4 @@
+//= require underscore/underscore
 //= require jquery/dist/jquery
 //= require jquery-ui/ui/jquery-ui
 //= require angular/angular
