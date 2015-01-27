@@ -27,43 +27,31 @@
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6 name">Duration</div>
-                                    <div class="col-sm-6 value">{{durationInMinutes() | number:0}} minutes</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6 name">Exercises performed</div>
-                                    <div class="col-sm-6 value">5 of 5</div>
+                                    <div class="col-sm-6 value">{{durationInMinutes | number:0}} minutes</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6 name">Series performed</div>
-                                    <div class="col-sm-6 value">13 of 15</div>
+                                    <div class="col-sm-6 value">{{performedSeries}} of {{totalSeries}}</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6 name">Average rest difference</div>
-                                    <div class="col-sm-6 value">15 s</div>
+                                    <div class="col-sm-6 value">{{averageRestDifferenceInSec | number:0}} s</div>
                                 </div>
                                 <div class="row">
-                                    <div class="col-sm-6 name">Weight changes</div>
-                                    <div class="col-sm-6 value">3 (30 +- 10)</div>
+                                    <div class="col-sm-6 name">Number and average weight changes</div>
+                                    <div class="col-sm-6 value">{{numberWeightChanges}} ({{averageWeightChanges}} kg)</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6 name">Reps changes (and average diff)</div>
-                                    <div class="col-sm-6 value">3 (3 +- 2)</div>
+                                    <div class="col-sm-6 value">{{numberRepsChanges}} ({{averageRepsChanges}})</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6 name">Number of series too heavy</div>
-                                    <div class="col-sm-6 value">3</div>
+                                    <div class="col-sm-6 value">{{numSeriesTooHeavy}}</div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-6 name">Number of series too easy</div>
-                                    <div class="col-sm-6 value">3</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6 name">Number of comments</div>
-                                    <div class="col-sm-6 value">3</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6 name">Training rating</div>
-                                    <div class="col-sm-6 value">3</div>
+                                    <div class="col-sm-6 value">{{numSeriesTooEasy}}</div>
                                 </div>
                             </div>
                         </div>
