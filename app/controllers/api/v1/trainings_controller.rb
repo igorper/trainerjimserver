@@ -25,10 +25,7 @@ class Api::V1::TrainingsController < ActionController::Base
 
   def create
     if user_signed_in?
-      trainee_id = current_user.id
-      edited_training = TrainingHelper.to_new_training(params)
-      existing_training = Training.find_by(trainee_id: trainee_id, id: params[:id])
-      @saved_training = save_training(edited_training, trainee_id, existing_training)
+      save_training_and_render(current_user.id, params[:id])
     else
       render status: :unauthorized
     end

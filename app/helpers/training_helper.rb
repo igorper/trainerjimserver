@@ -68,6 +68,13 @@ module TrainingHelper
     save_training(edited_training, trainee_id)
   end
 
+  def save_training_and_render(trainee_id, training_id)
+    edited_training = TrainingHelper.to_new_training(params)
+    existing_training = Training.find_by(trainee_id: trainee_id, id: training_id)
+    @saved_training = save_training(edited_training, trainee_id, existing_training)
+    render 'api/v1/trainings/create'
+  end
+
   def archive_training_and_render(trainee_id, training_id)
     @training = Training.find_by(trainee_id: trainee_id, id: training_id)
     if @training
