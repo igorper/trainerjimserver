@@ -4,6 +4,8 @@ class AddSeriesIdToSeriesExecution < ActiveRecord::Migration
     remove_column :series_executions, :exercise_type_id, :integer
     remove_column :series_executions, :guidance_type, :string
 
-    add_foreign_key :series_executions, :series, :column => :series_id, :dependent => :delete, :on_update => :cascade
+    add_foreign_key :series_executions, :series, :column => :series_id, :on_delete => :cascade, :on_update => :cascade
+
+    add_index :series_executions, :series_id
   end
 end

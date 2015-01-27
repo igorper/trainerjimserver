@@ -143,6 +143,7 @@ ActiveRecord::Schema.define(version: 20150125185326) do
   end
 
   add_index "series_executions", ["measurement_id"], name: "index_series_executions_on_measurement_id", using: :btree
+  add_index "series_executions", ["series_id"], name: "index_series_executions_on_series_id", using: :btree
 
   create_table "sessions", force: :cascade do |t|
     t.string   "session_id", limit: 255, null: false
@@ -203,7 +204,7 @@ ActiveRecord::Schema.define(version: 20150125185326) do
   add_foreign_key "roles_users", "users", name: "roles_users_user_id_fk", on_update: :cascade, on_delete: :cascade
   add_foreign_key "series", "exercises", name: "series_exercise_id_fk", on_update: :cascade, on_delete: :cascade
   add_foreign_key "series_executions", "measurements", name: "series_executions_measurement_id_fk", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "series_executions", "series", on_update: :cascade
+  add_foreign_key "series_executions", "series", on_update: :cascade, on_delete: :cascade
   add_foreign_key "trainings", "trainings", column: "original_training_id", name: "trainings_original_training_id_fk", on_update: :cascade, on_delete: :nullify
   add_foreign_key "trainings", "users", column: "trainee_id", name: "trainings_trainee_id_fk", on_update: :cascade, on_delete: :cascade
   add_foreign_key "users", "users", column: "trainer_id", name: "users_trainer_id_fk", on_update: :cascade, on_delete: :nullify
