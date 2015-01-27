@@ -72,4 +72,8 @@ module TrainingHelper
     save_new_training(edited_training)
   end
 
+  def full_trainings
+    Training.includes(exercises: [:exercise_type, :series])
+  end
+
 end

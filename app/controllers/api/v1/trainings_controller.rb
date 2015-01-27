@@ -12,7 +12,7 @@ class Api::V1::TrainingsController < ActionController::Base
 
   def show
     if user_signed_in?
-      @training = Training.includes(:exercises => [:exercise_type, :series]).where(:id => params[:id]).first
+      @training = full_trainings.find_by_id(params[:id])
       if @training.nil?
         ajax_error_i18n :training_does_not_exist
       elsif !@training.trainee_id.nil? && @training.trainee_id != current_user.id
