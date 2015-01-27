@@ -172,9 +172,9 @@ training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 
 training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3)
 training1_ex4 = training1.exercises.create(:exercise_type => lat, :order => 4)
 
-training1_ex1.series.create(:order => 1, :repeat_count => 10, :weight => 50)
-training1_ex1.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 15)
-training1_ex1.series.create(:order => 3, :repeat_count => 10, :weight => 45)
+training1_ex1_s1 = training1_ex1.series.create(:order => 1, :repeat_count => 10, :weight => 50)
+training1_ex1_s2 = training1_ex1.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 15)
+training1_ex1_s3 = training1_ex1.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
 training1_ex2.series.create(:order => 1, :repeat_count => 10, :weight => 50, :rest_time => 17)
 training1_ex2.series.create(:order => 2, :repeat_count => 15, :weight => 55)
@@ -198,7 +198,6 @@ lower_back = ExerciseType.create(:name => "Lower back")
 upper_back = ExerciseType.create(:name => "Upper back")
 free_ab_cruch = ExerciseType.create(:name => "Free abdominal crunch")
 
-
 measurement = Measurement.create(
     trainee: marusa,
     trainer: trainer,
@@ -206,22 +205,39 @@ measurement = Measurement.create(
     data: 'somedata',
     start_time: DateTime.now.ago(300),
     end_time: DateTime.now,
-    rating: 3,
+    rating: 2,
     trainer_seen: true,
     comment: 'This is a comment from my trainer. He is a nice guy.'
 )
 
 measurement.series_executions.create(
     measurement: measurement,
-    start_timestamp: 4200,
-    end_timestamp: 9001,
-    exercise_type: db_shoulder_press,
-    num_repetitions: 23,
-    weight: 667,
-    rest_time: 543,
-    duration_seconds: 456,
-    rating: 4,
-    guidance_type: "duration"
+    series: training1_ex1_s1,
+    num_repetitions: 10,
+    weight: 90,
+    rest_time: 90,
+    duration_seconds: 40,
+    rating: 1
+)
+
+measurement.series_executions.create(
+    measurement: measurement,
+    series: training1_ex1_s2,
+    num_repetitions: 12,
+    weight: 120,
+    rest_time: 88,
+    duration_seconds: 32,
+    rating: 1
+)
+
+measurement.series_executions.create(
+    measurement: measurement,
+    series: training1_ex1_s3,
+    num_repetitions: 10,
+    weight: 33,
+    rest_time: 32,
+    duration_seconds: 78,
+    rating: 1
 )
 
 

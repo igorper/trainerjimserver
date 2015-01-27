@@ -133,18 +133,17 @@ ActiveRecord::Schema.define(version: 20150127211350) do
   create_table "series_executions", force: :cascade do |t|
     t.integer "start_timestamp"
     t.integer "end_timestamp"
-    t.integer "exercise_type_id",             null: false
     t.integer "num_repetitions"
     t.integer "weight"
     t.integer "rest_time"
     t.integer "measurement_id",               null: false
     t.integer "duration_seconds", default: 0
     t.integer "rating"
-    t.string  "guidance_type"
+    t.integer "series_id",                    null: false
   end
 
-  add_index "series_executions", ["exercise_type_id"], name: "index_series_executions_on_exercise_type_id", using: :btree
   add_index "series_executions", ["measurement_id"], name: "index_series_executions_on_measurement_id", using: :btree
+  add_index "series_executions", ["series_id"], name: "index_series_executions_on_series_id", using: :btree
 
   create_table "sessions", force: :cascade do |t|
     t.string   "session_id", null: false
@@ -205,8 +204,8 @@ ActiveRecord::Schema.define(version: 20150127211350) do
   add_foreign_key "roles_users", "roles", on_update: :cascade, on_delete: :cascade
   add_foreign_key "roles_users", "users", on_update: :cascade, on_delete: :cascade
   add_foreign_key "series", "exercises", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "series_executions", "exercise_types", on_update: :cascade
   add_foreign_key "series_executions", "measurements", on_update: :cascade
+  add_foreign_key "series_executions", "series", on_update: :cascade, on_delete: :cascade
   add_foreign_key "trainings", "trainings", column: "original_training_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "trainings", "users", column: "trainee_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "users", "users", column: "trainer_id", on_update: :cascade

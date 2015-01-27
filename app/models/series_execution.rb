@@ -5,7 +5,6 @@
 #  id               :integer          not null, primary key
 #  start_timestamp  :integer
 #  end_timestamp    :integer
-#  exercise_type_id :integer          not null
 #  num_repetitions  :integer
 #  weight           :integer
 #  rest_time        :integer
@@ -14,14 +13,12 @@
 #
 
 class SeriesExecution < ActiveRecord::Base
-  # attr_accessible :start_timestamp, :end_timestamp, :exercise_type,
+  # attr_accessible :start_timestamp, :end_timestamp,
     # :num_repetitions, :weight, :rest_time, :measurement, :duration_seconds,
-    # :measurement_comments, :exercise_type_id
-    
-  validates_inclusion_of :guidance_type, :in => ["duration", "tempo", "manual"]
- 
-  belongs_to :exercise_type
+    # :measurement_comments
+
   belongs_to :measurement
+  belongs_to :series
   has_many :measurement_comments
   
   def as_json(options={})
