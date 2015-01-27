@@ -29,12 +29,12 @@ class Api::V1::TrainingsController < ActionController::Base
       existing_training = Training.find_by_id(params[:id])
       if existing_training
         if existing_training.common?
-          @saved_training = save_new_training(edited_training, existing_training)
+          @saved_training = save_training(edited_training, current_user.id, existing_training)
         else
-          @saved_training = save_edited_training(edited_training, existing_training)
+          @saved_training = overwrite_training(edited_training, current_user.id, existing_training)
         end
       else
-        @saved_training = save_new_training(edited_training)
+        @saved_training = save_training(edited_training, current_user.id)
       end
     else
       render status: :unauthorized
