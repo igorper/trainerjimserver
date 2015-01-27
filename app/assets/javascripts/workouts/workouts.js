@@ -71,7 +71,12 @@ angular
       };
 
       $scope.onDeleteClicked = function (selectedTraining) {
-        toaster.pop("info", "Training delete", "clicked");
+        Training.delete({id: selectedTraining.id}, function () {
+          toaster.pop("info", "Workout deleted", "The workout was successfully deleted.");
+          $state.go('main.workouts', {id: ''}, { reload: true });
+        }, function () {
+          toaster.pop("error", "Workout not deleted", "Could not delete the workout. Please try logging in again.");
+        });
       };
 
     }

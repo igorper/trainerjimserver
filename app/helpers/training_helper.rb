@@ -54,6 +54,8 @@ module TrainingHelper
   def save_training(edited_training, trainee_id, original_training = nil)
     if original_training
       edited_training.original_training = original_training
+      original_training.historical = true
+      original_training.save
     end
     edited_training.trainee_id = trainee_id
     edited_training.save
@@ -66,8 +68,23 @@ module TrainingHelper
     save_training(edited_training, trainee_id)
   end
 
+  def archive_training_and_render(trainee_id, training_id)
+    @training = Training.find_by(trainee_id: trainee_id, id: training_id)
+    if @training
+      @training.historical = true
+      @training.save
+      render 'api/v1/trainings/destroy'
+    else
+      render status: :bad_request
+    end
+  end
+
   def full_trainings
     Training.includes(exercises: [:exercise_type, :series])
+  end
+
+  def active_trainings(trainings)
+    trainings.where(historical: false)
   end
 
 end
