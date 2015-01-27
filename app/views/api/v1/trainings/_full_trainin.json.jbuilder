@@ -1,0 +1,1 @@
+json.(training, :id, :name, :updated_at)

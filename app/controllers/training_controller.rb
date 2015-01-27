@@ -134,7 +134,7 @@ class TrainingController < ApplicationController
   # with its exercises and series).
   def m_get
     with_auth_mapi do |user|
-      ajax_render Training.find_by_id(params[:id], :include => [:exercises, {:exercises => :series}]).to_json(TrainingHelper.training_full_view)
+      ajax_render Training.includes(:exercises, {:exercises => :series}).where(:id => params[:id]).first.to_json(TrainingHelper.training_full_view)
     end
   end
   
@@ -201,13 +201,12 @@ class TrainingController < ApplicationController
             new_se = SeriesExecution.new(
               :start_timestamp => se['start_timestamp'],
               :end_timestamp => se['end_timestamp'],
-              :exercise_type_id => se['exercise_type_id'],
+              :series_id => se['series_id'],
               :num_repetitions => se['num_repetitions'],
               :weight => se['weight'],
               :rest_time => se['rest_time'],
               :duration_seconds => se['duration'],
               :rating => se['rating'],
-              :guidance_type => se['guidance_type']
             )
             measurement.series_executions << new_se
           end
