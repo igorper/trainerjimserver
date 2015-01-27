@@ -122,7 +122,7 @@ angular.module('trainees', [
       $scope.onSaveClicked = function (selectedTraining) {
         $scope.selectedTraining.$save({traineeId: traineeId}, function () {
           toaster.pop("success", "Training saved", "Sucessfully saved " + selectedTraining.name);
-          $state.go('main.trainee.training', {trainingId: ''});
+          $state.reload();
         }, function () {
           toaster.pop("error", "Training save error", "Error saving " + selectedTraining.name);
         });

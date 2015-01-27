@@ -64,7 +64,7 @@ angular
       $scope.onSaveClicked = function (selectedTraining) {
         $scope.selectedTraining.$save(function () {
           toaster.pop("success", "Training saved", "Sucessfully saved " + selectedTraining.name);
-          $state.go('main.workouts', {id: ''});
+          $state.reload();
         }, function () {
           toaster.pop("error", "Training save error", "Error saving " + selectedTraining.name);
         });
