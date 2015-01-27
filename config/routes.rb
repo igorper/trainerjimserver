@@ -19,7 +19,7 @@ Trainerjim::Application.routes.draw do
       resources :trainings
       resources :exercise_types
       resources :trainees do
-        resources :trainings, module: :trainees
+        resources :trainings, controller: 'trainees/trainee_trainings'
       end
       resources :results
       resources :measurements

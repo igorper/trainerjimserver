@@ -1,10 +1,11 @@
-class Api::V1::Trainees::TrainingsController < ActionController::Base
+class Api::V1::Trainees::TraineeTrainingsController < ActionController::Base
 
   include TrainingHelper
 
   def index
     if user_signed_in?
       trainings_of_trainee(params[:trainee_id])
+      render 'api/v1/trainings/index'
     else
       render status: :unauthorized
     end
