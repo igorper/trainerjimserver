@@ -37,12 +37,12 @@ class TrainingController < ApplicationController
         if existing_training
           if existing_training.common?
             # Save new training based on another one:
-            f.json {render :json => !!save_new_training(the_workout, existing_training)}
+            f.json {render :json => !!save_training(the_workout, current_user.id, existing_training)}
           else
-            f.json {render :json => !!save_edited_training(the_workout, existing_training)}
+            f.json {render :json => !!overwrite_training(the_workout, current_user.id, existing_training)}
           end
         else
-          f.json {render :json => !!save_new_training(the_workout)}
+          f.json {render :json => !!save_training(the_workout, current_user.id)}
         end
       end
     else

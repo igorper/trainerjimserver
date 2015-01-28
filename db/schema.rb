@@ -11,46 +11,46 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150125185326) do
+ActiveRecord::Schema.define(version: 20150127211350) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
   create_table "conversations", force: :cascade do |t|
     t.integer  "sender_id"
-    t.string   "text",           limit: 255
+    t.string   "text"
     t.datetime "date"
-    t.integer  "measurement_id",             null: false
+    t.integer  "measurement_id", null: false
   end
 
   add_index "conversations", ["measurement_id"], name: "index_conversations_on_measurement_id", using: :btree
   add_index "conversations", ["sender_id"], name: "index_conversations_on_sender_id", using: :btree
 
   create_table "exercise_types", force: :cascade do |t|
-    t.string   "name",       limit: 255
+    t.string   "name"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
 
   create_table "exercises", force: :cascade do |t|
-    t.integer  "training_id",                                               null: false
-    t.integer  "exercise_type_id",                                          null: false
+    t.integer  "training_id",                                   null: false
+    t.integer  "exercise_type_id",                              null: false
     t.integer  "order"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "machine_setting",            limit: 255
+    t.string   "machine_setting"
     t.decimal  "duration_after_repetition"
     t.decimal  "duration_up_repetition"
     t.decimal  "duration_middle_repetition"
     t.decimal  "duration_down_repetition"
-    t.string   "guidance_type",              limit: 255, default: "manual", null: false
+    t.string   "guidance_type",              default: "manual", null: false
   end
 
   add_index "exercises", ["exercise_type_id"], name: "index_exercises_on_exercise_type_id", using: :btree
   add_index "exercises", ["training_id"], name: "index_exercises_on_training_id", using: :btree
 
   create_table "i18n_keys", force: :cascade do |t|
-    t.string   "key",        limit: 255
+    t.string   "key"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -59,7 +59,7 @@ ActiveRecord::Schema.define(version: 20150125185326) do
 
   create_table "i18n_strings", force: :cascade do |t|
     t.integer  "i18n_key_id"
-    t.string   "locale",      limit: 255
+    t.string   "locale"
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -70,24 +70,24 @@ ActiveRecord::Schema.define(version: 20150125185326) do
 
   create_table "measurement_comments", force: :cascade do |t|
     t.integer "timestamp"
-    t.string  "comment",             limit: 255
+    t.string  "comment"
     t.integer "series_execution_id"
   end
 
   add_index "measurement_comments", ["series_execution_id"], name: "index_measurement_comments_on_series_execution_id", using: :btree
 
   create_table "measurements", force: :cascade do |t|
-    t.integer  "trainee_id",                               null: false
+    t.integer  "trainee_id",                   null: false
     t.integer  "trainer_id"
-    t.integer  "training_id",                              null: false
+    t.integer  "training_id",                  null: false
     t.binary   "data"
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer  "rating"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "trainer_seen",             default: false, null: false
-    t.string   "comment",      limit: 255
+    t.boolean  "trainer_seen", default: false, null: false
+    t.string   "comment"
   end
 
   add_index "measurements", ["trainee_id"], name: "index_measurements_on_trainee_id", using: :btree
@@ -95,7 +95,7 @@ ActiveRecord::Schema.define(version: 20150125185326) do
   add_index "measurements", ["training_id"], name: "index_measurements_on_training_id", using: :btree
 
   create_table "newsletter_subscriptions", force: :cascade do |t|
-    t.string   "email",      limit: 255
+    t.string   "email"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -103,7 +103,7 @@ ActiveRecord::Schema.define(version: 20150125185326) do
   add_index "newsletter_subscriptions", ["email"], name: "index_newsletter_subscriptions_on_email", unique: true, using: :btree
 
   create_table "roles", force: :cascade do |t|
-    t.string   "name",       limit: 255, null: false
+    t.string   "name",       null: false
     t.datetime "created_at"
     t.datetime "updated_at"
   end
@@ -146,7 +146,7 @@ ActiveRecord::Schema.define(version: 20150125185326) do
   add_index "series_executions", ["series_id"], name: "index_series_executions_on_series_id", using: :btree
 
   create_table "sessions", force: :cascade do |t|
-    t.string   "session_id", limit: 255, null: false
+    t.string   "session_id", null: false
     t.text     "data"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -157,31 +157,32 @@ ActiveRecord::Schema.define(version: 20150125185326) do
 
   create_table "trainings", force: :cascade do |t|
     t.integer  "trainee_id"
-    t.string   "name",                 limit: 255
+    t.string   "name"
     t.integer  "original_training_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.boolean  "historical",           default: false
   end
 
   add_index "trainings", ["original_training_id"], name: "index_trainings_on_original_training_id", using: :btree
   add_index "trainings", ["trainee_id"], name: "index_trainings_on_trainee_id", using: :btree
 
   create_table "users", force: :cascade do |t|
-    t.string   "email",                  limit: 255
-    t.string   "full_name",              limit: 255
+    t.string   "email"
+    t.string   "full_name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "encrypted_password",     limit: 255, default: "", null: false
-    t.string   "reset_password_token",   limit: 255
+    t.string   "encrypted_password",     default: "", null: false
+    t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                      default: 0
+    t.integer  "sign_in_count",          default: 0
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
-    t.string   "current_sign_in_ip",     limit: 255
-    t.string   "last_sign_in_ip",        limit: 255
+    t.string   "current_sign_in_ip"
+    t.string   "last_sign_in_ip"
     t.integer  "trainer_id"
-    t.string   "confirmation_token",     limit: 255
+    t.string   "confirmation_token"
     t.datetime "confirmed_at"
     t.datetime "confirmation_sent_at"
   end
@@ -191,21 +192,21 @@ ActiveRecord::Schema.define(version: 20150125185326) do
   add_index "users", ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true, using: :btree
   add_index "users", ["trainer_id"], name: "index_users_on_trainer_id", using: :btree
 
-  add_foreign_key "conversations", "measurements", name: "conversations_measurement_id_fk", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "conversations", "users", column: "sender_id", name: "conversations_sender_id_fk", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "exercises", "exercise_types", name: "exercises_exercise_type_id_fk", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "exercises", "trainings", name: "exercises_training_id_fk", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "i18n_strings", "i18n_keys", name: "i18n_strings_i18n_key_id_fk", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "measurement_comments", "series_executions", name: "measurement_comments_series_execution_id_fk", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "measurements", "trainings", name: "measurements_training_id_fk", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "measurements", "users", column: "trainee_id", name: "measurements_trainee_id_fk", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "measurements", "users", column: "trainer_id", name: "measurements_trainer_id_fk", on_update: :cascade, on_delete: :nullify
-  add_foreign_key "roles_users", "roles", name: "roles_users_role_id_fk", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "roles_users", "users", name: "roles_users_user_id_fk", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "series", "exercises", name: "series_exercise_id_fk", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "series_executions", "measurements", name: "series_executions_measurement_id_fk", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "conversations", "measurements", on_update: :cascade
+  add_foreign_key "conversations", "users", column: "sender_id", on_update: :cascade
+  add_foreign_key "exercises", "exercise_types", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "exercises", "trainings", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "i18n_strings", "i18n_keys", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "measurement_comments", "series_executions", on_update: :cascade
+  add_foreign_key "measurements", "trainings", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "measurements", "users", column: "trainee_id", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "measurements", "users", column: "trainer_id", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "roles_users", "roles", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "roles_users", "users", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "series", "exercises", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "series_executions", "measurements", on_update: :cascade
   add_foreign_key "series_executions", "series", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "trainings", "trainings", column: "original_training_id", name: "trainings_original_training_id_fk", on_update: :cascade, on_delete: :nullify
-  add_foreign_key "trainings", "users", column: "trainee_id", name: "trainings_trainee_id_fk", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "users", "users", column: "trainer_id", name: "users_trainer_id_fk", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "trainings", "trainings", column: "original_training_id", on_update: :cascade, on_delete: :nullify
+  add_foreign_key "trainings", "users", column: "trainee_id", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "users", "users", column: "trainer_id", on_update: :cascade
 end

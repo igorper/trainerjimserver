@@ -9,13 +9,15 @@
 //= require workouts/workouts
 //= require trainees/trainees
 //= require results/results
+//= require shared/shared
 
 angular
   .module('app', [
     'welcome',
     'workouts',
     'trainees',
-    'results'
+    'results',
+    'shared'
   ])
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
@@ -23,9 +25,9 @@ angular
         abstract: true,
         url: "",
         views: {
-          'body': {templateUrl: "main.html"},
-          'footer': {templateUrl: 'shared/footer-view.html'},
-          'header': {templateUrl: 'shared/header-view.html'}
+          'body': {templateUrl: '<%= asset_path('main.html') %>'},
+          'header': {templateUrl: '<%= asset_path('shared/header-view.html') %>'},
+          'footer': {templateUrl: '<%= asset_path('shared/footer-view.html') %>'}
         }
       })
     ;

@@ -1,1 +1,0 @@
-json.array! @training_list

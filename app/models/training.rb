@@ -8,6 +8,7 @@
 #  original_training_id :integer
 #  created_at           :datetime
 #  updated_at           :datetime
+#  historical           :boolean
 #
 
 class Training < ActiveRecord::Base
@@ -18,6 +19,6 @@ class Training < ActiveRecord::Base
   belongs_to :original_training, :class_name => "Training", :foreign_key => 'original_training_id'
   
   def common?
-    return trainee.nil?
+    trainee.nil?
   end
 end

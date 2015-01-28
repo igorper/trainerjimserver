@@ -62,16 +62,21 @@ angular
       };
 
       $scope.onSaveClicked = function (selectedTraining) {
-        $scope.selectedTraining.$save(function () {
+        $scope.selectedTraining.$save(function (training) {
           toaster.pop("success", "Training saved", "Sucessfully saved " + selectedTraining.name);
-          $state.reload();
+          $state.go('main.workouts', {id: training.id}, { reload: true });
         }, function () {
           toaster.pop("error", "Training save error", "Error saving " + selectedTraining.name);
         });
       };
 
       $scope.onDeleteClicked = function (selectedTraining) {
-        toaster.pop("info", "Training delete", "clicked");
+        Training.delete({id: selectedTraining.id}, function () {
+          toaster.pop("info", "Workout deleted", "The workout was successfully deleted.");
+          $state.go('main.workouts', {id: ''}, { reload: true });
+        }, function () {
+          toaster.pop("error", "Workout not deleted", "Could not delete the workout. Please try logging in again.");
+        });
       };
 
     }

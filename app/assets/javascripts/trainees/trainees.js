@@ -120,16 +120,22 @@ angular.module('trainees', [
       }
 
       $scope.onSaveClicked = function (selectedTraining) {
-        $scope.selectedTraining.$save({traineeId: traineeId}, function () {
-          toaster.pop("success", "Training saved", "Sucessfully saved " + selectedTraining.name);
-          $state.reload();
+        $scope.selectedTraining.$save({traineeId: traineeId}, function (training) {
+          toaster.pop("success", "Training saved", "Sucessfully saved " + training.name);
+          $state.go('main.trainee.training', {trainingId: training.id}, { reload: true });
         }, function () {
           toaster.pop("error", "Training save error", "Error saving " + selectedTraining.name);
         });
       };
 
       $scope.onDeleteClicked = function (selectedTraining) {
-        toaster.pop("info", "Training delete", "clicked");
+        TraineeTraining.delete({traineeId: traineeId, trainingId: selectedTraining.id}, function () {
+          toaster.pop("info", "Workout deleted", "The workout was successfully deleted.");
+          $state.go('main.trainee.training', {trainingId: ''}, { reload: true });
+        }, function () {
+          toaster.pop("error", "Workout not deleted", "Could not delete the workout. Please try logging in again.");
+        });
+
       };
     }
   ])
