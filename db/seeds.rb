@@ -199,7 +199,49 @@ upper_back = ExerciseType.create(:name => "Upper back")
 free_ab_cruch = ExerciseType.create(:name => "Free abdominal crunch")
 
 measurement = Measurement.create(
-    trainee: marusa,
+    trainee: trainer,
+    trainer: trainer,
+    training: training1,
+    data: 'somedata',
+    start_time: DateTime.now.yesterday.ago(300),
+    end_time: DateTime.now.yesterday,
+    rating: 1,
+    trainer_seen: true,
+    comment: 'This is a comment from my trainer. He is a nice guy.'
+)
+
+measurement.series_executions.create(
+    measurement: measurement,
+    series: training1_ex1_s1,
+    num_repetitions: 10,
+    weight: 90,
+    rest_time: 90,
+    duration_seconds: 40,
+    rating: 1
+)
+
+measurement.series_executions.create(
+    measurement: measurement,
+    series: training1_ex1_s2,
+    num_repetitions: 12,
+    weight: 120,
+    rest_time: 88,
+    duration_seconds: 32,
+    rating: 1
+)
+
+measurement.series_executions.create(
+    measurement: measurement,
+    series: training1_ex1_s3,
+    num_repetitions: 10,
+    weight: 33,
+    rest_time: 32,
+    duration_seconds: 78,
+    rating: 1
+)
+
+measurement = Measurement.create(
+    trainee: trainer,
     trainer: trainer,
     training: training1,
     data: 'somedata',
@@ -239,7 +281,6 @@ measurement.series_executions.create(
     duration_seconds: 78,
     rating: 1
 )
-
 
 ####################### AUTOMATED TESTING SEEDS
 # This seeds are only for automated tests purposes and shouldn't be changed
