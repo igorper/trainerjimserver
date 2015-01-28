@@ -25,14 +25,18 @@
                                     <div class="col-sm-6 name">Start time</div>
                                     <div class="col-sm-6 value">{{selectedTraining.start_time | date: 'HH:mm'}}</div>
                                 </div>
+                                <!-- DURATIONS: TOTAL & EXERCISE & REST -->
                                 <div class="row">
                                     <div class="col-sm-6 name">Duration</div>
                                     <div class="col-sm-6 value">{{durationInMinutes | number:0}} minutes</div>
                                 </div>
+                                <!-- ACTIVITIES PERFORMED: EXERCISES & SERIES -->
                                 <div class="row">
                                     <div class="col-sm-6 name">Series performed</div>
                                     <div class="col-sm-6 value">{{performedSeries}} of {{totalSeries}}</div>
                                 </div>
+
+                                <!-- TRAINING PLAN CHANGES: Rest & Weight & Reps -->
                                 <div class="row">
                                     <div class="col-sm-6 name">Average rest difference</div>
                                     <div class="col-sm-6 value">{{averageRestDifferenceInSec | number:0}} s</div>
@@ -45,6 +49,8 @@
                                     <div class="col-sm-6 name">Reps changes (and average diff)</div>
                                     <div class="col-sm-6 value">{{numberRepsChanges}} ({{averageRepsChanges}})</div>
                                 </div>
+
+                                <!-- INTENSITY FEEDBACK -->
                                 <div class="row">
                                     <div class="col-sm-6 name">Number of series too heavy</div>
                                     <div class="col-sm-6 value">{{numSeriesTooHeavy}}</div>
