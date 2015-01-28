@@ -11,6 +11,27 @@ div.page {
       background-image: image_url("ic_directions_walk_24px.svg");
     }
 
+    .training-rating {
+      @include size(40px, 40px);
+      background-size: contain;
+    }
+
+    .bored-on {
+      background-image: image_url("SmileyON_Bored.png");
+    }
+
+    .happy-on
+    {
+      background-image: image_url("SmileyON_Happy.png");
+    }
+
+    .sweat-on
+    {
+      background-image: image_url("SmileyON_Sweat.png");
+    }
+
+
+
     div.fc-event {
       background-color: transparent;
       border-color: transparent;

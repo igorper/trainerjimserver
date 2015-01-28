@@ -17,7 +17,8 @@
                         </div>
                         <div ng-show="selectedTraining" id="my-workout" class="selected-regime">
                             <div class="row header">
-                                <h1 class="jim-title col-sm-12">{{selectedTraining.name}}</h1>
+                                <h1 class="col-sm-11 jim-title">{{selectedTraining.name}}</h1>
+                                <div class="col-sm-1 training-rating {{trainingRatingIcon}}"></div>
                             </div>
                             <div class="separator"></div>
                             <div class="body training-overview">

@@ -31,6 +31,7 @@ angular
       $scope.selectedTraining = null;
       $scope.calendarSources = [];
 
+      $scope.trainingRatingIcon = null;
       $scope.durationInMinutes = null;
       $scope.performedSeries = null;
       $scope.totalSeries = null;
@@ -73,6 +74,7 @@ angular
       }
 
       $scope.calculateStatistics = function() {
+        $scope.trainingRatingIcon = SMILE_LOOKUP[$scope.selectedTraining.rating] + "-on"
         $scope.durationInMinutes = (new Date($scope.selectedTraining.end_time) - new Date($scope.selectedTraining.start_time)) / (1000 * 60);
         $scope.performedSeries = $scope.selectedTraining.series_executions.length;
         $scope.totalSeries = _.flatten(_.pluck($scope.selectedTraining.exercises, 'series')).length;
