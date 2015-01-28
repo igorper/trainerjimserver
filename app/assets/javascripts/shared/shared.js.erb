@@ -5,7 +5,7 @@ angular.module('shared', ['auth', 'ui.router'])
     return {
       restrict: 'E',
       controller: 'HeaderCtrl',
-      templateUrl: 'shared/header.html'
+      templateUrl: '<%= asset_path('shared/header-nav-bar.html') %>'
     }
   })
   .controller('HeaderCtrl', ['$scope', '$state', 'Auth', function ($scope, $state, Auth) {
@@ -16,7 +16,8 @@ angular.module('shared', ['auth', 'ui.router'])
       },
       {
         name: "Trainees",
-        link: "main.trainees"
+        link: "main.trainees",
+        activeUrls: ["main.trainee"]
       },
       {
         name: "Results",
@@ -27,6 +28,12 @@ angular.module('shared', ['auth', 'ui.router'])
     Auth.username(function (response) {
       $scope.username = response.username;
     });
+
+    $scope.isActiveLink = function (topNavigationItem) {
+      return $state.includes(topNavigationItem.link) || !!topNavigationItem.activeUrls && topNavigationItem.activeUrls.some(function (url) {
+          return $state.includes(url);
+        });
+    };
 
     $scope.logout = function () {
       Auth.logout(function () {

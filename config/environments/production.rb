@@ -10,10 +10,6 @@ Trainerjim::Application.configure do
   # Rake tasks automatically ignore this option for performance.
   config.eager_load = true
   
-  config.to_prepare { Devise::SessionsController.force_ssl }
-  config.to_prepare { Devise::RegistrationsController.force_ssl }
-  config.to_prepare { Devise::PasswordsController.force_ssl }
-
   # Full error reports are disabled and caching is turned on.
   config.consider_all_requests_local       = false
   config.action_controller.perform_caching = true

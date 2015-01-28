@@ -40,27 +40,15 @@ module ApplicationHelper
   end
   
   def login_panel_url
-    if (Rails.application.config.jim_use_ssl_login_url)
-      user_session_url :protocol => 'https'
-    else
-      user_session_url()
-    end
+    welcome_url
   end
   
   def signup_url
-    if Rails.application.config.jim_use_ssl_login_url then
-      registration_url(resource_name, :protocol => 'https')
-    else
-      registration_url(resource_name)
-    end
+    welcome_url
   end
   
   def login_url
-    if Rails.application.config.jim_use_ssl_login_url then
-      session_url(resource_name, :protocol => 'https')
-    else
-      session_url(resource_name)
-    end
+    welcome_url
   end
  
   def resource

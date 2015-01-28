@@ -18,6 +18,12 @@
         #!bash
         bundle exec rake bower:install
 
+## Create the production database
+
+Here's how you can create the production database (but don't seed it, because it will send registration emails to the users):
+
+    RAILS_ENV=production rake db:create db:migrate db:bootstrap
+
 ## Re-seed the database
 
 Locally:
