@@ -42,6 +42,7 @@ module Trainerjim
     config.assets.paths << Rails.root.join('app', 'assets', 'templates')
 
     # Precompile additional assets
-    config.assets.precompile += %w(*.svg *.eot *.woff *.ttf *.png *.jpg *.jpeg *.gif *.html)
+    config.assets.precompile += %w(*.svg *.eot *.woff *.ttf *.png *.jpg *.jpeg *.gif)
+    config.assets.precompile += ['app.js']
   end
 end

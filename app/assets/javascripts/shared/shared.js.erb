@@ -45,7 +45,7 @@ angular.module('shared', ['auth', 'ui.router'])
     return {
       restrict: 'E',
       controller: 'FooterCtrl',
-      templateUrl: 'shared/footer.html'
+      templateUrl: '<%= asset_path('shared/footer-bar.html') %>'
     }
   })
   .controller('FooterCtrl', ['$scope', function ($scope) {
