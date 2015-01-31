@@ -3,4 +3,13 @@ div.trainee {
     margin-top: 25px;
     padding: 15px 25px;
   }
+
+  div.assign-workout {
+    margin-bottom: 10px;
+
+    .btn {
+      white-space: normal;
+      width: 100%;
+    }
+  }
 }

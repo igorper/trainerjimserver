@@ -21,4 +21,8 @@ class Training < ActiveRecord::Base
   def common?
     trainee.nil?
   end
+
+  amoeba do
+    enable
+  end
 end

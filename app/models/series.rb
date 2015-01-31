@@ -23,4 +23,8 @@ class Series < ActiveRecord::Base
   # :rest_time [integer] - time to rest after this series (in seconds).
   
   belongs_to :exercise
+
+  amoeba do
+    enable
+  end
 end

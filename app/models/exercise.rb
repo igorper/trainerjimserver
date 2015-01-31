@@ -20,4 +20,8 @@ class Exercise < ActiveRecord::Base
   belongs_to :training
   has_many :series, :dependent => :delete_all
   belongs_to :exercise_type
+
+  amoeba do
+    enable
+  end
 end

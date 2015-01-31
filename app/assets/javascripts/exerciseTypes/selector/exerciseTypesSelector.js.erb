@@ -12,7 +12,7 @@ var exerciseTypesSelector = angular.module('exerciseTypes.selector', [
 exerciseTypesSelector.factory('ExerciseTypesSelector', ['$modal', function ($modal) {
   return function () {
     return $modal.open({
-      templateUrl: 'exerciseTypes/selector/exercise-type-selector.html',
+      templateUrl: '<%= asset_path('exerciseTypes/selector/exercise-type-selector.html') %>',
       controller: 'SelectExerciseTypeCtrl',
       backdrop: 'static',
       windowClass: 'modal-window'

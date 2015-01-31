@@ -2,6 +2,7 @@
 //= require shared/shared
 //= require angular-ui-grid/ui-grid
 //= require trainings/training
+//= require workouts/selector/workoutSelector
 
 angular.module('trainees', [
   'ui.router',
@@ -9,30 +10,33 @@ angular.module('trainees', [
   'shared',
   'ui.grid',
   'ui.grid.cellNav',
-  'trainings'
+  'trainings',
+  'workouts.selector'
 ])
   .factory("Trainee", ["$resource", function ($resource) {
     return $resource("/api/v1/trainees/:id.json");
   }])
   .factory("TraineeTraining", ["$resource", function ($resource) {
-    return $resource("/api/v1/trainees/:traineeId/trainings/:trainingId.json");
+    return $resource("/api/v1/trainees/:traineeId/trainings/:trainingId.json", null, {
+      addPreparedWorkout: {method: 'POST', params: {isPreparedWorkout: true}}
+    });
   }])
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('main.trainees', {
         url: '/trainees',
         controller: "TraineesCtrl",
-        templateUrl: "trainees/trainees.html"
+        templateUrl: "<%= asset_path('trainees/trainees.html') %>"
       })
       .state('main.trainee', {
         url: '/trainees/{traineeId:int}',
         controller: "TraineeCtrl",
-        templateUrl: "trainees/trainee.html"
+        templateUrl: "<%= asset_path('trainees/trainee.html') %>"
       })
       .state('main.trainee.training', {
         url: '/training/:trainingId',
         controller: "TraineeTrainingCtrl",
-        templateUrl: "trainees/trainee-training.html",
+        templateUrl: "<%= asset_path('trainees/trainee-training.html') %>",
         resolve: {
           traineeId: ['$stateParams', function ($stateParams) {
             return $stateParams.traineeId;
@@ -69,8 +73,8 @@ angular.module('trainees', [
       refreshTraineesList();
     }
   ])
-  .controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams', 'toaster', 'Training', 'uiGridConstants', 'TraineeTraining',
-    function ($scope, $state, Trainee, $stateParams, toaster, Training, uiGridConstants, TraineeTraining) {
+  .controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams', 'toaster', 'Training', 'uiGridConstants', 'TraineeTraining', 'WorkoutSelector', 'TraineeTrainingUtils',
+    function ($scope, $state, Trainee, $stateParams, toaster, Training, uiGridConstants, TraineeTraining, WorkoutSelector, TraineeTrainingUtils) {
       $scope.traineeWorkouts = [];
       $scope.selectedTraining = [];
 
@@ -88,21 +92,28 @@ angular.module('trainees', [
         });
       }
 
-      $scope.onWorkoutSelected = function (workout) {
+      function selectTraining(workout) {
         $scope.selectedTraining = workout;
-        $state.go('main.trainee.training', {trainingId: workout.id});
+        $state.go('main.trainee.training', {trainingId: workout == null ? '' : workout.id});
+      }
+
+      $scope.addPreparedWorkout = function () {
+        WorkoutSelector().result.then(function (selectedTraining) {
+          TraineeTrainingUtils.addPreparedWorkout($stateParams.traineeId, selectedTraining.id);
+        });
       };
 
+      $scope.onWorkoutSelected = selectTraining;
+
       $scope.onWorkoutCreate = function () {
-        $scope.selectedTraining = null;
-        $state.go('main.trainee.training', {trainingId: ''});
+        selectTraining(null);
       };
 
       refreshWorkoutsList();
     }
   ])
-  .controller("TraineeTrainingCtrl", ["$scope", "$state", '$stateParams', 'toaster', 'TraineeTraining', 'traineeId',
-    function ($scope, $state, $stateParams, toaster, TraineeTraining, traineeId) {
+  .controller("TraineeTrainingCtrl", ["$scope", "$state", '$stateParams', 'toaster', 'TraineeTraining', 'traineeId', 'TraineeTrainingUtils',
+    function ($scope, $state, $stateParams, toaster, TraineeTraining, traineeId, TraineeTrainingUtils) {
       $scope.selectedTraining = [];
 
       function createEmptyTraining() {
@@ -120,18 +131,13 @@ angular.module('trainees', [
       }
 
       $scope.onSaveClicked = function (selectedTraining) {
-        $scope.selectedTraining.$save({traineeId: traineeId}, function (training) {
-          toaster.pop("success", "Training saved", "Sucessfully saved " + training.name);
-          $state.go('main.trainee.training', {trainingId: training.id}, { reload: true });
-        }, function () {
-          toaster.pop("error", "Training save error", "Error saving " + selectedTraining.name);
-        });
+        TraineeTrainingUtils.saveTrainingForTrainee(traineeId, selectedTraining);
       };
 
       $scope.onDeleteClicked = function (selectedTraining) {
         TraineeTraining.delete({traineeId: traineeId, trainingId: selectedTraining.id}, function () {
           toaster.pop("info", "Workout deleted", "The workout was successfully deleted.");
-          $state.go('main.trainee.training', {trainingId: ''}, { reload: true });
+          $state.go('main.trainee.training', {trainingId: ''}, {reload: true});
         }, function () {
           toaster.pop("error", "Workout not deleted", "Could not delete the workout. Please try logging in again.");
         });
@@ -139,4 +145,32 @@ angular.module('trainees', [
       };
     }
   ])
+  .factory('TraineeTrainingUtils', ['$state', 'toaster', 'TraineeTraining', function ($state, toaster, TraineeTraining) {
+    var self = {
+      goToTrainingAndReload: function (training) {
+        $state.go('main.trainee.training', {trainingId: training.id}, {reload: true});
+      },
+      showSaveSuccessPopup: function (savedTraining) {
+        toaster.pop("success", "Training saved", "Sucessfully saved " + savedTraining.name);
+      },
+      addPreparedWorkout: function (traineeId, preparedTrainingId) {
+        TraineeTraining.addPreparedWorkout(
+          {traineeId: traineeId},
+          {preparedTrainingId: preparedTrainingId}, function (savedTraining) {
+            self.showSaveSuccessPopup(savedTraining);
+            console.log(savedTraining);
+            self.goToTrainingAndReload(savedTraining);
+          });
+      },
+      saveTrainingForTrainee: function (traineeId, selectedTraining) {
+        selectedTraining.$save({traineeId: traineeId}, function (training) {
+          self.showSaveSuccessPopup(training);
+          self.goToTrainingAndReload(training);
+        }, function () {
+          toaster.pop("error", "Training save error", "Error saving " + selectedTraining.name);
+        });
+      }
+    };
+    return self;
+  }])
 ;

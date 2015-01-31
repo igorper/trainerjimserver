@@ -86,6 +86,19 @@ module TrainingHelper
     end
   end
 
+  def add_prepared_workout(trainee_id, trainer_id, prepared_training_id)
+    prepared_training = Training.find_by(trainee_id: trainer_id, id: prepared_training_id)
+    if prepared_training
+      @training = prepared_training.amoeba_dup
+      @training.trainee_id = trainee_id
+      @training.original_training = prepared_training
+      @training.save
+      render 'api/v1/trainings/show'
+    else
+      render status: :bad_request
+    end
+  end
+
   def full_trainings
     Training.includes(exercises: [:exercise_type, :series])
   end

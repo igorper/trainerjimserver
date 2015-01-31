@@ -18,7 +18,11 @@ class Api::V1::Trainees::TraineeTrainingsController < ActionController::Base
 
   def create
     as_trainer_of { |trainee_id|
-      save_training_and_render(trainee_id, params[:id])
+      if params[:isPreparedWorkout]
+        add_prepared_workout(trainee_id, current_user.id, params[:preparedTrainingId])
+      else
+        save_training_and_render(trainee_id, params[:id])
+      end
     }
   end
 

@@ -6,6 +6,7 @@ gem 'tzinfo-data'
 
 gem 'pg'
 gem 'activerecord-session_store'
+gem 'amoeba'
 gem 'bower-rails'
 
 gem 'sass-rails'
@@ -51,9 +52,3 @@ group :test do
   gem 'factory_girl_rails'
   gem 'factory_girl'
 end
-
-# The 'ruby-debug-ide' gem should just be installed onto the system. It does not
-# need to be included in the Gemfile of this project.
-#group :development do
-#  gem 'ruby-debug-ide'
-#end
