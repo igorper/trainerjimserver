@@ -27,9 +27,6 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  # attr_accessible :id, :email, :password, :password_confirmation, :remember_me,
-  # :full_name, :trainer, :roles
-
   belongs_to :trainer, :class_name => "User", :foreign_key => 'trainer_id'
   has_many :measurements, :dependent => :delete_all
   has_many :trainees, class_name: :User, foreign_key: :trainer_id

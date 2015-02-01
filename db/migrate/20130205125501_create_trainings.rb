@@ -11,6 +11,7 @@ class CreateTrainings < ActiveRecord::Migration
 
     add_index :trainings, :trainee_id
     add_index :trainings, :original_training_id
+
     add_foreign_key :trainings, :users, :column => :trainee_id, :on_delete => :cascade, :on_update => :cascade
     add_foreign_key :trainings, :trainings, :column => :original_training_id, :on_delete => :nullify, :on_update => :cascade
 
