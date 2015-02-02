@@ -19,7 +19,8 @@ angular
       });
   }])
   .controller("ResultsCtrl", ["$scope", "$http", "Measurement", '$compile', 'uiCalendarConfig', '$stateParams', '$state',
-    function ($scope, $http, Measurement, $compile, uiCalendarConfig, $stateParams, $state) {
+    "toaster",
+    function ($scope, $http, Measurement, $compile, uiCalendarConfig, $stateParams, $state, toaster) {
 
       var SMILE_LOOKUP = {0: "bored", 1: "happy", 2: "sweat"};
 
