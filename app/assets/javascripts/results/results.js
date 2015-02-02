@@ -64,6 +64,9 @@ angular
         if ($stateParams.id) {
           Measurement.get({id: $stateParams.id}, function (measurement) {
             $scope.selectedTraining = measurement;
+
+            // show the calendar for the selected training date
+            $scope.uiConfig.calendar['defaultDate'] = $scope.selectedTraining.start_time;
             uiCalendarConfig.calendars["myCalendar1"].fullCalendar("render");
 
             $scope.calculateStatistics();
@@ -126,11 +129,13 @@ angular
         //$compile(element)($scope);
 
         var smileyStatus = $scope.selectedTraining && $scope.selectedTraining.id === event.training.id ? "on" : "off";
-        element.addClass(SMILE_LOOKUP[event.training.rating] + "-" + smileyStatus);
+        element.find(".fc-content").addClass(SMILE_LOOKUP[event.training.rating] + "-" + smileyStatus);
+        element.find(".fc-content").empty();
 
       };
       $scope.uiConfig = {
         calendar: {
+          height: 450,
           header: {
             right: 'today prev,next'
           },
