@@ -6,10 +6,12 @@
 //= require fullcalendar/fullcalendar
 //= require fullcalendar/gcal
 //= require welcome/welcome
+//= require auth/auth
 //= require workouts/workouts
 //= require trainees/trainees
 //= require results/results
 //= require shared/shared
+//= require angular-http-auth/src/http-auth-interceptor
 
 angular
   .module('app', [
@@ -17,15 +19,27 @@ angular
     'workouts',
     'trainees',
     'results',
-    'shared'
+    'shared',
+    'http-auth-interceptor',
+    'auth'
   ])
+  .controller('MainBodyCtrl', ['$rootScope', 'LoginDialog', function ($rootScope, LoginDialog) {
+    $rootScope.$on('event:auth-loginRequired', function () {
+      console.log("Login required!!!!");
+      LoginDialog().result.then(function (credentials) {
+        console.log("The dialog was closed. And got credentials:");
+        console.log(credentials);
+      });
+
+    });
+  }])
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('main', {
         abstract: true,
         url: "",
         views: {
-          'body': {templateUrl: '<%= asset_path('main.html') %>'},
+          'body': {templateUrl: '<%= asset_path('main.html') %>', controller: 'MainBodyCtrl'},
           'header': {templateUrl: '<%= asset_path('shared/header-view.html') %>'},
           'footer': {templateUrl: '<%= asset_path('shared/footer-view.html') %>'}
         }
@@ -34,4 +48,5 @@ angular
   }])
   .config(['$urlRouterProvider', function ($urlRouterProvider) {
     $urlRouterProvider.otherwise("/welcome");
-  }]);
+  }])
+;

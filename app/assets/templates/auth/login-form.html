@@ -1,0 +1,27 @@
+<div class="auth-login-form">
+  <form>
+    <div class="title">Welcome back, champ.</div>
+    <div class="sub-title">Back for more strength?</div>
+
+    <div class="email-fields">
+      <input type="text" name="email" autofocus="true" class="text-input" placeholder="your@email.com"
+             ng-model="email"/>
+    </div>
+
+    <div class="pwd-fields">
+      <input type="password" name="password" class="text-input" placeholder="your password"
+             ng-model="password"/>
+    </div>
+
+    <div class="remember-me-fields">
+      <input id="rememberMe" type="checkbox" name="rememberMe" ng-model="rememberMe"/>
+      <label for="rememberMe">
+        Remember me...
+      </label>
+    </div>
+
+    <div class="submit-btn">
+      <input type="submit" value="log in" class="sign-in-btn" ng-click="onLoginClicked({email: email, password: password, rememberMe: rememberMe})"/>
+    </div>
+  </form>
+</div>

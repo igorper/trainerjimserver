@@ -1,0 +1,55 @@
+//= require angular-resource/angular-resource
+
+var authModule = angular.module("auth", ["ngResource"]);
+
+authModule.factory("Auth", ["$resource", function ($resource) {
+  return $resource("/api/v1/auth/:action", null,
+    {
+      login: {method: 'POST', params: {action: 'login'}},
+      signup: {method: 'POST', params: {action: 'signup'}},
+      logout: {method: 'POST', params: {action: 'logout'}},
+      username: {method: 'GET', params: {action: 'username'}},
+      isLoggedIn: {method: 'GET', params: {action: 'is_logged_in'}}
+    });
+}]);
+
+authModule.directive('loginForm', function () {
+  return {
+    restrict: 'E',
+    scope: {
+      'onLoginClicked': '&onLoginClicked'
+    },
+    controller: 'LoginFormCtrl',
+    templateUrl: "<%= asset_path('auth/login-form.html') %>"
+  };
+});
+
+authModule.controller('LoginFormCtrl', ['$scope', function ($scope) {
+  $scope.email = '';
+  $scope.password = '';
+  $scope.rememberMe = false;
+}]);
+
+
+authModule.factory('LoginDialog', ['$modal', function ($modal) {
+  return function () {
+    return $modal.open({
+      templateUrl: '<%= asset_path('auth/login-dialog.html') %>',
+      controller: 'LoginDialogCtrl',
+      backdrop: 'static',
+      windowClass: 'modal-window'
+    });
+  };
+}]);
+
+authModule.controller('LoginDialogCtrl', ['$scope', '$modalInstance',
+  function ($scope, $modalInstance) {
+    $scope.onLoginClicked = function (email, password, rememberMe) {
+      $modalInstance.close('We got email: ' + $scope.email + " :: " + password + " :: " + rememberMe)
+    };
+
+    $scope.ok = function () {
+        $modalInstance.close('We are logged in!');
+    };
+  }
+]);
