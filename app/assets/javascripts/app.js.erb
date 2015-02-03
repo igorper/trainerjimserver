@@ -12,6 +12,7 @@
 //= require results/results
 //= require shared/shared
 //= require angular-http-auth/src/http-auth-interceptor
+//= require auth/loginDialog/loginDialog
 
 angular
   .module('app', [
@@ -21,16 +22,20 @@ angular
     'results',
     'shared',
     'http-auth-interceptor',
-    'auth'
+    'auth.loginDialog'
   ])
-  .controller('MainBodyCtrl', ['$rootScope', 'LoginDialog', function ($rootScope, LoginDialog) {
+  .controller('MainBodyCtrl', ['$rootScope', 'LoginDialog', 'Auth', 'authService', function ($rootScope, LoginDialog, Auth, authService) {
     $rootScope.$on('event:auth-loginRequired', function () {
-      console.log("Login required!!!!");
-      LoginDialog().result.then(function (credentials) {
-        console.log("The dialog was closed. And got credentials:");
-        console.log(credentials);
-      });
-
+      var loginDialog = LoginDialog();
+      if (loginDialog != null) {
+        loginDialog.result.then(function (credentials) {
+          Auth.login(credentials, function () {
+            authService.loginConfirmed();
+          });
+        }, function () {
+          authService.loginCancelled();
+        });
+      }
     });
   }])
   .config(['$stateProvider', function ($stateProvider) {
