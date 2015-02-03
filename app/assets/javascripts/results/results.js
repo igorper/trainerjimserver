@@ -30,6 +30,7 @@ angular
       }
 
       $scope.selectedTraining = null;
+      $scope.trainingPage = null;
       $scope.calendarSources = [];
 
       $scope.trainingRatingIcon = null;
@@ -70,14 +71,15 @@ angular
             $scope.uiConfig.calendar['defaultDate'] = $scope.selectedTraining.start_time;
             uiCalendarConfig.calendars["myCalendar1"].fullCalendar("render");
 
-            $scope.calculateStatistics();
+            $scope.trainingPage = "Overview";
+            $scope.calculateOverview();
           }, function () {
             toaster.pop("error", "Fetch measurement error", "Unable to fetch the measurement");
           });
         }
       }
 
-      $scope.calculateStatistics = function() {
+      $scope.calculateOverview = function() {
         $scope.trainingRatingIcon = SMILE_LOOKUP[$scope.selectedTraining.rating] + "-on"
         $scope.durationInMinutes = (new Date($scope.selectedTraining.end_time) - new Date($scope.selectedTraining.start_time)) / (1000 * 60);
         $scope.performedSeries = $scope.selectedTraining.series_executions.length;
