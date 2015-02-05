@@ -1,4 +1,4 @@
-//= require users/loginPanel.js
+//= require users/loginPanel
 //= require angular-bootstrap/ui-bootstrap-tpls
 //= require auth/auth
 

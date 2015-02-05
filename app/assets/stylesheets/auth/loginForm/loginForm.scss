@@ -1,0 +1,53 @@
+div.auth-login-form {
+  form {
+    margin: 15px 0px 0px 0px;
+  }
+
+  input.text-input {
+    @include no-shadow;
+    @include no-rounding;
+    border: 1px solid #ccc;
+    background-color: white;
+    padding: 4px 6px;
+    width: 100%;
+    margin-bottom: 5px;
+    color: #005577;
+  }
+
+  input.sign-in-btn {
+    @include flat-btn;
+    background-color: $jimColor;
+    width: 100%;
+    padding: 5px 0px;
+    color: #ffffff;
+  }
+
+  div.remember-me-fields {
+    margin-bottom: 10px;
+
+    input#rememberMe {
+      display: inline-block;
+      vertical-align: middle;
+      margin: 0px;
+    }
+    label {
+      font-size: 1em;
+      margin: 0px;
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+
+  div.sign-up-link, div.login-link {
+    margin-top: 5px;
+    color: white;
+
+    a {
+      color: white;
+      text-decoration: underline;
+      &:hover {
+        text-decoration: none;
+      }
+    }
+  }
+}

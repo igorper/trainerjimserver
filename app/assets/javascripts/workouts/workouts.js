@@ -2,8 +2,8 @@
 //= require trainings/training
 //= require shared/shared
 //= require angularjs-toaster/toaster
-//= require workouts/editor/workoutEditor.js
-//= require workouts/list/workoutsList.js
+//= require workouts/editor/workoutEditor
+//= require workouts/list/workoutsList
 
 angular
   .module('workouts', [
