@@ -1,45 +1,40 @@
 /*
- *  AngularJs Fullcalendar Wrapper for the JQuery FullCalendar
- *  API @ http://arshaw.com/fullcalendar/
- *
- *  Angular Calendar Directive that takes in the [eventSources] nested array object as the ng-model and watches it deeply changes.
- *       Can also take in multiple event urls as a source object(s) and feed the events per view.
- *       The calendar will watch any eventSource array and update itself when a change is made.
- *
- */
+*  AngularJs Fullcalendar Wrapper for the JQuery FullCalendar
+*  API @ http://arshaw.com/fullcalendar/
+*
+*  Angular Calendar Directive that takes in the [eventSources] nested array object as the ng-model and watches it deeply changes.
+*       Can also take in multiple event urls as a source object(s) and feed the events per view.
+*       The calendar will watch any eventSource array and update itself when a change is made.
+*
+*/
 
 angular.module('ui.calendar', [])
-  .constant('uiCalendarConfig', {calendars: {}})
-  .controller('uiCalendarCtrl', ['$scope',
-    '$timeout',
-    '$locale', function(
-      $scope,
-      $timeout,
-      $locale){
+  .constant('uiCalendarConfig', {})
+  .controller('uiCalendarCtrl', ['$scope', '$timeout', function($scope, $timeout){
 
       var sourceSerialId = 1,
-        eventSerialId = 1,
-        sources = $scope.eventSources,
-        extraEventSignature = $scope.calendarWatchEvent ? $scope.calendarWatchEvent : angular.noop,
+          eventSerialId = 1,
+          sources = $scope.eventSources,
+          extraEventSignature = $scope.calendarWatchEvent ? $scope.calendarWatchEvent : angular.noop,
 
-        wrapFunctionWithScopeApply = function(functionToWrap){
-          var wrapper;
+          wrapFunctionWithScopeApply = function(functionToWrap){
+              var wrapper;
 
-          if (functionToWrap){
-            wrapper = function(){
-              // This happens outside of angular context so we need to wrap it in a timeout which has an implied apply.
-              // In this way the function will be safely executed on the next digest.
+              if (functionToWrap){
+                  wrapper = function(){
+                      // This happens outside of angular context so we need to wrap it in a timeout which has an implied apply.
+                      // In this way the function will be safely executed on the next digest.
 
-              var args = arguments;
-              var _this = this;
-              $timeout(function(){
-                functionToWrap.apply(_this, args);
-              });
-            };
-          }
+                      var args = arguments;
+                      var _this = this;
+                      $timeout(function(){
+                        functionToWrap.apply(_this, args);
+                      });
+                  };
+              }
 
-          return wrapper;
-        };
+              return wrapper;
+          };
 
       this.eventsFingerprint = function(e) {
         if (!e._id) {
@@ -51,7 +46,7 @@ angular.module('ui.calendar', [])
       };
 
       this.sourcesFingerprint = function(source) {
-        return source.__id || (source.__id = sourceSerialId++);
+          return source.__id || (source.__id = sourceSerialId++);
       };
 
       this.allEvents = function() {
@@ -67,7 +62,7 @@ angular.module('ui.calendar', [])
             var extEvent = {};
             for(var key in source){
               if(key !== '_uiCalId' && key !== 'events'){
-                extEvent[key] = source[key];
+                 extEvent[key] = source[key];
               }
             }
             for(var eI = 0;eI < source.events.length;eI++){
@@ -157,44 +152,39 @@ angular.module('ui.calendar', [])
       };
 
       this.getFullCalendarConfig = function(calendarSettings, uiCalendarConfig){
-        var config = {};
+          var config = {};
 
-        angular.extend(config, uiCalendarConfig);
-        angular.extend(config, calendarSettings);
-
-        angular.forEach(config, function(value,key){
-          if (typeof value === 'function'){
-            config[key] = wrapFunctionWithScopeApply(config[key]);
-          }
-        });
-
-        return config;
-      };
-
-      this.getLocaleConfig = function(fullCalendarConfig) {
-        if (!fullCalendarConfig.lang || fullCalendarConfig.useNgLocale) {
-          // Configure to use locale names by default
-          var tValues = function(data) {
-            // convert {0: "Jan", 1: "Feb", ...} to ["Jan", "Feb", ...]
-            var r, k;
-            r = [];
-            for (k in data) {
-              r[k] = data[k];
+          angular.extend(config, uiCalendarConfig);
+          angular.extend(config, calendarSettings);
+         
+          angular.forEach(config, function(value,key){
+            if (typeof value === 'function'){
+              config[key] = wrapFunctionWithScopeApply(config[key]);
             }
-            return r;
-          };
-          var dtf = $locale.DATETIME_FORMATS;
-          return {
-            monthNames: tValues(dtf.MONTH),
-            monthNamesShort: tValues(dtf.SHORTMONTH),
-            dayNames: tValues(dtf.DAY),
-            dayNamesShort: tValues(dtf.SHORTDAY)
-          };
-        }
-        return {};
+          });
+
+          return config;
       };
-    }])
-  .directive('uiCalendar', ['uiCalendarConfig', function(uiCalendarConfig) {
+  }])
+  .directive('uiCalendar', ['uiCalendarConfig', '$locale', function(uiCalendarConfig, $locale) {
+    // Configure to use locale names by default
+    var tValues = function(data) {
+      // convert {0: "Jan", 1: "Feb", ...} to ["Jan", "Feb", ...]
+      var r, k;
+      r = [];
+      for (k in data) {
+        r[k] = data[k];
+      }
+      return r;
+    };
+    var dtf = $locale.DATETIME_FORMATS;
+    uiCalendarConfig = angular.extend({
+      monthNames: tValues(dtf.MONTH),
+      monthNamesShort: tValues(dtf.SHORTMONTH),
+      dayNames: tValues(dtf.DAY),
+      dayNamesShort: tValues(dtf.SHORTDAY)
+    }, uiCalendarConfig || {});
+
     return {
       restrict: 'A',
       scope: {eventSources:'=ngModel',calendarWatchEvent: '&'},
@@ -202,24 +192,19 @@ angular.module('ui.calendar', [])
       link: function(scope, elm, attrs, controller) {
 
         var sources = scope.eventSources,
-          sourcesChanged = false,
-          calendar,
-          eventSourcesWatcher = controller.changeWatcher(sources, controller.sourcesFingerprint),
-          eventsWatcher = controller.changeWatcher(controller.allEvents, controller.eventsFingerprint),
-          options = null;
+            sourcesChanged = false,
+            eventSourcesWatcher = controller.changeWatcher(sources, controller.sourcesFingerprint),
+            eventsWatcher = controller.changeWatcher(controller.allEvents, controller.eventsFingerprint),
+            options = null;
 
         function getOptions(){
           var calendarSettings = attrs.uiCalendar ? scope.$parent.$eval(attrs.uiCalendar) : {},
-            fullCalendarConfig;
+              fullCalendarConfig;
 
           fullCalendarConfig = controller.getFullCalendarConfig(calendarSettings, uiCalendarConfig);
 
-          var localeFullCalendarConfig = controller.getLocaleConfig(fullCalendarConfig);
-          angular.extend(localeFullCalendarConfig, fullCalendarConfig);
           options = { eventSources: sources };
-          angular.extend(options, localeFullCalendarConfig);
-          //remove calendars from options
-          options.calendars = null;
+          angular.extend(options, fullCalendarConfig);
 
           var options2 = {};
           for(var o in options){
@@ -231,36 +216,36 @@ angular.module('ui.calendar', [])
         }
 
         scope.destroy = function(){
-          if(calendar && calendar.fullCalendar){
-            calendar.fullCalendar('destroy');
+          if(scope.calendar && scope.calendar.fullCalendar){
+            scope.calendar.fullCalendar('destroy');
           }
           if(attrs.calendar) {
-            calendar = uiCalendarConfig.calendars[attrs.calendar] = $(elm).html('');
+            scope.calendar = scope.$parent[attrs.calendar] =  $(elm).html('');
           } else {
-            calendar = $(elm).html('');
+            scope.calendar = $(elm).html('');
           }
         };
 
         scope.init = function(){
-          calendar.fullCalendar(options);
+          scope.calendar.fullCalendar(options);
         };
 
         eventSourcesWatcher.onAdded = function(source) {
-          calendar.fullCalendar('addEventSource', source);
-          sourcesChanged = true;
+            scope.calendar.fullCalendar('addEventSource', source);
+            sourcesChanged = true;
         };
 
         eventSourcesWatcher.onRemoved = function(source) {
-          calendar.fullCalendar('removeEventSource', source);
+          scope.calendar.fullCalendar('removeEventSource', source);
           sourcesChanged = true;
         };
 
         eventsWatcher.onAdded = function(event) {
-          calendar.fullCalendar('renderEvent', event);
+          scope.calendar.fullCalendar('renderEvent', event);
         };
 
         eventsWatcher.onRemoved = function(event) {
-          calendar.fullCalendar('removeEvents', function(e) {
+          scope.calendar.fullCalendar('removeEvents', function(e) { 
             return e._id === event._id;
           });
         };
@@ -268,7 +253,7 @@ angular.module('ui.calendar', [])
         eventsWatcher.onChanged = function(event) {
           event._start = $.fullCalendar.moment(event.start);
           event._end = $.fullCalendar.moment(event.end);
-          calendar.fullCalendar('updateEvent', event);
+          scope.calendar.fullCalendar('updateEvent', event);
         };
 
         eventSourcesWatcher.subscribe(scope);
@@ -281,9 +266,9 @@ angular.module('ui.calendar', [])
         });
 
         scope.$watch(getOptions, function(newO,oldO){
-          scope.destroy();
-          scope.init();
+            scope.destroy();
+            scope.init();
         });
       }
     };
-  }]);
+}]);

@@ -17,53 +17,112 @@
                         </div>
                         <div ng-show="selectedTraining" id="my-workout" class="selected-regime">
                             <div class="row header">
-                                <h1 class="jim-title col-sm-12">{{selectedTraining.name}}</h1>
+                                <h1 class="col-sm-7 jim-title">{{selectedTraining.name}}</h1>
+                                <div class="btn-group pull-right">
+                                    <label class="btn btn-primary" ng-model="trainingPage" btn-radio="'Overview'">Overview</label>
+                                    <label class="btn btn-primary" ng-model="trainingPage" btn-radio="'Details'">Details</label>
+                                </div>
                             </div>
                             <div class="separator"></div>
                             <div class="body training-overview">
-                                <div class="row">
-                                    <div class="col-sm-6 name">Start time</div>
-                                    <div class="col-sm-6 value">{{selectedTraining.start_time | date: 'HH:mm'}}</div>
+                                <div ng-show="trainingPage == 'Overview'">
+                                    <div class="row property">
+                                        <div class="col-sm-4 title">Date</div>
+                                        <div class="col-sm-4 value">{{selectedTraining.start_time | date: 'd.M.yyyy'}}</div>
+                                    </div>
+                                    <div class="row property">
+                                        <div class="col-sm-4 title">Start time</div>
+                                        <div class="col-sm-4 value">{{selectedTraining.start_time | date: 'HH:mm'}}</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12 section-title">Durations</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-4 property">
+                                            <div class="title">Total</div>
+                                            <div>{{durationInMinutes | number:0}} minutes</div>
+                                        </div>
+                                        <div class="col-sm-4 property">
+                                            <div class="title">Rest</div>
+                                            <div>13 min</div>
+                                        </div>
+                                        <div class="col-sm-4 property">
+                                            <div class="title">Exercise</div>
+                                            <div>27 min</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12 section-title">Activities</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-4 property">
+                                            <div class="title">Exercises</div>
+                                            <div>3 of 5</div>
+                                        </div>
+                                        <div class="col-sm-4 property">
+                                            <div class="title">Series</div>
+                                            <div>{{performedSeries}} of {{totalSeries}}</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12 section-title">Changes</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-4 property">
+                                            <div class="title">Rest</div>
+                                            <div><span tooltip="Average rest difference based on planned rest.">{{averageRestDifferenceInSec | number:0}} s</span></div>
+                                        </div>
+                                        <div class="col-sm-4 property">
+                                            <div class="title">Weight</div>
+                                            <div><span tooltip="Number of weight changes.">{{numberWeightChanges}}</span> (<span tooltip="Average weight change.">{{averageWeightChanges}} kg</span>)</div>
+                                        </div>
+                                        <div class="col-sm-4 property">
+                                            <div class="title">Reps</div>
+                                            <div><span tooltip="Number of repetition changes.">{{numberRepsChanges}}</span> (<span tooltip="Average repetition change.">{{averageRepsChanges}}</span>)</div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-12 section-title">Series intensity</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-4 property">
+                                            <div class="title">Too easy</div>
+                                            <div><span tooltip="Number of series rated too easy.">{{numSeriesTooEasy}}</span></div>
+                                        </div>
+                                        <div class="col-sm-4 property">
+                                            <div class="title">Too heavy</div>
+                                            <div><span tooltip="Number of series rated too heavy.">{{numSeriesTooHeavy}}</span></div>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="row">
-                                    <div class="col-sm-6 name">Duration</div>
-                                    <div class="col-sm-6 value">{{durationInMinutes() | number:0}} minutes</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6 name">Exercises performed</div>
-                                    <div class="col-sm-6 value">5 of 5</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6 name">Series performed</div>
-                                    <div class="col-sm-6 value">13 of 15</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6 name">Average rest difference</div>
-                                    <div class="col-sm-6 value">15 s</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6 name">Weight changes</div>
-                                    <div class="col-sm-6 value">3 (30 +- 10)</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6 name">Reps changes (and average diff)</div>
-                                    <div class="col-sm-6 value">3 (3 +- 2)</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6 name">Number of series too heavy</div>
-                                    <div class="col-sm-6 value">3</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6 name">Number of series too easy</div>
-                                    <div class="col-sm-6 value">3</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6 name">Number of comments</div>
-                                    <div class="col-sm-6 value">3</div>
-                                </div>
-                                <div class="row">
-                                    <div class="col-sm-6 name">Training rating</div>
-                                    <div class="col-sm-6 value">3</div>
+                                <div ng-show="trainingPage == 'Details'">
+                                    <div class="row">
+                                        <div class="col-sm-12 section-title">Biceps</div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-sm-3 property">
+                                            <div class="title">#1</div>
+                                        </div>
+                                        <div class="col-sm-3 property">
+
+                                            <div>{{durationInMinutes | number:0}} minutes</div>
+                                        </div>
+                                        <div class="col-sm-3 property">
+                                            <div>13 min</div>
+                                        </div>
+                                        <div class="col-sm-3 property">
+                                            <div>27 min</div>
+                                        </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>

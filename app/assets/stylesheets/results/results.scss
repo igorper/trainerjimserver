@@ -11,48 +11,61 @@ div.page {
       background-image: image_url("ic_directions_walk_24px.svg");
     }
 
-    div.fc-event {
-      background-color: white;
-      border-color: white;
+    .section-title {
+        font-size: 1.8em;
+        font-weight: 500;
     }
 
-    div.fc-event.smile-icon div.fc-event-inner
-    {
+    .property {
+        font-size: 1.3em;
+
+      .title {
+        font-weight: bold;
+      }
+    }
+
+    .training-rating {
       @include size(40px, 40px);
-      background-position: bottom right;
-      background-repeat: no-repeat;
+      background-size: contain;
     }
 
-    div.fc-event.bored-off div.fc-event-inner
+    .bored-on {
+      background-image: image_url("SmileyON_Bored.png");
+    }
+
+    .happy-on
     {
-      background-image: image_url("emoticons/SmileyFaded_Bored.png");
+      background-image: image_url("SmileyON_Happy.png");
     }
 
-    div.fc-event.bored-on div.fc-event-inner
+    .sweat-on
     {
-      background-image: image_url("emoticons/SmileyON_Bored.png");
+      background-image: image_url("SmileyON_Sweat.png");
     }
 
-    div.fc-event.happy-off div.fc-event-inner
+    .bored-off {
+      background-image: image_url("SmileyFaded_Bored.png");
+    }
+
+    .happy-off
     {
-      background-image: image_url("emoticons/SmileyFaded_Happy.png");
+      background-image: image_url("SmileyFaded_Happy.png");
     }
 
-    div.fc-event.happy-on div.fc-event-inner
+    .sweat-off
     {
-      background-image: image_url("emoticons/SmileyON_Happy.png");
+      background-image: image_url("SmileyFaded_Sweat.png");
     }
 
-    div.fc-event.sweat-off div.fc-event-inner
-    {
-      background-image: image_url("emoticons/SmileyFaded_Sweat.png");
+    .fc-event {
+      background-color: transparent;
+      border-color: transparent;
     }
 
-    div.fc-event.sweat-on div.fc-event-inner
-    {
-      background-image: image_url("emoticons/SmileyON_Sweat.png");
+    div.fc-content {
+      @include size(40px, 40px);
+      background-size: contain;
     }
-
 
     .calendar-overview {
       padding: 30px;
