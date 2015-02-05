@@ -8,10 +8,13 @@
 //= require fullcalendar/dist/fullcalendar
 //= require fullcalendar/dist/gcal
 //= require welcome/welcome
+//= require auth/auth
 //= require workouts/workouts
 //= require trainees/trainees
 //= require results/results
 //= require shared/shared
+//= require angular-http-auth/src/http-auth-interceptor
+//= require auth/loginDialog/loginDialog
 
 angular
   .module('app', [
@@ -19,21 +22,37 @@ angular
     'workouts',
     'trainees',
     'results',
-    'shared'
+    'shared',
+    'http-auth-interceptor',
+    'auth.loginDialog'
   ])
+  .controller('MainBodyCtrl', ['$rootScope', 'LoginDialog', 'Auth', 'authService', function ($rootScope, LoginDialog, Auth, authService) {
+    $rootScope.$on('event:auth-loginRequired', function () {
+      var loginDialog = LoginDialog();
+      if (loginDialog != null) {
+        loginDialog.result.then(function (credentials) {
+          Auth.login(credentials, function () {
+            authService.loginConfirmed();
+          });
+        }, function () {
+          authService.loginCancelled();
+        });
+      }
+    });
+  }])
   .config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('main', {
         abstract: true,
         url: "",
         views: {
-          'body': {templateUrl: '<%= asset_path('main.html') %>'},
+          'body': {templateUrl: '<%= asset_path('main.html') %>', controller: 'MainBodyCtrl'},
           'header': {templateUrl: '<%= asset_path('shared/header-view.html') %>'},
           'footer': {templateUrl: '<%= asset_path('shared/footer-view.html') %>'}
         }
-      })
-    ;
+      });
   }])
   .config(['$urlRouterProvider', function ($urlRouterProvider) {
     $urlRouterProvider.otherwise("/welcome");
-  }]);
+  }])
+;

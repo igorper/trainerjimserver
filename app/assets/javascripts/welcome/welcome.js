@@ -1,4 +1,4 @@
-//= require users/loginPanel.js
+//= require auth/loginPanel/loginPanel
 //= require angular-bootstrap/ui-bootstrap-tpls
 //= require auth/auth
 
@@ -6,7 +6,7 @@ angular
   .module('welcome', [
     'ui.router',
     'ui.bootstrap',
-    'users',
+    'auth.loginPanel',
     'auth'
   ])
   .config(['$stateProvider', function ($stateProvider) {

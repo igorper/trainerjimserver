@@ -1,0 +1,20 @@
+//= require angular-resource/angular-resource
+
+var authModule = angular.module("auth.loginForm", []);
+
+authModule.directive('loginForm', function () {
+  return {
+    restrict: 'E',
+    scope: {
+      'onLoginClicked': '&onLoginClicked'
+    },
+    controller: 'LoginFormCtrl',
+    templateUrl: "<%= asset_path('auth/loginForm/login-form.html') %>"
+  };
+});
+
+authModule.controller('LoginFormCtrl', ['$scope', function ($scope) {
+  $scope.email = '';
+  $scope.password = '';
+  $scope.rememberMe = false;
+}]);
