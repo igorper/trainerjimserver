@@ -19,13 +19,13 @@
       <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'" ng-click="navCollapsed=true">
 
         <ul class="nav navbar-nav">
-          <li ng-repeat="item in topNavigation" ng-class="{active: isActiveLink(item)}"><a ui-sref="{{item.link}}">{{item.name}}</a>
+          <li ng-repeat="item in topNavigation" ng-class="{active: isActiveLink(item)}" ng-show="!item.showPredicate || item.showPredicate()"><a ui-sref="{{item.link}}">{{item.name}}</a>
           </li>
         </ul>
 
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <div class="navbar-text">Signed in as {{username}}</div>
+            <div class="navbar-text">Signed in as {{userDetails.email}}</div>
           </li>
           <li>
             <button type="button" class="btn btn-default navbar-btn" ng-click="logout()">Log out</button>

@@ -17,7 +17,10 @@ angular.module('shared', ['auth', 'ui.router'])
       {
         name: "Trainees",
         link: "main.trainees",
-        activeUrls: ["main.trainee"]
+        activeUrls: ["main.trainee"],
+        showPredicate: function () {
+          return $scope.userDetails && $scope.userDetails.is_trainer;
+        }
       },
       {
         name: "Results",
@@ -25,8 +28,8 @@ angular.module('shared', ['auth', 'ui.router'])
       }
     ];
 
-    Auth.username(function (response) {
-      $scope.username = response.username;
+    Auth.userDetails(function (userDetails) {
+      $scope.userDetails = userDetails;
     });
 
     $scope.isActiveLink = function (topNavigationItem) {
