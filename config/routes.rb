@@ -12,7 +12,7 @@ Trainerjim::Application.routes.draw do
         post 'login'
         post 'logout'
         post 'signup'
-        get 'username'
+        get 'user_details'
         get 'is_logged_in'
       end
 

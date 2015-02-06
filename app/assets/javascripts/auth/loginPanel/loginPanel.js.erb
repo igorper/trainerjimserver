@@ -1,6 +1,9 @@
 //= require auth/auth
 
-angular.module('users', ['auth'])
+angular.module('auth.loginPanel', [
+  'auth',
+  'toaster'
+])
   .directive('loginPanel', function () {
     return {
       restrict: 'E',
@@ -8,10 +11,10 @@ angular.module('users', ['auth'])
         'onLoggedIn': '&onLoggedIn'
       },
       controller: 'LoginPanelCtrl',
-      templateUrl: 'users/login-panel.html'
+      templateUrl: '<%= asset_path('auth/loginPanel/login-panel.html') %>'
     };
   })
-  .controller('LoginPanelCtrl', ['$scope', '$window', 'Auth', function ($scope, $window, Auth) {
+  .controller('LoginPanelCtrl', ['$scope', '$window', 'Auth', 'toaster', function ($scope, $window, Auth, toaster) {
     $scope.isPanelVisible = false;
     $scope.isLoginActive = true;
 
@@ -23,16 +26,13 @@ angular.module('users', ['auth'])
       $scope.isLoginActive = !$scope.isLoginActive;
     };
 
-    $scope.loginSubmit = function () {
-      Auth.login({
-        email: $scope.loginEmail,
-        password: $scope.loginPassword,
-        rememberMe: $scope.loginRememberMe
-      }, function () {
-        $scope.onLoggedIn();
-      }, function () {
-        $window.alert("Could not log in. Check your email and password.");
-      });
+    $scope.onLoginClicked = function (email, password, rememberMe) {
+      Auth.login(
+        {email: email, password: password, rememberMe: rememberMe},
+        $scope.onLoggedIn,
+        function () {
+          toaster.pop("error", "Could not log in.", "Check your email and password.");
+        });
     };
 
     $scope.signUpSubmit = function () {

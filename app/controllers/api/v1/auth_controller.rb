@@ -7,7 +7,7 @@ class Api::V1::AuthController < ActionController::Base
       sign_in(:user, user_to_log_in)
       render json: {}
     else
-      render json: {}, status: 404
+      render json: {}, status: :bad_request
     end
   end
 
@@ -25,11 +25,11 @@ class Api::V1::AuthController < ActionController::Base
     render json: {is_logged_in: user_signed_in?}
   end
 
-  def username
+  def user_details
     if user_signed_in?
-      render json: {username: current_user.email}
+      @user = current_user
     else
-      render json: {}, status: :unauthorized
+      render status: :unauthorized
     end
   end
 

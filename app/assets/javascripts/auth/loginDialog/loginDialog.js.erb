@@ -1,0 +1,37 @@
+//= require angular-resource/angular-resource
+//= require auth/loginForm/loginForm
+
+var authModule = angular.module("auth.loginDialog", [
+  "auth.loginForm"
+]);
+
+authModule.factory('LoginDialog', ['$modal', function ($modal) {
+  var isOpenAlready = false;
+
+  function markLoginDialogClosed() {
+    isOpenAlready = false;
+  }
+
+  return function () {
+    if (isOpenAlready) {
+      return null;
+    }
+    isOpenAlready = true;
+    var loginDialog = $modal.open({
+      templateUrl: '<%= asset_path('auth/loginDialog/login-dialog.html') %>',
+      controller: 'LoginDialogCtrl',
+      backdrop: 'static',
+      windowClass: 'modal-window'
+    });
+    loginDialog.result.then(markLoginDialogClosed, markLoginDialogClosed);
+    return loginDialog;
+  };
+}]);
+
+authModule.controller('LoginDialogCtrl', ['$scope', '$modalInstance',
+  function ($scope, $modalInstance) {
+    $scope.onLoginClicked = function (email, password, rememberMe) {
+      $modalInstance.close({email: email, password: password, rememberMe: rememberMe});
+    };
+  }
+]);

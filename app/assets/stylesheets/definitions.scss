@@ -137,6 +137,19 @@ $bodyFontSize: 13px;
   border-radius: 0;
 }
 
+/** SHADOWS */
+@mixin shadow($shadows...) {
+  -moz-box-shadow: $shadows;
+  -webkit-box-shadow: $shadows;
+  box-shadow: $shadows;
+}
+
+@mixin no-shadow {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+}
+
 /** BUTTONS, INPUT FIELDS (FORM STUFF) */
 @mixin flat-btn {
   filter: progid:DXImageTransform.Microsoft.Gradient(enabled='false');
@@ -158,19 +171,6 @@ $bodyFontSize: 13px;
     repeat: no-repeat;
     position: center;
   }
-}
-
-/** SHADOWS */
-@mixin shadow($shadows...) {
-  -moz-box-shadow: $shadows;
-  -webkit-box-shadow: $shadows;
-  box-shadow: $shadows;
-}
-
-@mixin no-shadow {
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
 }
 
 @mixin text-shadow($shadow: 0 1px 1px rgba(0, 0, 0, 0.5)) {

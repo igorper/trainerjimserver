@@ -4,9 +4,9 @@ gem 'rails', '>= 4.0.0'
 
 gem 'tzinfo-data'
 
+gem 'amoeba'
 gem 'pg'
 gem 'activerecord-session_store'
-gem 'amoeba'
 gem 'bower-rails'
 
 gem 'sass-rails'
@@ -33,7 +33,6 @@ gem 'bootstrap-sass', '>= 3.3.1'
 gem 'valid_email'
 
 # Authentication & Authorisation
-# We have to include the 'rails4' version for the time being.
 gem 'devise'
 
 # Deployment
