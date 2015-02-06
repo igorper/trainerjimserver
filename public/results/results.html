@@ -104,23 +104,31 @@
                                     </div>
                                 </div>
                                 <div ng-show="trainingPage == 'Details'">
-                                    <div class="row">
-                                        <div class="col-sm-12 section-title">Biceps</div>
-                                    </div>
+                                    <div ng-repeat="exercise in selectedTraining.exercises">
+                                        <div class="row">
+                                            <div class="col-sm-12 section-title">{{exercise.exercise_type.name}}</div>
+                                        </div>
 
-                                    <div class="row">
-                                        <div class="col-sm-3 property">
-                                            <div class="title">#1</div>
-                                        </div>
-                                        <div class="col-sm-3 property">
-
-                                            <div>{{durationInMinutes | number:0}} minutes</div>
-                                        </div>
-                                        <div class="col-sm-3 property">
-                                            <div>13 min</div>
-                                        </div>
-                                        <div class="col-sm-3 property">
-                                            <div>27 min</div>
+                                        <div class="row" ng-repeat="series in exercise.series">
+                                            <div class="col-sm-3 property">
+                                                <div class="title">#{{$index + 1}}</div>
+                                            </div>
+                                            <div ng-show="getSeriesExecution(series.id)">
+                                                <div class="col-sm-3 property">
+                                                    <gh-visualization class="chart-label" tooltip="Rest: {{getSeriesExecution(series.id).rest_time}} of {{series.rest_time}} s" expected="series.rest_time" actual="getSeriesExecution(series.id).rest_time" rest="true" label="getRestLabel(series)"></gh-visualization>
+                                                </div>
+                                                <div class="col-sm-3 property">
+                                                    <gh-visualization class="chart-label" tooltip="Reps: {{getSeriesExecution(series.id).num_repetitions}} of {{series.repeat_count}}." expected="series.repeat_count" actual="getSeriesExecution(series.id).num_repetitions" rest="false" label="getRepsLabel(series)"></gh-visualization>
+                                                </div>
+                                                <div class="col-sm-3 property">
+                                                    <gh-visualization class="chart-label" tooltip="Weight: {{getSeriesExecution(series.id).weight}} of {{series.weight}} kg." expected="series.weight" actual="getSeriesExecution(series.id).weight" rest="false" label="getWeightLabel(series)"></gh-visualization>
+                                                </div>
+                                            </div>
+                                            <div ng-show="!getSeriesExecution(series.id)">
+                                                <div class="col-sm-offset-3 col-sm-3 property skipped">
+                                                    SKIPPED
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

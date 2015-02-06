@@ -29,6 +29,13 @@ angular
         return _.object (_.pluck(plannedSeries, 'id'), plannedSeries);
       }
 
+      function getSeriesExecutionsLookup(series_executions){
+        return _.object(_.pluck(series_executions, "series_id"), series_executions);
+      }
+
+      var lookupSeries = null;
+      var lookupSeriesExecutions = null;
+
       $scope.selectedTraining = null;
       $scope.trainingPage = null;
       $scope.calendarSources = [];
@@ -72,6 +79,11 @@ angular
             uiCalendarConfig.calendars["myCalendar1"].fullCalendar("render");
 
             $scope.trainingPage = "Overview";
+
+            lookupSeries = getPlannedSeriesLookup($scope.selectedTraining.exercises);
+            lookupSeriesExecutions = getSeriesExecutionsLookup($scope.selectedTraining.series_executions);
+
+
             $scope.calculateOverview();
           }, function () {
             toaster.pop("error", "Fetch measurement error", "Unable to fetch the measurement");
@@ -84,8 +96,6 @@ angular
         $scope.durationInMinutes = (new Date($scope.selectedTraining.end_time) - new Date($scope.selectedTraining.start_time)) / (1000 * 60);
         $scope.performedSeries = $scope.selectedTraining.series_executions.length;
         $scope.totalSeries = _.flatten(_.pluck($scope.selectedTraining.exercises, 'series')).length;
-
-        var lookupSeries = getPlannedSeriesLookup($scope.selectedTraining.exercises);
 
         var restDiff = 0;
         var cntDiffWeight = 0, sumDiffWeight = 0;
@@ -120,6 +130,22 @@ angular
         $scope.numSeriesTooEasy = cntEasy;
       }
 
+      $scope.getSeriesExecution = function(id){
+        return lookupSeriesExecutions[id];
+      }
+
+      $scope.getRestLabel = function(series){
+        return $scope.getSeriesExecution(series.id) ? $scope.getSeriesExecution(series.id).rest_time + "/" + series.rest_time : "";
+      }
+
+      $scope.getRepsLabel = function(series){
+        return $scope.getSeriesExecution(series.id) ? $scope.getSeriesExecution(series.id).num_repetitions + "/" + series.repeat_count : "";
+      }
+
+      $scope.getWeightLabel = function(series){
+        return $scope.getSeriesExecution(series.id) ? $scope.getSeriesExecution(series.id).weight + "/" + series.weight : "";
+      }
+
       $scope.alertOnEventClick = function (date, jsEvent, view) {
         $state.go('main.results', {id: date.training.id});
       };
@@ -147,4 +173,118 @@ angular
         }
       };
     }
-  ]);
+  ])
+  .directive('ghVisualization', [function () {
+
+    // constants
+    var width = 100;
+
+    return {
+      restrict: 'E',
+      scope: {
+        rest: '=',
+        expected: '=',
+        actual: '=',
+        label: '='
+      },
+      link: function (scope, element, attrs) {
+        // set up initial svg object
+        var chart = d3.select(element[0])
+          .append("svg")
+          .attr("class", "chart")
+          .attr("width", width)
+          .attr("height", 30);
+
+        var ex, ac, rest, label;
+
+        function refreshBar(){
+          if(ex === undefined || ac === undefined || rest === undefined){
+            return;
+          }
+
+          var scale = d3.scale.linear()
+            .domain([0, d3.max([ex, ac])])
+            .range([0, width]);
+
+          // draw the blue box representing the expected quantity
+          chart.append("svg:rect")
+            .attr("class", "blue")
+            .attr("width", scale(ex))
+            .attr("height", 30);
+
+          // draw the box visualizing the deviation from the expected quantity
+          chart.append("svg:rect")
+            .attr("class", rest ? (ac < ex ? "green" : "red") : (ac < ex ? "red" : "green"))
+            .attr("x", scale(ac < ex ? ac : ex))
+            .attr("y", 1)
+            .attr("width", scale(ac < ex ? ex : ac))
+            .attr("height", 28);
+
+          // draw the vertical line that visualizes the expected quantity
+          var xLine = scale(ex) == 0 ? scale(ex) +2 : (scale(ex) == width ? scale(ex) - 2 : scale(ex));
+          chart.append("line")
+            .attr("x1", xLine)
+            .attr("y1", 0)
+            .attr("x2", xLine)
+            .attr("y2", 30)
+            .attr("stroke-width", 4)
+            .attr("stroke", "black");
+
+          chart.append("text")
+            .attr("x", 5)
+               .attr("y", 20)
+               .text(label)
+               .attr("font-size", "20px")
+             .attr("font-weigth", "bold")
+               .attr("fill", "white");
+
+          // write the text with the actual and expected quantity
+        }
+
+        scope.$watch('expected', function (newVal, oldVal) {
+
+          if(newVal === undefined){
+            return;
+          }
+
+          ex = newVal;
+
+          refreshBar();
+        });
+
+        scope.$watch('actual', function (newVal, oldVal) {
+
+          if(newVal === undefined){
+            return;
+          }
+
+          ac = newVal;
+
+          refreshBar();
+        });
+
+        scope.$watch('rest', function (newVal, oldVal) {
+
+          if(newVal === undefined){
+            return;
+          }
+
+          rest = newVal;
+
+          refreshBar();
+        });
+
+        scope.$watch('label', function (newVal, oldVal) {
+
+          if(newVal === undefined){
+            return;
+          }
+
+          label = newVal;
+
+          refreshBar();
+        });
+
+      }
+    }
+  }]);

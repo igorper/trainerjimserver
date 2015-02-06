@@ -24,6 +24,10 @@ div.page {
       }
     }
 
+    .skipped {
+      color: red;
+    }
+
     .training-rating {
       @include size(40px, 40px);
       background-size: contain;
@@ -83,4 +87,29 @@ div.page {
   div.selectedTraining {
     background-color: $jimColor;
   }
+}
+
+.chart-label {
+  font-weight: bold;
+}
+
+.chart div {
+     font: 10px sans-serif;
+     padding: 3px;
+     color: white;
+   }
+
+.blue {
+  stroke: white;
+  fill: steelblue;
+}
+
+.green {
+  stroke: white;
+  fill: $jimColor;
+}
+
+.red {
+  stroke: white;
+  fill: red;
 }
