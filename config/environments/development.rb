@@ -34,5 +34,5 @@ Trainerjim::Application.configure do
   config.assets.digest = true
   
   config.action_mailer.delivery_method = :file
-  config.action_mailer.default_url_options = { :host => 'trainerjim.banda.si' }
+  config.action_mailer.default_url_options = { :host => 'localhost' }
 end
