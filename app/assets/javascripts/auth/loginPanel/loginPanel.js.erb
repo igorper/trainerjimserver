@@ -2,6 +2,7 @@
 
 angular.module('auth.loginPanel', [
   'auth',
+  'auth.signupForm',
   'toaster'
 ])
   .directive('loginPanel', function () {
@@ -35,17 +36,14 @@ angular.module('auth.loginPanel', [
         });
     };
 
-    $scope.signUpSubmit = function () {
-      Auth.signup({
-        email: $scope.signUpEmail,
-        password: $scope.signUpPassword,
-        passwordConfirmation: $scope.signUpPasswordConfirmation
-      }, function () {
-        $window.alert("A confirmation email has been sent to your email. You will be able to log in through that email.");
-        $scope.onLoggedIn();
-      }, function () {
-        $window.alert("Could not register. Please check your registration details.");
-      });
+    $scope.onSignupClicked = function (email, password, passwordConfirmation) {
+      Auth.signup(
+        {email: email, password: password, passwordConfirmation: passwordConfirmation}, function () {
+          toaster.pop("success", "Sign up email sent", "Please check your email and follow instructions in the sign-up email.");
+          $scope.onLoggedIn();
+        }, function () {
+          toaster.pop("error", "Could not sign up.", "Please check your sign up details.");
+        });
     };
   }]);
 

@@ -1,4 +1,4 @@
-div.auth-login-form {
+div.auth-sign-up-form {
   input.text-input {
     @include no-shadow;
     @include no-rounding;
@@ -16,21 +16,5 @@ div.auth-login-form {
     width: 100%;
     padding: 5px 0px;
     color: #ffffff;
-  }
-
-  div.remember-me-fields {
-    margin-bottom: 10px;
-
-    input#rememberMe {
-      display: inline-block;
-      vertical-align: middle;
-      margin: 0px;
-    }
-    label {
-      font-size: 1em;
-      margin: 0px;
-      display: inline-block;
-      vertical-align: middle;
-    }
   }
 }

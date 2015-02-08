@@ -1,4 +1,4 @@
-<div class="auth-login-form">
+<div class="auth-sign-up-form">
   <form>
     <div class="email-fields">
       <input type="text"
@@ -17,21 +17,19 @@
              ng-model="password"/>
     </div>
 
-    <div class="remember-me-fields">
-      <input id="rememberMe"
-             type="checkbox"
-             name="rememberMe"
-             ng-model="rememberMe"/>
-      <label for="rememberMe">
-        Remember me...
-      </label>
+    <div class="pwd-fields">
+      <input type="password"
+             name="passwordConfirmation"
+             class="text-input"
+             placeholder="confirm your password"
+             ng-model="passwordConfirmation"/>
     </div>
 
     <div class="submit-btn">
       <input type="submit"
-             value="Log in"
+             value="Sign up"
              class="submit-btn"
-             ng-click="onLoginClicked({email: email, password: password, rememberMe: rememberMe})"/>
+             ng-click="onSignupClicked({email: email, password: password, passwordConfirmation: passwordConfirmation})"/>
     </div>
   </form>
 </div>

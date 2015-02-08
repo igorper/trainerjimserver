@@ -1,0 +1,17 @@
+//= require angular-resource/angular-resource
+
+var authModule = angular.module("auth.signupForm", []);
+
+authModule.directive('signupForm', function () {
+  return {
+    restrict: 'E',
+    scope: {
+      'onSignupClicked': '&onSignupClicked'
+    },
+    controller: 'SignupFormCtrl',
+    templateUrl: "<%= asset_path('auth/signupForm/signup-form.html') %>"
+  };
+});
+
+authModule.controller('SignupFormCtrl', ['$scope', function ($scope) {
+}]);

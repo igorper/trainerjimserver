@@ -1,4 +1,4 @@
-<div class="login-tabbed-panel">
+<div class="auth-login-panel">
 
   <div class="sign-in-tab button-behaviour" ng-click="togglePanelVisibility($event)">sign in</div>
 
@@ -25,32 +25,12 @@
         <div class="title">Welcome champ.</div>
         <div class="sub-title">Nice to have you on board.</div>
 
-        <form>
+        <signup-form on-signup-clicked="onSignupClicked(email, password, passwordConfirmation)"></signup-form>
 
-          <div class="email-fields">
-            <input type="text" name="signUpEmail" autofocus="true" class="text-input" placeholder="your@email.com"
-                   ng-model="signUpEmail"/>
-          </div>
-
-          <div class="pwd-fields">
-            <input type="password" name="signUpPassword" class="text-input" placeholder="your password"
-                   ng-model="signUpPassword"/>
-          </div>
-
-          <div class="pwd-fields confirmation">
-            <input type="password" name="signUpPasswordConfirmation" class="text-input"
-                   placeholder="confirm your password" ng-model="signUpPasswordConfirmation"/>
-          </div>
-
-          <div class="submit-btn">
-            <input type="submit" value="sign up" class="sign-in-btn" ng-click="signUpSubmit()"/>
-          </div>
-
-          <div class="login-link">
-            Already a member?
-            <span class="swap-panel-link" ng-click="toggleLoginActive($event)">Click here to log in.</span>
-          </div>
-        </form>
+        <div class="login-link">
+          Already a member?
+          <span class="swap-panel-link" ng-click="toggleLoginActive($event)">Click here to log in.</span>
+        </div>
       </div>
     </div>
 
