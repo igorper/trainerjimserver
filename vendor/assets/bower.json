@@ -16,6 +16,7 @@
     "angular-ui-grid": "latest",
     "underscore": "latest",
     "moment": "latest",
-    "angular-http-auth": "latest"
+    "d3": "latest",
+	"angular-http-auth": "latest"
   }
 }
