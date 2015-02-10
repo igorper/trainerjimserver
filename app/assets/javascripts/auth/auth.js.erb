@@ -2,8 +2,10 @@
 
 var authModule = angular.module("auth", ["ngResource"]);
 
-authModule.factory("Auth", ["$resource", function ($resource) {
-  return $resource("/api/v1/auth/:action.json", null,
+var USER_CHANGED_EVENT = 'event:user.changed';
+
+authModule.factory("Auth", ['$resource', '$rootScope', function ($resource, $rootScope) {
+  var resource = $resource("/api/v1/auth/:action.json", null,
     {
       login: {method: 'POST', params: {action: 'login'}},
       signup: {method: 'POST', params: {action: 'signup'}},
@@ -11,4 +13,19 @@ authModule.factory("Auth", ["$resource", function ($resource) {
       userDetails: {method: 'GET', params: {action: 'user_details'}},
       isLoggedIn: {method: 'GET', params: {action: 'is_logged_in'}}
     });
+
+  return {
+    login: function (params, successCallback, failureCallback) {
+      return resource.login(params, function (data) {
+        $rootScope.$broadcast(USER_CHANGED_EVENT, data);
+        successCallback(data);
+      }, failureCallback);
+    },
+    signup: function (params, successCallback, failureCallback) {
+      return resource.signup(params, successCallback, failureCallback);
+    },
+    userDetails: resource.userDetails,
+    isLoggedIn: resource.isLoggedIn,
+    logout: resource.logout
+  };
 }]);

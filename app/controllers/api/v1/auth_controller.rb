@@ -1,18 +1,17 @@
 class Api::V1::AuthController < ActionController::Base
 
   def login
-    user_to_log_in = User.find_by_email(params[:email])
-    if user_to_log_in && user_to_log_in.valid_password?(params[:password])
-      user_to_log_in.remember_me!(extend_period=true) if params[:rememberMe]
-      sign_in(:user, user_to_log_in)
-      render json: {}
+    @user = User.find_by_email(params[:email])
+    if @user && @user.valid_password?(params[:password])
+      @user.remember_me!(extend_period=true) if params[:rememberMe]
+      sign_in(:user, @user)
     else
-      render json: {}, status: :bad_request
+      render status: :bad_request
     end
   end
 
   def signup
-    User.create(email: params[:email], password: params[:password], full_name: params[:email], roles: [])
+    User.create(email: params[:email], password: params[:password], full_name: params[:full_name], roles: [])
     render json: {}
   end
 

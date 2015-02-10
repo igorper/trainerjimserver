@@ -36,9 +36,9 @@ angular.module('auth.loginPanel', [
         });
     };
 
-    $scope.onSignupClicked = function (email, password, passwordConfirmation) {
+    $scope.onSignupClicked = function (email, password, full_name) {
       Auth.signup(
-        {email: email, password: password, passwordConfirmation: passwordConfirmation}, function () {
+        {email: email, password: password, full_name: full_name}, function () {
           toaster.pop("success", "Sign up email sent", "Please check your email and follow instructions in the sign-up email.");
           $scope.onLoggedIn();
         }, function () {
