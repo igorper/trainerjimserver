@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150127211350) do
+ActiveRecord::Schema.define(version: 20150210214250) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -101,6 +101,10 @@ ActiveRecord::Schema.define(version: 20150127211350) do
   end
 
   add_index "newsletter_subscriptions", ["email"], name: "index_newsletter_subscriptions_on_email", unique: true, using: :btree
+
+  create_table "registration_tokens", force: :cascade do |t|
+    t.string "token"
+  end
 
   create_table "roles", force: :cascade do |t|
     t.string   "name",       null: false

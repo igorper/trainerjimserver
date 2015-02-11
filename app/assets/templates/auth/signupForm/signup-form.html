@@ -1,35 +1,35 @@
 <div class="auth-sign-up-form">
   <form>
-    <div class="email-fields">
-      <input type="text"
-             name="email"
-             autofocus="true"
-             class="text-input"
-             placeholder="your@email.com"
-             ng-model="email"/>
-    </div>
+    <input type="text"
+           name="email"
+           autofocus="true"
+           class="text-input"
+           placeholder="your@email.com"
+           ng-model="email"/>
 
-    <div class="pwd-fields">
-      <input type="password"
-             name="password"
-             class="text-input"
-             placeholder="your password"
-             ng-model="password"/>
-    </div>
+    <input type="text"
+           name="full_name"
+           autofocus="true"
+           class="text-input"
+           placeholder="your name"
+           ng-model="full_name"/>
 
-    <div class="pwd-fields">
-      <input type="password"
-             name="passwordConfirmation"
-             class="text-input"
-             placeholder="confirm your password"
-             ng-model="passwordConfirmation"/>
-    </div>
+    <input type="text"
+           name="registration_token"
+           autofocus="true"
+           class="text-input"
+           placeholder="registration token"
+           ng-model="registration_token"/>
 
-    <div class="submit-btn">
-      <input type="submit"
-             value="Sign up"
-             class="submit-btn"
-             ng-click="onSignupClicked({email: email, password: password, passwordConfirmation: passwordConfirmation})"/>
-    </div>
+    <input type="password"
+           name="password"
+           class="text-input"
+           placeholder="your password"
+           ng-model="password"/>
+
+    <input type="submit"
+           value="Sign up"
+           class="submit-btn"
+           ng-click="onSignupClicked({email: email, password: password, full_name: full_name, registration_token: registration_token})"/>
   </form>
 </div>

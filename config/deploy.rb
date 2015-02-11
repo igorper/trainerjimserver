@@ -1,70 +1,48 @@
-set :stages, %w(production staging localdev rok igor matej dev)
-set :default_stage, 'staging'
-require 'capistrano/ext/multistage'
+# config valid only for current version of Capistrano
+lock '3.3.5'
 
-set :application, "TrainerJim"
-set :repository, "git@bitbucket.org:trainerjim/trainerjimserver.git"
-set :scm, 'git'
+set :application, 'trainerjimserver'
+set :repo_url, 'git@bitbucket.org:trainerjim/trainerjimserver.git'
 
+# Default branch is :master
+# ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
-set(:deploy_to) { "/maco/rails/deployments/#{application}/#{stage}" }
-set :user, 'root'
-set :use_sudo, false
+# Default deploy_to directory is /var/www/my_app_name
+set :deploy_to, '/home/trainerjim/trainerjimserver-cap'
 
-# START: RVM stuff
-# NOTE: Install 'gem install rvm-capistrano' on the server!
-set :rvm_type, :system
+# Default value for :scm is :git
+# set :scm, :git
 
-require 'rvm/capistrano'
-# END: RVM stuff
+# Default value for :format is :pretty
+# set :format, :pretty
 
+# Default value for :log_level is :debug
+# set :log_level, :debug
 
-# START: Passenger-specific stuff:
+# Default value for :pty is false
+# set :pty, true
+
+# Default value for :linked_files is []
+# set :linked_files, fetch(:linked_files, []).push('config/database.yml')
+
+# Default value for linked_dirs is []
+# set :linked_dirs, fetch(:linked_dirs, []).push('bin', 'log', 'tmp/pids', 'tmp/cache', 'tmp/sockets', 'vendor/bundle', 'public/system')
+
+# Default value for default_env is {}
+# set :default_env, { path: "/opt/ruby/bin:$PATH" }
+
+# Default value for keep_releases is 5
+# set :keep_releases, 5
+
 namespace :deploy do
-  task :start do ; end
-  task :stop do ; end
-  task :restart, :roles => :app, :except => { :no_release => true } do
-    run "#{try_sudo} touch #{File.join(current_path,'tmp','restart.txt')}"
-  end
-end
-# END: Passenger-specific stuff:
 
-require 'bundler/capistrano'
-
-
-namespace :do do  
-  desc "Run a task on a remote server."  
-  # run like: cap staging do:invoke task=a_certain_task  
-  task :invoke do  
-    run("cd #{deploy_to}/current; #{rake} RAILS_ENV=#{rails_env} #{ENV['task']}")
-  end  
-end
-
-# START: We have to create the database first on cold deployment:
-namespace :deploy do
-  task :default do
-    update
-    migrate
-    restart
-  end
-  
-  task :bootstrap do
-    update
-    my_bootstrap
-    migrate
-    restart
+  after :restart, :clear_cache do
+    on roles(:web), in: :groups, limit: 3, wait: 10 do
+      # Here we can do anything such as:
+      # within release_path do
+      #   execute :rake, 'cache:clear'
+      # end
+    end
   end
 
-  task :my_bootstrap, :roles => :app do
-    run "cd #{current_path}; #{rake} RAILS_ENV=#{rails_env} db:create db:migrate db:bootstrap"
-  end
-end
-
-namespace :rails do
-  desc "Open the rails console on one of the remote servers"
-  task :console, :roles => :app do
-    hostname = find_servers_for_task(current_task).first
-    port = exists?(:port) ? fetch(:port) : 22
-    exec "ssh -l #{user} #{hostname} -p #{port} -t '#{current_path}/script/rails c #{rails_env}'"
-  end
 end

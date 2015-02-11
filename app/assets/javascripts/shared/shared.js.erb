@@ -28,9 +28,15 @@ angular.module('shared', ['auth', 'ui.router'])
       }
     ];
 
-    Auth.userDetails(function (userDetails) {
+    function updateUserDetails(userDetails) {
       $scope.userDetails = userDetails;
+    }
+
+    $scope.$on(USER_CHANGED_EVENT, function (event, updatedUser) {
+      updateUserDetails(updatedUser);
     });
+
+    Auth.userDetails(updateUserDetails);
 
     $scope.isActiveLink = function (topNavigationItem) {
       return $state.includes(topNavigationItem.link) || !!topNavigationItem.activeUrls && topNavigationItem.activeUrls.some(function (url) {
