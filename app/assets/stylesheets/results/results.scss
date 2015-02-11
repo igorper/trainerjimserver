@@ -11,6 +11,12 @@ div.page {
       background-image: image_url("ic_directions_walk_24px.svg");
     }
 
+    .user-filter {
+      line-height: 2em;
+      font-size: 1.3em;
+      margin-bottom: 20px;
+    }
+
     .section-title {
         font-size: 1.8em;
         font-weight: 500;
@@ -81,8 +87,6 @@ div.page {
       }
     }
   }
-
-
 
   div.selectedTraining {
     background-color: $jimColor;

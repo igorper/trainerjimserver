@@ -13,15 +13,14 @@ angular
   .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider) {
     $stateProvider
       .state('main.results', {
-        url: "/results?:id",
+        url: "/results?:id&trainee",
         controller: "ResultsCtrl",
         templateUrl: "results/results.html"
       });
   }])
   .controller("ResultsCtrl", ["$scope", "$http", "Measurement", '$compile', 'uiCalendarConfig', '$stateParams', '$state',
-    "toaster",
-    function ($scope, $http, Measurement, $compile, uiCalendarConfig, $stateParams, $state, toaster) {
-
+    "toaster", "Trainee", "Auth",
+    function ($scope, $http, Measurement, $compile, uiCalendarConfig, $stateParams, $state, toaster, Trainee, Auth) {
       var SMILE_LOOKUP = {0: "bored", 1: "happy", 2: "sweat"};
 
       function getPlannedSeriesLookup(trainingPlan){
@@ -36,6 +35,7 @@ angular
       var lookupSeries = null;
       var lookupSeriesExecutions = null;
 
+      $scope.userDetails = null;
       $scope.selectedTraining = null;
       $scope.trainingPage = null;
       $scope.calendarSources = [];
@@ -52,21 +52,16 @@ angular
       $scope.numSeriesTooHeavy = null;
       $scope.numSeriesTooEasy = null;
 
-      Measurement.query(function (data) {
-        $scope.results = data;
+      $scope.user = {};
+      $scope.users = [];
 
-        for (var i = 0; i < $scope.results.length; i++) {
-          var r = $scope.results[i];
-          $scope.calendarSources.push([{
-            start: new Date(r.start_time),
-            end: new Date(r.end_time),
-            className: 'smile-icon',
-            training: r
-          }])
+      Trainee.query(function (trainees) {
+        $scope.users = trainees;
+        if($stateParams.trainee){
+         $scope.user.selected = _.find($scope.users, function(u) { return u.id == parseInt($stateParams.trainee)});
         }
-
-      }, function (data, status, headers) {
-        console.error("Could not fetch exercises.");
+      }, function () {
+        toaster.pop("error", "Trainees listing", "Could get the list of trainees. Try logging in again.");
       });
 
       if ($stateParams.id != undefined) {
@@ -76,7 +71,7 @@ angular
 
             // show the calendar for the selected training date
             $scope.uiConfig.calendar['defaultDate'] = $scope.selectedTraining.start_time;
-            uiCalendarConfig.calendars["myCalendar1"].fullCalendar("render");
+            //uiCalendarConfig.calendars["myCalendar1"].fullCalendar("render");
 
             $scope.trainingPage = "Overview";
 
@@ -88,6 +83,32 @@ angular
           }, function () {
             toaster.pop("error", "Fetch measurement error", "Unable to fetch the measurement");
           });
+        }
+      }
+
+      Auth.userDetails(function (userDetails) {
+        $scope.userDetails = userDetails;
+        Measurement.query({trainer: userDetails.is_trainer, trainee_id: $stateParams.trainee == undefined ? null : $stateParams.trainee}, function (data) {
+          $scope.results = data;
+
+          for (var i = 0; i < $scope.results.length; i++) {
+            var r = $scope.results[i];
+            $scope.calendarSources.push([{
+              start: new Date(r.start_time),
+              end: new Date(r.end_time),
+              className: 'smile-icon',
+              training: r
+            }])
+          }
+
+        }, function (data, status, headers) {
+          console.error("Could not fetch exercises.");
+        });
+      });
+
+      $scope.onTraineeChanged = function(item, model){
+        if($scope.user.selected != item){
+          $state.go('main.results', {id: undefined, trainee: item == undefined ? null : item.id});
         }
       }
 

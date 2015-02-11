@@ -14,6 +14,8 @@ authModule.factory("Auth", ['$resource', '$rootScope', function ($resource, $roo
       isLoggedIn: {method: 'GET', params: {action: 'is_logged_in'}}
     });
 
+    var is_trainer = false;
+
   return {
     login: function (params, successCallback, failureCallback) {
       return resource.login(params, function (data) {
@@ -26,6 +28,7 @@ authModule.factory("Auth", ['$resource', '$rootScope', function ($resource, $roo
     },
     userDetails: resource.userDetails,
     isLoggedIn: resource.isLoggedIn,
-    logout: resource.logout
+    logout: resource.logout,
+    is_trainer: is_trainer
   };
 }]);
