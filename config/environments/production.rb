@@ -86,5 +86,5 @@ Trainerjim::Application.configure do
     :authentication => :plain,
     :enable_starttls_auto => true
   }
-  config.action_mailer.default_url_options = { :host => 'trainerjim.com' }
+  config.action_mailer.default_url_options = { :host => '54.93.94.45' }
 end

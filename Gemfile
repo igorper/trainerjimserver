@@ -37,7 +37,6 @@ gem 'devise'
 
 # Deployment
 gem 'capistrano', group: :development
-gem 'rvm-capistrano', group: :development
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
