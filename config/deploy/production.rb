@@ -6,7 +6,7 @@
 
 role :app, %w{trainerjim@54.93.94.45}
 role :web, %w{trainerjim@54.93.94.45}
-role :db,  %w{trainerjim@54.93.94.45}
+role :db, %w{trainerjim@54.93.94.45}
 
 
 # Extended Server Syntax
@@ -15,7 +15,15 @@ role :db,  %w{trainerjim@54.93.94.45}
 # server list. The second argument is a, or duck-types, Hash and is
 # used to set extended properties on the server.
 
-server '54.93.94.45', user: 'trainerjim', roles: %w{web app db}
+server '54.93.94.45',
+       user: 'trainerjim',
+       roles: %w{web app db},
+       ssh_options: {
+           user: 'trainerjim',
+           keys: [ENV['HOME'] + '/.ssh/trainerjim_id_rsa'],
+           forward_agent: false,
+           auth_methods: %w(publickey)
+       }
 
 
 # Custom SSH Options
