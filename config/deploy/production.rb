@@ -17,14 +17,14 @@ role :db, %w{trainerjim@54.93.94.45}
 
 server '54.93.94.45',
        user: 'trainerjim',
-       roles: %w{web app db},
-       ssh_options: {
-           user: 'trainerjim',
-           keys: [ENV['HOME'] + '/.ssh/trainerjim_id_rsa'],
-           forward_agent: false,
-           auth_methods: %w(publickey)
-       }
+       roles: %w{web app db}
 
+set :ssh_options, {
+    user: 'trainerjim',
+    keys: [ENV['HOME'] + '/.ssh/trainerjim_id_rsa'],
+    forward_agent: false,
+    auth_methods: %w(publickey)
+}
 
 # Custom SSH Options
 # ==================
