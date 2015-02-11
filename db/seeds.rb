@@ -9,13 +9,13 @@
 admin_role = Role.find_by_name(Role.administrator)
 trainer_role = Role.find_by_name(Role.trainer)
 
-trainer = User.create(:email => 'jim@jim.com', :password => 'trainerjim', :full_name => 'Jim the Trainer', :roles => [trainer_role])
+trainer = User.create(:email => 'jim@example.com', :password => 'trainerjim', :full_name => 'Jim the Trainer', :roles => [trainer_role])
 matej = User.create(:email => 'matej.urbas@gmail.com', :password => 'trainerjim', :full_name => 'Matej', :roles => [admin_role], :trainer => trainer)
 igor = User.create(:email => 'igor.pernek@gmail.com', :password => 'trainerjim', :full_name => 'Igor', :roles => [admin_role], :trainer => trainer)
-damjan = User.create(:email => 'damjan.obal@gmail.com', :password => 'trainerjim', :full_name => 'Damjan', :roles => [admin_role], :trainer => trainer)
-blaz = User.create(:email => 'snuderl@gmail.com', :password => 'trainerjim', :full_name => 'Blaz', :roles => [admin_role], :trainer => trainer)
+damjan = User.create(:email => 'damjan.obal@example.com', :password => 'trainerjim', :full_name => 'Damjan', :roles => [admin_role], :trainer => trainer)
+blaz = User.create(:email => 'snuderl@example.com', :password => 'trainerjim', :full_name => 'Blaz', :roles => [admin_role], :trainer => trainer)
 marusa = User.create(:email => 'marusa@example.com', :password => 'trainerjim', :full_name => 'Marusa', :roles => [], :trainer => trainer)
-kristjan = User.create(:email => 'kristjan.korez@gmail.com', :password => 'trainerjim', :full_name => 'Kristjan', :roles => [trainer_role])
+kristjan = User.create(:email => 'kristjan.korez@example.com', :password => 'trainerjim', :full_name => 'Kristjan', :roles => [trainer_role])
 
 bench = ExerciseType.create(:name => "Bench press")
 incline = ExerciseType.create(:name => "Incline press")
