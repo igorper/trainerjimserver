@@ -32,10 +32,10 @@ Trainerjim::Application.routes.draw do
   ### AUTHENTICATION
   ##
   devise_for :users, :path => '', :path_names => {
-                       :sign_in => 'login',
-                       :sign_up => 'signup',
-                       :sign_out => 'logout',
-                       :registration => 'register'
+                       :sign_in => '/',
+                       :sign_up => '/',
+                       :sign_out => '/',
+                       :registration => '/'
                    }
 
   ##############################################################################
