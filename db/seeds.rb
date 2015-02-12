@@ -199,7 +199,7 @@ upper_back = ExerciseType.create(:name => "Upper back")
 free_ab_cruch = ExerciseType.create(:name => "Free abdominal crunch")
 
 measurement = Measurement.create(
-    trainee: trainer,
+    trainee: igor,
     trainer: trainer,
     training: training1,
     data: 'somedata',
@@ -241,7 +241,7 @@ measurement.series_executions.create(
 )
 
 measurement = Measurement.create(
-    trainee: trainer,
+    trainee: igor,
     trainer: trainer,
     training: training1,
     data: 'somedata',
