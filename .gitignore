@@ -15,6 +15,7 @@ public/assets
 /log/*.log
 /tmp
 /out/
+/.capistrano/
 
 # Ignore sublime project files
 *.sublime-project
