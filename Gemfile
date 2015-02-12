@@ -36,7 +36,12 @@ gem 'valid_email'
 gem 'devise'
 
 # Deployment
-gem 'capistrano', group: :development
+group :development do
+  gem 'capistrano'
+  gem 'capistrano-bundler'
+  gem 'capistrano-rbenv'
+  gem 'capistrano-rails'
+end
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.

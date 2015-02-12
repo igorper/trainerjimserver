@@ -4,6 +4,10 @@ lock '3.3.5'
 set :application, 'trainerjimserver'
 set :repo_url, 'git@bitbucket.org:trainerjim/trainerjimserver.git'
 
+# rbenv
+set :rbenv_type, :user
+set :rbenv_ruby, '2.1.5'
+
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
