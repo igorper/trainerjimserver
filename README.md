@@ -46,27 +46,19 @@ For a list of deployment targets see files in directory `config/deploy`.
 
 ## Deployment
 
-Whenever you update your local repository, commit to your local master and run:
+1. Install the ssh key for `trainerjim` on the production server.
 
-    cap localdev deploy
+2. Run the following command:
 
-This will update your local server, which you can access through `http://localhost/`.
+    ```
+    bundle exec cap production deploy
+    ```
 
-Before opening a _pull request_, push your changes to the `master` branch in your personal Bitbucket remote. Afterwards run:
+3. Restart the server. Log in as  sudoer, and run:
 
-    cap <your_name> deploy
-
-This will deploy your changes to the site `http://<your_name>.trainerjim.com/`.
-
-When you deploy for the first time, do the following:
-
-    cap <target> deploy:bootstrap
-
-For a list of deployment `<targets>` see `config/deploy` (every file in this directory is a target).
-
-To deploy to production, you must call:
-
-    cap <target> deploy
+    ```
+    sudo stop trainerjim; sudo start trainerjim
+    ```
 
 # Installation instructions (new server)
 
