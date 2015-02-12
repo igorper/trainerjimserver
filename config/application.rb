@@ -43,6 +43,6 @@ module Trainerjim
 
     # Precompile additional assets
     config.assets.precompile += %w(*.svg *.eot *.woff *.ttf *.png *.jpg *.jpeg *.gif)
-    config.assets.precompile += ['app.js']
+    config.assets.precompile += ['app.js', 'app.scss']
   end
 end
