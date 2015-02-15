@@ -8,6 +8,7 @@ gem 'amoeba'
 gem 'pg'
 gem 'activerecord-session_store'
 gem 'bower-rails'
+gem 'paperclip'
 
 gem 'sass-rails'
 # Use Uglifier as compressor for JavaScript assets

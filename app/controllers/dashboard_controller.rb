@@ -45,7 +45,7 @@ class DashboardController < ApplicationController
     @exerciseTypes = SeriesExecution.find_all_by_measurement_id(@measurement.id).group_by{|k| k.exercise_type.name }
     .map{ |k,v| {:name => k, :executions => v}}
     respond_to do |format|
-      format.json { render:json => {:types => @exerciseTypes, :measurement => @measurement.as_json(
+      format.json { render :json => {:types => @exerciseTypes, :measurement => @measurement.as_json(
               :include => [:series_executions]
             )}}
       #        format.json  { render :json => @measurement.to_json(

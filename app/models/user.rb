@@ -33,11 +33,11 @@ class User < ActiveRecord::Base
   has_and_belongs_to_many :roles
 
   def display_name
-    if self.full_name.blank? then
+    if self.full_name.blank?
       require 'mail_utils'
-      return MailUtils::extract_display_name(self.email)
+      MailUtils::extract_display_name(self.email)
     else
-      return self.full_name
+      self.full_name
     end
   end
 
@@ -46,14 +46,14 @@ class User < ActiveRecord::Base
   end
 
   def role?(role)
-    return !!self.roles.find_by_name(role.to_s.camelize)
+    !!self.roles.find_by_name(role.to_s.camelize)
   end
 
   def administrator?
-    return !!self.roles.find_by_name(Role.administrator)
+    !!self.roles.find_by_name(Role.administrator)
   end
 
   def trainer?
-    return !!self.roles.find_by_name(Role.trainer)
+    !!self.roles.find_by_name(Role.trainer)
   end
 end

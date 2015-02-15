@@ -3,6 +3,7 @@
 //= require angular-ui-grid/ui-grid
 //= require trainings/training
 //= require workouts/selector/workoutSelector
+//= require exerciseTypes/exerciseTypeEditor
 
 angular.module('trainees', [
   'ui.router',
@@ -11,7 +12,8 @@ angular.module('trainees', [
   'ui.grid',
   'ui.grid.cellNav',
   'trainings',
-  'workouts.selector'
+  'workouts.selector',
+  'exerciseTypes.exerciseTypeEditor'
 ])
   .factory("Trainee", ["$resource", function ($resource) {
     return $resource("/api/v1/trainees/:id.json");
@@ -119,6 +121,12 @@ angular.module('trainees', [
       function createEmptyTraining() {
         return new TraineeTraining({traineeId: traineeId, name: "Enter training name", exercises: []});
       }
+
+      $scope.onUploadImageClicked = function (guid, description, file) {
+        console.log(guid);
+        console.log(description);
+        console.log(file);
+      };
 
       if ($stateParams.trainingId === '') {
         $scope.selectedTraining = createEmptyTraining();

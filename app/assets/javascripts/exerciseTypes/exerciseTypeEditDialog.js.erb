@@ -1,0 +1,22 @@
+//= require exerciseTypes/exerciseTypeEditor
+
+var exerciseTypeEditDialog = angular.module("exerciseTypes.exerciseTypeEditDialog", [
+  "exerciseTypes.exerciseTypeEditor"
+]);
+
+exerciseTypeEditDialog.factory('ExerciseTypeEditDialog', ['$modal', function ($modal) {
+  return function () {
+    return $modal.open({
+      templateUrl: '<%= asset_path('exerciseTypes/exercise-type-edit-dialog.html') %>',
+      backdrop: 'static',
+      windowClass: 'modal-window',
+      controller: ['$scope', '$modalInstance',
+        function ($scope, $modalInstance) {
+          $scope.onSubmitClicked = function (name, image) {
+            $modalInstance.close({name: name, image: image});
+          };
+        }
+      ]
+    });
+  };
+}]);

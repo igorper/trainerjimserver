@@ -19,7 +19,8 @@
       <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'" ng-click="navCollapsed=true">
 
         <ul class="nav navbar-nav">
-          <li ng-repeat="item in topNavigation" ng-class="{active: isActiveLink(item)}" ng-show="!item.showPredicate || item.showPredicate()"><a ui-sref="{{item.link}}">{{item.name}}</a>
+          <li ng-repeat="item in topNavigation" ng-class="{active: isActiveLink(item)}" ng-show="!item.showPredicate || item.showPredicate()">
+            <a ui-sref="{{item.link}}">{{item.name}}</a>
           </li>
         </ul>
 

@@ -62,27 +62,38 @@ For a list of deployment targets see files in directory `config/deploy`.
 
 # Installation instructions (new server)
 
+Install dependencies:
+
+* PostgreSQL:
+
+    * Ubuntu: `apt-get -y install postgresql`
+    * Windows: `choco install postgresql93`
+    * Create the `trainerjim` user (with password `trainerjim`):
+
+            sudo su postgres
+            psql
+            CREATE ROLE trainerjim LOGIN
+                ENCRYPTED PASSWORD 'md53cc7cd3df4abff9c7954bcd4979cea67'
+                SUPERUSER INHERIT CREATEDB NOCREATEROLE REPLICATION;
+
+* ImageMagick (for the PaperClip gem):
+
+    * Ubuntu: `apt-get install ImageMagick`
+    * Windows: `choco install imagemagick.app`
+
+* Windows only: install cygwin `choco install cygwin` and make sure `/c/tools/cygwin/bin` into your path.
+
+Repo preparation:
+
 1.  Clone from git repo.
 
 2.  Install the stable Ruby (use [`rbenv`](https://github.com/sstephenson/rbenv)).
 
-3.  PostgreSQL:
-
-        apt-get -y install postgresql
-
-    Create the `trainerjim` user (with password `trainerjim`):
-
-        sudo su postgres
-        psql
-        CREATE ROLE trainerjim LOGIN
-            ENCRYPTED PASSWORD 'md53cc7cd3df4abff9c7954bcd4979cea67'
-            SUPERUSER INHERIT CREATEDB NOCREATEROLE REPLICATION;
-
-4.  Set up the application:
+3.  Set up the application:
 
         rake db:create db:migrate db:bootstrap
 
-5.  Deploy the app whenever you want to update a site (see section `Deployment`).
+4.  Deploy the app whenever you want to update a site (see section `Deployment`).
 
 # Database
 

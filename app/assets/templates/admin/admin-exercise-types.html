@@ -1,0 +1,20 @@
+<div class="row">
+  <div class="col-sm-4">
+    <h2>Exercise Types</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-2">
+    <button class="btn btn-success" ng-click="onCreateExerciseTypeClicked()">Create a new exercise type</button>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <div ng-repeat="exercise_type in exerciseTypes">
+      {{exercise_type.name}}
+    </div>
+  </div>
+</div>
+

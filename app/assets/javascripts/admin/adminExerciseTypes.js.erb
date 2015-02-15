@@ -1,0 +1,26 @@
+//= require exerciseTypes/exerciseTypeEditDialog
+
+var admin = angular.module('admin.exerciseTypes', [
+  'ui.router',
+  'exerciseTypes.exerciseType',
+  'exerciseTypes.exerciseTypeEditDialog'
+]);
+
+admin.config(['$stateProvider', function ($stateProvider) {
+    $stateProvider
+      .state('main.admin.exerciseTypes', {
+        url: '/exerciseTypes',
+        templateUrl: "<%= asset_path('admin/admin-exercise-types.html') %>",
+        controller: ['$scope', 'ExerciseType', 'ExerciseTypeEditDialog', function ($scope, ExerciseType, ExerciseTypeEditDialog) {
+          $scope.exerciseTypes = ExerciseType.query();
+
+          $scope.onCreateExerciseTypeClicked = function () {
+            var loginDialog = ExerciseTypeEditDialog().result.then(function (imageToUpload) {
+              ExerciseType.upload(imageToUpload);
+            });
+          };
+        }]
+      })
+    ;
+  }])
+;

@@ -1,0 +1,1 @@
+json.(exercise_type, :id, :name, :image_file_name)

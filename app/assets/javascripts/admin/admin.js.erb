@@ -1,0 +1,30 @@
+//= require admin/adminExerciseTypes
+
+var admin = angular.module('admin', [
+  'ui.router',
+  'admin.exerciseTypes'
+]);
+
+admin.config(['$stateProvider', function ($stateProvider) {
+    $stateProvider
+      .state('main.admin', {
+        url: '/admin',
+        templateUrl: "<%= asset_path('admin/admin.html') %>",
+        controller: ['$scope', '$state', function ($scope, $state) {
+          $scope.sections = [
+            {
+              name: "Exercise Types",
+              link: "main.admin.exerciseTypes"
+            }
+          ];
+
+          $scope.isSectionActive = function (section) {
+            return $state.includes(section.link) || !!section.activeUrls && section.activeUrls.some(function (url) {
+                return $state.includes(url);
+              });
+          };
+        }]
+      })
+    ;
+  }])
+;

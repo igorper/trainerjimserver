@@ -1,0 +1,4 @@
+.admin .admin-menu .section-link.active a {
+    background-color: #0083ce;
+    color: white;
+}

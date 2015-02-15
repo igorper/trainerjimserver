@@ -1,13 +1,5 @@
-# == Schema Information
-#
-# Table name: exercise_types
-#
-#  id         :integer          not null, primary key
-#  name       :string(255)
-#  created_at :datetime
-#  updated_at :datetime
-#
-
 class ExerciseType < ActiveRecord::Base
-  # attr_accessible :name
+  has_attached_file :image, styles: { medium: "300x300>", thumb: "100x100>" }
+  validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
+  validates_attachment_file_name :image, matches: [/png\Z/, /jpe?g\Z/]
 end

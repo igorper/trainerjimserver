@@ -5,14 +5,14 @@
 
 var exerciseTypesSelector = angular.module('exerciseTypes.selector', [
   'ui.select',
-  'exerciseTypes',
+  'exerciseTypes.exerciseType',
   'toaster'
 ]);
 
 exerciseTypesSelector.factory('ExerciseTypesSelector', ['$modal', function ($modal) {
   return function () {
     return $modal.open({
-      templateUrl: '<%= asset_path('exerciseTypes/selector/exercise-type-selector.html') %>',
+      templateUrl: '<%= asset_path('exerciseTypes/exercise-type-selector.html') %>',
       controller: 'SelectExerciseTypeCtrl',
       backdrop: 'static',
       windowClass: 'modal-window'
