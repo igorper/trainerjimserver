@@ -24,6 +24,10 @@ test:
   <<: *defaults
   database: trainerjim_test
 
+matej-staging:
+  <<: *defaults
+  database: trainerjim_matej_staging
+
 production:
   <<: *defaults
   database: trainerjim_production

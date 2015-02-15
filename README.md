@@ -66,7 +66,7 @@ Install dependencies:
 
 * PostgreSQL:
 
-    * Ubuntu: `apt-get -y install postgresql`
+    * Ubuntu: `sudo apt-get -y install postgresql`
     * Windows: `choco install postgresql93`
     * Create the `trainerjim` user (with password `trainerjim`):
 
@@ -78,7 +78,7 @@ Install dependencies:
 
 * ImageMagick (for the PaperClip gem):
 
-    * Ubuntu: `apt-get install ImageMagick`
+    * Ubuntu: `sudo apt-get install ImageMagick`
     * Windows: `choco install imagemagick.app`
 
 * Windows only: install cygwin `choco install cygwin` and make sure `/c/tools/cygwin/bin` into your path.

@@ -8,6 +8,22 @@ set :repo_url, 'git@bitbucket.org:trainerjim/trainerjimserver.git'
 set :rbenv_type, :user
 set :rbenv_ruby, '2.1.5'
 
+# Default server configuration
+role :app, %w{trainerjim@54.93.94.45}
+role :web, %w{trainerjim@54.93.94.45}
+role :db, %w{trainerjim@54.93.94.45}
+
+server '54.93.94.45',
+       user: 'trainerjim',
+       roles: %w{web app db}
+
+set :ssh_options, {
+                    user: 'trainerjim',
+                    keys: [ENV['HOME'] + '/.ssh/trainerjim_id_rsa'],
+                    forward_agent: false,
+                    auth_methods: %w(publickey)
+                }
+
 # Default branch is :master
 # ask :branch, proc { `git rev-parse --abbrev-ref HEAD`.chomp }.call
 
