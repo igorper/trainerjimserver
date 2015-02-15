@@ -107,6 +107,8 @@ Install dependencies:
 
 * Windows only: install cygwin `choco install cygwin` and make sure `/c/tools/cygwin/bin` into your path.
 
+* Install: `deployment/trainerjim.conf` into `/etc/init` and `deployment/10-trainerjim` into `/etc/sudoers.d/`
+
 Repo preparation:
 
 1.  Clone from git repo.

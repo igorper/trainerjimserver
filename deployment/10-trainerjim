@@ -1,0 +1,3 @@
+Cmnd_Alias SERVICE = /sbin/start , /sbin/stop
+
+trainerjim ALL=(root) NOPASSWD:SERVICE
