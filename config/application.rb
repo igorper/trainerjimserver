@@ -9,6 +9,7 @@ Bundler.require(*Rails.groups)
 module Trainerjim
   class Application < Rails::Application
     config.page_name = 'TrainerJim'
+    config.trainerjim_server = '54.93.94.45'
 
     config.eager_load = false
     config.secret_key_base = 'H+4#XQvh=v2=fayR~y1w*yBKaeJ}mSI~'
