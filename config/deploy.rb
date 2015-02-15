@@ -55,23 +55,27 @@ set :linked_dirs, fetch(:linked_dirs, []).push('public/system')
 # Default value for keep_releases is 5
 # set :keep_releases, 5
 
+task :stop_server do
+  on roles(:web) do
+    execute :sudo, :stop, fetch(:init_script)
+  end
+end
+
+task :start_server do
+  on roles(:web) do
+    execute :sudo, :start, fetch(:init_script)
+  end
+end
+
 namespace :deploy do
 
-  after :published, :restart_server do
-    on roles(:web) do
-      init_script = fetch(:init_script)
-      begin
-        execute! :sudo, :stop, init_script
-      rescue
-        # ignored
-      end
-      execute :sudo, :start, init_script
-
-      # Here we can do anything such as:
-      # within release_path do
-      #   execute :rake, 'cache:clear'
-      # end
-    end
-  end
+  # after :published, :restart_server do
+  #   on roles(:web) do
+  #     # Here we can do anything such as:
+  #     # within release_path do
+  #     #   execute :rake, 'cache:clear'
+  #     # end
+  #   end
+  # end
 
 end

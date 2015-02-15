@@ -54,10 +54,11 @@ For a list of deployment targets see files in directory `config/deploy`.
     bundle exec cap production deploy
     ```
 
-3. Restart the server. Log in as sudoer, and run:
+3. Restart the server:
 
     ```
-    sudo stop trainerjim; sudo start trainerjim
+    bundle exec cap production stop_server
+    bundle exec cap production start_server
     ```
 
 ## Create your own deployment
