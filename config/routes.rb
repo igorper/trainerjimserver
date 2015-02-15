@@ -23,7 +23,6 @@ Trainerjim::Application.routes.draw do
       end
       resources :results
       resources :measurements
-      resources :images
     end
   end
 
