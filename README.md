@@ -66,7 +66,7 @@ For a list of deployment targets see files in directory `config/deploy`.
 
         config/depoy/*-staging.rb // Make sure you change the deploy_to path and the repo_url
         config/environments/*-staging.rb // Make sure you change the port here (at the bottom of the file)
-        deployment/*-trainerjim.conf // Make sure you change: PROGRAM_NAME, RAILS_PORT, and RAILS_ENV
+        deployment/*-trainerjim.conf // Make sure you change: PROGRAM_NAME, FULL_PATH, RAILS_PORT, and RAILS_ENV
 
 2. Add a database entry for your environment into `config/database.yml`.
 
