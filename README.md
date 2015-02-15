@@ -54,11 +54,35 @@ For a list of deployment targets see files in directory `config/deploy`.
     bundle exec cap production deploy
     ```
 
-3. Restart the server. Log in as  sudoer, and run:
+3. Restart the server. Log in as sudoer, and run:
 
     ```
     sudo stop trainerjim; sudo start trainerjim
     ```
+
+## Create your own deployment
+
+1. Create your own copy of the following files:
+
+        config/depoy/*-staging.rb // Make sure you change the deploy_to path and the repo_url
+        config/environments/*-staging.rb // Make sure you change the port here (at the bottom of the file)
+        deployment/*-trainerjim.conf // Make sure you change: PROGRAM_NAME, RAILS_PORT, and RAILS_ENV
+
+2. Add a database entry for your environment into `config/database.yml`.
+
+3. Run `bundle exec cap your-staging deploy` (it will fail because you have to first create a database).
+
+4. Create a database for your deployment. SSH into the server, find the checkout of your deployment (from the previous step):
+
+        sudo su - trainerjim
+        cd /home/trainerjim/your-staging-trainerjimserver/releases/*
+        RAILS_ENV=your-staging rake db:create
+
+5. Put the `deployment/*-trainerjim.conf` script into the `/etc/init` folder.
+
+6. Run step 3 again.
+
+7. Try starting the server with `sudo start your-trainerjim`
 
 # Installation instructions (new server)
 
