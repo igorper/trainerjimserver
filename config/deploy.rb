@@ -57,8 +57,16 @@ set :linked_dirs, fetch(:linked_dirs, []).push('public/system')
 
 namespace :deploy do
 
-  after :restart, :clear_cache do
-    on roles(:web), in: :groups, limit: 3, wait: 10 do
+  after :published, :restart_server do
+    on roles(:web) do
+      init_script = fetch(:init_script)
+      begin
+        execute! :sudo, :stop, init_script
+      rescue
+        # ignored
+      end
+      execute :sudo, :start, init_script
+
       # Here we can do anything such as:
       # within release_path do
       #   execute :rake, 'cache:clear'
