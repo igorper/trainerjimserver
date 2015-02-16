@@ -5,7 +5,7 @@ class Api::V1::ExerciseTypesController < ActionController::Base
   end
 
   def show
-    @exercise_type = ExerciseType.find_by_guid(params[:id])
+    @exercise_type = ExerciseType.find_by_id(params[:id])
   end
 
   def create

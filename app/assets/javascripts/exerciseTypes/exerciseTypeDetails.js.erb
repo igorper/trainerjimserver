@@ -1,0 +1,37 @@
+var exerciseTypeDetailsModule = angular.module("exerciseTypes.exerciseTypeDetails", [
+  'exerciseTypes.exerciseType'
+]);
+
+exerciseTypeDetailsModule.directive('exerciseTypeDetails', function () {
+  return {
+    restrict: 'E',
+    scope: {
+      'exerciseType': '=exerciseType'
+    },
+    controller: ['$scope', function ($scope) {
+      $scope.files = [];
+    }],
+    templateUrl: "<%= asset_path('exerciseTypes/exercise-type-details.html') %>"
+  };
+});
+
+
+exerciseTypeDetailsModule.factory('ExerciseTypeDetailsDialog', ['$modal', function ($modal) {
+  return function (exerciseType) {
+    return $modal.open({
+      templateUrl: '<%= asset_path('exerciseTypes/exercise-type-details-dialog.html') %>',
+      backdrop: 'static',
+      windowClass: 'modal-window',
+      size: 'lg',
+      controller: ['$scope', '$modalInstance', 'ExerciseType',
+        function ($scope, $modalInstance, ExerciseType) {
+          $scope.exerciseType = ExerciseType.get({id: exerciseType.id});
+
+          $scope.onCloseClicked = function () {
+            $modalInstance.dismiss();
+          };
+        }
+      ]
+    });
+  };
+}]);
