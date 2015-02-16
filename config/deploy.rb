@@ -68,6 +68,18 @@ task :start_server do
 end
 
 namespace :deploy do
+  desc "build missing paperclip styles"
+  task :build_missing_paperclip_styles do
+    on roles(:app) do
+      stage = fetch(:stage)
+      execute "cd #{current_path}; RAILS_ENV=#{stage} bundle exec rake paperclip:refresh:missing_styles"
+    end
+  end
+end
+
+after("deploy:compile_assets", "deploy:build_missing_paperclip_styles")
+
+namespace :deploy do
 
   # after :published, :restart_server do
   #   on roles(:web) do
