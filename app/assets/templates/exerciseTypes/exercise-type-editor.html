@@ -8,7 +8,7 @@
                autofocus="true"
                class="text-input"
                placeholder="exercise name"
-               ng-model="name"/>
+               ng-model="exerciseType.name"/>
       </div>
     </div>
 
@@ -34,15 +34,5 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="submit-btn">
-          <input type="submit"
-                 value="Submit"
-                 class="submit-btn btn btn-primary"
-                 ng-click="onSubmitClicked({name: name, image: files[0]})"/>
-        </div>
-      </div>
-    </div>
   </form>
 </div>

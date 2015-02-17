@@ -1,19 +1,27 @@
+//= require exerciseTypes/exerciseType
 //= require exerciseTypes/exerciseTypeEditor
 
 var exerciseTypeEditDialog = angular.module("exerciseTypes.exerciseTypeEditDialog", [
+  "exerciseTypes.exerciseType",
   "exerciseTypes.exerciseTypeEditor"
 ]);
 
-exerciseTypeEditDialog.factory('ExerciseTypeEditDialog', ['$modal', function ($modal) {
-  return function () {
+exerciseTypeEditDialog.factory('ExerciseTypeEditDialog', ['$modal', 'ExerciseType', function ($modal, ExerciseType) {
+  return function (exerciseType) {
     return $modal.open({
       templateUrl: '<%= asset_path('exerciseTypes/exercise-type-edit-dialog.html') %>',
       backdrop: 'static',
       windowClass: 'modal-window',
       controller: ['$scope', '$modalInstance',
         function ($scope, $modalInstance) {
-          $scope.onSubmitClicked = function (name, image) {
-            $modalInstance.close({name: name, image: image});
+          $scope.exerciseType = exerciseType ? exerciseType : new ExerciseType();
+
+          $scope.onOkayClicked = function () {
+            $modalInstance.close($scope.exerciseType);
+          };
+
+          $scope.onCancelClicked = function () {
+            $modalInstance.dismiss();
           };
         }
       ]

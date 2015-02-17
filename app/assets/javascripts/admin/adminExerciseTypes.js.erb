@@ -15,8 +15,8 @@ admin.config(['$stateProvider', function ($stateProvider) {
           $scope.exerciseTypes = ExerciseType.query();
 
           $scope.onCreateExerciseTypeClicked = function () {
-            var loginDialog = ExerciseTypeEditDialog().result.then(function (imageToUpload) {
-              ExerciseType.upload(imageToUpload);
+            var loginDialog = ExerciseTypeEditDialog().result.then(function (exerciseType) {
+              ExerciseType.upload(exerciseType);
             });
           };
         }]

@@ -8,10 +8,14 @@ exerciseTypeEditorModule.directive('exerciseTypeEditor', function () {
   return {
     restrict: 'E',
     scope: {
-      'onSubmitClicked': '&onSubmitClicked'
+      'exerciseType': '=exerciseType'
     },
     controller: ['$scope', function ($scope) {
       $scope.files = [];
+
+      $scope.$watch('files', function () {
+        $scope.exerciseType.image = $scope.files && $scope.files.length > 0 ? $scope.files[0] : null;
+      });
     }],
     templateUrl: "<%= asset_path('exerciseTypes/exercise-type-editor.html') %>"
   };
