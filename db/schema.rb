@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150215011312) do
+ActiveRecord::Schema.define(version: 20150217091511) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -202,7 +202,7 @@ ActiveRecord::Schema.define(version: 20150215011312) do
 
   add_foreign_key "conversations", "measurements", on_update: :cascade
   add_foreign_key "conversations", "users", column: "sender_id", on_update: :cascade
-  add_foreign_key "exercises", "exercise_types", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "exercises", "exercise_types", on_update: :cascade, on_delete: :restrict
   add_foreign_key "exercises", "trainings", on_update: :cascade, on_delete: :cascade
   add_foreign_key "i18n_strings", "i18n_keys", on_update: :cascade, on_delete: :cascade
   add_foreign_key "measurement_comments", "series_executions", on_update: :cascade

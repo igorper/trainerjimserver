@@ -3,7 +3,8 @@
 var admin = angular.module('admin.exerciseTypes', [
   'ui.router',
   'exerciseTypes.exerciseType',
-  'exerciseTypes.exerciseTypeEditDialog'
+  'exerciseTypes.exerciseTypeEditDialog',
+  'exerciseTypes.exerciseTypeDetails'
 ]);
 
 admin.config(['$stateProvider', function ($stateProvider) {
@@ -11,12 +12,34 @@ admin.config(['$stateProvider', function ($stateProvider) {
       .state('main.admin.exerciseTypes', {
         url: '/exerciseTypes',
         templateUrl: "<%= asset_path('admin/admin-exercise-types.html') %>",
-        controller: ['$scope', 'ExerciseType', 'ExerciseTypeEditDialog', function ($scope, ExerciseType, ExerciseTypeEditDialog) {
-          $scope.exerciseTypes = ExerciseType.query();
+        controller: ['$scope', 'ExerciseType', 'ExerciseTypeEditDialog', 'ExerciseTypeDetailsDialog', 'toaster', function ($scope, ExerciseType, ExerciseTypeEditDialog, ExerciseTypeDetailsDialog, toaster) {
+          function refreshExerciseTypes() {
+            $scope.exerciseTypes = ExerciseType.query();
+          }
+
+          refreshExerciseTypes();
 
           $scope.onCreateExerciseTypeClicked = function () {
             var loginDialog = ExerciseTypeEditDialog().result.then(function (exerciseType) {
-              ExerciseType.upload(exerciseType);
+              ExerciseType.upload(exerciseType)
+                .success(refreshExerciseTypes);
+            });
+          };
+
+          $scope.onExerciseClicked = function (exerciseType) {
+            ExerciseTypeDetailsDialog(exerciseType);
+          };
+
+          $scope.onEditExerciseClicked = function (exerciseType) {
+            ExerciseTypeEditDialog(exerciseType).result.then(function (editedExercise) {
+              ExerciseType.upload(editedExercise, refreshExerciseTypes)
+                .success(refreshExerciseTypes);
+            });
+          };
+
+          $scope.onDeleteExerciseClicked = function (exerciseType) {
+            ExerciseType.delete({id: exerciseType.id}, refreshExerciseTypes, function (errorData) {
+              toaster.pop("error", "Exercise type not deleted", "Could not delete the exercise type. The exercise type is in use.");
             });
           };
         }]

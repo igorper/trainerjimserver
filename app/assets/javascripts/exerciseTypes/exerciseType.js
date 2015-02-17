@@ -4,10 +4,14 @@ angular
     var ExerciseType = $resource("/api/v1/exercise_types/:id.json");
 
     ExerciseType.upload = function (exerciseType) {
+      var fields = {name: exerciseType.name};
+      if (exerciseType.id) {
+        fields.id = exerciseType.id;
+      }
       return $upload.upload({
         url: '/api/v1/exercise_types.json',
         file: exerciseType.image,
-        fields: {name: exerciseType.name}
+        fields: fields
       });
     };
 
