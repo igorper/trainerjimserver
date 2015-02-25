@@ -8,42 +8,46 @@ var admin = angular.module('admin.exerciseTypes', [
 ]);
 
 admin.config(['$stateProvider', function ($stateProvider) {
-    $stateProvider
-      .state('main.admin.exerciseTypes', {
-        url: '/exerciseTypes',
-        templateUrl: "<%= asset_path('admin/admin-exercise-types.html') %>",
-        controller: ['$scope', 'ExerciseType', 'ExerciseTypeEditDialog', 'ExerciseTypeDetailsDialog', 'toaster', function ($scope, ExerciseType, ExerciseTypeEditDialog, ExerciseTypeDetailsDialog, toaster) {
-          function refreshExerciseTypes() {
-            $scope.exerciseTypes = ExerciseType.query();
-          }
+  $stateProvider
+    .state('main.admin.exerciseTypes', {
+      url: '/exerciseTypes',
+      templateUrl: "<%= asset_path('admin/admin-exercise-types.html') %>",
+      controller: ['$scope', 'ExerciseType', 'ExerciseTypeEditDialog', 'ExerciseTypeDetailsDialog', 'toaster', function ($scope, ExerciseType, ExerciseTypeEditDialog, ExerciseTypeDetailsDialog, toaster) {
 
-          refreshExerciseTypes();
+        function refreshExerciseTypes() {
+          $scope.exerciseTypes = ExerciseType.query();
+        }
 
-          $scope.onCreateExerciseTypeClicked = function () {
-            var loginDialog = ExerciseTypeEditDialog().result.then(function (exerciseType) {
-              ExerciseType.upload(exerciseType)
-                .success(refreshExerciseTypes);
-            });
-          };
+        refreshExerciseTypes();
 
-          $scope.onExerciseClicked = function (exerciseType) {
-            ExerciseTypeDetailsDialog(exerciseType);
-          };
+        function showUploadExerciseTypeError() {
+          toaster.pop("error", "Exercise type not uploaded", "An error occurred while uploading the exercise type.");
+        }
 
-          $scope.onEditExerciseClicked = function (exerciseType) {
-            ExerciseTypeEditDialog(exerciseType).result.then(function (editedExercise) {
-              ExerciseType.upload(editedExercise, refreshExerciseTypes)
-                .success(refreshExerciseTypes);
-            });
-          };
+        function uploadExerciseType(exerciseType) {
+          return ExerciseType
+            .upload(exerciseType)
+            .success(refreshExerciseTypes)
+            .error(showUploadExerciseTypeError);
+        }
 
-          $scope.onDeleteExerciseClicked = function (exerciseType) {
-            ExerciseType.delete({id: exerciseType.id}, refreshExerciseTypes, function (errorData) {
-              toaster.pop("error", "Exercise type not deleted", "Could not delete the exercise type. The exercise type is in use.");
-            });
-          };
-        }]
-      })
-    ;
-  }])
+        $scope.onCreateExerciseTypeClicked = function () {
+          ExerciseTypeEditDialog({uploadPromise: uploadExerciseType});
+        };
+
+        $scope.onExerciseClicked = ExerciseTypeDetailsDialog;
+
+        $scope.onEditExerciseClicked = function (exerciseType) {
+          ExerciseTypeEditDialog({exerciseType: exerciseType, uploadPromise: uploadExerciseType});
+        };
+
+        $scope.onDeleteExerciseClicked = function (exerciseType) {
+          ExerciseType.delete({id: exerciseType.id}, refreshExerciseTypes, function (errorData) {
+            toaster.pop("error", "Exercise type not deleted", "Could not delete the exercise type. The exercise type is in use.");
+          });
+        };
+      }]
+    })
+  ;
+}])
 ;

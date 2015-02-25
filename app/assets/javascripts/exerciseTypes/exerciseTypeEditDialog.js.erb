@@ -2,22 +2,41 @@
 //= require exerciseTypes/exerciseTypeEditor
 
 var exerciseTypeEditDialog = angular.module("exerciseTypes.exerciseTypeEditDialog", [
-  "exerciseTypes.exerciseType",
-  "exerciseTypes.exerciseTypeEditor"
+  'exerciseTypes.exerciseType',
+  'exerciseTypes.exerciseTypeEditor',
+  'angularSpinner'
 ]);
 
-exerciseTypeEditDialog.factory('ExerciseTypeEditDialog', ['$modal', 'ExerciseType', function ($modal, ExerciseType) {
-  return function (exerciseType) {
+exerciseTypeEditDialog.factory('ExerciseTypeEditDialog', ['$modal', 'ExerciseType', 'usSpinnerService', '$q', function ($modal, ExerciseType, usSpinnerService, $q) {
+  return function (options) {
+    options = angular.extend({
+        exerciseType: new ExerciseType(),
+        uploadPromise: function (exerciseTypeToUpload) {
+          return $q(function (resolved) {
+            resolved();
+          });
+        }
+      },
+      options
+    );
+
     return $modal.open({
       templateUrl: '<%= asset_path('exerciseTypes/exercise-type-edit-dialog.html') %>',
       backdrop: 'static',
       windowClass: 'modal-window',
       controller: ['$scope', '$modalInstance',
         function ($scope, $modalInstance) {
-          $scope.exerciseType = exerciseType ? exerciseType : new ExerciseType();
+          $scope.exerciseType = options.exerciseType;
+
+          function closeDialogWithResult() {
+            usSpinnerService.stop('exercise-upload-spinner');
+            $modalInstance.close($scope.exerciseType);
+          }
 
           $scope.onOkayClicked = function () {
-            $modalInstance.close($scope.exerciseType);
+            usSpinnerService.spin('exercise-upload-spinner');
+            options.uploadPromise($scope.exerciseType)
+              .then(closeDialogWithResult, closeDialogWithResult);
           };
 
           $scope.onCancelClicked = function () {

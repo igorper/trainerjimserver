@@ -18,6 +18,8 @@
     "moment": "latest",
     "angular-http-auth": "latest",
     "danialfarid-angular-file-upload": "latest",
-    "d3": "latest"
+    "d3": "latest",
+    "angular-spinner": "latest",
+    "spin.js": "latest"
   }
 }
