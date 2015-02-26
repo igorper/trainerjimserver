@@ -26,7 +26,9 @@
 
         <ul class="nav navbar-nav navbar-right">
           <li>
-            <div class="navbar-text">Signed in as {{userDetails.email}}</div>
+            <div class="navbar-text">Signed in as
+              <span class="label label-default" style="cursor: pointer;" ui-sref="main.userProfile">{{userDetails.email}}</span>
+            </div>
           </li>
           <li>
             <button type="button" class="btn btn-default navbar-btn" ng-click="logout()">Log out</button>

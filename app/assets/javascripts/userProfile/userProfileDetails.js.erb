@@ -1,0 +1,22 @@
+var userProfileDetails = angular.module('userProfile.details', [
+  'ui.router',
+  'auth'
+]);
+
+userProfileDetails.config(['$stateProvider', function ($stateProvider) {
+  $stateProvider.state('main.userProfile.details', {
+    url: '/details',
+    templateUrl: "<%= asset_path('userProfile/userProfile-details.html') %>",
+    controller: ['$scope', 'toaster', 'Auth', function ($scope, toaster, Auth) {
+      $scope.userDetails = Auth.userDetails();
+
+      $scope.onChangeNameClicked = function () {
+        console.log("Change your name...");
+      };
+
+      $scope.onChangePasswordClicked = function () {
+        console.log("Change your password...");
+      };
+    }]
+  });
+}]);

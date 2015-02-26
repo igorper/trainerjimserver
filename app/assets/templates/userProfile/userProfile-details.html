@@ -1,0 +1,46 @@
+<div class="row">
+  <div class="col-sm-4">
+    <h2>Account details</h2>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col-sm-12">
+    <form>
+      <div class="form-group">
+        <div class="input-group">
+          <label for="name">Name:</label>
+          <input class="form-control" type="text" id="name" placeholder="your name" ng-model="userDetails.full_name"/>
+        </div>
+
+      </div>
+      <div class="form-group">
+        <button class="btn btn-primary" ng-click="onChangeNameClicked()">Change name</button>
+      </div>
+    </form>
+
+    <form>
+      <div class="form-group">
+        <div class="input-group">
+          <label for="password">Old password:</label>
+          <input class="form-control" type="password" id="password" placeholder="your current password"/>
+        </div>
+
+        <div class="input-group">
+          <label for="newPassword">New password:</label>
+          <input class="form-control" type="password" id="newPassword" placeholder="new password"/>
+        </div>
+
+        <div class="input-group">
+          <label for="confirmedNewPassword">Confirm new password:</label>
+          <input class="form-control" type="password" id="confirmedNewPassword" placeholder="confirmed new password"/>
+        </div>
+
+      </div>
+
+      <div class="form-group">
+        <button class="btn btn-primary" ng-click="onChangePasswordClicked()">Change password</button>
+      </div>
+    </form>
+  </div>
+</div>
