@@ -19,21 +19,16 @@
       <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'" ng-click="navCollapsed=true">
 
         <ul class="nav navbar-nav">
-          <li ng-repeat="item in topNavigation" ng-class="{active: isActiveLink(item)}" ng-show="!item.showPredicate || item.showPredicate()">
+          <li ng-repeat="item in topNavigation" ng-class="{active: isActiveLink(item)}"
+              ng-show="!item.showPredicate || item.showPredicate()">
             <a ui-sref="{{item.link}}">{{item.name}}</a>
           </li>
         </ul>
 
-        <ul class="nav navbar-nav navbar-right">
-          <li>
-            <div class="navbar-text">Signed in as
-              <span class="label label-default" style="cursor: pointer;" ui-sref="main.userProfile">{{userDetails.email}}</span>
-            </div>
-          </li>
-          <li>
-            <button type="button" class="btn btn-default navbar-btn" ng-click="logout()">Log out</button>
-          </li>
-        </ul>
+        <p class="navbar-text navbar-right">
+          <span class="label" style="cursor: pointer; text-decoration: underline;" ui-sref="main.userProfile">{{userDetails.full_name}} ({{userDetails.email}})</span>
+          <span class="label label-primary navbar-btn" style="cursor: pointer;" ng-click="logout()">Log out</span>
+        </p>
 
 
       </div>
