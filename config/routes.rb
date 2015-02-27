@@ -14,6 +14,8 @@ Trainerjim::Application.routes.draw do
         post 'signup'
         get 'user_details'
         get 'is_logged_in'
+        post 'set_name'
+        post 'set_password'
       end
 
       resources :trainings

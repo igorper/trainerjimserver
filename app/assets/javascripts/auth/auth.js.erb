@@ -11,17 +11,29 @@ authModule.factory("Auth", ['$resource', '$rootScope', function ($resource, $roo
       signup: {method: 'POST', params: {action: 'signup'}},
       logout: {method: 'POST', params: {action: 'logout'}},
       userDetails: {method: 'GET', params: {action: 'user_details'}},
-      isLoggedIn: {method: 'GET', params: {action: 'is_logged_in'}}
+      isLoggedIn: {method: 'GET', params: {action: 'is_logged_in'}},
+      setName: {method: 'POST', params: {action: 'set_name'}},
+      setPassword: {method: 'POST', params: {action: 'set_password'}}
     });
 
-    var is_trainer = false;
+  var is_trainer = false;
+
+  function broadcastUserChangedEvent(newUserDetails) {
+    $rootScope.$broadcast(USER_CHANGED_EVENT, newUserDetails);
+  }
+
+  function onUserChanged(successCallback) {
+    return function (data) {
+      broadcastUserChangedEvent(data);
+      if (successCallback) {
+        successCallback(data);
+      }
+    };
+  }
 
   return {
     login: function (params, successCallback, failureCallback) {
-      return resource.login(params, function (data) {
-        $rootScope.$broadcast(USER_CHANGED_EVENT, data);
-        successCallback(data);
-      }, failureCallback);
+      return resource.login(params, onUserChanged(successCallback), failureCallback);
     },
     signup: function (params, successCallback, failureCallback) {
       return resource.signup(params, successCallback, failureCallback);
@@ -29,6 +41,10 @@ authModule.factory("Auth", ['$resource', '$rootScope', function ($resource, $roo
     userDetails: resource.userDetails,
     isLoggedIn: resource.isLoggedIn,
     logout: resource.logout,
-    is_trainer: is_trainer
+    is_trainer: is_trainer,
+    setName: function (params, successCallback, failureCallback) {
+      return resource.setName(params, onUserChanged(successCallback), failureCallback);
+    },
+    setPassword: resource.setPassword
   };
 }]);

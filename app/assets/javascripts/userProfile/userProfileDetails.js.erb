@@ -1,0 +1,32 @@
+var userProfileDetails = angular.module('userProfile.details', [
+  'ui.router',
+  'auth'
+]);
+
+userProfileDetails.config(['$stateProvider', function ($stateProvider) {
+  $stateProvider.state('main.userProfile.details', {
+    url: '/details',
+    templateUrl: "<%= asset_path('userProfile/userProfile-details.html') %>",
+    controller: ['$scope', 'toaster', 'Auth', function ($scope, toaster, Auth) {
+      $scope.userDetails = Auth.userDetails();
+      $scope.newPassword = "";
+      $scope.newConfirmedPassword = "";
+
+      $scope.onChangeNameClicked = function () {
+        Auth.setName({full_name: $scope.userDetails.full_name});
+      };
+
+      $scope.onChangePasswordClicked = function () {
+        if ($scope.newPassword === $scope.newConfirmedPassword) {
+          Auth.setPassword({current_password: $scope.currentPassword, new_password: $scope.newPassword}, function () {
+            toaster.pop("success", "New password set", "Successfully set the new password.")
+          }, function () {
+            toaster.pop("error", "Password setting failed", "Please verify that you've typed in the correct current password.")
+          });
+        } else {
+          toaster.pop("warning", "Password mismatch", "The new password must match the confirmed password.");
+        }
+      };
+    }]
+  });
+}]);

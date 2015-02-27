@@ -10,6 +10,8 @@
 //= require fullcalendar/dist/fullcalendar
 //= require fullcalendar/dist/gcal
 //= require d3/d3
+//= require spin.js/spin
+//= require angular-spinner/angular-spinner
 //= require welcome/welcome
 //= require auth/auth
 //= require workouts/workouts
@@ -19,8 +21,7 @@
 //= require auth/loginDialog/loginDialog
 //= require auth/signupForm/signupForm
 //= require admin/admin
-//= require spin.js/spin
-//= require angular-spinner/angular-spinner
+//= require userProfile/userProfile
 
 angular
   .module('app', [
@@ -31,7 +32,8 @@ angular
     'shared',
     'admin',
     'http-auth-interceptor',
-    'auth.loginDialog'
+    'auth.loginDialog',
+    'userProfile'
   ])
   .controller('MainBodyCtrl', ['$rootScope', 'LoginDialog', 'Auth', 'authService', function ($rootScope, LoginDialog, Auth, authService) {
     $rootScope.$on('event:auth-loginRequired', function () {

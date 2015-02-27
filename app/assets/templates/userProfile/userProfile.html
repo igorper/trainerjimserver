@@ -1,0 +1,20 @@
+<div class="container-fluid admin">
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="admin-menu jim-frame">
+        <ul class="admin-sections nav nav-stacked">
+          <li class="section-link" ng-repeat="section in sections" ng-class="{active: isSectionActive(section)}">
+            <a ui-sref="{{section.link}}">{{section.name}}</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="col-sm-10">
+      <div class="admin-panel jim-box">
+        <ui-view>
+          Manage your profile...
+        </ui-view>
+      </div>
+    </div>
+  </div>
+</div>

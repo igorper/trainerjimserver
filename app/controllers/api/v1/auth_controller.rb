@@ -37,4 +37,25 @@ class Api::V1::AuthController < ActionController::Base
     end
   end
 
+  def set_name
+    if user_signed_in?
+      @user = User.find_by_id(current_user.id)
+      @user.full_name = params[:full_name]
+      @user.save
+    else
+      render json: {}, status: :bad_request
+    end
+  end
+
+  def set_password
+    if user_signed_in? && current_user.valid_password?(params[:current_password])
+      @user = User.find_by_id(current_user.id)
+      @user.password = params[:new_password]
+      @user.save
+      sign_in(:user, User.find_by_id(current_user.id))
+    else
+      render json: {}, status: :bad_request
+    end
+  end
+
 end
