@@ -67,6 +67,18 @@ task :start_server do
   end
 end
 
+task :restart_server do
+  on roles(:web) do
+    begin
+      invoke :stop_server
+      sleep 1
+    rescue
+      # ignored
+    end
+    invoke :start_server
+  end
+end
+
 namespace :deploy do
   desc "build missing paperclip styles"
   task :build_missing_paperclip_styles do
@@ -81,6 +93,7 @@ namespace :deploy do
 end
 
 after("deploy:compile_assets", "deploy:build_missing_paperclip_styles")
+after("deploy:finished", :restart_server)
 
 namespace :deploy do
 
