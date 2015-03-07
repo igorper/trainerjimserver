@@ -22,7 +22,7 @@
                         <div class="row" ui-calendar="uiConfig.calendar" ng-model="calendarSources" calendar="myCalendar1"></div>
                     </div>
                     <div class=" col-sm-7">
-                        <div ng-hide="user.selected">
+                        <div ng-hide="!userDetails.is_trainer || user.selected">
                             <div class="header">
                                 <h1 class="jim-title">No trainee selected.</h1>
                                 <h1 class="jim-sub-title">First select a trainee.</h1>
@@ -30,7 +30,7 @@
                             <div class="separator"></div>
                             <div class="box-image"></div>
                         </div>
-                        <div ng-show="user.selected">
+                        <div ng-show="!userDetails.is_trainer || user.selected">
                         <div ng-hide="selectedTraining">
                             <div class="header">
                                 <h1 class="jim-title">No training selected.</h1>
