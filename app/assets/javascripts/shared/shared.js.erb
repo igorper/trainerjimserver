@@ -28,7 +28,7 @@ angular.module('shared', ['auth', 'ui.router'])
       },
       {
         name: "Administration",
-        link: "main.admin",
+        link: "main.admin.exerciseTypes",
         showPredicate: function () {
           return $scope.userDetails && $scope.userDetails.is_admin;
         }
