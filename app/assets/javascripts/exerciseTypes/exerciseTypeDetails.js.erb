@@ -6,10 +6,11 @@ exerciseTypeDetailsModule.directive('exerciseTypeDetails', function () {
   return {
     restrict: 'E',
     scope: {
-      'exerciseType': '=exerciseType'
+      'exerciseType': '=exerciseType',
+      'exerciseTypeId': '=exerciseTypeId'
     },
-    controller: ['$scope', function ($scope) {
-      $scope.files = [];
+    controller: ['$scope', 'ExerciseType', function ($scope, ExerciseType) {
+      $scope.exerciseTypeData = $scope.exerciseTypeId ? ExerciseType.get({id: $scope.exerciseTypeId}) : $scope.exerciseType;
     }],
     templateUrl: "<%= asset_path('exerciseTypes/exercise-type-details.html') %>"
   };

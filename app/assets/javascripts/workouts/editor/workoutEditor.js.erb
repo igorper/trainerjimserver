@@ -7,6 +7,7 @@
 //= require angularjs-toaster/toaster
 //= require exerciseTypes/exerciseTypesSelector
 //= require exerciseTypes/exerciseTypeDetails
+//= require exerciseTypes/exerciseType
 
 angular.module('workouts.editor', [
   'ui.router',
@@ -18,6 +19,7 @@ angular.module('workouts.editor', [
   'ngAnimate',
   'toaster',
   'exerciseTypes.selector',
+  'exerciseTypes.exerciseType',
   'exerciseTypes.exerciseTypeDetails'
 ])
   .directive('workoutEditor', function () {
@@ -32,10 +34,14 @@ angular.module('workouts.editor', [
       templateUrl: '<%= asset_path('workouts/editor/workout-editor.html') %>'
     };
   })
-  .controller('WorkoutEditorCtrl', ['$scope', 'ExerciseTypesSelector', 'ExerciseTypeDetailsDialog', function ($scope, ExerciseTypesSelector, ExerciseTypeDetailsDialog) {
+  .controller('WorkoutEditorCtrl', ['$scope', 'ExerciseType', 'ExerciseTypesSelector', 'ExerciseTypeDetailsDialog', function ($scope, ExerciseType, ExerciseTypesSelector, ExerciseTypeDetailsDialog) {
     var REPETITIONS_STEP = 1;
     var WEIGHT_STEP = 5;
     var REST_STEP = 5;
+
+    $scope.fetchExerciseType = function (exerciseTypeId) {
+      return ExerciseType.get({id: exerciseTypeId});
+    };
 
     $scope.changeSelectedSeries = function (exercise, seriesIdx) {
       exercise.selectedSeries = seriesIdx;
