@@ -176,9 +176,9 @@ angular
         $scope.totalExercisesInMinutes = exerciseInSeconds / 60.0;
         $scope.averageRestDifferenceInSec = restDiff / $scope.selectedTraining.series_executions.length;
         $scope.numberWeightChanges = cntDiffWeight;
-        $scope.averageWeightChanges = sumDiffWeight / cntDiffWeight;
+        $scope.averageWeightChanges = cntDiffWeight == 0 ? 0 : sumDiffWeight / cntDiffWeight;
         $scope.numberRepsChanges = cntDiffReps;
-        $scope.averageRepsChanges = sumDiffReps / cntDiffReps;
+        $scope.averageRepsChanges = cntDiffReps == 0 ? 0 : sumDiffReps / cntDiffReps;
         $scope.numSeriesTooHeavy = cntHeavy;
         $scope.numSeriesTooEasy = cntEasy;
       }
