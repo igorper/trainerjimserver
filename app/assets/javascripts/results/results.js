@@ -42,6 +42,8 @@ angular
 
       $scope.trainingRatingIcon = null;
       $scope.durationInMinutes = null;
+      $scope.totalRestInMinutes = null;
+      $scope.totalExercisesInMinutes = null;
       $scope.performedSeries = null;
       $scope.totalSeries = null;
       $scope.averageRestDifferenceInSec = null;
@@ -115,9 +117,11 @@ angular
       $scope.calculateOverview = function() {
         $scope.trainingRatingIcon = SMILE_LOOKUP[$scope.selectedTraining.rating] + "-on"
         $scope.durationInMinutes = (new Date($scope.selectedTraining.end_time) - new Date($scope.selectedTraining.start_time)) / (1000 * 60);
+
         $scope.performedSeries = $scope.selectedTraining.series_executions.length;
         $scope.totalSeries = _.flatten(_.pluck($scope.selectedTraining.exercises, 'series')).length;
 
+        var restInSeconds = 0, exerciseInSeconds = 0;
         var restDiff = 0;
         var cntDiffWeight = 0, sumDiffWeight = 0;
         var cntDiffReps = 0, sumDiffReps = 0;
@@ -125,6 +129,11 @@ angular
         for (var i=0; i < $scope.selectedTraining.series_executions.length; i++){
           var se = $scope.selectedTraining.series_executions[i];
           var parentSeries = lookupSeries[se.series_id];
+
+
+          // calculate rest and exercise time
+          restInSeconds += $scope.selectedTraining.series_executions[i].rest_time;
+          exerciseInSeconds += $scope.selectedTraining.series_executions[i].duration_seconds;
 
           // rest difference
           restDiff += Math.abs(parentSeries.rest_time - se.rest_time);
@@ -142,6 +151,8 @@ angular
           cntEasy += se.rating == 0 ? 1 : 0;
         }
 
+        $scope.totalRestInMinutes = restInSeconds / 60.0;
+        $scope.totalExercisesInMinutes = exerciseInSeconds / 60.0;
         $scope.averageRestDifferenceInSec = restDiff / $scope.selectedTraining.series_executions.length;
         $scope.numberWeightChanges = cntDiffWeight;
         $scope.averageWeightChanges = sumDiffWeight / cntDiffWeight;
