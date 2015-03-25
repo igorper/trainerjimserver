@@ -102,7 +102,7 @@ angular.module('workouts.editor', [
 
     $scope.editExercise = function () {
       ExerciseTypesSelector().result.then(function (chosenExerciseType) {
-        $scope.training.exercises.unshift(
+        $scope.training.exercises.push(
           {
             duration_after_repetition: null,
             duration_up_repetition: null,
