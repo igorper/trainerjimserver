@@ -23,9 +23,24 @@ angular
     function ($scope, $http, Measurement, $compile, uiCalendarConfig, $stateParams, $state, toaster, Trainee, Auth) {
       var SMILE_LOOKUP = {0: "bored", 1: "happy", 2: "sweat"};
 
+      /**
+       * Create a lookup table for planned series. Each series can be looked up by it's id, which is also stored
+       * for each series execution. Besides each series data id of the parent exercise is added to retain the information
+       * of the exercise the series belongs to.
+       * @param trainingPlan
+       * @returns {Array}
+       */
       function getPlannedSeriesLookup(trainingPlan){
-        var plannedSeries = _.flatten(_.pluck(trainingPlan, 'series'));
-        return _.object (_.pluck(plannedSeries, 'id'), plannedSeries);
+        var lookup = [];
+        for(var i=0; i < trainingPlan.length; i++){
+          var exercise = trainingPlan[i];
+          for(var j=0; j < exercise.series.length; j++){
+            var series = exercise.series[j];
+            series['exercise_id'] = exercise.exercise_type.id;
+            lookup[series.id] = series;
+          }
+        }
+        return lookup;
       }
 
       function getSeriesExecutionsLookup(series_executions){
@@ -42,6 +57,10 @@ angular
 
       $scope.trainingRatingIcon = null;
       $scope.durationInMinutes = null;
+      $scope.totalRestInMinutes = null;
+      $scope.totalExercisesInMinutes = null;
+      $scope.numExercisesPlanned = null;
+      $scope.numExercisesPerformed = null;
       $scope.performedSeries = null;
       $scope.totalSeries = null;
       $scope.averageRestDifferenceInSec = null;
@@ -115,9 +134,13 @@ angular
       $scope.calculateOverview = function() {
         $scope.trainingRatingIcon = SMILE_LOOKUP[$scope.selectedTraining.rating] + "-on"
         $scope.durationInMinutes = (new Date($scope.selectedTraining.end_time) - new Date($scope.selectedTraining.start_time)) / (1000 * 60);
+
+        $scope.numExercisesPlanned = _.unique(_.pluck(_.pluck($scope.selectedTraining.exercises, 'exercise_type'), 'id')).length;
         $scope.performedSeries = $scope.selectedTraining.series_executions.length;
         $scope.totalSeries = _.flatten(_.pluck($scope.selectedTraining.exercises, 'series')).length;
 
+        var performedSeriesExerciseId = [];
+        var restInSeconds = 0, exerciseInSeconds = 0;
         var restDiff = 0;
         var cntDiffWeight = 0, sumDiffWeight = 0;
         var cntDiffReps = 0, sumDiffReps = 0;
@@ -125,6 +148,12 @@ angular
         for (var i=0; i < $scope.selectedTraining.series_executions.length; i++){
           var se = $scope.selectedTraining.series_executions[i];
           var parentSeries = lookupSeries[se.series_id];
+
+          performedSeriesExerciseId.push(se.exercise_id);
+
+          // calculate rest and exercise time
+          restInSeconds += $scope.selectedTraining.series_executions[i].rest_time;
+          exerciseInSeconds += $scope.selectedTraining.series_executions[i].duration_seconds;
 
           // rest difference
           restDiff += Math.abs(parentSeries.rest_time - se.rest_time);
@@ -142,11 +171,14 @@ angular
           cntEasy += se.rating == 0 ? 1 : 0;
         }
 
+        $scope.numExercisesPerformed = _.unique(performedSeriesExerciseId).length;
+        $scope.totalRestInMinutes = restInSeconds / 60.0;
+        $scope.totalExercisesInMinutes = exerciseInSeconds / 60.0;
         $scope.averageRestDifferenceInSec = restDiff / $scope.selectedTraining.series_executions.length;
         $scope.numberWeightChanges = cntDiffWeight;
-        $scope.averageWeightChanges = sumDiffWeight / cntDiffWeight;
+        $scope.averageWeightChanges = cntDiffWeight == 0 ? 0 : sumDiffWeight / cntDiffWeight;
         $scope.numberRepsChanges = cntDiffReps;
-        $scope.averageRepsChanges = sumDiffReps / cntDiffReps;
+        $scope.averageRepsChanges = cntDiffReps == 0 ? 0 : sumDiffReps / cntDiffReps;
         $scope.numSeriesTooHeavy = cntHeavy;
         $scope.numSeriesTooEasy = cntEasy;
       }

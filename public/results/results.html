@@ -66,15 +66,15 @@
                                     <div class="row">
                                         <div class="col-sm-4 property">
                                             <div class="title">Total</div>
-                                            <div>{{durationInMinutes | number:0}} minutes</div>
+                                            <div><span tooltip="Total duration of the training (in minutes).">{{durationInMinutes | number:0}} min</span></div>
                                         </div>
                                         <div class="col-sm-4 property">
                                             <div class="title">Rest</div>
-                                            <div>13 min</div>
+                                            <div><span tooltip="Total duration of rest (in minutes).">{{totalRestInMinutes | number:0}} min</span></div>
                                         </div>
                                         <div class="col-sm-4 property">
                                             <div class="title">Exercise</div>
-                                            <div>27 min</div>
+                                            <div><span tooltip="Total duration of exercising (in minutes).">{{totalExercisesInMinutes | number:0}} min</span></div>
                                         </div>
                                     </div>
 
@@ -85,11 +85,11 @@
                                     <div class="row">
                                         <div class="col-sm-4 property">
                                             <div class="title">Exercises</div>
-                                            <div>3 of 5</div>
+                                            <div><span tooltip="Number of exercises performed.">{{numExercisesPerformed}} of {{numExercisesPlanned}}</span></div>
                                         </div>
                                         <div class="col-sm-4 property">
                                             <div class="title">Series</div>
-                                            <div>{{performedSeries}} of {{totalSeries}}</div>
+                                            <div><span tooltip="Number of series performed.">{{performedSeries}} of {{totalSeries}}</span></div>
                                         </div>
                                     </div>
 
