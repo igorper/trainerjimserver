@@ -1,15 +1,15 @@
 class TrainingController < ApplicationController
-  
+
   include AjaxHelper
   include TrainingHelper
-  
+
   # Shows the workout selection and building page 
   def workouts
     if !user_signed_in?
       redirect_to welcome_url
     end
   end
-  
+
   # Returns the list of global training templates (provided for all users).
   # 
   # @returns a list of training templates (view: `TrainingHelper.training_view`).
@@ -18,10 +18,10 @@ class TrainingController < ApplicationController
   def templates
     @global_trainings = Training.where(:trainee_id => nil)
     respond_to do |f|
-      f.json {render :json => @global_trainings.to_json(TrainingHelper.training_view)}
+      f.json { render :json => @global_trainings.to_json(TrainingHelper.training_view) }
     end
   end
-  
+
   # @param workout    A JSON `training` object:
   #                   {
   #                     id - the ID of the training this one is based on.
@@ -37,21 +37,21 @@ class TrainingController < ApplicationController
         if existing_training
           if existing_training.common?
             # Save new training based on another one:
-            f.json {render :json => !!save_training(the_workout, current_user.id, existing_training)}
+            f.json { render :json => !!save_training(the_workout, current_user.id, existing_training) }
           else
-            f.json {render :json => !!overwrite_training(the_workout, current_user.id, existing_training)}
+            f.json { render :json => !!overwrite_training(the_workout, current_user.id, existing_training) }
           end
         else
-          f.json {render :json => !!save_training(the_workout, current_user.id)}
+          f.json { render :json => !!save_training(the_workout, current_user.id) }
         end
       end
     else
       respond_to do |f|
-        f.json {ajax_error_i18n :user_not_logged_in}
+        f.json { ajax_error_i18n :user_not_logged_in }
       end
     end
   end
-  
+
   # @param id   The id of the workout to delete. Must be a personal workout of
   #             the logged-in user.
   #
@@ -62,18 +62,18 @@ class TrainingController < ApplicationController
       respond_to do |f|
         if existing_workout
           existing_workout.destroy
-          f.json {render :json => true}
+          f.json { render :json => true }
         else
-          f.json {ajax_error_i18n :no_training_to_delete}
+          f.json { ajax_error_i18n :no_training_to_delete }
         end
       end
     else
       respond_to do |f|
-        f.json {ajax_error_i18n :user_not_logged_in}
+        f.json { ajax_error_i18n :user_not_logged_in }
       end
     end
   end
-  
+
   # Returns the list of the user's own training regimes.
   # 
   # @returns a list of training templates (view: `TrainingHelper.training_view`).
@@ -83,13 +83,13 @@ class TrainingController < ApplicationController
     if user_signed_in?
       @global_trainings = Training.where(:trainee_id => current_user.id)
       respond_to do |f|
-        f.json {render :json => @global_trainings.to_json(TrainingHelper.training_view)}
+        f.json { render :json => @global_trainings.to_json(TrainingHelper.training_view) }
       end
     else
       render :nothing => true, :status => :forbidden
     end
   end
-  
+
   # Returns a full specification of the training template. If the requested
   # training template belongs to a user, it will be checked that the current user
   # is the owner.
@@ -108,23 +108,23 @@ class TrainingController < ApplicationController
         render :nothing => true, :status => :forbidden
       else
         respond_to do |f|
-          f.json {render :json => @training.to_json(TrainingHelper.training_full_view)}
+          f.json { render :json => @training.to_json(TrainingHelper.training_full_view) }
         end
       end
     else
       render :nothing => true, :status => :forbidden
     end
   end
-  
+
   # @returns all currently known exercise types.
   #
   # @formats json
   def exercise_types
     respond_to do |f|
-      f.json {render :json => ExerciseType.all.to_json(TrainingHelper.exercise_type_view)}
+      f.json { render :json => ExerciseType.all.to_json(TrainingHelper.exercise_type_view) }
     end
   end
-  
+
   # Returns an entire training for the user.
   # @method POST, GET
   # @param email 
@@ -137,7 +137,7 @@ class TrainingController < ApplicationController
       ajax_render Training.includes(:exercises, {:exercises => :series}).where(:id => params[:id]).first.to_json(TrainingHelper.training_full_view)
     end
   end
-  
+
   # Lists all trainings for the current user
   # @method POST, GET
   # @param email 
@@ -145,10 +145,13 @@ class TrainingController < ApplicationController
   # @returns JSON a JSON encoded list all trainings
   def m_list
     with_auth_mapi do |user|
-      ajax_render Training.joins(:trainee).where(users: {email: params[:email]}).to_json(TrainingHelper.training_view)
+      ajax_render Training
+                      .joins(:trainee)
+                      .where(users: {email: params[:email]}, historical: false)
+                      .to_json(TrainingHelper.training_view)
     end
   end
-  
+
   # Receives and stores a training measurement session from the mobile app.
   # 
   # @param email
@@ -162,10 +165,10 @@ class TrainingController < ApplicationController
       require 'zip'
       # Get the zip file that is the training data:
       Zip::File.open(params[:trainingData].path) do |zip_file|
-        
+
         training_info = nil
         raw_measurements = nil
-        
+
         # Get all the data from the ZIP
         zip_file.each do |file|
           if file.name == 'training' then
@@ -179,46 +182,46 @@ class TrainingController < ApplicationController
             return
           end
         end
-        
+
         # Check whether we actually got the data:
         if training_info.nil? || raw_measurements.nil? then
           # We didn't get all the data. Throw an error: 
           ajax_error :some_measurement_data_missing
         else
           measurement = Measurement.new(
-            :data => raw_measurements,
-            :trainee => user,
-            :start_time => training_info['start_time'],
-            :end_time => training_info['end_time'],
-            :rating => training_info['rating'],
-            :comment => training_info['comment']
+              :data => raw_measurements,
+              :trainee => user,
+              :start_time => training_info['start_time'],
+              :end_time => training_info['end_time'],
+              :rating => training_info['rating'],
+              :comment => training_info['comment']
           )
           measurement.training_id = training_info['training_id']
           measurement.trainer = user.trainer
-          
+
           training_info['series_executions'].each do |se|
-            
+
             new_se = SeriesExecution.new(
-              :start_timestamp => se['start_timestamp'],
-              :end_timestamp => se['end_timestamp'],
-              :series_id => se['series_id'],
-              :num_repetitions => se['num_repetitions'],
-              :weight => se['weight'],
-              :rest_time => se['rest_time'],
-              :duration_seconds => se['duration'],
-              :rating => se['rating'],
+                :start_timestamp => se['start_timestamp'],
+                :end_timestamp => se['end_timestamp'],
+                :series_id => se['series_id'],
+                :num_repetitions => se['num_repetitions'],
+                :weight => se['weight'],
+                :rest_time => se['rest_time'],
+                :duration_seconds => se['duration'],
+                :rating => se['rating'],
             )
             measurement.series_executions << new_se
           end
-        
+
           measurement.save!
           ajax_render measurement.id
         end
-        
+
       end
     end
   end
-  
+
   def tests
     #    ajax_render clone_training_for_user(Training.find_by_id(1, :include => [:exercises, {:exercises => [:series, :exercise_type]}]), User.find_by_email('matej.urbas@gmail.com')).to_json(TrainingHelper.training_full_view)
     #    ajax_render Training.find_by_id(1, :include => [:exercises, {:exercises => [:series, :exercise_type]}]).to_json(TrainingHelper.training_full_view)
