@@ -15,7 +15,9 @@
     <table class="table table-striped table-hover">
       <thead>
         <tr>
-          <th>Exercise</th>
+          <th>Image</th>
+          <th>Name</th>
+          <th>Short name</th>
           <th>Options</th>
         </tr>
       </thead>
@@ -26,6 +28,9 @@
         </td>
         <td ng-click="onExerciseClicked(exerciseType)" style="cursor: pointer;">
           {{exerciseType.name}}
+        </td>
+        <td ng-click="onExerciseClicked(exerciseType)" style="cursor: pointer;">
+          {{exerciseType.short_name}}
         </td>
         <td>
           <button class="btn btn-success" ng-click="onEditExerciseClicked(exerciseType)">Edit</button>
