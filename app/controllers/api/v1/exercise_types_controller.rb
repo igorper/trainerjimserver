@@ -12,13 +12,17 @@ class Api::V1::ExerciseTypesController < ActionController::Base
     if params[:id]
       @exercise_type = ExerciseType.find_by_id(params[:id])
       @exercise_type.name = params[:name]
+      @exercise_type.short_name = params[:short_name]
       if params[:file]
-        puts("Dat file!")
         @exercise_type.image = params[:file]
       end
       @exercise_type.save
     else
-      @exercise_type = ExerciseType.create(name: params[:name], image: params[:file])
+      @exercise_type = ExerciseType.create(
+          name: params[:name],
+          short_name: params[:short_name],
+          image: params[:file]
+      )
     end
   end
 

@@ -3,7 +3,9 @@
 
     <div class="row">
       <div class="col-sm-12">
-        <input type="text"
+        <label for="name">Name:</label>
+        <input id="name"
+               type="text"
                name="name"
                autofocus="true"
                class="text-input"
@@ -14,7 +16,21 @@
 
     <div class="row">
       <div class="col-sm-12">
-        <ng-file-select class="btn btn-success image-select" ng-model="files">Select image...</ng-file-select>
+        <label for="short_name">Short name (for mobiles):</label>
+        <input id="short_name"
+               type="text"
+               name="short_name"
+               autofocus="true"
+               class="text-input"
+               placeholder="exercise short name"
+               ng-model="exerciseType.short_name"/>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <label for="image">Image:</label>
+        <ng-file-select id="image" class="btn btn-success image-select" ng-model="files">Select image...</ng-file-select>
       </div>
     </div>
 

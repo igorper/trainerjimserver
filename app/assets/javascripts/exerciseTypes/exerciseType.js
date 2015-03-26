@@ -4,7 +4,7 @@ angular
     var ExerciseType = $resource("/api/v1/exercise_types/:id.json");
 
     ExerciseType.upload = function (exerciseType) {
-      var fields = {name: exerciseType.name};
+      var fields = {name: exerciseType.name, short_name: exerciseType.short_name};
       if (exerciseType.id) {
         fields.id = exerciseType.id;
       }
