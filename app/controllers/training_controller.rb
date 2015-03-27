@@ -120,9 +120,8 @@ class TrainingController < ApplicationController
   #
   # @formats json
   def exercise_types
-    respond_to do |f|
-      f.json { render :json => ExerciseType.all.to_json(TrainingHelper.exercise_type_view) }
-    end
+    @exercise_types = ExerciseType.all
+    render 'api/v1/exercise_types/index'
   end
 
   # Returns an entire training for the user.
