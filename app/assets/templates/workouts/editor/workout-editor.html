@@ -32,7 +32,7 @@
             <span class="the-icon icon-list"></span>
             <span class="the-button">Apply to all series</span>
           </button>
-          <button class="delete-btn btn" data-bind="click: $parent.removeExercise">Delete <i
+          <button class="delete-btn btn" ng-click="removeExercise(exercise)">Delete <i
             class="icon-remove-sign"></i></button>
           <button class="btn" data-toggle="collapse" data-bind="attr: { 'data-target': '#exercise-' + $index() }"
                   style="display: none;">Help me <i class="icon-question-sign"></i></button>

@@ -67,11 +67,19 @@ angular.module('workouts.editor', [
     };
 
     $scope.removeSeries = function (exercise) {
-      // there has to be at least one exercise
+      // there has to be at least one series
       if (exercise.series.length > 1) {
         exercise.series.splice(exercise.series.indexOf($scope.getSelectedSeries(exercise)), 1);
       }
     };
+
+    $scope.removeExercise = function(exercise){
+      // at least one exercise has to be left in the training
+      if($scope.training.exercises.length > 1) {
+        var exerciseIdx = $scope.training.exercises.indexOf(exercise);
+        $scope.training.exercises.splice(exerciseIdx, 1);
+      }
+    }
 
     $scope.increaseSeriesRepetitions = function (exercise) {
       $scope.getSelectedSeries(exercise).repeat_count += REPETITIONS_STEP;
