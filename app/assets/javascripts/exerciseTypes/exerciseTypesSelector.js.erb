@@ -16,11 +16,8 @@ exerciseTypesSelector.factory('ExerciseTypesSelector', ['$modal', function ($mod
       controller: ["$scope", '$modalInstance', 'ExerciseType', 'toaster',
         function ($scope, $modalInstance, ExerciseType, toaster) {
 
-          options = angular.extend({
-              onAddExerciseType: function (exerciseType) {
-                $modalInstance.close(exerciseType);
-              }
-            },
+          options = angular.extend(
+            {onAddExerciseType: $modalInstance.close},
             options
           );
 
