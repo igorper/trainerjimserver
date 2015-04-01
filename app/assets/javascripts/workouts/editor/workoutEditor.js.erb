@@ -67,11 +67,38 @@ angular.module('workouts.editor', [
     };
 
     $scope.removeSeries = function (exercise) {
-      // there has to be at least one exercise
+      // there has to be at least one series
       if (exercise.series.length > 1) {
         exercise.series.splice(exercise.series.indexOf($scope.getSelectedSeries(exercise)), 1);
       }
     };
+
+    $scope.removeExercise = function(exercise){
+      // at least one exercise has to be left in the training
+      if($scope.training.exercises.length > 1) {
+        $scope.training.exercises.splice($scope.training.exercises.indexOf(exercise), 1);
+      }
+    }
+
+    $scope.applyToAllSeries = function(exercise){
+      var selectedSeries = exercise.series[exercise.selectedSeries];
+      for(var i=0; i < $scope.training.exercises.length; i++){
+        var loopedExercise = $scope.training.exercises[i];
+        // set selected series information to all series of the same exercise type.
+        // we have to loop all the exercises and not just set series information for
+        // the input exercise, as the same exercise could be added many times to the training plan
+        // (this is particularly common in training plans where different exercises are added in blocks of e.g.
+        // one series of two successive exercise without rest)
+        if(loopedExercise.exercise_type.id == exercise.exercise_type.id) {
+          for(var j=0; j < loopedExercise.series.length; j++){
+            var loopedSeries = loopedExercise.series[j];
+            loopedSeries.repeat_count = selectedSeries.repeat_count;
+            loopedSeries.weight = selectedSeries.weight;
+            loopedSeries.rest_time = selectedSeries.rest_time;
+          }
+        }
+      }
+    }
 
     $scope.increaseSeriesRepetitions = function (exercise) {
       $scope.getSelectedSeries(exercise).repeat_count += REPETITIONS_STEP;

@@ -61,6 +61,12 @@ angular
         $state.go('main.workouts', {id: ''});
       };
 
+      $scope.removeExercise = function(exercise){
+        var i=0;
+        i++;
+        alert(i);
+      }
+
       $scope.onSaveClicked = function (selectedTraining) {
         $scope.selectedTraining.$save(function (training) {
           toaster.pop("success", "Training saved", "Sucessfully saved " + selectedTraining.name);
