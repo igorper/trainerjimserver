@@ -10,40 +10,44 @@ var exerciseTypesSelector = angular.module('exerciseTypes.selector', [
 ]);
 
 exerciseTypesSelector.factory('ExerciseTypesSelector', ['$modal', function ($modal) {
-  return function () {
+  return function (options) {
     return $modal.open({
       templateUrl: '<%= asset_path('exerciseTypes/exercise-type-selector.html') %>',
-      controller: 'SelectExerciseTypeCtrl',
+      controller: ["$scope", '$modalInstance', 'ExerciseType', 'toaster',
+        function ($scope, $modalInstance, ExerciseType, toaster) {
+
+          options = angular.extend(
+            {onAddExerciseType: $modalInstance.close},
+            options
+          );
+
+          $scope.exerciseType = {};
+          $scope.exerciseTypes = [];
+
+          $scope.ok = function () {
+            if ($scope.exerciseType.selected == undefined) {
+              toaster.pop("warning", "Please select an exercise.");
+            } else {
+              options.onAddExerciseType($scope.exerciseType.selected);
+            }
+          };
+
+          $scope.cancel = function () {
+            $modalInstance.dismiss();
+          };
+
+          ExerciseType.query(function (data) {
+            $scope.exerciseTypes = data;
+          }, function (data, status, headers) {
+            toaster.pop("error", "Could not fetch the list of exercises. Try logging in.");
+          });
+        }
+      ],
       backdrop: 'static',
       windowClass: 'modal-window'
     });
   };
 }]);
-
-exerciseTypesSelector.controller("SelectExerciseTypeCtrl", ["$scope", '$modalInstance', 'ExerciseType', 'toaster',
-  function ($scope, $modalInstance, ExerciseType, toaster) {
-    $scope.exerciseType = {};
-    $scope.exerciseTypes = [];
-
-    $scope.ok = function () {
-      if ($scope.exerciseType.selected == undefined) {
-        toaster.pop("warning", "Please select an exercise.");
-      } else {
-        $modalInstance.close($scope.exerciseType.selected);
-      }
-    };
-
-    $scope.cancel = function () {
-      $modalInstance.dismiss();
-    };
-
-    ExerciseType.query(function (data) {
-      $scope.exerciseTypes = data;
-    }, function (data, status, headers) {
-      toaster.pop("error", "Could not fetch the list of exercises. Try logging in.");
-    });
-  }
-]);
 
 exerciseTypesSelector.filter('propsFilter', function () {
   return function (items, props) {

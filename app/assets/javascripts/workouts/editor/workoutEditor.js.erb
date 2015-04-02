@@ -73,24 +73,24 @@ angular.module('workouts.editor', [
       }
     };
 
-    $scope.removeExercise = function(exercise){
+    $scope.removeExercise = function (exercise) {
       // at least one exercise has to be left in the training
-      if($scope.training.exercises.length > 1) {
+      if ($scope.training.exercises.length > 1) {
         $scope.training.exercises.splice($scope.training.exercises.indexOf(exercise), 1);
       }
     }
 
-    $scope.applyToAllSeries = function(exercise){
+    $scope.applyToAllSeries = function (exercise) {
       var selectedSeries = exercise.series[exercise.selectedSeries];
-      for(var i=0; i < $scope.training.exercises.length; i++){
+      for (var i = 0; i < $scope.training.exercises.length; i++) {
         var loopedExercise = $scope.training.exercises[i];
         // set selected series information to all series of the same exercise type.
         // we have to loop all the exercises and not just set series information for
         // the input exercise, as the same exercise could be added many times to the training plan
         // (this is particularly common in training plans where different exercises are added in blocks of e.g.
         // one series of two successive exercise without rest)
-        if(loopedExercise.exercise_type.id == exercise.exercise_type.id) {
-          for(var j=0; j < loopedExercise.series.length; j++){
+        if (loopedExercise.exercise_type.id == exercise.exercise_type.id) {
+          for (var j = 0; j < loopedExercise.series.length; j++) {
             var loopedSeries = loopedExercise.series[j];
             loopedSeries.repeat_count = selectedSeries.repeat_count;
             loopedSeries.weight = selectedSeries.weight;
@@ -128,9 +128,9 @@ angular.module('workouts.editor', [
     };
 
     $scope.editExercise = function () {
-      ExerciseTypesSelector().result.then(function (chosenExerciseType) {
-        $scope.training.exercises.push(
-          {
+      ExerciseTypesSelector({
+        onAddExerciseType: function (chosenExerciseType) {
+          $scope.training.exercises.push({
             duration_after_repetition: null,
             duration_up_repetition: null,
             duration_middle_repetition: null,
@@ -146,6 +146,7 @@ angular.module('workouts.editor', [
             ],
             exercise_type: chosenExerciseType
           });
+        }
       });
     };
   }])
