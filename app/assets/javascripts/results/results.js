@@ -149,7 +149,7 @@ angular
           var se = $scope.selectedTraining.series_executions[i];
           var parentSeries = lookupSeries[se.series_id];
 
-          performedSeriesExerciseId.push(se.exercise_id);
+          performedSeriesExerciseId.push(parentSeries.exercise_id);
 
           // calculate rest and exercise time
           restInSeconds += $scope.selectedTraining.series_executions[i].rest_time;
