@@ -284,8 +284,8 @@ angular
             .attr("stroke", "black");
 
           chart.append("text")
-            .attr("x", 5)
-               .attr("y", 20)
+            .attr("x", 20)
+               .attr("y", 21)
                .text(label)
                .attr("font-size", "20px")
              .attr("font-weigth", "bold")

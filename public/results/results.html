@@ -139,13 +139,13 @@
                                             </div>
                                             <div ng-show="getSeriesExecution(series.id)">
                                                 <div class="col-sm-3 property">
-                                                    <gh-visualization class="chart-label" tooltip="Rest: {{getSeriesExecution(series.id).rest_time}} of {{series.rest_time}} s" expected="series.rest_time" actual="getSeriesExecution(series.id).rest_time" rest="true"></gh-visualization>
+                                                    <gh-visualization class="chart-label" label="getSeriesExecution(series.id).rest_time + ' s'" tooltip="Rest: {{getSeriesExecution(series.id).rest_time}} of {{series.rest_time}} s" expected="series.rest_time" actual="getSeriesExecution(series.id).rest_time" rest="true"></gh-visualization>
                                                 </div>
                                                 <div class="col-sm-3 property">
-                                                    <gh-visualization class="chart-label" tooltip="Reps: {{getSeriesExecution(series.id).num_repetitions}} of {{series.repeat_count}}." expected="series.repeat_count" actual="getSeriesExecution(series.id).num_repetitions" rest="false"></gh-visualization>
+                                                    <gh-visualization class="chart-label" label="getSeriesExecution(series.id).num_repetitions + ' rep'" tooltip="Reps: {{getSeriesExecution(series.id).num_repetitions}} of {{series.repeat_count}}." expected="series.repeat_count" actual="getSeriesExecution(series.id).num_repetitions" rest="false"></gh-visualization>
                                                 </div>
                                                 <div class="col-sm-3 property">
-                                                    <gh-visualization class="chart-label" tooltip="Weight: {{getSeriesExecution(series.id).weight}} of {{series.weight}} kg." expected="series.weight" actual="getSeriesExecution(series.id).weight" rest="false"></gh-visualization>
+                                                    <gh-visualization class="chart-label" label="getSeriesExecution(series.id).weight + ' kg'" tooltip="Weight: {{getSeriesExecution(series.id).weight}} of {{series.weight}} kg." expected="series.weight" actual="getSeriesExecution(series.id).weight" rest="false"></gh-visualization>
                                                 </div>
                                             </div>
                                             <div ng-show="!getSeriesExecution(series.id)">
