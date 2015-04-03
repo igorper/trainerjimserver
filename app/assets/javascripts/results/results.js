@@ -21,7 +21,7 @@ angular
   .controller("ResultsCtrl", ["$scope", "$http", "Measurement", '$compile', 'uiCalendarConfig', '$stateParams', '$state',
     "toaster", "Trainee", "Auth",
     function ($scope, $http, Measurement, $compile, uiCalendarConfig, $stateParams, $state, toaster, Trainee, Auth) {
-      var SMILE_LOOKUP = {0: "bored", 1: "happy", 2: "sweat"};
+      $scope.smileLookup = {0: "bored", 1: "happy", 2: "sweat"};
 
       /**
        * Create a lookup table for planned series. Each series can be looked up by it's id, which is also stored
@@ -132,7 +132,7 @@ angular
       }
 
       $scope.calculateOverview = function() {
-        $scope.trainingRatingIcon = SMILE_LOOKUP[$scope.selectedTraining.rating] + "-on"
+        $scope.trainingRatingIcon = $scope.smileLookup[$scope.selectedTraining.rating] + "-on"
         $scope.durationInMinutes = (new Date($scope.selectedTraining.end_time) - new Date($scope.selectedTraining.start_time)) / (1000 * 60);
 
         $scope.numExercisesPlanned = _.unique(_.pluck(_.pluck($scope.selectedTraining.exercises, 'exercise_type'), 'id')).length;
@@ -211,7 +211,7 @@ angular
         //$compile(element)($scope);
 
         var smileyStatus = $scope.selectedTraining && $scope.selectedTraining.id === event.training.id ? "on" : "off";
-        element.find(".fc-content").addClass(SMILE_LOOKUP[event.training.rating] + "-" + smileyStatus);
+        element.find(".fc-content").addClass($scope.smileLookup[event.training.rating] + "-" + smileyStatus);
         element.find(".fc-content").empty();
 
       };

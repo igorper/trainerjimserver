@@ -135,7 +135,7 @@
 
                                         <div class="row" ng-repeat="series in exercise.series">
                                             <div class="col-sm-3 property">
-                                                <div class="title">#{{$index + 1}}</div>
+                                                <div class="title"><div class="series-rating {{smileLookup[getSeriesExecution(series.id).rating] + '-on'}}"></div></div>
                                             </div>
                                             <div ng-show="getSeriesExecution(series.id)">
                                                 <div class="col-sm-3 property">
