@@ -135,7 +135,9 @@
 
                                         <div class="row" ng-repeat="series in exercise.series">
                                             <div class="col-sm-1 property">
-                                                <div class="title" ng-show="series.execution" ng-class="{skipped: series.execution.order != series.expectedOrder}" tooltip="{{series.execution.order != series.expectedOrder ? 'Changed order' : ''}}">#{{series.execution.order}}</div>
+                                                <div class="title" ng-show="series.execution" ng-class="{skipped: series.execution.order != series.expectedOrder}">
+                                                    <div tooltip="{{series.execution.order != series.expectedOrder ? 'Changed order' : ''}}">#{{series.execution.order}}</div>
+                                                </div>
                                             </div>
                                             <div class="col-sm-2">
                                                 <div class="title"><div class="series-rating {{smileLookup[series.execution.rating] + '-on'}}"></div></div>
