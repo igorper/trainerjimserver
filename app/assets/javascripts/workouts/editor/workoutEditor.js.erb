@@ -78,7 +78,7 @@ angular.module('workouts.editor', [
       if ($scope.training.exercises.length > 1) {
         $scope.training.exercises.splice($scope.training.exercises.indexOf(exercise), 1);
       }
-    }
+    };
 
     $scope.applyToAllSeries = function (exercise) {
       var selectedSeries = exercise.series[exercise.selectedSeries];
@@ -98,7 +98,7 @@ angular.module('workouts.editor', [
           }
         }
       }
-    }
+    };
 
     $scope.increaseSeriesRepetitions = function (exercise) {
       $scope.getSelectedSeries(exercise).repeat_count += REPETITIONS_STEP;
@@ -127,27 +127,27 @@ angular.module('workouts.editor', [
       series.rest_time = series.rest_time < REST_STEP ? 0 : series.rest_time - REST_STEP;
     };
 
-    $scope.editExercise = function () {
-      ExerciseTypesSelector({
-        onAddExerciseType: function (chosenExerciseType) {
-          $scope.training.exercises.push({
-            duration_after_repetition: null,
-            duration_up_repetition: null,
-            duration_middle_repetition: null,
-            duration_down_repetition: null,
-            guidance_type: "manual",
-            selectedSeries: 0,
-            series: [
-              {
-                repeat_count: 0,
-                weight: 0,
-                rest_time: 0
-              }
-            ],
-            exercise_type: chosenExerciseType
-          });
-        }
+    function addExercise(exerciseType) {
+      $scope.training.exercises.push({
+        duration_after_repetition: null,
+        duration_up_repetition: null,
+        duration_middle_repetition: null,
+        duration_down_repetition: null,
+        guidance_type: "manual",
+        selectedSeries: 0,
+        series: [
+          {
+            repeat_count: 0,
+            weight: 0,
+            rest_time: 0
+          }
+        ],
+        exercise_type: exerciseType
       });
+    }
+
+    $scope.editExercise = function () {
+      ExerciseTypesSelector({onAddExerciseType: addExercise});
     };
   }])
 ;
