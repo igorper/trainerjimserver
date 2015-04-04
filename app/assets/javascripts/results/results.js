@@ -31,11 +31,19 @@ angular
        * @returns {Array}
        */
       function getPlannedSeriesLookup(trainingPlan){
+
+        var performedSeriesIds = _.pluck($scope.selectedTraining.series_executions, 'series_id');
+        var expectedOrder = 1;
         var lookup = [];
         for(var i=0; i < trainingPlan.length; i++){
           var exercise = trainingPlan[i];
           for(var j=0; j < exercise.series.length; j++){
             var series = exercise.series[j];
+            // save expected order for executed series (ignoring not executed series
+            // does not mess the results if a particular series was skipped)
+            if(_.contains(performedSeriesIds, series.id)){
+              series.expectedOrder = expectedOrder++;
+            }
             series['exercise_id'] = exercise.exercise_type.id;
             lookup[series.id] = series;
           }
@@ -43,12 +51,7 @@ angular
         return lookup;
       }
 
-      function getSeriesExecutionsLookup(series_executions){
-        return _.object(_.pluck(series_executions, "series_id"), series_executions);
-      }
-
       var lookupSeries = null;
-      var lookupSeriesExecutions = null;
 
       $scope.userDetails = null;
       $scope.selectedTraining = null;
@@ -95,8 +98,6 @@ angular
             $scope.trainingPage = "Overview";
 
             lookupSeries = getPlannedSeriesLookup($scope.selectedTraining.exercises);
-            lookupSeriesExecutions = getSeriesExecutionsLookup($scope.selectedTraining.series_executions);
-
 
             $scope.calculateOverview();
           }, function () {
@@ -148,10 +149,11 @@ angular
         for (var i=0; i < $scope.selectedTraining.series_executions.length; i++){
 
           // encode order into the series execution
-          $scope.selectedTraining.series_executions[i].order = $scope.selectedTraining.series_executions.length - i;
+          $scope.selectedTraining.series_executions[i].order = i + 1;
 
           var se = $scope.selectedTraining.series_executions[i];
           var parentSeries = lookupSeries[se.series_id];
+          parentSeries.execution = se;
 
           performedSeriesExerciseId.push(parentSeries.exercise_id);
 
@@ -185,22 +187,6 @@ angular
         $scope.averageRepsChanges = cntDiffReps == 0 ? 0 : sumDiffReps / cntDiffReps;
         $scope.numSeriesTooHeavy = cntHeavy;
         $scope.numSeriesTooEasy = cntEasy;
-      }
-
-      $scope.getSeriesExecution = function(id){
-        return lookupSeriesExecutions[id];
-      }
-
-      $scope.getRestLabel = function(series){
-        return $scope.getSeriesExecution(series.id) ? $scope.getSeriesExecution(series.id).rest_time + "/" + series.rest_time : "";
-      }
-
-      $scope.getRepsLabel = function(series){
-        return $scope.getSeriesExecution(series.id) ? $scope.getSeriesExecution(series.id).num_repetitions + "/" + series.repeat_count : "";
-      }
-
-      $scope.getWeightLabel = function(series){
-        return $scope.getSeriesExecution(series.id) ? $scope.getSeriesExecution(series.id).weight + "/" + series.weight : "";
       }
 
       $scope.alertOnEventClick = function (date, jsEvent, view) {
