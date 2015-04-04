@@ -146,6 +146,10 @@ angular
         var cntDiffReps = 0, sumDiffReps = 0;
         var cntHeavy = 0, cntEasy = 0;
         for (var i=0; i < $scope.selectedTraining.series_executions.length; i++){
+
+          // encode order into the series execution
+          $scope.selectedTraining.series_executions[i].order = i + 1;
+
           var se = $scope.selectedTraining.series_executions[i];
           var parentSeries = lookupSeries[se.series_id];
 

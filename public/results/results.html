@@ -134,7 +134,10 @@
                                         </div>
 
                                         <div class="row" ng-repeat="series in exercise.series">
-                                            <div class="col-sm-3 property">
+                                            <div class="col-sm-1 property">
+                                                <div class="title" ng-show="getSeriesExecution(series.id)">#{{getSeriesExecution(series.id).order}}</div>
+                                            </div>
+                                            <div class="col-sm-2">
                                                 <div class="title"><div class="series-rating {{smileLookup[getSeriesExecution(series.id).rating] + '-on'}}"></div></div>
                                             </div>
                                             <div ng-show="getSeriesExecution(series.id)">
@@ -148,7 +151,7 @@
                                                     <gh-visualization class="chart-label" label="getSeriesExecution(series.id).weight + ' kg'" tooltip="Weight: {{getSeriesExecution(series.id).weight}} of {{series.weight}} kg." expected="series.weight" actual="getSeriesExecution(series.id).weight" rest="false"></gh-visualization>
                                                 </div>
                                             </div>
-                                            <div ng-show="!getSeriesExecution(series.id)">
+                                            <div ng-hide="getSeriesExecution(series.id)">
                                                 <div class="col-sm-offset-3 col-sm-3 property skipped">
                                                     SKIPPED
                                                 </div>
