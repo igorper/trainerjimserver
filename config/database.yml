@@ -28,6 +28,10 @@ matej-staging:
   <<: *defaults
   database: trainerjim_matej_staging
 
+staging:
+  <<: *defaults
+  database: trainerjim_production
+
 production:
   <<: *defaults
   database: trainerjim_production
