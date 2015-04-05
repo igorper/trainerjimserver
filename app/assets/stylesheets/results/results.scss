@@ -39,6 +39,12 @@ div.page {
       background-size: contain;
     }
 
+
+    .series-rating {
+      @include size(30px, 30px);
+      background-size: contain;
+    }
+
     .bored-on {
       background-image: image_url("SmileyON_Bored.png");
     }

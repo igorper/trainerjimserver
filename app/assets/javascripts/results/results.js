@@ -21,7 +21,7 @@ angular
   .controller("ResultsCtrl", ["$scope", "$http", "Measurement", '$compile', 'uiCalendarConfig', '$stateParams', '$state',
     "toaster", "Trainee", "Auth",
     function ($scope, $http, Measurement, $compile, uiCalendarConfig, $stateParams, $state, toaster, Trainee, Auth) {
-      var SMILE_LOOKUP = {0: "bored", 1: "happy", 2: "sweat"};
+      $scope.smileLookup = {0: "bored", 1: "happy", 2: "sweat"};
 
       /**
        * Create a lookup table for planned series. Each series can be looked up by it's id, which is also stored
@@ -31,11 +31,19 @@ angular
        * @returns {Array}
        */
       function getPlannedSeriesLookup(trainingPlan){
+
+        var performedSeriesIds = _.pluck($scope.selectedTraining.series_executions, 'series_id');
+        var expectedOrder = 1;
         var lookup = [];
         for(var i=0; i < trainingPlan.length; i++){
           var exercise = trainingPlan[i];
           for(var j=0; j < exercise.series.length; j++){
             var series = exercise.series[j];
+            // save expected order for executed series (ignoring not executed series
+            // does not mess the results if a particular series was skipped)
+            if(_.contains(performedSeriesIds, series.id)){
+              series.expectedOrder = expectedOrder++;
+            }
             series['exercise_id'] = exercise.exercise_type.id;
             lookup[series.id] = series;
           }
@@ -43,12 +51,7 @@ angular
         return lookup;
       }
 
-      function getSeriesExecutionsLookup(series_executions){
-        return _.object(_.pluck(series_executions, "series_id"), series_executions);
-      }
-
       var lookupSeries = null;
-      var lookupSeriesExecutions = null;
 
       $scope.userDetails = null;
       $scope.selectedTraining = null;
@@ -95,8 +98,6 @@ angular
             $scope.trainingPage = "Overview";
 
             lookupSeries = getPlannedSeriesLookup($scope.selectedTraining.exercises);
-            lookupSeriesExecutions = getSeriesExecutionsLookup($scope.selectedTraining.series_executions);
-
 
             $scope.calculateOverview();
           }, function () {
@@ -132,7 +133,7 @@ angular
       }
 
       $scope.calculateOverview = function() {
-        $scope.trainingRatingIcon = SMILE_LOOKUP[$scope.selectedTraining.rating] + "-on"
+        $scope.trainingRatingIcon = $scope.smileLookup[$scope.selectedTraining.rating] + "-on"
         $scope.durationInMinutes = (new Date($scope.selectedTraining.end_time) - new Date($scope.selectedTraining.start_time)) / (1000 * 60);
 
         $scope.numExercisesPlanned = _.unique(_.pluck(_.pluck($scope.selectedTraining.exercises, 'exercise_type'), 'id')).length;
@@ -146,10 +147,15 @@ angular
         var cntDiffReps = 0, sumDiffReps = 0;
         var cntHeavy = 0, cntEasy = 0;
         for (var i=0; i < $scope.selectedTraining.series_executions.length; i++){
+
+          // encode order into the series execution
+          $scope.selectedTraining.series_executions[i].order = $scope.selectedTraining.series_executions.length - i;
+
           var se = $scope.selectedTraining.series_executions[i];
           var parentSeries = lookupSeries[se.series_id];
+          parentSeries.execution = se;
 
-          performedSeriesExerciseId.push(se.exercise_id);
+          performedSeriesExerciseId.push(parentSeries.exercise_id);
 
           // calculate rest and exercise time
           restInSeconds += $scope.selectedTraining.series_executions[i].rest_time;
@@ -183,22 +189,6 @@ angular
         $scope.numSeriesTooEasy = cntEasy;
       }
 
-      $scope.getSeriesExecution = function(id){
-        return lookupSeriesExecutions[id];
-      }
-
-      $scope.getRestLabel = function(series){
-        return $scope.getSeriesExecution(series.id) ? $scope.getSeriesExecution(series.id).rest_time + "/" + series.rest_time : "";
-      }
-
-      $scope.getRepsLabel = function(series){
-        return $scope.getSeriesExecution(series.id) ? $scope.getSeriesExecution(series.id).num_repetitions + "/" + series.repeat_count : "";
-      }
-
-      $scope.getWeightLabel = function(series){
-        return $scope.getSeriesExecution(series.id) ? $scope.getSeriesExecution(series.id).weight + "/" + series.weight : "";
-      }
-
       $scope.alertOnEventClick = function (date, jsEvent, view) {
         $state.go('main.results', {id: date.training.id});
       };
@@ -211,7 +201,7 @@ angular
         //$compile(element)($scope);
 
         var smileyStatus = $scope.selectedTraining && $scope.selectedTraining.id === event.training.id ? "on" : "off";
-        element.find(".fc-content").addClass(SMILE_LOOKUP[event.training.rating] + "-" + smileyStatus);
+        element.find(".fc-content").addClass($scope.smileLookup[event.training.rating] + "-" + smileyStatus);
         element.find(".fc-content").empty();
 
       };
@@ -284,8 +274,8 @@ angular
             .attr("stroke", "black");
 
           chart.append("text")
-            .attr("x", 5)
-               .attr("y", 20)
+            .attr("x", 20)
+               .attr("y", 21)
                .text(label)
                .attr("font-size", "20px")
              .attr("font-weigth", "bold")
