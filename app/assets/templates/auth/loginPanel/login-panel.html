@@ -14,9 +14,16 @@
         <login-form on-login-clicked="onLoginClicked(email, password, rememberMe)"></login-form>
 
         <div class="login-link">
+          <span class="swap-panel-link" ng-click="onForgotPasswordClicked($event)">
+            Forgot your password?
+          </span>
+        </div>
+
+        <div class="login-link">
           Not yet a member?
-          <span class="swap-panel-link"
-                ng-click="toggleLoginActive($event)">Click here to register.</span>
+          <span class="swap-panel-link" ng-click="toggleLoginActive($event)">
+            Click here to register.
+          </span>
         </div>
 
       </div>

@@ -45,5 +45,9 @@ angular.module('auth.loginPanel', [
           toaster.pop("error", "Could not sign up.", "Please check your sign up details.");
         });
     };
+
+    $scope.onForgotPasswordClicked = function () {
+      $window.location.href = '<%= Rails.application.routes.url_helpers.new_user_password_path %>';
+    };
   }]);
 
