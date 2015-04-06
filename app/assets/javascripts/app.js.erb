@@ -22,6 +22,7 @@
 //= require auth/signupForm/signupForm
 //= require admin/admin
 //= require userProfile/userProfile
+//= require start/start
 
 angular
   .module('app', [
@@ -33,7 +34,8 @@ angular
     'admin',
     'http-auth-interceptor',
     'auth.loginDialog',
-    'userProfile'
+    'userProfile',
+    'start'
   ])
   .controller('MainBodyCtrl', ['$rootScope', 'LoginDialog', 'Auth', 'authService', function ($rootScope, LoginDialog, Auth, authService) {
     $rootScope.$on('event:auth-loginRequired', function () {
@@ -62,6 +64,6 @@ angular
       });
   }])
   .config(['$urlRouterProvider', function ($urlRouterProvider) {
-    $urlRouterProvider.otherwise("/welcome");
+    $urlRouterProvider.otherwise("/start");
   }])
 ;
