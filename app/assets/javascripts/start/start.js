@@ -12,11 +12,11 @@ angular
         url: "/start",
         views: {
           'body': {
-            controller: function ($scope, $state, Auth) {
+            controller: ['$scope', '$state', 'Auth', function ($scope, $state, Auth) {
               Auth.isLoggedIn(function (response) {
                 $state.go(response.is_logged_in ? 'main.workouts' : 'welcome');
               });
-            },
+            }],
             template: '<div us-spinner spinner-key="start-spinner" spinner-start-active="true"></div>'
           },
           'footer': {template: ""},
