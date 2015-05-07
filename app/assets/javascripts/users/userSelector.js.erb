@@ -1,0 +1,50 @@
+var usersSelector = angular.module('users.selector', [
+  'ui.select',
+  'users',
+  'toaster',
+  'util.propsFilter'
+]);
+
+usersSelector.directive('userSelector', function () {
+  return {
+    restrict: 'E',
+    scope: {'userId': '=userId'},
+    controller: ["$scope", 'User', 'toaster',
+      function ($scope, User, toaster) {
+        $scope.users = [];
+        $scope.user = {};
+
+        $scope.getUserDisplayInfo = function (user) {
+          return !user ? "No user selected" : user.full_name + " (" + user.email + ")";
+        };
+
+        function startWatchingSelectedUser() {
+          $scope.$watch('user.selected', function () {
+            if ($scope.user.selected) {
+              $scope.userId = $scope.user.selected.id;
+            } else {
+              $scope.userId = null;
+            }
+          });
+        }
+
+        function selectUserById(userId) {
+          if (userId) {
+            $scope.user.selected = $scope.users.find(function (user) {
+              return user.id == userId;
+            });
+          }
+        }
+
+        User.query(function (data) {
+          $scope.users = data;
+          selectUserById($scope.userId);
+          startWatchingSelectedUser();
+        }, function () {
+          toaster.pop("error", "Could not fetch the list of users. Try logging in.");
+        });
+      }
+    ],
+    templateUrl: "<%= asset_path('users/user-selector.html') %>"
+  };
+});

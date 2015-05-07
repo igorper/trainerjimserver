@@ -8,6 +8,9 @@ angular
       if (exerciseType.id) {
         fields.id = exerciseType.id;
       }
+      if (exerciseType.owner_id) {
+        fields.owner_id = exerciseType.owner_id;
+      }
       return $upload.upload({
         url: '/api/v1/exercise_types.json',
         file: exerciseType.image,

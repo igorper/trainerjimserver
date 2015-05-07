@@ -18,6 +18,7 @@ Trainerjim::Application.routes.draw do
         post 'set_password'
       end
 
+      resources :users
       resources :trainings
       resources :exercise_types
       resources :trainees do

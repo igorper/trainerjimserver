@@ -1,0 +1,10 @@
+<div class="user-selector">
+  <ui-select ng-model="user.selected" style="min-width: 300px;">
+    <ui-select-match placeholder="Select a user in the list or search for it">
+      {{getUserDisplayInfo($select.selected)}}
+    </ui-select-match>
+    <ui-select-choices repeat="user in users | propsFilter: {full_name: $select.search, email: $select.search}">
+      <div ng-bind-html="getUserDisplayInfo(user) | highlight: $select.search"></div>
+    </ui-select-choices>
+  </ui-select>
+</div>

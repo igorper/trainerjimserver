@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150326082942) do
+ActiveRecord::Schema.define(version: 20150506071540) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -35,7 +35,10 @@ ActiveRecord::Schema.define(version: 20150326082942) do
     t.integer  "image_file_size"
     t.datetime "image_updated_at"
     t.string   "short_name"
+    t.integer  "owner_id"
   end
+
+  add_index "exercise_types", ["owner_id"], name: "index_exercise_types_on_owner_id", using: :btree
 
   create_table "exercises", force: :cascade do |t|
     t.integer  "training_id",                                   null: false
@@ -203,6 +206,7 @@ ActiveRecord::Schema.define(version: 20150326082942) do
 
   add_foreign_key "conversations", "measurements", on_update: :cascade
   add_foreign_key "conversations", "users", column: "sender_id", on_update: :cascade
+  add_foreign_key "exercise_types", "users", column: "owner_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "exercises", "exercise_types", on_update: :cascade, on_delete: :restrict
   add_foreign_key "exercises", "trainings", on_update: :cascade, on_delete: :cascade
   add_foreign_key "i18n_strings", "i18n_keys", on_update: :cascade, on_delete: :cascade

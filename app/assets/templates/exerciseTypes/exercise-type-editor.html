@@ -29,6 +29,13 @@
 
     <div class="row">
       <div class="col-sm-12">
+        <label for="short_name">Owner:</label>
+        <user-selector user-id="exerciseType.owner_id"></user-selector>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
         <label for="image">Image:</label>
         <ng-file-select id="image" class="btn btn-success image-select" ng-model="files">Select image...</ng-file-select>
       </div>
