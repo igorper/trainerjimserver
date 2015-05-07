@@ -1,6 +1,8 @@
 # config valid only for current version of Capistrano
 lock '3.3.5'
 
+server_ip = '52.28.92.104'
+
 set :application, 'trainerjimserver'
 set :repo_url, 'git@bitbucket.org:trainerjim/trainerjimserver.git'
 
@@ -9,11 +11,11 @@ set :rbenv_type, :user
 set :rbenv_ruby, '2.1.5'
 
 # Default server configuration
-role :app, %w{trainerjim@54.93.94.45}
-role :web, %w{trainerjim@54.93.94.45}
-role :db, %w{trainerjim@54.93.94.45}
+role :app, ["trainerjim@#{server_ip}"]
+role :web, ["trainerjim@#{server_ip}"]
+role :db, ["trainerjim@#{server_ip}"]
 
-server '54.93.94.45',
+server server_ip,
        user: 'trainerjim',
        roles: %w{web app db}
 
