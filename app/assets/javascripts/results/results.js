@@ -193,6 +193,10 @@ angular
         $state.go('main.results', {id: date.training.id});
       };
 
+      $scope.isDurationExercise = function(exercise){
+        return exercise.guidance_type === 'duration';
+      }
+
       /* Render Tooltip */
       $scope.eventRender = function (event, element, view) {
         // TODO: tooltip
