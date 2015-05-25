@@ -9,15 +9,9 @@
                                 ng-model="selectedSeries.repeat_count"/>
               </div>
             </td>
-            <td class="plus-minus-btns">
-              <div>
-                <button type="button" class="plus-btn btn" aria-label="Increase Repetitions"
-                        ng-click="increaseSeriesRepetitions()"><span class="glyphicon glyphicon-plus"
-                                                                     aria-hidden="true"></span></button>
-                <button type="button" class="minus-btn btn" aria-label="Decrease Repetitions"
-                        ng-click="decreaseSeriesRepetitions()"><span class="glyphicon glyphicon-minus"
-                                                                     aria-hidden="true"></span></button>
-              </div>
+            <td>
+              <plus-minus-dial on-increment="increaseSeriesRepetitions()"
+                               on-decrement="decreaseSeriesRepetitions()"></plus-minus-dial>
             </td>
           </tr>
         </table>
@@ -29,15 +23,9 @@
               <div>weight: <input class="value" type="number" ng-model="selectedSeries.weight"/> kg
               </div>
             </td>
-            <td class="plus-minus-btns">
-              <div>
-                <button type="button" class="plus-btn btn" aria-label="Increase Weight"
-                        ng-click="increaseSeriesWeight()"><span class="glyphicon glyphicon-plus"
-                                                                aria-hidden="true"></span></button>
-                <button type="button" class="minus-btn btn" aria-label="Decrease Weight"
-                        ng-click="decreaseSeriesWeight()"><span class="glyphicon glyphicon-minus"
-                                                                aria-hidden="true"></span></button>
-              </div>
+            <td>
+              <plus-minus-dial on-increment="increaseSeriesWeight()"
+                               on-decrement="decreaseSeriesWeight()"></plus-minus-dial>
             </td>
           </tr>
         </table>
@@ -49,15 +37,9 @@
               <div>rest: <input class="value" type="number" ng-model="selectedSeries.rest_time"/> s
               </div>
             </td>
-            <td class="plus-minus-btns">
-              <div>
-                <button type="button" class="plus-btn btn" aria-label="Increase Rest"
-                        ng-click="increaseSeriesRest()"><span class="glyphicon glyphicon-plus"
-                                                              aria-hidden="true"></span></button>
-                <button type="button" class="minus-btn btn" aria-label="Decrease Rest"
-                        ng-click="decreaseSeriesRest()"><span class="glyphicon glyphicon-minus"
-                                                              aria-hidden="true"></span></button>
-              </div>
+            <td>
+              <plus-minus-dial on-increment="increaseSeriesRest()"
+                               on-decrement="decreaseSeriesRest()"></plus-minus-dial>
             </td>
           </tr>
         </table>
