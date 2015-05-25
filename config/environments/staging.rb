@@ -4,6 +4,7 @@ Trainerjim::Application.configure do
   config.assets.js_compressor = nil
   config.assets.css_compressor = nil
   config.assets.debug = false
+  config.assets.compile = false
   config.assets.digest = true
 
   config.action_mailer.delivery_method = :file
