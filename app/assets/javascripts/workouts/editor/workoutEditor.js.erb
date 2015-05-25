@@ -1,13 +1,9 @@
-//= require angular/angular
-//= require angular-ui-sortable/sortable
-//= require angular-sanitize/angular-sanitize
 //= require trainings/training
 //= require shared/shared
-//= require angular-animate/angular-animate
-//= require angularjs-toaster/toaster
 //= require exerciseTypes/exerciseTypesSelector
 //= require exerciseTypes/exerciseTypeDetails
 //= require exerciseTypes/exerciseType
+//= require exercises/exerciseEditor
 
 angular.module('workouts.editor', [
   'ui.router',
@@ -20,7 +16,8 @@ angular.module('workouts.editor', [
   'toaster',
   'exerciseTypes.selector',
   'exerciseTypes.exerciseType',
-  'exerciseTypes.exerciseTypeDetails'
+  'exerciseTypes.exerciseTypeDetails',
+  'exercises.editor'
 ])
   .directive('workoutEditor', function () {
     return {
@@ -43,34 +40,12 @@ angular.module('workouts.editor', [
       return ExerciseType.get({id: exerciseTypeId});
     };
 
-    $scope.changeSelectedSeries = function (exercise, seriesIdx) {
-      exercise.selectedSeries = seriesIdx;
-    };
-
     $scope.showExerciseTypeDetails = function (exerciseType) {
       ExerciseTypeDetailsDialog(exerciseType);
     };
 
     $scope.sortableOptions = {
       handle: '.move'
-    };
-
-    $scope.getSelectedSeries = function (exercise) {
-      if (exercise.selectedSeries == undefined) {
-        exercise.selectedSeries = 0;
-      }
-      return exercise.series[exercise.selectedSeries];
-    };
-
-    $scope.addSeries = function (exercise) {
-      exercise.series.push(angular.copy($scope.getSelectedSeries(exercise)));
-    };
-
-    $scope.removeSeries = function (exercise) {
-      // there has to be at least one series
-      if (exercise.series.length > 1) {
-        exercise.series.splice(exercise.series.indexOf($scope.getSelectedSeries(exercise)), 1);
-      }
     };
 
     $scope.removeExercise = function (exercise) {
@@ -98,33 +73,6 @@ angular.module('workouts.editor', [
           }
         }
       }
-    };
-
-    $scope.increaseSeriesRepetitions = function (exercise) {
-      $scope.getSelectedSeries(exercise).repeat_count += REPETITIONS_STEP;
-    };
-
-    $scope.decreaseSeriesRepetitions = function (exercise) {
-      var series = $scope.getSelectedSeries(exercise);
-      series.repeat_count = series.repeat_count < REPETITIONS_STEP ? 0 : series.repeat_count - REPETITIONS_STEP;
-    };
-
-    $scope.increaseSeriesWeight = function (exercise) {
-      $scope.getSelectedSeries(exercise).weight += WEIGHT_STEP;
-    };
-
-    $scope.decreaseSeriesWeight = function (exercise) {
-      var series = $scope.getSelectedSeries(exercise);
-      series.weight = series.weight < WEIGHT_STEP ? 0 : series.weight - WEIGHT_STEP;
-    };
-
-    $scope.increaseSeriesRest = function (exercise) {
-      $scope.getSelectedSeries(exercise).rest_time += REST_STEP;
-    };
-
-    $scope.decreaseSeriesRest = function (exercise) {
-      var series = $scope.getSelectedSeries(exercise);
-      series.rest_time = series.rest_time < REST_STEP ? 0 : series.rest_time - REST_STEP;
     };
 
     function addExercise(exerciseType) {

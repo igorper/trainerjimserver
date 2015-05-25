@@ -249,15 +249,14 @@
         margin: 15px 0;
 
         .exercise {
-          border: 1px solid $borderColor;
-          background-color: $bodyBackgroundColor;
-          margin-bottom: 5px;
+          // TODO: Move these style definitions to `exercises/exerciseEditor.css`
 
           button {
             @include flat-btn;
             padding-right: 4px;
             float: right;
           }
+
           button:hover {
             background-color: $hoverColor;
             color: white;
@@ -326,105 +325,6 @@
               .assign-to-all-series {
                 margin-left: 5px;
               }
-            }
-          }
-
-          .description {
-            $bottom-controls-height: 70px;
-
-            background-color: white;
-            margin: 5px;
-            @include rounded(3px);
-            display: none;
-
-            div.description-container {
-              padding-top: 10px;
-              padding-right: 20px;
-              p.title {
-                @include bold;
-              }
-
-              p.text {
-                text-align: justify;
-              }
-            }
-
-            table.guidance {
-              width: 100%;
-              height: $bottom-controls-height;
-              text-align: right;
-
-              td.text {
-                line-height: $bottom-controls-height;
-              }
-              a.btn {
-                @include flat-btn;
-                vertical-align: middle;
-              }
-              a.active {
-                background-color: #eee;
-              }
-              span.the-name-value {
-                @include light;
-                font-size: 1.5em;
-                text-shadow: 1px 1px white;
-                margin-right: 5px;
-              }
-
-              .dropdown-menu {
-                top: auto;
-                bottom: 75%;
-                cursor: pointer;
-              }
-            }
-
-            table.content {
-              width: 100%;
-              height: $bottom-controls-height;
-
-              td.text {
-                line-height: $bottom-controls-height;
-              }
-              input.value {
-                font-size: 2em;
-                @include sans;
-                @include flat-text-input;
-                height: auto;
-                margin: 0 0 0px 0;
-                background: none;
-                padding: 0px;
-                width: 30px;
-                display: inline-block;
-                vertical-align: baseline;
-              }
-
-              .no-padding {
-                padding: 0px;
-              }
-
-              a.btn {
-                @include flat-btn;
-              }
-              a.active {
-                background-color: #eee;
-              }
-              span.the-name-value {
-                font-size: 20px;
-                text-shadow: 1px 1px white;
-                margin-right: 5px;
-              }
-            }
-            table.content .text {
-              text-align: right;
-            }
-            table.content .text > div {
-              display: inline-block;
-            }
-            td.plus-minus-btns {
-              text-align: center;
-            }
-            .plus-minus-btns {
-              @include plus-minus-btns-mixin;
             }
           }
 
@@ -516,33 +416,7 @@
             }
 
           }
-
-          .exercise-type-description {
-
-            .description-label {
-              font-size: 1.2em;
-              margin-bottom: 5px;
-            }
-
-            .description-show-hide {
-              margin: 5px;
-              padding: 5px;
-              background: white;
-            }
-
-            .description-show-hide {
-              -webkit-transition: all linear 0.5s;
-              transition: all linear 0.5s;
-            }
-
-            .description-show-hide.ng-hide {
-              opacity: 0;
-            }
-          }
         }
-      }
-
-      #delete-confirmation {
       }
 
       .workout-buttons {

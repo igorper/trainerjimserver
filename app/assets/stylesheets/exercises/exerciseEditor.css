@@ -1,0 +1,16 @@
+div.exercise-editor {
+  border: 1px solid #cecece;
+  background-color: #eee;
+  margin-bottom: 5px;
+}
+
+div.exercise-editor .description-label {
+  font-size: 1.2em;
+  margin-bottom: 5px;
+}
+
+div.exercise-editor .description-show-hide {
+  margin: 5px;
+  padding: 5px;
+  background: white;
+}

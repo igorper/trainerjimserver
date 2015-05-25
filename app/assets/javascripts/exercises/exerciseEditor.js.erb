@@ -1,0 +1,64 @@
+var exerciseEditorModule = angular.module('exercises.editor', [
+  'ui.bootstrap',
+  'ngSanitize',
+  'toaster'
+]);
+
+exerciseEditorModule.directive('exerciseEditor', function () {
+  return {
+    restrict: 'E',
+    scope: {
+      exercise: '=exercise',
+      onExerciseRemove: '&onExerciseRemove',
+      onApplyToAllSeries: '&onApplyToAllSeries'
+    },
+    controller: ['$scope', function ($scope) {
+      var REPETITIONS_STEP = 1;
+      var WEIGHT_STEP = 5;
+      var REST_STEP = 5;
+
+      $scope.changeSelectedSeries = function (exercise, seriesIdx) {
+        exercise.selectedSeries = seriesIdx;
+      };
+
+      $scope.getSelectedSeries = function (exercise) {
+        if (exercise.selectedSeries == undefined) {
+          exercise.selectedSeries = 0;
+        }
+        return exercise.series[exercise.selectedSeries];
+      };
+
+      $scope.addSeries = function (exercise) {
+        exercise.series.push(angular.copy($scope.getSelectedSeries(exercise)));
+      };
+
+      $scope.increaseSeriesRepetitions = function (exercise) {
+        $scope.getSelectedSeries(exercise).repeat_count += REPETITIONS_STEP;
+      };
+
+      $scope.decreaseSeriesRepetitions = function (exercise) {
+        var series = $scope.getSelectedSeries(exercise);
+        series.repeat_count = series.repeat_count < REPETITIONS_STEP ? 0 : series.repeat_count - REPETITIONS_STEP;
+      };
+
+      $scope.increaseSeriesWeight = function (exercise) {
+        $scope.getSelectedSeries(exercise).weight += WEIGHT_STEP;
+      };
+
+      $scope.decreaseSeriesWeight = function (exercise) {
+        var series = $scope.getSelectedSeries(exercise);
+        series.weight = series.weight < WEIGHT_STEP ? 0 : series.weight - WEIGHT_STEP;
+      };
+
+      $scope.increaseSeriesRest = function (exercise) {
+        $scope.getSelectedSeries(exercise).rest_time += REST_STEP;
+      };
+
+      $scope.decreaseSeriesRest = function (exercise) {
+        var series = $scope.getSelectedSeries(exercise);
+        series.rest_time = series.rest_time < REST_STEP ? 0 : series.rest_time - REST_STEP;
+      };
+    }],
+    templateUrl: '<%= asset_path('exercises/exercise-editor.html') %>'
+  };
+});
