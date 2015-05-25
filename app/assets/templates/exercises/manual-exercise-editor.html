@@ -1,0 +1,71 @@
+<div class="series-list">
+  <div class="series">
+    <div class="row">
+      <div class="reps col-sm-3 data-field">
+        <table class="content">
+          <tr>
+            <td class="text">
+              <div>reps: <input class="value" type="number"
+                                ng-model="selectedSeries.repeat_count"/>
+              </div>
+            </td>
+            <td class="plus-minus-btns">
+              <div>
+                <button type="button" class="plus-btn btn" aria-label="Increase Repetitions"
+                        ng-click="increaseSeriesRepetitions()"><span class="glyphicon glyphicon-plus"
+                                                                     aria-hidden="true"></span></button>
+                <button type="button" class="minus-btn btn" aria-label="Decrease Repetitions"
+                        ng-click="decreaseSeriesRepetitions()"><span class="glyphicon glyphicon-minus"
+                                                                     aria-hidden="true"></span></button>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="weight col-sm-3 data-field">
+        <table class="content">
+          <tr>
+            <td class="text">
+              <div>weight: <input class="value" type="number" ng-model="selectedSeries.weight"/> kg
+              </div>
+            </td>
+            <td class="plus-minus-btns">
+              <div>
+                <button type="button" class="plus-btn btn" aria-label="Increase Weight"
+                        ng-click="increaseSeriesWeight()"><span class="glyphicon glyphicon-plus"
+                                                                aria-hidden="true"></span></button>
+                <button type="button" class="minus-btn btn" aria-label="Decrease Weight"
+                        ng-click="decreaseSeriesWeight()"><span class="glyphicon glyphicon-minus"
+                                                                aria-hidden="true"></span></button>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="rest col-sm-3 data-field">
+        <table class="content">
+          <tr>
+            <td class="text">
+              <div>rest: <input class="value" type="number" ng-model="selectedSeries.rest_time"/> s
+              </div>
+            </td>
+            <td class="plus-minus-btns">
+              <div>
+                <button type="button" class="plus-btn btn" aria-label="Increase Rest"
+                        ng-click="increaseSeriesRest()"><span class="glyphicon glyphicon-plus"
+                                                              aria-hidden="true"></span></button>
+                <button type="button" class="minus-btn btn" aria-label="Decrease Rest"
+                        ng-click="decreaseSeriesRest()"><span class="glyphicon glyphicon-minus"
+                                                              aria-hidden="true"></span></button>
+              </div>
+            </td>
+          </tr>
+        </table>
+      </div>
+      <div class="col-sm-3">
+        <series-editor series="exercise.series"
+                       on-selected-series-changed="changeSelectedSeries(series)"></series-editor>
+      </div>
+    </div>
+  </div>
+</div>

@@ -29,95 +29,11 @@
 
   <div class="guidance-type-editor" ng-switch="exercise.guidance_type">
     <div ng-switch-when="manual">
-      <div class="series-list">
-        <div class="series">
-          <div class="row">
-            <div class="reps col-sm-3 data-field">
-              <table class="content">
-                <tr>
-                  <td class="text">
-                    <div>reps: <input class="value" type="number"
-                                      ng-model="getSelectedSeries(exercise).repeat_count"/>
-                    </div>
-                  </td>
-                  <td class="plus-minus-btns">
-                    <div>
-                      <button type="button" class="plus-btn btn" aria-label="Increase Repetitions"
-                              ng-click="increaseSeriesRepetitions(exercise)"><span class="glyphicon glyphicon-plus"
-                                                                                   aria-hidden="true"></span></button>
-                      <button type="button" class="minus-btn btn" aria-label="Decrease Repetitions"
-                              ng-click="decreaseSeriesRepetitions(exercise)"><span class="glyphicon glyphicon-minus"
-                                                                                   aria-hidden="true"></span></button>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <div class="weight col-sm-3 data-field">
-              <table class="content">
-                <tr>
-                  <td class="text">
-                    <div>weight: <input class="value" type="number" ng-model="getSelectedSeries(exercise).weight"/> kg
-                    </div>
-                  </td>
-                  <td class="plus-minus-btns">
-                    <div>
-                      <button type="button" class="plus-btn btn" aria-label="Increase Weight"
-                              ng-click="increaseSeriesWeight(exercise)"><span class="glyphicon glyphicon-plus"
-                                                                              aria-hidden="true"></span></button>
-                      <button type="button" class="minus-btn btn" aria-label="Decrease Weight"
-                              ng-click="decreaseSeriesWeight(exercise)"><span class="glyphicon glyphicon-minus"
-                                                                              aria-hidden="true"></span></button>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <div class="rest col-sm-3 data-field">
-              <table class="content">
-                <tr>
-                  <td class="text">
-                    <div>rest: <input class="value" type="number" ng-model="getSelectedSeries(exercise).rest_time"/> s
-                    </div>
-                  </td>
-                  <td class="plus-minus-btns">
-                    <div>
-                      <button type="button" class="plus-btn btn" aria-label="Increase Rest"
-                              ng-click="increaseSeriesRest(exercise)"><span class="glyphicon glyphicon-plus"
-                                                                            aria-hidden="true"></span></button>
-                      <button type="button" class="minus-btn btn" aria-label="Decrease Rest"
-                              ng-click="decreaseSeriesRest(exercise)"><span class="glyphicon glyphicon-minus"
-                                                                            aria-hidden="true"></span></button>
-                    </div>
-                  </td>
-                </tr>
-              </table>
-            </div>
-            <div class="series-list col-sm-2 data-field">
-              <div class="title">Series:</div>
-              <div class="the-list">
-                <div class="the-series label label-default button-behaviour" ng-repeat="s in exercise.series"
-                     ng-class="{selected: $index == exercise.selectedSeries}"
-                     ng-click="changeSelectedSeries(exercise, $index)">{{$index}}
-                </div>
-              </div>
-            </div>
-            <div class="plus-minus-btns col-sm-1">
-              <button type="button" class="plus-btn btn" aria-label="Add Series" ng-click="addSeries(exercise)"><span
-                class="glyphicon glyphicon-plus" aria-hidden="true"></span></button>
-              <button type="button" class="minus-btn btn" aria-label="Remove Series"
-                      ng-click="removeSeries(exercise)">
-                <span class="glyphicon glyphicon-minus" aria-hidden="true"></span></button>
-            </div>
-          </div>
-        </div>
-      </div>
+      <manual-exercise-editor exercise="exercise"></manual-exercise-editor>
     </div>
-
     <div ng-switch-when="duration">
       <duration-exercise-editor exercise="exercise"></duration-exercise-editor>
     </div>
-
   </div>
 
 
