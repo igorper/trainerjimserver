@@ -251,17 +251,6 @@
         .exercise {
           // TODO: Move these style definitions to `exercises/exerciseEditor.css`
 
-          button {
-            @include flat-btn;
-            padding-right: 4px;
-            float: right;
-          }
-
-          button:hover {
-            background-color: $hoverColor;
-            color: white;
-          }
-
           .details {
             .name {
               padding-top: 5px;
@@ -310,7 +299,6 @@
               padding: 5px;
               padding-right: 25px;
               .btn {
-                @include no-rounding;
                 margin-top: 2px;
               }
               .btn i {
@@ -329,7 +317,6 @@
           }
 
           .series-list {
-            padding: 5px 5px 0px 5px;
 
             .series {
               background-color: white;

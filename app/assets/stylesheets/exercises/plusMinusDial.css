@@ -1,0 +1,31 @@
+div.plus-minus-dial .btn {
+  box-shadow: none;
+  background-image: none;
+  border: 0 none;
+  border-radius: 0;
+  display: block;
+  color: white;
+  width: 25px;
+  padding: 3px 6px;
+}
+
+div.plus-minus-dial .btn:hover {
+  color: black;
+}
+
+div.plus-minus-dial .btn.plus-btn {
+  background-color: #1F94D2;
+}
+
+div.plus-minus-dial .btn.plus-btn:hover {
+  background-color: #15658F;
+}
+
+div.plus-minus-dial .btn.minus-btn {
+  background-color: #FBC912;
+  margin-top: 3px;
+}
+
+div.plus-minus-dial .btn.minus-btn:hover {
+  background-color: #BD9503;
+}

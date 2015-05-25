@@ -1,0 +1,13 @@
+var exerciseDialsModule = angular.module('exercises.dials', []);
+
+exerciseDialsModule.directive('plusMinusDial', function () {
+  return {
+    restrict: 'E',
+    transclude: true,
+    scope: {
+      onIncrement: '&onIncrement',
+      onDecrement: '&onDecrement'
+    },
+    templateUrl: '<%= asset_path('exercises/plus-minus-dial.html') %>'
+  };
+});

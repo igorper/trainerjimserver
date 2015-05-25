@@ -5,5 +5,5 @@
 *= require angular-ui-grid/ui-grid
 *= require exerciseTypes/exerciseTypeEditor
 *= require admin/admin
-*= require exercises/exerciseEditor
+*= require_tree ./exercises/
 */

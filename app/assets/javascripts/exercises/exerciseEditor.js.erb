@@ -1,7 +1,8 @@
 var exerciseEditorModule = angular.module('exercises.editor', [
   'ui.bootstrap',
   'ngSanitize',
-  'toaster'
+  'toaster',
+  'exercises.dials'
 ]);
 
 exerciseEditorModule.directive('exerciseEditor', function () {
@@ -16,6 +17,14 @@ exerciseEditorModule.directive('exerciseEditor', function () {
       var REPETITIONS_STEP = 1;
       var WEIGHT_STEP = 5;
       var REST_STEP = 5;
+
+      $scope.setExerciseToManual = function () {
+        $scope.exercise.guidance_type = 'manual';
+      };
+
+      $scope.setExerciseToDuration = function () {
+        $scope.exercise.guidance_type = 'duration';
+      };
 
       $scope.changeSelectedSeries = function (exercise, seriesIdx) {
         exercise.selectedSeries = seriesIdx;
@@ -60,5 +69,55 @@ exerciseEditorModule.directive('exerciseEditor', function () {
       };
     }],
     templateUrl: '<%= asset_path('exercises/exercise-editor.html') %>'
+  };
+});
+
+
+exerciseEditorModule.directive('durationExerciseEditor', function () {
+  return {
+    restrict: 'E',
+    scope: {
+      exercise: '=exercise'
+    },
+    controller: ['$scope', function ($scope) {
+
+      function getSelectedSeriesIndex() {
+        if ($scope.exercise.selectedSeriesIndex == undefined) {
+          $scope.exercise.selectedSeriesIndex = 0;
+        }
+        return $scope.exercise.selectedSeriesIndex;
+      }
+
+      $scope.getSelectedSeries = function () {
+        return $scope.exercise.series[getSelectedSeriesIndex()];
+      };
+
+      $scope.changeSelectedSeries = function (seriesIdx) {
+        $scope.exercise.selectedSeriesIndex = seriesIdx;
+      };
+
+      $scope.addSeries = function () {
+        $scope.exercise.series.push(angular.copy($scope.getSelectedSeries()));
+      };
+
+      $scope.removeSeries = function () {
+        if ($scope.exercise.series.length > 1) {
+          $scope.exercise.series.splice(getSelectedSeriesIndex(), 1);
+          if (getSelectedSeriesIndex() >= $scope.exercise.series.length) {
+            $scope.changeSelectedSeries($scope.exercise.series.length - 1);
+          }
+        }
+      };
+
+      $scope.incrementDuration = function () {
+        $scope.getSelectedSeries().repeat_count += 25;
+      };
+
+      $scope.decrementDuration = function () {
+        $scope.getSelectedSeries().repeat_count -= 25;
+      };
+
+    }],
+    templateUrl: '<%= asset_path('exercises/duration-exercise-editor.html') %>'
   };
 });

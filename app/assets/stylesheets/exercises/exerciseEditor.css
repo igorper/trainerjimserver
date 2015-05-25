@@ -14,3 +14,13 @@ div.exercise-editor .description-show-hide {
   padding: 5px;
   background: white;
 }
+
+div.exercise-editor .guidance-type-editor {
+  padding: 5px 5px 0 5px;
+}
+
+
+div.exercise-editor button.exercise-action {
+  float: right;
+  color: white;
+}

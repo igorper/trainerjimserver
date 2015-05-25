@@ -1,0 +1,55 @@
+div.duration-exercise-editor {
+  background-color: #FFF;
+  margin-bottom: 5px;
+  border-radius: 3px;
+  padding: 5px;
+}
+
+div.duration-exercise-editor .duration-label {
+  padding-right: 5px;
+  text-align: right;
+}
+
+div.duration-exercise-editor .unit-label {
+  padding-right: 5px;
+}
+
+div.duration-exercise-editor .duration-input {
+  padding-right: 5px;
+}
+
+div.duration-exercise-editor input.duration {
+  border: none;
+  font-size: 2em;
+  width: 100%;
+}
+
+div.duration-exercise-editor .series-selector {
+  width: 100%;
+}
+
+div.duration-exercise-editor .series-list {
+  text-align: center;
+  padding-left: 5px;
+}
+
+div.duration-exercise-editor .series-item.selected {
+  box-shadow: 0 0 1px 1px #1f94d2;
+  background-color: white;
+  color: black;
+}
+
+div.duration-exercise-editor .series-item {
+  margin-top: 5px;
+  margin-right: 5px;
+  padding: 3px 5px;
+  display: inline-block;
+}
+
+div.duration-exercise-editor .series-list-label {
+  font-weight: 300;
+  font-size: 13pt;
+  color: #373939;
+  text-align: center;
+  width: 100%;
+}
