@@ -1,0 +1,17 @@
+<table class="series-editor">
+  <tr>
+    <td>
+      <div class="series-list-label">Series:</div>
+      <div class="series-list">
+        <div ng-repeat="s in series"
+             class="series-item label label-default button-behaviour"
+             ng-class="{selected: $index == selectedSeriesIndex}"
+             ng-click="changeSelectedSeries($index)">{{$index}}
+        </div>
+      </div>
+    </td>
+    <td>
+      <plus-minus-dial on-increment="addSeries()"
+                       on-decrement="removeSeries()"></plus-minus-dial>
+    </td>
+  </tr>

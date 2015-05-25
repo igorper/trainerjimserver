@@ -9,7 +9,7 @@
           <td class="duration-input">
             <input class="duration"
                    type="number"
-                   ng-model="getSelectedSeries().repeat_count"/>
+                   ng-model="selectedSeries.repeat_count"/>
           </td>
           <td class="unit-label">
             seconds
@@ -22,24 +22,8 @@
       </table>
     </div>
     <div class="col-sm-6">
-      <table class="series-selector">
-        <tr>
-          <td>
-            <div class="series-list-label">Series:</div>
-            <div class="series-list">
-              <div ng-repeat="s in exercise.series"
-                   class="series-item label label-default button-behaviour"
-                   ng-class="{selected: $index == exercise.selectedSeriesIndex}"
-                   ng-click="changeSelectedSeries($index)">{{$index}}
-              </div>
-            </div>
-          </td>
-          <td class="series-dial">
-            <plus-minus-dial on-increment="addSeries()"
-                             on-decrement="removeSeries()"></plus-minus-dial>
-          </td>
-        </tr>
-      </table>
+      <series-editor series="exercise.series"
+                     on-selected-series-changed="changeSelectedSeries(index)"></series-editor>
     </div>
   </div>
 </div>

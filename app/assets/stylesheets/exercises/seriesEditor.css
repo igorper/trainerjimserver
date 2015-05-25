@@ -1,0 +1,29 @@
+table.series-editor  {
+  width: 100%;
+}
+
+table.series-editor .series-list {
+  text-align: center;
+  padding-left: 5px;
+}
+
+table.series-editor .series-item.selected {
+  box-shadow: 0 0 1px 1px #1f94d2;
+  background-color: white;
+  color: black;
+}
+
+table.series-editor .series-item {
+  margin-top: 5px;
+  margin-right: 5px;
+  padding: 3px 5px;
+  display: inline-block;
+}
+
+table.series-editor .series-list-label {
+  font-weight: 300;
+  font-size: 13pt;
+  color: #373939;
+  text-align: center;
+  width: 100%;
+}
