@@ -1,8 +1,8 @@
 require Rails.root.join('config', 'environments', 'production')
 
 Trainerjim::Application.configure do
-  config.assets.js_compressor = nil
-  config.assets.css_compressor = nil
+  # config.assets.js_compressor = nil
+  # config.assets.css_compressor = nil
   config.assets.debug = true
   config.assets.digest = true
 

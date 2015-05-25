@@ -36,7 +36,7 @@ module Trainerjim
     config.active_support.escape_html_entities_in_json = true
 
     # Version of your assets, change this if you want to expire all your assets
-    config.assets.version = '1.1'
+    config.assets.version = '1.2'
     
     # Add the fonts path
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
