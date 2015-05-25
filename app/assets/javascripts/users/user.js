@@ -1,5 +1,3 @@
-//= require angular-resource/angular-resource
-
 angular
   .module("users", ["ngResource"])
   .factory("User", ["$resource", function ($resource) {

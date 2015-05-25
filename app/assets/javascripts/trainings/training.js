@@ -1,5 +1,3 @@
-//= require angular-resource/angular-resource
-
 angular
   .module("trainings", ["ngResource"])
   .factory("Training", ["$resource", function ($resource) {

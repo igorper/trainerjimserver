@@ -1,5 +1,3 @@
-//= require angular/angular
-
 var utilPropsFilter = angular.module('util.propsFilter', []);
 
 utilPropsFilter.filter('propsFilter', function () {

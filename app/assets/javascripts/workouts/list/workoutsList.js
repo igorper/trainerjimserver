@@ -1,6 +1,4 @@
-//= require angular/angular
 //= require trainings/training
-//= require angularjs-toaster/toaster
 
 angular.module('workouts.list', [
   'trainings',

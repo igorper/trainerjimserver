@@ -1,5 +1,4 @@
 //= require auth/loginPanel/loginPanel
-//= require angular-bootstrap/ui-bootstrap-tpls
 //= require auth/auth
 
 angular

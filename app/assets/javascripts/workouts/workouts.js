@@ -1,7 +1,5 @@
-//= require angular/angular
 //= require trainings/training
 //= require shared/shared
-//= require angularjs-toaster/toaster
 //= require workouts/editor/workoutEditor
 //= require workouts/list/workoutsList
 

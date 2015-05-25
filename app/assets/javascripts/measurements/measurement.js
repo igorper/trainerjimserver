@@ -1,5 +1,3 @@
-//= require angular-resource/angular-resource
-
 angular
   .module("measurements", ["ngResource"])
   .factory("Measurement", ["$resource", function ($resource) {
