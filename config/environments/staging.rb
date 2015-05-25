@@ -3,7 +3,7 @@ require Rails.root.join('config', 'environments', 'production')
 Trainerjim::Application.configure do
   # config.assets.js_compressor = nil
   # config.assets.css_compressor = nil
-  config.assets.debug = true
+  config.assets.debug = false
   config.assets.digest = true
 
   config.action_mailer.delivery_method = :file
