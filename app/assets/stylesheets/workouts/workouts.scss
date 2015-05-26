@@ -222,7 +222,6 @@
               padding-top: 5px;
               padding-left: 5px;
               .move {
-                padding-left: 20px;
                 font-size: 20px;
                 vertical-align: middle;
                 opacity: 0.8;
@@ -235,7 +234,7 @@
                 @include inline;
                 @include middle;
                 margin-right: 5px;
-                padding: 0px 5px;
+                padding: 0 5px;
 
                 .exercise-expand-icon {
                   text-shadow: 1px 1px white;
@@ -258,26 +257,6 @@
                 font-size: 20px;
                 text-shadow: 1px 1px white;
                 margin-right: 5px;
-              }
-            }
-
-            .exercise-top-btns {
-              padding: 5px;
-              padding-right: 25px;
-              .btn {
-                margin-top: 2px;
-              }
-              .btn i {
-                margin-left: 5px;
-              }
-              .delete-btn {
-              }
-              .add-btn:hover {
-                background-color: $hoverColor;
-              }
-
-              .assign-to-all-series {
-                margin-left: 5px;
               }
             }
           }

@@ -4,6 +4,10 @@ div.exercise-editor {
   margin-bottom: 5px;
 }
 
+div.exercise-editor .exercise-top-btns {
+  padding: 5px;
+}
+
 div.exercise-editor .description-label {
   font-size: 1.2em;
   margin-bottom: 5px;
@@ -19,8 +23,14 @@ div.exercise-editor .guidance-type-editor {
   padding: 5px 5px 0 5px;
 }
 
-
 div.exercise-editor button.exercise-action {
-  float: right;
+  margin: 2px;
+}
+
+div.exercise-editor button.white-text {
   color: white;
+}
+
+div.exercise-editor button.delete-btn {
+  margin-left: 25px;
 }
