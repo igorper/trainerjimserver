@@ -2,7 +2,8 @@
 
 var admin = angular.module('admin', [
   'ui.router',
-  'admin.exerciseTypes'
+  'admin.exerciseTypes',
+  'util.links'
 ]);
 
 admin.config(['$stateProvider', function ($stateProvider) {
@@ -10,7 +11,7 @@ admin.config(['$stateProvider', function ($stateProvider) {
       .state('main.admin', {
         url: '/admin',
         templateUrl: "<%= asset_path('admin/admin.html') %>",
-        controller: ['$scope', '$state', function ($scope, $state) {
+        controller: ['$scope', 'isLinkActive', function ($scope, isLinkActive) {
           $scope.sections = [
             {
               name: "Exercise Types",
@@ -18,11 +19,7 @@ admin.config(['$stateProvider', function ($stateProvider) {
             }
           ];
 
-          $scope.isSectionActive = function (section) {
-            return $state.includes(section.link) || !!section.activeUrls && section.activeUrls.some(function (url) {
-                return $state.includes(url);
-              });
-          };
+          $scope.isLinkActive = isLinkActive;
         }]
       })
     ;

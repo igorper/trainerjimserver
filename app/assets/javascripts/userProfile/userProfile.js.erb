@@ -2,14 +2,15 @@
 
 var userProfile = angular.module('userProfile', [
   'ui.router',
-  'userProfile.details'
+  'userProfile.details',
+  'util.links'
 ]);
 
 userProfile.config(['$stateProvider', function ($stateProvider) {
   $stateProvider.state('main.userProfile', {
     url: '/userProfile',
     templateUrl: "<%= asset_path('userProfile/userProfile.html') %>",
-    controller: ['$scope', '$state', function ($scope, $state) {
+    controller: ['$scope', 'isLinkActive', function ($scope, isLinkActive) {
       $scope.sections = [
         {
           name: "Details",
@@ -17,11 +18,7 @@ userProfile.config(['$stateProvider', function ($stateProvider) {
         }
       ];
 
-      $scope.isSectionActive = function (section) {
-        return $state.includes(section.link) || !!section.activeUrls && section.activeUrls.some(function (url) {
-            return $state.includes(url);
-          });
-      };
+      $scope.isLinkActive = isLinkActive;
     }]
   });
 }]);

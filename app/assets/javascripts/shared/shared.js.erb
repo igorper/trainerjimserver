@@ -1,6 +1,11 @@
 //= require auth/auth
 
-angular.module('shared', ['auth', 'ui.router'])
+angular.module('shared', [
+  'auth',
+  'ui.router',
+  'util.filters.isShown',
+  'util.links'
+])
   .directive('header', function () {
     return {
       restrict: 'E',
@@ -8,7 +13,7 @@ angular.module('shared', ['auth', 'ui.router'])
       templateUrl: '<%= asset_path('shared/header-nav-bar.html') %>'
     }
   })
-  .controller('HeaderCtrl', ['$scope', '$state', 'Auth', function ($scope, $state, Auth) {
+  .controller('HeaderCtrl', ['$scope', '$state', 'Auth', 'isLinkActive', function ($scope, $state, Auth, isLinkActive) {
     $scope.topNavigation = [
       {
         name: "Workouts",
@@ -18,7 +23,7 @@ angular.module('shared', ['auth', 'ui.router'])
         name: "Trainees",
         link: "main.trainees",
         activeUrls: ["main.trainee"],
-        showPredicate: function () {
+        isShown: function () {
           return $scope.userDetails && $scope.userDetails.is_trainer;
         }
       },
@@ -29,11 +34,13 @@ angular.module('shared', ['auth', 'ui.router'])
       {
         name: "Administration",
         link: "main.admin.exerciseTypes",
-        showPredicate: function () {
-          return $scope.userDetails && $scope.userDetails.is_admin;
+        isShown: function () {
+          return $scope.userDetails && ($scope.userDetails.is_admin || $scope.userDetails.is_trainer);
         }
       }
     ];
+
+    $scope.isLinkActive = isLinkActive;
 
     function updateUserDetails(userDetails) {
       $scope.userDetails = userDetails;
@@ -44,12 +51,6 @@ angular.module('shared', ['auth', 'ui.router'])
     });
 
     Auth.userDetails(updateUserDetails);
-
-    $scope.isActiveLink = function (topNavigationItem) {
-      return $state.includes(topNavigationItem.link) || !!topNavigationItem.activeUrls && topNavigationItem.activeUrls.some(function (url) {
-          return $state.includes(url);
-        });
-    };
 
     $scope.logout = function () {
       Auth.logout(function () {

@@ -1,6 +1,6 @@
-var utilPropsFilter = angular.module('util.propsFilter', []);
+var propsFilter = angular.module('util.filters.propsFilter', []);
 
-utilPropsFilter.filter('propsFilter', function () {
+propsFilter.filter('propsFilter', function () {
   return function (items, props) {
     var out = [];
 
