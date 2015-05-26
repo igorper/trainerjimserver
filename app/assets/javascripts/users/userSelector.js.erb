@@ -30,7 +30,7 @@ usersSelector.directive('userSelector', function () {
 
         function selectUserById(userId) {
           if (userId) {
-            $scope.user.selected = $scope.users.find(function (user) {
+            $scope.user.selected = _.find($scope.users, function (user) {
               return user.id == userId;
             });
           }
