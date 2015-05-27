@@ -6,6 +6,9 @@ class Api::V1::MeasurementsController < ActionController::Base
         if params[:trainee_id].present?
           # show measurements for a particular trainee
           @measurements = Measurement.includes(:training).where(trainee_id: params[:trainee_id])
+        else
+          # show current user's measurements
+          @measurements = Measurement.includes(:training).where(trainee_id: current_user.id)
         end
       else
         # show current user's measurements
