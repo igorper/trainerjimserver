@@ -7,7 +7,7 @@ class Api::V1::ExerciseTypesController < ActionController::Base
   def index
     when_signed_in do
       if current_user.administrator?
-        @exercise_types = ExerciseType
+        @exercise_types = ExerciseType.all
       else
         @exercise_types = ExerciseType.where("owner_id = :owner_id OR owner_id is NULL",
                                              owner_id: current_user.id)
@@ -25,7 +25,7 @@ class Api::V1::ExerciseTypesController < ActionController::Base
   end
 
   def create
-    when_admin do
+    when_signed_in do
       if params[:id]
         edit_exercise_type
       else
@@ -35,10 +35,39 @@ class Api::V1::ExerciseTypesController < ActionController::Base
   end
 
   def destroy
-    when_admin do
-      @exercise_type = ExerciseType.find_by_id(params[:id])
+    when_signed_in do
+      if current_user.administrator?
+        @exercise_types = ExerciseType.all
+      else
+        @exercise_types = ExerciseType.where(owner_id: current_user.id)
+      end
+      @exercise_type = @exercise_types.find_by(id: params[:id])
       @exercise_type.destroy
     end
+  end
+
+  private
+  def edit_exercise_type
+    if current_user.administrator?
+      @exercise_type = ExerciseType.all
+    else
+      @exercise_type = ExerciseType.where(owner_id: current_user.id)
+    end
+    @exercise_type = @exercise_type.find_by_id(params[:id])
+    if @exercise_type
+      edit_exercise_type_impl(@exercise_type)
+    end
+  end
+
+  private
+  def edit_exercise_type_impl(exercise_type)
+    exercise_type.name = params[:name]
+    @exercise_type.short_name = params[:short_name]
+    @exercise_type.owner_id = params.fetch(:owner_id, current_user.id)
+    if params[:file]
+      @exercise_type.image = params[:file]
+    end
+    @exercise_type.save
   end
 
   private
@@ -47,20 +76,8 @@ class Api::V1::ExerciseTypesController < ActionController::Base
         name: params[:name],
         short_name: params[:short_name],
         image: params[:file],
-        owner_id: params[:owner_id]
+        owner_id: params.fetch(:owner_id, current_user.id)
     )
-  end
-
-  private
-  def edit_exercise_type
-    @exercise_type = ExerciseType.find_by_id(params[:id])
-    @exercise_type.name = params[:name]
-    @exercise_type.short_name = params[:short_name]
-    @exercise_type.owner_id = params[:owner_id]
-    if params[:file]
-      @exercise_type.image = params[:file]
-    end
-    @exercise_type.save
   end
 
 

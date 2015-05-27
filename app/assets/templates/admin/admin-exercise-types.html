@@ -42,8 +42,8 @@
           {{exerciseType.short_name}}
         </td>
         <td>
-          <button class="btn btn-success" ng-click="onEditExerciseClicked(exerciseType)">Edit</button>
-          <button class="btn btn-danger" ng-click="onDeleteExerciseClicked(exerciseType)">Delete</button>
+          <button class="btn btn-success" ng-show="exerciseType.owner_id == userDetails.id || userDetails.is_admin" ng-click="onEditExerciseClicked(exerciseType)">Edit</button>
+          <button class="btn btn-danger" ng-show="exerciseType.owner_id == userDetails.id || userDetails.is_admin" ng-click="onDeleteExerciseClicked(exerciseType)">Delete</button>
         </td>
       </tr>
       </tbody>

@@ -2,10 +2,11 @@
 
 var exerciseTypeEditorModule = angular.module("exerciseTypes.exerciseTypeEditor", [
   'angularFileUpload',
-  'users.selector'
+  'users.selector',
+  'auth'
 ]);
 
-exerciseTypeEditorModule.directive('exerciseTypeEditor', function () {
+exerciseTypeEditorModule.directive('exerciseTypeEditor', ['Auth', function (Auth) {
   return {
     restrict: 'E',
     scope: {
@@ -14,10 +15,12 @@ exerciseTypeEditorModule.directive('exerciseTypeEditor', function () {
     controller: ['$scope', function ($scope) {
       $scope.files = [];
 
+      $scope.userDetails = Auth.userDetails();
+
       $scope.$watch('files', function () {
         $scope.exerciseType.image = $scope.files && $scope.files.length > 0 ? $scope.files[0] : null;
       });
     }],
     templateUrl: "<%= asset_path('exerciseTypes/exercise-type-editor.html') %>"
   };
-});
+}]);

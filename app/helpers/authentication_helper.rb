@@ -4,7 +4,7 @@ module AuthenticationHelper
     if user_signed_in?
       yield
     else
-      render status: :unauthorized
+      render json: {}, status: :unauthorized
     end
   end
 
@@ -12,7 +12,7 @@ module AuthenticationHelper
     if user_signed_in? && current_user.administrator?
       yield
     else
-      render status: :unauthorized
+      render json: {}, status: :unauthorized
     end
   end
   

@@ -13,26 +13,31 @@ admin.config(['$stateProvider', function ($stateProvider) {
     .state('main.admin.exerciseTypes', {
       url: '/exerciseTypes?page',
       templateUrl: "<%= asset_path('admin/admin-exercise-types.html') %>",
-      controller: ['$scope', 'ExerciseType', 'ExerciseTypeEditDialog', 'ExerciseTypeDetailsDialog', 'toaster', '$stateParams', '$state', function ($scope, ExerciseType, ExerciseTypeEditDialog, ExerciseTypeDetailsDialog, toaster, $stateParams, $state) {
+      controller: ['$scope', 'ExerciseType', 'ExerciseTypeEditDialog', 'ExerciseTypeDetailsDialog', 'toaster', '$stateParams', '$state', 'Auth', function ($scope, ExerciseType, ExerciseTypeEditDialog, ExerciseTypeDetailsDialog, toaster, $stateParams, $state, Auth) {
 
+        $scope.userDetails = Auth.userDetails();
 
         $scope.changePage = function () {
-            $state.go('main.admin.exerciseTypes', {page: $scope.currentPage});
+          $state.go('main.admin.exerciseTypes', {page: $scope.currentPage});
         };
 
         function getCurrentPage() {
           return $stateParams.page == undefined ? 1 : parseInt($stateParams.page);
         }
 
-        $scope.paginationInfo = ExerciseType.paginationInfo(function (data) {
-          // NOTE: we update current page here because the paginator forcefully updates it to '1' before the
-          // paginationInfo promise is fulfilled. This then forces a changePage.
-          $scope.currentPage = getCurrentPage();
-        });
+        function refreshPaginationInfo() {
+          $scope.paginationInfo = ExerciseType.paginationInfo(function (data) {
+            // NOTE: we update current page here because the paginator forcefully updates it to '1' before the
+            // paginationInfo promise is fulfilled. This then forces a changePage.
+            $scope.currentPage = getCurrentPage();
+          });
+        }
 
         function refreshExerciseTypes() {
           $scope.exerciseTypes = ExerciseType.query({page: getCurrentPage()});
+          refreshPaginationInfo();
         }
+
 
         refreshExerciseTypes();
 
@@ -54,7 +59,7 @@ admin.config(['$stateProvider', function ($stateProvider) {
         $scope.onExerciseClicked = ExerciseTypeDetailsDialog;
 
         $scope.onEditExerciseClicked = function (exerciseType) {
-          ExerciseTypeEditDialog({exerciseType: exerciseType, uploadPromise: uploadExerciseType});
+          ExerciseTypeEditDialog({exerciseType: angular.copy(exerciseType), uploadPromise: uploadExerciseType});
         };
 
         $scope.onDeleteExerciseClicked = function (exerciseType) {
