@@ -1,7 +1,11 @@
 angular
   .module("exerciseTypes.exerciseType", ["ngResource"])
   .factory("ExerciseType", ["$resource", '$upload', function ($resource, $upload) {
-    var ExerciseType = $resource("/api/v1/exercise_types/:id.json");
+    var ExerciseType = $resource(
+      "/api/v1/exercise_types/:id.json",
+      {},
+      {paginationInfo: {method: 'GET', params: {mode: 'paginationInfo'}}}
+    );
 
     ExerciseType.upload = function (exerciseType) {
       var fields = {name: exerciseType.name, short_name: exerciseType.short_name};

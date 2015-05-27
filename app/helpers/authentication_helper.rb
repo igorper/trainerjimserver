@@ -1,4 +1,20 @@
 module AuthenticationHelper
+
+  def when_signed_in
+    if user_signed_in?
+      yield
+    else
+      render status: :unauthorized
+    end
+  end
+
+  def when_admin
+    if user_signed_in? && current_user.administrator?
+      yield
+    else
+      render status: :unauthorized
+    end
+  end
   
   ##############################################################################
   ## MAPI AUTHENTICATION

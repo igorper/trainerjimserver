@@ -1,15 +1,22 @@
 class Api::V1::ExerciseTypesController < ActionController::Base
 
+  include AuthenticationHelper
+
+  EXERCISE_TYPES_PER_PAGE = 25
+
   def index
-    if user_signed_in?
+    when_signed_in do
       if current_user.administrator?
-        @exercise_types = ExerciseType.all
+        @exercise_types = ExerciseType
       else
         @exercise_types = ExerciseType.where("owner_id = :owner_id OR owner_id is NULL",
                                              owner_id: current_user.id)
       end
-    else
-      render status: :unauthorized
+      @exercise_types = @exercise_types.page(params[:page]).per(EXERCISE_TYPES_PER_PAGE)
+      if params[:mode] == 'paginationInfo'
+        render json: {total_items: @exercise_types.total_count, items_per_page: EXERCISE_TYPES_PER_PAGE}
+        return
+      end
     end
   end
 
@@ -18,23 +25,19 @@ class Api::V1::ExerciseTypesController < ActionController::Base
   end
 
   def create
-    if user_signed_in? && current_user.administrator?
+    when_admin do
       if params[:id]
         edit_exercise_type
-        return
+      else
+        create_new_exercise_type
       end
-      create_new_exercise_type
-      return
     end
-    render status: :unauthorized
   end
 
   def destroy
-    if user_signed_in? && current_user.administrator?
+    when_admin do
       @exercise_type = ExerciseType.find_by_id(params[:id])
       @exercise_type.destroy
-    else
-      render status: :unauthorized
     end
   end
 
