@@ -4,7 +4,7 @@ angular
     var ExerciseType = $resource(
       "/api/v1/exercise_types/:id.json",
       {},
-      {paginationInfo: {method: 'GET', params: {mode: 'paginationInfo'}}}
+      {paginationInfo: {method: 'GET', params: {pagination_info: true}}}
     );
 
     ExerciseType.upload = function (exerciseType) {
