@@ -20,7 +20,7 @@ angular
   .controller("ResultsCtrl", ["$scope", "$http", "Measurement", '$compile', 'uiCalendarConfig', '$stateParams', '$state',
     "toaster", "Trainee", "Auth",
     function ($scope, $http, Measurement, $compile, uiCalendarConfig, $stateParams, $state, toaster, Trainee, Auth) {
-      $scope.smileLookup = {0: "bored", 1: "happy", 2: "sweat"};
+      $scope.smileLookup = {0: "sweat", 1: "happy", 2: "bored"};
 
       /**
        * Create a lookup table for planned series. Each series can be looked up by it's id, which is also stored
