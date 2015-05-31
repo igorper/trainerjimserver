@@ -10,15 +10,14 @@
 */
 
 @media (max-width: 768px) {
-  div.top-jim-box > div.row > div {
-    padding-left: 0;
-    padding-right: 0;
+  div.top-jim-box {
+    background-color: white;
   }
 
   div.top-jim-box div.jim-box {
     margin-top: 0;
     border: none;
-    padding: 10px 5px;
+    padding: 0 0;
   }
 }
 
