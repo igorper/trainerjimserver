@@ -24,12 +24,12 @@ exerciseTypeDetailsModule.factory('ExerciseTypeDetailsDialog', ['$modal', functi
       backdrop: 'static',
       windowClass: 'modal-window',
       size: 'lg',
-      controller: ['$scope', '$modalInstance', 'ExerciseType',
-        function ($scope, $modalInstance, ExerciseType) {
+      controller: ['$scope', 'ExerciseType',
+        function ($scope, ExerciseType) {
           $scope.exerciseType = ExerciseType.get({id: exerciseType.id});
 
           $scope.onCloseClicked = function () {
-            $modalInstance.dismiss();
+            $scope.$dismiss();
           };
         }
       ]

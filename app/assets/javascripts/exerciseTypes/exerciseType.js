@@ -1,6 +1,6 @@
 angular
-  .module("exerciseTypes.exerciseType", ["ngResource"])
-  .factory("ExerciseType", ["$resource", '$upload', function ($resource, $upload) {
+  .module("exerciseTypes.exerciseType", ["ngResource", 'ngFileUpload'])
+  .factory("ExerciseType", ["$resource", 'Upload', function ($resource, Upload) {
     var ExerciseType = $resource(
       "/api/v1/exercise_types/:id.json",
       {},
@@ -15,7 +15,7 @@ angular
       if (exerciseType.owner_id) {
         fields.owner_id = exerciseType.owner_id;
       }
-      return $upload.upload({
+      return Upload.upload({
         url: '/api/v1/exercise_types.json',
         file: exerciseType.image,
         fields: fields

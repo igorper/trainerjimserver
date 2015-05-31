@@ -1,5 +1,5 @@
 var takePhoto = angular.module("photos.takePhoto", [
-  'angularFileUpload'
+  'ngFileUpload'
 ]);
 
 takePhoto.directive('takePhoto', function () {
@@ -9,6 +9,9 @@ takePhoto.directive('takePhoto', function () {
       'onPhotoSelected': '&'
     },
     controller: ['$scope', function ($scope) {
+      $scope.photoChanged = function () {
+
+      };
       $scope.$watch('photo', function (photo) {
         $scope.onPhotoSelected({photo: photo});
       });
