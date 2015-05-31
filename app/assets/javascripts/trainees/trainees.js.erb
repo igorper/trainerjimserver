@@ -1,14 +1,7 @@
-//= require shared/shared
-//= require trainings/training
-//= require workouts/selector/workoutSelector
-//= require exerciseTypes/exerciseTypeEditor
-
 angular.module('trainees', [
   'ui.router',
   'ui.bootstrap',
   'shared',
-  'ui.grid',
-  'ui.grid.cellNav',
   'trainings',
   'workouts.selector',
   'trainees.traineeThumb',
@@ -45,43 +38,24 @@ angular.module('trainees', [
         }
       });
   }])
-  .controller("TraineesCtrl", ['$scope', '$state', 'Trainee', 'toaster', 'uiGridConstants',
-    function ($scope, $state, Trainee, toaster, uiGridConstants) {
+  .controller("TraineesCtrl", ['$scope', '$state', 'Trainee', 'toaster',
+    function ($scope, $state, Trainee, toaster) {
 
       $scope.searchFilter = "";
 
-      $scope.traineesGridConfig = {
-        enableFiltering: true,
-        columnDefs: [
-          {name: 'full_name', enableSorting: true, filter: {condition: uiGridConstants.filter.CONTAINS}},
-          {name: 'email', enableSorting: true, filter: {condition: uiGridConstants.filter.CONTAINS}},
-          {name: 'id', visible: false}
-        ],
-        onRegisterApi: function (gridApi) {
-          $scope.traineesGridApi = gridApi;
-          gridApi.cellNav.on.navigate($scope, function (newRowCol, oldRowCol) {
-            $state.go('main.trainee.training', {traineeId: newRowCol.row.entity.id, trainingId: ''});
-          });
-        }
-      };
-
-      function refreshTraineesList() {
-        Trainee.query(function (trainees) {
-          $scope.traineesGridConfig.data = trainees;
-        }, function () {
-          toaster.pop("error", "Trainees listing", "Could get the list of trainees. Try logging in again.");
-        });
-      }
+      $scope.trainees = Trainee.query(function () {
+      }, function () {
+        toaster.pop("error", "Trainees listing", "Could not fetch the list of trainees. Try logging in again.");
+      });
 
       $scope.onTraineeClicked = function (trainee) {
         $state.go('main.trainee.training', {traineeId: trainee.id, trainingId: ''});
       };
 
-      refreshTraineesList();
     }
   ])
-  .controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams', 'toaster', 'Training', 'uiGridConstants', 'TraineeTraining', 'WorkoutSelector', 'TraineeTrainingUtils',
-    function ($scope, $state, Trainee, $stateParams, toaster, Training, uiGridConstants, TraineeTraining, WorkoutSelector, TraineeTrainingUtils) {
+  .controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams', 'toaster', 'TraineeTraining', 'WorkoutSelector', 'TraineeTrainingUtils',
+    function ($scope, $state, Trainee, $stateParams, toaster, TraineeTraining, WorkoutSelector, TraineeTrainingUtils) {
       $scope.traineeWorkouts = [];
       $scope.selectedTraining = [];
 

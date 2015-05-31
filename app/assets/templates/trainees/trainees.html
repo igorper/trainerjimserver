@@ -25,7 +25,7 @@
           <div class="col-sm-12">
             <div class="thumbs-grid">
               <div class="thumb"
-                   ng-repeat="trainee in traineesGridConfig.data | propsFilter: {full_name: searchFilter, email: searchFilter} | orderBy:'full_name'  ">
+                   ng-repeat="trainee in trainees | propsFilter: {full_name: searchFilter, email: searchFilter} | orderBy:'full_name'  ">
                 <trainee-thumb trainee="trainee" on-trainee-clicked="onTraineeClicked(trainee)"></trainee-thumb>
               </div>
             </div>
