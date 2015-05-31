@@ -3,8 +3,22 @@
 *= require angularjs-toaster/toaster
 *= require fullcalendar/dist/fullcalendar
 *= require angular-ui-grid/ui-grid
-*= require exerciseTypes/exerciseTypeEditor
-*= require admin/admin
+*= require_tree ./exerciseTypes/
+*= require_tree ./admin/
 *= require_tree ./exercises/
 *= require_tree ./trainees/
 */
+
+@media (max-width: 768px) {
+  div.top-jim-box > div.row > div {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  div.top-jim-box div.jim-box {
+    margin-top: 0;
+    border: none;
+    padding: 10px 5px;
+  }
+}
+

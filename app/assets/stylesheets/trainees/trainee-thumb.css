@@ -1,5 +1,5 @@
 div.trainee-thumb {
-  width: 350px;
+  width: 320px;
   -webkit-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.5);
   -moz-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.5);
   box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.5);
@@ -25,7 +25,7 @@ div.trainee-thumb .image {
 
 div.trainee-thumb .image img {
   max-height: 190px;
-  max-width: 340px;
+  max-width: 320px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -38,10 +38,10 @@ div.trainee-thumb:hover .image {
 
 div.trainee-thumb .details {
   height: 60px;
-  width: 100%;
   background-color: #fafafa;
   padding: 3px 5px;
   border-top: 1px solid white;
+  position: relative;
 }
 
 div.trainee-thumb:hover .details {
@@ -49,8 +49,10 @@ div.trainee-thumb:hover .details {
 }
 
 div.trainee-thumb .details .name-email {
-  float: left;
-  width: 280px;
+  width: 250px;
+  position: absolute;
+  top: 50%;
+  transform: translate(0, -50%);
 }
 
 div.trainee-thumb .details .name {
@@ -62,9 +64,10 @@ div.trainee-thumb .details .email {
 }
 
 div.trainee-thumb .details .take-photo {
-  position: relative;
-  top: 8px;
+  position: absolute;
+  top: 50%;
+  right: 0;
+  transform: translate(-5px, -50%);
   width: 60px;
-  float: right;
   color: white;
 }

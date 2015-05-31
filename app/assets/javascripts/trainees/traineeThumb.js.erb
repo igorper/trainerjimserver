@@ -1,4 +1,6 @@
-var traineeThumbModule = angular.module('trainees.traineeThumb', []);
+var traineeThumbModule = angular.module('trainees.traineeThumb', [
+  'photos.takePhotoDialog'
+]);
 
 traineeThumbModule.directive('traineeThumb', function () {
   return {
@@ -7,9 +9,9 @@ traineeThumbModule.directive('traineeThumb', function () {
       'trainee': '=',
       'onTraineeClicked': '&'
     },
-    controller: ['$scope', function ($scope) {
+    controller: ['$scope', 'TakePhotoDialog', function ($scope, TakePhotoDialog) {
       $scope.onTakePhoto = function () {
-        console.log("Take photo!");
+        TakePhotoDialog();
       };
     }],
     templateUrl: "<%= asset_path('trainees/trainee-thumb.html') %>"

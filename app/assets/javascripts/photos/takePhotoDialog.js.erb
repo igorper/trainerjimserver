@@ -1,0 +1,28 @@
+var takePhotoDialog = angular.module("photos.takePhotoDialog", [
+  'photos.takePhoto'
+]);
+
+takePhotoDialog.factory('TakePhotoDialog', ['$modal', function ($modal) {
+  return function () {
+    return $modal.open({
+      templateUrl: '<%= asset_path('photos/take-photo-dialog.html') %>',
+      backdrop: 'static',
+      windowClass: 'modal-window',
+      controller: ['$scope', '$modalInstance',
+        function ($scope, $modalInstance) {
+          $scope.onOkayClicked = function () {
+            $modalInstance.close("IMAGE!");
+          };
+
+          $scope.onCancelClicked = function () {
+            $modalInstance.dismiss();
+          };
+
+          $scope.onPhotoSelected = function (photo) {
+            console.log("Photo selected:", photo);
+          };
+        }
+      ]
+    });
+  };
+}]);

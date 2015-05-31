@@ -1,0 +1,18 @@
+var takePhoto = angular.module("photos.takePhoto", [
+  'angularFileUpload'
+]);
+
+takePhoto.directive('takePhoto', function () {
+  return {
+    restrict: 'E',
+    scope: {
+      'onPhotoSelected': '&'
+    },
+    controller: ['$scope', function ($scope) {
+      $scope.$watch('photo', function (photo) {
+        $scope.onPhotoSelected({photo: photo});
+      });
+    }],
+    templateUrl: "<%= asset_path('photos/take-photo.html') %>"
+  };
+});
