@@ -1,1 +1,1 @@
-json.(@trainee, :id, :full_name, :email)
+json.partial! 'api/v1/trainees/metadata', trainee: @trainee

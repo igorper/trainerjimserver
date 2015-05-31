@@ -32,6 +32,9 @@ class User < ActiveRecord::Base
   has_many :trainees, class_name: :User, foreign_key: :trainer_id
   has_and_belongs_to_many :roles
 
+  has_attached_file :photo, styles: { large: "1400x900>", medium: "300x200>" }, default_url: "/images/user-photos/:style/missing.png"
+  validates_attachment_content_type :photo, content_type: /\Aimage\/.*\Z/
+
   def display_name
     if self.full_name.blank?
       require 'mail_utils'

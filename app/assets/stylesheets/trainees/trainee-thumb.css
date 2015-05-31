@@ -15,10 +15,21 @@ div.trainee-thumb:hover {
 }
 
 div.trainee-thumb .image {
-  height: 0px;
+  height: 200px;
   width: 100%;
   border-bottom: 1px solid #ccc;
   background-color: white;
+  padding: 5px;
+  position: relative;
+}
+
+div.trainee-thumb .image img {
+  max-height: 190px;
+  max-width: 340px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 
 div.trainee-thumb:hover .image {
