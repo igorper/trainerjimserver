@@ -1,0 +1,29 @@
+div.take-photo .photo-drop {
+  border: 1px dashed #ccc;
+  padding: 10px;
+}
+
+div.take-photo .no-photo-label {
+  height: 100px;
+  position: relative;
+}
+
+div.take-photo .no-photo-label > div {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+div.take-photo .selected-photos {
+  text-align: center;
+}
+
+div.take-photo .selected-photos .photo-caption {
+  font-size: 1.3em;
+}
+
+div.take-photo .selected-photos .photo {
+  max-width: 300px;
+  max-height: 300px;
+}

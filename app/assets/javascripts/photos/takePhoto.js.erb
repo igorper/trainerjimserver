@@ -6,15 +6,12 @@ takePhoto.directive('takePhoto', function () {
   return {
     restrict: 'E',
     scope: {
-      'onPhotoSelected': '&'
+      'photos': '='
     },
     controller: ['$scope', function ($scope) {
-      $scope.photoChanged = function () {
-
-      };
-      $scope.$watch('photo', function (photo) {
-        $scope.onPhotoSelected({photo: photo});
-      });
+      $scope.anyPhotosSelected = function () {
+        return !$scope.photos || $scope.photos.length == 0;
+      }
     }],
     templateUrl: "<%= asset_path('photos/take-photo.html') %>"
   };

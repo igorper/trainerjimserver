@@ -1,12 +1,32 @@
-<div class="take-photo row">
-  <div class="col-sm-12">
-    <div class="form-group">
-      <label for="photo">Choose a photo:</label>
-      <input class="form-control"
-             type="file"
-             id="photo"
-             placeholder="choose a photo"
-             ng-model="photo"/>
+<div class="take-photo">
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <ngf-drop id="photo" ng-model="photos" ngf-accept="'image/*'">
+          <div class="photo-drop">
+            <div ng-if="anyPhotosSelected()" class="no-photo-label">
+              <div class="label label-info">Drop the photo here...</div>
+            </div>
+            <div ng-if="!anyPhotosSelected()" class="selected-photos">
+              <div ng-repeat="photo in photos">
+                <div class="photo-caption">Chosen photo: {{photo.name}}</div>
+                <img class="photo" ngf-src="photo" alt="Photo to upload"/>
+              </div>
+            </div>
+          </div>
+        </ngf-drop>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="form-group">
+        <ngf-select id="photo" class="btn btn-success pull-right" ng-model="photos" ngf-accept="'image/*'">
+          Take a photo...
+          <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+        </ngf-select>
+      </div>
     </div>
   </div>
 </div>

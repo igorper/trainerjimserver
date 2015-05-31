@@ -11,7 +11,9 @@ traineeThumbModule.directive('traineeThumb', function () {
     },
     controller: ['$scope', 'TakePhotoDialog', function ($scope, TakePhotoDialog) {
       $scope.onTakePhoto = function () {
-        TakePhotoDialog();
+        TakePhotoDialog().result.then(function (photos) {
+          console.log("Got photos:", photos);
+        });
       };
     }],
     templateUrl: "<%= asset_path('trainees/trainee-thumb.html') %>"

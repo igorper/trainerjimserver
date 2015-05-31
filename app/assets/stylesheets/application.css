@@ -7,6 +7,7 @@
 *= require_tree ./admin/
 *= require_tree ./exercises/
 *= require_tree ./trainees/
+*= require_tree ./photos/
 */
 
 @media (max-width: 768px) {

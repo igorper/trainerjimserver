@@ -5,12 +5,12 @@
   </div>
 
   <div class="modal-body">
-    <take-photo on-photo-selected="onPhotoSelected(photo)"></take-photo>
+    <take-photo photos="photos"></take-photo>
   </div>
 
   <div class="modal-footer">
-    <button class="btn btn-primary" ng-click="onOkayClicked()">Okay</button>
-    <button class="btn btn-warning" ng-click="onCancelClicked()">Cancel</button>
+    <button class="btn btn-primary" ng-click="$close(photos)">Okay</button>
+    <button class="btn btn-warning" ng-click="$dismiss()">Cancel</button>
   </div>
 
 </div>
