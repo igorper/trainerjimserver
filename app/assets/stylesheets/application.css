@@ -6,4 +6,5 @@
 *= require exerciseTypes/exerciseTypeEditor
 *= require admin/admin
 *= require_tree ./exercises/
+*= require_tree ./trainees/
 */

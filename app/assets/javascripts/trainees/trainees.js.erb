@@ -11,6 +11,7 @@ angular.module('trainees', [
   'ui.grid.cellNav',
   'trainings',
   'workouts.selector',
+  'trainees.traineeThumb',
   'exerciseTypes.exerciseTypeEditor'
 ])
   .factory("Trainee", ["$resource", function ($resource) {
@@ -47,6 +48,8 @@ angular.module('trainees', [
   .controller("TraineesCtrl", ['$scope', '$state', 'Trainee', 'toaster', 'uiGridConstants',
     function ($scope, $state, Trainee, toaster, uiGridConstants) {
 
+      $scope.searchFilter = "";
+
       $scope.traineesGridConfig = {
         enableFiltering: true,
         columnDefs: [
@@ -69,6 +72,10 @@ angular.module('trainees', [
           toaster.pop("error", "Trainees listing", "Could get the list of trainees. Try logging in again.");
         });
       }
+
+      $scope.onTraineeClicked = function (trainee) {
+        $state.go('main.trainee.training', {traineeId: trainee.id, trainingId: ''});
+      };
 
       refreshTraineesList();
     }

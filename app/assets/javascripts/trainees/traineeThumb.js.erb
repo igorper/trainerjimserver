@@ -1,0 +1,17 @@
+var traineeThumbModule = angular.module('trainees.traineeThumb', []);
+
+traineeThumbModule.directive('traineeThumb', function () {
+  return {
+    restrict: 'E',
+    scope: {
+      'trainee': '=',
+      'onTraineeClicked': '&'
+    },
+    controller: ['$scope', function ($scope) {
+      $scope.onTakePhoto = function () {
+        console.log("Take photo!");
+      };
+    }],
+    templateUrl: "<%= asset_path('trainees/trainee-thumb.html') %>"
+  };
+});

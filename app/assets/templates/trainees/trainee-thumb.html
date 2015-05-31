@@ -1,0 +1,13 @@
+<div class="trainee-thumb" ng-click="onTraineeClicked()">
+  <div class="image">
+  </div>
+  <div class="details">
+    <div class="name-email">
+      <div class="name">{{trainee.full_name}}</div>
+      <div class="email">{{trainee.email}}</div>
+    </div>
+    <button class="take-photo btn btn-primary" ng-click="onTakePhoto();  $event.stopPropagation();">
+      <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+    </button>
+  </div>
+</div>

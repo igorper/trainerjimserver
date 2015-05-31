@@ -3,14 +3,36 @@
     <div class="col-sm-12">
       <div class="jim-box">
 
-        <div class="top-header">
-          <div class="header">
-            <h2 class="jim-sub-title">Choose a trainee.</h2>
+        <div class="row">
+          <div class="col-sm-12">
+            <h2 class="jim-sub-title">Choose a trainee: </h2>
+
+            <div class="input-group">
+              <div class="input-group-addon">
+                <span class="glyphicon glyphicon-search" aria-hidden="true"></span>
+              </div>
+
+              <input class="form-control"
+                     type="text"
+                     id="keywordSearch"
+                     placeholder="Trainees filter"
+                     ng-model="searchFilter"/>
+            </div>
           </div>
-          <div class="separator"></div>
         </div>
 
-        <div ui-grid="traineesGridConfig" ui-grid-cellNav class="trainees-grid"></div>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="thumbs-grid">
+              <div class="thumb"
+                   ng-repeat="trainee in traineesGridConfig.data | propsFilter: {full_name: searchFilter, email: searchFilter} | orderBy:'full_name'  ">
+                <trainee-thumb trainee="trainee" on-trainee-clicked="onTraineeClicked(trainee)"></trainee-thumb>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
       </div>
     </div>
   </div>
