@@ -15,11 +15,24 @@ module AuthenticationHelper
       render json: {}, status: :unauthorized
     end
   end
-  
+
+  def when_trainer_of(trainee_id)
+    if user_signed_in?
+      trainee = User.find_by_id(trainee_id)
+      if !trainee || trainee.trainer.id != current_user.id
+        render json: {}, status: :unauthorized
+      else
+        yield trainee
+      end
+    else
+      render json: {}, status: :unauthorized
+    end
+  end
+
   ##############################################################################
   ## MAPI AUTHENTICATION
   #
-  
+
   # @param params the request parameters (from GET or POST)
   # @returns a `User` instance in case the authentication worked, `null` if the
   #          authentication tokens are invalid (e.g., wrong password), or a
@@ -32,7 +45,7 @@ module AuthenticationHelper
       return :auth_method_unknown
     end
   end
-  
+
   def self.auth_with_password(email, password)
     user = User.find_by_email email
     if user and user.valid_password?(password) then

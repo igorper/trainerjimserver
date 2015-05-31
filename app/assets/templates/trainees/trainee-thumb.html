@@ -1,7 +1,11 @@
 <div class="trainee-thumb" ng-click="onTraineeClicked()">
+
+  <div us-spinner spinner-key="trainee-photo-upload-spinner" spinner-start-active="false"></div>
+
   <div class="image">
     <img alt="{{trainee.full_name}}'s profile photo" ng-src="{{trainee.photo}}"/>
   </div>
+
   <div class="details">
     <div class="name-email">
       <div class="name">{{trainee.full_name}}</div>

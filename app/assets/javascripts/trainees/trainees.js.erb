@@ -5,10 +5,21 @@ angular.module('trainees', [
   'trainings',
   'workouts.selector',
   'trainees.traineeThumb',
+  'ngFileUpload',
   'exerciseTypes.exerciseTypeEditor'
 ])
-  .factory("Trainee", ["$resource", function ($resource) {
-    return $resource("/api/v1/trainees/:id.json");
+  .factory("Trainee", ["$resource", 'Upload', function ($resource, Upload) {
+    var Trainee = $resource("/api/v1/trainees/:id.json");
+
+    Trainee.setPhoto = function (trainee, photo) {
+      return Upload.upload({
+        url: '/api/v1/trainees/' + trainee.id + '/photo.json',
+        method: 'POST',
+        file: photo
+      });
+    };
+
+    return Trainee;
   }])
   .factory("TraineeTraining", ["$resource", function ($resource) {
     return $resource("/api/v1/trainees/:traineeId/trainings/:trainingId.json", null, {
@@ -43,10 +54,14 @@ angular.module('trainees', [
 
       $scope.searchFilter = "";
 
-      $scope.trainees = Trainee.query(function () {
-      }, function () {
-        toaster.pop("error", "Trainees listing", "Could not fetch the list of trainees. Try logging in again.");
-      });
+      $scope.refreshTraineeList = function () {
+        $scope.trainees = Trainee.query(function () {
+        }, function () {
+          toaster.pop("error", "Trainees listing", "Could not fetch the list of trainees. Try logging in again.");
+        });
+      };
+
+      $scope.refreshTraineeList();
 
       $scope.onTraineeClicked = function (trainee) {
         $state.go('main.trainee.training', {traineeId: trainee.id, trainingId: ''});
@@ -101,12 +116,6 @@ angular.module('trainees', [
         return new TraineeTraining({traineeId: traineeId, name: "Enter training name", exercises: []});
       }
 
-      $scope.onUploadImageClicked = function (guid, description, file) {
-        console.log(guid);
-        console.log(description);
-        console.log(file);
-      };
-
       if ($stateParams.trainingId === '') {
         $scope.selectedTraining = createEmptyTraining();
       } else {
@@ -145,7 +154,6 @@ angular.module('trainees', [
           {traineeId: traineeId},
           {preparedTrainingId: preparedTrainingId}, function (savedTraining) {
             self.showSaveSuccessPopup(savedTraining);
-            console.log(savedTraining);
             self.goToTrainingAndReload(savedTraining);
           });
       },

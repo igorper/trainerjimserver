@@ -22,6 +22,9 @@ Trainerjim::Application.routes.draw do
       resources :trainings
       resources :exercise_types
       resources :trainees do
+        member do
+          post 'photo'
+        end
         resources :trainings, controller: 'trainees/trainee_trainings'
       end
       resources :results

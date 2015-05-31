@@ -1,5 +1,7 @@
 var traineeThumbModule = angular.module('trainees.traineeThumb', [
-  'photos.takePhotoDialog'
+  'photos.takePhotoDialog',
+  'trainees',
+  'angularSpinner'
 ]);
 
 traineeThumbModule.directive('traineeThumb', function () {
@@ -7,12 +9,17 @@ traineeThumbModule.directive('traineeThumb', function () {
     restrict: 'E',
     scope: {
       'trainee': '=',
-      'onTraineeClicked': '&'
+      'onTraineeClicked': '&',
+      'onTraineePhotoChanged': '&'
     },
-    controller: ['$scope', 'TakePhotoDialog', function ($scope, TakePhotoDialog) {
+    controller: ['$scope', 'TakePhotoDialog', 'Trainee', 'usSpinnerService', function ($scope, TakePhotoDialog, Trainee, usSpinnerService) {
       $scope.onTakePhoto = function () {
         TakePhotoDialog().result.then(function (photos) {
-          console.log("Got photos:", photos);
+          usSpinnerService.spin('trainee-photo-upload-spinner');
+          Trainee.setPhoto($scope.trainee, photos[0]).then(function () {
+            usSpinnerService.stop('trainee-photo-upload-spinner');
+            $scope.onTraineePhotoChanged();
+          });
         });
       };
     }],
