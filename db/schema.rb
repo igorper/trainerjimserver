@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150531083217) do
+ActiveRecord::Schema.define(version: 20150601073650) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -179,6 +179,18 @@ ActiveRecord::Schema.define(version: 20150531083217) do
   add_index "trainings", ["original_training_id"], name: "index_trainings_on_original_training_id", using: :btree
   add_index "trainings", ["trainee_id"], name: "index_trainings_on_trainee_id", using: :btree
 
+  create_table "user_exercise_photos", force: :cascade do |t|
+    t.integer  "user_id"
+    t.integer  "exercise_type_id"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
+  end
+
+  add_index "user_exercise_photos", ["exercise_type_id"], name: "index_user_exercise_photos_on_exercise_type_id", using: :btree
+  add_index "user_exercise_photos", ["user_id"], name: "index_user_exercise_photos_on_user_id", using: :btree
+
   create_table "users", force: :cascade do |t|
     t.string   "email"
     t.string   "full_name"
@@ -225,5 +237,7 @@ ActiveRecord::Schema.define(version: 20150531083217) do
   add_foreign_key "series_executions", "series", on_update: :cascade, on_delete: :cascade
   add_foreign_key "trainings", "trainings", column: "original_training_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "trainings", "users", column: "trainee_id", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "user_exercise_photos", "exercise_types", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "user_exercise_photos", "users", on_update: :cascade, on_delete: :cascade
   add_foreign_key "users", "users", column: "trainer_id", on_update: :cascade
 end

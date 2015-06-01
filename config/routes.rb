@@ -24,6 +24,7 @@ Trainerjim::Application.routes.draw do
       resources :trainees do
         member do
           post 'photo'
+          post 'exercise_photos/:exercise_type_id' => 'trainees#add_exercise_photo'
         end
         resources :trainings, controller: 'trainees/trainee_trainings'
       end
