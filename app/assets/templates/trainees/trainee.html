@@ -4,6 +4,11 @@
 
       <h3 class="jim-title">{{trainee.full_name}}'s workouts</h3>
 
+      <trainee-thumb trainee="trainee"
+                     on-trainee-photo-changed="refreshTrainee()"
+                     fill-width="true"
+                     not-clickable="true"></trainee-thumb>
+
       <div class="assign-workout">
         <button class="btn btn-success" ng-click="addPreparedWorkout()">
           Add prepared workout
@@ -12,8 +17,8 @@
 
       <workouts-list workouts="traineeWorkouts"
                      selected-workout="selectedTraining"
-                     on-workout-selected="onWorkoutSelected(workout)"
-                     on-workout-create="onWorkoutCreate()">
+                     on-workout-selected="selectTraining(workout)"
+                     on-workout-create="selectTraining(null)">
       </workouts-list>
 
     </div>

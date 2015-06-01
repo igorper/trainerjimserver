@@ -74,38 +74,31 @@ angular.module('trainees', [
       $scope.traineeWorkouts = [];
       $scope.selectedTraining = [];
 
-      Trainee.get({id: $stateParams.traineeId}, function (trainee) {
-        $scope.trainee = trainee;
-      }, function () {
-        toaster.pop("error", "Trainee", "Could show the trainee. Try logging in again.");
-      });
-
-      function refreshWorkoutsList() {
-        TraineeTraining.query({traineeId: $stateParams.traineeId}, function (trainings) {
-          $scope.traineeWorkouts = trainings;
-        }, function () {
-          toaster.pop("error", "Fetch workouts error", "Unable to fetch the list of workouts.");
-        });
-      }
-
-      function selectTraining(workout) {
-        $scope.selectedTraining = workout;
-        $state.go('main.trainee.training', {trainingId: workout == null ? '' : workout.id});
-      }
-
       $scope.addPreparedWorkout = function () {
         WorkoutSelector().result.then(function (selectedTraining) {
           TraineeTrainingUtils.addPreparedWorkout($stateParams.traineeId, selectedTraining.id);
         });
       };
 
-      $scope.onWorkoutSelected = selectTraining;
-
-      $scope.onWorkoutCreate = function () {
-        selectTraining(null);
+      $scope.selectTraining = function (workout) {
+        $scope.selectedTraining = workout;
+        $state.go('main.trainee.training', {trainingId: workout == null ? '' : workout.id});
       };
 
-      refreshWorkoutsList();
+      $scope.refreshTrainee = function () {
+        $scope.trainee = Trainee.get({id: $stateParams.traineeId}, function () {
+        }, function () {
+          toaster.pop("error", "Trainee", "Could show the trainee. Try logging in again.");
+        });
+      };
+
+      TraineeTraining.query({traineeId: $stateParams.traineeId}, function (trainings) {
+        $scope.traineeWorkouts = trainings;
+      }, function () {
+        toaster.pop("error", "Fetch workouts error", "Unable to fetch the list of workouts.");
+      });
+
+      $scope.refreshTrainee();
     }
   ])
   .controller("TraineeTrainingCtrl", ["$scope", "$state", '$stateParams', 'toaster', 'TraineeTraining', 'traineeId', 'TraineeTrainingUtils',

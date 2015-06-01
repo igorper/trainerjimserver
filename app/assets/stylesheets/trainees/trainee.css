@@ -4,10 +4,15 @@ div.trainee div.jim-box {
 }
 
 div.trainee div.assign-workout {
-  margin-bottom: 10px;
+  margin: 10px 0;
 }
 
 div.trainee div.assign-workout .btn {
   white-space: normal;
   width: 100%;
+}
+
+div.trainee img.avatar {
+  max-width: 128px;
+  max-height: 128px;
 }

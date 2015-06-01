@@ -9,8 +9,10 @@ traineeThumbModule.directive('traineeThumb', function () {
     restrict: 'E',
     scope: {
       'trainee': '=',
+      'fillWidth': '=',
       'onTraineeClicked': '&',
-      'onTraineePhotoChanged': '&'
+      'onTraineePhotoChanged': '&',
+      notClickable: '='
     },
     controller: ['$scope', 'TakePhotoDialog', 'Trainee', 'usSpinnerService', function ($scope, TakePhotoDialog, Trainee, usSpinnerService) {
       $scope.onTakePhoto = function () {
