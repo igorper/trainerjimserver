@@ -20,6 +20,7 @@
   <div class="exercises list" ui-sortable="sortableOptions" ng-model="training.exercises">
     <div ng-repeat="exercise in training.exercises">
       <exercise-editor exercise="exercise"
+                       training="training"
                        on-exercise-remove="removeExercise(exercise)"
                        on-apply-to-all-series="applyToAllSeries(exercise)"></exercise-editor>
     </div>

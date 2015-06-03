@@ -1,4 +1,7 @@
 <div class="exercise exercise-editor">
+
+  <span us-spinner spinner-key="user-exercise-type-photo-upload-spinner" spinner-start-active="false"></span>
+
   <div class="details row button-behaviour">
     <div class="col-sm-12">
       <div class="name">
@@ -8,8 +11,8 @@
           Exercise: {{exercise.exercise_type.name}}
         </div>
 
-        <button class="take-photo btn btn-primary pull-right">
-          Take photo <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+        <button class="take-photo btn btn-primary pull-right" ng-click="onTakePhotosClicked()">
+          Take photos <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
         </button>
       </div>
     </div>
@@ -27,9 +30,9 @@
 
 
   <div class="description">
-    <div class="description-show-hide" ng-show="showDescription">
+    <div class="description-show-hide" ng-if="showDescription">
       <div class="description-label">Instructions for {{exercise.exercise_type.name}}</div>
-      <exercise-type-details exercise-type-id="exercise.exercise_type.id"></exercise-type-details>
+      <exercise-type-details exercise-type-id="exercise.exercise_type.id" user-id="training.trainee.id"></exercise-type-details>
     </div>
   </div>
 

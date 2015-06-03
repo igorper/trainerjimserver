@@ -1,5 +1,4 @@
-angular
-  .module("exerciseTypes.exerciseType", ["ngResource", 'ngFileUpload'])
+angular.module("exerciseTypes.exerciseType", ["ngResource", 'ngFileUpload'])
   .factory("ExerciseType", ["$resource", 'Upload', function ($resource, Upload) {
     var ExerciseType = $resource(
       "/api/v1/exercise_types/:id.json",

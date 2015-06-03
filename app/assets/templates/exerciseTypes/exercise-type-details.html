@@ -1,5 +1,13 @@
-<div class="exercise-type-details row">
-  <div class="col-sm-12">
-    <img ng-src="{{exerciseTypeData.medium_image_url}}" alt="Exercise image.">
+<div class="exercise-type-details">
+  <div class="row">
+    <div class="col-sm-12">
+      <img ng-src="{{exerciseType.medium_image_url}}" alt="Exercise image.">
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-sm-12">
+      <img ng-repeat="photo in userPhotos" ng-src="{{photo.url}}" alt="Exercise image.">
+    </div>
   </div>
 </div>

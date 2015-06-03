@@ -32,13 +32,13 @@
       </thead>
       <tbody>
       <tr ng-repeat="exerciseType in exerciseTypes">
-        <td ng-click="onExerciseClicked(exerciseType)" style="cursor: pointer; width: 128px;">
+        <td ng-click="onExerciseClicked(exerciseType.id)" style="cursor: pointer; width: 128px;">
           <img ng-src="{{exerciseType.thumb_image_url}}" alt="Exercise image" style="width: 128px;"/>
         </td>
-        <td ng-click="onExerciseClicked(exerciseType)" style="cursor: pointer;">
+        <td ng-click="onExerciseClicked(exerciseType.id)" style="cursor: pointer;">
           {{exerciseType.name}}
         </td>
-        <td ng-click="onExerciseClicked(exerciseType)" style="cursor: pointer;">
+        <td ng-click="onExerciseClicked(exerciseType.id)" style="cursor: pointer;">
           {{exerciseType.short_name}}
         </td>
         <td>

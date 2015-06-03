@@ -2,18 +2,13 @@ class Api::V1::ExerciseTypesController < ActionController::Base
 
   include AuthenticationHelper
   include PaginationHelper
+  include ExerciseTypeHelper
 
   EXERCISE_TYPES_PER_PAGE = 25
 
   def index
     when_signed_in do
-      if current_user.administrator?
-        @exercise_types = ExerciseType.all
-      else
-        @exercise_types = ExerciseType.where("owner_id = :owner_id OR owner_id is NULL",
-                                             owner_id: current_user.id)
-      end
-      @exercise_types = paginate(@exercise_types, EXERCISE_TYPES_PER_PAGE)
+      @exercise_types = paginate(current_user_exercise_types, EXERCISE_TYPES_PER_PAGE)
     end
   end
 

@@ -19,7 +19,7 @@ module AuthenticationHelper
   def when_trainer_of(trainee_id)
     if user_signed_in?
       trainee = User.find_by_id(trainee_id)
-      if !trainee || trainee.trainer.id != current_user.id
+      if trainee.nil? || !(same_user?(trainee) || trainer_of?(trainee))
         render json: {}, status: :unauthorized
       else
         yield trainee
@@ -27,6 +27,14 @@ module AuthenticationHelper
     else
       render json: {}, status: :unauthorized
     end
+  end
+
+  def same_user?(user)
+    user.id == current_user.id
+  end
+
+  def trainer_of?(trainee)
+    !trainee.trainer.nil? && same_user?(trainee.trainer)
   end
 
   ##############################################################################

@@ -1,16 +1,18 @@
 var exerciseTypeDetailsModule = angular.module("exerciseTypes.exerciseTypeDetails", [
-  'exerciseTypes.exerciseType'
+  'exerciseTypes.exerciseType',
+  'users.exerciseTypes.photos'
 ]);
 
 exerciseTypeDetailsModule.directive('exerciseTypeDetails', function () {
   return {
     restrict: 'E',
     scope: {
-      'exerciseType': '=exerciseType',
-      'exerciseTypeId': '=exerciseTypeId'
+      'exerciseTypeId': '=',
+      'userId': '='
     },
-    controller: ['$scope', 'ExerciseType', function ($scope, ExerciseType) {
-      $scope.exerciseTypeData = $scope.exerciseTypeId ? ExerciseType.get({id: $scope.exerciseTypeId}) : $scope.exerciseType;
+    controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', function ($scope, ExerciseType, UserExerciseTypePhotos) {
+      $scope.exerciseType = ExerciseType.get({id: $scope.exerciseTypeId});
+      $scope.userPhotos = UserExerciseTypePhotos.query({userId: $scope.userId, exerciseTypeId: $scope.exerciseTypeId});
     }],
     templateUrl: "<%= asset_path('exerciseTypes/exercise-type-details.html') %>"
   };
@@ -18,15 +20,14 @@ exerciseTypeDetailsModule.directive('exerciseTypeDetails', function () {
 
 
 exerciseTypeDetailsModule.factory('ExerciseTypeDetailsDialog', ['$modal', function ($modal) {
-  return function (exerciseType) {
+  return function (exerciseTypeId) {
     return $modal.open({
       templateUrl: '<%= asset_path('exerciseTypes/exercise-type-details-dialog.html') %>',
       backdrop: 'static',
       windowClass: 'modal-window',
       size: 'lg',
-      controller: ['$scope', 'ExerciseType',
-        function ($scope, ExerciseType) {
-          $scope.exerciseType = ExerciseType.get({id: exerciseType.id});
+      controller: ['$scope', 'ExerciseType', function ($scope, ExerciseType) {
+          $scope.exerciseTypeId = exerciseTypeId;
 
           $scope.onCloseClicked = function () {
             $scope.$dismiss();

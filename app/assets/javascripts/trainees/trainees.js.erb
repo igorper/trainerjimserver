@@ -1,4 +1,4 @@
-angular.module('trainees', [
+var trainees = angular.module('trainees', [
   'ui.router',
   'ui.bootstrap',
   'shared',
@@ -7,8 +7,9 @@ angular.module('trainees', [
   'trainees.traineeThumb',
   'ngFileUpload',
   'exerciseTypes.exerciseTypeEditor'
-])
-  .factory("Trainee", ["$resource", 'Upload', function ($resource, Upload) {
+]);
+
+trainees.factory("Trainee", ["$resource", 'Upload', function ($resource, Upload) {
     var Trainee = $resource("/api/v1/trainees/:id.json");
 
     Trainee.setPhoto = function (trainee, photo) {
@@ -20,13 +21,15 @@ angular.module('trainees', [
     };
 
     return Trainee;
-  }])
-  .factory("TraineeTraining", ["$resource", function ($resource) {
+  }]);
+
+trainees.factory("TraineeTraining", ["$resource", function ($resource) {
     return $resource("/api/v1/trainees/:traineeId/trainings/:trainingId.json", null, {
       addPreparedWorkout: {method: 'POST', params: {isPreparedWorkout: true}}
     });
-  }])
-  .config(['$stateProvider', function ($stateProvider) {
+  }]);
+
+trainees.config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('main.trainees', {
         url: '/trainees',
@@ -48,8 +51,9 @@ angular.module('trainees', [
           }]
         }
       });
-  }])
-  .controller("TraineesCtrl", ['$scope', '$state', 'Trainee', 'toaster',
+  }]);
+
+trainees.controller("TraineesCtrl", ['$scope', '$state', 'Trainee', 'toaster',
     function ($scope, $state, Trainee, toaster) {
 
       $scope.searchFilter = "";
@@ -68,8 +72,9 @@ angular.module('trainees', [
       };
 
     }
-  ])
-  .controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams', 'toaster', 'TraineeTraining', 'WorkoutSelector', 'TraineeTrainingUtils',
+  ]);
+
+trainees.controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams', 'toaster', 'TraineeTraining', 'WorkoutSelector', 'TraineeTrainingUtils',
     function ($scope, $state, Trainee, $stateParams, toaster, TraineeTraining, WorkoutSelector, TraineeTrainingUtils) {
       $scope.traineeWorkouts = [];
       $scope.selectedTraining = [];
@@ -100,8 +105,9 @@ angular.module('trainees', [
 
       $scope.refreshTrainee();
     }
-  ])
-  .controller("TraineeTrainingCtrl", ["$scope", "$state", '$stateParams', 'toaster', 'TraineeTraining', 'traineeId', 'TraineeTrainingUtils',
+  ]);
+
+trainees.controller("TraineeTrainingCtrl", ["$scope", "$state", '$stateParams', 'toaster', 'TraineeTraining', 'traineeId', 'TraineeTrainingUtils',
     function ($scope, $state, $stateParams, toaster, TraineeTraining, traineeId, TraineeTrainingUtils) {
       $scope.selectedTraining = [];
 
@@ -133,8 +139,9 @@ angular.module('trainees', [
 
       };
     }
-  ])
-  .factory('TraineeTrainingUtils', ['$state', 'toaster', 'TraineeTraining', function ($state, toaster, TraineeTraining) {
+  ]);
+
+trainees.factory('TraineeTrainingUtils', ['$state', 'toaster', 'TraineeTraining', function ($state, toaster, TraineeTraining) {
     var self = {
       goToTrainingAndReload: function (training) {
         $state.go('main.trainee.training', {trainingId: training.id}, {reload: true});
@@ -160,5 +167,4 @@ angular.module('trainees', [
       }
     };
     return self;
-  }])
-;
+  }]);
