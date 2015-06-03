@@ -4,16 +4,4 @@ class UserExercisePhoto < ActiveRecord::Base
 
   belongs_to :user
   belongs_to :exercise_type
-
-  def thumb_photo_url
-    photo.url(:thumb)
-  end
-
-  def medium_photo_url
-    photo.url(:medium)
-  end
-
-  def large_photo_url
-    photo.url(:large)
-  end
 end
