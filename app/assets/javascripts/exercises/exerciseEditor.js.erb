@@ -36,11 +36,17 @@ exerciseEditorModule.directive('exerciseEditor', function () {
         usSpinnerService.stop('user-exercise-type-photo-upload-spinner');
       }
 
+      function hideDescription() {
+        $scope.showDescription = false;
+      }
+
       function uploadExerciseTypePhoto(photo) {
         startSpinner();
         var exerciseType = $scope.exercise.exercise_type;
         var trainee = $scope.training.trainee;
-        UserExerciseTypePhotos.add(trainee.id, exerciseType.id, photo).then(stopSpinner);
+        UserExerciseTypePhotos.add(trainee.id, exerciseType.id, photo)
+          .then(stopSpinner, stopSpinner)
+          .then(hideDescription);
       }
 
       $scope.onTakePhotosClicked = function () {

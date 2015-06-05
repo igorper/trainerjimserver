@@ -1,0 +1,14 @@
+var photoThumb = angular.module('photos.photoThumb', [
+  'photos.takePhotoDialog',
+  'angularSpinner'
+]);
+
+photoThumb.directive('photoThumb', function () {
+  return {
+    restrict: 'E',
+    scope: {
+      photo: '='
+    },
+    templateUrl: "<%= asset_path('photos/photo-thumb.html') %>"
+  };
+});

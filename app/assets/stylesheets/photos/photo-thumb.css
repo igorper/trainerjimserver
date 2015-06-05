@@ -1,0 +1,65 @@
+div.photo-thumb {
+  -webkit-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.5);
+  -moz-box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.5);
+  box-shadow: 0px 1px 2px 0px rgba(0,0,0,0.5);
+  margin: 10px;
+  width: 200px;
+  cursor: pointer;
+}
+
+div.photo-thumb .img {
+  height: 138px;
+  padding: 5px;
+  border-bottom: 1px solid #ccc;
+  position: relative;
+}
+
+div.photo-thumb .img img {
+  max-width: 128px;
+  max-height: 128px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+div.photo-thumb .btns {
+  height: 35px;
+  background-color: #fafafa;
+  border-top: 1px solid white;
+  position: relative;
+}
+
+div.photo-thumb .btns .btn {
+  padding: 1px 8px;
+}
+
+div.photo-thumb .btns .take-photo {
+  position: absolute;
+  top: 50%;
+  left: 5px;
+  transform: translate(0%, -50%);
+}
+
+div.photo-thumb .btns .delete {
+  position: absolute;
+  top: 50%;
+  right: 5px;
+  transform: translate(0%, -50%);
+}
+
+
+
+div.photo-thumb:hover {
+  -webkit-box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.6);
+  -moz-box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.6);
+  box-shadow: 0px 1px 3px 0px rgba(0,0,0,0.6);
+}
+
+div.photo-thumb:hover .img {
+  background-color: #fafafa;
+}
+
+div.photo-thumb:hover .btns {
+  background-color: #ebebeb;
+}
