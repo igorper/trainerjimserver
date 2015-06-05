@@ -1,0 +1,1 @@
+json.array! @photos, partial: 'api/v1/user_exercise_photos/photo', as: :photo

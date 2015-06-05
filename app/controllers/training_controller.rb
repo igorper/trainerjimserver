@@ -101,7 +101,9 @@ class TrainingController < ApplicationController
   # @formats json
   def my_template
     if user_signed_in?
-      @training = Training.includes(:exercises => [:exercise_type, :series]).where(:id => params[:id]).first
+      @training = Training
+                      .includes(:exercises => [:exercise_type, :series])
+                      .where(:id => params[:id]).first
       if @training.nil?
         ajax_error_i18n :training_does_not_exist
       elsif !@training.trainee_id.nil? && @training.trainee_id != current_user.id

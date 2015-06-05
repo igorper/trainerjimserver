@@ -3,6 +3,7 @@ class ExerciseType < ActiveRecord::Base
   validates_attachment_content_type :image, content_type: /\Aimage\/.*\Z/
 
   has_many :user_exercise_photos
+  has_many :exercises
 
   def thumb_image_url
     image.url(:thumb)

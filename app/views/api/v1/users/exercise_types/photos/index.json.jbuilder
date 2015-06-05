@@ -1,1 +1,1 @@
-json.array! @exercise_photos, partial: 'api/v1/users/exercise_types/photos/photo', as: :exercise_photo
+json.array! @photo, partial: 'api/v1/user_exercise_photos/photo', as: :photo

@@ -2,17 +2,13 @@ class Api::V1::Users::ExerciseTypes::PhotosController < ActionController::Base
 
   include AuthenticationHelper
   include ExerciseTypeHelper
+  include UserExercisePhotoHelper
 
   def index
     when_trainer_of(params[:user_id]) { |trainee|
-      @exercise_photos = UserExercisePhoto.where(exercise_type_id: params[:exercise_type_id])
-      if trainee.trainer.nil?
-        @exercise_photos = @exercise_photos.where('user_id = :id OR user_id IS NULL',
-                                                  id: trainee.id)
-      else
-        @exercise_photos = @exercise_photos.where('user_id = :id OR user_id = :trainer_id OR user_id IS NULL',
-                                                  id: trainee.id, trainer_id: trainee.trainer.id)
-      end
+      @photos = UserExercisePhoto.where(exercise_type_id: params[:exercise_type_id])
+      @photos = filter_exercise_photos_by_trainee(trainee, @photos)
+      render 'api/v1/user_exercise_photos/index'
     }
   end
 

@@ -17,12 +17,17 @@ module AuthenticationHelper
   end
 
   def when_trainer_of(trainee_id)
+    trainee_id = trainee_id.to_i
     if user_signed_in?
-      trainee = User.find_by_id(trainee_id)
-      if trainee.nil? || !(same_user?(trainee) || trainer_of?(trainee))
-        render json: {}, status: :unauthorized
+      if trainee_id == current_user.id
+        yield current_user
       else
-        yield trainee
+        trainee = User.find_by_id(trainee_id)
+        if !trainee.nil? && trainer_of?(trainee)
+          yield trainee
+        else
+          render json: {}, status: :unauthorized
+        end
       end
     else
       render json: {}, status: :unauthorized

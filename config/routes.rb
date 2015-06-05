@@ -22,11 +22,14 @@ Trainerjim::Application.routes.draw do
         resources :exercise_types do
           resources :photos, controller: 'users/exercise_types/photos'
         end
+        resources :trainings do
+          resources :exercise_photos, controller: 'users/trainings/exercise_photos'
+        end
+        resources :exercise_photos, controller: 'users/exercise_photos'
       end
 
-      resources :trainings
 
-      resources :exercise_types
+      resources :trainings, :exercise_types, :results, :measurements
 
       resources :trainees do
         member do
@@ -34,10 +37,6 @@ Trainerjim::Application.routes.draw do
         end
         resources :trainings, controller: 'trainees/trainee_trainings'
       end
-
-      resources :results
-
-      resources :measurements
     end
   end
 
