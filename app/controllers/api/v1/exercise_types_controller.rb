@@ -56,9 +56,6 @@ class Api::V1::ExerciseTypesController < ActionController::Base
     exercise_type.name = params[:name]
     @exercise_type.short_name = params[:short_name]
     @exercise_type.owner_id = params.fetch(:owner_id, current_user.id)
-    if params[:file]
-      @exercise_type.image = params[:file]
-    end
     @exercise_type.save
   end
 
@@ -67,7 +64,6 @@ class Api::V1::ExerciseTypesController < ActionController::Base
     @exercise_type = ExerciseType.create(
         name: params[:name],
         short_name: params[:short_name],
-        image: params[:file],
         owner_id: params.fetch(:owner_id, current_user.id)
     )
   end

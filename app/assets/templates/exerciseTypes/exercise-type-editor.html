@@ -34,28 +34,5 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-sm-12">
-        <label for="image">Image:</label>
-        <ngf-select id="image" class="btn btn-success image-select" ng-model="files">Select image...</ngf-select>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-12">
-        <ngf-drop ng-model="files"
-                      class="drop-box"
-                      drag-over-class="dragover"
-                      accept=".jpg,.png">
-          <div class="image-drop">
-            <div ng-show="!files || files.length == 0" class="label label-info">Drop the image here...</div>
-            <div ng-repeat="file in files" class="label label-success">
-              Image to upload: {{file.name}}
-            </div>
-          </div>
-        </ngf-drop>
-      </div>
-    </div>
-
   </form>
 </div>

@@ -18,23 +18,18 @@ Trainerjim::Application.routes.draw do
         post 'set_password'
       end
 
-      resources :users do
-        resources :exercise_types do
-          resources :photos, controller: 'users/exercise_types/photos'
-        end
-        resources :trainings do
-          resources :exercise_photos, controller: 'users/trainings/exercise_photos'
-        end
-        resources :exercise_photos, controller: 'users/exercise_photos'
-      end
+      resources :users, :trainings, :exercise_types, :results, :measurements
 
-
-      resources :trainings, :exercise_types, :results, :measurements
+      # START: User Exercise Type Photos
+      get 'users/:user_id/exercise_types/:exercise_type_id/photos', to: 'user_exercise_photos#index'
+      get 'users/exercise_types/:exercise_type_id/photos', to: 'user_exercise_photos#current_user_photos'
+      get 'users/:user_id/exercise_photos', to: 'user_exercise_photos#user_exercise_photos'
+      get 'users/:user_id/trainings/:training_id/exercise_photos', to: 'user_exercise_photos#user_training_photos'
+      post 'users/:user_id/exercise_types/:exercise_type_id/photos', to: 'user_exercise_photos#create'
+      # END: User Exercise Type Photos
 
       resources :trainees do
-        member do
-          post 'photo'
-        end
+        post 'photo', on: :member
         resources :trainings, controller: 'trainees/trainee_trainings'
       end
     end

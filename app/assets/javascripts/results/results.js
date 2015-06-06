@@ -126,10 +126,8 @@ angular
       });
 
       $scope.onTraineeChanged = function(item, model){
-        if($scope.user.selected != item){
-          $state.go('main.results', {id: undefined, trainee: item == undefined ? null : item.id});
-        }
-      }
+        $state.go('main.results', {id: undefined, trainee: item == undefined ? null : item.id});
+      };
 
       $scope.calculateOverview = function() {
         $scope.trainingRatingIcon = $scope.smileLookup[$scope.selectedTraining.rating] + "-on"

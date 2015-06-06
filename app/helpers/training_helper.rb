@@ -16,7 +16,7 @@ module TrainingHelper
   ##
 
   # A JSON field include filter that contains only fields relevant to the end user.
-  @@exercise_type_view = {only: [:id, :name, :short_name, :image_updated_at], methods: [:thumb_image_url, :medium_image_url, :large_image_url]}
+  @@exercise_type_view = {only: [:id, :name, :short_name]}
 
   ###############################################################################
   ### SERIES VIEWS

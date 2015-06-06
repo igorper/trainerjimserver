@@ -38,28 +38,18 @@ admin.config(['$stateProvider', function ($stateProvider) {
           refreshPaginationInfo();
         }
 
-
         refreshExerciseTypes();
 
-        function showUploadExerciseTypeError() {
-          toaster.pop("error", "Exercise type not uploaded", "An error occurred while uploading the exercise type.");
-        }
-
-        function uploadExerciseType(exerciseType) {
-          return ExerciseType
-            .upload(exerciseType)
-            .success(refreshExerciseTypes)
-            .error(showUploadExerciseTypeError);
-        }
-
         $scope.onCreateExerciseTypeClicked = function () {
-          ExerciseTypeEditDialog({uploadPromise: uploadExerciseType});
+          ExerciseTypeEditDialog()
+            .result.then(refreshExerciseTypes);
         };
 
         $scope.onExerciseClicked = ExerciseTypeDetailsDialog;
 
         $scope.onEditExerciseClicked = function (exerciseType) {
-          ExerciseTypeEditDialog({exerciseType: angular.copy(exerciseType), uploadPromise: uploadExerciseType});
+          ExerciseTypeEditDialog(angular.copy(exerciseType))
+            .result.then(refreshExerciseTypes);
         };
 
         $scope.onDeleteExerciseClicked = function (exerciseType) {
