@@ -4,10 +4,8 @@ class Api::V1::TraineesController < ActionController::Base
   include ExerciseTypeHelper
 
   def index
-    if user_signed_in?
+    when_signed_in do
       @trainees = User.where(trainer_id: current_user.id)
-    else
-      render json: {}, status: :unauthorized
     end
   end
 
@@ -20,10 +18,8 @@ class Api::V1::TraineesController < ActionController::Base
   end
 
   def show
-    if user_signed_in?
+    when_signed_in do
       @trainee = User.find_by(id: params[:id], trainer_id: current_user.id)
-    else
-      render json: {}, status: :unauthorized
     end
   end
 

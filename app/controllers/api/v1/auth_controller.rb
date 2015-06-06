@@ -1,5 +1,7 @@
 class Api::V1::AuthController < ActionController::Base
 
+  include AuthenticationHelper
+
   def login
     @user = User.find_by_email(params[:email])
     if @user && @user.valid_password?(params[:password])
@@ -30,20 +32,16 @@ class Api::V1::AuthController < ActionController::Base
   end
 
   def user_details
-    if user_signed_in?
+    when_signed_in do
       @user = current_user
-    else
-      render json: {}, status: :unauthorized
     end
   end
 
   def set_name
-    if user_signed_in?
+    when_signed_in do
       @user = User.find_by_id(current_user.id)
       @user.full_name = params[:full_name]
       @user.save
-    else
-      render json: {}, status: :bad_request
     end
   end
 

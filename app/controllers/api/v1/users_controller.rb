@@ -1,10 +1,10 @@
 class Api::V1::UsersController < ActionController::Base
 
+  include AuthenticationHelper
+
   def index
-    if user_signed_in? && current_user.administrator?
+    when_admin do
       @users = User.all
-    else
-      render status: :unauthorized
     end
   end
 

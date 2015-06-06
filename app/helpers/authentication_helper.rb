@@ -4,7 +4,7 @@ module AuthenticationHelper
     if user_signed_in?
       yield
     else
-      render json: {}, status: :unauthorized
+      render_unauthorized
     end
   end
 
@@ -12,7 +12,7 @@ module AuthenticationHelper
     if user_signed_in? && current_user.administrator?
       yield
     else
-      render json: {}, status: :unauthorized
+      render_unauthorized
     end
   end
 
@@ -22,16 +22,22 @@ module AuthenticationHelper
       if trainee_id == current_user.id
         yield current_user
       else
-        trainee = User.find_by_id(trainee_id)
+        trainee = User.includes(:trainer)
+                      .references(:trainer)
+                      .find_by_id(trainee_id)
         if !trainee.nil? && trainer_of?(trainee)
           yield trainee
         else
-          render json: {}, status: :unauthorized
+          render_unauthorized
         end
       end
     else
-      render json: {}, status: :unauthorized
+      render_unauthorized
     end
+  end
+
+  def render_unauthorized
+    render 'api/v1/unauthorized', status: :unauthorized
   end
 
   def same_user?(user)

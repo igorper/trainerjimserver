@@ -19,7 +19,7 @@ class Api::V1::Users::ExerciseTypes::PhotosController < ActionController::Base
         create_trainee_exercise_photo(trainee, exercise_type, params[:file])
         render json: {}
       else
-        render json: {}, status: :unauthorized
+        render_unauthorized
       end
     }
   end
