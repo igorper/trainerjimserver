@@ -4,22 +4,41 @@ class Api::V1::UserExercisePhotosController < ActionController::Base
   include UserExercisePhotoHelper
   include ExerciseTypeHelper
 
-  def index
+  def destroy
+    when_signed_in do
+      exercise_type = UserExercisePhoto.find_by_id(params[:id])
+      if exercise_type
+        when_trainer_of(exercise_type.user_id) { |_|
+          exercise_type.delete
+        }
+      else
+        render status: :bad_request
+      end
+    end
+  end
+
+  def photos_of_user_and_exercise_type
     when_trainer_of(params[:user_id]) { |trainee|
       render_exercise_photos(trainee, params[:exercise_type_id])
     }
   end
 
-  def create
+  def add_photo
     when_trainer_of(params[:user_id]) { |trainee|
-      exercise_type = current_user_exercise_types.find_by_id(params[:exercise_type_id])
+      exercise_type = trainer_trainee_exercise_types(trainee, current_user).find_by_id(params[:exercise_type_id])
       if exercise_type
-        create_trainee_exercise_photo(trainee, exercise_type, params[:file])
-        render json: {}
+        @photo = create_trainee_exercise_photo(trainee, exercise_type, params[:file])
       else
         render_unauthorized
       end
     }
+  end
+
+  def trainer_trainee_exercise_types(trainee, current_user)
+    ExerciseType.where(
+        'owner_id = :trainee_id OR owner_id = :trainer_id OR owner_id IS NULL',
+        {trainee_id: trainee.id, trainer_id: current_user.id}
+    )
   end
 
   def user_exercise_photos
@@ -41,7 +60,7 @@ class Api::V1::UserExercisePhotosController < ActionController::Base
     }
   end
 
-  def current_user_photos
+  def photos_of_current_user
     when_signed_in do
       render_exercise_photos(current_user, params[:exercise_type_id])
     end

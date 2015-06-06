@@ -21,11 +21,12 @@ Trainerjim::Application.routes.draw do
       resources :users, :trainings, :exercise_types, :results, :measurements
 
       # START: User Exercise Type Photos
-      get 'users/:user_id/exercise_types/:exercise_type_id/photos', to: 'user_exercise_photos#index'
-      get 'users/exercise_types/:exercise_type_id/photos', to: 'user_exercise_photos#current_user_photos'
       get 'users/:user_id/exercise_photos', to: 'user_exercise_photos#user_exercise_photos'
       get 'users/:user_id/trainings/:training_id/exercise_photos', to: 'user_exercise_photos#user_training_photos'
-      post 'users/:user_id/exercise_types/:exercise_type_id/photos', to: 'user_exercise_photos#create'
+      get 'users/exercise_types/:exercise_type_id/photos', to: 'user_exercise_photos#photos_of_current_user'
+      get 'users/:user_id/exercise_types/:exercise_type_id/photos', to: 'user_exercise_photos#photos_of_user_and_exercise_type'
+      post 'users/:user_id/exercise_types/:exercise_type_id/photos', to: 'user_exercise_photos#add_photo'
+      delete 'user_exercise_photos/:id', to: 'user_exercise_photos#destroy'
       # END: User Exercise Type Photos
 
       resources :trainees do

@@ -1,0 +1,1 @@
+json.partial! 'api/v1/user_exercise_photos/photo', photo: @photo

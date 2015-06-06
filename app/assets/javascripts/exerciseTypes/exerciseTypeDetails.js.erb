@@ -11,9 +11,25 @@ exerciseTypeDetailsModule.directive('exerciseTypeDetails', function () {
       'exerciseTypeId': '=',
       'userId': '='
     },
-    controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', function ($scope, ExerciseType, UserExerciseTypePhotos) {
-      $scope.exerciseType = ExerciseType.get({id: $scope.exerciseTypeId});
-      $scope.userPhotos = UserExerciseTypePhotos.query({userId: $scope.userId, exerciseTypeId: $scope.exerciseTypeId});
+    controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'Auth', function ($scope, ExerciseType, UserExerciseTypePhotos, Auth) {
+      $scope.currentUser = Auth.userDetails();
+
+      function refreshPhotos() {
+        $scope.userPhotos = UserExerciseTypePhotos.query({
+          userId: $scope.userId,
+          exerciseTypeId: $scope.exerciseTypeId
+        });
+      }
+
+      refreshPhotos();
+
+      $scope.canDeletePhoto = function (photo) {
+        return photo.user_id == $scope.userId || photo.user_id == $scope.currentUser.id;
+      };
+
+      $scope.onDeletePhotoClicked = function (photo) {
+        photo.$delete().then(refreshPhotos);
+      };
     }],
     templateUrl: "<%= asset_path('exerciseTypes/exercise-type-details.html') %>"
   };
