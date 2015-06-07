@@ -3,7 +3,7 @@
     <img ng-src="{{photo.thumb_image_url}}" alt="Exercise image.">
   </div>
   <div class="btns">
-    <button ng-if="isDeletable" class="btn btn-danger delete"  ng-click="onDeleteClicked()">
+    <button ng-if="isDeletable" class="btn btn-danger delete"  ng-click="onDeleteClicked();  $event.stopPropagation();">
       <span class="glyphicon glyphicon-remove"></span>
     </button>
   </div>
