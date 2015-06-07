@@ -22,10 +22,8 @@ module AuthenticationHelper
       if trainee_id == current_user.id
         yield current_user
       else
-        trainee = User.includes(:trainer)
-                      .references(:trainer)
-                      .find_by_id(trainee_id)
-        if !trainee.nil? && trainer_of?(trainee)
+        trainee = try_get_trainee(current_user, trainee_id)
+        if trainee
           yield trainee
         else
           render_unauthorized
@@ -40,12 +38,12 @@ module AuthenticationHelper
     render 'api/v1/unauthorized', status: :unauthorized
   end
 
-  def same_user?(user)
-    user.id == current_user.id
+  def admin_or_trainer_of?(user, trainee_id)
+    user.administrator? || try_get_trainee(user, trainee_id)
   end
 
-  def trainer_of?(trainee)
-    !trainee.trainer.nil? && same_user?(trainee.trainer)
+  def trainer_of?(trainer, trainee)
+    trainee.trainer && trainee.trainer.id == trainer.id
   end
 
   ##############################################################################
@@ -72,5 +70,18 @@ module AuthenticationHelper
     else
       return false
     end
+  end
+
+  private
+
+  def try_get_trainee(trainer, trainee_id)
+    trainee = trainee_with_trainer(trainee_id)
+    (!trainee.nil? && trainer_of?(trainer, trainee)) ? trainee : nil
+  end
+
+  def trainee_with_trainer(trainee_id)
+    User.includes(:trainer)
+        .references(:trainer)
+        .find_by_id(trainee_id)
   end
 end

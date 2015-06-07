@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150606101224) do
+ActiveRecord::Schema.define(version: 20150607101612) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -32,6 +32,10 @@ ActiveRecord::Schema.define(version: 20150606101224) do
     t.datetime "updated_at"
     t.string   "short_name"
     t.integer  "owner_id"
+    t.string   "image_file_name"
+    t.string   "image_content_type"
+    t.integer  "image_file_size"
+    t.datetime "image_updated_at"
   end
 
   add_index "exercise_types", ["owner_id"], name: "index_exercise_types_on_owner_id", using: :btree

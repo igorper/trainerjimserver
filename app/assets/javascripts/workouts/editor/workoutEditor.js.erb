@@ -1,10 +1,3 @@
-//= require trainings/training
-//= require shared/shared
-//= require exerciseTypes/exerciseTypesSelector
-//= require exerciseTypes/exerciseTypeDetails
-//= require exerciseTypes/exerciseType
-//= require exercises/exerciseEditor
-
 angular.module('workouts.editor', [
   'ui.router',
   'ui.bootstrap',
@@ -23,19 +16,16 @@ angular.module('workouts.editor', [
     return {
       restrict: 'E',
       scope: {
-        training: '=training',
-        onSaveClicked: '&onSaveClicked',
-        onDeleteClicked: '&onDeleteClicked'
+        training: '=',
+        trainer: '=',
+        onSaveClicked: '&',
+        onDeleteClicked: '&'
       },
       controller: 'WorkoutEditorCtrl',
       templateUrl: '<%= asset_path('workouts/editor/workout-editor.html') %>'
     };
   })
   .controller('WorkoutEditorCtrl', ['$scope', 'ExerciseType', 'ExerciseTypesSelector', 'ExerciseTypeDetailsDialog', function ($scope, ExerciseType, ExerciseTypesSelector, ExerciseTypeDetailsDialog) {
-    var REPETITIONS_STEP = 1;
-    var WEIGHT_STEP = 5;
-    var REST_STEP = 5;
-
     $scope.fetchExerciseType = function (exerciseTypeId) {
       return ExerciseType.get({id: exerciseTypeId});
     };

@@ -3,7 +3,6 @@ var exerciseEditorModule = angular.module('exercises.editor', [
   'ngSanitize',
   'exercises.dials',
   'trainees',
-  'trainees',
   'photos.takePhotoDialog',
   'users.exerciseTypes.photos',
   'angularSpinner'
@@ -13,13 +12,13 @@ exerciseEditorModule.directive('exerciseEditor', function () {
   return {
     restrict: 'E',
     scope: {
-      exercise: '=exercise',
-      training: '=training',
-      onExerciseRemove: '&onExerciseRemove',
-      onApplyToAllSeries: '&onApplyToAllSeries'
+      exercise: '=',
+      training: '=',
+      trainer: '=',
+      onExerciseRemove: '&',
+      onApplyToAllSeries: '&'
     },
     controller: ['$scope', 'TakePhotoDialog', 'UserExerciseTypePhotos', 'usSpinnerService', function ($scope, TakePhotoDialog, UserExerciseTypePhotos, usSpinnerService) {
-
       $scope.setExerciseToManual = function () {
         $scope.exercise.guidance_type = 'manual';
       };
@@ -28,16 +27,16 @@ exerciseEditorModule.directive('exerciseEditor', function () {
         $scope.exercise.guidance_type = 'duration';
       };
 
+      function hideDescription() {
+        $scope.showDescription = false;
+      }
+
       function startSpinner() {
         usSpinnerService.spin('user-exercise-type-photo-upload-spinner');
       }
 
       function stopSpinner() {
         usSpinnerService.stop('user-exercise-type-photo-upload-spinner');
-      }
-
-      function hideDescription() {
-        $scope.showDescription = false;
       }
 
       function uploadExerciseTypePhoto(photo) {

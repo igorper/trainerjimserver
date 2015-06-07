@@ -21,6 +21,7 @@
     <div ng-repeat="exercise in training.exercises">
       <exercise-editor exercise="exercise"
                        training="training"
+                       trainer="trainer"
                        on-exercise-remove="removeExercise(exercise)"
                        on-apply-to-all-series="applyToAllSeries(exercise)"></exercise-editor>
     </div>

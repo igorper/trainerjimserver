@@ -107,9 +107,10 @@ trainees.controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams
     }
   ]);
 
-trainees.controller("TraineeTrainingCtrl", ["$scope", "$state", '$stateParams', 'toaster', 'TraineeTraining', 'traineeId', 'TraineeTrainingUtils',
-    function ($scope, $state, $stateParams, toaster, TraineeTraining, traineeId, TraineeTrainingUtils) {
+trainees.controller("TraineeTrainingCtrl", ["$scope", "$state", '$stateParams', 'toaster', 'TraineeTraining', 'traineeId', 'TraineeTrainingUtils', 'Auth',
+    function ($scope, $state, $stateParams, toaster, TraineeTraining, traineeId, TraineeTrainingUtils, Auth) {
       $scope.selectedTraining = [];
+      $scope.trainer = Auth.userDetails();
 
       function createEmptyTraining() {
         return new TraineeTraining({traineeId: traineeId, name: "Enter training name", exercises: []});

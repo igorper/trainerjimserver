@@ -1,7 +1,9 @@
 var exerciseTypeDetailsModule = angular.module("exerciseTypes.exerciseTypeDetails", [
   'exerciseTypes.exerciseType',
   'users.exerciseTypes.photos',
-  'photos.photoThumb'
+  'photos.photoThumb',
+  'angularSpinner',
+  'photos.takePhotoDialog'
 ]);
 
 exerciseTypeDetailsModule.directive('exerciseTypeDetails', function () {
@@ -9,10 +11,11 @@ exerciseTypeDetailsModule.directive('exerciseTypeDetails', function () {
     restrict: 'E',
     scope: {
       'exerciseTypeId': '=',
-      'userId': '='
+      'userId': '=',
+      'trainer': '='
     },
-    controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'Auth', function ($scope, ExerciseType, UserExerciseTypePhotos, Auth) {
-      $scope.currentUser = Auth.userDetails();
+    controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'usSpinnerService', 'TakePhotoDialog', function ($scope, ExerciseType, UserExerciseTypePhotos, usSpinnerService, TakePhotoDialog) {
+      $scope.exerciseType = ExerciseType.get({id: $scope.exerciseTypeId});
 
       function refreshPhotos() {
         $scope.userPhotos = UserExerciseTypePhotos.query({
@@ -24,11 +27,35 @@ exerciseTypeDetailsModule.directive('exerciseTypeDetails', function () {
       refreshPhotos();
 
       $scope.canDeletePhoto = function (photo) {
-        return photo.user_id == $scope.userId || photo.user_id == $scope.currentUser.id;
+        return photo.user_id == $scope.userId || ($scope.trainer && photo.user_id == $scope.trainer.id);
       };
 
       $scope.onDeletePhotoClicked = function (photo) {
         photo.$delete().then(refreshPhotos);
+      };
+
+      function startSpinner() {
+        usSpinnerService.spin('exercise-type-details-photo-upload-spinner');
+      }
+
+      function stopSpinner() {
+        usSpinnerService.stop('exercise-type-details-photo-upload-spinner');
+      }
+
+      function uploadExerciseTypePhoto(photo) {
+        startSpinner();
+        UserExerciseTypePhotos.add($scope.userId, $scope.exerciseTypeId, photo)
+          .then(function () {
+            refreshPhotos();
+            stopSpinner();
+          }, stopSpinner);
+      }
+
+      $scope.onTakePhotoClicked = function () {
+        TakePhotoDialog().result
+          .then(function (photos) {
+            uploadExerciseTypePhoto(photos[0]);
+          });
       };
     }],
     templateUrl: "<%= asset_path('exerciseTypes/exercise-type-details.html') %>"
@@ -44,12 +71,12 @@ exerciseTypeDetailsModule.factory('ExerciseTypeDetailsDialog', ['$modal', functi
       windowClass: 'modal-window',
       size: 'lg',
       controller: ['$scope', 'ExerciseType', function ($scope, ExerciseType) {
-          $scope.exerciseTypeId = exerciseTypeId;
+        $scope.exerciseTypeId = exerciseTypeId;
 
-          $scope.onCloseClicked = function () {
-            $scope.$dismiss();
-          };
-        }
+        $scope.onCloseClicked = function () {
+          $scope.$dismiss();
+        };
+      }
       ]
     });
   };

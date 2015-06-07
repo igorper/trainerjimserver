@@ -12,7 +12,7 @@
         </div>
 
         <button class="take-photo btn btn-primary pull-right" ng-click="onTakePhotosClicked()">
-          Take photos <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+          Take a photo <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
         </button>
       </div>
     </div>
@@ -33,7 +33,8 @@
     <div class="description-show-hide" ng-if="showDescription">
       <div class="description-label">Instructions for {{exercise.exercise_type.name}}</div>
       <exercise-type-details exercise-type-id="exercise.exercise_type.id"
-                             user-id="training.trainee.id"></exercise-type-details>
+                             user-id="training.trainee.id"
+                             trainer="trainer"></exercise-type-details>
     </div>
   </div>
 
