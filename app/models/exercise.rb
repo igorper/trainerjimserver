@@ -18,7 +18,7 @@ class Exercise < ActiveRecord::Base
   validates_inclusion_of :guidance_type, :in => ["duration", "tempo", "manual"]
   
   belongs_to :training
-  has_many :series, :dependent => :delete_all
+  has_many :series, -> {order(:order)}, :dependent => :delete_all
   belongs_to :exercise_type
 
   amoeba do
