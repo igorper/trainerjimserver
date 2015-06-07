@@ -7,9 +7,7 @@ class Api::V1::UserExercisePhotosController < ActionController::Base
   def destroy
     when_signed_in do
       user_exercise_photo = UserExercisePhoto.find_by_id(params[:id])
-      if user_exercise_photo
-        try_delete_user_exercise_photo(user_exercise_photo)
-      else
+      if !user_exercise_photo || !try_delete_user_exercise_photo(user_exercise_photo)
         render status: :bad_request
       end
     end

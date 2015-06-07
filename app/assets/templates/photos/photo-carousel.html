@@ -1,0 +1,7 @@
+<div class="photo-carousel">
+  <carousel interval="0">
+    <slide ng-repeat="photo in photos" active="photo.active">
+      <img ng-src="{{photo.large_image_url}}" style="margin:auto;">
+    </slide>
+  </carousel>
+</div>

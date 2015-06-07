@@ -11,13 +11,9 @@
         Add exercise
       </button>
     </div>
-
-  </div>
-  <div class="row section-split">
-    <div class="separator"></div>
   </div>
 
-  <div class="exercises list" ui-sortable="sortableOptions" ng-model="training.exercises">
+  <div class="exercises" ui-sortable="sortableOptions" ng-model="training.exercises">
     <div ng-repeat="exercise in training.exercises">
       <exercise-editor exercise="exercise"
                        training="training"

@@ -1,0 +1,26 @@
+var photoCarousel = angular.module('photos.photoCarousel', [
+  'ui.bootstrap'
+]);
+
+photoCarousel.directive('photoCarousel', function () {
+  return {
+    restrict: 'E',
+    scope: {photos: '='},
+    templateUrl: "<%= asset_path('photos/photo-carousel.html') %>"
+  };
+});
+
+photoCarousel.factory('PhotoCarouselDialog', ['$modal', function ($modal) {
+  return function (photos, selectedPhotoIndex) {
+    return $modal.open({
+      templateUrl: '<%= asset_path('photos/photo-carousel-dialog.html') %>',
+      backdrop: 'static',
+      windowClass: 'modal-window',
+      size: 'lg',
+      controller: ['$scope', function ($scope) {
+        $scope.photos = photos;
+        $scope.photos[selectedPhotoIndex].active = true;
+      }]
+    });
+  };
+}]);

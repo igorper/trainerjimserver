@@ -9,7 +9,8 @@ photoThumb.directive('photoThumb', function () {
     scope: {
       photo: '=',
       isDeletable: '=',
-      onDeleteClicked: '&'
+      onDeleteClicked: '&',
+      onPhotoClicked: '&'
     },
     templateUrl: "<%= asset_path('photos/photo-thumb.html') %>"
   };

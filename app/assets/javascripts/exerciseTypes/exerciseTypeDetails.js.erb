@@ -1,7 +1,9 @@
 var exerciseTypeDetailsModule = angular.module("exerciseTypes.exerciseTypeDetails", [
+  'ui.bootstrap',
   'exerciseTypes.exerciseType',
   'users.exerciseTypes.photos',
   'photos.photoThumb',
+  'photos.photoCarousel',
   'angularSpinner',
   'photos.takePhotoDialog'
 ]);
@@ -14,7 +16,7 @@ exerciseTypeDetailsModule.directive('exerciseTypeDetails', function () {
       'userId': '=',
       'trainer': '='
     },
-    controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'usSpinnerService', 'TakePhotoDialog', function ($scope, ExerciseType, UserExerciseTypePhotos, usSpinnerService, TakePhotoDialog) {
+    controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'usSpinnerService', 'TakePhotoDialog', 'PhotoCarouselDialog', function ($scope, ExerciseType, UserExerciseTypePhotos, usSpinnerService, TakePhotoDialog, PhotoCarouselDialog) {
       $scope.exerciseType = ExerciseType.get({id: $scope.exerciseTypeId});
 
       function refreshPhotos() {
@@ -33,6 +35,11 @@ exerciseTypeDetailsModule.directive('exerciseTypeDetails', function () {
       $scope.onDeletePhotoClicked = function (photo) {
         photo.$delete().then(refreshPhotos);
       };
+
+      $scope.onPhotoClicked = function (photoIndex) {
+        PhotoCarouselDialog($scope.userPhotos, photoIndex);
+      };
+
 
       function startSpinner() {
         usSpinnerService.spin('exercise-type-details-photo-upload-spinner');

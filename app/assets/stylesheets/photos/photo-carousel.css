@@ -1,0 +1,21 @@
+div.photo-carousel {
+  height: 700px;
+}
+
+div.photo-carousel img {
+  max-height: 700px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+div.photo-carousel .carousel-inner .item {
+  height: 700px;
+  position: relative;
+}
+
+div.photo-carousel .carousel-indicators li {
+  box-shadow: 0 1px 2px 1px rgba(0, 0, 0, 0.75);
+  margin: 2px;
+}

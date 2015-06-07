@@ -4,8 +4,6 @@
 /// WORKOUT PAGE
 //
 .training {
-  line-height: normal;
-
   /////////////////////////
   /// LEFT NAVIGATION MENU
   //
@@ -24,6 +22,7 @@
 
     $workoutItemHeight: 44px;
 
+     //TODO: move the .workout-list to 'workout-list.css'
     .workout-list {
       > li {
         margin-bottom: -3px;
@@ -98,54 +97,6 @@
     $borderWid: 3px;
     $regimeDimWithBorder: $regimeDim + 2*$borderWid;
 
-    .regimes {
-      padding: 0px $paddingLR $paddingTB $paddingLR;
-
-      .regime {
-        cursor: pointer;
-        width: $regimeDimWithBorder;
-        margin-right: 5px;
-        margin-top: 10px;
-        display: inline-block;
-        vertical-align: top;
-
-        .icon {
-          @include square($regimeDim);
-          padding: $borderWid;
-        }
-        .icon i.icon-ok {
-          display: none;
-        }
-        &:hover .icon {
-          @include square($regimeDim);
-          padding: 0;
-          border: 3px solid $jimColor;
-        }
-        .icon .image {
-          background-color: #eee;
-          @include square($regimeDim);
-        }
-
-        .name {
-          font-size: 0.8em;
-          text-align: center;
-          margin-top: $borderWid;
-        }
-
-        &.active .icon .tick-icon {
-          position: absolute;
-          background-color: $jimColor;
-          margin: -3px 0 0 -3px;
-          padding: 3px;
-          @include square(14px);
-        }
-        &.active .icon i.icon-ok {
-          display: inline-block;
-          margin: 0px;
-        }
-      }
-    }
-
     .selected-regime {
       padding: $paddingTB $paddingLR;
 
@@ -186,29 +137,6 @@
         .btn-group ul {
           text-align: left;
         }
-      }
-
-      .section-split {
-        margin-top: 20px;
-      }
-
-      .list {
-        list-style: none outside none;
-        margin: 10px 0 30px;
-      }
-
-      .item {
-        width: 200px;
-        padding: 5px 10px;
-        margin: 5px 0;
-        border: 2px solid #444;
-        border-radius: 5px;
-        background-color: #EA8A8A;
-
-        font-size: 1.1em;
-        font-weight: bold;
-        text-align: center;
-        cursor: move;
       }
 
       .exercises {

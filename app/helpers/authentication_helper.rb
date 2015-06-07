@@ -39,7 +39,7 @@ module AuthenticationHelper
   end
 
   def admin_or_trainer_of?(user, trainee_id)
-    user.administrator? || try_get_trainee(user, trainee_id)
+    user.administrator? || user.id == trainee_id || try_get_trainee(user, trainee_id)
   end
 
   def trainer_of?(trainer, trainee)

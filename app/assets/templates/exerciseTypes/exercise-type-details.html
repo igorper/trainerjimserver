@@ -18,6 +18,7 @@
         <div class="photo" ng-repeat="photo in userPhotos">
           <photo-thumb photo="photo"
                        is-deletable="canDeletePhoto(photo)"
+                       on-photo-clicked="onPhotoClicked($index);"
                        on-delete-clicked="onDeletePhotoClicked(photo)"/>
         </div>
       </div>
