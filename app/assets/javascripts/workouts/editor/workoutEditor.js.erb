@@ -19,7 +19,7 @@ angular.module('workouts.editor', [
         onDeleteClicked: '&'
       },
       controller: 'WorkoutEditorCtrl',
-      templateUrl: '<%= asset_path('workouts/editor/workout-editor.html') %>'
+      templateUrl: '<%= asset_path('workouts/editor/workout-editor-v1.html') %>'
     };
   })
   .controller('WorkoutEditorCtrl', ['$scope', 'ExerciseType', 'ExerciseTypesSelector', 'ExerciseTypeDetailsDialog', function ($scope, ExerciseType, ExerciseTypesSelector, ExerciseTypeDetailsDialog) {

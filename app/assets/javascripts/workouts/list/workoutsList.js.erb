@@ -1,5 +1,3 @@
-//= require trainings/training
-
 angular.module('workouts.list', [
   'trainings',
   'toaster'
@@ -13,11 +11,7 @@ angular.module('workouts.list', [
         onWorkoutSelected: '&onWorkoutSelected',
         onWorkoutCreate: '&onWorkoutCreate'
       },
-      controller: 'WorkoutsListCtrl',
-      templateUrl: 'workouts/list/workouts-list.html'
+      templateUrl: "<%= asset_path('workouts/list/workouts-list.html') %>"
     };
-  })
-  .controller('WorkoutsListCtrl', ['$scope', function ($scope) {
-  }])
-;
+  });
 

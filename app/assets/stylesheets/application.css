@@ -8,6 +8,7 @@
 *= require_tree ./exercises/
 *= require_tree ./trainees/
 *= require_tree ./photos/
+*= require_tree ./workouts-new/
 */
 
 @media (max-width: 768px) {

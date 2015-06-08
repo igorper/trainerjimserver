@@ -1,0 +1,28 @@
+<div class="container-fluid workouts">
+  <div class="row training">
+    <div class="my-workouts col-sm-3">
+      <h3 class="jim-title">My workouts</h3>
+
+      <trainee-thumb trainee="userDetails"
+                     on-trainee-photo-changed="refreshUserDetails()"
+                     fill-width="true"
+                     not-clickable="true"></trainee-thumb>
+
+      <div class="workouts-list">
+        <workouts-list workouts="templates"
+                       selected-workout="selectedTraining"
+                       on-workout-selected="onWorkoutSelected(workout)"
+                       on-workout-create="onWorkoutCreate()"></workouts-list>
+      </div>
+    </div>
+
+    <div class="main-panel col-sm-9">
+      <div class="jim-box">
+        <workout-editor training="selectedTraining"
+                        on-save-clicked="onSaveClicked(selectedTraining)"
+                        on-delete-clicked="onDeleteClicked(selectedTraining)">
+        </workout-editor>
+      </div>
+    </div>
+  </div>
+</div>

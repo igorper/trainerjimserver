@@ -1,8 +1,3 @@
-//= require trainings/training
-//= require shared/shared
-//= require workouts/editor/workoutEditor
-//= require workouts/list/workoutsList
-
 angular
   .module('workouts', [
     'workouts.editor',
@@ -10,6 +5,7 @@ angular
     'ui.router',
     'ui.bootstrap',
     'trainings',
+    'trainees.traineeThumb',
     'shared',
     'toaster'
   ])
@@ -17,15 +13,21 @@ angular
     $stateProvider
       .state('main.workouts', {
         url: "/workouts/:id",
-        controller: "WorkoutsCtrl",
-        templateUrl: "workouts/workouts.html"
+        controller: 'WorkoutsCtrl',
+        templateUrl: '<%= asset_path('workouts/workouts.html') %>'
       })
     ;
   }])
-  .controller("WorkoutsCtrl", ["$scope", '$modal', 'Training', '$stateParams', 'toaster', '$state',
-    function ($scope, $modal, Training, $stateParams, toaster, $state) {
+  .controller("WorkoutsCtrl", ["$scope", '$modal', 'Training', '$stateParams', 'toaster', '$state', 'Auth',
+    function ($scope, $modal, Training, $stateParams, toaster, $state, Auth) {
       $scope.selectedTraining = null;
       $scope.templates = [];
+
+      $scope.refreshUserDetails = function() {
+        $scope.userDetails = Auth.userDetails();
+      };
+
+      $scope.refreshUserDetails();
 
       function refreshTrainingsList() {
         Training.query(function (trainings) {

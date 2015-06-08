@@ -26,7 +26,7 @@ admin.config(['$stateProvider', function ($stateProvider) {
         }
 
         function refreshPaginationInfo() {
-          $scope.paginationInfo = ExerciseType.paginationInfo(function (data) {
+          $scope.paginationInfo = ExerciseType.paginationInfo(function () {
             // NOTE: we update current page here because the paginator forcefully updates it to '1' before the
             // paginationInfo promise is fulfilled. This then forces a changePage.
             $scope.currentPage = getCurrentPage();
