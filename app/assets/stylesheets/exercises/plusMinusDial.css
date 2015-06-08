@@ -7,6 +7,7 @@ div.plus-minus-dial .btn {
   color: white;
   width: 25px;
   padding: 3px 6px;
+  margin: 2px;
 }
 
 div.plus-minus-dial .btn:hover {
@@ -23,7 +24,7 @@ div.plus-minus-dial .btn.plus-btn:hover {
 
 div.plus-minus-dial .btn.minus-btn {
   background-color: #FBC912;
-  margin-top: 3px;
+  margin-top: 1px;
 }
 
 div.plus-minus-dial .btn.minus-btn:hover {

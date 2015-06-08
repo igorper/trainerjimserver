@@ -19,13 +19,8 @@
   </div>
 
 
-  <div class="guidance-type-editor" ng-switch="exercise.guidance_type">
-    <div ng-switch-when="manual">
-      <manual-exercise-editor exercise="exercise"></manual-exercise-editor>
-    </div>
-    <div ng-switch-when="duration">
-      <duration-exercise-editor exercise="exercise"></duration-exercise-editor>
-    </div>
+  <div class="guidance-type-editor">
+    <exercise-series-editor exercise="exercise"></exercise-series-editor>
   </div>
 
 
@@ -55,8 +50,8 @@
             Type: {{exercise.guidance_type}} <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" role="menu">
-            <li><a href="#" ng-click="setExerciseToManual()">manual</a></li>
-            <li><a href="#" ng-click="setExerciseToDuration()">duration</a></li>
+            <li><a ng-click="setExerciseToManual()">manual</a></li>
+            <li><a ng-click="setExerciseToDuration()">duration</a></li>
           </ul>
         </div>
       </div>

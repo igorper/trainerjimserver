@@ -59,81 +59,66 @@ exerciseEditorModule.directive('exerciseEditor', function () {
   };
 });
 
-
-exerciseEditorModule.directive('manualExerciseEditor', function () {
+exerciseEditorModule.directive('exerciseSeriesEditor', function () {
   return {
     restrict: 'E',
     scope: {
       exercise: '=exercise'
     },
     controller: ['$scope', function ($scope) {
-      var REPETITIONS_STEP = 1;
-      var WEIGHT_STEP = 5;
-      var REST_STEP = 5;
+      var repetitionsStep = 1;
+      var durationStep = 25;
+      var weightStep = 5;
+      var restStep = 5;
+      var durationExerciseType = "duration";
 
       $scope.selectedSeries = $scope.exercise.series[0];
+
+      function isDurationType() {
+        return $scope.exercise.guidance_type == durationExerciseType;
+      }
 
       $scope.changeSelectedSeries = function (series) {
         $scope.selectedSeries = series;
       };
 
-      $scope.increaseSeriesRepetitions = function () {
-        $scope.selectedSeries.repeat_count += REPETITIONS_STEP;
+      $scope.getFirstFieldLabel = function () {
+        return isDurationType() ? "duration seconds" : "reps"
       };
 
-      $scope.decreaseSeriesRepetitions = function () {
-        var series = $scope.selectedSeries;
-        series.repeat_count = series.repeat_count < REPETITIONS_STEP ? 0 : series.repeat_count - REPETITIONS_STEP;
+      $scope.incrementFirstField = function () {
+        $scope.selectedSeries.repeat_count += isDurationType() ? durationStep : repetitionsStep;
+      };
+
+      $scope.decrementFirstField = function () {
+        var step = isDurationType() ? durationStep : repetitionsStep;
+        if ($scope.selectedSeries.repeat_count <= step) {
+          $scope.selectedSeries.repeat_count = 0;
+        } else {
+          $scope.selectedSeries.repeat_count -= step;
+        }
       };
 
       $scope.increaseSeriesWeight = function () {
-        $scope.selectedSeries.weight += WEIGHT_STEP;
+        $scope.selectedSeries.weight += weightStep;
       };
 
       $scope.decreaseSeriesWeight = function () {
         var series = $scope.selectedSeries;
-        series.weight = series.weight < WEIGHT_STEP ? 0 : series.weight - WEIGHT_STEP;
+        series.weight = series.weight < weightStep ? 0 : series.weight - weightStep;
       };
 
       $scope.increaseSeriesRest = function () {
-        $scope.selectedSeries.rest_time += REST_STEP;
+        $scope.selectedSeries.rest_time += restStep;
       };
 
       $scope.decreaseSeriesRest = function () {
         var series = $scope.selectedSeries;
-        series.rest_time = series.rest_time < REST_STEP ? 0 : series.rest_time - REST_STEP;
+        series.rest_time = series.rest_time < restStep ? 0 : series.rest_time - restStep;
       };
 
     }],
-    templateUrl: '<%= asset_path('exercises/manual-exercise-editor.html') %>'
-  };
-});
-
-
-exerciseEditorModule.directive('durationExerciseEditor', function () {
-  return {
-    restrict: 'E',
-    scope: {
-      exercise: '=exercise'
-    },
-    controller: ['$scope', function ($scope) {
-
-      $scope.selectedSeries = $scope.exercise.series[0];
-
-      $scope.changeSelectedSeries = function (series) {
-        $scope.selectedSeries = series;
-      };
-
-      $scope.incrementDuration = function () {
-        $scope.selectedSeries.repeat_count += 25;
-      };
-
-      $scope.decrementDuration = function () {
-        $scope.selectedSeries.repeat_count -= 25;
-      };
-
-    }],
-    templateUrl: '<%= asset_path('exercises/duration-exercise-editor.html') %>'
+    templateUrl: '<%= asset_path('exercises/exercise-series-editor.html') %>'
   };
 });
 
