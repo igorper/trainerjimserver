@@ -45,7 +45,9 @@ admin.config(['$stateProvider', function ($stateProvider) {
             .result.then(refreshExerciseTypes);
         };
 
-        $scope.onExerciseClicked = ExerciseTypeDetailsDialog;
+        $scope.onExerciseClicked = function (exerciseType) {
+          ExerciseTypeDetailsDialog($scope.userDetails.id, exerciseType.id);
+        };
 
         $scope.onEditExerciseClicked = function (exerciseType) {
           ExerciseTypeEditDialog(angular.copy(exerciseType))

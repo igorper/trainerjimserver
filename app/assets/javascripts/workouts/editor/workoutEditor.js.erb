@@ -27,10 +27,6 @@ angular.module('workouts.editor', [
       return ExerciseType.get({id: exerciseTypeId});
     };
 
-    $scope.showExerciseTypeDetails = function (exerciseType) {
-      ExerciseTypeDetailsDialog(exerciseType);
-    };
-
     $scope.sortableOptions = {
       handle: '.move'
     };

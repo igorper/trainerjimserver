@@ -71,14 +71,15 @@ exerciseTypeDetailsModule.directive('exerciseTypeDetails', function () {
 
 
 exerciseTypeDetailsModule.factory('ExerciseTypeDetailsDialog', ['$modal', function ($modal) {
-  return function (exerciseTypeId) {
+  return function (userId, exerciseTypeId) {
     return $modal.open({
       templateUrl: '<%= asset_path('exerciseTypes/exercise-type-details-dialog.html') %>',
       backdrop: 'static',
       windowClass: 'modal-window',
       size: 'lg',
-      controller: ['$scope', 'ExerciseType', function ($scope, ExerciseType) {
+      controller: ['$scope', function ($scope) {
         $scope.exerciseTypeId = exerciseTypeId;
+        $scope.userId = userId;
 
         $scope.onCloseClicked = function () {
           $scope.$dismiss();
