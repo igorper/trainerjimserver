@@ -12,13 +12,13 @@ angular
   .config(['$stateProvider', '$urlRouterProvider', function ($stateProvider) {
     $stateProvider
       .state('main.results', {
-        url: "/results?:id&trainee",
+        url: "/results?:id&:trainee",
         controller: "ResultsCtrl",
         templateUrl: "results/results.html"
       });
   }])
-  .controller("ResultsCtrl", ["$scope", "$http", "Measurement", '$compile', 'uiCalendarConfig', '$stateParams', '$state',
-    "toaster", "Trainee", "Auth",
+  .controller("ResultsCtrl", ['$scope', '$http', 'Measurement', '$compile', 'uiCalendarConfig', '$stateParams', '$state',
+    'toaster', 'Trainee', 'Auth',
     function ($scope, $http, Measurement, $compile, uiCalendarConfig, $stateParams, $state, toaster, Trainee, Auth) {
       $scope.smileLookup = {0: "sweat", 1: "happy", 2: "bored"};
 
@@ -52,7 +52,6 @@ angular
 
       var lookupSeries = null;
 
-      $scope.userDetails = null;
       $scope.selectedTraining = null;
       $scope.trainingPage = null;
       $scope.calendarSources = [];
@@ -75,6 +74,23 @@ angular
 
       $scope.user = {};
       $scope.users = [];
+
+      $scope.userDetails = Auth.userDetails(function (userDetails) {
+        $scope.results = Measurement.query({userId: $stateParams.trainee == undefined ? userDetails.id : $stateParams.trainee}, function (measurements) {
+          for (var i = 0; i < measurements.length; i++) {
+            var measurement = measurements[i];
+            $scope.calendarSources.push([{
+              start: new Date(measurement.start_time),
+              end: new Date(measurement.end_time),
+              className: 'smile-icon',
+              training: measurement
+            }])
+          }
+
+        }, function () {
+          console.error("Could not fetch exercises.");
+        });
+      });
 
       Trainee.query(function (trainees) {
         $scope.users = trainees;
@@ -105,25 +121,6 @@ angular
         }
       }
 
-      Auth.userDetails(function (userDetails) {
-        $scope.userDetails = userDetails;
-        Measurement.query({trainer: userDetails.is_trainer, trainee_id: $stateParams.trainee == undefined ? null : $stateParams.trainee}, function (data) {
-          $scope.results = data;
-
-          for (var i = 0; i < $scope.results.length; i++) {
-            var r = $scope.results[i];
-            $scope.calendarSources.push([{
-              start: new Date(r.start_time),
-              end: new Date(r.end_time),
-              className: 'smile-icon',
-              training: r
-            }])
-          }
-
-        }, function (data, status, headers) {
-          console.error("Could not fetch exercises.");
-        });
-      });
 
       $scope.onTraineeChanged = function(item, model){
         $state.go('main.results', {id: undefined, trainee: item == undefined ? null : item.id});

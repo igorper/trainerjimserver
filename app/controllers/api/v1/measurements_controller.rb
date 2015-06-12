@@ -1,36 +1,67 @@
 class Api::V1::MeasurementsController < ActionController::Base
 
-  def index
-    if user_signed_in?
-      if params[:trainer].present? && params[:trainer] == "true"
-        if params[:trainee_id].present?
-          # show measurements for a particular trainee
-          @measurements = Measurement.includes(:training).where(trainee_id: params[:trainee_id])
-        else
-          # show current user's measurements
-          @measurements = Measurement.includes(:training).where(trainee_id: current_user.id)
-        end
-      else
-        # show current user's measurements
-        @measurements = Measurement.includes(:training).where(trainee_id: current_user.id)
-      end
+  include AuthenticationHelper
 
-    else
-      render status: :unauthorized
-    end
+  def user_measurements
+    when_trainer_of(params[:user_id]) { |trainee|
+      @measurements = Measurement.includes(:training).where(trainee_id: trainee.id)
+      render :index
+    }
   end
 
   def show
-    if user_signed_in?
-      @measurement = Measurement.includes(:series_executions, :training).where(:id => params[:id]).first
+    when_signed_in do
+      @measurement = Measurement
+                         .includes(:series_executions, :training)
+                         .where('trainee_id = :user_id OR trainer_id = :user_id', user_id: current_user.id)
+                         .find_by_id(params[:id])
       if @measurement.nil?
-        ajax_error_i18n :measurement_does_not_exist
-      elsif @measurement.trainer_id != current_user.id && @measurement.trainee_id != current_user.id
-        render json: {}, status: :forbidden
+        render_not_found
       end
-    else
-      render json: {}, status: :unauthorized
     end
   end
+
+  def create
+    when_trainer_of(params[:trainee_id]) { |_|
+      measurement = to_measurement(params)
+      measurement.save
+      render partial: 'overview_measurement', locals: {measurement: measurement}
+    }
+  end
+
+  private
+
+  def to_measurement(params)
+    measurement_params = params.permit(
+        :trainee_id,
+        :trainer_id,
+        :training_id,
+        :start_time,
+        :end_time,
+        :rating,
+        :trainer_seen,
+        :comment
+    )
+    measurement_params[:series_executions] = to_series_executions(params[:series_executions])
+    Measurement.new(measurement_params)
+  end
+
+  def to_series_executions(params)
+    params.map { |series_execution_params|
+      SeriesExecution.new(
+          series_execution_params.permit(
+              :start_timestamp,
+              :end_timestamp,
+              :num_repetitions,
+              :weight,
+              :rest_time,
+              :duration_seconds,
+              :rating,
+              :series_id
+          )
+      )
+    }
+  end
+
 
 end

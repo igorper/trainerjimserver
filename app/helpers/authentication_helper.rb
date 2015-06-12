@@ -1,5 +1,7 @@
 module AuthenticationHelper
 
+  include HttpResponseHelper
+
   def when_signed_in
     if user_signed_in?
       yield
@@ -32,10 +34,6 @@ module AuthenticationHelper
     else
       render_unauthorized
     end
-  end
-
-  def render_unauthorized
-    render 'api/v1/unauthorized', status: :unauthorized
   end
 
   def admin_or_trainer_of?(user, trainee_id)

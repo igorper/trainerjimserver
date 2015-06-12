@@ -18,7 +18,12 @@ Trainerjim::Application.routes.draw do
         post 'set_password'
       end
 
-      resources :users, :trainings, :exercise_types, :results, :measurements
+      resources :users, :trainings, :exercise_types, :results
+
+      # START: Measurements
+      resources :measurements
+      get 'users/:user_id/measurements', to: 'measurements#user_measurements'
+      # END: Measurements
 
       # START: User Exercise Type Photos
       get 'users/:user_id/exercise_photos', to: 'user_exercise_photos#user_exercise_photos'

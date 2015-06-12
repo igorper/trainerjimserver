@@ -13,9 +13,9 @@ class Api::V1::TrainingsController < ActionController::Base
     when_signed_in do
       @training = full_trainings.find_by_id(params[:id])
       if @training.nil?
-        ajax_error_i18n :training_does_not_exist
+        render_not_found
       elsif !@training.trainee_id.nil? && @training.trainee_id != current_user.id
-        render json: {}, status: :forbidden
+        render_forbidden
       end
     end
   end
