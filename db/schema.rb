@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150612074105) do
+ActiveRecord::Schema.define(version: 20150613071821) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -53,25 +53,6 @@ ActiveRecord::Schema.define(version: 20150612074105) do
   add_index "exercises", ["exercise_type_id"], name: "index_exercises_on_exercise_type_id", using: :btree
   add_index "exercises", ["training_id"], name: "index_exercises_on_training_id", using: :btree
 
-  create_table "i18n_keys", force: :cascade do |t|
-    t.string   "key"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "i18n_keys", ["key"], name: "index_i18n_keys_on_key", unique: true, using: :btree
-
-  create_table "i18n_strings", force: :cascade do |t|
-    t.integer  "i18n_key_id"
-    t.string   "locale"
-    t.text     "data"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "i18n_strings", ["i18n_key_id"], name: "index_i18n_strings_on_i18n_key_id", using: :btree
-  add_index "i18n_strings", ["locale"], name: "index_i18n_strings_on_locale", using: :btree
-
   create_table "measurement_comments", force: :cascade do |t|
     t.integer "timestamp"
     t.string  "comment"
@@ -97,14 +78,6 @@ ActiveRecord::Schema.define(version: 20150612074105) do
   add_index "measurements", ["trainee_id"], name: "index_measurements_on_trainee_id", using: :btree
   add_index "measurements", ["trainer_id"], name: "index_measurements_on_trainer_id", using: :btree
   add_index "measurements", ["training_id"], name: "index_measurements_on_training_id", using: :btree
-
-  create_table "newsletter_subscriptions", force: :cascade do |t|
-    t.string   "email"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "newsletter_subscriptions", ["email"], name: "index_newsletter_subscriptions_on_email", unique: true, using: :btree
 
   create_table "registration_tokens", force: :cascade do |t|
     t.string "token"
@@ -221,7 +194,6 @@ ActiveRecord::Schema.define(version: 20150612074105) do
   add_foreign_key "exercise_types", "users", column: "owner_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "exercises", "exercise_types", on_update: :cascade, on_delete: :restrict
   add_foreign_key "exercises", "trainings", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "i18n_strings", "i18n_keys", on_update: :cascade, on_delete: :cascade
   add_foreign_key "measurement_comments", "series_executions", on_update: :cascade
   add_foreign_key "measurements", "trainings", on_update: :cascade, on_delete: :cascade
   add_foreign_key "measurements", "users", column: "trainee_id", on_update: :cascade, on_delete: :cascade
