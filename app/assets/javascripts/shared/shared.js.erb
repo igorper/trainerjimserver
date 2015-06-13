@@ -2,6 +2,7 @@
 
 angular.module('shared', [
   'auth',
+  'users',
   'ui.router',
   'util.filters.isShown',
   'util.links'
@@ -13,7 +14,7 @@ angular.module('shared', [
       templateUrl: '<%= asset_path('shared/header-nav-bar.html') %>'
     }
   })
-  .controller('HeaderCtrl', ['$scope', '$state', 'Auth', 'isLinkActive', function ($scope, $state, Auth, isLinkActive) {
+  .controller('HeaderCtrl', ['$scope', '$state', 'Auth', 'User', 'isLinkActive', function ($scope, $state, Auth, User, isLinkActive) {
     $scope.topNavigation = [
       {
         name: "Workouts",
@@ -50,7 +51,7 @@ angular.module('shared', [
       updateUserDetails(updatedUser);
     });
 
-    Auth.userDetails(updateUserDetails);
+    User.current(updateUserDetails);
 
     $scope.logout = function () {
       Auth.logout(function () {

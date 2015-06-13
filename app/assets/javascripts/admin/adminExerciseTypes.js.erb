@@ -13,9 +13,9 @@ admin.config(['$stateProvider', function ($stateProvider) {
     .state('main.admin.exerciseTypes', {
       url: '/exerciseTypes?page',
       templateUrl: "<%= asset_path('admin/admin-exercise-types.html') %>",
-      controller: ['$scope', 'ExerciseType', 'ExerciseTypeEditDialog', 'ExerciseTypeDetailsDialog', 'toaster', '$stateParams', '$state', 'Auth', function ($scope, ExerciseType, ExerciseTypeEditDialog, ExerciseTypeDetailsDialog, toaster, $stateParams, $state, Auth) {
+      controller: ['$scope', 'ExerciseType', 'ExerciseTypeEditDialog', 'ExerciseTypeDetailsDialog', 'toaster', '$stateParams', '$state', 'User', function ($scope, ExerciseType, ExerciseTypeEditDialog, ExerciseTypeDetailsDialog, toaster, $stateParams, $state, User) {
 
-        $scope.userDetails = Auth.userDetails();
+        $scope.userDetails = User.current();
 
         $scope.changePage = function () {
           $state.go('main.admin.exerciseTypes', {page: $scope.currentPage});

@@ -1,7 +1,7 @@
 var trainees = angular.module('trainees', [
   'ui.router',
   'ui.bootstrap',
-  'shared',
+  'users',
   'trainings',
   'workouts.selector',
   'trainees.traineeThumb',
@@ -107,10 +107,10 @@ trainees.controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams
     }
   ]);
 
-trainees.controller("TraineeTrainingCtrl", ["$scope", "$state", '$stateParams', 'toaster', 'TraineeTraining', 'traineeId', 'TraineeTrainingUtils', 'Auth',
-    function ($scope, $state, $stateParams, toaster, TraineeTraining, traineeId, TraineeTrainingUtils, Auth) {
+trainees.controller("TraineeTrainingCtrl", ["$scope", "$state", '$stateParams', 'toaster', 'TraineeTraining', 'traineeId', 'TraineeTrainingUtils', 'User',
+    function ($scope, $state, $stateParams, toaster, TraineeTraining, traineeId, TraineeTrainingUtils, User) {
       $scope.selectedTraining = [];
-      $scope.trainer = Auth.userDetails();
+      $scope.trainer = User.current();
 
       function createEmptyTraining() {
         return new TraineeTraining({traineeId: traineeId, name: "Enter training name", exercises: []});

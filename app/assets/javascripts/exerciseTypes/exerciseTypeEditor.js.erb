@@ -6,7 +6,7 @@ var exerciseTypeEditorModule = angular.module("exerciseTypes.exerciseTypeEditor"
   'auth'
 ]);
 
-exerciseTypeEditorModule.directive('exerciseTypeEditor', ['Auth', function (Auth) {
+exerciseTypeEditorModule.directive('exerciseTypeEditor', ['User', function (User) {
   return {
     restrict: 'E',
     scope: {
@@ -15,7 +15,7 @@ exerciseTypeEditorModule.directive('exerciseTypeEditor', ['Auth', function (Auth
     controller: ['$scope', function ($scope) {
       $scope.files = [];
 
-      $scope.userDetails = Auth.userDetails();
+      $scope.userDetails = User.current();
 
       $scope.$watch('files', function () {
         $scope.exerciseType.image = $scope.files && $scope.files.length > 0 ? $scope.files[0] : null;

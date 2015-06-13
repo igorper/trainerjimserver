@@ -1,11 +1,8 @@
-//= require shared/shared
-//= require measurements/measurement
-
 angular
   .module('results', [
     'ui.router',
     'ui.bootstrap',
-    'shared',
+    'users',
     'ui.calendar',
     'measurements'
   ])
@@ -18,8 +15,8 @@ angular
       });
   }])
   .controller("ResultsCtrl", ['$scope', '$http', 'Measurement', '$compile', 'uiCalendarConfig', '$stateParams', '$state',
-    'toaster', 'Trainee', 'Auth',
-    function ($scope, $http, Measurement, $compile, uiCalendarConfig, $stateParams, $state, toaster, Trainee, Auth) {
+    'toaster', 'Trainee', 'User',
+    function ($scope, $http, Measurement, $compile, uiCalendarConfig, $stateParams, $state, toaster, Trainee, User) {
       $scope.smileLookup = {0: "sweat", 1: "happy", 2: "bored"};
 
       /**
@@ -75,7 +72,7 @@ angular
       $scope.user = {};
       $scope.users = [];
 
-      $scope.userDetails = Auth.userDetails(function (userDetails) {
+      $scope.userDetails = User.current(function (userDetails) {
         $scope.results = Measurement.query({userId: $stateParams.trainee == undefined ? userDetails.id : $stateParams.trainee}, function (measurements) {
           for (var i = 0; i < measurements.length; i++) {
             var measurement = measurements[i];

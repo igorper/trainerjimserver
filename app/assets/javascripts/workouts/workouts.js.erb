@@ -4,7 +4,7 @@ var workouts = angular.module('workouts', [
   'ui.bootstrap',
   'trainings',
   'trainees.traineeThumb',
-  'shared',
+  'users',
   'toaster'
 ]);
 
@@ -18,13 +18,13 @@ workouts.config(['$stateProvider', function ($stateProvider) {
   ;
 }]);
 
-workouts.controller("WorkoutsCtrl", ["$scope", '$modal', 'Training', '$stateParams', 'toaster', '$state', 'Auth',
-  function ($scope, $modal, Training, $stateParams, toaster, $state, Auth) {
+workouts.controller("WorkoutsCtrl", ["$scope", '$modal', 'Training', '$stateParams', 'toaster', '$state', 'User',
+  function ($scope, $modal, Training, $stateParams, toaster, $state, User) {
     $scope.selectedTraining = null;
     $scope.templates = [];
 
     $scope.refreshUserDetails = function () {
-      $scope.userDetails = Auth.userDetails();
+      $scope.userDetails = User.current();
     };
 
     $scope.refreshUserDetails();

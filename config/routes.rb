@@ -8,13 +8,18 @@ Trainerjim::Application.routes.draw do
         post 'login'
         post 'logout'
         post 'signup'
-        get 'user_details'
         get 'is_logged_in'
-        post 'set_name'
-        post 'set_password'
       end
 
-      resources :users, :trainings, :exercise_types, :results
+      resources :trainings, :exercise_types
+
+      # START: Users
+      resources :users do
+        post 'name', on: :member
+        post 'password', on: :member
+        get 'current', on: :collection
+      end
+      # END: Users
 
       # START: Measurements
       resources :measurements
