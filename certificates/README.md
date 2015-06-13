@@ -11,5 +11,5 @@ OPENSSL_CONF=/c/Program\ Files\ \(x86\)/Git/ssl/openssl.cnf openssl req -new -ke
 __Starting an HTTPS server instance__:
 
 ```
-thin start -p 3001 --ssl --ssl-key-file certificates/server.key --ssl-cert-file certificates/server.crt
+thin start -a 0.0.0.0 -p 3001 --ssl --ssl-key-file certificates/server.key --ssl-cert-file certificates/server.crt
 ```
