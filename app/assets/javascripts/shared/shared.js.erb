@@ -1,72 +1,69 @@
-//= require auth/auth
-
-angular.module('shared', [
+var shared = angular.module('shared', [
   'auth',
   'users',
   'ui.router',
   'util.filters.isShown',
   'util.links'
-])
-  .directive('header', function () {
-    return {
-      restrict: 'E',
-      controller: 'HeaderCtrl',
-      templateUrl: '<%= asset_path('shared/header-nav-bar.html') %>'
-    }
-  })
-  .controller('HeaderCtrl', ['$scope', '$state', 'Auth', 'User', 'isLinkActive', function ($scope, $state, Auth, User, isLinkActive) {
-    $scope.topNavigation = [
-      {
-        name: "Workouts",
-        link: "main.workouts"
-      },
-      {
-        name: "Trainees",
-        link: "main.trainees",
-        activeUrls: ["main.trainee"],
-        isShown: function () {
-          return $scope.userDetails && $scope.userDetails.is_trainer;
-        }
-      },
-      {
-        name: "Results",
-        link: "main.results"
-      },
-      {
-        name: "Administration",
-        link: "main.admin.exerciseTypes",
-        isShown: function () {
-          return $scope.userDetails && ($scope.userDetails.is_admin || $scope.userDetails.is_trainer);
-        }
+]);
+
+shared.directive('header', function () {
+  return {
+    restrict: 'E',
+    controller: 'HeaderCtrl',
+    templateUrl: '<%= asset_path('shared/header-nav-bar.html') %>'
+  }
+});
+
+shared.controller('HeaderCtrl', ['$scope', '$state', 'Auth', 'User', 'isLinkActive', function ($scope, $state, Auth, User, isLinkActive) {
+  $scope.topNavigation = [
+    {
+      name: "Workouts",
+      link: "main.workouts"
+    },
+    {
+      name: "Trainees",
+      link: "main.trainees",
+      activeUrls: ["main.trainee"],
+      isShown: function () {
+        return $scope.userDetails && $scope.userDetails.is_trainer;
       }
-    ];
-
-    $scope.isLinkActive = isLinkActive;
-
-    function updateUserDetails(userDetails) {
-      $scope.userDetails = userDetails;
+    },
+    {
+      name: "Results",
+      link: "main.results"
+    },
+    {
+      name: "Administration",
+      link: "main.admin.exerciseTypes",
+      isShown: function () {
+        return $scope.userDetails && ($scope.userDetails.is_admin || $scope.userDetails.is_trainer);
+      }
     }
+  ];
 
-    $scope.$on(USER_CHANGED_EVENT, function (event, updatedUser) {
-      updateUserDetails(updatedUser);
+  $scope.isLinkActive = isLinkActive;
+
+  function updateUserDetails(userDetails) {
+    $scope.userDetails = userDetails;
+  }
+
+  $scope.$on(USER_CHANGED_EVENT, function (event, updatedUser) {
+    updateUserDetails(updatedUser);
+  });
+
+  User.current(updateUserDetails);
+
+  $scope.logout = function () {
+    Auth.logout(function () {
+      $state.go('welcome');
     });
+  };
+}]);
 
-    User.current(updateUserDetails);
-
-    $scope.logout = function () {
-      Auth.logout(function () {
-        $state.go('welcome');
-      });
-    };
-  }])
-  .directive('footer', function () {
-    return {
-      restrict: 'E',
-      controller: 'FooterCtrl',
-      templateUrl: '<%= asset_path('shared/footer-bar.html') %>'
-    }
-  })
-  .controller('FooterCtrl', ['$scope', function ($scope) {
-
-  }]);
+shared.directive('footer', function () {
+  return {
+    restrict: 'E',
+    templateUrl: '<%= asset_path('shared/footer-bar.html') %>'
+  }
+});
 
