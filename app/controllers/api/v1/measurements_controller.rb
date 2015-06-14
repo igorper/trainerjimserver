@@ -34,12 +34,10 @@ class Api::V1::MeasurementsController < ActionController::Base
   def to_measurement(params)
     measurement_params = params.permit(
         :trainee_id,
-        :trainer_id,
         :training_id,
         :start_time,
         :end_time,
         :rating,
-        :trainer_seen,
         :comment
     )
     measurement_params[:series_executions] = to_series_executions(params[:series_executions])
@@ -50,8 +48,6 @@ class Api::V1::MeasurementsController < ActionController::Base
     params.map { |series_execution_params|
       SeriesExecution.new(
           series_execution_params.permit(
-              :start_timestamp,
-              :end_timestamp,
               :num_repetitions,
               :weight,
               :rest_time,

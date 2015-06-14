@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150613071821) do
+ActiveRecord::Schema.define(version: 20150614220443) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -62,21 +62,17 @@ ActiveRecord::Schema.define(version: 20150613071821) do
   add_index "measurement_comments", ["series_execution_id"], name: "index_measurement_comments_on_series_execution_id", using: :btree
 
   create_table "measurements", force: :cascade do |t|
-    t.integer  "trainee_id",                   null: false
-    t.integer  "trainer_id"
-    t.integer  "training_id",                  null: false
-    t.binary   "data"
+    t.integer  "trainee_id",  null: false
+    t.integer  "training_id", null: false
     t.datetime "start_time"
     t.datetime "end_time"
     t.integer  "rating"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "trainer_seen", default: false, null: false
     t.string   "comment"
   end
 
   add_index "measurements", ["trainee_id"], name: "index_measurements_on_trainee_id", using: :btree
-  add_index "measurements", ["trainer_id"], name: "index_measurements_on_trainer_id", using: :btree
   add_index "measurements", ["training_id"], name: "index_measurements_on_training_id", using: :btree
 
   create_table "registration_tokens", force: :cascade do |t|
@@ -112,8 +108,6 @@ ActiveRecord::Schema.define(version: 20150613071821) do
   add_index "series", ["exercise_id"], name: "index_series_on_exercise_id", using: :btree
 
   create_table "series_executions", force: :cascade do |t|
-    t.integer "start_timestamp"
-    t.integer "end_timestamp"
     t.integer "num_repetitions"
     t.integer "weight"
     t.integer "rest_time"
@@ -197,7 +191,6 @@ ActiveRecord::Schema.define(version: 20150613071821) do
   add_foreign_key "measurement_comments", "series_executions", on_update: :cascade
   add_foreign_key "measurements", "trainings", on_update: :cascade, on_delete: :cascade
   add_foreign_key "measurements", "users", column: "trainee_id", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "measurements", "users", column: "trainer_id", on_update: :cascade, on_delete: :nullify
   add_foreign_key "roles_users", "roles", on_update: :cascade, on_delete: :cascade
   add_foreign_key "roles_users", "users", on_update: :cascade, on_delete: :cascade
   add_foreign_key "series", "exercises", on_update: :cascade, on_delete: :cascade
