@@ -97,46 +97,78 @@
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-sm-12 section-title">Changes</div>
+                                        <div class="col-sm-12">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Changes</h3>
+                                                </div>
+
+                                                <div class="panel-body">
+                                                  <div class="row">
+                                                    <div class="col-sm-4 property">
+                                                      <div class="title">Rest</div>
+                                                      <div><span tooltip="Average rest difference based on planned rest.">{{averageRestDifferenceInSec | number:0}} s</span>
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-sm-4 property">
+                                                      <div class="title">Weight</div>
+                                                      <div><span
+                                                        tooltip="Number of weight changes.">{{numberWeightChanges}}</span> (<span
+                                                        tooltip="Average weight change.">{{averageWeightChanges}} kg</span>)
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-sm-4 property">
+                                                      <div class="title">Reps</div>
+                                                      <div><span
+                                                        tooltip="Number of repetition changes.">{{numberRepsChanges}}</span>
+                                                        (<span tooltip="Average repetition change.">{{averageRepsChanges}}</span>)
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-sm-4 property">
-                                            <div class="title">Rest</div>
-                                            <div><span tooltip="Average rest difference based on planned rest.">{{averageRestDifferenceInSec | number:0}} s</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4 property">
-                                            <div class="title">Weight</div>
-                                            <div><span
-                                                    tooltip="Number of weight changes.">{{numberWeightChanges}}</span> (<span
-                                                    tooltip="Average weight change.">{{averageWeightChanges}} kg</span>)
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4 property">
-                                            <div class="title">Reps</div>
-                                            <div><span
-                                                    tooltip="Number of repetition changes.">{{numberRepsChanges}}</span>
-                                                (<span tooltip="Average repetition change.">{{averageRepsChanges}}</span>)
+                                        <div class="col-sm-12">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Series intensity</h3>
+                                                </div>
+
+                                                <div class="panel-body">
+                                                  <div class="row">
+                                                    <div class="col-sm-6 property">
+                                                      <div class="title">Too easy</div>
+                                                      <div><span
+                                                        tooltip="Number of series rated too easy.">{{numSeriesTooEasy}}</span>
+                                                      </div>
+                                                    </div>
+                                                    <div class="col-sm-6 property">
+                                                      <div class="title">Too heavy</div>
+                                                      <div><span
+                                                        tooltip="Number of series rated too heavy.">{{numSeriesTooHeavy}}</span>
+                                                      </div>
+                                                    </div>
+                                                  </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
 
                                     <div class="row">
-                                        <div class="col-sm-12 section-title">Series intensity</div>
-                                    </div>
+                                        <div class="col-sm-12">
+                                            <div class="panel panel-default">
+                                                <div class="panel-heading">
+                                                    <h3 class="panel-title">Comment</h3>
+                                                </div>
 
-                                    <div class="row">
-                                        <div class="col-sm-4 property">
-                                            <div class="title">Too easy</div>
-                                            <div><span
-                                                    tooltip="Number of series rated too easy.">{{numSeriesTooEasy}}</span>
-                                            </div>
-                                        </div>
-                                        <div class="col-sm-4 property">
-                                            <div class="title">Too heavy</div>
-                                            <div><span
-                                                    tooltip="Number of series rated too heavy.">{{numSeriesTooHeavy}}</span>
+                                                <div class="panel-body">
+                                                    <div>
+                                                        This is the comment...
+                                                    </div>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
