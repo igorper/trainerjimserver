@@ -3,6 +3,7 @@
 *= require angularjs-toaster/toaster
 *= require fullcalendar/dist/fullcalendar
 *= require angular-ui-grid/ui-grid
+*= require results/results_v2
 *= require_tree ./exerciseTypes/
 *= require_tree ./admin/
 *= require_tree ./exercises/
