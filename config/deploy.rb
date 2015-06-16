@@ -1,7 +1,7 @@
 # config valid only for current version of Capistrano
 lock '3.4.0'
 
-server_ip = '52.28.33.124'
+server_ip = '52.28.150.185'
 
 set :application, 'trainerjimserver'
 set :repo_url, 'git@bitbucket.org:trainerjim/trainerjimserver.git'
