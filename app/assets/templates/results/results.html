@@ -35,7 +35,7 @@
             </div>
             <div ng-show="selectedTraining" id="my-workout" class="selected-regime">
               <div class="row header">
-                <h1 class="col-sm-7 jim-title">{{selectedTraining.name}}</h1>
+                <h1 class="col-sm-7 jim-title">{{selectedTraining.training.name}}</h1>
 
                 <div class="btn-group pull-right">
                   <label class="btn btn-primary" ng-model="trainingPage" btn-radio="'Overview'">Overview</label>
@@ -191,7 +191,7 @@
                   </div>
                 </div>
                 <div ng-show="trainingPage == 'Details'">
-                  <div ng-repeat="exercise in selectedTraining.exercises">
+                  <div ng-repeat="exercise in selectedTraining.training.exercises">
                     <div class="row">
                       <div class="col-sm-12 section-title">{{exercise.exercise_type.name}}</div>
                     </div>

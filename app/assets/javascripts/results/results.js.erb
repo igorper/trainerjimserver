@@ -14,7 +14,7 @@ angular
       .state('main.results', {
         url: "/results?:id&:trainee",
         controller: "ResultsCtrl",
-        templateUrl: "results/results.html"
+        templateUrl: '<%= asset_path('results/results.html') %>'
       });
   }])
   .controller("ResultsCtrl", ['$scope', '$http', 'Measurement', '$compile', 'uiCalendarConfig', '$stateParams', '$state',
@@ -112,7 +112,7 @@ angular
 
             $scope.trainingPage = "Overview";
 
-            lookupSeries = getPlannedSeriesLookup($scope.selectedTraining.exercises);
+            lookupSeries = getPlannedSeriesLookup($scope.selectedTraining.training.exercises);
 
             $scope.calculateOverview();
           }, function () {
@@ -130,9 +130,9 @@ angular
         $scope.trainingRatingIcon = $scope.smileLookup[$scope.selectedTraining.rating] + "-on"
         $scope.durationInMinutes = (new Date($scope.selectedTraining.end_time) - new Date($scope.selectedTraining.start_time)) / (1000 * 60);
 
-        $scope.numExercisesPlanned = _.unique(_.pluck(_.pluck($scope.selectedTraining.exercises, 'exercise_type'), 'id')).length;
+        $scope.numExercisesPlanned = _.unique(_.pluck(_.pluck($scope.selectedTraining.training.exercises, 'exercise_type'), 'id')).length;
         $scope.performedSeries = $scope.selectedTraining.series_executions.length;
-        $scope.totalSeries = _.flatten(_.pluck($scope.selectedTraining.exercises, 'series')).length;
+        $scope.totalSeries = _.flatten(_.pluck($scope.selectedTraining.training.exercises, 'series')).length;
 
         var performedSeriesExerciseId = [];
         var restInSeconds = 0, exerciseInSeconds = 0;
@@ -181,7 +181,7 @@ angular
         $scope.averageRepsChanges = cntDiffReps == 0 ? 0 : sumDiffReps / cntDiffReps;
         $scope.numSeriesTooHeavy = cntHeavy;
         $scope.numSeriesTooEasy = cntEasy;
-      }
+      };
 
       $scope.alertOnEventClick = function (date, jsEvent, view) {
         $state.go('main.results', {id: date.training.id});
@@ -189,7 +189,7 @@ angular
 
       $scope.isDurationExercise = function(exercise){
         return exercise.guidance_type === 'duration';
-      }
+      };
 
       /* Render Tooltip */
       $scope.eventRender = function (event, element, view) {
