@@ -1,4 +1,4 @@
-<div ng-show="training" id="my-workout" class="selected-regime">
+<div ng-show="training" id="my-workout" class="selected-regime workout-editor">
   <div class="row">
     <h1 class="jim-title col-sm-12">Customise workout</h1>
   </div>
@@ -6,7 +6,13 @@
     <div class="col-sm-8">
       <input class="the-name-value pull-left" ng-model="training.name"/>
     </div>
-    <div class="col-sm-4">
+    <div class="col-sm-2">
+      <label class="is-circular" for="is_circular">
+        Is circular:
+      </label>
+      <input id="is_circular" class="is-circular" type="checkbox" ng-model="training.is_circular"/>
+    </div>
+    <div class="col-sm-2">
       <button class="btn btn-lg btn-success pull-right" ng-click="editExercise()">
         Add exercise
       </button>
@@ -28,7 +34,7 @@
       <div class="col-sm-8"></div>
       <div class="col-sm-4">
         <div class="pull-right">
-          <button class="delete btn" ng-click="onDeleteClicked(training)">Delete</button>
+          <button class="delete btn btn-danger" ng-click="onDeleteClicked(training)">Delete</button>
           <button class="save btn btn-success" ng-click="onSaveClicked(training)">Save</button>
         </div>
       </div>

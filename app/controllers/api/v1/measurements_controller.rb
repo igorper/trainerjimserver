@@ -11,12 +11,11 @@ class Api::V1::MeasurementsController < ActionController::Base
 
   def show
     when_signed_in do
-      @measurement = Measurement
-                         .includes(:series_executions, :training)
-                         .where('trainee_id = :user_id OR trainer_id = :user_id', user_id: current_user.id)
-                         .find_by_id(params[:id])
+      @measurement = Measurement.includes(:series_executions, :training).find_by_id(params[:id])
       if @measurement.nil?
         render_not_found
+      elsif !admin_or_trainer_of?(current_user, @measurement.trainee_id)
+        render_forbidden
       end
     end
   end

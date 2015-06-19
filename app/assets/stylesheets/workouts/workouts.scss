@@ -112,15 +112,6 @@
           @include inline;
           @include middle;
         }
-        .the-name-value {
-          @include sans;
-          @include light;
-          @include flat-text-input;
-          font-size: 2.3em;
-          padding: 3px;
-          border: 1px solid #f0f0f0;
-          width: 95%;
-        }
 
         .btn-group {
           text-align: right;
