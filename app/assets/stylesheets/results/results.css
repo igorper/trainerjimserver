@@ -1,0 +1,119 @@
+div.results .tabular-section .panel-body {
+  padding: 0;
+}
+
+div.results .tabular-section {
+  margin-bottom: 0;
+}
+
+
+div.results .main-panel .jim-box .box-image {
+  background-image: url(/results/ic_directions_walk_24px.svg);
+}
+
+div.results .main-panel .jim-box .user-filter {
+  line-height: 2em;
+  font-size: 1.3em;
+  margin-bottom: 20px;
+}
+
+div.results .main-panel .jim-box .section-title {
+  font-size: 1.8em;
+  font-weight: 500;
+}
+
+div.results .main-panel .jim-box .property {
+  font-size: 1.3em;
+}
+
+div.results .main-panel .jim-box .property .title {
+  font-weight: bold;
+}
+
+div.results .main-panel .jim-box .skipped {
+  color: red;
+}
+
+div.results .main-panel .jim-box .training-rating {
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+}
+
+div.results .main-panel .jim-box .series-rating {
+  width: 30px;
+  height: 30px;
+  background-size: contain;
+}
+
+div.results .main-panel .jim-box .bored-on {
+  background-image: url(/results/SmileyON_Bored.png);
+}
+
+div.results .main-panel .jim-box .happy-on {
+  background-image: url(/results/SmileyON_Happy.png);
+}
+
+div.results .main-panel .jim-box .sweat-on {
+  background-image: url(/results/SmileyON_Sweat.png);
+}
+
+div.results .main-panel .jim-box .bored-off {
+  background-image: url(/results/SmileyFaded_Bored.png);
+}
+
+div.results .main-panel .jim-box .happy-off {
+  background-image: url(/results/SmileyFaded_Happy.png);
+}
+
+div.results .main-panel .jim-box .sweat-off {
+  background-image: url(/results/SmileyFaded_Sweat.png);
+}
+
+div.results .main-panel .jim-box .fc-event {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+div.results .main-panel .jim-box div.fc-content {
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+}
+
+div.results .main-panel .jim-box .calendar-overview {
+  padding: 30px;
+}
+
+div.results .main-panel .jim-box .training-overview .row {
+  margin: 10px 0;
+}
+
+div.results div.selectedTraining {
+  background-color: #FBC912;
+}
+
+div.results .chart-label {
+  font-weight: bold;
+}
+
+div.results .chart div {
+  font: 10px sans-serif;
+  padding: 3px;
+  color: white;
+}
+
+div.results .blue {
+  stroke: white;
+  fill: steelblue;
+}
+
+div.results .green {
+  stroke: white;
+  fill: #FBC912;
+}
+
+div.results .red {
+  stroke: white;
+  fill: red;
+}
