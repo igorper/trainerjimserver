@@ -98,7 +98,6 @@
     $regimeDimWithBorder: $regimeDim + 2*$borderWid;
 
     .selected-regime {
-      padding: $paddingTB $paddingLR;
 
       button {
         @include sans;

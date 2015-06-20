@@ -1,0 +1,26 @@
+div.auth-sign-up-form input.text-input {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  -webkit-border-radius: 0;
+  -moz-border-radius: 0;
+  border-radius: 0;
+  border: 1px solid #ccc;
+  background-color: white;
+  padding: 4px 6px;
+  width: 100%;
+  margin-bottom: 5px;
+  color: #005577;
+}
+
+div.auth-sign-up-form input.submit-btn {
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  background-image: none;
+  border: 0;
+  background-color: #FBC912;
+  width: 100%;
+  padding: 5px 0;
+  color: #ffffff;
+}

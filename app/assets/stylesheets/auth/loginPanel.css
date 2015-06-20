@@ -1,0 +1,67 @@
+div.auth-login-panel div.sign-in-tab {
+  font-weight: bold;
+  float: right;
+  margin-right: 12px;
+  display: inline-block;
+  padding: 5px 20px;
+  font-size: 0.9em;
+  color: white;
+  background-color: #067cff;
+}
+
+div.auth-login-panel div.sign-in-tab:hover {
+  background-color: #52a4ff;
+}
+
+div.auth-login-panel div.auth-panel {
+  float: right;
+  margin-right: 12px;
+  width: 246px;
+  padding: 7px;
+  background-color: #067cff;
+  clear: both;
+  color: white;
+  text-align: center;
+}
+
+div.auth-login-panel div.close-icon {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background-image: url('/welcome/CloseIcon.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-left: 215px;
+}
+
+div.auth-login-panel div.sign-in-panel div.the-form div.title {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+div.auth-login-panel div.sign-in-panel div.the-form div.sub-title {
+  margin-bottom: 10px;
+}
+
+div.auth-login-panel div.sign-in-panel div.the-form div.sign-up-link, div.login-link {
+  margin-top: 5px;
+  color: white;
+}
+
+div.auth-login-panel div.sign-in-panel div.the-form a {
+  color: white;
+  text-decoration: underline;
+}
+
+div.auth-login-panel div.sign-in-panel div.the-form a:hover {
+  text-decoration: none;
+}
+
+div.auth-login-panel span.swap-panel-link {
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+div.auth-login-panel span.swap-panel-link:hover {
+  text-decoration: none;
+}

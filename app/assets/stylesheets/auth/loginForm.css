@@ -1,0 +1,37 @@
+div.auth-login-form input.text-input {
+  box-shadow: none;
+  border-radius: 0;
+  border: 1px solid #ccc;
+  background-color: white;
+  padding: 4px 6px;
+  width: 100%;
+  margin-bottom: 5px;
+  color: #005577;
+}
+
+div.auth-login-form input.submit-btn {
+  box-shadow: none;
+  background-image: none;
+  border: 0;
+  background-color: #FBC912;
+  width: 100%;
+  padding: 5px 0;
+  color: #ffffff;
+}
+
+div.auth-login-form div.remember-me-fields {
+  margin-bottom: 10px;
+}
+
+div.auth-login-form input#rememberMe {
+  display: inline-block;
+  vertical-align: middle;
+  margin: 0;
+}
+
+div.auth-login-form label {
+  font-size: 1em;
+  margin: 0;
+  display: inline-block;
+  vertical-align: middle;
+}

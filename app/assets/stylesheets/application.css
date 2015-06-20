@@ -10,6 +10,7 @@
 *= require_tree ./trainees/
 *= require_tree ./photos/
 *= require_tree ./workouts-new/
+*= require_tree ./auth/
 */
 
 @media (max-width: 768px) {
