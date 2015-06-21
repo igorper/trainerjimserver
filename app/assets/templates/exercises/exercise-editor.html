@@ -20,7 +20,8 @@
 
 
   <div class="guidance-type-editor">
-    <exercise-series-editor exercise="exercise"></exercise-series-editor>
+    <exercise-series-editor exercise="exercise"
+                            selected-series="selectedSeries"/>
   </div>
 
 
@@ -40,7 +41,7 @@
                 ng-click="onExerciseRemove(exercise)">
           <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
         </button>
-        <button class="btn btn-warning exercise-action white-text" ng-click="onApplyToAllSeries(exercise)">
+        <button class="btn btn-warning exercise-action white-text" ng-click="onApplyToAllSeries({exercise: exercise, selectedSeries: selectedSeries})">
           <span class="glyphicon glyphicon-list" aria-hidden="true"></span> <span
           class="the-button">Apply to all series</span>
         </button>

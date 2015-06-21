@@ -19,6 +19,9 @@ exerciseEditorModule.directive('exerciseEditor', function () {
       onApplyToAllSeries: '&'
     },
     controller: ['$scope', 'TakePhotoDialog', 'UserExerciseTypePhotos', 'usSpinnerService', function ($scope, TakePhotoDialog, UserExerciseTypePhotos, usSpinnerService) {
+
+      $scope.selectedSeries = $scope.exercise.series[0];
+
       $scope.setExerciseToManual = function () {
         $scope.exercise.guidance_type = 'manual';
       };
@@ -63,7 +66,8 @@ exerciseEditorModule.directive('exerciseSeriesEditor', function () {
   return {
     restrict: 'E',
     scope: {
-      exercise: '=exercise'
+      exercise: '=',
+      selectedSeries: '='
     },
     controller: ['$scope', function ($scope) {
       var repetitionsStep = 1;
@@ -71,8 +75,6 @@ exerciseEditorModule.directive('exerciseSeriesEditor', function () {
       var weightStep = 5;
       var restStep = 5;
       var durationExerciseType = "duration";
-
-      $scope.selectedSeries = $scope.exercise.series[0];
 
       function isDurationType() {
         return $scope.exercise.guidance_type == durationExerciseType;
