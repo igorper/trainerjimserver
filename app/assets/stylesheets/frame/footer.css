@@ -69,13 +69,13 @@
   width: 25px;
   height: 25px;
   cursor: pointer;
-  background-image: url(/assets/login/Twitter_Off.png);
+  background-image: url(/footer/Twitter_Off.png);
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .footer .container .content .right .social .twitter:hover {
-  background-image: url(/assets/login/Twitter_ON.png);
+  background-image: url(/footer/Twitter_ON.png);
   background-repeat: no-repeat;
   background-position: center;
 }
@@ -85,13 +85,13 @@
   width: 25px;
   height: 25px;
   cursor: pointer;
-  background-image: url(/assets/login/Tumblr_Off.png);
+  background-image: url(/footer/Tumblr_Off.png);
   background-repeat: no-repeat;
   background-position: center;
 }
 
 .footer .container .content .right .social .tumblr:hover {
-  background-image: url(/assets/login/Tumblr_ON.png);
+  background-image: url(/footer/Tumblr_ON.png);
   background-repeat: no-repeat;
   background-position: center;
 }
