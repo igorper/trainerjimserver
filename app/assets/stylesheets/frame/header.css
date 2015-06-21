@@ -9,7 +9,7 @@
 
 .header-menu div.logo-part div.logo {
   vertical-align: middle;
-  background-image: url(/assets/Logo.png);
+  background-image: url(/header/Logo.png);
   background-repeat: no-repeat;
   background-position: center;
   height: 50px;
@@ -45,7 +45,7 @@
 
 .header-menu .navbar-default .navbar-nav > .active > a, .header-menu .navbar-default .navbar-nav > .active > a:hover, .header-menu .navbar-default .navbar-nav > .active > a:focus {
   color: white;
-  background-image: url(/assets/Gradient_ClickedState_1px.png);
+  background-image: url(/header/Gradient_ClickedState_1px.png);
 }
 
 .header-menu .navbar-default .navbar-nav > .open > a, .header-menu .navbar-default .navbar-nav > .open > a:hover, .header-menu .navbar-default .navbar-nav > .open > a:focus {
