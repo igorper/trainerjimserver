@@ -1,0 +1,31 @@
+/* ...
+*= require angular-ui-select/dist/select
+*= require angularjs-toaster/toaster
+*= require fullcalendar/dist/fullcalendar
+*= require angular-ui-grid/ui-grid
+*= require bootstrap/dist/css/bootstrap
+*= require_tree .
+*/
+
+@import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700&subset=latin,latin-ext);
+
+@media (max-width: 768px) {
+  div.top-jim-box {
+    background-color: white;
+  }
+
+  div.top-jim-box div.jim-box {
+    margin-top: 0;
+    border: none;
+    padding: 0 0;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  margin-bottom: 115px;
+}
