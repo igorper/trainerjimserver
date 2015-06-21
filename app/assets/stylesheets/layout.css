@@ -1,0 +1,70 @@
+body {
+  background-color: #eee;
+}
+
+body.trainerjim-body {
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 400;
+  font-size: 13px;
+  background-color: #eee;
+}
+
+.central-strip {
+  width: 990px;
+  margin: 0 auto 0 auto;
+}
+
+.button-behaviour {
+  cursor: pointer;
+}
+
+.jim-frame {
+  background-color: white;
+  border: 1px solid #cecece;
+  margin-top: 25px;
+}
+
+.jim-box {
+  background-color: white;
+  border: 1px solid #cecece;
+  margin-top: 25px;
+  padding: 15px 25px;
+}
+
+.underline {
+  text-decoration: underline;
+}
+
+.clickable-link {
+  cursor: pointer;
+}
+
+h1.jim-title {
+  font-size: 2.8em;
+  font-weight: 400;
+}
+
+h1.jim-sub-title {
+  font-size: 2.3em;
+  font-weight: 200;
+}
+
+h2.jim-title {
+  font-size: 2.4em;
+  font-weight: 400;
+}
+
+h2.jim-sub-title {
+  font-size: 2.0em;
+  font-weight: 200;
+}
+
+h3.jim-title {
+  font-size: 1.9em;
+  font-weight: 400;
+}
+
+h3.jim-sub-title {
+  font-size: 1.6em;
+  font-weight: 200;
+}

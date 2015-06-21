@@ -1,0 +1,97 @@
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 100px;
+  background-color: #f5f5f5;
+}
+
+
+.footer {
+  background-color: #FBC912;
+}
+
+.footer .container {
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+
+.footer .container .content {
+  display: inline-block;
+  vertical-align: middle;
+  width: 100%;
+}
+
+.footer .container .content .left {
+  float: left;
+}
+
+.footer .container .content .left .links a {
+  color: black;
+  margin: 0 5px;
+}
+
+.footer .container .content .left .links a.first {
+  margin-left: 0;
+}
+
+.footer .container .content .left .links a.mobile-app {
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+.footer .container .content .left .links a.mobile-app:hover {
+  text-decoration: none;
+}
+
+.footer .container .content .left .copyright-notice {
+  padding-top: 8px;
+  font-size: 0.8em;
+  color: black;
+}
+
+.footer .container .content .right {
+  float: right;
+}
+
+.footer .container .content .right .social {
+  font-size: 0.9em;
+  margin-top: 7px;
+}
+
+.footer .container .content .right .social div {
+  display: inline-block;
+  vertical-align: middle;
+  margin-left: 10px;
+}
+
+.footer .container .content .right .social .twitter {
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  background-image: url(/assets/login/Twitter_Off.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.footer .container .content .right .social .twitter:hover {
+  background-image: url(/assets/login/Twitter_ON.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.footer .container .content .right .social .tumblr {
+  margin-left: 5px;
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+  background-image: url(/assets/login/Tumblr_Off.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.footer .container .content .right .social .tumblr:hover {
+  background-image: url(/assets/login/Tumblr_ON.png);
+  background-repeat: no-repeat;
+  background-position: center;
+}

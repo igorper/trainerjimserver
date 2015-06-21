@@ -1,0 +1,94 @@
+.header-menu {
+  font-weight: bold;
+  height: 50px;
+}
+
+.header-menu div.logo-part {
+  width: 164px;
+}
+
+.header-menu div.logo-part div.logo {
+  vertical-align: middle;
+  background-image: url(/assets/Logo.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 50px;
+}
+
+.header-menu .navbar-default {
+  background-color: #FBC912;
+  border-color: #ffbf00;
+  margin-top: -1px;
+}
+
+.header-menu .navbar-default .navbar-brand {
+  color: white;
+}
+
+.header-menu .navbar-default .navbar-brand:hover, .header-menu .navbar-default .navbar-brand:focus {
+  color: white;
+}
+
+.header-menu .navbar-default .navbar-text {
+  color: white;
+}
+
+.header-menu .navbar-default .navbar-nav > li > a {
+  color: white;
+}
+
+.header-menu .navbar-default .navbar-nav > li > a:hover, .header-menu .navbar-default .navbar-nav > li > a:focus {
+  background-color: #ffbf00;
+  color: white;
+}
+
+.header-menu .navbar-default .navbar-nav > .active > a, .header-menu .navbar-default .navbar-nav > .active > a:hover, .header-menu .navbar-default .navbar-nav > .active > a:focus {
+  color: white;
+  background-image: url(/assets/Gradient_ClickedState_1px.png);
+}
+
+.header-menu .navbar-default .navbar-nav > .open > a, .header-menu .navbar-default .navbar-nav > .open > a:hover, .header-menu .navbar-default .navbar-nav > .open > a:focus {
+  color: white;
+  background-color: #ffbf00;
+}
+
+.header-menu .navbar-default .navbar-toggle {
+  border-color: #ffbf00;
+}
+
+.header-menu .navbar-default .navbar-toggle:hover, .header-menu .navbar-default .navbar-toggle:focus {
+  background-color: #ffbf00;
+}
+
+.header-menu .navbar-default .navbar-toggle .icon-bar {
+  background-color: white;
+}
+
+.header-menu .navbar-default .navbar-collapse,
+.header-menu .navbar-default .navbar-form {
+  border-color: white;
+}
+
+.header-menu .navbar-default .navbar-link {
+  color: white;
+}
+
+.header-menu .navbar-default .navbar-link:hover {
+  color: white;
+}
+
+@media (max-width: 767px) {
+
+  .header-menu .navbar-default .navbar-nav .open .dropdown-menu > li > a {
+    color: white;
+  }
+
+  .header-menu .navbar-default .navbar-nav .open .dropdown-menu > li > a:hover, .header-menu .navbar-default .navbar-nav .open .dropdown-menu > li > a:focus {
+    color: white;
+  }
+
+  .header-menu .navbar-default .navbar-nav .open .dropdown-menu > .active > a, .header-menu .navbar-default .navbar-nav .open .dropdown-menu > .active > a:hover, .header-menu .navbar-default .navbar-nav .open .dropdown-menu > .active > a:focus {
+    color: white;
+    background-color: #ffbf00;
+  }
+}
