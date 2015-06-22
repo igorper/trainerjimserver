@@ -38,8 +38,7 @@ angular.module('workouts.editor', [
       }
     };
 
-    $scope.applyToAllSeries = function (exercise) {
-      var selectedSeries = exercise.series[exercise.selectedSeries];
+    $scope.applyToAllSeries = function (exercise, selectedSeries) {
       for (var i = 0; i < $scope.training.exercises.length; i++) {
         var loopedExercise = $scope.training.exercises[i];
         // set selected series information to all series of the same exercise type.

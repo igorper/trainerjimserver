@@ -1,32 +1,60 @@
-div.exercise-editor {
+.exercise-editor {
   border: 1px solid #cecece;
   background-color: #eee;
   margin-bottom: 5px;
 }
 
-div.exercise-editor .exercise-top-btns {
+.exercise-editor .exercise-top-btns {
   padding: 5px;
 }
 
-div.exercise-editor .description-label {
+.exercise-editor .description-label {
   font-size: 1.2em;
   margin-bottom: 5px;
 }
 
-div.exercise-editor .description-show-hide {
+.exercise-editor .description-show-hide {
   margin: 5px;
   padding: 5px;
   background: white;
 }
 
-div.exercise-editor .guidance-type-editor {
+.exercise-editor .guidance-type-editor {
   padding: 5px 5px 0 5px;
 }
 
-div.exercise-editor button.exercise-action {
+.exercise-editor button.exercise-action {
   margin: 2px;
 }
 
-div.exercise-editor button.white-text {
+.exercise-editor button.white-text {
   color: white;
+}
+
+.exercise-editor .details .name {
+  padding-top: 5px;
+  padding-left: 5px;
+  padding-right: 5px;
+}
+
+.exercise-editor .details .name .move {
+  font-size: 20px;
+  vertical-align: middle;
+  opacity: 0.8;
+}
+
+.exercise-editor .details .name .exercise-label {
+  border-radius: 3px;
+  font-weight: normal;
+  text-shadow: 1px 1px white;
+  font-size: 20px;
+  display: inline-block;
+  vertical-align: middle;
+  margin-right: 5px;
+  padding: 0 5px;
+}
+
+.exercise-editor .details .name .exercise-label:hover {
+  text-shadow: none;
+  background-color: white;
 }

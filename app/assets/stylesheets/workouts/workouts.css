@@ -1,0 +1,7 @@
+div.workouts div.workouts-list {
+  margin-top: 10px;
+}
+
+.training .main-panel .jim-box .box-image {
+  background-image: url(/workouts/ic_add_circle_outline_24px.svg);
+}
