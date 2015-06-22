@@ -10,162 +10,162 @@ var trainees = angular.module('trainees', [
 ]);
 
 trainees.factory("Trainee", ["$resource", 'Upload', function ($resource, Upload) {
-    var Trainee = $resource("/api/v1/trainees/:id.json");
+  var Trainee = $resource("/api/v1/trainees/:id.json");
 
-    Trainee.setPhoto = function (trainee, photo) {
-      return Upload.upload({
-        url: '/api/v1/trainees/' + trainee.id + '/photo.json',
-        method: 'POST',
-        file: photo
-      });
-    };
+  Trainee.setPhoto = function (trainee, photo) {
+    return Upload.upload({
+      url: '/api/v1/trainees/' + trainee.id + '/photo.json',
+      method: 'POST',
+      file: photo
+    });
+  };
 
-    return Trainee;
-  }]);
+  return Trainee;
+}]);
 
 trainees.factory("TraineeTraining", ["$resource", function ($resource) {
-    return $resource("/api/v1/trainees/:traineeId/trainings/:trainingId.json", null, {
-      addPreparedWorkout: {method: 'POST', params: {isPreparedWorkout: true}}
-    });
-  }]);
+  return $resource("/api/v1/trainees/:traineeId/trainings/:trainingId.json", null, {
+    addPreparedWorkout: {method: 'POST', params: {isPreparedWorkout: true}}
+  });
+}]);
 
 trainees.config(['$stateProvider', function ($stateProvider) {
-    $stateProvider
-      .state('main.trainees', {
-        url: '/trainees',
-        controller: "TraineesCtrl",
-        templateUrl: "<%= asset_path('trainees/trainees.html') %>"
-      })
-      .state('main.trainee', {
-        url: '/trainees/{traineeId:int}',
-        controller: "TraineeCtrl",
-        templateUrl: "<%= asset_path('trainees/trainee.html') %>"
-      })
-      .state('main.trainee.training', {
-        url: '/training/:trainingId',
-        controller: "TraineeTrainingCtrl",
-        templateUrl: "<%= asset_path('trainees/trainee-training.html') %>",
-        resolve: {
-          traineeId: ['$stateParams', function ($stateParams) {
-            return $stateParams.traineeId;
-          }]
-        }
-      });
-  }]);
+  $stateProvider
+    .state('main.trainees', {
+      url: '/trainees',
+      controller: "TraineesCtrl",
+      templateUrl: "<%= asset_path('trainees/trainees.html') %>"
+    })
+    .state('main.trainee', {
+      url: '/trainees/{traineeId:int}',
+      controller: "TraineeCtrl",
+      templateUrl: "<%= asset_path('trainees/trainee.html') %>"
+    })
+    .state('main.trainee.training', {
+      url: '/training/:trainingId',
+      controller: "TraineeTrainingCtrl",
+      templateUrl: "<%= asset_path('trainees/trainee-training.html') %>",
+      resolve: {
+        traineeId: ['$stateParams', function ($stateParams) {
+          return $stateParams.traineeId;
+        }]
+      }
+    });
+}]);
 
 trainees.controller("TraineesCtrl", ['$scope', '$state', 'Trainee', 'toaster',
-    function ($scope, $state, Trainee, toaster) {
+  function ($scope, $state, Trainee, toaster) {
 
-      $scope.searchFilter = "";
+    $scope.searchFilter = "";
 
-      $scope.refreshTraineeList = function () {
-        $scope.trainees = Trainee.query(function () {
-        }, function () {
-          toaster.pop("error", "Trainees listing", "Could not fetch the list of trainees. Try logging in again.");
-        });
-      };
+    $scope.refreshTraineeList = function () {
+      $scope.trainees = Trainee.query(function () {
+      }, function () {
+        toaster.pop("error", "Trainees listing", "Could not fetch the list of trainees. Try logging in again.");
+      });
+    };
 
-      $scope.refreshTraineeList();
+    $scope.refreshTraineeList();
 
-      $scope.onTraineeClicked = function (trainee) {
-        $state.go('main.trainee.training', {traineeId: trainee.id, trainingId: ''});
-      };
+    $scope.onTraineeClicked = function (trainee) {
+      $state.go('main.trainee.training', {traineeId: trainee.id, trainingId: ''});
+    };
 
-    }
-  ]);
+  }
+]);
 
 trainees.controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams', 'toaster', 'TraineeTraining', 'WorkoutSelector', 'TraineeTrainingUtils',
-    function ($scope, $state, Trainee, $stateParams, toaster, TraineeTraining, WorkoutSelector, TraineeTrainingUtils) {
-      $scope.traineeWorkouts = [];
-      $scope.selectedTraining = [];
+  function ($scope, $state, Trainee, $stateParams, toaster, TraineeTraining, WorkoutSelector, TraineeTrainingUtils) {
+    $scope.traineeWorkouts = [];
+    $scope.selectedTraining = [];
 
-      $scope.addPreparedWorkout = function () {
-        WorkoutSelector().result.then(function (selectedTraining) {
-          TraineeTrainingUtils.addPreparedWorkout($stateParams.traineeId, selectedTraining.id);
-        });
-      };
-
-      $scope.selectTraining = function (workout) {
-        $scope.selectedTraining = workout;
-        $state.go('main.trainee.training', {trainingId: workout == null ? '' : workout.id});
-      };
-
-      $scope.refreshTrainee = function () {
-        $scope.trainee = Trainee.get({id: $stateParams.traineeId}, function () {
-        }, function () {
-          toaster.pop("error", "Trainee", "Could show the trainee. Try logging in again.");
-        });
-      };
-
-      TraineeTraining.query({traineeId: $stateParams.traineeId}, function (trainings) {
-        $scope.traineeWorkouts = trainings;
-      }, function () {
-        toaster.pop("error", "Fetch workouts error", "Unable to fetch the list of workouts.");
+    $scope.addPreparedWorkout = function () {
+      WorkoutSelector().result.then(function (selectedTraining) {
+        TraineeTrainingUtils.addPreparedWorkout($stateParams.traineeId, selectedTraining.id);
       });
+    };
 
-      $scope.refreshTrainee();
-    }
-  ]);
+    $scope.selectTraining = function (workout) {
+      $scope.selectedTraining = workout;
+      $state.go('main.trainee.training', {trainingId: workout == null ? '' : workout.id});
+    };
+
+    $scope.refreshTrainee = function () {
+      $scope.trainee = Trainee.get({id: $stateParams.traineeId}, function () {
+      }, function () {
+        toaster.pop("error", "Trainee", "Could show the trainee. Try logging in again.");
+      });
+    };
+
+    TraineeTraining.query({traineeId: $stateParams.traineeId}, function (trainings) {
+      $scope.traineeWorkouts = trainings;
+    }, function () {
+      toaster.pop("error", "Fetch workouts error", "Unable to fetch the list of workouts.");
+    });
+
+    $scope.refreshTrainee();
+  }
+]);
 
 trainees.controller("TraineeTrainingCtrl", ["$scope", "$state", '$stateParams', 'toaster', 'TraineeTraining', 'traineeId', 'TraineeTrainingUtils', 'User',
-    function ($scope, $state, $stateParams, toaster, TraineeTraining, traineeId, TraineeTrainingUtils, User) {
-      $scope.selectedTraining = [];
-      $scope.trainer = User.current();
+  function ($scope, $state, $stateParams, toaster, TraineeTraining, traineeId, TraineeTrainingUtils, User) {
+    $scope.selectedTraining = [];
+    $scope.trainer = User.current();
 
-      function createEmptyTraining() {
-        return new TraineeTraining({traineeId: traineeId, name: "Enter training name", exercises: []});
-      }
-
-      if ($stateParams.trainingId === '') {
-        $scope.selectedTraining = createEmptyTraining();
-      } else {
-        TraineeTraining.get({traineeId: traineeId, trainingId: $stateParams.trainingId}, function (training) {
-          $scope.selectedTraining = training;
-        }, function () {
-          toaster.pop("error", "Fetch workout error", "Unable to fetch the workout.");
-        });
-      }
-
-      $scope.onSaveClicked = function (selectedTraining) {
-        TraineeTrainingUtils.saveTrainingForTrainee(traineeId, selectedTraining);
-      };
-
-      $scope.onDeleteClicked = function (selectedTraining) {
-        TraineeTraining.delete({traineeId: traineeId, trainingId: selectedTraining.id}, function () {
-          toaster.pop("info", "Workout deleted", "The workout was successfully deleted.");
-          $state.go('main.trainee.training', {trainingId: ''}, {reload: true});
-        }, function () {
-          toaster.pop("error", "Workout not deleted", "Could not delete the workout. Please try logging in again.");
-        });
-
-      };
+    function createEmptyTraining() {
+      return new TraineeTraining({traineeId: traineeId, name: "Enter training name", exercises: []});
     }
-  ]);
+
+    if ($stateParams.trainingId === '') {
+      $scope.selectedTraining = createEmptyTraining();
+    } else {
+      TraineeTraining.get({traineeId: traineeId, trainingId: $stateParams.trainingId}, function (training) {
+        $scope.selectedTraining = training;
+      }, function () {
+        toaster.pop("error", "Fetch workout error", "Unable to fetch the workout.");
+      });
+    }
+
+    $scope.onSaveClicked = function (selectedTraining) {
+      TraineeTrainingUtils.saveTrainingForTrainee(traineeId, selectedTraining);
+    };
+
+    $scope.onDeleteClicked = function (selectedTraining) {
+      TraineeTraining.delete({traineeId: traineeId, trainingId: selectedTraining.id}, function () {
+        toaster.pop("info", "Workout deleted", "The workout was successfully deleted.");
+        $state.go('main.trainee.training', {trainingId: ''}, {reload: true});
+      }, function () {
+        toaster.pop("error", "Workout not deleted", "Could not delete the workout. Please try logging in again.");
+      });
+
+    };
+  }
+]);
 
 trainees.factory('TraineeTrainingUtils', ['$state', 'toaster', 'TraineeTraining', function ($state, toaster, TraineeTraining) {
-    var self = {
-      goToTrainingAndReload: function (training) {
-        $state.go('main.trainee.training', {trainingId: training.id}, {reload: true});
-      },
-      showSaveSuccessPopup: function (savedTraining) {
-        toaster.pop("success", "Training saved", "Sucessfully saved " + savedTraining.name);
-      },
-      addPreparedWorkout: function (traineeId, preparedTrainingId) {
-        TraineeTraining.addPreparedWorkout(
-          {traineeId: traineeId},
-          {preparedTrainingId: preparedTrainingId}, function (savedTraining) {
-            self.showSaveSuccessPopup(savedTraining);
-            self.goToTrainingAndReload(savedTraining);
-          });
-      },
-      saveTrainingForTrainee: function (traineeId, selectedTraining) {
-        selectedTraining.$save({traineeId: traineeId}, function (training) {
-          self.showSaveSuccessPopup(training);
-          self.goToTrainingAndReload(training);
-        }, function () {
-          toaster.pop("error", "Training save error", "Error saving " + selectedTraining.name);
+  var self = {
+    goToTrainingAndReload: function (training) {
+      $state.go('main.trainee.training', {trainingId: training.id}, {reload: true});
+    },
+    showSaveSuccessPopup: function (savedTraining) {
+      toaster.pop("success", "Training saved", "Sucessfully saved " + savedTraining.name);
+    },
+    addPreparedWorkout: function (traineeId, preparedTrainingId) {
+      TraineeTraining.addPreparedWorkout(
+        {traineeId: traineeId},
+        {preparedTrainingId: preparedTrainingId}, function (savedTraining) {
+          self.showSaveSuccessPopup(savedTraining);
+          self.goToTrainingAndReload(savedTraining);
         });
-      }
-    };
-    return self;
-  }]);
+    },
+    saveTrainingForTrainee: function (traineeId, selectedTraining) {
+      selectedTraining.$save({traineeId: traineeId}, function (training) {
+        self.showSaveSuccessPopup(training);
+        self.goToTrainingAndReload(training);
+      }, function () {
+        toaster.pop("error", "Training save error", "Error saving " + selectedTraining.name);
+      });
+    }
+  };
+  return self;
+}]);
