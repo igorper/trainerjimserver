@@ -216,6 +216,7 @@
                                             tooltip="Rest: {{series.execution.rest_time}} of {{series.rest_time}} s"
                                             expected="series.rest_time"
                                             actual="series.execution.rest_time"
+                                            ng-hide="{{series.execution.order == 1}}"
                                             rest="true"></gh-visualization>
                         </div>
                         <div class="col-sm-3 property" ng-show="isDurationExercise(exercise)">
