@@ -2,23 +2,23 @@
   <div class="row training">
     <div class="my-workouts col-sm-3">
 
-      <h3 class="jim-title">{{trainee.full_name}}'s workouts</h3>
+      <h3 class="jim-title">{{title}}</h3>
 
-      <trainee-thumb trainee="trainee"
-                     on-trainee-photo-changed="refreshTrainee()"
+      <trainee-thumb trainee="userDetails"
+                     on-trainee-photo-changed="refreshUserDetails()"
                      fill-width="true"
                      not-clickable="true"></trainee-thumb>
 
-      <div class="assign-workout">
+      <div ng-if="isPreparedWorkoutsEnabled" class="assign-workout">
         <button class="btn btn-success" ng-click="addPreparedWorkout()">
           Add prepared workout
         </button>
       </div>
 
-      <workouts-list workouts="traineeWorkouts"
+      <workouts-list workouts="workouts"
                      selected-workout="selectedTraining"
-                     on-workout-selected="selectTraining(workout)"
-                     on-workout-create="selectTraining(null)">
+                     on-workout-selected="onWorkoutSelected(workout)"
+                     on-workout-create="onWorkoutCreate()">
       </workouts-list>
 
     </div>

@@ -1,14 +1,15 @@
 <div class="container-fluid workouts">
   <div class="row training">
     <div class="my-workouts col-sm-3">
-      <h3 class="jim-title">My workouts</h3>
+
+      <h3 class="jim-title">{{title}}</h3>
 
       <trainee-thumb trainee="userDetails"
                      on-trainee-photo-changed="refreshUserDetails()"
                      fill-width="true"
                      not-clickable="true"></trainee-thumb>
 
-      <workouts-list workouts="templates"
+      <workouts-list workouts="workouts"
                      selected-workout="selectedTraining"
                      on-workout-selected="onWorkoutSelected(workout)"
                      on-workout-create="onWorkoutCreate()"></workouts-list>

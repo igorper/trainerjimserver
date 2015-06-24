@@ -76,8 +76,9 @@ trainees.controller("TraineesCtrl", ['$scope', '$state', 'Trainee', 'toaster',
 
 trainees.controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams', 'toaster', 'TraineeTraining', 'WorkoutSelector', 'TraineeTrainingUtils',
   function ($scope, $state, Trainee, $stateParams, toaster, TraineeTraining, WorkoutSelector, TraineeTrainingUtils) {
-    $scope.traineeWorkouts = [];
+    $scope.workouts = [];
     $scope.selectedTraining = [];
+    $scope.isPreparedWorkoutsEnabled = true;
 
     $scope.addPreparedWorkout = function () {
       WorkoutSelector().result.then(function (selectedTraining) {
@@ -85,25 +86,30 @@ trainees.controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams
       });
     };
 
-    $scope.selectTraining = function (workout) {
+    $scope.onWorkoutSelected = function (workout) {
       $scope.selectedTraining = workout;
       $state.go('main.trainee.training', {trainingId: workout == null ? '' : workout.id});
     };
 
-    $scope.refreshTrainee = function () {
-      $scope.trainee = Trainee.get({id: $stateParams.traineeId}, function () {
+    $scope.onWorkoutCreate = function () {
+      $scope.onWorkoutSelected(null);
+    };
+
+    $scope.refreshUserDetails = function () {
+      $scope.userDetails = Trainee.get({id: $stateParams.traineeId}, function (trainee) {
+        $scope.title = trainee.full_name + "'s workouts"
       }, function () {
         toaster.pop("error", "Trainee", "Could show the trainee. Try logging in again.");
       });
     };
 
     TraineeTraining.query({traineeId: $stateParams.traineeId}, function (trainings) {
-      $scope.traineeWorkouts = trainings;
+      $scope.workouts = trainings;
     }, function () {
       toaster.pop("error", "Fetch workouts error", "Unable to fetch the list of workouts.");
     });
 
-    $scope.refreshTrainee();
+    $scope.refreshUserDetails();
   }
 ]);
 

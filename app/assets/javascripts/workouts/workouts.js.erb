@@ -20,8 +20,10 @@ workouts.config(['$stateProvider', function ($stateProvider) {
 
 workouts.controller("WorkoutsCtrl", ["$scope", '$modal', 'Training', '$stateParams', 'toaster', '$state', 'Auth',
   function ($scope, $modal, Training, $stateParams, toaster, $state, Auth) {
+    $scope.workouts = [];
     $scope.selectedTraining = null;
-    $scope.templates = [];
+    $scope.isPreparedWorkoutsEnabled = false;
+    $scope.title = 'My workouts';
 
     $scope.refreshUserDetails = function () {
       $scope.userDetails = Auth.userDetails();
@@ -31,7 +33,7 @@ workouts.controller("WorkoutsCtrl", ["$scope", '$modal', 'Training', '$statePara
 
     function refreshTrainingsList() {
       Training.query(function (trainings) {
-        $scope.templates = trainings;
+        $scope.workouts = trainings;
       }, function () {
         toaster.pop("error", "Fetch trainings error", "Unable to fetch the trainings list");
       });
@@ -86,10 +88,10 @@ workouts.directive('workoutsList', function () {
   return {
     restrict: 'E',
     scope: {
-      workouts: '=workouts',
-      selectedWorkout: '=selectedWorkout',
-      onWorkoutSelected: '&onWorkoutSelected',
-      onWorkoutCreate: '&onWorkoutCreate'
+      workouts: '=',
+      selectedWorkout: '=',
+      onWorkoutSelected: '&',
+      onWorkoutCreate: '&'
     },
     templateUrl: "<%= asset_path('workouts/list/workouts-list.html') %>"
   };
