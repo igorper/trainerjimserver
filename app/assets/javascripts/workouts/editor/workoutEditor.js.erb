@@ -22,7 +22,7 @@ angular.module('workouts.editor', [
       templateUrl: '<%= asset_path('workouts/editor/workout-editor-v1.html') %>'
     };
   })
-  .controller('WorkoutEditorCtrl', ['$scope', 'ExerciseType', 'ExerciseTypesSelector', 'ExerciseTypeDetailsDialog', function ($scope, ExerciseType, ExerciseTypesSelector, ExerciseTypeDetailsDialog) {
+  .controller('WorkoutEditorCtrl', ['$scope', 'ExerciseType', 'ExerciseTypesSelector', function ($scope, ExerciseType, ExerciseTypesSelector) {
     $scope.fetchExerciseType = function (exerciseTypeId) {
       return ExerciseType.get({id: exerciseTypeId});
     };
@@ -76,8 +76,16 @@ angular.module('workouts.editor', [
       });
     }
 
+    function scrollToLastExercise() {
+      var scrollId = "#exercise-" + ($scope.training.exercises.length - 1);
+      var elementToScrollTo = $(scrollId);
+      $('html, body').animate({
+        scrollTop: elementToScrollTo.offset().top
+      }, 500);
+    }
+
     $scope.editExercise = function () {
-      ExerciseTypesSelector({onAddExerciseType: addExercise});
+      ExerciseTypesSelector({onAddExerciseType: addExercise}).result.then(scrollToLastExercise);
     };
   }])
 ;

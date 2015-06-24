@@ -20,17 +20,23 @@ exerciseTypesSelector.factory('ExerciseTypesSelector', ['$modal', function ($mod
 
           $scope.exerciseType = {};
           $scope.exerciseTypes = [];
+          $scope.addedExcercisesCount = 0;
 
           $scope.ok = function () {
             if ($scope.exerciseType.selected == undefined) {
               toaster.pop("warning", "Please select an exercise.");
             } else {
               options.onAddExerciseType($scope.exerciseType.selected);
+              ++$scope.addedExcercisesCount;
             }
           };
 
           $scope.cancel = function () {
-            $modalInstance.dismiss();
+            if ($scope.addedExcercisesCount > 0) {
+              $modalInstance.close({addedExercisesCount: $scope.addedExcercisesCount});
+            } else {
+              $modalInstance.dismiss();
+            }
           };
 
           ExerciseType.query(function (data) {

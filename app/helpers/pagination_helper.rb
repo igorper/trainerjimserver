@@ -12,7 +12,7 @@ module PaginationHelper
     if pagination?
       list_to_paginate = list_to_paginate.page(params[:page]).per(items_per_page)
     elsif pagination_info?
-      render json: pagination_info(list_to_paginate.page(params[:page]), items_per_page)
+      render json: pagination_info(list_to_paginate.page(0), items_per_page)
     end
     list_to_paginate
   end
