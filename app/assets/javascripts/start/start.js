@@ -14,7 +14,7 @@ angular
           'body': {
             controller: ['$scope', '$state', 'Auth', function ($scope, $state, Auth) {
               Auth.isLoggedIn(function (response) {
-                $state.go(response.is_logged_in ? 'main.workouts' : 'welcome');
+                $state.go(response.is_logged_in ? 'main.workouts.workout' : 'welcome');
               });
             }],
             template: '<div us-spinner spinner-key="start-spinner" spinner-start-active="true"></div>'

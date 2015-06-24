@@ -1,33 +1,29 @@
-<div class="container-fluid workouts">
+<div class="container-fluid trainee workouts">
   <div class="row training">
     <div class="my-workouts col-sm-3">
 
-      <h3 class="jim-title">{{title}}</h3>
+      <h3 class="jim-title">{{workoutsContext.title}}</h3>
 
       <trainee-thumb trainee="userDetails"
                      on-trainee-photo-changed="refreshUserDetails()"
                      fill-width="true"
                      not-clickable="true"></trainee-thumb>
 
-      <div ng-if="isPreparedWorkoutsEnabled" class="assign-workout">
+      <div ng-if="workoutsContext.isPreparedWorkoutsEnabled" class="assign-workout">
         <button class="btn btn-success" ng-click="addPreparedWorkout()">
           Add prepared workout
         </button>
       </div>
 
-      <workouts-list workouts="workouts"
-                     selected-workout="selectedTraining"
+      <workouts-list workouts="workoutsContext.trainingList"
+                     selected-workout="workoutsContext.selectedTraining"
                      on-workout-selected="onWorkoutSelected(workout)"
                      on-workout-create="onWorkoutCreate()"></workouts-list>
     </div>
 
     <div class="main-panel col-sm-9">
       <div class="jim-box">
-        <workout-editor training="selectedTraining"
-                        trainer="trainer"
-                        on-save-clicked="onSaveClicked(selectedTraining)"
-                        on-delete-clicked="onDeleteClicked(selectedTraining)">
-        </workout-editor>
+        <ui-view></ui-view>
       </div>
     </div>
   </div>

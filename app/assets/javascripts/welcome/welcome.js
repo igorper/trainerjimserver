@@ -25,12 +25,12 @@ angular
   .controller("WelcomeCtrl", ["$scope", "$state", 'Auth',
     function ($scope, $state, Auth) {
       $scope.onLoggedIn = function () {
-        $state.go('main.workouts');
+        $state.go('main.workouts.workout');
       };
 
       Auth.isLoggedIn(function (response) {
         if (response.is_logged_in) {
-          $state.go('main.workouts');
+          $state.go('main.workouts.workout');
         }
       });
     }

@@ -11,63 +11,74 @@ var workouts = angular.module('workouts', [
 workouts.config(['$stateProvider', function ($stateProvider) {
   $stateProvider
     .state('main.workouts', {
-      url: "/workouts/:id",
+      url: '/workouts',
+      abstract: true,
       controller: 'WorkoutsCtrl',
       templateUrl: '<%= asset_path('workouts/workouts.html') %>'
+    })
+    .state('main.workouts.workout', {
+      url: '/:trainingId',
+      controller: 'WorkoutCtrl',
+      templateUrl: '<%= asset_path('workouts/workout.html') %>'
     })
   ;
 }]);
 
-workouts.controller("WorkoutsCtrl", ["$scope", '$modal', 'Training', '$stateParams', 'toaster', '$state', 'Auth',
-  function ($scope, $modal, Training, $stateParams, toaster, $state, Auth) {
-    $scope.workouts = [];
-    $scope.selectedTraining = null;
-    $scope.isPreparedWorkoutsEnabled = false;
-    $scope.title = 'My workouts';
-    $scope.trainer = null;
+workouts.controller("WorkoutsCtrl", ['$scope', '$state', 'Training', '$stateParams', 'toaster', 'Auth',
+  function ($scope, $state, Training, $stateParams, toaster, Auth) {
+    $scope.workoutsContext = {
+      isPreparedWorkoutsEnabled: false,
+      title: 'My workouts',
+      trainingList: [],
+      selectedTraining: null,
+      trainer: null
+    };
+
+    $scope.onWorkoutSelected = function (training) {
+      $state.go('main.workouts.workout', {trainingId: training.id});
+    };
+
+    $scope.onWorkoutCreate = function () {
+      $state.go('main.workouts.workout', {trainingId: ''});
+    };
 
     $scope.refreshUserDetails = function () {
       $scope.userDetails = Auth.userDetails();
     };
 
-    $scope.refreshUserDetails();
-
     function refreshTrainingsList() {
       Training.query(function (trainings) {
-        $scope.workouts = trainings;
+        $scope.workoutsContext.trainingList = trainings;
       }, function () {
         toaster.pop("error", "Fetch trainings error", "Unable to fetch the trainings list");
       });
     }
 
+    $scope.refreshUserDetails();
     refreshTrainingsList();
+  }
+]);
 
+workouts.controller('WorkoutCtrl', ['$scope', 'Training', '$stateParams', 'toaster', '$state',
+  function ($scope, Training, $stateParams, toaster, $state) {
     function createEmptyTraining() {
       return new Training({name: "Enter training name", exercises: []});
     }
 
-    if ($stateParams.id === '') {
-      $scope.selectedTraining = createEmptyTraining();
+    if ($stateParams.trainingId === '') {
+      $scope.workoutsContext.selectedTraining = createEmptyTraining();
     } else {
-      Training.get({id: $stateParams.id}, function (training) {
-        $scope.selectedTraining = training;
+      Training.get({id: $stateParams.trainingId}, function (training) {
+        $scope.workoutsContext.selectedTraining = training;
       }, function () {
-        toaster.pop("error", "Fetch training error", "Unable to fetch the training");
+        toaster.pop("error", "Fetch workout error", "Unable to fetch the workout.");
       });
     }
 
-    $scope.onWorkoutSelected = function (workout) {
-      $state.go('main.workouts', {id: workout.id});
-    };
-
-    $scope.onWorkoutCreate = function () {
-      $state.go('main.workouts', {id: ''});
-    };
-
     $scope.onSaveClicked = function (selectedTraining) {
-      $scope.selectedTraining.$save(function (training) {
+      selectedTraining.$save(function (training) {
         toaster.pop("success", "Training saved", "Sucessfully saved " + selectedTraining.name);
-        $state.go('main.workouts', {id: training.id}, {reload: true});
+        $state.go('main.workouts.workout', {trainingId: training.id}, {reload: true});
       }, function () {
         toaster.pop("error", "Training save error", "Error saving " + selectedTraining.name);
       });
@@ -76,12 +87,11 @@ workouts.controller("WorkoutsCtrl", ["$scope", '$modal', 'Training', '$statePara
     $scope.onDeleteClicked = function (selectedTraining) {
       Training.delete({id: selectedTraining.id}, function () {
         toaster.pop("info", "Workout deleted", "The workout was successfully deleted.");
-        $state.go('main.workouts', {id: ''}, {reload: true});
+        $state.go('main.workouts.workout', {trainingId: ''}, {reload: true});
       }, function () {
         toaster.pop("error", "Workout not deleted", "Could not delete the workout. Please try logging in again.");
       });
     };
-
   }
 ]);
 

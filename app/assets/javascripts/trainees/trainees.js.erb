@@ -33,18 +33,18 @@ trainees.config(['$stateProvider', function ($stateProvider) {
   $stateProvider
     .state('main.trainees', {
       url: '/trainees',
-      controller: "TraineesCtrl",
-      templateUrl: "<%= asset_path('trainees/trainees.html') %>"
+      controller: 'TraineesCtrl',
+      templateUrl: '<%= asset_path('trainees/trainees.html') %>'
     })
     .state('main.trainee', {
       url: '/trainees/{traineeId:int}',
-      controller: "TraineeCtrl",
-      templateUrl: "<%= asset_path('trainees/trainee.html') %>"
+      controller: 'TraineeCtrl',
+      templateUrl: '<%= asset_path('workouts/workouts.html') %>'
     })
     .state('main.trainee.training', {
       url: '/training/:trainingId',
       controller: "TraineeTrainingCtrl",
-      templateUrl: "<%= asset_path('trainees/trainee-training.html') %>",
+      templateUrl: '<%= asset_path('workouts/workout.html') %>',
       resolve: {
         traineeId: ['$stateParams', function ($stateParams) {
           return $stateParams.traineeId;
@@ -53,9 +53,8 @@ trainees.config(['$stateProvider', function ($stateProvider) {
     });
 }]);
 
-trainees.controller("TraineesCtrl", ['$scope', '$state', 'Trainee', 'toaster',
+trainees.controller("TraineesCtrl", ['$scope', '$state', 'Trainee', 'toaster', 'Auth',
   function ($scope, $state, Trainee, toaster) {
-
     $scope.searchFilter = "";
 
     $scope.refreshTraineeList = function () {
@@ -70,15 +69,18 @@ trainees.controller("TraineesCtrl", ['$scope', '$state', 'Trainee', 'toaster',
     $scope.onTraineeClicked = function (trainee) {
       $state.go('main.trainee.training', {traineeId: trainee.id, trainingId: ''});
     };
-
   }
 ]);
 
-trainees.controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams', 'toaster', 'TraineeTraining', 'WorkoutSelector', 'TraineeTrainingUtils',
-  function ($scope, $state, Trainee, $stateParams, toaster, TraineeTraining, WorkoutSelector, TraineeTrainingUtils) {
-    $scope.workouts = [];
-    $scope.selectedTraining = [];
-    $scope.isPreparedWorkoutsEnabled = true;
+trainees.controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams', 'toaster', 'TraineeTraining', 'WorkoutSelector', 'TraineeTrainingUtils', 'Auth',
+  function ($scope, $state, Trainee, $stateParams, toaster, TraineeTraining, WorkoutSelector, TraineeTrainingUtils, Auth) {
+    $scope.workoutsContext = {
+      isPreparedWorkoutsEnabled: true,
+      title: '',
+      trainingList: [],
+      selectedTraining: null,
+      trainer: Auth.userDetails()
+    };
 
     $scope.addPreparedWorkout = function () {
       WorkoutSelector().result.then(function (selectedTraining) {
@@ -87,46 +89,45 @@ trainees.controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams
     };
 
     $scope.onWorkoutSelected = function (workout) {
-      $scope.selectedTraining = workout;
-      $state.go('main.trainee.training', {trainingId: workout == null ? '' : workout.id});
+      $state.go('main.trainee.training', {trainingId: workout.id});
     };
 
     $scope.onWorkoutCreate = function () {
-      $scope.onWorkoutSelected(null);
+      $state.go('main.trainee.training', {trainingId: ''});
     };
 
     $scope.refreshUserDetails = function () {
       $scope.userDetails = Trainee.get({id: $stateParams.traineeId}, function (trainee) {
-        $scope.title = trainee.full_name + "'s workouts"
+        $scope.workoutsContext.title = trainee.full_name + "'s workouts"
       }, function () {
         toaster.pop("error", "Trainee", "Could show the trainee. Try logging in again.");
       });
     };
 
-    TraineeTraining.query({traineeId: $stateParams.traineeId}, function (trainings) {
-      $scope.workouts = trainings;
-    }, function () {
-      toaster.pop("error", "Fetch workouts error", "Unable to fetch the list of workouts.");
-    });
+    function refreshTrainingsList() {
+      TraineeTraining.query({traineeId: $stateParams.traineeId}, function (trainings) {
+        $scope.workoutsContext.trainingList = trainings;
+      }, function () {
+        toaster.pop("error", "Fetch workouts error", "Unable to fetch the list of workouts.");
+      });
+    }
 
     $scope.refreshUserDetails();
+    refreshTrainingsList();
   }
 ]);
 
-trainees.controller("TraineeTrainingCtrl", ["$scope", "$state", '$stateParams', 'toaster', 'TraineeTraining', 'traineeId', 'TraineeTrainingUtils', 'Auth',
-  function ($scope, $state, $stateParams, toaster, TraineeTraining, traineeId, TraineeTrainingUtils, Auth) {
-    $scope.selectedTraining = [];
-    $scope.trainer = Auth.userDetails();
-
+trainees.controller("TraineeTrainingCtrl", ["$scope", '$state', '$stateParams', 'toaster', 'TraineeTraining', 'traineeId', 'TraineeTrainingUtils',
+  function ($scope, $state, $stateParams, toaster, TraineeTraining, traineeId, TraineeTrainingUtils) {
     function createEmptyTraining() {
       return new TraineeTraining({traineeId: traineeId, name: "Enter training name", exercises: []});
     }
 
     if ($stateParams.trainingId === '') {
-      $scope.selectedTraining = createEmptyTraining();
+      $scope.workoutsContext.selectedTraining = createEmptyTraining();
     } else {
       TraineeTraining.get({traineeId: traineeId, trainingId: $stateParams.trainingId}, function (training) {
-        $scope.selectedTraining = training;
+        $scope.workoutsContext.selectedTraining = training;
       }, function () {
         toaster.pop("error", "Fetch workout error", "Unable to fetch the workout.");
       });
@@ -143,12 +144,12 @@ trainees.controller("TraineeTrainingCtrl", ["$scope", "$state", '$stateParams', 
       }, function () {
         toaster.pop("error", "Workout not deleted", "Could not delete the workout. Please try logging in again.");
       });
-
     };
   }
 ]);
 
-trainees.factory('TraineeTrainingUtils', ['$state', 'toaster', 'TraineeTraining', function ($state, toaster, TraineeTraining) {
+trainees.factory('TraineeTrainingUtils', ['$state', 'toaster', 'TraineeTraining',
+  function ($state, toaster, TraineeTraining) {
   var self = {
     goToTrainingAndReload: function (training) {
       $state.go('main.trainee.training', {trainingId: training.id}, {reload: true});
