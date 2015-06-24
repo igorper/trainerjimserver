@@ -44,12 +44,7 @@ trainees.config(['$stateProvider', function ($stateProvider) {
     .state('main.trainee.training', {
       url: '/training/:trainingId',
       controller: "TraineeTrainingCtrl",
-      templateUrl: '<%= asset_path('workouts/workout.html') %>',
-      resolve: {
-        traineeId: ['$stateParams', function ($stateParams) {
-          return $stateParams.traineeId;
-        }]
-      }
+      templateUrl: '<%= asset_path('workouts/workout.html') %>'
     });
 }]);
 
@@ -72,14 +67,16 @@ trainees.controller("TraineesCtrl", ['$scope', '$state', 'Trainee', 'toaster', '
   }
 ]);
 
-trainees.controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams', 'toaster', 'TraineeTraining', 'WorkoutSelector', 'TraineeTrainingUtils', 'Auth',
+trainees.controller('TraineeCtrl', ['$scope', '$state', 'Trainee', '$stateParams', 'toaster', 'TraineeTraining', 'WorkoutSelector', 'TraineeTrainingUtils', 'Auth',
   function ($scope, $state, Trainee, $stateParams, toaster, TraineeTraining, WorkoutSelector, TraineeTrainingUtils, Auth) {
     $scope.workoutsContext = {
       isPreparedWorkoutsEnabled: true,
       title: '',
       trainingList: [],
       selectedTraining: null,
-      trainer: Auth.userDetails()
+      trainer: Auth.userDetails(),
+      trainee: null,
+      traineeId: $stateParams.traineeId
     };
 
     $scope.addPreparedWorkout = function () {
@@ -97,7 +94,7 @@ trainees.controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams
     };
 
     $scope.refreshUserDetails = function () {
-      $scope.userDetails = Trainee.get({id: $stateParams.traineeId}, function (trainee) {
+      $scope.workoutsContext.trainee = Trainee.get({id: $stateParams.traineeId}, function (trainee) {
         $scope.workoutsContext.title = trainee.full_name + "'s workouts"
       }, function () {
         toaster.pop("error", "Trainee", "Could show the trainee. Try logging in again.");
@@ -117,16 +114,16 @@ trainees.controller("TraineeCtrl", ["$scope", "$state", 'Trainee', '$stateParams
   }
 ]);
 
-trainees.controller("TraineeTrainingCtrl", ["$scope", '$state', '$stateParams', 'toaster', 'TraineeTraining', 'traineeId', 'TraineeTrainingUtils',
-  function ($scope, $state, $stateParams, toaster, TraineeTraining, traineeId, TraineeTrainingUtils) {
+trainees.controller('TraineeTrainingCtrl', ['$scope', '$state', '$stateParams', 'toaster', 'TraineeTraining', 'TraineeTrainingUtils',
+  function ($scope, $state, $stateParams, toaster, TraineeTraining, TraineeTrainingUtils) {
     function createEmptyTraining() {
-      return new TraineeTraining({traineeId: traineeId, name: "Enter training name", exercises: []});
+      return new TraineeTraining({traineeId: $scope.workoutsContext.traineeId, name: "Enter training name", exercises: []});
     }
 
     if ($stateParams.trainingId === '') {
       $scope.workoutsContext.selectedTraining = createEmptyTraining();
     } else {
-      TraineeTraining.get({traineeId: traineeId, trainingId: $stateParams.trainingId}, function (training) {
+      TraineeTraining.get({traineeId: $scope.workoutsContext.traineeId, trainingId: $stateParams.trainingId}, function (training) {
         $scope.workoutsContext.selectedTraining = training;
       }, function () {
         toaster.pop("error", "Fetch workout error", "Unable to fetch the workout.");
@@ -134,11 +131,11 @@ trainees.controller("TraineeTrainingCtrl", ["$scope", '$state', '$stateParams', 
     }
 
     $scope.onSaveClicked = function (selectedTraining) {
-      TraineeTrainingUtils.saveTrainingForTrainee(traineeId, selectedTraining);
+      TraineeTrainingUtils.saveTrainingForTrainee($scope.workoutsContext.traineeId, selectedTraining);
     };
 
     $scope.onDeleteClicked = function (selectedTraining) {
-      TraineeTraining.delete({traineeId: traineeId, trainingId: selectedTraining.id}, function () {
+      TraineeTraining.delete({traineeId: $scope.workoutsContext.traineeId, trainingId: selectedTraining.id}, function () {
         toaster.pop("info", "Workout deleted", "The workout was successfully deleted.");
         $state.go('main.trainee.training', {trainingId: ''}, {reload: true});
       }, function () {

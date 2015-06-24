@@ -24,14 +24,15 @@ workouts.config(['$stateProvider', function ($stateProvider) {
   ;
 }]);
 
-workouts.controller("WorkoutsCtrl", ['$scope', '$state', 'Training', '$stateParams', 'toaster', 'Auth',
+workouts.controller('WorkoutsCtrl', ['$scope', '$state', 'Training', '$stateParams', 'toaster', 'Auth',
   function ($scope, $state, Training, $stateParams, toaster, Auth) {
     $scope.workoutsContext = {
       isPreparedWorkoutsEnabled: false,
       title: 'My workouts',
       trainingList: [],
       selectedTraining: null,
-      trainer: null
+      trainer: null,
+      trainee: Auth.userDetails()
     };
 
     $scope.onWorkoutSelected = function (training) {
@@ -43,7 +44,7 @@ workouts.controller("WorkoutsCtrl", ['$scope', '$state', 'Training', '$statePara
     };
 
     $scope.refreshUserDetails = function () {
-      $scope.userDetails = Auth.userDetails();
+      $scope.workoutsContext.trainee = Auth.userDetails();
     };
 
     function refreshTrainingsList() {
@@ -59,8 +60,8 @@ workouts.controller("WorkoutsCtrl", ['$scope', '$state', 'Training', '$statePara
   }
 ]);
 
-workouts.controller('WorkoutCtrl', ['$scope', 'Training', '$stateParams', 'toaster', '$state',
-  function ($scope, Training, $stateParams, toaster, $state) {
+workouts.controller('WorkoutCtrl', ['$scope', '$state', 'Training', '$stateParams', 'toaster',
+  function ($scope, $state, Training, $stateParams, toaster) {
     function createEmptyTraining() {
       return new Training({name: "Enter training name", exercises: []});
     }
