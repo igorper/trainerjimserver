@@ -9,6 +9,12 @@
                      fill-width="true"
                      not-clickable="true"></trainee-thumb>
 
+      <div ng-if="isPreparedWorkoutsEnabled" class="assign-workout">
+        <button class="btn btn-success" ng-click="addPreparedWorkout()">
+          Add prepared workout
+        </button>
+      </div>
+
       <workouts-list workouts="workouts"
                      selected-workout="selectedTraining"
                      on-workout-selected="onWorkoutSelected(workout)"
@@ -18,6 +24,7 @@
     <div class="main-panel col-sm-9">
       <div class="jim-box">
         <workout-editor training="selectedTraining"
+                        trainer="trainer"
                         on-save-clicked="onSaveClicked(selectedTraining)"
                         on-delete-clicked="onDeleteClicked(selectedTraining)">
         </workout-editor>

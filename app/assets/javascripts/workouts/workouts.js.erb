@@ -24,6 +24,7 @@ workouts.controller("WorkoutsCtrl", ["$scope", '$modal', 'Training', '$statePara
     $scope.selectedTraining = null;
     $scope.isPreparedWorkoutsEnabled = false;
     $scope.title = 'My workouts';
+    $scope.trainer = null;
 
     $scope.refreshUserDetails = function () {
       $scope.userDetails = Auth.userDetails();
