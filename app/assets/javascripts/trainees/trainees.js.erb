@@ -3,6 +3,7 @@ var trainees = angular.module('trainees', [
   'ui.bootstrap',
   'shared',
   'trainings',
+  'workouts',
   'workouts.selector',
   'trainees.traineeThumb',
   'ngFileUpload',
@@ -67,50 +68,21 @@ trainees.controller("TraineesCtrl", ['$scope', '$state', 'Trainee', 'toaster', '
   }
 ]);
 
-trainees.controller('TraineeCtrl', ['$scope', '$state', 'Trainee', '$stateParams', 'toaster', 'TraineeTraining', 'WorkoutSelector', 'TraineeTrainingUtils', 'Auth',
-  function ($scope, $state, Trainee, $stateParams, toaster, TraineeTraining, WorkoutSelector, TraineeTrainingUtils, Auth) {
-    $scope.workoutsContext = {
-      isPreparedWorkoutsEnabled: true,
+trainees.controller('TraineeCtrl', ['$scope', '$stateParams', 'TraineeTraining', 'Auth', 'WorkoutsCtrlHelper',
+  function ($scope, $stateParams, TraineeTraining, Auth, WorkoutsCtrlHelper) {
+    WorkoutsCtrlHelper($scope, {
+      onAddPreparedWorkout: function (selectedTrainingId, successCallback) {
+        return TraineeTraining.addPreparedWorkout(
+          {traineeId: $stateParams.traineeId},
+          {preparedTrainingId: selectedTrainingId},
+          successCallback
+        );
+      },
       title: '',
-      trainingList: [],
-      selectedTraining: null,
       trainer: Auth.userDetails(),
-      trainee: null,
-      traineeId: $stateParams.traineeId
-    };
-
-    $scope.addPreparedWorkout = function () {
-      WorkoutSelector().result.then(function (selectedTraining) {
-        TraineeTrainingUtils.addPreparedWorkout($stateParams.traineeId, selectedTraining.id);
-      });
-    };
-
-    $scope.onWorkoutSelected = function (workout) {
-      $state.go('main.trainee.training', {trainingId: workout.id});
-    };
-
-    $scope.onWorkoutCreate = function () {
-      $state.go('main.trainee.training', {trainingId: ''});
-    };
-
-    $scope.refreshUserDetails = function () {
-      $scope.workoutsContext.trainee = Trainee.get({id: $stateParams.traineeId}, function (trainee) {
-        $scope.workoutsContext.title = trainee.full_name + "'s workouts"
-      }, function () {
-        toaster.pop("error", "Trainee", "Could show the trainee. Try logging in again.");
-      });
-    };
-
-    function refreshTrainingsList() {
-      TraineeTraining.query({traineeId: $stateParams.traineeId}, function (trainings) {
-        $scope.workoutsContext.trainingList = trainings;
-      }, function () {
-        toaster.pop("error", "Fetch workouts error", "Unable to fetch the list of workouts.");
-      });
-    }
-
-    $scope.refreshUserDetails();
-    refreshTrainingsList();
+      traineeId: $stateParams.traineeId,
+      workoutStateName: 'main.trainee.training'
+    });
   }
 ]);
 
@@ -145,22 +117,14 @@ trainees.controller('TraineeTrainingCtrl', ['$scope', '$state', '$stateParams', 
   }
 ]);
 
-trainees.factory('TraineeTrainingUtils', ['$state', 'toaster', 'TraineeTraining',
-  function ($state, toaster, TraineeTraining) {
-  var self = {
+trainees.factory('TraineeTrainingUtils', ['$state', 'toaster',
+  function ($state, toaster) {
+    var self = {
     goToTrainingAndReload: function (training) {
       $state.go('main.trainee.training', {trainingId: training.id}, {reload: true});
     },
     showSaveSuccessPopup: function (savedTraining) {
       toaster.pop("success", "Training saved", "Sucessfully saved " + savedTraining.name);
-    },
-    addPreparedWorkout: function (traineeId, preparedTrainingId) {
-      TraineeTraining.addPreparedWorkout(
-        {traineeId: traineeId},
-        {preparedTrainingId: preparedTrainingId}, function (savedTraining) {
-          self.showSaveSuccessPopup(savedTraining);
-          self.goToTrainingAndReload(savedTraining);
-        });
     },
     saveTrainingForTrainee: function (traineeId, selectedTraining) {
       selectedTraining.$save({traineeId: traineeId}, function (training) {

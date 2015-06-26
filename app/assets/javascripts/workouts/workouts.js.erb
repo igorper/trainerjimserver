@@ -26,15 +26,6 @@ workouts.config(['$stateProvider', function ($stateProvider) {
 
 workouts.controller('WorkoutsCtrl', ['$scope', '$state', 'Training', '$stateParams', 'toaster', 'Auth',
   function ($scope, $state, Training, $stateParams, toaster, Auth) {
-    $scope.workoutsContext = {
-      isPreparedWorkoutsEnabled: false,
-      title: 'My workouts',
-      trainingList: [],
-      selectedTraining: null,
-      trainer: null,
-      trainee: Auth.userDetails()
-    };
-
     $scope.onWorkoutSelected = function (training) {
       $state.go('main.workouts.workout', {trainingId: training.id});
     };
@@ -108,3 +99,57 @@ workouts.directive('workoutsList', function () {
     templateUrl: "<%= asset_path('workouts/list/workouts-list.html') %>"
   };
 });
+
+workouts.factory('WorkoutsCtrlHelper', ['toaster', 'Training', 'Auth', 'TraineeTraining', 'Trainee', '$state', 'WorkoutSelector',
+  function (toaster, Training, Auth, TraineeTraining, Trainee, $state, WorkoutSelector) {
+    return function ($scope, workoutsConfig) {
+      $scope.workoutsContext = angular.extend({
+        onAddPreparedWorkout: null, // fn (trainingId:Int, successCallback: fn (addedTraining: Training)): Void
+        title: 'My workouts',
+        trainingList: [],
+        selectedTraining: null,
+        trainer: null,
+        trainee: null,
+        traineeId: null,
+        workoutStateName: 'main.workouts.workout'
+      }, workoutsConfig);
+
+      function onPreparedWorkoutAdded(training) {
+        $scope.onWorkoutSelected(training);
+        toaster.pop("success", "Training saved", "Successfully saved " + training.name);
+      }
+
+      $scope.addPreparedWorkout = function () {
+        WorkoutSelector().result.then(function (selectedTraining) {
+          $scope.workoutsContext.onAddPreparedWorkout(selectedTraining.id, onPreparedWorkoutAdded);
+        });
+      };
+
+      $scope.onWorkoutSelected = function (training) {
+        $state.go($scope.workoutsContext.workoutStateName, {trainingId: training.id});
+      };
+
+      $scope.onWorkoutCreate = function () {
+        $state.go($scope.workoutsContext.workoutStateName, {trainingId: ''});
+      };
+
+      $scope.refreshUserDetails = function () {
+        $scope.workoutsContext.trainee = Trainee.get({id: $scope.workoutsContext.traineeId}, function (trainee) {
+          $scope.workoutsContext.title = trainee.full_name + "'s workouts"
+        }, function () {
+          toaster.pop("error", "Avatar not loaded", "Could show the avatar. Try logging in again.");
+        });
+      };
+
+      function refreshTrainingsList() {
+        TraineeTraining.query({traineeId: $scope.workoutsContext.traineeId}, function (trainings) {
+          $scope.workoutsContext.trainingList = trainings;
+        }, function () {
+          toaster.pop("error", "Fetch workouts error", "Unable to fetch the list of workouts.");
+        });
+      }
+
+      $scope.refreshUserDetails();
+      refreshTrainingsList();
+    };
+  }]);
