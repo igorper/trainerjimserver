@@ -12,8 +12,7 @@ workouts.config(['$stateProvider', function ($stateProvider) {
   $stateProvider.state('main.workouts', {
     url: '/workouts',
     abstract: true,
-    controller: ['$scope', '$state', 'Training', '$stateParams', 'toaster', 'Auth', 'WorkoutsCtrlHelper',
-      function ($scope, $state, Training, $stateParams, toaster, Auth, WorkoutsCtrlHelper) {
+    controller: ['$scope', '$state', 'WorkoutsCtrlHelper', function ($scope, $state, WorkoutsCtrlHelper) {
         WorkoutsCtrlHelper($scope, {workoutStateName: 'main.workouts.workout'});
       }
     ],

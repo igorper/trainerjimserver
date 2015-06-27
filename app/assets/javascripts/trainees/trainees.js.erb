@@ -85,8 +85,8 @@ trainees.config(['$stateProvider', function ($stateProvider) {
 
   $stateProvider.state('main.trainee.training', {
     url: '/training/:trainingId',
-    controller: ['$scope', '$state', '$stateParams', 'toaster', 'TraineeTraining', 'WorkoutCtrlHelper',
-      function ($scope, $state, $stateParams, toaster, TraineeTraining, WorkoutCtrlHelper) {
+    controller: ['$scope', '$stateParams', 'TraineeTraining', 'WorkoutCtrlHelper',
+      function ($scope, $stateParams, TraineeTraining, WorkoutCtrlHelper) {
         WorkoutCtrlHelper($scope, {
           trainingId: $stateParams.trainingId,
           createEmptyTraining: function () {
