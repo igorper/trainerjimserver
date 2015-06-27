@@ -74,14 +74,12 @@ angular.module('workouts.editor', [
         ],
         exercise_type: exerciseType
       });
+      scrollToLastExercise();
     }
 
     function scrollToLastExercise() {
-      var scrollId = "#exercise-" + ($scope.training.exercises.length - 1);
-      var elementToScrollTo = $(scrollId);
-      $('html, body').animate({
-        scrollTop: elementToScrollTo.offset().top
-      }, 500);
+      var elementToScrollTo = $('.exercise-item:last');
+      $('html, body').animate({scrollTop: elementToScrollTo.offset().top}, 500);
     }
 
     $scope.editExercise = function () {

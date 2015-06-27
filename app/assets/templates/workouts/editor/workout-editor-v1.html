@@ -20,7 +20,7 @@
   </div>
 
   <div class="exercises" ui-sortable="sortableOptions" ng-model="training.exercises">
-    <div ng-repeat="exercise in training.exercises" id="exercise-{{$index}}">
+    <div ng-repeat="exercise in training.exercises" class="exercise-item">
       <exercise-editor exercise="exercise"
                        training="training"
                        trainer="trainer"
