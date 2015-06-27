@@ -1,7 +1,22 @@
-div.workouts div.workouts-list {
+.workouts .workouts-list {
   margin-top: 10px;
 }
 
-.training .main-panel .jim-box .box-image {
-  background-image: url(/workouts/ic_add_circle_outline_24px.svg);
+.workouts div.jim-box {
+  margin-top: 25px;
+  padding: 15px 25px;
+}
+
+.workouts div.assign-workout {
+  margin: 10px 0;
+}
+
+.workouts div.assign-workout .btn {
+  white-space: normal;
+  width: 100%;
+}
+
+.workouts img.avatar {
+  max-width: 128px;
+  max-height: 128px;
 }
