@@ -33,13 +33,53 @@ trainees.factory("TraineeTraining", ["$resource", function ($resource) {
 trainees.config(['$stateProvider', function ($stateProvider) {
   $stateProvider.state('main.trainees', {
     url: '/trainees',
-    controller: 'TraineesCtrl',
+    controller: ['$scope', '$state', 'Trainee', 'toaster', 'Auth',
+      function ($scope, $state, Trainee, toaster) {
+        $scope.searchFilter = "";
+
+        $scope.refreshTraineeList = function () {
+          $scope.trainees = Trainee.query(function () {
+          }, function () {
+            toaster.pop("error", "Trainees listing", "Could not fetch the list of trainees. Try logging in again.");
+          });
+        };
+
+        $scope.refreshTraineeList();
+
+        $scope.onTraineeClicked = function (trainee) {
+          $state.go('main.trainee.training', {traineeId: trainee.id, trainingId: ''});
+        };
+      }
+    ],
     templateUrl: '<%= asset_path('trainees/trainees.html') %>'
   });
 
   $stateProvider.state('main.trainee', {
     url: '/trainees/{traineeId:int}',
-    controller: 'TraineeCtrl',
+    controller: ['$scope', '$stateParams', 'TraineeTraining', 'Auth', 'WorkoutsCtrlHelper', 'Trainee',
+      function ($scope, $stateParams, TraineeTraining, Auth, WorkoutsCtrlHelper, Trainee) {
+        WorkoutsCtrlHelper($scope, {
+          workoutStateName: 'main.trainee.training',
+          traineeId: $stateParams.traineeId,
+          addPreparedWorkout: function (selectedTrainingId, successCallback, failureCallback) {
+            return TraineeTraining.addPreparedWorkout(
+              {traineeId: $stateParams.traineeId},
+              {preparedTrainingId: selectedTrainingId},
+              successCallback, failureCallback
+            );
+          },
+          fetchTrainingsList: function (successCallback, failureCallback) {
+            TraineeTraining.query({traineeId: $scope.workoutsContext.traineeId}, successCallback, failureCallback);
+          },
+          fetchTrainee: function (successCallback, failureCallback) {
+            return Trainee.get({id: $stateParams.traineeId}, function (trainee) {
+              $scope.workoutsContext.title = trainee.full_name + "'s workouts";
+              successCallback(trainee);
+            }, failureCallback);
+          }
+        });
+      }
+    ],
     templateUrl: '<%= asset_path('workouts/workouts.html') %>'
   });
 
@@ -74,54 +114,3 @@ trainees.config(['$stateProvider', function ($stateProvider) {
     templateUrl: '<%= asset_path('workouts/workout.html') %>'
   });
 }]);
-
-trainees.controller("TraineesCtrl", ['$scope', '$state', 'Trainee', 'toaster', 'Auth',
-  function ($scope, $state, Trainee, toaster) {
-    $scope.searchFilter = "";
-
-    $scope.refreshTraineeList = function () {
-      $scope.trainees = Trainee.query(function () {
-      }, function () {
-        toaster.pop("error", "Trainees listing", "Could not fetch the list of trainees. Try logging in again.");
-      });
-    };
-
-    $scope.refreshTraineeList();
-
-    $scope.onTraineeClicked = function (trainee) {
-      $state.go('main.trainee.training', {traineeId: trainee.id, trainingId: ''});
-    };
-  }
-]);
-
-trainees.controller('TraineeCtrl', ['$scope', '$stateParams', 'TraineeTraining', 'Auth', 'WorkoutsCtrlHelper', 'Trainee',
-  function ($scope, $stateParams, TraineeTraining, Auth, WorkoutsCtrlHelper, Trainee) {
-    WorkoutsCtrlHelper($scope, {
-      workoutStateName: 'main.trainee.training',
-      traineeId: $stateParams.traineeId,
-      onAddPreparedWorkout: addPreparedWorkout,
-      onRefreshTrainingsList: refreshTrainingsList,
-      onRefreshTrainee: refreshTrainee
-    });
-
-    function refreshTrainee() {
-      return Trainee.get({id: $stateParams.traineeId}, function (trainee) {
-        $scope.workoutsContext.title = trainee.full_name + "'s workouts"
-      }, function () {
-        toaster.pop("error", "Avatar not loaded", "Could show the avatar. Try logging in again.");
-      });
-    }
-
-    function refreshTrainingsList(successCallback, failureCallback) {
-      TraineeTraining.query({traineeId: $scope.workoutsContext.traineeId}, successCallback, failureCallback);
-    }
-
-    function addPreparedWorkout(selectedTrainingId, successCallback) {
-      return TraineeTraining.addPreparedWorkout(
-        {traineeId: $stateParams.traineeId},
-        {preparedTrainingId: selectedTrainingId},
-        successCallback
-      );
-    }
-  }
-]);

@@ -55,17 +55,20 @@ workouts.factory('WorkoutsCtrlHelper', ['toaster', 'Training', 'Auth', 'TraineeT
         selectedTraining: null,
         trainer: Auth.userDetails(),
         trainee: null,
-        onAddPreparedWorkout: null, // fn(trainingId:Int, successCallback: fn(addedTraining: Training))
-        onRefreshTrainingsList: Training.query,
-        onRefreshTrainee: Auth.userDetails
+        addPreparedWorkout: null, // fn(trainingId:Int, successCallback, failureCallback)
+        fetchTrainingsList: Training.query,
+        fetchTrainee: Auth.userDetails
       }, workoutsConfig);
 
-      $scope.addPreparedWorkout = function () {
+      $scope.onAddPreparedWorkoutClicked = function () {
         WorkoutSelector().result.then(function (selectedTraining) {
-          $scope.workoutsContext.onAddPreparedWorkout(selectedTraining.id, function (training) {
+          $scope.workoutsContext.addPreparedWorkout(selectedTraining.id, function (training) {
               toaster.pop("success", "Training saved", "Successfully saved " + training.name);
               $scope.onWorkoutSelected(training);
               refreshTrainingsList();
+            },
+            function () {
+              toaster.pop("error", "Prepared training not added", "An error occurred while trying add the prepared training.");
             }
           );
         });
@@ -80,11 +83,15 @@ workouts.factory('WorkoutsCtrlHelper', ['toaster', 'Training', 'Auth', 'TraineeT
       };
 
       $scope.refreshUserDetails = function () {
-        $scope.workoutsContext.trainee = $scope.workoutsContext.onRefreshTrainee();
+        $scope.workoutsContext.fetchTrainee(function (trainee) {
+          $scope.workoutsContext.trainee = trainee;
+        }, function () {
+          toaster.pop("error", "Avatar not loaded", "Could show the avatar. Try logging in again.");
+        });
       };
 
       function refreshTrainingsList() {
-        $scope.workoutsContext.onRefreshTrainingsList(function (trainings) {
+        $scope.workoutsContext.fetchTrainingsList(function (trainings) {
             $scope.workoutsContext.trainingList = trainings;
           },
           function () {
