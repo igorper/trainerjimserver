@@ -60,14 +60,14 @@ workouts.factory('WorkoutsCtrlHelper', ['toaster', 'Training', 'Auth', 'TraineeT
         onRefreshTrainee: Auth.userDetails
       }, workoutsConfig);
 
-      function onPreparedWorkoutAdded(training) {
-        $scope.onWorkoutSelected(training);
-        toaster.pop("success", "Training saved", "Successfully saved " + training.name);
-      }
-
       $scope.addPreparedWorkout = function () {
         WorkoutSelector().result.then(function (selectedTraining) {
-          $scope.workoutsContext.onAddPreparedWorkout(selectedTraining.id, onPreparedWorkoutAdded);
+          $scope.workoutsContext.onAddPreparedWorkout(selectedTraining.id, function (training) {
+              toaster.pop("success", "Training saved", "Successfully saved " + training.name);
+              $scope.onWorkoutSelected(training);
+              refreshTrainingsList();
+            }
+          );
         });
       };
 
