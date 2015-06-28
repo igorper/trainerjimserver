@@ -3,17 +3,17 @@
     <h1 class="jim-title col-sm-12">Customise workout</h1>
   </div>
   <div class="name row">
-    <div class="col-sm-8">
+    <div class="col-sm-12 col-md-8">
       <input class="the-name-value pull-left" ng-model="training.name"/>
     </div>
-    <div class="col-sm-2">
+    <div class="col-sm-6 col-md-2">
       <label class="is-circular" for="is_circular">
         Is circular:
       </label>
       <input id="is_circular" class="is-circular" type="checkbox" ng-model="training.is_circular"/>
     </div>
-    <div class="col-sm-2">
-      <button class="btn btn-lg btn-success pull-right" ng-click="editExercise()">
+    <div class="col-sm-6 col-md-2">
+      <button class="btn btn-lg btn-success pull-right add-exercise" ng-click="editExercise()">
         Add exercise
       </button>
     </div>

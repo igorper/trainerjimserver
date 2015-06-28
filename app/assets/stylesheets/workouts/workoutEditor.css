@@ -1,29 +1,25 @@
+.workout-editor h1.jim-title {
+  font-size: 2.8em;
+  font-weight: 300;
+}
+
 .workout-editor .the-name-value {
   font-size: 2.3em;
   padding: 3px;
   border: 1px solid #f0f0f0;
   width: 100%;
+  font-weight: 300;
 }
 
 .workout-editor label.is-circular {
-  font-weight: 300;
   font-size: 1.5em;
   margin-right: 10px;
   margin-top: 8px;
+  font-weight: 300;
 }
 
-.workout-editor button {
-  font-family: 'Open Sans', sans-serif;
-  font-weight: 400;
-}
-
-.workout-editor button i {
+.workout-editor > .name.row > div {
   margin-top: 3px;
-}
-
-.workout-editor > .name > div > div {
-  display: inline-block;
-  vertical-align: middle;
 }
 
 .workout-editor > .name .btn-group {

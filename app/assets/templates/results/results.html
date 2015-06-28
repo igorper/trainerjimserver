@@ -3,7 +3,7 @@
     <div class="main-panel">
       <div class="jim-box">
         <div class="row calendar-overview">
-          <div class="col-sm-5">
+          <div class="col-sm-12 col-md-5">
             <div class="row user-filter" ng-show="userDetails.is_trainer">
               <div class="col-sm-2">
                 Trainee:
@@ -23,7 +23,7 @@
             <div class="row" ui-calendar="uiConfig.calendar" ng-model="calendarSources"
                  calendar="myCalendar1"></div>
           </div>
-          <div class=" col-sm-7">
+          <div class=" col-sm-12 col-md-7">
             <div ng-hide="selectedTraining">
               <div class="header">
                 <h1 class="jim-title">No training selected.</h1>
@@ -38,9 +38,12 @@
                 <h1 class="col-sm-7 jim-title">{{selectedTraining.training.name}}</h1>
 
                 <div class="btn-group pull-right">
-                  <label class="btn btn-primary" ng-model="trainingPage" btn-radio="'Overview'">Overview</label>
-                  <label class="btn btn-primary" ng-model="trainingPage"
-                         btn-radio="'Details'">Details</label>
+                  <label class="btn btn-primary" ng-model="trainingPage" btn-radio="'Overview'">
+                    Overview
+                  </label>
+                  <label class="btn btn-primary" ng-model="trainingPage" btn-radio="'Details'">
+                    Details
+                  </label>
                 </div>
               </div>
               <div class="separator"></div>

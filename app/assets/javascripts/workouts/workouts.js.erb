@@ -13,8 +13,8 @@ workouts.config(['$stateProvider', function ($stateProvider) {
     url: '/workouts',
     abstract: true,
     controller: ['$scope', '$state', 'WorkoutsCtrlHelper', function ($scope, $state, WorkoutsCtrlHelper) {
-        WorkoutsCtrlHelper($scope, {workoutStateName: 'main.workouts.workout'});
-      }
+      WorkoutsCtrlHelper($scope, {workoutStateName: 'main.workouts.workout'});
+    }
     ],
     templateUrl: '<%= asset_path('workouts/workouts.html') %>'
   });
@@ -51,7 +51,6 @@ workouts.factory('WorkoutsCtrlHelper', ['toaster', 'Training', 'Auth', 'TraineeT
         traineeId: null,
         title: 'Workouts',
         trainingList: [],
-        selectedTraining: null,
         trainer: Auth.userDetails(),
         trainee: null,
         addPreparedWorkout: null, // fn(trainingId:Int, successCallback, failureCallback)
@@ -89,7 +88,7 @@ workouts.factory('WorkoutsCtrlHelper', ['toaster', 'Training', 'Auth', 'TraineeT
         });
       };
 
-      function refreshTrainingsList() {
+      $scope.refreshTrainingsList = function () {
         $scope.workoutsContext.fetchTrainingsList(function (trainings) {
             $scope.workoutsContext.trainingList = trainings;
           },
@@ -97,10 +96,10 @@ workouts.factory('WorkoutsCtrlHelper', ['toaster', 'Training', 'Auth', 'TraineeT
             toaster.pop("error", "Fetch workouts error", "Unable to fetch the list of workouts.");
           }
         );
-      }
+      };
 
       $scope.refreshUserDetails();
-      refreshTrainingsList();
+      $scope.refreshTrainingsList();
     };
   }]);
 
@@ -138,7 +137,8 @@ workouts.factory('WorkoutCtrlHelper', ['$state', 'Training', 'toaster', function
     $scope.onSaveClicked = function () {
       $scope.workoutsContext.saveTraining(function (training) {
         toaster.pop("success", "Training saved", "Sucessfully saved " + training.name);
-        $state.go($scope.workoutsContext.workoutStateName, {trainingId: training.id}, {reload: true});
+        $state.go($scope.workoutsContext.workoutStateName, {trainingId: training.id});
+        $scope.refreshTrainingsList();
       }, function () {
         toaster.pop("error", "Training save error", "Error saving " + training.name);
       });
@@ -147,7 +147,8 @@ workouts.factory('WorkoutCtrlHelper', ['$state', 'Training', 'toaster', function
     $scope.onDeleteClicked = function () {
       $scope.workoutsContext.deleteTraining(function () {
         toaster.pop("info", "Workout deleted", "The workout was successfully deleted.");
-        $state.go($scope.workoutsContext.workoutStateName, {trainingId: ''}, {reload: true});
+        $state.go($scope.workoutsContext.workoutStateName, {trainingId: ''});
+        $scope.refreshTrainingsList();
       }, function () {
         toaster.pop("error", "Workout not deleted", "Could not delete the workout. Please try logging in again.");
       });
