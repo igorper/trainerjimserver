@@ -14,18 +14,15 @@ workouts.config(['$stateProvider', function ($stateProvider) {
     abstract: true,
     controller: ['$scope', '$state', 'WorkoutsCtrlHelper', function ($scope, $state, WorkoutsCtrlHelper) {
       WorkoutsCtrlHelper($scope, {workoutStateName: 'main.workouts.workout'});
-    }
-    ],
+    }],
     templateUrl: '<%= asset_path('workouts/workouts.html') %>'
   });
 
   $stateProvider.state('main.workouts.workout', {
     url: '/:trainingId',
-    controller: ['$scope', '$stateParams', 'WorkoutCtrlHelper',
-      function ($scope, $stateParams, WorkoutCtrlHelper) {
-        WorkoutCtrlHelper($scope, {trainingId: $stateParams.trainingId});
-      }
-    ],
+    controller: ['$scope', '$stateParams', 'WorkoutCtrlHelper', function ($scope, $stateParams, WorkoutCtrlHelper) {
+      WorkoutCtrlHelper($scope, {trainingId: $stateParams.trainingId});
+    }],
     templateUrl: '<%= asset_path('workouts/workout.html') %>'
   });
 }]);
@@ -106,22 +103,21 @@ workouts.factory('WorkoutsCtrlHelper', ['toaster', 'Training', 'Auth', 'TraineeT
 
 workouts.factory('WorkoutCtrlHelper', ['$state', 'Training', 'toaster', function ($state, Training, toaster) {
   return function ($scope, workoutConfig) {
-    $scope.workoutsContext = angular.extend($scope.workoutsContext, angular.extend(
-      {
-        trainingId: '',
-        saveTraining: function (successCallback, failureCallback) {
-          $scope.workoutsContext.selectedTraining.$save({traineeId: $scope.workoutsContext.traineeId}, successCallback, failureCallback);
-        },
-        createEmptyTraining: function () {
-          return new Training({name: "Enter training name", exercises: []});
-        },
-        fetchTraining: function (successCallback, failureCallback) {
-          Training.get({id: $scope.workoutsContext.trainingId}, successCallback, failureCallback);
-        },
-        deleteTraining: function (successCallback, failureCallback) {
-          Training.delete({id: $scope.workoutsContext.trainingId}, successCallback, failureCallback);
-        }
-      }, workoutConfig));
+    $scope.workoutsContext = angular.extend($scope.workoutsContext, angular.extend({
+      trainingId: '',
+      saveTraining: function (successCallback, failureCallback) {
+        $scope.workoutsContext.selectedTraining.$save({traineeId: $scope.workoutsContext.traineeId}, successCallback, failureCallback);
+      },
+      createEmptyTraining: function () {
+        return new Training({name: "Enter training name", exercises: []});
+      },
+      fetchTraining: function (successCallback, failureCallback) {
+        Training.get({id: $scope.workoutsContext.trainingId}, successCallback, failureCallback);
+      },
+      deleteTraining: function (successCallback, failureCallback) {
+        Training.delete({id: $scope.workoutsContext.trainingId}, successCallback, failureCallback);
+      }
+    }, workoutConfig));
 
 
     if ($scope.workoutsContext.trainingId === '') {
