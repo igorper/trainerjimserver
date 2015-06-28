@@ -25,3 +25,7 @@
 .workout-editor .exercises {
   margin: 15px 0;
 }
+
+.workout-editor .save-delete-buttons {
+  margin: 5px;
+}

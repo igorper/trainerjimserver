@@ -2,11 +2,6 @@
   margin-top: 10px;
 }
 
-.workouts div.jim-box {
-  margin-top: 25px;
-  padding: 15px 25px;
-}
-
 .workouts div.assign-workout {
   margin: 10px 0;
 }
@@ -19,4 +14,31 @@
 .workouts img.avatar {
   max-width: 128px;
   max-height: 128px;
+}
+
+@media (max-width: 767px) {
+  .workouts.container-fluid {
+    padding: 0;
+  }
+
+  .workouts .col-sm-12 {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .workouts .row {
+    margin: 0;
+  }
+
+  .workouts .jim-box {
+    margin-top: 25px;
+    padding: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .workouts .jim-box {
+    margin-top: 25px;
+    padding: 15px 25px;
+  }
 }
