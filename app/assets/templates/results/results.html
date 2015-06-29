@@ -34,10 +34,10 @@
             </div>
             <div ng-show="selectedTraining" id="my-workout" class="selected-regime">
               <div class="row header">
-                <div class="col-sm-8">
+                <div class="col-xs-12 col-sm-8">
                   <h1 class="jim-title">{{selectedTraining.training.name}}</h1>
                 </div>
-                <div class="col-sm-4">
+                <div class="col-xs-12 col-sm-4">
                   <div class="overview-details-switch btn-group pull-right">
                     <label class="btn btn-primary" ng-model="trainingPage" btn-radio="'Overview'">
                       Overview
@@ -52,13 +52,13 @@
               <div class="body training-overview">
                 <div ng-show="trainingPage == 'Overview'">
                   <div class="row property">
-                    <div class="col-sm-4 title">Date</div>
-                    <div class="col-sm-4 value">{{selectedTraining.start_time | date: 'd.M.yyyy'}}
+                    <div class="col-xs-5 col-sm-4 title">Date</div>
+                    <div class="col-xs-7 col-sm-4 value">{{selectedTraining.start_time | date: 'd.M.yyyy'}}
                     </div>
                   </div>
                   <div class="row property">
-                    <div class="col-sm-4 title">Start time</div>
-                    <div class="col-sm-4 value">{{selectedTraining.start_time | date: 'HH:mm'}}
+                    <div class="col-xs-5 col-sm-4 title">Start time</div>
+                    <div class="col-xs-7 col-sm-4 value">{{selectedTraining.start_time | date: 'HH:mm'}}
                     </div>
                   </div>
 
@@ -71,17 +71,17 @@
 
                         <div class="panel-body">
                           <div class="row">
-                            <div class="col-sm-4 property">
+                            <div class="col-xs-4 property">
                               <div class="title">Total</div>
                               <div><span tooltip="Total duration of the training (in minutes).">{{durationInMinutes | number:0}} min</span>
                               </div>
                             </div>
-                            <div class="col-sm-4 property">
+                            <div class="col-xs-4 property">
                               <div class="title">Rest</div>
                               <div><span tooltip="Total duration of rest (in minutes).">{{totalRestInMinutes | number:0}} min</span>
                               </div>
                             </div>
-                            <div class="col-sm-4 property">
+                            <div class="col-xs-4 property">
                               <div class="title">Exercise</div>
                               <div><span tooltip="Total duration of exercising (in minutes).">{{totalExercisesInMinutes | number:0}} min</span>
                               </div>
@@ -101,12 +101,12 @@
 
                         <div class="panel-body">
                           <div class="row">
-                            <div class="col-sm-4 property">
+                            <div class="col-xs-4 property">
                               <div class="title">Exercises</div>
                               <div><span tooltip="Number of exercises performed.">{{numExercisesPerformed}} of {{numExercisesPlanned}}</span>
                               </div>
                             </div>
-                            <div class="col-sm-4 property">
+                            <div class="col-xs-4 property">
                               <div class="title">Series</div>
                               <div><span
                                 tooltip="Number of series performed.">{{performedSeries}} of {{totalSeries}}</span>
@@ -127,19 +127,19 @@
 
                         <div class="panel-body">
                           <div class="row">
-                            <div class="col-sm-4 property">
+                            <div class="col-xs-4 property">
                               <div class="title">Rest</div>
                               <div><span tooltip="Average rest difference based on planned rest.">{{averageRestDifferenceInSec | number:0}} s</span>
                               </div>
                             </div>
-                            <div class="col-sm-4 property">
+                            <div class="col-xs-4 property">
                               <div class="title">Weight</div>
                               <div><span
                                 tooltip="Number of weight changes.">{{numberWeightChanges}}</span> (<span
                                 tooltip="Average weight change.">{{averageWeightChanges}} kg</span>)
                               </div>
                             </div>
-                            <div class="col-sm-4 property">
+                            <div class="col-xs-4 property">
                               <div class="title">Reps</div>
                               <div><span
                                 tooltip="Number of repetition changes.">{{numberRepsChanges}}</span>
@@ -161,16 +161,16 @@
 
                         <div class="panel-body">
                           <div class="row">
-                            <div class="col-sm-4 property">
+                            <div class="col-xs-4 property">
                               <div class="title">Too easy</div>
-                              <div><span
-                                tooltip="Number of series rated too easy.">{{numSeriesTooEasy}}</span>
+                              <div>
+                                <span tooltip="Number of series rated too easy.">{{numSeriesTooEasy}}</span>
                               </div>
                             </div>
-                            <div class="col-sm-4 property">
+                            <div class="col-xs-4 property">
                               <div class="title">Too heavy</div>
-                              <div><span
-                                tooltip="Number of series rated too heavy.">{{numSeriesTooHeavy}}</span>
+                              <div>
+                                <span tooltip="Number of series rated too heavy.">{{numSeriesTooHeavy}}</span>
                               </div>
                             </div>
                           </div>
