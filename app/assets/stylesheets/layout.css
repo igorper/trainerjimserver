@@ -24,11 +24,27 @@ body.trainerjim-body {
   margin-top: 25px;
 }
 
-.jim-box {
-  background-color: white;
-  border: 1px solid #cecece;
-  margin-top: 25px;
-  padding: 15px 25px;
+@media (max-width: 767px) {
+  .jim-box {
+    background-color: white;
+    padding-left: 5px;
+    padding-right: 5px;
+    border-top: 1px solid #cecece;
+    border-bottom: 1px solid #cecece;
+  }
+
+  .container-fluid {
+    padding: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .jim-box {
+    background-color: white;
+    border: 1px solid #cecece;
+    margin-top: 25px;
+    padding: 15px 25px;
+  }
 }
 
 .underline {

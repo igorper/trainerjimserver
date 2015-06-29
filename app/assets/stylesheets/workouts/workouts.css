@@ -17,28 +17,16 @@
 }
 
 @media (max-width: 767px) {
-  .workouts.container-fluid {
-    padding: 0;
-  }
-
   .workouts .col-xs-12, .workouts .col-sm-12 {
     padding-left: 0;
     padding-right: 0;
   }
 
+  .workouts .jim-box {
+    margin-top: 25px;
+  }
+
   .workouts .row {
     margin: 0;
-  }
-
-  .workouts .jim-box {
-    margin-top: 25px;
-    padding: 0;
-  }
-}
-
-@media (min-width: 768px) {
-  .workouts .jim-box {
-    margin-top: 25px;
-    padding: 15px 25px;
   }
 }
