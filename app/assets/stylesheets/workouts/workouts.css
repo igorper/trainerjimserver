@@ -21,7 +21,7 @@
     padding: 0;
   }
 
-  .workouts .col-sm-12 {
+  .workouts .col-xs-12, .workouts .col-sm-12 {
     padding-left: 0;
     padding-right: 0;
   }

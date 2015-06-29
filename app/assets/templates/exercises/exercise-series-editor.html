@@ -1,14 +1,13 @@
 <div class="exercise-series-editor">
   <div class="row">
-    <div class="first col-sm-12 col-sm-3">
+    <div class="first col-xs-12 col-sm-3">
       <table>
         <tr>
           <td class="series-field-label">
             {{getFirstFieldLabel()}}:
           </td>
           <td class="series-field">
-            <input type="number"
-                   ng-model="selectedSeries.repeat_count"/>
+            <input type="number" ng-model="selectedSeries.repeat_count"/>
           </td>
           <td class="plus-minus-dial">
             <plus-minus-dial on-increment="incrementFirstField()"
@@ -17,15 +16,14 @@
         </tr>
       </table>
     </div>
-    <div class="col-sm-12 col-sm-3">
+    <div class="col-xs-12 col-sm-3">
       <table>
         <tr>
           <td class="series-field-label">
             weight kg:
           </td>
           <td class="series-field">
-            <input type="number"
-                   ng-model="selectedSeries.weight"/>
+            <input type="number" ng-model="selectedSeries.weight"/>
           </td>
           <td>
             <plus-minus-dial on-increment="increaseSeriesWeight()"
@@ -34,15 +32,14 @@
         </tr>
       </table>
     </div>
-    <div class="col-sm-12 col-sm-3">
+    <div class="col-xs-12 col-sm-3">
       <table>
         <tr>
           <td class="series-field-label">
             rest seconds:
           </td>
           <td class="series-field">
-            <input type="number"
-                   ng-model="selectedSeries.rest_time"/>
+            <input type="number" ng-model="selectedSeries.rest_time"/>
           </td>
           <td class="plus-minus-dial">
             <plus-minus-dial on-increment="increaseSeriesRest()"
@@ -51,7 +48,7 @@
         </tr>
       </table>
     </div>
-    <div class="last col-sm-12 col-sm-3">
+    <div class="last col-xs-12 col-sm-3">
       <series-editor series="exercise.series"
                      on-selected-series-changed="changeSelectedSeries(series)"></series-editor>
     </div>
