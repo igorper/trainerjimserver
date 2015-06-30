@@ -9,18 +9,6 @@
 
 @import url(http://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,700italic,400,300,700&subset=latin,latin-ext);
 
-@media (max-width: 768px) {
-  div.top-jim-box {
-    background-color: white;
-  }
-
-  div.top-jim-box div.jim-box {
-    margin-top: 0;
-    border: none;
-    padding: 0 0;
-  }
-}
-
 html {
   position: relative;
   min-height: 100%;

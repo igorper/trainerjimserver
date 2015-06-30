@@ -1,3 +1,30 @@
+@media (max-width: 767px) {
+  .results .col-xs-12, .results .col-sm-12 {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .results .row {
+    margin: 0;
+  }
+}
+
+@media (min-width: 768px) {
+  .results .row.calendar-overview {
+    padding: 30px;
+  }
+
+  .results .row.header {
+    display: flex;
+    align-items: center;
+  }
+}
+
+.results .header .jim-title {
+  font-weight: 300;
+  margin: 20px 0;
+}
+
 div.results .tabular-section .panel-body {
   padding: 0;
 }
@@ -5,7 +32,6 @@ div.results .tabular-section .panel-body {
 div.results .tabular-section {
   margin-bottom: 0;
 }
-
 
 div.results .main-panel .jim-box .box-image {
   background-image: url(/results/ic_directions_walk_24px.svg);
@@ -79,10 +105,6 @@ div.results .main-panel .jim-box div.fc-content {
   width: 40px;
   height: 40px;
   background-size: contain;
-}
-
-div.results .main-panel .jim-box .calendar-overview {
-  padding: 30px;
 }
 
 div.results .main-panel .jim-box .training-overview .row {
