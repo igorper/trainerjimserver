@@ -16,7 +16,7 @@ class Api::V1::AuthController < ActionController::Base
     registration_token = RegistrationToken.find_by(token: params[:registration_token])
     if registration_token
       registration_token.destroy
-      @user = User.create(email: params[:email], password: params[:password], full_name: params[:full_name], roles: [])
+      @user = User.create(email: params[:email], password: params[:password], full_name: params[:full_name])
     else
       render_bad_request
     end
