@@ -167,8 +167,8 @@ ActiveRecord::Schema.define(version: 20150701201711) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
-    t.boolean  "is_administrator",       default: false
-    t.boolean  "is_trainer",             default: false
+    t.boolean  "is_administrator",       default: false, null: false
+    t.boolean  "is_trainer",             default: false, null: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
