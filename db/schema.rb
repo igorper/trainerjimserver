@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150619082521) do
+ActiveRecord::Schema.define(version: 20150701201711) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -83,22 +83,6 @@ ActiveRecord::Schema.define(version: 20150619082521) do
     t.string "token"
   end
 
-  create_table "roles", force: :cascade do |t|
-    t.string   "name",       null: false
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
-
-  add_index "roles", ["name"], name: "index_roles_on_name", unique: true, using: :btree
-
-  create_table "roles_users", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "role_id"
-  end
-
-  add_index "roles_users", ["role_id"], name: "index_roles_users_on_role_id", using: :btree
-  add_index "roles_users", ["user_id"], name: "index_roles_users_on_user_id", using: :btree
-
   create_table "series", force: :cascade do |t|
     t.integer  "exercise_id",              null: false
     t.integer  "order"
@@ -166,7 +150,7 @@ ActiveRecord::Schema.define(version: 20150619082521) do
     t.string   "full_name"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "encrypted_password",     default: "", null: false
+    t.string   "encrypted_password",     default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
@@ -183,6 +167,8 @@ ActiveRecord::Schema.define(version: 20150619082521) do
     t.string   "photo_content_type"
     t.integer  "photo_file_size"
     t.datetime "photo_updated_at"
+    t.boolean  "is_administrator",       default: false
+    t.boolean  "is_trainer",             default: false
   end
 
   add_index "users", ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true, using: :btree
@@ -199,8 +185,6 @@ ActiveRecord::Schema.define(version: 20150619082521) do
   add_foreign_key "measurements", "trainings", on_update: :cascade, on_delete: :cascade
   add_foreign_key "measurements", "users", column: "trainee_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "measurements", "users", column: "trainer_id", on_update: :cascade, on_delete: :nullify
-  add_foreign_key "roles_users", "roles", on_update: :cascade, on_delete: :cascade
-  add_foreign_key "roles_users", "users", on_update: :cascade, on_delete: :cascade
   add_foreign_key "series", "exercises", on_update: :cascade, on_delete: :cascade
   add_foreign_key "series_executions", "measurements", on_update: :cascade
   add_foreign_key "series_executions", "series", on_update: :cascade, on_delete: :cascade
