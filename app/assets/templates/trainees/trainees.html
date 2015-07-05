@@ -24,6 +24,7 @@
         <div class="row">
           <div class="col-xs-12">
             <div class="thumbs-grid">
+              <promise-spinner promise="trainees"></promise-spinner>
               <div class="thumb"
                    ng-repeat="trainee in trainees | propsFilter: {full_name: searchFilter, email: searchFilter} | orderBy:'full_name'  ">
                 <trainee-thumb trainee="trainee"

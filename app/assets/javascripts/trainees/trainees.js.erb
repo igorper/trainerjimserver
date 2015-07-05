@@ -69,7 +69,7 @@ trainees.config(['$stateProvider', function ($stateProvider) {
             );
           },
           fetchTrainingsList: function (successCallback, failureCallback) {
-            TraineeTraining.query({traineeId: $scope.workoutsContext.traineeId}, successCallback, failureCallback);
+            return TraineeTraining.query({traineeId: $scope.workoutsContext.traineeId}, successCallback, failureCallback);
           },
           fetchTrainee: function (successCallback, failureCallback) {
             return Trainee.get({id: $stateParams.traineeId}, function (trainee) {
@@ -97,13 +97,13 @@ trainees.config(['$stateProvider', function ($stateProvider) {
             });
           },
           fetchTraining: function (successCallback, failureCallback) {
-            TraineeTraining.get({
+            return TraineeTraining.get({
               traineeId: $scope.workoutsContext.traineeId,
               trainingId: $scope.workoutsContext.trainingId
             }, successCallback, failureCallback);
           },
           deleteTraining: function (successCallback, failureCallback) {
-            TraineeTraining.delete({
+            return TraineeTraining.delete({
               traineeId: $scope.workoutsContext.traineeId,
               trainingId: $scope.workoutsContext.trainingId
             }, successCallback, failureCallback);

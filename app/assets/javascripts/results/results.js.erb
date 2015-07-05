@@ -3,7 +3,8 @@ var results = angular.module('results', [
   'ui.bootstrap',
   'users',
   'ui.calendar',
-  'measurements'
+  'measurements',
+  'util.promiseSpinner'
 ]);
 
 results.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider) {
@@ -105,9 +106,7 @@ results.controller("ResultsCtrl", ['$scope', '$http', 'Measurement', '$compile',
 
     if ($stateParams.id != undefined) {
       if ($stateParams.id) {
-        Measurement.get({id: $stateParams.id}, function (measurement) {
-          $scope.selectedTraining = measurement;
-
+        $scope.selectedTraining = Measurement.get({id: $stateParams.id}, function () {
           // show the calendar for the selected training date
           $scope.uiConfig.calendar['defaultDate'] = $scope.selectedTraining.start_time;
           //uiCalendarConfig.calendars["myCalendar1"].fullCalendar("render");
