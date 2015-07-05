@@ -5,7 +5,8 @@ var workouts = angular.module('workouts', [
   'trainings',
   'trainees.traineeThumb',
   'shared',
-  'toaster'
+  'toaster',
+  'util.promiseSpinner'
 ]);
 
 workouts.config(['$stateProvider', function ($stateProvider) {
@@ -78,16 +79,14 @@ workouts.factory('WorkoutsCtrlHelper', ['toaster', 'Training', 'Auth', 'TraineeT
       };
 
       $scope.refreshUserDetails = function () {
-        $scope.workoutsContext.fetchTrainee(function (trainee) {
-          $scope.workoutsContext.trainee = trainee;
+        $scope.workoutsContext.trainee = $scope.workoutsContext.fetchTrainee(function () {
         }, function () {
           toaster.pop("error", "Avatar not loaded", "Could show the avatar. Try logging in again.");
         });
       };
 
       $scope.refreshTrainingsList = function () {
-        $scope.workoutsContext.fetchTrainingsList(function (trainings) {
-            $scope.workoutsContext.trainingList = trainings;
+        $scope.workoutsContext.trainingList = $scope.workoutsContext.fetchTrainingsList(function () {
           },
           function () {
             toaster.pop("error", "Fetch workouts error", "Unable to fetch the list of workouts.");
@@ -106,16 +105,16 @@ workouts.factory('WorkoutCtrlHelper', ['$state', 'Training', 'toaster', function
     $scope.workoutsContext = angular.extend($scope.workoutsContext, angular.extend({
       trainingId: '',
       saveTraining: function (successCallback, failureCallback) {
-        $scope.workoutsContext.selectedTraining.$save({traineeId: $scope.workoutsContext.traineeId}, successCallback, failureCallback);
+        return $scope.workoutsContext.selectedTraining.$save({traineeId: $scope.workoutsContext.traineeId}, successCallback, failureCallback);
       },
       createEmptyTraining: function () {
         return new Training({name: "Enter training name", exercises: []});
       },
       fetchTraining: function (successCallback, failureCallback) {
-        Training.get({id: $scope.workoutsContext.trainingId}, successCallback, failureCallback);
+        return Training.get({id: $scope.workoutsContext.trainingId}, successCallback, failureCallback);
       },
       deleteTraining: function (successCallback, failureCallback) {
-        Training.delete({id: $scope.workoutsContext.trainingId}, successCallback, failureCallback);
+        return Training.delete({id: $scope.workoutsContext.trainingId}, successCallback, failureCallback);
       }
     }, workoutConfig));
 
@@ -123,8 +122,7 @@ workouts.factory('WorkoutCtrlHelper', ['$state', 'Training', 'toaster', function
     if ($scope.workoutsContext.trainingId === '') {
       $scope.workoutsContext.selectedTraining = $scope.workoutsContext.createEmptyTraining();
     } else {
-      $scope.workoutsContext.fetchTraining(function (training) {
-        $scope.workoutsContext.selectedTraining = training;
+      $scope.workoutsContext.selectedTraining = $scope.workoutsContext.fetchTraining(function () {
       }, function () {
         toaster.pop("error", "Fetch workout error", "Unable to fetch the workout.");
       });
