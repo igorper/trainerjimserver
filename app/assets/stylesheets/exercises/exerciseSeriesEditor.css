@@ -9,9 +9,13 @@
   width: 100%;
 }
 
-@media (max-width: 769px) {
-  .exercise-series-editor .col-sm-3 {
-    padding: 0 15px;
+@media (max-width: 768px) {
+  .exercise-series-editor .col-xs-6 {
+    padding: 0;
+  }
+
+  .exercise-series-editor .col-xs-6.right-padding {
+    padding-right: 5px;
   }
 }
 
