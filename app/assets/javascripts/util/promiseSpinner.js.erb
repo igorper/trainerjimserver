@@ -2,10 +2,8 @@ var promiseSpinner = angular.module('util.promiseSpinner', []);
 
 promiseSpinner.directive('promiseSpinner', ['$window', function ($window) {
   return {
-    restrict: 'E',
-    scope: {
-      promise: '='
-    },
+    scope: {promise: '='},
+    transclude: true,
     templateUrl: "<%= asset_path('util/promise-spinner.html') %>",
     link: function (scope, element) {
       var spinner = new $window.Spinner();
