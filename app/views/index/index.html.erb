@@ -17,6 +17,13 @@
   ga('send', 'pageview');
 
 </script>
+<script>
+  (function () {
+    document.megaSpinner = new Spinner();
+    var spinnerElement = document.getElementsByClassName("trainerjim-body")[0];
+    document.megaSpinner.spin(spinnerElement);
+  })();
+</script>
 <div ui-view="header"></div>
 <toaster-container></toaster-container>
 <div ui-view="body"></div>
