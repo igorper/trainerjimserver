@@ -7,19 +7,13 @@ promiseSpinner.directive('promiseSpinner', ['$window', function ($window) {
     templateUrl: "<%= asset_path('util/promise-spinner.html') %>",
     link: function (scope, element) {
       var spinner = new $window.Spinner();
-      var spinnnerElement = element.children()[0];
+      var spinnerElement = element.children()[0];
 
-      function onPromiseFulfilled() {
-        scope.isPromiseFulfilled = true;
-        spinner.stop(spinnnerElement);
+      function stopSpinning() {
+        spinner.stop(spinnerElement);
       }
 
-      function onPromiseStarted() {
-        scope.isPromiseFulfilled = false;
-        spinner.spin(spinnnerElement);
-      }
-
-      onPromiseFulfilled();
+      stopSpinning();
 
       function getPromise() {
         if (scope.promise) {
@@ -35,8 +29,8 @@ promiseSpinner.directive('promiseSpinner', ['$window', function ($window) {
       scope.$watch('promise', function () {
           var promise = getPromise();
           if (promise) {
-            onPromiseStarted();
-            promise.then(onPromiseFulfilled, onPromiseFulfilled);
+            spinner.spin(spinnerElement);
+            promise.then(stopSpinning, stopSpinning);
           }
         }
       );

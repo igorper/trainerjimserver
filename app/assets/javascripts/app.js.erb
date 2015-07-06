@@ -1,3 +1,4 @@
+//= require spin.js/spin
 //= require underscore/underscore
 //= require jquery/dist/jquery
 //= require jquery-ui/jquery-ui
@@ -14,8 +15,6 @@
 //= require fullcalendar/dist/fullcalendar
 //= require fullcalendar/dist/gcal
 //= require d3/d3
-//= require spin.js/spin
-//= require angular-spinner/angular-spinner
 //= require angular-animate/angular-animate
 //= require angular-sanitize/angular-sanitize
 //= require angular-ui-sortable/sortable
@@ -23,46 +22,49 @@
 //= require angular-bootstrap/ui-bootstrap-tpls
 //= require_tree .
 
-angular
-  .module('app', [
-    'welcome',
-    'workouts',
-    'trainees',
-    'results',
-    'shared',
-    'admin',
-    'http-auth-interceptor',
-    'auth.loginDialog',
-    'userProfile',
-    'start'
-  ])
-  .controller('MainBodyCtrl', ['$rootScope', 'LoginDialog', 'Auth', 'authService', function ($rootScope, LoginDialog, Auth, authService) {
-    $rootScope.$on('event:auth-loginRequired', function () {
-      var loginDialog = LoginDialog();
-      if (loginDialog != null) {
-        loginDialog.result.then(function (credentials) {
-          Auth.login(credentials, function () {
-            authService.loginConfirmed();
-          });
-        }, function () {
-          authService.loginCancelled();
+var trainerjimApp = angular.module('app', [
+  'welcome',
+  'workouts',
+  'trainees',
+  'results',
+  'shared',
+  'admin',
+  'http-auth-interceptor',
+  'auth.loginDialog',
+  'userProfile',
+  'start'
+]);
+
+trainerjimApp.controller('MainBodyCtrl', ['$rootScope', 'LoginDialog', 'Auth', 'authService', function ($rootScope, LoginDialog, Auth, authService) {
+  $rootScope.$on('event:auth-loginRequired', function () {
+    var loginDialog = LoginDialog();
+    if (loginDialog != null) {
+      loginDialog.result.then(function (credentials) {
+        Auth.login(credentials, function () {
+          authService.loginConfirmed();
         });
+      }, function () {
+        authService.loginCancelled();
+      });
+    }
+  });
+
+  document.megaSpinner.stop();
+}]);
+
+trainerjimApp.config(['$stateProvider', function ($stateProvider) {
+  $stateProvider
+    .state('main', {
+      abstract: true,
+      url: "",
+      views: {
+        'body': {templateUrl: '<%= asset_path('main.html') %>', controller: 'MainBodyCtrl'},
+        'header': {templateUrl: '<%= asset_path('shared/header-view.html') %>'},
+        'footer': {templateUrl: '<%= asset_path('shared/footer-view.html') %>'}
       }
     });
-  }])
-  .config(['$stateProvider', function ($stateProvider) {
-    $stateProvider
-      .state('main', {
-        abstract: true,
-        url: "",
-        views: {
-          'body': {templateUrl: '<%= asset_path('main.html') %>', controller: 'MainBodyCtrl'},
-          'header': {templateUrl: '<%= asset_path('shared/header-view.html') %>'},
-          'footer': {templateUrl: '<%= asset_path('shared/footer-view.html') %>'}
-        }
-      });
-  }])
-  .config(['$urlRouterProvider', function ($urlRouterProvider) {
-    $urlRouterProvider.otherwise("/start");
-  }])
-;
+}]);
+
+trainerjimApp.config(['$urlRouterProvider', function ($urlRouterProvider) {
+  $urlRouterProvider.otherwise("/start");
+}]);
