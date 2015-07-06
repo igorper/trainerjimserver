@@ -1,7 +1,5 @@
 <div class="exercise exercise-editor">
 
-  <span us-spinner spinner-key="user-exercise-type-photo-upload-spinner" spinner-start-active="false"></span>
-
   <div class="details row button-behaviour">
     <div class="col-xs-12">
       <div class="name">
@@ -24,7 +22,7 @@
   </div>
 
 
-  <div class="description">
+  <div promise-spinner promise="photoUploaded" class="description">
     <div class="description-show-hide" ng-if="showDescription">
       <div class="description-label">Instructions for {{exercise.exercise_type.name}}</div>
       <exercise-type-details exercise-type-id="exercise.exercise_type.id"

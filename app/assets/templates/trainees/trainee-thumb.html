@@ -1,9 +1,7 @@
 <div class="trainee-thumb" ng-click="onTraineeClicked()"
      ng-class="{'filled-width': fillWidth, clickable: !notClickable}">
 
-  <div us-spinner spinner-key="trainee-photo-upload-spinner" spinner-start-active="false"></div>
-
-  <div class="image">
+  <div promise-spinner promise="photoUploaded" class="image">
     <img alt="{{trainee.full_name}}'s profile photo" ng-src="{{trainee.photo}}"/>
   </div>
 
