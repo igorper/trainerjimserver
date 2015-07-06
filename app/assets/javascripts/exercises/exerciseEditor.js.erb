@@ -34,17 +34,15 @@ exerciseEditorModule.directive('exerciseEditor', function () {
         $scope.showDescription = false;
       }
 
-      function uploadExerciseTypePhoto(photo) {
+      function uploadExerciseTypePhoto(photos) {
         var exerciseType = $scope.exercise.exercise_type;
         var trainee = $scope.training.trainee;
-        $scope.photoUploaded = UserExerciseTypePhotos.add(trainee.id, exerciseType.id, photo)
+        $scope.photoUploaded = UserExerciseTypePhotos.add(trainee.id, exerciseType.id, photos[0])
           .then(hideDescription);
       }
 
       $scope.onTakePhotosClicked = function () {
-        TakePhotoDialog().result.then(function (photos) {
-          uploadExerciseTypePhoto(photos[0]);
-        });
+        TakePhotoDialog().result.then(uploadExerciseTypePhoto);
       };
     }],
     templateUrl: '<%= asset_path('exercises/exercise-editor.html') %>'
