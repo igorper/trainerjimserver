@@ -1,6 +1,20 @@
+.trainees .title-row {
+  display: flex;
+  align-items: center;
+}
+
+.trainees .jim-sub-title {
+  margin: 10px 0;
+}
+
+.trainees .create-trainee {
+  font-size: 1.2em;
+}
+
 .trainees .trainees-grid {
   margin: 0 10px;
 }
+
 
 .trainees .thumbs-grid {
   overflow: hidden;

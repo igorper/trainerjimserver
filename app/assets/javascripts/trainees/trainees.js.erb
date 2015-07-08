@@ -7,7 +7,8 @@ var trainees = angular.module('trainees', [
   'workouts.selector',
   'trainees.traineeThumb',
   'ngFileUpload',
-  'exerciseTypes.exerciseTypeEditor'
+  'exerciseTypes.exerciseTypeEditor',
+  'trainees.createTraineeDialog'
 ]);
 
 trainees.factory("Trainee", ["$resource", 'Upload', function ($resource, Upload) {
@@ -17,6 +18,15 @@ trainees.factory("Trainee", ["$resource", 'Upload', function ($resource, Upload)
     return Upload.upload({
       url: '/api/v1/trainees/' + trainee.id + '/photo.json',
       method: 'POST',
+      file: photo
+    });
+  };
+
+  Trainee.create = function (trainee, photo) {
+    return Upload.upload({
+      url: '/api/v1/trainees.json',
+      method: 'POST',
+      fields: trainee,
       file: photo
     });
   };
@@ -33,8 +43,8 @@ trainees.factory("TraineeTraining", ["$resource", function ($resource) {
 trainees.config(['$stateProvider', function ($stateProvider) {
   $stateProvider.state('main.trainees', {
     url: '/trainees',
-    controller: ['$scope', '$state', 'Trainee', 'toaster',
-      function ($scope, $state, Trainee, toaster) {
+    controller: ['$scope', '$state', 'Trainee', 'toaster', 'CreateTraineeDialog',
+      function ($scope, $state, Trainee, toaster, CreateTraineeDialog) {
         $scope.searchFilter = "";
 
         $scope.refreshTraineeList = function () {
@@ -48,6 +58,10 @@ trainees.config(['$stateProvider', function ($stateProvider) {
 
         $scope.onTraineeClicked = function (trainee) {
           $state.go('main.trainee.training', {traineeId: trainee.id, trainingId: ''});
+        };
+
+        $scope.onCreateTraineeClicked = function () {
+          CreateTraineeDialog().result.then($scope.refreshTraineeList);
         };
       }
     ],
