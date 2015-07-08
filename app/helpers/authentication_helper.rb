@@ -18,6 +18,14 @@ module AuthenticationHelper
     end
   end
 
+  def when_trainer
+    if user_signed_in? && current_user.trainer?
+      yield
+    else
+      render_unauthorized
+    end
+  end
+
   def when_trainer_of(trainee_id)
     trainee_id = trainee_id.to_i
     if user_signed_in?

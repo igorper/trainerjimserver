@@ -9,6 +9,20 @@ class Api::V1::TraineesController < ActionController::Base
     end
   end
 
+  def create
+    when_trainer do
+      @trainee = User.create(
+          email: params[:email],
+          password: params[:email],
+          full_name: params[:full_name],
+          photo: params[:file],
+          trainer: current_user,
+          roles: []
+      )
+      render :show
+    end
+  end
+
   def photo
     when_trainer_of(params[:id]) { |trainee|
       trainee.photo = params[:file]

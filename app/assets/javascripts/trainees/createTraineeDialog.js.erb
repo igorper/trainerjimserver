@@ -1,0 +1,23 @@
+var createTraineeDialog = angular.module('trainees.createTraineeDialog', [
+  'ui.bootstrap',
+  'util.promiseSpinner'
+]);
+
+createTraineeDialog.factory('CreateTraineeDialog', ['$modal', function ($modal) {
+  return function () {
+    return $modal.open({
+      templateUrl: '<%= asset_path('trainees/create-trainee-dialog.html') %>',
+      backdrop: 'static',
+      windowClass: 'modal-window',
+      controller: ['$scope', 'Trainee', function ($scope, Trainee) {
+        $scope.trainee = new Trainee();
+        $scope.onCreateClicked = function () {
+          var photo = $scope.photos ? $scope.photos[0] : null;
+          $scope.traineeUploaded = Trainee
+            .create($scope.trainee, photo)
+            .then($scope.$close);
+        };
+      }]
+    });
+  };
+}]);
