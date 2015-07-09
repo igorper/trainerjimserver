@@ -4,7 +4,7 @@ var workouts = angular.module('workouts', [
   'ui.bootstrap',
   'trainings',
   'trainees.traineeThumb',
-  'shared',
+  'users',
   'toaster',
   'util.promiseSpinner'
 ]);
@@ -41,19 +41,19 @@ workouts.directive('workoutsList', function () {
   };
 });
 
-workouts.factory('WorkoutsCtrlHelper', ['toaster', 'Training', 'Auth', 'TraineeTraining', 'Trainee', '$state', 'WorkoutSelector',
-  function (toaster, Training, Auth, TraineeTraining, Trainee, $state, WorkoutSelector) {
+workouts.factory('WorkoutsCtrlHelper', ['toaster', 'Training', 'User', 'TraineeTraining', 'Trainee', '$state', 'WorkoutSelector',
+  function (toaster, Training, User, TraineeTraining, Trainee, $state, WorkoutSelector) {
     return function ($scope, workoutsConfig) {
       $scope.workoutsContext = angular.extend({
         workoutStateName: 'main.workouts.workout',
         traineeId: null,
         title: 'Workouts',
         trainingList: [],
-        trainer: Auth.userDetails(),
+        trainer: User.current(),
         trainee: null,
         addPreparedWorkout: null, // fn(trainingId:Int, successCallback, failureCallback)
         fetchTrainingsList: Training.query,
-        fetchTrainee: Auth.userDetails
+        fetchTrainee: User.current
       }, workoutsConfig);
 
       $scope.onAddPreparedWorkoutClicked = function () {

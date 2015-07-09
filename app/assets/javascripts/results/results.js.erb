@@ -1,7 +1,7 @@
 var results = angular.module('results', [
   'ui.router',
   'ui.bootstrap',
-  'shared',
+  'users',
   'ui.calendar',
   'measurements',
   'util.promiseSpinner'
@@ -17,8 +17,8 @@ results.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider
 }]);
 
 results.controller("ResultsCtrl", ['$scope', '$http', 'Measurement', '$compile', 'uiCalendarConfig', '$stateParams', '$state',
-  'toaster', 'Trainee', 'Auth',
-  function ($scope, $http, Measurement, $compile, uiCalendarConfig, $stateParams, $state, toaster, Trainee, Auth) {
+  'toaster', 'Trainee', 'User',
+  function ($scope, $http, Measurement, $compile, uiCalendarConfig, $stateParams, $state, toaster, Trainee, User) {
     $scope.smileLookup = {0: "sweat", 1: "happy", 2: "bored"};
     var TOO_HARD_RATING = 0;
     var TOO_EASY_RATING = 2;
@@ -76,7 +76,7 @@ results.controller("ResultsCtrl", ['$scope', '$http', 'Measurement', '$compile',
     $scope.user = {};
     $scope.users = [];
 
-    $scope.userDetails = Auth.userDetails(function (userDetails) {
+    $scope.userDetails = User.current(function (userDetails) {
       $scope.results = Measurement.query({userId: $stateParams.trainee == undefined ? userDetails.id : $stateParams.trainee}, function (measurements) {
         for (var i = 0; i < measurements.length; i++) {
           var measurement = measurements[i];

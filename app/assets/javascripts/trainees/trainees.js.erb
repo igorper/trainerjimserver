@@ -1,7 +1,7 @@
 var trainees = angular.module('trainees', [
   'ui.router',
   'ui.bootstrap',
-  'shared',
+  'users',
   'trainings',
   'workouts',
   'workouts.selector',
@@ -70,8 +70,8 @@ trainees.config(['$stateProvider', function ($stateProvider) {
 
   $stateProvider.state('main.trainee', {
     url: '/trainees/{traineeId:int}',
-    controller: ['$scope', '$stateParams', 'TraineeTraining', 'Auth', 'WorkoutsCtrlHelper', 'Trainee',
-      function ($scope, $stateParams, TraineeTraining, Auth, WorkoutsCtrlHelper, Trainee) {
+    controller: ['$scope', '$stateParams', 'TraineeTraining', 'WorkoutsCtrlHelper', 'Trainee',
+      function ($scope, $stateParams, TraineeTraining, WorkoutsCtrlHelper, Trainee) {
         WorkoutsCtrlHelper($scope, {
           workoutStateName: 'main.trainee.training',
           traineeId: $stateParams.traineeId,

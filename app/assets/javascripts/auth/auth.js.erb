@@ -1,48 +1,22 @@
-var authModule = angular.module("auth", ["ngResource"]);
+var authModule = angular.module('auth', ['ngResource', 'users']);
 
-var USER_CHANGED_EVENT = 'event:user.changed';
-
-authModule.factory("Auth", ['$resource', '$rootScope', function ($resource, $rootScope) {
-  var resource = $resource("/api/v1/auth/:action.json", null,
+authModule.factory('Auth', ['$resource', 'currentUserChanged', function ($resource, currentUserChanged) {
+  var resource = $resource('/api/v1/auth/:action.json', null,
     {
       login: {method: 'POST', params: {action: 'login'}},
       signup: {method: 'POST', params: {action: 'signup'}},
       logout: {method: 'POST', params: {action: 'logout'}},
-      userDetails: {method: 'GET', params: {action: 'user_details'}},
-      isLoggedIn: {method: 'GET', params: {action: 'is_logged_in'}},
-      setName: {method: 'POST', params: {action: 'set_name'}},
-      setPassword: {method: 'POST', params: {action: 'set_password'}}
+      isLoggedIn: {method: 'GET', params: {action: 'is_logged_in'}}
     });
-
-  var is_trainer = false;
-
-  function broadcastUserChangedEvent(newUserDetails) {
-    $rootScope.$broadcast(USER_CHANGED_EVENT, newUserDetails);
-  }
-
-  function onUserChanged(successCallback) {
-    return function (data) {
-      broadcastUserChangedEvent(data);
-      if (successCallback) {
-        successCallback(data);
-      }
-    };
-  }
 
   return {
     login: function (params, successCallback, failureCallback) {
-      return resource.login(params, onUserChanged(successCallback), failureCallback);
+      return resource.login(params, currentUserChanged(successCallback), failureCallback);
     },
     signup: function (params, successCallback, failureCallback) {
-      return resource.signup(params, successCallback, failureCallback);
+      return resource.signup(params, currentUserChanged(successCallback), failureCallback);
     },
-    userDetails: resource.userDetails,
     isLoggedIn: resource.isLoggedIn,
-    logout: resource.logout,
-    is_trainer: is_trainer,
-    setName: function (params, successCallback, failureCallback) {
-      return resource.setName(params, onUserChanged(successCallback), failureCallback);
-    },
-    setPassword: resource.setPassword
+    logout: resource.logout
   };
 }]);
