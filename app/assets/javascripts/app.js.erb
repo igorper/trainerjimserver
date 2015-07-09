@@ -48,21 +48,20 @@ trainerjimApp.controller('MainBodyCtrl', ['$rootScope', 'LoginDialog', 'Auth', '
       });
     }
   });
-
-  document.megaSpinner.stop();
 }]);
 
 trainerjimApp.config(['$stateProvider', function ($stateProvider) {
-  $stateProvider
-    .state('main', {
-      abstract: true,
-      url: "",
-      views: {
-        'body': {templateUrl: '<%= asset_path('main.html') %>', controller: 'MainBodyCtrl'},
-        'header': {templateUrl: '<%= asset_path('shared/header-view.html') %>'},
-        'footer': {templateUrl: '<%= asset_path('shared/footer-view.html') %>'}
-      }
-    });
+  $stateProvider.state('main', {
+    abstract: true,
+    url: "",
+    views: {
+      'body': {templateUrl: '<%= asset_path('main.html') %>', controller: 'MainBodyCtrl'},
+      'header': {templateUrl: '<%= asset_path('shared/header-view.html') %>'},
+      'footer': {templateUrl: '<%= asset_path('shared/footer-view.html') %>'}
+    }
+  });
+
+  document.megaSpinner.stop();
 }]);
 
 trainerjimApp.config(['$urlRouterProvider', function ($urlRouterProvider) {
