@@ -61,7 +61,7 @@ workouts.factory('WorkoutsCtrlHelper', ['toaster', 'Training', 'User', 'TraineeT
           $scope.workoutsContext.addPreparedWorkout(selectedTraining.id, function (training) {
               toaster.pop("success", "Training saved", "Successfully saved " + training.name);
               $scope.onWorkoutSelected(training);
-              refreshTrainingsList();
+              $scope.refreshTrainingsList();
             },
             function () {
               toaster.pop("error", "Prepared training not added", "An error occurred while trying add the prepared training.");
