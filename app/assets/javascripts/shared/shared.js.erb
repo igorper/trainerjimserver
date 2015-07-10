@@ -3,7 +3,8 @@ var shared = angular.module('shared', [
   'users',
   'ui.router',
   'util.filters.isShown',
-  'util.links'
+  'util.links',
+  'trainees.createTraineeDialog'
 ]);
 
 shared.directive('header', function () {
@@ -14,7 +15,7 @@ shared.directive('header', function () {
   }
 });
 
-shared.controller('HeaderCtrl', ['$scope', '$state', 'Auth', 'User', 'isLinkActive', function ($scope, $state, Auth, User, isLinkActive) {
+shared.controller('HeaderCtrl', ['$scope', '$state', 'Auth', 'User', 'isLinkActive', 'CreateTraineeDialog', function ($scope, $state, Auth, User, isLinkActive, CreateTraineeDialog) {
   $scope.topNavigation = [
     {
       name: "Workouts",
@@ -42,6 +43,12 @@ shared.controller('HeaderCtrl', ['$scope', '$state', 'Auth', 'User', 'isLinkActi
   ];
 
   $scope.isLinkActive = isLinkActive;
+
+  $scope.onNewTraineeClicked = function () {
+    CreateTraineeDialog().result.then(function (trainee) {
+      $state.go('main.trainee.training', {traineeId: trainee.id, trainingId: ''});
+    });
+  };
 
   function updateUserDetails(userDetails) {
     $scope.userDetails = userDetails;

@@ -15,7 +15,9 @@ createTraineeDialog.factory('CreateTraineeDialog', ['$modal', function ($modal) 
           var photo = $scope.photos ? $scope.photos[0] : null;
           $scope.traineeUploaded = Trainee
             .create($scope.trainee, photo)
-            .then($scope.$close);
+            .then(function (response) {
+              $scope.$close(new Trainee(response.data));
+            });
         };
       }]
     });
