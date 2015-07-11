@@ -8,6 +8,18 @@ class Api::V1::UsersController < ActionController::Base
     end
   end
 
+  def create
+    when_admin do
+      @user = User.create(
+          email: params[:email],
+          password: params[:email],
+          full_name: params[:full_name],
+          photo: params[:file],
+          is_trainer: params[:is_trainer]
+      )
+    end
+  end
+
   def current
     when_signed_in do
       render partial: 'user_immediate_details', locals: {user: current_user}

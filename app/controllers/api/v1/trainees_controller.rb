@@ -16,8 +16,7 @@ class Api::V1::TraineesController < ActionController::Base
           password: params[:email],
           full_name: params[:full_name],
           photo: params[:file],
-          trainer: current_user,
-          roles: []
+          trainer: current_user
       )
       render :show
     end

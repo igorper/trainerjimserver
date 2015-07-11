@@ -1,0 +1,1 @@
+json.partial! 'api/v1/users/user_immediate_details', user: @user

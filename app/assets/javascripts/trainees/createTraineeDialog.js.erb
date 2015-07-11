@@ -1,25 +1,25 @@
 var createTraineeDialog = angular.module('trainees.createTraineeDialog', [
   'ui.bootstrap',
-  'util.promiseSpinner'
+  'util.promiseSpinner',
+  'users.createUserDialog',
+  'trainees'
 ]);
 
-createTraineeDialog.factory('CreateTraineeDialog', ['$modal', function ($modal) {
+createTraineeDialog.factory('CreateTraineeDialog', ['$modal', 'Trainee', 'CreateUserDialog', '$q', function ($modal, Trainee, CreateUserDialog, $q) {
   return function () {
-    return $modal.open({
-      templateUrl: '<%= asset_path('trainees/create-trainee-dialog.html') %>',
-      backdrop: 'static',
-      windowClass: 'modal-window',
-      controller: ['$scope', 'Trainee', function ($scope, Trainee) {
-        $scope.trainee = new Trainee();
-        $scope.onCreateClicked = function () {
-          var photo = $scope.photos ? $scope.photos[0] : null;
-          $scope.traineeUploaded = Trainee
-            .create($scope.trainee, photo)
+    return CreateUserDialog({
+      dialogTitle: 'New trainee',
+      createUser: function () {
+        return new Trainee();
+      },
+      saveUser: function (user, photo) {
+        return $q(function (resolve, reject) {
+          Trainee.create(user, photo)
             .then(function (response) {
-              $scope.$close(new Trainee(response.data));
-            });
-        };
-      }]
+              resolve(new Trainee(response.data));
+            }, reject);
+        });
+      }
     });
   };
 }]);
