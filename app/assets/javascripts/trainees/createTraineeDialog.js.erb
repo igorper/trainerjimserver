@@ -5,21 +5,8 @@ var createTraineeDialog = angular.module('trainees.createTraineeDialog', [
   'trainees'
 ]);
 
-createTraineeDialog.factory('CreateTraineeDialog', ['$modal', 'Trainee', 'CreateUserDialog', '$q', function ($modal, Trainee, CreateUserDialog, $q) {
+createTraineeDialog.factory('CreateTraineeDialog', ['$modal', 'Trainee', 'CreateUserDialog', function ($modal, Trainee, CreateUserDialog) {
   return function () {
-    return CreateUserDialog({
-      dialogTitle: 'New trainee',
-      createUser: function () {
-        return new Trainee();
-      },
-      saveUser: function (user, photo) {
-        return $q(function (resolve, reject) {
-          Trainee.create(user, photo)
-            .then(function (response) {
-              resolve(new Trainee(response.data));
-            }, reject);
-        });
-      }
-    });
+    return CreateUserDialog({dialogTitle: 'New trainee', userResource: Trainee});
   };
 }]);

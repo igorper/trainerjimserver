@@ -15,27 +15,15 @@ createUserDialog.factory('CreateUserDialog', ['$modal', 'User', '$q', function (
         $scope.options = angular.extend({
           dialogTitle: 'New user',
           isTrainer: false,
-          createUser: function () {
-            return new User({
-              is_trainer: $scope.options.isTrainer
-            });
-          },
-          saveUser: function (user, photo) {
-            return $q(function (resolve, reject) {
-              User.create(user, photo)
-                .then(function (response) {
-                  resolve(new User(response.data));
-                }, reject);
-            });
-          }
+          userResource: User
         }, options);
 
 
-        $scope.user = $scope.options.createUser();
+        $scope.user = new $scope.options.userResource({is_trainer: $scope.options.isTrainer});
         $scope.title = $scope.options.dialogTitle;
         $scope.onCreateClicked = function () {
           var photo = $scope.photos ? $scope.photos[0] : null;
-          $scope.uploadedPromise = $scope.options.saveUser($scope.user, photo).then(function (user) {
+          $scope.uploadedPromise = $scope.options.userResource.create($scope.user, photo).then(function (user) {
             $scope.$close(user);
           });
         };

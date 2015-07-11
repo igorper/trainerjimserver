@@ -52,7 +52,7 @@ shared.controller('HeaderCtrl', ['$scope', '$state', 'Auth', 'User', 'isLinkActi
   };
 
   $scope.onNewTrainerClicked = function () {
-    CreateUserDialog({isTrainer: true});
+    CreateUserDialog({dialogTitle: 'New trainer', isTrainer: true});
   };
 
   function updateUserDetails(userDetails) {

@@ -16,7 +16,7 @@ users.factory('currentUserChanged', ['$rootScope', function ($rootScope) {
   };
 }]);
 
-users.factory('User', ['$resource', 'currentUserChanged', 'Upload', function ($resource, currentUserChanged, Upload) {
+users.factory('User', ['$resource', 'currentUserChanged', 'Upload', '$q', function ($resource, currentUserChanged, Upload, $q) {
   var User = $resource('/api/v1/users/:id.json', {id: '@id'}, {
     current: {method: 'GET', url: '/api/v1/users/current.json'},
     setNameImpl: {method: 'POST', url: '/api/v1/users/:id/name.json'},
@@ -32,11 +32,15 @@ users.factory('User', ['$resource', 'currentUserChanged', 'Upload', function ($r
   };
 
   User.create = function (user, photo) {
-    return Upload.upload({
-      url: '/api/v1/users.json',
-      method: 'POST',
-      fields: user,
-      file: photo
+    return $q(function (resolve, reject) {
+      Upload.upload({
+        url: '/api/v1/users.json',
+        method: 'POST',
+        fields: user,
+        file: photo
+      }).then(function (response) {
+        resolve(new User(response.data));
+      }, reject);
     });
   };
 

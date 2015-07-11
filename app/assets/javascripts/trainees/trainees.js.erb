@@ -11,7 +11,7 @@ var trainees = angular.module('trainees', [
   'trainees.createTraineeDialog'
 ]);
 
-trainees.factory("Trainee", ["$resource", 'Upload', function ($resource, Upload) {
+trainees.factory("Trainee", ["$resource", 'Upload', '$q', function ($resource, Upload, $q) {
   var Trainee = $resource("/api/v1/trainees/:id.json");
 
   Trainee.setPhoto = function (trainee, photo) {
@@ -23,11 +23,15 @@ trainees.factory("Trainee", ["$resource", 'Upload', function ($resource, Upload)
   };
 
   Trainee.create = function (trainee, photo) {
-    return Upload.upload({
-      url: '/api/v1/trainees.json',
-      method: 'POST',
-      fields: trainee,
-      file: photo
+    return $q(function (resolve, reject) {
+      Upload.upload({
+        url: '/api/v1/trainees.json',
+        method: 'POST',
+        fields: trainee,
+        file: photo
+      }).then(function (response) {
+        resolve(new Trainee(response.data));
+      }, reject);
     });
   };
 
