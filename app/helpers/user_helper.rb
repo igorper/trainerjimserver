@@ -3,10 +3,6 @@ module UserHelper
     activate_new_user(params[:email], params[:full_name], params[:file], current_user, false)
   end
 
-  def new_trainer
-    activate_new_user(params[:email], params[:full_name], params[:file], nil, true)
-  end
-
   def activate_new_user(email, full_name, photo_file, trainer, is_trainer)
     generated_password = Devise.friendly_token.first(8)
     new_user = User.new(

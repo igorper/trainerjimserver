@@ -11,7 +11,7 @@ class Api::V1::UsersController < ActionController::Base
 
   def create
     when_admin do
-      @user = new_trainer
+      @user = activate_new_user(params[:email], params[:full_name], params[:file], nil, params[:is_trainer])
     end
   end
 
