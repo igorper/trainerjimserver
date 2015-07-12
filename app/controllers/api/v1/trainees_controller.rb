@@ -2,6 +2,7 @@ class Api::V1::TraineesController < ActionController::Base
 
   include AuthenticationHelper
   include ExerciseTypeHelper
+  include UserHelper
 
   def index
     when_signed_in do
@@ -11,13 +12,7 @@ class Api::V1::TraineesController < ActionController::Base
 
   def create
     when_trainer do
-      @trainee = User.create(
-          email: params[:email],
-          password: params[:email],
-          full_name: params[:full_name],
-          photo: params[:file],
-          trainer: current_user
-      )
+      @trainee = new_trainee
       render :show
     end
   end

@@ -1,6 +1,7 @@
 class Api::V1::UsersController < ActionController::Base
 
   include AuthenticationHelper
+  include UserHelper
 
   def index
     when_admin do
@@ -10,13 +11,7 @@ class Api::V1::UsersController < ActionController::Base
 
   def create
     when_admin do
-      @user = User.create(
-          email: params[:email],
-          password: params[:email],
-          full_name: params[:full_name],
-          photo: params[:file],
-          is_trainer: params[:is_trainer]
-      )
+      @user = new_trainer
     end
   end
 
