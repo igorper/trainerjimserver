@@ -16,7 +16,7 @@
   max-height: 128px;
 }
 
-@media (max-width: 767px) {
+@media (max-width: 768px) {
   .workouts .col-xs-12, .workouts .col-sm-12 {
     padding-left: 0;
     padding-right: 0;
