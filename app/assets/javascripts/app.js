@@ -32,6 +32,7 @@ var trainerjimApp = angular.module('app', [
   'http-auth-interceptor',
   'auth.loginDialog',
   'userProfile',
+  'accounts',
   'start'
 ]);
 
@@ -55,9 +56,9 @@ trainerjimApp.config(['$stateProvider', function ($stateProvider) {
     abstract: true,
     url: "",
     views: {
-      'body': {templateUrl: '<%= asset_path('main.html') %>', controller: 'MainBodyCtrl'},
-      'header': {templateUrl: '<%= asset_path('shared/header-view.html') %>'},
-      'footer': {templateUrl: '<%= asset_path('shared/footer-view.html') %>'}
+      'body': {template: '<div class="jim-body"><ui-view></ui-view></div>', controller: 'MainBodyCtrl'},
+      'header': {template: '<header></header>'},
+      'footer': {template: '<footer></footer>'}
     }
   });
 

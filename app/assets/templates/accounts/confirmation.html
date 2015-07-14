@@ -1,0 +1,78 @@
+<div class="accounts-confirmation container-fluid">
+  <div class="row">
+    <div class="col-xs-1 col-sm-3"></div>
+    <div class="col-xs-10 col-sm-6">
+      <h2 class="jim-title">Almost there...</h2>
+    </div>
+    <div class="col-xs-1 col-sm-3"></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-1 col-sm-3"></div>
+    <div class="col-xs-10 col-sm-6">
+      <p class="description">
+        You've got to set your account details first and then we'll let you start pumping with Jim.
+      </p>
+    </div>
+    <div class="col-xs-1 col-sm-3"></div>
+  </div>
+  <div class="row">
+    <div class="col-xs-1 col-sm-3"></div>
+    <div class="col-xs-10 col-sm-6">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Account details</h3>
+        </div>
+
+        <div class="panel-body">
+          <form>
+            <div class="form-group">
+              <label for="name">Your name:</label>
+              <input class="form-control" type="text" id="name" placeholder="your name"
+                     ng-model="userDetails.full_name"/>
+            </div>
+
+            <div class="form-group">
+              <label for="email">Your email:</label>
+              <input class="form-control" readonly type="email" name="username" id="email"
+                     ng-model="userDetails.email"/>
+            </div>
+
+            <div class="form-group">
+              <label for="newPassword">New password:</label>
+              <input class="form-control" type="password" name="password" id="newPassword" placeholder="new password"
+                     ng-model="newPassword"/>
+            </div>
+
+            <div class="form-group" ng-class="{true: '', false: 'has-error has-feedback'}[isFormValid()]">
+              <label class="control-label" for="confirmedNewPassword">Confirm new password:</label>
+              <input class="form-control" type="password" id="confirmedNewPassword" placeholder="confirmed new password"
+                     ng-model="newConfirmedPassword"/>
+              <!--<span class="glyphicon glyphicon-remove form-control-feedback" ng-show="arePasswordsSame()"></span>-->
+            </div>
+
+            <div class="form-group">
+              <div class="alert alert-danger" role="alert" ng-show="!arePasswordsSame()">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                Passwords do not match.
+              </div>
+
+              <div class="alert alert-danger" role="alert" ng-show="!isPasswordLongEnough()">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                <span class="sr-only">Error:</span>
+                The password is not long enough. It must be at least 8 characters long.
+              </div>
+            </div>
+
+
+            <div class="form-group">
+              <button class="btn btn-primary pull-right" ng-click="onSubmitClicked()">Submit</button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+    <div class="col-xs-1 col-sm-3"></div>
+  </div>
+</div>

@@ -7,6 +7,11 @@
   width: 164px;
 }
 
+.header-menu ul.nav li button {
+  margin-left: 5px;
+  margin-right: 5px;
+}
+
 .header-menu div.logo-part div.logo {
   vertical-align: middle;
   background-image: url(/header/Logo.png);

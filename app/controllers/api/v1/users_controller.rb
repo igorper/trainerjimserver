@@ -12,12 +12,14 @@ class Api::V1::UsersController < ActionController::Base
   def create
     when_admin do
       @user = activate_new_user(params[:email], params[:full_name], params[:file], nil, params[:is_trainer])
+      render :show
     end
   end
 
   def current
     when_signed_in do
-      render partial: 'user_immediate_details', locals: {user: current_user}
+      @user = current_user
+      render :show
     end
   end
 
@@ -34,6 +36,7 @@ class Api::V1::UsersController < ActionController::Base
       end
       @user.full_name = params[:full_name]
       @user.save
+      render :show
     end
   end
 
@@ -51,7 +54,21 @@ class Api::V1::UsersController < ActionController::Base
       @user.password = params[:new_password]
       @user.save
       sign_in(:user, User.find_by_id(current_user.id))
+      render :show
     end
+  end
+
+  def confirm
+    @user = User.confirm_by_token(params[:token])
+    render :show
+  end
+
+  def confirm_user_details
+    @user = User.confirm_by_token(params[:token])
+    @user.full_name = params[:full_name]
+    @user.password = params[:password]
+    @user.save!
+    render :show
   end
 
 end

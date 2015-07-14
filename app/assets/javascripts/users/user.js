@@ -18,6 +18,8 @@ users.factory('currentUserChanged', ['$rootScope', function ($rootScope) {
 
 users.factory('User', ['$resource', 'currentUserChanged', 'Upload', '$q', function ($resource, currentUserChanged, Upload, $q) {
   var User = $resource('/api/v1/users/:id.json', {id: '@id'}, {
+    confirm: {method: 'POST', url: '/api/v1/users/confirm.json'},
+    confirmUserDetails: {method: 'POST', url: '/api/v1/users/confirm_user_details.json'},
     current: {method: 'GET', url: '/api/v1/users/current.json'},
     setNameImpl: {method: 'POST', url: '/api/v1/users/:id/name.json'},
     setPasswordImpl: {method: 'POST', url: '/api/v1/users/:id/password.json'}
