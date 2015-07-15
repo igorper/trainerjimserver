@@ -64,7 +64,11 @@ class Api::V1::UsersController < ActionController::Base
   end
 
   def confirm_user_details
-    @user = User.confirm_by_token(params[:token])
+    confirmed_user = User.confirm_by_token(params[:token])
+    # TODO: Devise sets the confirmation token. This invalidates the token that the user received in the e-mail. Instead
+    # of saving the user `confirm_by_token` returns, we fetch a new user and set its password and full name only. This
+    # avoids saving the modified confirmation token
+    @user = User.find_by_id(confirmed_user.id)
     @user.full_name = params[:full_name]
     @user.password = params[:password]
     @user.save!
