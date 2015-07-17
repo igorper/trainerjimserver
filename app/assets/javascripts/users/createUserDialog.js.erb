@@ -2,7 +2,7 @@ var createUserDialog = angular.module('users.createUserDialog', [
   'users',
   'toaster',
   'ui.bootstrap',
-  'util.promiseSpinner'
+  'util.promiseUi'
 ]);
 
 createUserDialog.factory('CreateUserDialog', ['$modal', 'User', 'toaster', function ($modal, User, toaster) {
@@ -24,7 +24,7 @@ createUserDialog.factory('CreateUserDialog', ['$modal', 'User', 'toaster', funct
 
         $scope.onCreateClicked = function () {
           var photo = $scope.photos ? $scope.photos[0] : null;
-          $scope.uploadedPromise = $scope.options.userResource.create($scope.user, photo).then(function (user) {
+          $scope.uploaded = $scope.options.userResource.create($scope.user, photo).then(function (user) {
             $scope.$close(user);
           }, function () {
             toaster.pop("error", "Create user failed", "Could not create the user. Please verify the email.");

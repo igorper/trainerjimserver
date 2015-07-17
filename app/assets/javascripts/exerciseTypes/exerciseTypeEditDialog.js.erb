@@ -1,7 +1,7 @@
 var exerciseTypeEditDialog = angular.module("exerciseTypes.exerciseTypeEditDialog", [
   'exerciseTypes.exerciseType',
   'exerciseTypes.exerciseTypeEditor',
-  'util.promiseSpinner'
+  'util.promiseUi'
 ]);
 
 exerciseTypeEditDialog.factory('ExerciseTypeEditDialog', ['$modal', 'ExerciseType', 'toaster', function ($modal, ExerciseType, toaster) {

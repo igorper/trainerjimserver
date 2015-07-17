@@ -34,7 +34,7 @@
             </div>
             <div ng-show="selectedTraining" id="my-workout" class="selected-regime">
               <div class="row header">
-                <div promise-spinner promise="selectedTraining" class="col-xs-12 col-sm-8">
+                <div spin-until="selectedTraining" class="col-xs-12 col-sm-8">
                   <h1 class="jim-title">{{selectedTraining.training.name}}</h1>
                 </div>
                 <div class="col-xs-12 col-sm-4">
