@@ -4,7 +4,8 @@
 
 <div class="modal-body">
   <ui-select ng-model="exerciseType.selected" style="min-width: 300px;">
-    <ui-select-match placeholder="Select an exercise in the list or search for it">{{$select.selected.name}}
+    <ui-select-match placeholder="Select an exercise in the list or search for it">
+      {{$select.selected.name}}
     </ui-select-match>
     <ui-select-choices repeat="exerciseType in exerciseTypes | propsFilter: {name: $select.search}">
       <div ng-bind-html="exerciseType.name | highlight: $select.search"></div>

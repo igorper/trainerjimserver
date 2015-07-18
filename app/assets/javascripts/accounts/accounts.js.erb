@@ -31,7 +31,7 @@ confirmation.config(['$stateProvider', function ($stateProvider) {
         }, function () {
           $state.go('main.workouts.workout');
         }, function () {
-          toaster.pop("error", "Could not log in.", "Check your email and password.");
+          toaster.pop("error", "Could not log in", "Check your email and password.");
         });
       }
 
@@ -58,7 +58,6 @@ confirmation.config(['$stateProvider', function ($stateProvider) {
             doLogin();
           }, function () {
             toaster.pop("error", "Account not updated", "Failed to update account details. Please verify entered details.");
-
           });
         } else {
           toaster.pop("error", "Password mismatch", "The passwords do not match. Please try entering the passwords again.");

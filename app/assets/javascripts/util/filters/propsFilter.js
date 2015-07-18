@@ -2,29 +2,10 @@ var propsFilter = angular.module('util.filters.propsFilter', []);
 
 propsFilter.filter('propsFilter', function () {
   return function (items, props) {
-    var out = [];
-
-    if (angular.isArray(items)) {
-      items.forEach(function (item) {
-        var itemMatches = false;
-
-        var keys = Object.keys(props);
-        for (var i = 0; i < keys.length; i++) {
-          var prop = keys[i];
-          var text = props[prop].toLowerCase();
-          if (item[prop].toString().toLowerCase().indexOf(text) !== -1) {
-            itemMatches = true;
-            break;
-          }
-        }
-
-        if (itemMatches) {
-          out.push(item);
-        }
+    return _.filter(items, function (item) {
+      return _.any(props, function (text, prop) {
+        return item[prop].toString().toLowerCase().indexOf(text.toLowerCase()) !== -1;
       });
-      return out;
-    } else {
-      return items;
-    }
-  }
+    });
+  };
 });
