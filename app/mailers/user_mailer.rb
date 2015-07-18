@@ -3,4 +3,10 @@ class UserMailer < ActionMailer::Base
 
   add_template_helper(UserHelper)
 
+  def user_created(new_user, creator_user)
+    @user = new_user
+    @creator_user = creator_user
+    mail(to: 'hello@trainerjim.com', subject: 'New TrainerJim User')
+  end
+
 end
