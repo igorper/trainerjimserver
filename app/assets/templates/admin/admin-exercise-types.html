@@ -1,49 +1,55 @@
-<div class="row">
-  <div class="col-sm-4">
-    <h2>Exercise Types</h2>
+<div class="admin-exercise-type">
+  <div class="row">
+    <div class="col-sm-4">
+      <h2>Exercise Types</h2>
+    </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col-sm-2">
-    <button class="btn btn-success" ng-click="onCreateExerciseTypeClicked()">Create a new exercise type</button>
+  <div class="row">
+    <div class="col-sm-2">
+      <button class="btn btn-success" ng-click="onCreateExerciseTypeClicked()">Create a new exercise type</button>
+    </div>
   </div>
-</div>
 
-<div class="row">`
-  <div class="col-sm-12">
-    <pagination total-items="paginationInfo.total_items"
-                items-per-page="paginationInfo.items_per_page"
-                ng-model="currentPage"
-                ng-change="changePage()"></pagination>
+  <div class="row">`
+    <div class="col-sm-12">
+      <pagination total-items="paginationInfo.total_items"
+                  items-per-page="paginationInfo.items_per_page"
+                  ng-model="currentPage"
+                  ng-change="changePage()"></pagination>
+    </div>
   </div>
-</div>
 
-<div class="row">
-  <div class="col-sm-12">
-    <table class="table table-striped table-hover">
-      <thead>
-      <tr>
-        <th>Name</th>
-        <th>Short name</th>
-        <th>Options</th>
-      </tr>
-      </thead>
-      <tbody>
-      <tr ng-repeat="exerciseType in exerciseTypes">
-        <td ng-click="onExerciseClicked(exerciseType)" style="cursor: pointer;">
-          {{exerciseType.name}}
-        </td>
-        <td ng-click="onExerciseClicked(exerciseType)" style="cursor: pointer;">
-          {{exerciseType.short_name}}
-        </td>
-        <td>
-          <button class="btn btn-success" ng-show="exerciseType.owner_id == userDetails.id || userDetails.is_admin" ng-click="onEditExerciseClicked(exerciseType)">Edit</button>
-          <button class="btn btn-danger" ng-show="exerciseType.owner_id == userDetails.id || userDetails.is_admin" ng-click="onDeleteExerciseClicked(exerciseType)">Delete</button>
-        </td>
-      </tr>
-      </tbody>
-    </table>
+  <div class="row">
+    <div class="col-sm-12">
+      <table class="table table-striped table-hover">
+        <thead>
+        <tr>
+          <th>Name</th>
+          <th>Short name</th>
+          <th>Options</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="exerciseType in exerciseTypes">
+          <td ng-click="onExerciseClicked(exerciseType)" style="cursor: pointer;">
+            {{exerciseType.name}}
+          </td>
+          <td ng-click="onExerciseClicked(exerciseType)" style="cursor: pointer;">
+            {{exerciseType.short_name}}
+          </td>
+          <td>
+            <button class="btn btn-success" ng-show="exerciseType.owner_id == userDetails.id || userDetails.is_admin"
+                    ng-click="onEditExerciseClicked(exerciseType)">Edit
+            </button>
+            <button class="btn btn-danger" ng-show="exerciseType.owner_id == userDetails.id || userDetails.is_admin"
+                    ng-click="onDeleteExerciseClicked(exerciseType)">Delete
+            </button>
+          </td>
+        </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
 
   <div class="row">
@@ -55,4 +61,3 @@
     </div>
   </div>
 </div>
-

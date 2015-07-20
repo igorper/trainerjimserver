@@ -1,0 +1,68 @@
+var confirmation = angular.module('accounts', [
+  'ui.router',
+  'ui.bootstrap',
+  'shared',
+  'users',
+  'auth'
+]);
+
+confirmation.config(['$stateProvider', function ($stateProvider) {
+  $stateProvider.state('accounts', {
+    url: '',
+    views: {
+      'body': {template: '<ui-view></ui-view>'},
+      'header': {templateUrl: '<%= asset_path('shared/header-no-session.html') %>'},
+      'footer': {template: '<footer></footer>'}
+    },
+    abstract: true
+  });
+
+  $stateProvider.state('accounts.confirmation', {
+    url: '/confirmation?token',
+    templateUrl: "<%= asset_path('accounts/confirmation.html') %>",
+    controller: ['$scope', 'toaster', '$stateParams', 'User', '$state', 'Auth', function ($scope, toaster, $stateParams, User, $state, Auth) {
+      $scope.userDetails = User.confirm({token: $stateParams.token});
+      $scope.newPassword = '';
+      $scope.newConfirmedPassword = '';
+
+      function doLogin() {
+        Auth.login({
+          email: $scope.userDetails.email, password: $scope.newPassword, rememberMe: true
+        }, function () {
+          $state.go('main.workouts.workout');
+        }, function () {
+          toaster.pop("error", "Could not log in", "Check your email and password.");
+        });
+      }
+
+      $scope.arePasswordsSame = function () {
+        return $scope.newPassword === $scope.newConfirmedPassword;
+      };
+
+      $scope.isPasswordLongEnough = function () {
+        return $scope.newPassword.length >= 8;
+      };
+
+      $scope.isFormValid = function () {
+        return $scope.isPasswordLongEnough() && $scope.arePasswordsSame();
+      };
+
+      $scope.onSubmitClicked = function () {
+        if ($scope.isFormValid()) {
+          User.confirmUserDetails({
+            full_name: $scope.userDetails.full_name,
+            password: $scope.newPassword,
+            token: $stateParams.token
+          }, function () {
+            toaster.pop("success", "Account updated", "The account was successfully updated. You can now start pumping with Jim!");
+            doLogin();
+          }, function () {
+            toaster.pop("error", "Account not updated", "Failed to update account details. Please verify entered details.");
+          });
+        } else {
+          toaster.pop("error", "Password mismatch", "The passwords do not match. Please try entering the passwords again.");
+        }
+      };
+    }]
+  });
+}]);

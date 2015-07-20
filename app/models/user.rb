@@ -48,15 +48,11 @@ class User < ActiveRecord::Base
     "#{self.display_name} (#{self.email})"
   end
 
-  def role?(role)
-    !!self.roles.find_by_name(role.to_s.camelize)
-  end
-
   def administrator?
-    !!self.roles.find_by_name(Role.administrator)
+    self.is_administrator
   end
 
   def trainer?
-    !!self.roles.find_by_name(Role.trainer)
+    self.is_trainer
   end
 end

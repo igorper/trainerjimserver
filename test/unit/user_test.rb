@@ -23,13 +23,13 @@ require 'test_helper'
 
 class UserTest < ActiveSupport::TestCase
   test "admin trainer roles" do
-    assert users(:matej).role? :administrator
-    assert !(users(:matej).role? :trainer)
-    assert users(:jim).role?(:trainer)
-    assert !(users(:jim).role? :administrator)
-    assert users(:igor).role?(:administrator)
-    assert users(:igor).role?(:trainer)
-    assert !(users(:joe).role? :trainer)
-    assert !(users(:joe).role? :administrator)
+    assert users(:matej).is_administrator
+    assert !(users(:matej).is_trainer)
+    assert users(:jim).is_trainer
+    assert !(users(:jim).is_administrator)
+    assert users(:igor).is_administrator
+    assert users(:igor).is_trainer
+    assert !(users(:joe).is_trainer)
+    assert !(users(:joe).is_administrator)
   end
 end

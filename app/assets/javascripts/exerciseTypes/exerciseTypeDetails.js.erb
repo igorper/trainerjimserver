@@ -4,7 +4,7 @@ var exerciseTypeDetailsModule = angular.module("exerciseTypes.exerciseTypeDetail
   'users.exerciseTypes.photos',
   'photos.photoThumb',
   'photos.photoCarousel',
-  'angularSpinner',
+  'util.promiseUi',
   'photos.takePhotoDialog'
 ]);
 
@@ -16,7 +16,7 @@ exerciseTypeDetailsModule.directive('exerciseTypeDetails', function () {
       'userId': '=',
       'trainer': '='
     },
-    controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'usSpinnerService', 'TakePhotoDialog', 'PhotoCarouselDialog', function ($scope, ExerciseType, UserExerciseTypePhotos, usSpinnerService, TakePhotoDialog, PhotoCarouselDialog) {
+    controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'TakePhotoDialog', 'PhotoCarouselDialog', function ($scope, ExerciseType, UserExerciseTypePhotos, TakePhotoDialog, PhotoCarouselDialog) {
       $scope.exerciseType = ExerciseType.get({id: $scope.exerciseTypeId});
 
       function refreshPhotos() {
@@ -41,28 +41,12 @@ exerciseTypeDetailsModule.directive('exerciseTypeDetails', function () {
       };
 
 
-      function startSpinner() {
-        usSpinnerService.spin('exercise-type-details-photo-upload-spinner');
-      }
-
-      function stopSpinner() {
-        usSpinnerService.stop('exercise-type-details-photo-upload-spinner');
-      }
-
-      function uploadExerciseTypePhoto(photo) {
-        startSpinner();
-        UserExerciseTypePhotos.add($scope.userId, $scope.exerciseTypeId, photo)
-          .then(function () {
-            refreshPhotos();
-            stopSpinner();
-          }, stopSpinner);
+      function uploadExerciseTypePhoto(photos) {
+        $scope.photoUploaded = UserExerciseTypePhotos.add($scope.userId, $scope.exerciseTypeId, photos[0]).then(refreshPhotos);
       }
 
       $scope.onTakePhotoClicked = function () {
-        TakePhotoDialog().result
-          .then(function (photos) {
-            uploadExerciseTypePhoto(photos[0]);
-          });
+        TakePhotoDialog().result.then(uploadExerciseTypePhoto);
       };
     }],
     templateUrl: "<%= asset_path('exerciseTypes/exercise-type-details.html') %>"

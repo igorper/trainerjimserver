@@ -1,23 +1,47 @@
-div.exercise-series-editor {
+.exercise-series-editor {
   background-color: #FFF;
   margin-bottom: 5px;
   border-radius: 3px;
   padding: 5px;
 }
 
-div.exercise-series-editor table {
+.exercise-series-editor table {
   width: 100%;
 }
 
-div.exercise-series-editor td.series-field-label {
+@media (max-width: 768px) {
+  .exercise-series-editor .col-xs-6 {
+    padding: 0;
+  }
+
+  .exercise-series-editor .col-xs-6.right-padding {
+    padding-right: 5px;
+  }
+}
+
+@media (min-width: 769px) {
+  .exercise-series-editor .first.col-sm-3 {
+    padding-left: 15px;
+  }
+
+  .exercise-series-editor .col-sm-3 {
+    padding: 0 2px;
+  }
+
+  .exercise-series-editor .last.col-sm-3 {
+    padding-right: 15px;
+  }
+}
+
+.exercise-series-editor td.series-field-label {
   padding-right: 5px;
 }
 
-div.exercise-series-editor td.series-field {
+.exercise-series-editor td.series-field {
   padding-right: 5px;
 }
 
-div.exercise-series-editor td.series-field input {
+.exercise-series-editor td.series-field input {
   background-color: #f8f8f8;
   border-radius: 3px;
   padding: 0 3px;

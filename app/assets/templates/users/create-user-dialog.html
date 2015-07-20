@@ -1,0 +1,53 @@
+<div class="create-user-dialog">
+  <div class="modal-header">
+    <h3 class="modal-title">{{title}}</h3>
+  </div>
+
+  <fieldset disable-until="uploaded">
+    <div class="modal-body">
+      <form>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="full_name">Full name:</label>
+              <input id="full_name"
+                     type="text"
+                     name="full_name"
+                     autofocus="autofocus"
+                     class="form-control"
+                     placeholder="Full name"
+                     ng-model="user.full_name"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input id="email"
+                     type="email"
+                     name="email"
+                     class="form-control"
+                     placeholder="email@example.com"
+                     ng-model="user.email"/>
+            </div>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="form-group">
+              <take-photo photos="photos"></take-photo>
+            </div>
+          </div>
+        </div>
+      </form>
+    </div>
+
+    <div spin-until="uploaded" class="modal-footer">
+      <button class="btn btn-primary" ng-click="onCreateClicked()">Create</button>
+      <button class="btn btn-danger" ng-click="$dismiss()">Cancel</button>
+    </div>
+  </fieldset>
+</div>

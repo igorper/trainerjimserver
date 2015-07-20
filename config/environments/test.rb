@@ -1,4 +1,6 @@
 Trainerjim::Application.configure do
+  config.active_record.raise_in_transactional_callbacks = true
+
   # Settings specified here will take precedence over those in config/application.rb.
 
   # The test environment is used exclusively to run your application's
@@ -33,6 +35,8 @@ Trainerjim::Application.configure do
 
   # Print deprecation notices to the stderr.
   config.active_support.deprecation = :stderr
+
+  config.active_support.test_order = :sorted
   
   config.action_mailer.default_url_options = { :host => 'localhost' }
 end

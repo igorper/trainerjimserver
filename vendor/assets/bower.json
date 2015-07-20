@@ -20,6 +20,7 @@
     "ng-file-upload": "latest",
     "d3": "latest",
     "angular-spinner": "latest",
-    "spin.js": "latest"
+    "spin.js": "latest",
+    "bootstrap": "latest"
   }
 }

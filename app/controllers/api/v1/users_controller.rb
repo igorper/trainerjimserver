@@ -1,6 +1,7 @@
 class Api::V1::UsersController < ActionController::Base
 
   include AuthenticationHelper
+  include UserHelper
 
   def index
     when_admin do
@@ -8,9 +9,17 @@ class Api::V1::UsersController < ActionController::Base
     end
   end
 
+  def create
+    when_admin do
+      @user = activate_new_user(params[:email], params[:full_name], params[:file], nil, params[:is_trainer])
+      render :show
+    end
+  end
+
   def current
     when_signed_in do
-      render partial: 'user_immediate_details', locals: {user: current_user}
+      @user = current_user
+      render :show
     end
   end
 
@@ -27,6 +36,7 @@ class Api::V1::UsersController < ActionController::Base
       end
       @user.full_name = params[:full_name]
       @user.save
+      render :show
     end
   end
 
@@ -44,7 +54,25 @@ class Api::V1::UsersController < ActionController::Base
       @user.password = params[:new_password]
       @user.save
       sign_in(:user, User.find_by_id(current_user.id))
+      render :show
     end
+  end
+
+  def confirm
+    @user = User.confirm_by_token(params[:token])
+    render :show
+  end
+
+  def confirm_user_details
+    confirmed_user = User.confirm_by_token(params[:token])
+    # TODO: Devise sets the confirmation token. This invalidates the token that the user received in the e-mail. Instead
+    # of saving the user `confirm_by_token` returns, we fetch a new user and set its password and full name only. This
+    # avoids saving the modified confirmation token
+    @user = User.find_by_id(confirmed_user.id)
+    @user.full_name = params[:full_name]
+    @user.password = params[:password]
+    @user.save!
+    render :show
   end
 
 end

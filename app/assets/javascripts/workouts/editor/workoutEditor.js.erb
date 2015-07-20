@@ -22,7 +22,7 @@ angular.module('workouts.editor', [
       templateUrl: '<%= asset_path('workouts/editor/workout-editor-v1.html') %>'
     };
   })
-  .controller('WorkoutEditorCtrl', ['$scope', 'ExerciseType', 'ExerciseTypesSelector', 'ExerciseTypeDetailsDialog', function ($scope, ExerciseType, ExerciseTypesSelector, ExerciseTypeDetailsDialog) {
+  .controller('WorkoutEditorCtrl', ['$scope', 'ExerciseType', 'ExerciseTypesSelector', function ($scope, ExerciseType, ExerciseTypesSelector) {
     $scope.fetchExerciseType = function (exerciseTypeId) {
       return ExerciseType.get({id: exerciseTypeId});
     };
@@ -38,8 +38,7 @@ angular.module('workouts.editor', [
       }
     };
 
-    $scope.applyToAllSeries = function (exercise) {
-      var selectedSeries = exercise.series[exercise.selectedSeries];
+    $scope.applyToAllSeries = function (exercise, selectedSeries) {
       for (var i = 0; i < $scope.training.exercises.length; i++) {
         var loopedExercise = $scope.training.exercises[i];
         // set selected series information to all series of the same exercise type.
@@ -75,10 +74,16 @@ angular.module('workouts.editor', [
         ],
         exercise_type: exerciseType
       });
+      scrollToLastExercise();
+    }
+
+    function scrollToLastExercise() {
+      var elementToScrollTo = $('.exercise-item:last');
+      $('html, body').animate({scrollTop: elementToScrollTo.offset().top}, 500);
     }
 
     $scope.editExercise = function () {
-      ExerciseTypesSelector({onAddExerciseType: addExercise});
+      ExerciseTypesSelector({onAddExerciseType: addExercise}).result.then(scrollToLastExercise);
     };
   }])
 ;

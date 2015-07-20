@@ -1,12 +1,10 @@
 <div class="exercise-type-edit-dialog">
 
-  <span us-spinner spinner-key="exercise-upload-spinner" spinner-start-active="false"></span>
-
   <div class="modal-header">
     <h3 class="modal-title">Exercise type</h3>
   </div>
 
-  <div class="modal-body">
+  <div spin-until="exerciseTypeSaved" class="modal-body">
     <exercise-type-editor exercise-type="exerciseType"></exercise-type-editor>
   </div>
 

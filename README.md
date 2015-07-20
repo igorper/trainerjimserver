@@ -22,17 +22,17 @@
 
 Here's how you can create the production database (but don't seed it, because it will send registration emails to the users):
 
-    RAILS_ENV=production rake db:create db:migrate db:bootstrap
+    RAILS_ENV=production rake db:create db:migrate
 
 ## Re-seed the database
 
 Locally:
 
-    rake db:truncate db:bootstrap db:seed
+    rake db:truncate db:seed
 
 Remotely:
 
-    cap <deployment_target> do:invoke task="db:truncate db:bootstrap db:seed"
+    cap <deployment_target> do:invoke task="db:truncate db:seed"
 
 For a list of deployment targets see files in directory `config/deploy`.
 
@@ -118,7 +118,7 @@ Repo preparation:
 
 3.  Set up the application:
 
-        rake db:create db:migrate db:bootstrap
+        rake db:create db:migrate
 
 4.  Deploy the app whenever you want to update a site (see section `Deployment`).
 

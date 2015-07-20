@@ -4,10 +4,26 @@
   <title><%= Rails.application.config.page_name %></title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <%= stylesheet_link_tag "app", :media => "all" %>
-  <%= stylesheet_link_tag "application", :media => "all" %>
   <%= javascript_include_tag "app" %>
 </head>
 <body class="trainerjim-body">
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-64326228-2', 'auto');
+  ga('send', 'pageview');
+
+</script>
+<script>
+  (function () {
+    document.megaSpinner = new Spinner();
+    var spinnerElement = document.getElementsByClassName("trainerjim-body")[0];
+    document.megaSpinner.spin(spinnerElement);
+  })();
+</script>
 <div ui-view="header"></div>
 <toaster-container></toaster-container>
 <div ui-view="body"></div>

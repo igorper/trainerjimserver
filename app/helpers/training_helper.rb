@@ -1,6 +1,6 @@
 module TrainingHelper
   def self.to_new_training(params)
-    filtered_params = params.permit(:name)
+    filtered_params = params.permit(:name, :is_circular)
     filtered_params[:exercises] = params[:exercises].map.with_index do |exercise_params, i|
       exercise_params[:order] = i
       ExerciseHelper.to_new_exercise(exercise_params)

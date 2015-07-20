@@ -1,18 +1,25 @@
-div.trainees div.jim-box {
-  margin-top: 25px;
-  padding: 15px 25px;
+.trainees .title-row {
+  display: flex;
+  align-items: center;
 }
 
-div.trainees div.jim-box div.trainees-grid {
+.trainees .jim-sub-title {
+  margin: 10px 0;
+}
+
+.trainees .create-trainee {
+  font-size: 1.2em;
+}
+
+.trainees .trainees-grid {
   margin: 0 10px;
 }
 
 
-div.trainees .thumbs-grid {
+.trainees .thumbs-grid {
   overflow: hidden;
 }
 
-
-div.trainees .thumbs-grid .thumb {
+.trainees .thumbs-grid .thumb {
   float: left;
 }

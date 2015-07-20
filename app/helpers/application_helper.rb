@@ -18,7 +18,7 @@ module ApplicationHelper
   def login_url
     welcome_url
   end
- 
+
   def resource
     @resource ||= User.new
   end

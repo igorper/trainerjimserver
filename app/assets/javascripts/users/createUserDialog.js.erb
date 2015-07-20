@@ -1,0 +1,36 @@
+var createUserDialog = angular.module('users.createUserDialog', [
+  'users',
+  'toaster',
+  'ui.bootstrap',
+  'util.promiseUi'
+]);
+
+createUserDialog.factory('CreateUserDialog', ['$modal', 'User', 'toaster', function ($modal, User, toaster) {
+  return function (options) {
+    return $modal.open({
+      templateUrl: '<%= asset_path('users/create-user-dialog.html') %>',
+      backdrop: 'static',
+      windowClass: 'modal-window',
+      controller: ['$scope', function ($scope) {
+        $scope.options = angular.extend({
+          dialogTitle: 'New user',
+          isTrainer: false,
+          userResource: User
+        }, options);
+
+        $scope.user = new $scope.options.userResource({is_trainer: $scope.options.isTrainer});
+
+        $scope.title = $scope.options.dialogTitle;
+
+        $scope.onCreateClicked = function () {
+          var photo = $scope.photos ? $scope.photos[0] : null;
+          $scope.uploaded = $scope.options.userResource.create($scope.user, photo).then(function (user) {
+            $scope.$close(user);
+          }, function () {
+            toaster.pop("error", "Create user failed", "Could not create the user. Please verify the email.");
+          });
+        };
+      }]
+    });
+  };
+}]);

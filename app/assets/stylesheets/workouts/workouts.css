@@ -1,0 +1,32 @@
+.workouts .workouts-list {
+  margin-top: 10px;
+}
+
+.workouts div.assign-workout {
+  margin: 10px 0;
+}
+
+.workouts div.assign-workout .btn {
+  white-space: normal;
+  width: 100%;
+}
+
+.workouts img.avatar {
+  max-width: 128px;
+  max-height: 128px;
+}
+
+@media (max-width: 768px) {
+  .workouts .col-xs-12, .workouts .col-sm-12 {
+    padding-left: 0;
+    padding-right: 0;
+  }
+
+  .workouts .jim-box {
+    margin-top: 25px;
+  }
+
+  .workouts .row {
+    margin: 0;
+  }
+}

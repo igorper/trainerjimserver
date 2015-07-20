@@ -15,6 +15,8 @@ Trainerjim::Application.routes.draw do
 
       # START: Users
       resources :users do
+        post 'confirm', on: :collection
+        post 'confirm_user_details', on: :collection
         post 'name', on: :member
         post 'password', on: :member
         get 'current', on: :collection
@@ -49,7 +51,8 @@ Trainerjim::Application.routes.draw do
                        :sign_in => '/',
                        :sign_up => '/',
                        :sign_out => '/',
-                       :registration => '/'
+                       :registration => '/',
+                       :confirmation => '/'
                    }
 
 end

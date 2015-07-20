@@ -1,0 +1,12 @@
+var createTraineeDialog = angular.module('trainees.createTraineeDialog', [
+  'ui.bootstrap',
+  'util.promiseUi',
+  'users.createUserDialog',
+  'trainees'
+]);
+
+createTraineeDialog.factory('CreateTraineeDialog', ['$modal', 'Trainee', 'CreateUserDialog', function ($modal, Trainee, CreateUserDialog) {
+  return function () {
+    return CreateUserDialog({dialogTitle: 'New trainee', userResource: Trainee});
+  };
+}]);

@@ -5,7 +5,7 @@ var exerciseEditorModule = angular.module('exercises.editor', [
   'trainees',
   'photos.takePhotoDialog',
   'users.exerciseTypes.photos',
-  'angularSpinner'
+  'util.promiseUi'
 ]);
 
 exerciseEditorModule.directive('exerciseEditor', function () {
@@ -18,7 +18,10 @@ exerciseEditorModule.directive('exerciseEditor', function () {
       onExerciseRemove: '&',
       onApplyToAllSeries: '&'
     },
-    controller: ['$scope', 'TakePhotoDialog', 'UserExerciseTypePhotos', 'usSpinnerService', function ($scope, TakePhotoDialog, UserExerciseTypePhotos, usSpinnerService) {
+    controller: ['$scope', 'TakePhotoDialog', 'UserExerciseTypePhotos', function ($scope, TakePhotoDialog, UserExerciseTypePhotos) {
+
+      $scope.selectedSeries = $scope.exercise.series[0];
+
       $scope.setExerciseToManual = function () {
         $scope.exercise.guidance_type = 'manual';
       };
@@ -31,28 +34,15 @@ exerciseEditorModule.directive('exerciseEditor', function () {
         $scope.showDescription = false;
       }
 
-      function startSpinner() {
-        usSpinnerService.spin('user-exercise-type-photo-upload-spinner');
-      }
-
-      function stopSpinner() {
-        usSpinnerService.stop('user-exercise-type-photo-upload-spinner');
-      }
-
-      function uploadExerciseTypePhoto(photo) {
-        startSpinner();
+      function uploadExerciseTypePhoto(photos) {
         var exerciseType = $scope.exercise.exercise_type;
         var trainee = $scope.training.trainee;
-        UserExerciseTypePhotos.add(trainee.id, exerciseType.id, photo)
-          .then(stopSpinner, stopSpinner)
+        $scope.photoUploaded = UserExerciseTypePhotos.add(trainee.id, exerciseType.id, photos[0])
           .then(hideDescription);
       }
 
       $scope.onTakePhotosClicked = function () {
-        TakePhotoDialog().result
-          .then(function (photos) {
-            uploadExerciseTypePhoto(photos[0]);
-          });
+        TakePhotoDialog().result.then(uploadExerciseTypePhoto);
       };
     }],
     templateUrl: '<%= asset_path('exercises/exercise-editor.html') %>'
@@ -63,7 +53,8 @@ exerciseEditorModule.directive('exerciseSeriesEditor', function () {
   return {
     restrict: 'E',
     scope: {
-      exercise: '=exercise'
+      exercise: '=',
+      selectedSeries: '='
     },
     controller: ['$scope', function ($scope) {
       var repetitionsStep = 1;
@@ -71,8 +62,6 @@ exerciseEditorModule.directive('exerciseSeriesEditor', function () {
       var weightStep = 5;
       var restStep = 5;
       var durationExerciseType = "duration";
-
-      $scope.selectedSeries = $scope.exercise.series[0];
 
       function isDurationType() {
         return $scope.exercise.guidance_type == durationExerciseType;

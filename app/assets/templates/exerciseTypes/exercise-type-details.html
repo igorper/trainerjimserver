@@ -1,7 +1,5 @@
 <div class="exercise-type-details">
 
-  <span us-spinner spinner-key="exercise-type-details-photo-upload-spinner" spinner-start-active="false"></span>
-
   <div class="row">
     <div class="col-sm-12">
       <div>
@@ -12,7 +10,7 @@
     </div>
   </div>
 
-  <div class="row">
+  <div spin-until="photoUploaded" class="row">
     <div class="col-sm-12">
       <div>
         <div class="photo" ng-repeat="photo in userPhotos">

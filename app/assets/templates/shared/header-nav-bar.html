@@ -11,7 +11,7 @@
         </button>
 
         <div class="logo-part">
-          <div class="logo clickable-link" ui-sref="main.workouts"></div>
+          <div class="logo clickable-link" ui-sref="main.workouts.workout"></div>
         </div>
       </div>
 
@@ -22,7 +22,20 @@
           <li ng-repeat="item in topNavigation | isShown" ng-class="{active: isLinkActive(item)}">
             <a ui-sref="{{item.link}}">{{item.name}}</a>
           </li>
+          <li ng-if="userDetails.is_trainer">
+            <button type="button" class="btn btn-primary navbar-btn"
+                    ng-click="onNewTraineeClicked()">
+              New trainee
+            </button>
+          </li>
+          <li ng-if="userDetails.is_admin">
+            <button type="button" class="btn btn-primary navbar-btn"
+                    ng-click="onNewTrainerClicked()">
+              New trainer
+            </button>
+          </li>
         </ul>
+
 
         <p class="navbar-text navbar-right">
           <span class="label" style="cursor: pointer; text-decoration: underline;" ui-sref="main.userProfile.details">{{userDetails.full_name}} ({{userDetails.email}})</span>

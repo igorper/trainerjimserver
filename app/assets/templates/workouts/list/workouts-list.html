@@ -1,5 +1,5 @@
 <div class="workouts-list">
-  <ul class="workout-list nav nav-tabs nav-stacked">
+  <ul class="nav nav-tabs nav-stacked">
     <li ng-repeat="workout in workouts" ng-class="{highlighted: workout.id === selectedWorkout.id}">
       <a href="" ng-click="onWorkoutSelected({workout: workout})">
         <div class="content">
@@ -9,7 +9,7 @@
     </li>
     <li class="highlighted">
       <a href="" ng-click="onWorkoutCreate()">
-        <div class="content">
+        <div spin-until="workouts" class="content">
           <div class="left">Create a new workout</div>
           <div class="right">
             <span class="glyphicon glyphicon-plus" aria-hidden="true"></span>
