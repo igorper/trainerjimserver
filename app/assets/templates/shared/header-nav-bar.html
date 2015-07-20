@@ -37,11 +37,21 @@
         </ul>
 
 
-        <p class="navbar-text navbar-right">
-          <span class="label" style="cursor: pointer; text-decoration: underline;" ui-sref="main.userProfile.details">{{userDetails.full_name}} ({{userDetails.email}})</span>
-          <span class="label label-primary navbar-btn" style="cursor: pointer;" ng-click="logout()">Log out</span>
-        </p>
-
+        <div class="current-user-btns pull-right navbar-right btn-group navbar-btn">
+          <button type="button" class="thumb-btn btn btn-primary" ui-sref="main.userProfile.details">
+            <img alt="" ng-src="{{userDetails.photo}}"/>
+          </button>
+          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+                  aria-expanded="false">
+            <span class="caret"></span>
+            <span class="sr-only">Toggle Dropdown</span>
+          </button>
+          <ul class="dropdown-menu">
+            <li><a href="#" ui-sref="main.userProfile.details">{{userDetails.full_name}} ({{userDetails.email}})</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#" ng-click="logout()">Log out</a></li>
+          </ul>
+        </div>
 
       </div>
       <!-- /.navbar-collapse -->

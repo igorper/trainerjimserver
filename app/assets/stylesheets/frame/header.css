@@ -83,6 +83,18 @@
   color: white;
 }
 
+.header-menu .current-user-btns .thumb-btn img {
+  max-width: 50px;
+  max-height: 26px;
+  border-radius: 3px;
+}
+
+.header-menu .current-user-btns .thumb-btn {
+  padding: 3px;
+  min-height: 34px;
+  min-width: 32px;
+}
+
 @media (max-width: 767px) {
 
   .header-menu .navbar-default .navbar-nav .open .dropdown-menu > li > a {
