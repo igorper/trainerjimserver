@@ -83,16 +83,24 @@
   color: white;
 }
 
+.header-menu .current-user-btns .button-container {
+  display: flex;
+  align-items: center;
+  height: 50px;
+}
+
 .header-menu .current-user-btns .thumb-btn img {
-  max-width: 50px;
-  max-height: 26px;
+  max-height: 42px;
   border-radius: 3px;
 }
 
 .header-menu .current-user-btns .thumb-btn {
-  padding: 3px;
-  min-height: 34px;
-  min-width: 32px;
+  padding: 0;
+  margin-right: 10px;
+}
+
+.header-menu .current-user-btns .thumb-btn .caret {
+  margin: 5px;
 }
 
 @media (max-width: 767px) {

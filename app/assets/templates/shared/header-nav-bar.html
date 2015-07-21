@@ -2,8 +2,8 @@
   <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container">
       <div class="navbar-header">
-        <button type="button" class="navbar-toggle" ng-init="navCollapsed = true"
-                ng-click="navCollapsed = !navCollapsed">
+        <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                data-target="#jim-header-collapse-target" aria-expanded="false">
           <span class="sr-only">Toggle navigation</span>
           <span class="icon-bar"></span>
           <span class="icon-bar"></span>
@@ -15,9 +15,7 @@
         </div>
       </div>
 
-      <!-- Collect the nav links, forms, and other content for toggling -->
-      <div class="collapse navbar-collapse" ng-class="!navCollapsed && 'in'" ng-click="navCollapsed=true">
-
+      <div class="collapse navbar-collapse" id="jim-header-collapse-target">
         <ul class="nav navbar-nav">
           <li ng-repeat="item in topNavigation | isShown" ng-class="{active: isLinkActive(item)}">
             <a ui-sref="{{item.link}}">{{item.name}}</a>
@@ -36,26 +34,24 @@
           </li>
         </ul>
 
-
-        <div class="current-user-btns pull-right navbar-right btn-group navbar-btn">
-          <button type="button" class="thumb-btn btn btn-primary" ui-sref="main.userProfile.details">
-            <img alt="" ng-src="{{userDetails.photo}}"/>
-          </button>
-          <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
-                  aria-expanded="false">
-            <span class="caret"></span>
-            <span class="sr-only">Toggle Dropdown</span>
-          </button>
-          <ul class="dropdown-menu">
-            <li><a href="#" ui-sref="main.userProfile.details">{{userDetails.full_name}} ({{userDetails.email}})</a></li>
-            <li role="separator" class="divider"></li>
-            <li><a href="#" ng-click="logout()">Log out</a></li>
-          </ul>
-        </div>
-
+        <ul class="current-user-btns nav navbar-nav navbar-right">
+          <li class="dropdown">
+            <a href="#" ng-click="$event.preventDefault()" class="thumb-btn dropdown-toggle" data-toggle="dropdown"
+               role="button" aria-haspopup="true" aria-expanded="false">
+              <div class="button-container pull-right">
+                <img alt="" ng-src="{{userDetails.photo}}"/>
+                <span class="caret"></span>
+              </div>
+            </a>
+            <ul class="dropdown-menu">
+              <li><a href="#" ui-sref="main.userProfile.details">{{userDetails.full_name}} ({{userDetails.email}})</a>
+              </li>
+              <li role="separator" class="divider"></li>
+              <li><a href="#" ng-click="logout()">Log out</a></li>
+            </ul>
+          </li>
+        </ul>
       </div>
-      <!-- /.navbar-collapse -->
-
     </div>
   </nav>
 </div>
