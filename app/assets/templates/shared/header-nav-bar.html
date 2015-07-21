@@ -16,7 +16,7 @@
       </div>
 
       <div class="collapse navbar-collapse" id="jim-header-collapse-target">
-        <ul class="nav navbar-nav">
+        <ul class="left-part nav navbar-nav">
           <li ng-repeat="item in topNavigation | isShown" ng-class="{active: isLinkActive(item)}">
             <a ui-sref="{{item.link}}">{{item.name}}</a>
           </li>
@@ -39,8 +39,10 @@
             <a href="#" ng-click="$event.preventDefault()" class="thumb-btn dropdown-toggle" data-toggle="dropdown"
                role="button" aria-haspopup="true" aria-expanded="false">
               <div class="button-container pull-right">
-                <img alt="" ng-src="{{userDetails.photo}}"/>
-                <span class="caret"></span>
+                <button type="button" class="avatar btn btn-primary">
+                  <img alt="" ng-src="{{userDetails.photo}}"/>
+                  <span class="caret"></span>
+                </button>
               </div>
             </a>
             <ul class="dropdown-menu">

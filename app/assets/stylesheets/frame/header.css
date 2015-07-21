@@ -7,7 +7,7 @@
   width: 164px;
 }
 
-.header-menu ul.nav li button {
+.header-menu ul.left-part li button {
   margin-left: 5px;
   margin-right: 5px;
 }
@@ -25,6 +25,10 @@
   border-color: #ffbf00;
   margin-top: -1px;
   background-image: none;
+}
+
+#jim-header-collapse-target {
+  max-height: 420px;
 }
 
 .header-menu .navbar-default .navbar-brand {
@@ -89,18 +93,23 @@
   height: 50px;
 }
 
-.header-menu .current-user-btns .thumb-btn img {
-  max-height: 42px;
-  border-radius: 3px;
-}
-
 .header-menu .current-user-btns .thumb-btn {
   padding: 0;
   margin-right: 10px;
 }
 
+.header-menu .current-user-btns .thumb-btn .avatar {
+  padding: 2px;
+  height: 43px;
+}
+
+.header-menu .current-user-btns .thumb-btn .avatar img {
+  max-height: 37px;
+  border-radius: 3px;
+}
+
 .header-menu .current-user-btns .thumb-btn .caret {
-  margin: 5px;
+  margin: 10px;
 }
 
 @media (max-width: 767px) {
