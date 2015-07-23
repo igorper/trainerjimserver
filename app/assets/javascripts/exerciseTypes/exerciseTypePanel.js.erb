@@ -1,0 +1,15 @@
+var exerciseTypeEditorModule = angular.module("exerciseTypes.exerciseTypePanel", [
+  'exerciseTypes.exerciseType',
+  'util.filters.propsFilter'
+]);
+
+exerciseTypeEditorModule.directive('exerciseTypePanel', [function () {
+  return {
+    restrict: 'E',
+    scope: {onExerciseTypeClicked: '&'},
+    templateUrl: '<%= asset_path('exerciseTypes/exercise-type-panel.html') %>',
+    controller: ['$scope', 'ExerciseType', function ($scope, ExerciseType) {
+      $scope.exerciseTypes = ExerciseType.query();
+    }]
+  };
+}]);

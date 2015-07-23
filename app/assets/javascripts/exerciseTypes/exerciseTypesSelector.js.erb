@@ -3,6 +3,7 @@
 var exerciseTypesSelector = angular.module('exerciseTypes.selector', [
   'ui.select',
   'exerciseTypes.exerciseType',
+  'exerciseTypes.exerciseTypePanel',
   'toaster'
 ]);
 
@@ -10,25 +11,19 @@ exerciseTypesSelector.factory('ExerciseTypesSelector', ['$modal', function ($mod
   return function (options) {
     return $modal.open({
       templateUrl: '<%= asset_path('exerciseTypes/exercise-type-selector.html') %>',
-      controller: ["$scope", '$modalInstance', 'ExerciseType', 'toaster',
-        function ($scope, $modalInstance, ExerciseType, toaster) {
+      controller: ["$scope", '$modalInstance',
+        function ($scope, $modalInstance) {
 
           options = angular.extend(
             {onAddExerciseType: $modalInstance.close},
             options
           );
 
-          $scope.exerciseType = {};
-          $scope.exerciseTypes = [];
           $scope.addedExcercisesCount = 0;
 
-          $scope.ok = function () {
-            if ($scope.exerciseType.selected == undefined) {
-              toaster.pop("warning", "Please select an exercise.");
-            } else {
-              options.onAddExerciseType($scope.exerciseType.selected);
+          $scope.onExerciseTypeClicked = function (exerciseType) {
+            options.onAddExerciseType(exerciseType);
               ++$scope.addedExcercisesCount;
-            }
           };
 
           $scope.cancel = function () {
@@ -38,15 +33,10 @@ exerciseTypesSelector.factory('ExerciseTypesSelector', ['$modal', function ($mod
               $modalInstance.dismiss();
             }
           };
-
-          ExerciseType.query(function (data) {
-            $scope.exerciseTypes = data;
-          }, function (data, status, headers) {
-            toaster.pop("error", "Could not fetch the list of exercises. Try logging in.");
-          });
         }
       ],
       backdrop: 'static',
+      size: 'lg',
       windowClass: 'modal-window'
     });
   };
