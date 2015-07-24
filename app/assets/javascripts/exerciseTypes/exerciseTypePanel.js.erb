@@ -1,5 +1,6 @@
 var exerciseTypeEditorModule = angular.module("exerciseTypes.exerciseTypePanel", [
   'exerciseTypes.exerciseType',
+  'users.exerciseTypes.photos',
   'util.filters.propsFilter'
 ]);
 
@@ -8,8 +9,23 @@ exerciseTypeEditorModule.directive('exerciseTypePanel', [function () {
     restrict: 'E',
     scope: {onExerciseTypeClicked: '&'},
     templateUrl: '<%= asset_path('exerciseTypes/exercise-type-panel.html') %>',
-    controller: ['$scope', 'ExerciseType', function ($scope, ExerciseType) {
-      $scope.exerciseTypes = ExerciseType.query();
+    controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', function ($scope, ExerciseType, UserExerciseTypePhotos) {
+      $scope.exerciseTypes = ExerciseType.query({withPhotos: true});
+      UserExerciseTypePhotos.primaryPhotos(function (exerciseTypePhotos) {
+        $scope.exerciseTypeIdToThumbPath = _.object(_.map(exerciseTypePhotos, function (el) {
+          return [el.exercise_type_id, el.thumb_image_url];
+        }));
+      });
+
+      $scope.getPrimaryPhoto = function (exerciseType) {
+        if ($scope.exerciseTypeIdToThumbPath) {
+          var thumbPhotoSrc = $scope.exerciseTypeIdToThumbPath[exerciseType.id];
+          if (thumbPhotoSrc) {
+            return thumbPhotoSrc;
+          }
+        }
+        return 'images/medium/missing.png';
+      };
     }]
   };
 }]);

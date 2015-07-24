@@ -60,7 +60,7 @@
       <div class="exercise-type-item"
            ng-repeat="exerciseType in exerciseTypes | propsFilter: {name: searchFilter} | orderBy:'name'"
            ng-click="onExerciseTypeClicked({exerciseType: exerciseType})">
-        <div class="thumb"><img src="images/medium/missing.png"/></div>
+        <div class="thumb"><img ng-src="{{getPrimaryPhoto(exerciseType)}}"/></div>
         <div class="name" ng-bind-html="exerciseType.name | highlight: searchFilter"></div>
       </div>
     </div>

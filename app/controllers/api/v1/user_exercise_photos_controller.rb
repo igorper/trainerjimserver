@@ -19,6 +19,13 @@ class Api::V1::UserExercisePhotosController < ActionController::Base
     }
   end
 
+  def primary_photos
+    when_signed_in do
+      @photos = UserExercisePhoto.select("DISTINCT ON (user_exercise_photos.exercise_type_id) user_exercise_photos.id, user_exercise_photos.exercise_type_id, user_exercise_photos.photo_file_name, user_exercise_photos.photo_content_type, user_exercise_photos.photo_file_size, user_exercise_photos.photo_updated_at")
+      @photos = exercise_photos_of(current_user, current_user)
+    end
+  end
+
   def add_photo
     when_signed_in do
       exercise_type = ExerciseType.find_by_id(params[:exercise_type_id])
