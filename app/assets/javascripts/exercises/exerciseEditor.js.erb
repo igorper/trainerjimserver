@@ -35,9 +35,10 @@ exerciseEditorModule.directive('exerciseEditor', function () {
       }
 
       function uploadExerciseTypePhoto(photos) {
-        var exerciseType = $scope.exercise.exercise_type;
-        var trainee = $scope.training.trainee;
-        $scope.photoUploaded = UserExerciseTypePhotos.add(trainee.id, exerciseType.id, photos[0])
+        var traineeId = $scope.training.trainee.id;
+        var exerciseTypeId = $scope.exercise.exercise_type.id;
+        $scope.photoUploaded = UserExerciseTypePhotos
+          .add(traineeId, exerciseTypeId, photos[0])
           .then(hideDescription);
       }
 
