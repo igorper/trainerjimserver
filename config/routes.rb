@@ -11,7 +11,7 @@ Trainerjim::Application.routes.draw do
         get 'is_logged_in'
       end
 
-      resources :trainings, :exercise_types
+      resources :trainings, :exercise_types, :exercise_groups
 
       # START: Users
       resources :users do

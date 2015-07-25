@@ -1,21 +1,35 @@
-var exerciseTypeEditorModule = angular.module("exerciseTypes.exerciseTypePanel", [
+var exerciseTypePanel = angular.module('exerciseTypes.exerciseTypePanel', [
   'exerciseTypes.exerciseType',
   'users.exerciseTypes.photos',
-  'util.filters.propsFilter'
+  'util.filters.propsFilter',
+  'util.promiseUi',
+  'ui.bootstrap',
+  'exerciseGroups.exerciseGroup'
 ]);
 
-exerciseTypeEditorModule.directive('exerciseTypePanel', [function () {
+exerciseTypePanel.directive('exerciseTypePanel', [function () {
   return {
     restrict: 'E',
     scope: {onExerciseTypeClicked: '&'},
     templateUrl: '<%= asset_path('exerciseTypes/exercise-type-panel.html') %>',
-    controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', function ($scope, ExerciseType, UserExerciseTypePhotos) {
-      $scope.exerciseTypes = ExerciseType.query({withPhotos: true});
+    controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'ExerciseGroup', function ($scope, ExerciseType, UserExerciseTypePhotos, ExerciseGroup) {
+      $scope.exerciseTypes = ExerciseType.query();
+      $scope.NO_GROUP = 'noGroup';
+      $scope.selectedGroup = $scope.NO_GROUP;
+
+      $scope.getSelectedGroupId = function () {
+        var selectedGroup = $scope.selectedGroup;
+        var indexOfDash = selectedGroup.indexOf('-');
+        return indexOfDash < 0 ? null : parseInt(selectedGroup.substring(indexOfDash + 1));
+      };
+
       UserExerciseTypePhotos.primaryPhotos(function (exerciseTypePhotos) {
         $scope.exerciseTypeIdToThumbPath = _.object(_.map(exerciseTypePhotos, function (el) {
           return [el.exercise_type_id, el.thumb_image_url];
         }));
       });
+
+      $scope.exerciseGroups = ExerciseGroup.query();
 
       $scope.getPrimaryPhoto = function (exerciseType) {
         if ($scope.exerciseTypeIdToThumbPath) {
@@ -29,3 +43,13 @@ exerciseTypeEditorModule.directive('exerciseTypePanel', [function () {
     }]
   };
 }]);
+
+exerciseTypePanel.filter('bySelectedGroup', function () {
+  return function (items, selectedGroup) {
+    if (selectedGroup === null)
+      return items;
+    return _.filter(items, function (el) {
+      return _.contains(el.exercise_groups, selectedGroup);
+    });
+  };
+});
