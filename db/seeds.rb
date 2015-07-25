@@ -15,13 +15,20 @@ blaz = User.create(email: 'snuderl@example.com', password: 'trainerjim', full_na
 marusa = User.create(email: 'marusa@example.com', password: 'trainerjim', full_name: 'Marusa', trainer: trainer)
 kristjan = User.create(email: 'kristjan.korez@example.com', password: 'trainerjim', full_name: 'Kristjan', is_trainer: true)
 
-bench = ExerciseType.create(:name => "Bench press")
-incline = ExerciseType.create(:name => "Incline press")
-vertical = ExerciseType.create(:name => "Shoulder press")
-lat = ExerciseType.create(:name => "Lat machine")
-leg = ExerciseType.create(:name => "Leg press")
-triceps = ExerciseType.create(:name => "Triceps")
-biceps = ExerciseType.create(:name => "Biceps")
+core = ExerciseGroup.create(name: "Core")
+arms = ExerciseGroup.create(name: "Arms")
+legs = ExerciseGroup.create(name: "Legs")
+back = ExerciseGroup.create(name: "Back")
+
+bench = ExerciseType.create(name: "Bench press", exercise_groups: [arms, back])
+incline = ExerciseType.create(name: "Incline press", exercise_groups: [arms])
+vertical = ExerciseType.create(name: "Shoulder press", exercise_groups: [arms])
+lat = ExerciseType.create(name: "Lat machine")
+leg = ExerciseType.create(name: "Leg press", exercise_groups: [legs])
+triceps = ExerciseType.create(name: "Triceps", exercise_groups: [arms])
+biceps = ExerciseType.create(name: "Biceps", exercise_groups: [arms])
+squats = ExerciseType.create(name: "Squats", exercise_groups: [legs])
+back_curl = ExerciseType.create(name: "Back curl", exercise_groups: [back])
 
 
 # Create some dummy trainings:
@@ -186,25 +193,22 @@ training1_ex4.series.create(:order => 1, :repeat_count => 10, :weight => 50, :re
 training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 18)
 training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
-db_shoulder_press = ExerciseType.create(:name => "Db shoulder press")
-triceps_push_down = ExerciseType.create(:name => "Triceps push down")
-bic_cable_curl = ExerciseType.create(:name => "Biceps cable curl")
-chest_butterfly = ExerciseType.create(:name => "Chest butterfly")
-mch_abd_crunch = ExerciseType.create(:name => "Mch abdominal crunch")
-mch_bench_press = ExerciseType.create(:name => "Mc bench press")
-lower_back = ExerciseType.create(:name => "Lower back")
-upper_back = ExerciseType.create(:name => "Upper back")
-free_ab_cruch = ExerciseType.create(:name => "Free abdominal crunch")
+db_shoulder_press = ExerciseType.create(name: "Db shoulder press")
+triceps_push_down = ExerciseType.create(name: "Triceps push down")
+bic_cable_curl = ExerciseType.create(name: "Biceps cable curl")
+chest_butterfly = ExerciseType.create(name: "Chest butterfly")
+mch_abd_crunch = ExerciseType.create(name: "Mch abdominal crunch", exercise_groups: [core])
+mch_bench_press = ExerciseType.create(name: "Mc bench press")
+lower_back = ExerciseType.create(name: "Lower back")
+upper_back = ExerciseType.create(name: "Upper back")
+free_ab_cruch = ExerciseType.create(name: "Free abdominal crunch", exercise_groups: [core])
 
 measurement = Measurement.create(
     trainee: igor,
-    trainer: trainer,
     training: training1,
-    data: 'somedata',
     start_time: DateTime.now.yesterday.ago(300),
     end_time: DateTime.now.yesterday,
     rating: 1,
-    trainer_seen: true,
     comment: 'This is a comment from my trainer. He is a nice guy.'
 )
 
@@ -240,13 +244,10 @@ measurement.series_executions.create(
 
 measurement = Measurement.create(
     trainee: igor,
-    trainer: trainer,
     training: training1,
-    data: 'somedata',
     start_time: DateTime.now.ago(300),
     end_time: DateTime.now,
     rating: 2,
-    trainer_seen: true,
     comment: 'This is a comment from my trainer. He is a nice guy.'
 )
 

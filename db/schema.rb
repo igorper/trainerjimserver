@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150719220443) do
+ActiveRecord::Schema.define(version: 20150724180224) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -25,6 +25,18 @@ ActiveRecord::Schema.define(version: 20150719220443) do
 
   add_index "conversations", ["measurement_id"], name: "index_conversations_on_measurement_id", using: :btree
   add_index "conversations", ["sender_id"], name: "index_conversations_on_sender_id", using: :btree
+
+  create_table "exercise_groups", force: :cascade do |t|
+    t.string "name", null: false
+  end
+
+  create_table "exercise_type_to_groups", force: :cascade do |t|
+    t.integer "exercise_type_id",  null: false
+    t.integer "exercise_group_id", null: false
+  end
+
+  add_index "exercise_type_to_groups", ["exercise_group_id"], name: "index_exercise_type_to_groups_on_exercise_group_id", using: :btree
+  add_index "exercise_type_to_groups", ["exercise_type_id"], name: "index_exercise_type_to_groups_on_exercise_type_id", using: :btree
 
   create_table "exercise_types", force: :cascade do |t|
     t.string   "name"
@@ -172,6 +184,8 @@ ActiveRecord::Schema.define(version: 20150719220443) do
 
   add_foreign_key "conversations", "measurements", on_update: :cascade
   add_foreign_key "conversations", "users", column: "sender_id", on_update: :cascade
+  add_foreign_key "exercise_type_to_groups", "exercise_groups", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "exercise_type_to_groups", "exercise_types", on_update: :cascade, on_delete: :cascade
   add_foreign_key "exercise_types", "users", column: "owner_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "exercises", "exercise_types", on_update: :cascade, on_delete: :restrict
   add_foreign_key "exercises", "trainings", on_update: :cascade, on_delete: :cascade
