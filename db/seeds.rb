@@ -198,13 +198,10 @@ free_ab_cruch = ExerciseType.create(:name => "Free abdominal crunch")
 
 measurement = Measurement.create(
     trainee: igor,
-    trainer: trainer,
     training: training1,
-    data: 'somedata',
     start_time: DateTime.now.yesterday.ago(300),
     end_time: DateTime.now.yesterday,
     rating: 1,
-    trainer_seen: true,
     comment: 'This is a comment from my trainer. He is a nice guy.'
 )
 
@@ -240,13 +237,10 @@ measurement.series_executions.create(
 
 measurement = Measurement.create(
     trainee: igor,
-    trainer: trainer,
     training: training1,
-    data: 'somedata',
     start_time: DateTime.now.ago(300),
     end_time: DateTime.now,
     rating: 2,
-    trainer_seen: true,
     comment: 'This is a comment from my trainer. He is a nice guy.'
 )
 
