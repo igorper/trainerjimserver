@@ -15,8 +15,7 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
     controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'ExerciseGroup', function ($scope, ExerciseType, UserExerciseTypePhotos, ExerciseGroup) {
       $scope.exerciseTypes = ExerciseType.query();
       $scope.NO_GROUP = 'noGroup';
-      $scope.selectedGroup = $scope.NO_GROUP;
-      $scope.selectedMachineGroup = $scope.NO_GROUP;
+      $scope.selection = {group: $scope.NO_GROUP, machineGroup: $scope.NO_GROUP};
 
       function indexOfGroup(exerciseGroup) {
         var indexOfDash = exerciseGroup.indexOf('-');
@@ -25,7 +24,7 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
 
       $scope.getSelectedGroupIds = function () {
         return _.filter(
-          [indexOfGroup($scope.selectedGroup), indexOfGroup($scope.selectedMachineGroup)],
+          [indexOfGroup($scope.selection.group), indexOfGroup($scope.selection.machineGroup)],
           _.isNumber
         );
       };
@@ -44,6 +43,10 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
           return exerciseGroup.is_machine_group;
         });
       });
+
+      $scope.hasAnyGroups = function () {
+        return !_.isEmpty($scope.machineGroups) || !_.isEmpty($scope.exerciseGroups);
+      };
 
       $scope.getPrimaryPhoto = function (exerciseType) {
         if ($scope.exerciseTypeIdToThumbPath) {
