@@ -15,26 +15,32 @@ blaz = User.create(email: 'snuderl@example.com', password: 'trainerjim', full_na
 marusa = User.create(email: 'marusa@example.com', password: 'trainerjim', full_name: 'Marusa', trainer: trainer)
 kristjan = User.create(email: 'kristjan.korez@example.com', password: 'trainerjim', full_name: 'Kristjan', is_trainer: true)
 
-core = ExerciseGroup.create(name: "Core")
-arms = ExerciseGroup.create(name: "Arms")
-legs = ExerciseGroup.create(name: "Legs")
-back = ExerciseGroup.create(name: "Back")
+core = ExerciseGroup.create(name: 'Core')
+arms = ExerciseGroup.create(name: 'Arms')
+legs = ExerciseGroup.create(name: 'Legs')
+back = ExerciseGroup.create(name: 'Back')
 
-bench = ExerciseType.create(name: "Bench press", exercise_groups: [arms, back])
-incline = ExerciseType.create(name: "Incline press", exercise_groups: [arms])
-vertical = ExerciseType.create(name: "Shoulder press", exercise_groups: [arms])
-lat = ExerciseType.create(name: "Lat machine")
-leg = ExerciseType.create(name: "Leg press", exercise_groups: [legs])
-triceps = ExerciseType.create(name: "Triceps", exercise_groups: [arms])
-biceps = ExerciseType.create(name: "Biceps", exercise_groups: [arms])
-squats = ExerciseType.create(name: "Squats", exercise_groups: [legs])
-back_curl = ExerciseType.create(name: "Back curl", exercise_groups: [back])
+free_weights = ExerciseGroup.create(name: 'Weights', is_machine_group: true)
+bench_group = ExerciseGroup.create(name: 'Bench', is_machine_group: true)
+body_weight = ExerciseGroup.create(name: 'Body', is_machine_group: true)
+machine = ExerciseGroup.create(name: 'Machine', is_machine_group: true)
+mat = ExerciseGroup.create(name: 'Mat', is_machine_group: true)
+
+bench = ExerciseType.create(name: 'Bench press', exercise_groups: [arms, back, bench_group])
+incline = ExerciseType.create(name: 'Incline press', exercise_groups: [arms, machine])
+vertical = ExerciseType.create(name: 'Shoulder press', exercise_groups: [arms, machine])
+lat = ExerciseType.create(name: 'Lat machine', exercise_groups: [machine])
+leg = ExerciseType.create(name: 'Leg press', exercise_groups: [legs, machine])
+triceps = ExerciseType.create(name: 'Triceps', exercise_groups: [arms, free_weights, body_weight, bench_group])
+biceps = ExerciseType.create(name: 'Biceps', exercise_groups: [arms, free_weights, body_weight])
+squats = ExerciseType.create(name: 'Squats', exercise_groups: [legs, body_weight])
+back_curl = ExerciseType.create(name: 'Back curl', exercise_groups: [back, mat])
 
 
 # Create some dummy trainings:
-training1 = Training.create(:name => 'Super training')
-training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1, :machine_setting => "1")
-training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2, :machine_setting => "A")
+training1 = Training.create(name: 'Super training')
+training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1, :machine_setting => '1')
+training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2, :machine_setting => 'A')
 training1_ex3 = training1.exercises.create(:exercise_type => vertical, :order => 3)
 training1_ex4 = training1.exercises.create(:exercise_type => lat, :order => 4)
 training1_ex5 = training1.exercises.create(:exercise_type => leg, :order => 5)
@@ -57,7 +63,7 @@ training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :re
 training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
 
-training1 = Training.create(:name => 'One more training')
+training1 = Training.create(name: 'One more training')
 training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1)
 training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2)
 training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3)
@@ -80,7 +86,7 @@ training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :re
 training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
 
-training1 = Training.create(:name => 'This is a training indeed')
+training1 = Training.create(name: 'This is a training indeed')
 training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1)
 training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2)
 training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3)
@@ -103,7 +109,7 @@ training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :re
 training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
 
-training1 = Training.create(:name => 'What a training!')
+training1 = Training.create(name: 'What a training!')
 training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1)
 training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2)
 training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3)
@@ -125,10 +131,10 @@ training1_ex4.series.create(:order => 1, :repeat_count => 10, :weight => 50, :re
 training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 18)
 training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
-training1 = Training.create(:name => 'All tempo', :trainee => marusa)
-training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1, :machine_setting => "6")
+training1 = Training.create(name: 'All tempo', :trainee => marusa)
+training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1, :machine_setting => '6')
 training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2)
-training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3, :machine_setting => "B")
+training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3, :machine_setting => 'B')
 training1_ex4 = training1.exercises.create(:exercise_type => lat, :order => 4)
 
 training1_ex1.series.create(:order => 1, :repeat_count => 10, :weight => 50)
@@ -148,11 +154,11 @@ training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :re
 training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
 
-training1 = Training.create(:name => 'Spring fat trim', :trainee => marusa)
+training1 = Training.create(name: 'Spring fat trim', :trainee => marusa)
 training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1)
-training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2, :machine_setting => "C")
+training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2, :machine_setting => 'C')
 training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3)
-training1_ex4 = training1.exercises.create(:exercise_type => lat, :order => 4, :machine_setting => "4")
+training1_ex4 = training1.exercises.create(:exercise_type => lat, :order => 4, :machine_setting => '4')
 
 training1_ex1.series.create(:order => 1, :repeat_count => 10, :weight => 50)
 training1_ex1.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 15)
@@ -171,7 +177,7 @@ training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :re
 training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
 
-training1 = Training.create(:name => 'Summer action', :trainee => marusa)
+training1 = Training.create(name: 'Summer action', :trainee => marusa)
 training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1)
 training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2)
 training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3)
@@ -193,15 +199,15 @@ training1_ex4.series.create(:order => 1, :repeat_count => 10, :weight => 50, :re
 training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 18)
 training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
-db_shoulder_press = ExerciseType.create(name: "Db shoulder press")
-triceps_push_down = ExerciseType.create(name: "Triceps push down")
-bic_cable_curl = ExerciseType.create(name: "Biceps cable curl")
-chest_butterfly = ExerciseType.create(name: "Chest butterfly")
-mch_abd_crunch = ExerciseType.create(name: "Mch abdominal crunch", exercise_groups: [core])
-mch_bench_press = ExerciseType.create(name: "Mc bench press")
-lower_back = ExerciseType.create(name: "Lower back")
-upper_back = ExerciseType.create(name: "Upper back")
-free_ab_cruch = ExerciseType.create(name: "Free abdominal crunch", exercise_groups: [core])
+db_shoulder_press = ExerciseType.create(name: 'Db shoulder press', exercise_groups: [bench_group, free_weights, arms])
+triceps_push_down = ExerciseType.create(name: 'Triceps push down', exercise_groups: [arms, body_weight])
+bic_cable_curl = ExerciseType.create(name: 'Biceps cable curl', exercise_groups: [arms, machine])
+chest_butterfly = ExerciseType.create(name: 'Chest butterfly', exercise_groups: [body_weight])
+mch_abd_crunch = ExerciseType.create(name: 'Mch abdominal crunch', exercise_groups: [core])
+mch_bench_press = ExerciseType.create(name: 'Mc bench press', exercise_groups: [bench_group, arms])
+lower_back = ExerciseType.create(name: 'Lower back', exercise_groups: [mat, back])
+upper_back = ExerciseType.create(name: 'Upper back', exercise_groups: [mat, back])
+free_ab_cruch = ExerciseType.create(name: 'Free abdominal crunch', exercise_groups: [core])
 
 measurement = Measurement.create(
     trainee: igor,
@@ -285,10 +291,10 @@ measurement.series_executions.create(
 # This seeds are only for automated tests purposes and shouldn't be changed
 autotest_user = User.create(:email => 'auto@test.user', :password => 'valid_pass', :full_name => 'AutoTest')
 
-db_shoulder_press = ExerciseType.create(:name => "Db shoulder press")
+db_shoulder_press = ExerciseType.create(name: 'Db shoulder press', exercise_groups: [arms, body_weight])
 
 Training.record_timestamps = false
-training1 = Training.create(:name => 'Summer action', :trainee => autotest_user, :created_at => '1/2/2012'.to_date, :updated_at => '1/2/2012'.to_date)
+training1 = Training.create(name: 'Summer action', :trainee => autotest_user, :created_at => '1/2/2012'.to_date, :updated_at => '1/2/2012'.to_date)
 training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1)
 training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2)
 training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3)
@@ -310,11 +316,11 @@ training1_ex4.series.create(:order => 1, :repeat_count => 10, :weight => 50, :re
 training1_ex4.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 18)
 training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
-training1 = Training.create(:name => 'Spring fat trim', :trainee => autotest_user, :created_at => '1/3/2012'.to_date, :updated_at => '1/3/2012'.to_date)
+training1 = Training.create(name: 'Spring fat trim', :trainee => autotest_user, :created_at => '1/3/2012'.to_date, :updated_at => '1/3/2012'.to_date)
 training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1)
-training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2, :machine_setting => "C")
+training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2, :machine_setting => 'C')
 training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3)
-training1_ex4 = training1.exercises.create(:exercise_type => lat, :order => 4, :machine_setting => "4")
+training1_ex4 = training1.exercises.create(:exercise_type => lat, :order => 4, :machine_setting => '4')
 
 training1_ex1.series.create(:order => 1, :repeat_count => 10, :weight => 50)
 training1_ex1.series.create(:order => 2, :repeat_count => 15, :weight => 55, :rest_time => 15)
@@ -334,7 +340,7 @@ training1_ex4.series.create(:order => 3, :repeat_count => 10, :weight => 45)
 
 Training.record_timestamps = true
 
-training1 = Training.create(:name => 'Summer action', :trainee => igor)
+training1 = Training.create(name: 'Summer action', :trainee => igor)
 training1_ex1 = training1.exercises.create(:exercise_type => bench, :order => 1)
 training1_ex2 = training1.exercises.create(:exercise_type => incline, :order => 2)
 training1_ex3 = training1.exercises.create(:exercise_type => incline, :order => 3)

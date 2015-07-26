@@ -16,11 +16,18 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
       $scope.exerciseTypes = ExerciseType.query();
       $scope.NO_GROUP = 'noGroup';
       $scope.selectedGroup = $scope.NO_GROUP;
+      $scope.selectedMachineGroup = $scope.NO_GROUP;
 
-      $scope.getSelectedGroupId = function () {
-        var selectedGroup = $scope.selectedGroup;
-        var indexOfDash = selectedGroup.indexOf('-');
-        return indexOfDash < 0 ? null : parseInt(selectedGroup.substring(indexOfDash + 1));
+      function indexOfGroup(exerciseGroup) {
+        var indexOfDash = exerciseGroup.indexOf('-');
+        return indexOfDash < 0 ? null : parseInt(exerciseGroup.substring(indexOfDash + 1));
+      }
+
+      $scope.getSelectedGroupIds = function () {
+        return _.filter(
+          [indexOfGroup($scope.selectedGroup), indexOfGroup($scope.selectedMachineGroup)],
+          _.isNumber
+        );
       };
 
       UserExerciseTypePhotos.primaryPhotos(function (exerciseTypePhotos) {
@@ -29,7 +36,14 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
         }));
       });
 
-      $scope.exerciseGroups = ExerciseGroup.query();
+      ExerciseGroup.query(function (exerciseGroups) {
+        $scope.exerciseGroups = _.filter(exerciseGroups, function (exerciseGroup) {
+          return !exerciseGroup.is_machine_group;
+        });
+        $scope.machineGroups = _.filter(exerciseGroups, function (exerciseGroup) {
+          return exerciseGroup.is_machine_group;
+        });
+      });
 
       $scope.getPrimaryPhoto = function (exerciseType) {
         if ($scope.exerciseTypeIdToThumbPath) {
@@ -44,12 +58,14 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
   };
 }]);
 
-exerciseTypePanel.filter('bySelectedGroup', function () {
-  return function (items, selectedGroup) {
-    if (selectedGroup === null)
-      return items;
-    return _.filter(items, function (el) {
-      return _.contains(el.exercise_groups, selectedGroup);
+exerciseTypePanel.filter('bySelectedGroups', function () {
+  return function (exerciseTypes, selectedGroups) {
+    if (_.isEmpty(selectedGroups))
+      return exerciseTypes;
+    return _.filter(exerciseTypes, function (exerciseType) {
+      return _.all(selectedGroups, function (selectedGroup) {
+        return _.contains(exerciseType.exercise_groups, selectedGroup);
+      });
     });
   };
 });

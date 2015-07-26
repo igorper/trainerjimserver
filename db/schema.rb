@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150724180224) do
+ActiveRecord::Schema.define(version: 20150726090931) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -27,7 +27,8 @@ ActiveRecord::Schema.define(version: 20150724180224) do
   add_index "conversations", ["sender_id"], name: "index_conversations_on_sender_id", using: :btree
 
   create_table "exercise_groups", force: :cascade do |t|
-    t.string "name", null: false
+    t.string  "name",                             null: false
+    t.boolean "is_machine_group", default: false, null: false
   end
 
   create_table "exercise_type_to_groups", force: :cascade do |t|

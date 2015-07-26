@@ -21,24 +21,14 @@
         <div class="row">
           <div class="col-sm-6">
             <div class="btn-group">
-              <label class="btn btn-success" ng-repeat="exerciseGroup in exerciseGroups" ng-model="$parent.selectedGroup" btn-radio="'group-{{exerciseGroup.id}}'" uncheckable>{{exerciseGroup.name}}</label>
-              <label class="btn btn-success" ng-model="selectedGroup" btn-radio="'{{NO_GROUP}}'" uncheckable>All</label>
+              <label class="btn btn-success" ng-repeat="exerciseGroup in exerciseGroups" ng-model="$parent.selectedGroup" btn-radio="'group-{{exerciseGroup.id}}'">{{exerciseGroup.name}}</label>
+              <label class="btn btn-success" ng-model="selectedGroup" btn-radio="'{{NO_GROUP}}'">All</label>
             </div>
           </div>
-          <div class="col-sm-6" ng-if="false">
-            <div class="btn-group pull-right" data-toggle="buttons">
-              <label class="btn btn-primary active">
-                <input type="radio" name="options" id="option1" autocomplete="off" checked> Dumbbell
-              </label>
-              <label class="btn btn-primary">
-                <input type="radio" name="options" id="option2" autocomplete="off"> Barbell
-              </label>
-              <label class="btn btn-primary">
-                <input type="radio" name="options" id="option3" autocomplete="off"> Cardio
-              </label>
-              <label class="btn btn-primary">
-                <input type="radio" name="options" id="option3" autocomplete="off"> All
-              </label>
+          <div class="col-sm-6">
+            <div class="btn-group pull-right">
+              <label class="btn btn-success" ng-repeat="exerciseGroup in machineGroups" ng-model="$parent.selectedMachineGroup" btn-radio="'machineGroup-{{exerciseGroup.id}}'">{{exerciseGroup.name}}</label>
+              <label class="btn btn-success" ng-model="selectedMachineGroup" btn-radio="'{{NO_GROUP}}'">All</label>
             </div>
           </div>
         </div>
@@ -48,7 +38,7 @@
   <div spin-until="exerciseTypes" class="row exercise-type-grid">
     <div class="col-sm-12">
       <div class="exercise-type-item"
-           ng-repeat="exerciseType in exerciseTypes | propsFilter: {name: searchFilter} | bySelectedGroup: getSelectedGroupId() | orderBy:'name'"
+           ng-repeat="exerciseType in exerciseTypes | propsFilter: {name: searchFilter} | bySelectedGroups: getSelectedGroupIds() | orderBy:'name'"
            ng-click="onExerciseTypeClicked({exerciseType: exerciseType})">
         <div class="thumb"><img ng-src="{{getPrimaryPhoto(exerciseType)}}"/></div>
         <div class="name" ng-bind-html="exerciseType.name | highlight: searchFilter"></div>

@@ -1,1 +1,1 @@
-json.(exercise_group, :id, :name)
+json.(exercise_group, :id, :name, :is_machine_group)
