@@ -8,7 +8,7 @@ class Api::V1::ExerciseTypesController < ActionController::Base
 
   def index
     when_signed_in do
-      @exercise_types = paginate(current_user_exercise_types, EXERCISE_TYPES_PER_PAGE)
+      @exercise_types = paginate(current_user_exercise_types.includes(:exercise_groups), EXERCISE_TYPES_PER_PAGE)
     end
   end
 
@@ -56,7 +56,15 @@ class Api::V1::ExerciseTypesController < ActionController::Base
     exercise_type.name = params[:name]
     @exercise_type.short_name = params[:short_name]
     @exercise_type.owner_id = params.fetch(:owner_id, current_user.id)
+    @exercise_type.exercise_groups = get_exercise_groups(params[:exercise_groups])
     @exercise_type.save
+  end
+
+  def get_exercise_groups(exercise_group_ids)
+    exercise_group_ids.map do |exercise_group_id|
+      puts("Exercise group: #{exercise_group_id}")
+      ExerciseGroup.find_by_id(exercise_group_id)
+    end
   end
 
   private
@@ -64,7 +72,8 @@ class Api::V1::ExerciseTypesController < ActionController::Base
     @exercise_type = ExerciseType.create(
         name: params[:name],
         short_name: params[:short_name],
-        owner_id: params.fetch(:owner_id, current_user.id)
+        owner_id: params.fetch(:owner_id, current_user.id),
+        exercise_groups: get_exercise_groups(params[:exercise_groups])
     )
   end
 

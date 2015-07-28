@@ -14,14 +14,21 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
     scope: {onExerciseTypeClicked: '&'},
     templateUrl: '<%= asset_path('exerciseTypes/exercise-type-panel.html') %>',
     controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'ExerciseGroup', function ($scope, ExerciseType, UserExerciseTypePhotos, ExerciseGroup) {
+      $scope.NO_GROUP = 'noGroup';
+      $scope.selection = {};
+      $scope.isChoosingExerciseTypes = true;
+
       function refreshExerciseTypesList() {
         $scope.exerciseTypes = ExerciseType.query();
       }
 
+      function unselectExerciseGroups() {
+        $scope.selection.group = $scope.NO_GROUP;
+        $scope.selection.machineGroup = $scope.NO_GROUP;
+      }
+
       refreshExerciseTypesList();
-      $scope.NO_GROUP = 'noGroup';
-      $scope.selection = {group: $scope.NO_GROUP, machineGroup: $scope.NO_GROUP};
-      $scope.isChoosingExerciseTypes = true;
+      unselectExerciseGroups();
 
       function indexOfGroup(exerciseGroup) {
         var indexOfDash = exerciseGroup.indexOf('-');
@@ -41,7 +48,7 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
         }));
       });
 
-      ExerciseGroup.query(function (exerciseGroups) {
+      $scope.allExerciseGroups = ExerciseGroup.query(function (exerciseGroups) {
         $scope.exerciseGroups = _.filter(exerciseGroups, function (exerciseGroup) {
           return !exerciseGroup.is_machine_group;
         });
@@ -66,14 +73,17 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
 
 
       $scope.onCreateExerciseTypeClicked = function () {
+        unselectExerciseGroups();
         $scope.newExerciseType = new ExerciseType();
         $scope.isChoosingExerciseTypes = false;
       };
 
       $scope.onNewExerciseSaveClicked = function () {
-        $scope.newExerciseType.$save(function () {
+        $scope.newExerciseType.exercise_groups = $scope.getSelectedGroupIds();
+        $scope.newExerciseTypeSaving = $scope.newExerciseType.$save(function () {
           $scope.isChoosingExerciseTypes = true;
           refreshExerciseTypesList();
+          unselectExerciseGroups();
         });
       };
 

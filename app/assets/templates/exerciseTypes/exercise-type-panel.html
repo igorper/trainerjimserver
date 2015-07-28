@@ -50,18 +50,18 @@
     </div>
   </div>
 
-  <div ng-if="!isChoosingExerciseTypes" spin-until="newExerciseType" class="row">
+  <div ng-if="!isChoosingExerciseTypes" spin-until="newExerciseTypeSaving" class="row">
     <div class="col-sm-12">
       <h3>Create new exercise type</h3>
       <exercise-type-editor exercise-type="newExerciseType"></exercise-type-editor>
     </div>
     <div class="col-sm-12 pull-right">
-      <form disable-until="newExerciseType">
+      <fieldset disable-until="newExerciseTypeSaving">
         <button class="btn btn-danger pull-right" ng-click="onNewExerciseCancelClicked()">Cancel</button>
         <button class="btn btn-primary pull-right" style="margin-right: 5px;" ng-click="onNewExerciseSaveClicked()">
           Save
         </button>
-      </form>
+      </fieldset>
     </div>
   </div>
 
