@@ -15,6 +15,7 @@
       </div>
     </div>
   </div>
+
   <div class="row exercise-group-grid" ng-if="hasAnyGroups()">
     <div class="col-sm-12">
       <div class="well">
@@ -37,7 +38,8 @@
       </div>
     </div>
   </div>
-  <div spin-until="exerciseTypes" class="row exercise-type-grid">
+
+  <div ng-if="isChoosingExerciseTypes" spin-until="exerciseTypes" class="row exercise-type-grid">
     <div class="col-sm-12">
       <div class="exercise-type-item"
            ng-repeat="exerciseType in exerciseTypes | propsFilter: {name: searchFilter} | bySelectedGroups: getSelectedGroupIds() | orderBy:'name'"
@@ -46,5 +48,24 @@
         <div class="name" ng-bind-html="exerciseType.name | highlight: searchFilter"></div>
       </div>
     </div>
+  </div>
+
+  <div ng-if="!isChoosingExerciseTypes" spin-until="newExerciseType" class="row">
+    <div class="col-sm-12">
+      <h3>Create new exercise type</h3>
+      <exercise-type-editor exercise-type="newExerciseType"></exercise-type-editor>
+    </div>
+    <div class="col-sm-12 pull-right">
+      <form disable-until="newExerciseType">
+        <button class="btn btn-danger pull-right" ng-click="onNewExerciseCancelClicked()">Cancel</button>
+        <button class="btn btn-primary pull-right" style="margin-right: 5px;" ng-click="onNewExerciseSaveClicked()">
+          Save
+        </button>
+      </form>
+    </div>
+  </div>
+
+  <div ng-if="isChoosingExerciseTypes" class="add-exercise-type-btn" ng-click="onCreateExerciseTypeClicked()">
+    <div class="glyphicon glyphicon-plus"></div>
   </div>
 </div>

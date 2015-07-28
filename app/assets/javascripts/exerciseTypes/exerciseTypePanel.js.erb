@@ -4,7 +4,8 @@ var exerciseTypePanel = angular.module('exerciseTypes.exerciseTypePanel', [
   'util.filters.propsFilter',
   'util.promiseUi',
   'ui.bootstrap',
-  'exerciseGroups.exerciseGroup'
+  'exerciseGroups.exerciseGroup',
+  'exerciseTypes.exerciseTypeEditor'
 ]);
 
 exerciseTypePanel.directive('exerciseTypePanel', [function () {
@@ -13,9 +14,14 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
     scope: {onExerciseTypeClicked: '&'},
     templateUrl: '<%= asset_path('exerciseTypes/exercise-type-panel.html') %>',
     controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'ExerciseGroup', function ($scope, ExerciseType, UserExerciseTypePhotos, ExerciseGroup) {
-      $scope.exerciseTypes = ExerciseType.query();
+      function refreshExerciseTypesList() {
+        $scope.exerciseTypes = ExerciseType.query();
+      }
+
+      refreshExerciseTypesList();
       $scope.NO_GROUP = 'noGroup';
       $scope.selection = {group: $scope.NO_GROUP, machineGroup: $scope.NO_GROUP};
+      $scope.isChoosingExerciseTypes = true;
 
       function indexOfGroup(exerciseGroup) {
         var indexOfDash = exerciseGroup.indexOf('-');
@@ -56,6 +62,23 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
           }
         }
         return 'images/medium/missing.png';
+      };
+
+
+      $scope.onCreateExerciseTypeClicked = function () {
+        $scope.newExerciseType = new ExerciseType();
+        $scope.isChoosingExerciseTypes = false;
+      };
+
+      $scope.onNewExerciseSaveClicked = function () {
+        $scope.newExerciseType.$save(function () {
+          $scope.isChoosingExerciseTypes = true;
+          refreshExerciseTypesList();
+        });
+      };
+
+      $scope.onNewExerciseCancelClicked = function () {
+        $scope.isChoosingExerciseTypes = true;
       };
     }]
   };

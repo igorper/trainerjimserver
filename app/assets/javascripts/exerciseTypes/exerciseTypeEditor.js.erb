@@ -12,12 +12,7 @@ exerciseTypeEditorModule.directive('exerciseTypeEditor', ['User', function (User
     },
     controller: ['$scope', function ($scope) {
       $scope.files = [];
-
       $scope.userDetails = User.current();
-
-      $scope.$watch('files', function () {
-        $scope.exerciseType.image = $scope.files && $scope.files.length > 0 ? $scope.files[0] : null;
-      });
     }],
     templateUrl: "<%= asset_path('exerciseTypes/exercise-type-editor.html') %>"
   };
