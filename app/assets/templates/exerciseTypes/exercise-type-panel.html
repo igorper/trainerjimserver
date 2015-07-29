@@ -1,5 +1,5 @@
 <div class="exercise-type-panel">
-  <div class="row">
+  <div ng-if="isChoosingExerciseTypes" class="row">
     <div class="col-xs-12">
       <div class="input-group">
         <div class="input-group-addon">
@@ -11,7 +11,7 @@
                type="text"
                id="keywordSearch"
                placeholder="Exercise filter"
-               ng-model="searchFilter"/>
+               ng-model="filter.keyword"/>
       </div>
     </div>
   </div>
@@ -42,10 +42,10 @@
   <div ng-if="isChoosingExerciseTypes" spin-until="exerciseTypes" class="row exercise-type-grid">
     <div class="col-sm-12">
       <div class="exercise-type-item"
-           ng-repeat="exerciseType in exerciseTypes | propsFilter: {name: searchFilter} | bySelectedGroups: getSelectedGroupIds() | orderBy:'name'"
+           ng-repeat="exerciseType in exerciseTypes | propsFilter: {name: filter.keyword} | bySelectedGroups: getSelectedGroupIds() | orderBy:'name'"
            ng-click="onExerciseTypeClicked({exerciseType: exerciseType})">
         <div class="thumb"><img ng-src="{{getPrimaryPhoto(exerciseType)}}"/></div>
-        <div class="name" ng-bind-html="exerciseType.name | highlight: searchFilter"></div>
+        <div class="name" ng-bind-html="exerciseType.name | highlight: filter.keyword"></div>
       </div>
     </div>
   </div>
@@ -57,7 +57,9 @@
     </div>
     <div class="col-sm-12 pull-right">
       <fieldset disable-until="newExerciseTypeSaving">
-        <button class="btn btn-danger pull-right" ng-click="onNewExerciseCancelClicked()">Cancel</button>
+        <button class="btn btn-danger pull-right" ng-click="onNewExerciseCancelClicked()">
+          Cancel
+        </button>
         <button class="btn btn-primary pull-right" style="margin-right: 5px;" ng-click="onNewExerciseSaveClicked()">
           Save
         </button>

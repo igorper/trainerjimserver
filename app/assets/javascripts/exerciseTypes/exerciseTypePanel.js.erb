@@ -16,6 +16,7 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
     controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'ExerciseGroup', function ($scope, ExerciseType, UserExerciseTypePhotos, ExerciseGroup) {
       $scope.NO_GROUP = 'noGroup';
       $scope.selection = {};
+      $scope.filter = {};
       $scope.isChoosingExerciseTypes = true;
 
       function refreshExerciseTypesList() {
