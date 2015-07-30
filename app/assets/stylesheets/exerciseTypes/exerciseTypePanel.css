@@ -22,6 +22,23 @@
   padding: 4px;
 }
 
+.exercise-type-panel .exercise-type-item .edit-btn {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  padding: 0;
+  align-items: center;
+  text-align: center;
+  margin-left: 102px;
+  margin-top: -143px;
+}
+
+.exercise-type-panel .exercise-type-item .edit-btn > div {
+  text-align: center;
+  width: 100%;
+}
+
 .exercise-type-panel .exercise-type-item:hover {
   background: #f5f5f5;
 }

@@ -28,17 +28,30 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
         $scope.selection.machineGroup = $scope.NO_GROUP;
       }
 
+      function toRadioGroupSelection(availableGroups, groupIds, radioGroupPrefix) {
+        var foundExerciseGroup = _(availableGroups).find(function (exerciseGroup) {
+          return _(groupIds).contains(exerciseGroup.id);
+        });
+        return foundExerciseGroup ? radioGroupPrefix + foundExerciseGroup.id : $scope.NO_GROUP;
+      }
+
+      function selectExerciseGroups(exerciseGroups) {
+        console.log("Selecting exercise groups:", exerciseGroups);
+        $scope.selection.group = toRadioGroupSelection($scope.exerciseGroups, exerciseGroups, "group-");
+        $scope.selection.machineGroup = toRadioGroupSelection($scope.machineGroups, exerciseGroups, "machineGroup-");
+      }
+
       refreshExerciseTypesList();
       unselectExerciseGroups();
 
-      function indexOfGroup(exerciseGroup) {
+      function idOfGroup(exerciseGroup) {
         var indexOfDash = exerciseGroup.indexOf('-');
         return indexOfDash < 0 ? null : parseInt(exerciseGroup.substring(indexOfDash + 1));
       }
 
       $scope.getSelectedGroupIds = function () {
         return _.filter(
-          [indexOfGroup($scope.selection.group), indexOfGroup($scope.selection.machineGroup)],
+          [idOfGroup($scope.selection.group), idOfGroup($scope.selection.machineGroup)],
           _.isNumber
         );
       };
@@ -72,16 +85,20 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
         return 'images/medium/missing.png';
       };
 
+      function editExerciseType(exerciseTypeToEdit) {
+        unselectExerciseGroups();
+        $scope.editedExerciseType = exerciseTypeToEdit;
+        selectExerciseGroups(exerciseTypeToEdit.exercise_groups);
+        $scope.isChoosingExerciseTypes = false;
+      }
 
       $scope.onCreateExerciseTypeClicked = function () {
-        unselectExerciseGroups();
-        $scope.newExerciseType = new ExerciseType();
-        $scope.isChoosingExerciseTypes = false;
+        editExerciseType(new ExerciseType());
       };
 
       $scope.onNewExerciseSaveClicked = function () {
-        $scope.newExerciseType.exercise_groups = $scope.getSelectedGroupIds();
-        $scope.newExerciseTypeSaving = $scope.newExerciseType.$save(function () {
+        $scope.editedExerciseType.exercise_groups = $scope.getSelectedGroupIds();
+        $scope.editedExerciseTypeSaving = $scope.editedExerciseType.$save(function () {
           $scope.isChoosingExerciseTypes = true;
           refreshExerciseTypesList();
           unselectExerciseGroups();
@@ -91,6 +108,8 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
       $scope.onNewExerciseCancelClicked = function () {
         $scope.isChoosingExerciseTypes = true;
       };
+
+      $scope.onExerciseTypeEditClicked = editExerciseType;
     }]
   };
 }]);

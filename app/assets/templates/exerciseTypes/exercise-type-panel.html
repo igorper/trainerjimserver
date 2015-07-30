@@ -42,10 +42,14 @@
   <div ng-if="isChoosingExerciseTypes" spin-until="exerciseTypes" class="row exercise-type-grid">
     <div class="col-sm-12">
       <div class="exercise-type-item"
-           ng-repeat="exerciseType in exerciseTypes | propsFilter: {name: filter.keyword} | bySelectedGroups: getSelectedGroupIds() | orderBy:'name'"
-           ng-click="onExerciseTypeClicked({exerciseType: exerciseType})">
-        <div class="thumb"><img ng-src="{{getPrimaryPhoto(exerciseType)}}"/></div>
-        <div class="name" ng-bind-html="exerciseType.name | highlight: filter.keyword"></div>
+           ng-repeat="exerciseType in exerciseTypes | propsFilter: {name: filter.keyword} | bySelectedGroups: getSelectedGroupIds() | orderBy:'name'">
+        <div ng-click="onExerciseTypeClicked({exerciseType: exerciseType})">
+          <div class="thumb"><img ng-src="{{getPrimaryPhoto(exerciseType)}}"/></div>
+          <div class="name" ng-bind-html="exerciseType.name | highlight: filter.keyword"></div>
+        </div>
+        <div class="edit-btn btn btn-primary" ng-click="onExerciseTypeEditClicked(exerciseType)">
+          <div class="glyphicon glyphicon-edit"></div>
+        </div>
       </div>
     </div>
   </div>
@@ -53,7 +57,7 @@
   <div ng-if="!isChoosingExerciseTypes" spin-until="newExerciseTypeSaving" class="row">
     <div class="col-sm-12">
       <h3>Create new exercise type</h3>
-      <exercise-type-editor exercise-type="newExerciseType"></exercise-type-editor>
+      <exercise-type-editor exercise-type="editedExerciseType"></exercise-type-editor>
     </div>
     <div class="col-sm-12 pull-right">
       <fieldset disable-until="newExerciseTypeSaving">
