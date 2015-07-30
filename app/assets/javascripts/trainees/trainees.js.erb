@@ -111,7 +111,8 @@ trainees.config(['$stateProvider', function ($stateProvider) {
             return new TraineeTraining({
               traineeId: $scope.workoutsContext.traineeId,
               name: "Enter training name",
-              exercises: []
+              exercises: [],
+              trainee: $scope.workoutsContext.trainee
             });
           },
           fetchTraining: function (successCallback, failureCallback) {
