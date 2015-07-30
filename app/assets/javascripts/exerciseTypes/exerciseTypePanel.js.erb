@@ -107,9 +107,16 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
 
       $scope.onNewExerciseCancelClicked = function () {
         $scope.isChoosingExerciseTypes = true;
+        unselectExerciseGroups();
       };
 
-      $scope.onExerciseTypeEditClicked = editExerciseType;
+      $scope.onExerciseTypeEditClicked = function (exerciseType) {
+        editExerciseType(new ExerciseType(exerciseType));
+      };
+
+      $scope.editExerciseTypeTitle = function () {
+        return $scope.editedExerciseType && $scope.editedExerciseType.id ? "Edit exercise type" : "Create new exercise type";
+      }
     }]
   };
 }]);
