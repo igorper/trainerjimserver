@@ -108,7 +108,7 @@ workouts.factory('WorkoutCtrlHelper', ['$state', 'Training', 'toaster', function
         return $scope.workoutsContext.selectedTraining.$save({traineeId: $scope.workoutsContext.traineeId}, successCallback, failureCallback);
       },
       createEmptyTraining: function () {
-        return new Training({name: "Enter training name", exercises: []});
+        return new Training({name: "Enter training name", exercises: [], trainee: $scope.workoutsContext.trainee});
       },
       fetchTraining: function (successCallback, failureCallback) {
         return Training.get({id: $scope.workoutsContext.trainingId}, successCallback, failureCallback);

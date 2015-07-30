@@ -82,7 +82,7 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
             return thumbPhotoSrc;
           }
         }
-        return 'images/medium/missing.png';
+        return 'photos/exercise-types/thumb/weight.png';
       };
 
       function editExerciseType(exerciseTypeToEdit) {
@@ -116,7 +116,7 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
 
       $scope.editExerciseTypeTitle = function () {
         return $scope.editedExerciseType && $scope.editedExerciseType.id ? "Edit exercise type" : "Create new exercise type";
-      }
+      };
     }]
   };
 }]);
