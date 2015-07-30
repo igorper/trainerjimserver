@@ -18,6 +18,8 @@ exerciseTypesSelector.factory('ExerciseTypesSelector', ['$modal', function ($mod
           );
 
           $scope.addedExcercisesCount = 0;
+          $scope.editorUserId = options.editorUserId;
+          $scope.isAdministrator = options.isAdministrator;
 
           $scope.onExerciseTypeClicked = function (exerciseType) {
             options.onAddExerciseType(exerciseType);

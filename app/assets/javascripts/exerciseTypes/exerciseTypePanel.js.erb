@@ -11,7 +11,7 @@ var exerciseTypePanel = angular.module('exerciseTypes.exerciseTypePanel', [
 exerciseTypePanel.directive('exerciseTypePanel', [function () {
   return {
     restrict: 'E',
-    scope: {onExerciseTypeClicked: '&'},
+    scope: {onExerciseTypeClicked: '&', editorUserId: '=', isAdministrator: '='},
     templateUrl: '<%= asset_path('exerciseTypes/exercise-type-panel.html') %>',
     controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'ExerciseGroup', function ($scope, ExerciseType, UserExerciseTypePhotos, ExerciseGroup) {
       $scope.NO_GROUP = 'noGroup';

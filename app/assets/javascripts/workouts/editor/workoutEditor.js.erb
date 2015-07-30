@@ -83,7 +83,7 @@ angular.module('workouts.editor', [
     }
 
     $scope.editExercise = function () {
-      ExerciseTypesSelector({onAddExerciseType: addExercise}).result.then(scrollToLastExercise);
+      ExerciseTypesSelector({onAddExerciseType: addExercise, editorUserId: $scope.trainer.id, isAdministrator: $scope.trainer.is_admin}).result.then(scrollToLastExercise);
     };
   }])
 ;
