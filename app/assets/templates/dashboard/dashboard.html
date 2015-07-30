@@ -42,24 +42,24 @@
                       </a>
                   </td>
                   <td class="col-sm-1">
-                      <a href="" ng-click="sortType = 'skipped'; sortReverse = !sortReverse">
+                      <a href="" ng-click="sortType = 'seriesSkipped'; sortReverse = !sortReverse">
                           Series skipped
-                          <span ng-show="sortType == 'skipped' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
-                          <span ng-show="sortType == 'skipped' && sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                          <span ng-show="sortType == 'seriesSkipped' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
+                          <span ng-show="sortType == 'seriesSkipped' && sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
                       </a>
                   </td>
                   <td class="col-sm-1">
-                      <a href="" ng-click="sortType = 'restChange'; sortReverse = !sortReverse">
+                      <a href="" ng-click="sortType = 'averageRestDifferenceInSec'; sortReverse = !sortReverse">
                           Rest change
-                          <span ng-show="sortType == 'restChange' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
-                          <span ng-show="sortType == 'restChange' && sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                          <span ng-show="sortType == 'averageRestDifferenceInSec' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
+                          <span ng-show="sortType == 'averageRestDifferenceInSec' && sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
                       </a>
                   </td>
                   <td class="col-sm-1">
-                      <a href="" ng-click="sortType = 'intensityAlerts'; sortReverse = !sortReverse">
+                      <a href="" ng-click="sortType = 'numberIntensityChanges'; sortReverse = !sortReverse">
                           Intensity alerts
-                          <span ng-show="sortType == 'intensityAlerts' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
-                          <span ng-show="sortType == 'intensityAlerts' && sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+                          <span ng-show="sortType == 'numberIntensityChanges' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
+                          <span ng-show="sortType == 'numberIntensityChanges' && sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
                       </a>
                   </td>
                   <td class="col-sm-3">
@@ -72,12 +72,12 @@
               </thead>
 
               <tbody>
-              <tr ng-repeat="item in items  | orderBy:sortType:sortReverse"">
+              <tr ng-repeat="item in items  | orderBy:sortType:sortReverse">
                   <td>{{ item.date | date: 'd.M.yyyy' }}</td>
                   <td>{{ item.name }}</td>
-                  <td>{{ item.totalSeries - item.performedSeries }}</td>
+                  <td>{{ item.seriesSkipped }}</td>
                   <td>{{ item.averageRestDifferenceInSec }}</td>
-                  <td>{{ item.numSeriesTooHeavy + item.numSeriesTooEasy }}</td>
+                  <td>{{ item.numberIntensityChanges }}</td>
                   <td>{{ item.comment }}</td>
                   <td><button class="btn btn-danger center-block" ng-click="goToMeasurement(item)">View
                   </button></td>

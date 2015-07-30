@@ -9,8 +9,6 @@ $state, toaster, resultsUtil) {
 
   $scope.state = $state;
 
-  $scope.test;
-
   Trainee.query(function (trainees) {
     $scope.users = trainees;
   }, function () {

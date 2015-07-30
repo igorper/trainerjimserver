@@ -331,6 +331,8 @@ results.factory('resultsUtil', [function () {
       overview.name = selectedTraining.training.name;
       overview.date = selectedTraining.start_time;
       overview.comment = selectedTraining.comment;
+      overview.seriesSkipped = overview.totalSeries - overview.performedSeries;
+      overview.numberIntensityChanges = overview.numSeriesTooHeavy + overview.numSeriesTooEasy;
 
       return overview;
     }
