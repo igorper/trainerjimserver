@@ -1,0 +1,75 @@
+var dashboard = angular.module('dashboard', [
+  'ui.router',
+  'util.results'
+]);
+
+var dashboardController = ['$scope', 'Trainee', 'Measurement', '$state', 'toaster', 'calculateResultsOverview', function ($scope, Trainee, Measurement,
+$state, toaster, calculateResultsOverview) {
+  $scope.users = [];
+
+  $scope.state = $state;
+
+  Trainee.query(function (trainees) {
+    $scope.users = trainees;
+  }, function () {
+    toaster.pop("error", "Trainees listing", "Could get the list of trainees. Try logging in again.");
+  });
+
+  $scope.getCurrentUserId = function(){
+    return parseInt($state.params.id);
+  }
+
+  $scope.onAllUsersSelected = function(){
+    $state.go('main.dashboard.all');
+  }
+
+  $scope.onUserSelected = function (user) {
+    $state.go('main.dashboard.user', {id: user.id}).then(function(){
+      $scope.refreshUserWorkouts();
+    });
+  };
+
+  $scope.items  = [];
+
+  $scope.sortType = "date";
+  $scope.sortReverse = false;
+
+  $scope.refreshUserWorkouts = function(){
+    // TODO: swap hardcoded -1 with all users
+    Measurement.query({userId: $state.params == undefined ? -1 : $state.params.id}, function (measurements) {
+      // TODO: refactor results methods to a common structure and use it here
+      $scope.items = measurements;
+    }, function () {
+      console.error("Could not fetch results.");
+    });
+  }
+
+  $scope.refreshUserWorkouts();
+
+}]
+
+
+admin.config(['$stateProvider', function ($stateProvider) {
+    $stateProvider
+      .state('main.dashboard', {
+        url: '/dashboard',
+        abstract: true,
+        templateUrl: "<%= asset_path('dashboard/dashboard.html') %>",
+        controller: dashboardController
+      });
+
+    $stateProvider
+    .state('main.dashboard.all', {
+      url: '',
+      templateUrl: "<%= asset_path('dashboard/dashboard.html') %>",
+      controller: dashboardController
+    });
+
+  $stateProvider
+    .state('main.dashboard.user', {
+      url: '/:id',
+      templateUrl: "<%= asset_path('dashboard/dashboard.html') %>",
+      controller: dashboardController
+    });
+  }])
+;
