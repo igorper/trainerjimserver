@@ -63,7 +63,6 @@ class Api::V1::ExerciseTypesController < ActionController::Base
   def get_exercise_groups(exercise_group_ids)
     if exercise_group_ids
       exercise_group_ids.map do |exercise_group_id|
-        puts("Exercise group: #{exercise_group_id}")
         ExerciseGroup.find_by_id(exercise_group_id)
       end
     else
