@@ -242,96 +242,97 @@ results.factory('resultsUtil', [function () {
     },
     calculateResultsOverview: function (selectedTraining) {
 
-    /**
-     * Create a lookup table for planned series. Each series can be looked up by it's id, which is also stored
-     * for each series execution. Besides each series data id of the parent exercise is added to retain the information
-     * of the exercise the series belongs to.
-     * @param trainingPlan
-     * @returns {Array}
-     */
-    function getPlannedSeriesLookup(selectedTraining) {
+      /**
+       * Create a lookup table for planned series. Each series can be looked up by it's id, which is also stored
+       * for each series execution. Besides each series data id of the parent exercise is added to retain the information
+       * of the exercise the series belongs to.
+       * @param trainingPlan
+       * @returns {Array}
+       */
+      function getPlannedSeriesLookup(selectedTraining) {
 
-      var performedSeriesIds = _.pluck(selectedTraining.series_executions, 'series_id');
-      var expectedOrder = 1;
-      var lookup = [];
-      for (var i = 0; i < selectedTraining.training.exercises.length; i++) {
-        var exercise = selectedTraining.training.exercises[i];
-        for (var j = 0; j < exercise.series.length; j++) {
-          var series = exercise.series[j];
-          // save expected order for executed series (ignoring not executed series
-          // does not mess the results if a particular series was skipped)
-          if (_.contains(performedSeriesIds, series.id)) {
-            series.expectedOrder = expectedOrder++;
+        var performedSeriesIds = _.pluck(selectedTraining.series_executions, 'series_id');
+        var expectedOrder = 1;
+        var lookup = [];
+        for (var i = 0; i < selectedTraining.training.exercises.length; i++) {
+          var exercise = selectedTraining.training.exercises[i];
+          for (var j = 0; j < exercise.series.length; j++) {
+            var series = exercise.series[j];
+            // save expected order for executed series (ignoring not executed series
+            // does not mess the results if a particular series was skipped)
+            if (_.contains(performedSeriesIds, series.id)) {
+              series.expectedOrder = expectedOrder++;
+            }
+            series['exercise_id'] = exercise.exercise_type.id;
+            lookup[series.id] = series;
           }
-          series['exercise_id'] = exercise.exercise_type.id;
-          lookup[series.id] = series;
         }
+        return lookup;
       }
-      return lookup;
-    }
 
-    var lookupSeries = getPlannedSeriesLookup(selectedTraining);
+      var lookupSeries = getPlannedSeriesLookup(selectedTraining);
 
-    var overview = {};
-    overview.trainingRatingIcon = smileLookup[selectedTraining.rating] + "-on"
-    overview.durationInMinutes = (new Date(selectedTraining.end_time) - new Date(selectedTraining.start_time)) / (1000 * 60);
+      var overview = {};
+      overview.trainingRatingIcon = smileLookup[selectedTraining.rating] + "-on"
+      overview.durationInMinutes = (new Date(selectedTraining.end_time) - new Date(selectedTraining.start_time)) / (1000 * 60);
 
-    overview.numExercisesPlanned = _.unique(_.pluck(_.pluck(selectedTraining.training.exercises, 'exercise_type'), 'id')).length;
-    overview.performedSeries = selectedTraining.series_executions.length;
-    overview.totalSeries = _.flatten(_.pluck(selectedTraining.training.exercises, 'series')).length;
+      overview.numExercisesPlanned = _.unique(_.pluck(_.pluck(selectedTraining.training.exercises, 'exercise_type'), 'id')).length;
+      overview.performedSeries = selectedTraining.series_executions.length;
+      overview.totalSeries = _.flatten(_.pluck(selectedTraining.training.exercises, 'series')).length;
 
-    var performedSeriesExerciseId = [];
-    var restInSeconds = 0, exerciseInSeconds = 0;
-    var restDiff = 0;
-    var cntDiffWeight = 0, sumDiffWeight = 0;
-    var cntDiffReps = 0, sumDiffReps = 0;
-    var cntHeavy = 0, cntEasy = 0;
-    for (var i = 0; i < selectedTraining.series_executions.length; i++) {
+      var performedSeriesExerciseId = [];
+      var restInSeconds = 0, exerciseInSeconds = 0;
+      var restDiff = 0;
+      var cntDiffWeight = 0, sumDiffWeight = 0;
+      var cntDiffReps = 0, sumDiffReps = 0;
+      var cntHeavy = 0, cntEasy = 0;
+      for (var i = 0; i < selectedTraining.series_executions.length; i++) {
 
-      // encode order into the series execution
-      selectedTraining.series_executions[i].order = i + 1;
+        // encode order into the series execution
+        selectedTraining.series_executions[i].order = i + 1;
 
-      var se = selectedTraining.series_executions[i];
-      var parentSeries = lookupSeries[se.series_id];
-      parentSeries.execution = se;
+        var se = selectedTraining.series_executions[i];
+        var parentSeries = lookupSeries[se.series_id];
+        parentSeries.execution = se;
 
-      performedSeriesExerciseId.push(parentSeries.exercise_id);
+        performedSeriesExerciseId.push(parentSeries.exercise_id);
 
-      // calculate rest and exercise time
-      restInSeconds += selectedTraining.series_executions[i].rest_time;
-      exerciseInSeconds += selectedTraining.series_executions[i].duration_seconds;
+        // calculate rest and exercise time
+        restInSeconds += selectedTraining.series_executions[i].rest_time;
+        exerciseInSeconds += selectedTraining.series_executions[i].duration_seconds;
 
-      // rest difference
-      restDiff += Math.abs(parentSeries.rest_time - se.rest_time);
+        // rest difference
+        restDiff += Math.abs(parentSeries.rest_time - se.rest_time);
 
-      // weight difference
-      cntDiffWeight += se.weight - parentSeries.weight == 0 ? 0 : 1;
-      sumDiffWeight += Math.abs(se.weight - parentSeries.weight);
+        // weight difference
+        cntDiffWeight += se.weight - parentSeries.weight == 0 ? 0 : 1;
+        sumDiffWeight += Math.abs(se.weight - parentSeries.weight);
 
-      // reps difference
-      cntDiffReps += se.num_repetitions - parentSeries.repeat_count == 0 ? 0 : 1;
-      sumDiffReps += Math.abs(se.num_repetitions - parentSeries.repeat_count);
+        // reps difference
+        cntDiffReps += se.num_repetitions - parentSeries.repeat_count == 0 ? 0 : 1;
+        sumDiffReps += Math.abs(se.num_repetitions - parentSeries.repeat_count);
 
-      // count too heavy and too easy
-      cntHeavy += se.rating == TOO_HARD_RATING ? 1 : 0;
-      cntEasy += se.rating == TOO_EASY_RATING ? 1 : 0;
-    }
+        // count too heavy and too easy
+        cntHeavy += se.rating == TOO_HARD_RATING ? 1 : 0;
+        cntEasy += se.rating == TOO_EASY_RATING ? 1 : 0;
+      }
 
-    overview.numExercisesPerformed = _.unique(performedSeriesExerciseId).length;
-    overview.totalRestInMinutes = restInSeconds / 60.0;
-    overview.totalExercisesInMinutes = exerciseInSeconds / 60.0;
-    overview.averageRestDifferenceInSec = restDiff / selectedTraining.series_executions.length;
-    overview.numberWeightChanges = cntDiffWeight;
-    overview.averageWeightChanges = cntDiffWeight == 0 ? 0 : sumDiffWeight / cntDiffWeight;
-    overview.numberRepsChanges = cntDiffReps;
-    overview.averageRepsChanges = cntDiffReps == 0 ? 0 : sumDiffReps / cntDiffReps;
-    overview.numSeriesTooHeavy = cntHeavy;
-    overview.numSeriesTooEasy = cntEasy;
-    overview.name = selectedTraining.training.name;
-    overview.date = selectedTraining.start_time;
-    overview.comment = selectedTraining.comment;
+      overview.numExercisesPerformed = _.unique(performedSeriesExerciseId).length;
+      overview.totalRestInMinutes = restInSeconds / 60.0;
+      overview.totalExercisesInMinutes = exerciseInSeconds / 60.0;
+      overview.averageRestDifferenceInSec = restDiff / selectedTraining.series_executions.length;
+      overview.numberWeightChanges = cntDiffWeight;
+      overview.averageWeightChanges = cntDiffWeight == 0 ? 0 : sumDiffWeight / cntDiffWeight;
+      overview.numberRepsChanges = cntDiffReps;
+      overview.averageRepsChanges = cntDiffReps == 0 ? 0 : sumDiffReps / cntDiffReps;
+      overview.numSeriesTooHeavy = cntHeavy;
+      overview.numSeriesTooEasy = cntEasy;
+      overview.id = selectedTraining.id;
+      overview.name = selectedTraining.training.name;
+      overview.date = selectedTraining.start_time;
+      overview.comment = selectedTraining.comment;
 
-    return overview;
+      return overview;
     }
   }
 }]);

@@ -51,6 +51,10 @@ $state, toaster, resultsUtil) {
     });
   }
 
+  $scope.goToMeasurement = function(item){
+    $state.go('main.results', {trainee: $state.params.id, id: item.id});
+  }
+
   $scope.refreshUserWorkouts();
 
 }]
