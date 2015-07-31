@@ -3,10 +3,10 @@
 <div class="row filter">
     <div class="col-sm-6">
         <div class="btn-group">
-            <label class="btn btn-primary" ng-model="selection.group" btn-radio="'group-month'">Last month</label>
-            <label class="btn btn-primary" ng-model="selection.group" btn-radio="'group-week'">Last week</label>
-            <label class="btn btn-primary" ng-model="selection.group" btn-radio="'group-day'">Last 24 hours</label>
-            <label class="btn btn-primary" ng-model="selection.group" btn-radio="'{{NO_GROUP}}'">All</label>
+            <label class="btn btn-primary" ng-model="dateFilter" btn-radio="'month'">Last month</label>
+            <label class="btn btn-primary" ng-model="dateFilter" btn-radio="'week'">Last week</label>
+            <label class="btn btn-primary" ng-model="dateFilter" btn-radio="'day'">Last 24 hours</label>
+            <label class="btn btn-primary" ng-model="dateFilter" btn-radio="'all'">All</label>
         </div>
     </div>
 </div>
@@ -58,7 +58,7 @@
     </thead>
 
     <tbody>
-    <tr ng-repeat="item in items  | orderBy:sortType:sortReverse">
+    <tr ng-repeat="item in items  | orderBy:sortType:sortReverse | dateRangeFilter:dateFilter">
         <td>{{ item.date | date: 'd.M.yyyy' }}</td>
         <td>{{ item.name }}</td>
         <td>{{ item.seriesSkipped }}</td>

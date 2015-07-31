@@ -32,7 +32,8 @@ var trainerjimApp = angular.module('app', [
   'auth.loginDialog',
   'userProfile',
   'accounts',
-  'start'
+  'start',
+  'dashboard'
 ]);
 
 trainerjimApp.controller('MainBodyCtrl', ['$rootScope', 'LoginDialog', 'Auth', 'authService', function ($rootScope, LoginDialog, Auth, authService) {

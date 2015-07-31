@@ -3,7 +3,7 @@ var dashboard = angular.module('dashboard', [
   'results'
 ]);
 
-admin.config(['$stateProvider', function ($stateProvider) {
+dashboard.config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('main.dashboard', {
         url: '/dashboard',
@@ -41,6 +41,8 @@ admin.config(['$stateProvider', function ($stateProvider) {
         $scope.sortType = "date";
         $scope.sortReverse = false;
 
+        $scope.dateFilter = "all";
+
         $scope.refreshUserWorkouts = function(){
           // TODO: swap hardcoded -1 with all users
           Measurement.query({userId: $state.params == undefined ? -1 : $state.params.id}, function (measurements) {
@@ -63,5 +65,40 @@ admin.config(['$stateProvider', function ($stateProvider) {
         $scope.refreshUserWorkouts();
       }]
     });
-  }])
-;
+  }]);
+
+
+dashboard.filter("dateRangeFilter", function() {
+  return function(items, dateFilter) {
+    var days = -1;
+    switch(dateFilter) {
+      case 'day':
+        days = 1;
+        break;
+      case 'week':
+        days = 7;
+        break;
+      case 'month':
+        days = 30;
+        break;
+      case 'all':
+      default:
+        // return unfiltered items
+        return items;
+    }
+
+
+    var from = new Date();
+    from.setDate(from.getDate() - days);
+    var to = new Date();
+
+    var result = [];
+    for (var i=0; i<items.length; i++){
+     var d = new Date(items[i].date);
+     if (d > from && d < to)  {
+      result.push(items[i]);
+     }
+      }
+     return result;
+  };
+});
