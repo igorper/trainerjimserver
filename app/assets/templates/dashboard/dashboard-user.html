@@ -1,0 +1,73 @@
+<h2>Training overview</h2>
+<h4>Filter by date</h4>
+<div class="row filter">
+    <div class="col-sm-6">
+        <div class="btn-group">
+            <label class="btn btn-primary" ng-model="selection.group" btn-radio="'group-month'">Last month</label>
+            <label class="btn btn-primary" ng-model="selection.group" btn-radio="'group-week'">Last week</label>
+            <label class="btn btn-primary" ng-model="selection.group" btn-radio="'group-day'">Last 24 hours</label>
+            <label class="btn btn-primary" ng-model="selection.group" btn-radio="'{{NO_GROUP}}'">All</label>
+        </div>
+    </div>
+</div>
+<table class="table table-bordered table-striped table-responsive">
+    <thead>
+    <tr>
+        <td class="col-sm-1">
+            <a href="" ng-click="sortType = 'date'; sortReverse = !sortReverse">
+                Date
+                <span ng-show="sortType == 'date' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
+                <span ng-show="sortType == 'date' && sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+            </a>
+        </td>
+        <td class="col-sm-2">
+            <a href="" ng-click="sortType = 'name'; sortReverse = !sortReverse">
+                Name
+                <span ng-show="sortType == 'name' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
+                <span ng-show="sortType == 'name' && sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+            </a>
+        </td>
+        <td class="col-sm-1">
+            <a href="" ng-click="sortType = 'seriesSkipped'; sortReverse = !sortReverse">
+                Series skipped
+                <span ng-show="sortType == 'seriesSkipped' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
+                <span ng-show="sortType == 'seriesSkipped' && sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+            </a>
+        </td>
+        <td class="col-sm-1">
+            <a href="" ng-click="sortType = 'averageRestDifferenceInSec'; sortReverse = !sortReverse">
+                Rest change
+                <span ng-show="sortType == 'averageRestDifferenceInSec' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
+                <span ng-show="sortType == 'averageRestDifferenceInSec' && sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+            </a>
+        </td>
+        <td class="col-sm-1">
+            <a href="" ng-click="sortType = 'numberIntensityChanges'; sortReverse = !sortReverse">
+                Intensity alerts
+                <span ng-show="sortType == 'numberIntensityChanges' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
+                <span ng-show="sortType == 'numberIntensityChanges' && sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
+            </a>
+        </td>
+        <td class="col-sm-3">
+            Comment
+        </td>
+        <td class="col-sm-1">
+
+        </td>
+    </tr>
+    </thead>
+
+    <tbody>
+    <tr ng-repeat="item in items  | orderBy:sortType:sortReverse">
+        <td>{{ item.date | date: 'd.M.yyyy' }}</td>
+        <td>{{ item.name }}</td>
+        <td>{{ item.seriesSkipped }}</td>
+        <td>{{ item.averageRestDifferenceInSec }}</td>
+        <td>{{ item.numberIntensityChanges }}</td>
+        <td>{{ item.comment }}</td>
+        <td><button class="btn btn-danger center-block" ng-click="goToMeasurement(item)">View
+        </button></td>
+    </tr>
+    </tbody>
+
+</table>

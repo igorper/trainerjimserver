@@ -3,82 +3,65 @@ var dashboard = angular.module('dashboard', [
   'results'
 ]);
 
-var dashboardController = ['$scope', 'Trainee', 'Measurement', '$state', 'toaster', 'resultsUtil', function ($scope, Trainee, Measurement,
-$state, toaster, resultsUtil) {
-  $scope.users = [];
-
-  $scope.state = $state;
-
-  Trainee.query(function (trainees) {
-    $scope.users = trainees;
-  }, function () {
-    toaster.pop("error", "Trainees listing", "Could get the list of trainees. Try logging in again.");
-  });
-
-  $scope.getCurrentUserId = function(){
-    return parseInt($state.params.id);
-  }
-
-  $scope.onAllUsersSelected = function(){
-    $state.go('main.dashboard.all');
-  }
-
-  $scope.onUserSelected = function (user) {
-    $state.go('main.dashboard.user', {id: user.id}).then(function(){
-      $scope.refreshUserWorkouts();
-    });
-  };
-
-  $scope.items  = [];
-
-  $scope.sortType = "date";
-  $scope.sortReverse = false;
-
-  $scope.refreshUserWorkouts = function(){
-    // TODO: swap hardcoded -1 with all users
-    Measurement.query({userId: $state.params == undefined ? -1 : $state.params.id}, function (measurements) {
-      for(var i=0; i < measurements.length; i++){
-        Measurement.get({id: measurements[i].id}, function (measurement) {
-          $scope.items.push(resultsUtil.calculateResultsOverview(measurement));
-        }, function () {
-          toaster.pop("error", "Fetch measurement error", "Unable to fetch the measurement");
-        });
-      }
-    }, function () {
-      console.error("Could not fetch results.");
-    });
-  }
-
-  $scope.goToMeasurement = function(item){
-    $state.go('main.results', {trainee: $state.params.id, id: item.id});
-  }
-
-  $scope.refreshUserWorkouts();
-
-}]
-
-
 admin.config(['$stateProvider', function ($stateProvider) {
     $stateProvider
       .state('main.dashboard', {
         url: '/dashboard',
         abstract: true,
         templateUrl: "<%= asset_path('dashboard/dashboard.html') %>",
-        controller: dashboardController
-      });
+        controller: ['$scope', 'Trainee', '$state', 'toaster', function ($scope, Trainee, $state, toaster) {
+          $scope.users = [];
 
-    $stateProvider
-    .state('main.dashboard.all', {
-      url: '',
-      templateUrl: "<%= asset_path('dashboard/dashboard.html') %>",
-      controller: dashboardController
-    });
+          $scope.state = $state;
+
+          Trainee.query(function (trainees) {
+            $scope.users = trainees;
+          }, function () {
+            toaster.pop("error", "Trainees listing", "Could get the list of trainees. Try logging in again.");
+          });
+
+          $scope.getCurrentUserId = function(){
+            return $state.params.id == "" ? null : parseInt($state.params.id);
+          }
+
+          $scope.onUserSelected = function (user) {
+            $state.go('main.dashboard.user', {id: user === undefined ? '' : user.id});
+          };
+        }]
+      });
 
   $stateProvider
     .state('main.dashboard.user', {
       url: '/:id',
-      templateUrl: "<%= asset_path('dashboard/dashboard.html') %>",
-      controller: dashboardController
+      templateUrl: "<%= asset_path('dashboard/dashboard-user.html') %>",
+      controller: ['$scope', 'Measurement', '$state', 'toaster', 'resultsUtil', function ($scope, Measurement,
+                                                                                          $state, toaster, resultsUtil) {
+        $scope.items  = [];
+
+        $scope.sortType = "date";
+        $scope.sortReverse = false;
+
+        $scope.refreshUserWorkouts = function(){
+          // TODO: swap hardcoded -1 with all users
+          Measurement.query({userId: $state.params == undefined ? -1 : $state.params.id}, function (measurements) {
+            for(var i=0; i < measurements.length; i++){
+              Measurement.get({id: measurements[i].id}, function (measurement) {
+                $scope.items.push(resultsUtil.calculateResultsOverview(measurement));
+              }, function () {
+                toaster.pop("error", "Fetch measurement error", "Unable to fetch the measurement");
+              });
+            }
+          }, function () {
+            console.error("Could not fetch results.");
+          });
+        }
+
+        $scope.goToMeasurement = function(item){
+          $state.go('main.results', {trainee: $state.params.id, id: item.id});
+        }
+
+        $scope.refreshUserWorkouts();
+      }]
     });
   }])
 ;

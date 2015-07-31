@@ -1,11 +1,10 @@
 <div class="container-fluid dashboard">
-    {{test}}
   <div class="row">
     <div class="col-sm-2">
       <div class="workouts-list">
           <ul class="nav nav-tabs nav-stacked">
-              <li ng-class="{highlighted: state.current.name === 'main.dashboard.all'}">
-                  <a href="" ng-click="onAllUsersSelected()">
+              <li ng-class="{highlighted: getCurrentUserId() === null}">
+                  <a href="" ng-click="onUserSelected()">
                       <div spin-until="workouts" class="content">
                           All
                       </div>
@@ -23,68 +22,7 @@
     </div>
     <div class="col-sm-10">
       <div class="container-fluid jim-box">
-          <table class="table table-bordered table-striped table-responsive">
-
-              <thead>
-              <tr>
-                  <td class="col-sm-1">
-                      <a href="" ng-click="sortType = 'date'; sortReverse = !sortReverse">
-                          Date
-                          <span ng-show="sortType == 'date' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
-                          <span ng-show="sortType == 'date' && sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-                      </a>
-                  </td>
-                  <td class="col-sm-2">
-                      <a href="" ng-click="sortType = 'name'; sortReverse = !sortReverse">
-                          Name
-                          <span ng-show="sortType == 'name' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
-                          <span ng-show="sortType == 'name' && sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-                      </a>
-                  </td>
-                  <td class="col-sm-1">
-                      <a href="" ng-click="sortType = 'seriesSkipped'; sortReverse = !sortReverse">
-                          Series skipped
-                          <span ng-show="sortType == 'seriesSkipped' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
-                          <span ng-show="sortType == 'seriesSkipped' && sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-                      </a>
-                  </td>
-                  <td class="col-sm-1">
-                      <a href="" ng-click="sortType = 'averageRestDifferenceInSec'; sortReverse = !sortReverse">
-                          Rest change
-                          <span ng-show="sortType == 'averageRestDifferenceInSec' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
-                          <span ng-show="sortType == 'averageRestDifferenceInSec' && sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-                      </a>
-                  </td>
-                  <td class="col-sm-1">
-                      <a href="" ng-click="sortType = 'numberIntensityChanges'; sortReverse = !sortReverse">
-                          Intensity alerts
-                          <span ng-show="sortType == 'numberIntensityChanges' && !sortReverse" class="glyphicon glyphicon-sort-by-attributes"></span>
-                          <span ng-show="sortType == 'numberIntensityChanges' && sortReverse" class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-                      </a>
-                  </td>
-                  <td class="col-sm-3">
-                      Comment
-                  </td>
-                  <td class="col-sm-1">
-
-                  </td>
-              </tr>
-              </thead>
-
-              <tbody>
-              <tr ng-repeat="item in items  | orderBy:sortType:sortReverse">
-                  <td>{{ item.date | date: 'd.M.yyyy' }}</td>
-                  <td>{{ item.name }}</td>
-                  <td>{{ item.seriesSkipped }}</td>
-                  <td>{{ item.averageRestDifferenceInSec }}</td>
-                  <td>{{ item.numberIntensityChanges }}</td>
-                  <td>{{ item.comment }}</td>
-                  <td><button class="btn btn-danger center-block" ng-click="goToMeasurement(item)">View
-                  </button></td>
-              </tr>
-              </tbody>
-
-          </table>
+          <ui-view></ui-view>
       </div>
     </div>
   </div>
