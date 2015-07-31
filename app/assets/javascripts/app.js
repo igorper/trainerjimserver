@@ -28,7 +28,6 @@ var trainerjimApp = angular.module('app', [
   'trainees',
   'results',
   'shared',
-  'admin',
   'http-auth-interceptor',
   'auth.loginDialog',
   'userProfile',

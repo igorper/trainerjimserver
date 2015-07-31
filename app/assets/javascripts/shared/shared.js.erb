@@ -33,13 +33,6 @@ shared.controller('HeaderCtrl', ['$scope', '$state', 'Auth', 'User', 'isLinkActi
     {
       name: "Results",
       link: "main.results"
-    },
-    {
-      name: "Administration",
-      link: "main.admin.exerciseTypes",
-      isShown: function () {
-        return $scope.userDetails && ($scope.userDetails.is_admin || $scope.userDetails.is_trainer);
-      }
     }
   ];
 
