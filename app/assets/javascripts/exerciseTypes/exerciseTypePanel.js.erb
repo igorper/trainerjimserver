@@ -37,7 +37,6 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
       }
 
       function selectExerciseGroups(exerciseGroups) {
-        console.log("Selecting exercise groups:", exerciseGroups);
         $scope.selection.group = toRadioGroupSelection($scope.exerciseGroups, exerciseGroups, "group-");
         $scope.selection.machineGroup = toRadioGroupSelection($scope.machineGroups, exerciseGroups, "machineGroup-");
       }
