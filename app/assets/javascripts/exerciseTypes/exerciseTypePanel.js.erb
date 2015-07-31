@@ -6,6 +6,7 @@ var exerciseTypePanel = angular.module('exerciseTypes.exerciseTypePanel', [
   'ui.bootstrap',
   'exerciseGroups.exerciseGroup',
   'exerciseTypes.exerciseTypeEditor',
+  'exerciseTypes.exerciseTypeDetails',
   'toaster'
 ]);
 
@@ -106,6 +107,8 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
           $scope.isChoosingExerciseTypes = true;
           refreshExerciseTypesList();
           unselectExerciseGroups();
+        }, function () {
+          toaster.pop("error", "Exercise type not saved", "An error occurred while uploading the exercise type.");
         });
       };
 

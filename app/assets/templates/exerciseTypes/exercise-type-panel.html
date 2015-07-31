@@ -62,6 +62,10 @@
       <h3>{{editExerciseTypeTitle()}}</h3>
       <exercise-type-editor exercise-type="editedExerciseType"></exercise-type-editor>
     </div>
+    <div ng-if="editedExerciseType.id != null" class="col-sm-12">
+      <exercise-type-details exercise-type-id="editedExerciseType.id"
+                             user-id="editorUserId"></exercise-type-details>
+    </div>
     <div class="col-sm-12 pull-right">
       <fieldset disable-until="newExerciseTypeSaving">
         <button class="btn btn-danger pull-right" ng-click="onNewExerciseCancelClicked()">

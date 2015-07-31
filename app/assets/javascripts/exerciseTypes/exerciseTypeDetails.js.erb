@@ -1,4 +1,4 @@
-var exerciseTypeDetailsModule = angular.module("exerciseTypes.exerciseTypeDetails", [
+var exerciseTypeDetailsModule = angular.module('exerciseTypes.exerciseTypeDetails', [
   'ui.bootstrap',
   'exerciseTypes.exerciseType',
   'users.exerciseTypes.photos',
@@ -49,7 +49,7 @@ exerciseTypeDetailsModule.directive('exerciseTypeDetails', function () {
         TakePhotoDialog().result.then(uploadExerciseTypePhoto);
       };
     }],
-    templateUrl: "<%= asset_path('exerciseTypes/exercise-type-details.html') %>"
+    templateUrl: '<%= asset_path('exerciseTypes/exercise-type-details.html') %>'
   };
 });
 
