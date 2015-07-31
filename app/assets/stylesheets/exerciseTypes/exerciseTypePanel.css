@@ -14,7 +14,6 @@
   display: inline-block;
   width: 137px;
   border: 1px solid #ccc;
-  border-radius: 3px;
   overflow: hidden;
   margin: 2px;
   cursor: pointer;
@@ -32,6 +31,11 @@
   text-align: center;
   margin-left: 102px;
   margin-top: -143px;
+  border-radius: 0;
+}
+
+.exercise-type-panel .exercise-type-item .edit-btn.delete-btn {
+  margin-left: -5px;
 }
 
 .exercise-type-panel .exercise-type-item .edit-btn > div {

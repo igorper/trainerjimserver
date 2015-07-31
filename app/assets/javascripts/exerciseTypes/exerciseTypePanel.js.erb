@@ -5,7 +5,8 @@ var exerciseTypePanel = angular.module('exerciseTypes.exerciseTypePanel', [
   'util.promiseUi',
   'ui.bootstrap',
   'exerciseGroups.exerciseGroup',
-  'exerciseTypes.exerciseTypeEditor'
+  'exerciseTypes.exerciseTypeEditor',
+  'toaster'
 ]);
 
 exerciseTypePanel.directive('exerciseTypePanel', [function () {
@@ -13,7 +14,7 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
     restrict: 'E',
     scope: {onExerciseTypeClicked: '&', editorUserId: '=', isAdministrator: '='},
     templateUrl: '<%= asset_path('exerciseTypes/exercise-type-panel.html') %>',
-    controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'ExerciseGroup', function ($scope, ExerciseType, UserExerciseTypePhotos, ExerciseGroup) {
+    controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'ExerciseGroup', 'toaster', function ($scope, ExerciseType, UserExerciseTypePhotos, ExerciseGroup, toaster) {
       $scope.NO_GROUP = 'noGroup';
       $scope.selection = {};
       $scope.filter = {};
@@ -48,6 +49,10 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
         var indexOfDash = exerciseGroup.indexOf('-');
         return indexOfDash < 0 ? null : parseInt(exerciseGroup.substring(indexOfDash + 1));
       }
+
+      $scope.canEditExerciseType = function (exerciseType) {
+        return exerciseType.owner_id == $scope.editorUserId || $scope.isAdministrator;
+      };
 
       $scope.getSelectedGroupIds = function () {
         return _.filter(
@@ -112,6 +117,12 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
 
       $scope.onExerciseTypeEditClicked = function (exerciseType) {
         editExerciseType(new ExerciseType(exerciseType));
+      };
+
+      $scope.onExerciseTypeDeleteClicked = function (exerciseType) {
+        ExerciseType.delete({id: exerciseType.id}, refreshExerciseTypesList, function () {
+          toaster.pop("error", "Exercise type not deleted", "Could not delete the exercise type. The exercise type is in use.");
+        });
       };
 
       $scope.editExerciseTypeTitle = function () {
