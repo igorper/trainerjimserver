@@ -1,4 +1,3 @@
-
 # This file should contain all the record creation needed to seed the database with its default values.
 # The data can then be loaded with the rake db:seed (or created alongside the db with db:setup).
 #
@@ -6,6 +5,19 @@
 #
 #   cities = City.create([{ name: 'Chicago' }, { name: 'Copenhagen' }])
 #   Mayor.create(name: 'Emanuel', city: cities.first)
+
+require 'csv'
+
+def is_none(ex)
+  ex.nil? || ex.downcase == 'none'
+end
+
+exercise_types_data = CSV.read(Rails.root.join('data', 'exercise_types.csv'))
+body_groups = exercise_types_data.map { |row| row[1] }.uniq.reject(&method(:is_none)).map { |group| ExerciseGroup.create(name: group) }
+machine_groups = exercise_types_data.map { |row| row[2] }.uniq.reject(&method(:is_none)).map { |group| ExerciseGroup.create(name: group, is_machine_group: true) }
+exercise_groups = (body_groups + machine_groups).map{|grp| [grp.name, grp]}.to_h
+exercise_types = exercise_types_data.map { |row| ExerciseType.create(name: row[0], exercise_groups: [row[1], row[2]].map {|exercise_group| exercise_groups[exercise_group] }.compact) }
+
 
 trainer = User.create(email: 'jim@example.com', password: 'trainerjim', full_name: 'Jim the Trainer', is_trainer: true)
 matej = User.create(email: 'matej.urbas@gmail.com', password: 'trainerjim', full_name: 'Matej', is_administrator: true, trainer: trainer)
