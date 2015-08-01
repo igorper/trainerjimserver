@@ -1,24 +1,11 @@
-# == Schema Information
-#
-# Table name: exercises
-#
-#  id               :integer          not null, primary key
-#  training_id      :integer          not null
-#  exercise_type_id :integer          not null
-#  order            :integer
-#  created_at       :datetime
-#  updated_at       :datetime
-#  machine_setting  :string(255)
-#
-
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-ex1_templ1:
-  training: template1
+exercise1:
+  training: training1
   exercise_type: bench
   order: 100
 
-ex2_templ1:
-  training: template1
+exercise2:
+  training: training2
   exercise_type: curl
   order: 200

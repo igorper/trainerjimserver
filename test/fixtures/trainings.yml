@@ -12,20 +12,20 @@
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
 
-template1:
+training1:
   name: "Super training"
 
-template2:
+training2:
   name: "Another global training"
 
-matej1:
+matejs_training1:
   name: "Matej's training"
   trainee: matej
 
-matej2:
+matejs_training2:
   name: "Matej's other training"
   trainee: matej
 
-igor1:
+igors_training:
   name: "Igor's training"
   trainee: igor

@@ -178,3 +178,18 @@ Use `sudo -u postgres <command>` to do this as root via ssh on production server
 
         screen -ls
         screen -r <pid.tty.host>
+
+# Symptoms and solutions
+
+## Test fixtures throw ForeignKeyViolation
+
+When running tests, I get the following exception:
+
+```
+UserTest#test_admin_trainer_roles:
+ActiveRecord::InvalidForeignKey: PG::ForeignKeyViolation: ERROR:  insert or update on table "exercises" violates foreign key constraint "fk_rails_debbcb13c2"
+DETAIL:  Key (training_id)=(1041130383) is not present in table "trainings".
+: INSERT INTO "exercises" ("order", "created_at", "updated_at", "id", "training_id", "exercise_type_id") VALUES (100, '2015-08-01 10:00:43', '2015-08-01 10:00:43', 393439535, 1041130383, 651748134)
+```
+
+__Solution__: Look at [this solution](http://stackoverflow.com/questions/28046415/loading-rails-fixtures-in-a-specific-order-when-testing).

@@ -52,3 +52,8 @@ notrainer:
   full_name: No Trainer
   email: no@trainer.com
   encrypted_password: $2a$10$uSotUNLftI3zXYSSRcgrxe2f5eCsUyxH7DgDN13fDuS0Cwe2osj2G
+
+alice:
+  full_name: Alice
+  email: alice@example.com
+  encrypted_password: $2a$10$1rPfWqq0/p6jU2eQb1/w.ez8i02h5KiQH83jh9Cd0ij5UDdm2o7oK
