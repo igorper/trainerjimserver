@@ -43,19 +43,28 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
 
         $scope.dateFilter = "all";
 
+        function processMeasurements(measurements){
+          for(var i=0; i < measurements.length; i++){
+            Measurement.get({id: measurements[i].id}, function (measurement) {
+              $scope.items.push(resultsUtil.calculateResultsOverview(measurement));
+            }, function () {
+              toaster.pop("error", "Fetch measurement error", "Unable to fetch the measurement");
+            });
+          }
+        };
+
         $scope.refreshUserWorkouts = function(){
           // TODO: swap hardcoded -1 with all users
-          Measurement.query({userId: $state.params == undefined ? -1 : $state.params.id}, function (measurements) {
-            for(var i=0; i < measurements.length; i++){
-              Measurement.get({id: measurements[i].id}, function (measurement) {
-                $scope.items.push(resultsUtil.calculateResultsOverview(measurement));
-              }, function () {
-                toaster.pop("error", "Fetch measurement error", "Unable to fetch the measurement");
-              });
-            }
-          }, function () {
-            console.error("Could not fetch results.");
-          });
+
+          if($state.params.id === ""){
+            Measurement.all(processMeasurements, function () {
+              console.error("Could not fetch results.");
+            });
+          } else {
+            Measurement.query({userId: $state.params.id}, processMeasurements, function () {
+              console.error("Could not fetch results.");
+            });
+          }
         }
 
         $scope.goToMeasurement = function(item){
