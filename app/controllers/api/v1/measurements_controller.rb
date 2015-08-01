@@ -2,6 +2,15 @@ class Api::V1::MeasurementsController < ActionController::Base
 
   include AuthenticationHelper
 
+  def index
+    when_signed_in do
+      @measurements = Measurement
+                          .joins(:trainee, :training, trainee: [:trainer])
+                          .includes(:training)
+                          .where('trainers_users.id = :user_id OR measurements.trainee_id = :user_id', user_id: current_user.id)
+    end
+  end
+
   def user_measurements
     when_trainer_of(params[:user_id]) { |trainee|
       @measurements = Measurement.includes(:training).where(trainee_id: trainee.id)

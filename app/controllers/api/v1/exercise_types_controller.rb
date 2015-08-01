@@ -4,11 +4,9 @@ class Api::V1::ExerciseTypesController < ActionController::Base
   include PaginationHelper
   include ExerciseTypeHelper
 
-  EXERCISE_TYPES_PER_PAGE = 25
-
   def index
     when_signed_in do
-      @exercise_types = paginate(current_user_exercise_types.includes(:exercise_groups), EXERCISE_TYPES_PER_PAGE)
+      @exercise_types = current_user_exercise_types.includes(:exercise_groups)
     end
   end
 

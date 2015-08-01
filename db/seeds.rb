@@ -287,6 +287,13 @@ measurement.series_executions.create(
     rating: 1
 )
 
+Measurement.create(trainee: trainer, training: training1, start_time: DateTime.now.ago(121300), end_time: DateTime.now.ago(121000), rating: 2, comment: 'This is a comment from myself.')
+Measurement.create(trainee: kristjan, training: training1, start_time: DateTime.now.ago(121300), end_time: DateTime.now.ago(121000), rating: 2, comment: 'This is a comment from myself.')
+Measurement.create(trainee: marusa, training: training1, start_time: DateTime.now.ago(121300), end_time: DateTime.now.ago(121000), rating: 2, comment: 'This is a comment from myself.')
+Measurement.create(trainee: blaz, training: training1, start_time: DateTime.now.ago(121300), end_time: DateTime.now.ago(121000), rating: 2, comment: 'This is a comment from myself.')
+Measurement.create(trainee: matej, training: training1, start_time: DateTime.now.ago(121300), end_time: DateTime.now.ago(121000), rating: 2, comment: 'This is a comment from myself.')
+Measurement.create(trainee: damjan, training: training1, start_time: DateTime.now.ago(121300), end_time: DateTime.now.ago(121000), rating: 2, comment: 'This is a comment from myself.')
+
 ####################### AUTOMATED TESTING SEEDS
 # This seeds are only for automated tests purposes and shouldn't be changed
 autotest_user = User.create(:email => 'auto@test.user', :password => 'valid_pass', :full_name => 'AutoTest')
