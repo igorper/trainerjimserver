@@ -18,61 +18,16 @@ results.config(['$stateProvider', '$urlRouterProvider', function ($stateProvider
 }]);
 
 results.controller("ResultsCtrl", ['$scope', '$http', 'Measurement', '$compile', 'uiCalendarConfig', '$stateParams', '$state',
-  'toaster', 'Trainee', 'User',
-  function ($scope, $http, Measurement, $compile, uiCalendarConfig, $stateParams, $state, toaster, Trainee, User) {
-    $scope.smileLookup = {0: "sweat", 1: "happy", 2: "bored"};
-    var TOO_HARD_RATING = 0;
-    var TOO_EASY_RATING = 2;
-
-    /**
-     * Create a lookup table for planned series. Each series can be looked up by it's id, which is also stored
-     * for each series execution. Besides each series data id of the parent exercise is added to retain the information
-     * of the exercise the series belongs to.
-     * @param trainingPlan
-     * @returns {Array}
-     */
-    function getPlannedSeriesLookup(trainingPlan) {
-
-      var performedSeriesIds = _.pluck($scope.selectedTraining.series_executions, 'series_id');
-      var expectedOrder = 1;
-      var lookup = [];
-      for (var i = 0; i < trainingPlan.length; i++) {
-        var exercise = trainingPlan[i];
-        for (var j = 0; j < exercise.series.length; j++) {
-          var series = exercise.series[j];
-          // save expected order for executed series (ignoring not executed series
-          // does not mess the results if a particular series was skipped)
-          if (_.contains(performedSeriesIds, series.id)) {
-            series.expectedOrder = expectedOrder++;
-          }
-          series['exercise_id'] = exercise.exercise_type.id;
-          lookup[series.id] = series;
-        }
-      }
-      return lookup;
-    }
-
+  'toaster', 'Trainee', 'User', 'resultsUtil',
+  function ($scope, $http, Measurement, $compile, uiCalendarConfig, $stateParams, $state, toaster, Trainee, User,
+            resultsUtil) {
     var lookupSeries = null;
 
     $scope.selectedTraining = null;
     $scope.trainingPage = null;
     $scope.calendarSources = [];
 
-    $scope.trainingRatingIcon = null;
-    $scope.durationInMinutes = null;
-    $scope.totalRestInMinutes = null;
-    $scope.totalExercisesInMinutes = null;
-    $scope.numExercisesPlanned = null;
-    $scope.numExercisesPerformed = null;
-    $scope.performedSeries = null;
-    $scope.totalSeries = null;
-    $scope.averageRestDifferenceInSec = null;
-    $scope.numberWeightChanges = null;
-    $scope.averageWeightChanges = null;
-    $scope.numberRepsChanges = null;
-    $scope.averageRepsChanges = null;
-    $scope.numSeriesTooHeavy = null;
-    $scope.numSeriesTooEasy = null;
+    $scope.overview = {};
 
     $scope.user = {};
     $scope.users = [];
@@ -114,9 +69,7 @@ results.controller("ResultsCtrl", ['$scope', '$http', 'Measurement', '$compile',
 
           $scope.trainingPage = "Overview";
 
-          lookupSeries = getPlannedSeriesLookup($scope.selectedTraining.training.exercises);
-
-          $scope.calculateOverview();
+          $scope.overview = resultsUtil.calculateResultsOverview($scope.selectedTraining);
         }, function () {
           toaster.pop("error", "Fetch measurement error", "Unable to fetch the measurement");
         });
@@ -126,63 +79,6 @@ results.controller("ResultsCtrl", ['$scope', '$http', 'Measurement', '$compile',
 
     $scope.onTraineeChanged = function (item, model) {
       $state.go('main.results', {id: undefined, trainee: item == undefined ? null : item.id});
-    };
-
-    $scope.calculateOverview = function () {
-      $scope.trainingRatingIcon = $scope.smileLookup[$scope.selectedTraining.rating] + "-on"
-      $scope.durationInMinutes = (new Date($scope.selectedTraining.end_time) - new Date($scope.selectedTraining.start_time)) / (1000 * 60);
-
-      $scope.numExercisesPlanned = _.unique(_.pluck(_.pluck($scope.selectedTraining.training.exercises, 'exercise_type'), 'id')).length;
-      $scope.performedSeries = $scope.selectedTraining.series_executions.length;
-      $scope.totalSeries = _.flatten(_.pluck($scope.selectedTraining.training.exercises, 'series')).length;
-
-      var performedSeriesExerciseId = [];
-      var restInSeconds = 0, exerciseInSeconds = 0;
-      var restDiff = 0;
-      var cntDiffWeight = 0, sumDiffWeight = 0;
-      var cntDiffReps = 0, sumDiffReps = 0;
-      var cntHeavy = 0, cntEasy = 0;
-      for (var i = 0; i < $scope.selectedTraining.series_executions.length; i++) {
-
-        // encode order into the series execution
-        $scope.selectedTraining.series_executions[i].order = i + 1;
-
-        var se = $scope.selectedTraining.series_executions[i];
-        var parentSeries = lookupSeries[se.series_id];
-        parentSeries.execution = se;
-
-        performedSeriesExerciseId.push(parentSeries.exercise_id);
-
-        // calculate rest and exercise time
-        restInSeconds += $scope.selectedTraining.series_executions[i].rest_time;
-        exerciseInSeconds += $scope.selectedTraining.series_executions[i].duration_seconds;
-
-        // rest difference
-        restDiff += Math.abs(parentSeries.rest_time - se.rest_time);
-
-        // weight difference
-        cntDiffWeight += se.weight - parentSeries.weight == 0 ? 0 : 1;
-        sumDiffWeight += Math.abs(se.weight - parentSeries.weight);
-
-        // reps difference
-        cntDiffReps += se.num_repetitions - parentSeries.repeat_count == 0 ? 0 : 1;
-        sumDiffReps += Math.abs(se.num_repetitions - parentSeries.repeat_count);
-
-        // count too heavy and too easy
-        cntHeavy += se.rating == TOO_HARD_RATING ? 1 : 0;
-        cntEasy += se.rating == TOO_EASY_RATING ? 1 : 0;
-      }
-
-      $scope.numExercisesPerformed = _.unique(performedSeriesExerciseId).length;
-      $scope.totalRestInMinutes = restInSeconds / 60.0;
-      $scope.totalExercisesInMinutes = exerciseInSeconds / 60.0;
-      $scope.averageRestDifferenceInSec = restDiff / $scope.selectedTraining.series_executions.length;
-      $scope.numberWeightChanges = cntDiffWeight;
-      $scope.averageWeightChanges = cntDiffWeight == 0 ? 0 : sumDiffWeight / cntDiffWeight;
-      $scope.numberRepsChanges = cntDiffReps;
-      $scope.averageRepsChanges = cntDiffReps == 0 ? 0 : sumDiffReps / cntDiffReps;
-      $scope.numSeriesTooHeavy = cntHeavy;
-      $scope.numSeriesTooEasy = cntEasy;
     };
 
     $scope.alertOnEventClick = function (date, jsEvent, view) {
@@ -201,7 +97,7 @@ results.controller("ResultsCtrl", ['$scope', '$http', 'Measurement', '$compile',
       //$compile(element)($scope);
 
       var smileyStatus = $scope.selectedTraining && $scope.selectedTraining.id === event.training.id ? "on" : "off";
-      element.find(".fc-content").addClass($scope.smileLookup[event.training.rating] + "-" + smileyStatus);
+      element.find(".fc-content").addClass(resultsUtil.constants.smileLookup[event.training.rating] + "-" + smileyStatus);
       element.find(".fc-content").empty();
 
     };
@@ -329,6 +225,116 @@ results.directive('ghVisualization', [function () {
         refreshBar();
       });
 
+    }
+  }
+}]);
+
+results.factory('resultsUtil', [function () {
+  var smileLookup = {0: "sweat", 1: "happy", 2: "bored"};
+  var TOO_HARD_RATING = 0;
+  var TOO_EASY_RATING = 2;
+
+  return {
+    constants: {
+      smileLookup : smileLookup,
+      tooHardRating : TOO_HARD_RATING,
+      tooEasyRating: TOO_EASY_RATING
+    },
+    calculateResultsOverview: function (selectedTraining) {
+
+      /**
+       * Create a lookup table for planned series. Each series can be looked up by it's id, which is also stored
+       * for each series execution. Besides each series data id of the parent exercise is added to retain the information
+       * of the exercise the series belongs to.
+       * @param trainingPlan
+       * @returns {Array}
+       */
+      function getPlannedSeriesLookup(selectedTraining) {
+
+        var performedSeriesIds = _.pluck(selectedTraining.series_executions, 'series_id');
+        var expectedOrder = 1;
+        var lookup = [];
+        for (var i = 0; i < selectedTraining.training.exercises.length; i++) {
+          var exercise = selectedTraining.training.exercises[i];
+          for (var j = 0; j < exercise.series.length; j++) {
+            var series = exercise.series[j];
+            // save expected order for executed series (ignoring not executed series
+            // does not mess the results if a particular series was skipped)
+            if (_.contains(performedSeriesIds, series.id)) {
+              series.expectedOrder = expectedOrder++;
+            }
+            series['exercise_id'] = exercise.exercise_type.id;
+            lookup[series.id] = series;
+          }
+        }
+        return lookup;
+      }
+
+      var lookupSeries = getPlannedSeriesLookup(selectedTraining);
+
+      var overview = {};
+      overview.trainingRatingIcon = smileLookup[selectedTraining.rating] + "-on"
+      overview.durationInMinutes = (new Date(selectedTraining.end_time) - new Date(selectedTraining.start_time)) / (1000 * 60);
+
+      overview.numExercisesPlanned = _.unique(_.pluck(_.pluck(selectedTraining.training.exercises, 'exercise_type'), 'id')).length;
+      overview.performedSeries = selectedTraining.series_executions.length;
+      overview.totalSeries = _.flatten(_.pluck(selectedTraining.training.exercises, 'series')).length;
+
+      var performedSeriesExerciseId = [];
+      var restInSeconds = 0, exerciseInSeconds = 0;
+      var restDiff = 0;
+      var cntDiffWeight = 0, sumDiffWeight = 0;
+      var cntDiffReps = 0, sumDiffReps = 0;
+      var cntHeavy = 0, cntEasy = 0;
+      for (var i = 0; i < selectedTraining.series_executions.length; i++) {
+
+        // encode order into the series execution
+        selectedTraining.series_executions[i].order = i + 1;
+
+        var se = selectedTraining.series_executions[i];
+        var parentSeries = lookupSeries[se.series_id];
+        parentSeries.execution = se;
+
+        performedSeriesExerciseId.push(parentSeries.exercise_id);
+
+        // calculate rest and exercise time
+        restInSeconds += selectedTraining.series_executions[i].rest_time;
+        exerciseInSeconds += selectedTraining.series_executions[i].duration_seconds;
+
+        // rest difference
+        restDiff += Math.abs(parentSeries.rest_time - se.rest_time);
+
+        // weight difference
+        cntDiffWeight += se.weight - parentSeries.weight == 0 ? 0 : 1;
+        sumDiffWeight += Math.abs(se.weight - parentSeries.weight);
+
+        // reps difference
+        cntDiffReps += se.num_repetitions - parentSeries.repeat_count == 0 ? 0 : 1;
+        sumDiffReps += Math.abs(se.num_repetitions - parentSeries.repeat_count);
+
+        // count too heavy and too easy
+        cntHeavy += se.rating == TOO_HARD_RATING ? 1 : 0;
+        cntEasy += se.rating == TOO_EASY_RATING ? 1 : 0;
+      }
+
+      overview.numExercisesPerformed = _.unique(performedSeriesExerciseId).length;
+      overview.totalRestInMinutes = restInSeconds / 60.0;
+      overview.totalExercisesInMinutes = exerciseInSeconds / 60.0;
+      overview.averageRestDifferenceInSec = restDiff / selectedTraining.series_executions.length;
+      overview.numberWeightChanges = cntDiffWeight;
+      overview.averageWeightChanges = cntDiffWeight == 0 ? 0 : sumDiffWeight / cntDiffWeight;
+      overview.numberRepsChanges = cntDiffReps;
+      overview.averageRepsChanges = cntDiffReps == 0 ? 0 : sumDiffReps / cntDiffReps;
+      overview.numSeriesTooHeavy = cntHeavy;
+      overview.numSeriesTooEasy = cntEasy;
+      overview.id = selectedTraining.id;
+      overview.name = selectedTraining.training.name;
+      overview.date = selectedTraining.start_time;
+      overview.comment = selectedTraining.comment;
+      overview.seriesSkipped = overview.totalSeries - overview.performedSeries;
+      overview.numberIntensityChanges = overview.numSeriesTooHeavy + overview.numSeriesTooEasy;
+
+      return overview;
     }
   }
 }]);

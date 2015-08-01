@@ -19,7 +19,11 @@ shared.directive('header', function () {
 shared.controller('HeaderCtrl', ['$scope', '$state', 'Auth', 'User', 'isLinkActive', 'CreateTraineeDialog', 'CreateUserDialog', function ($scope, $state, Auth, User, isLinkActive, CreateTraineeDialog, CreateUserDialog) {
   $scope.topNavigation = [
     {
-      name: "Workouts",
+      name: "Dashboard",
+      link: "main.dashboard.user"
+    },
+    {
+      name: "Templates",
       link: "main.workouts.workout"
     },
     {

@@ -9,6 +9,11 @@ measurement.factory('Measurement', ["$resource", function ($resource) {
         isArray: true,
         params: {userId: '@user_id'},
         url: '/api/v1/users/:userId/measurements/.json'
+      },
+      all: {
+        method: 'GET',
+        isArray: true,
+        url: '/api/v1/measurements.json'
       }
     }
   );

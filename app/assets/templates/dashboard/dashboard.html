@@ -1,0 +1,29 @@
+<div class="container-fluid dashboard">
+  <div class="row">
+    <div class="col-sm-2">
+      <div class="workouts-list">
+          <ul class="nav nav-tabs nav-stacked">
+              <li ng-class="{highlighted: getCurrentUserId() === null}">
+                  <a href="" ng-click="onUserSelected()">
+                      <div spin-until="workouts" class="content">
+                          All
+                      </div>
+                  </a>
+              </li>
+              <li ng-repeat="user in users" ng-class="{highlighted: user.id === getCurrentUserId()}">
+                  <a href="" ng-click="onUserSelected(user)">
+                      <div class="content">
+                          {{user.full_name}}
+                      </div>
+                  </a>
+              </li>
+          </ul>
+      </div>
+    </div>
+    <div class="col-sm-10">
+      <div class="container-fluid jim-box">
+          <ui-view></ui-view>
+      </div>
+    </div>
+  </div>
+</div>

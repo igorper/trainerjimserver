@@ -1,0 +1,113 @@
+var dashboard = angular.module('dashboard', [
+  'ui.router',
+  'results'
+]);
+
+dashboard.config(['$stateProvider', function ($stateProvider) {
+    $stateProvider
+      .state('main.dashboard', {
+        url: '/dashboard',
+        abstract: true,
+        templateUrl: "<%= asset_path('dashboard/dashboard.html') %>",
+        controller: ['$scope', 'Trainee', '$state', 'toaster', function ($scope, Trainee, $state, toaster) {
+          $scope.users = [];
+
+          $scope.state = $state;
+
+          Trainee.query(function (trainees) {
+            $scope.users = trainees;
+          }, function () {
+            toaster.pop("error", "Trainees listing", "Could get the list of trainees. Try logging in again.");
+          });
+
+          $scope.getCurrentUserId = function(){
+            return $state.params.id == "" ? null : parseInt($state.params.id);
+          }
+
+          $scope.onUserSelected = function (user) {
+            $state.go('main.dashboard.user', {id: user === undefined ? '' : user.id});
+          };
+        }]
+      });
+
+  $stateProvider
+    .state('main.dashboard.user', {
+      url: '/:id',
+      templateUrl: "<%= asset_path('dashboard/dashboard-user.html') %>",
+      controller: ['$scope', 'Measurement', '$state', 'toaster', 'resultsUtil', function ($scope, Measurement,
+                                                                                          $state, toaster, resultsUtil) {
+        $scope.items  = [];
+
+        $scope.sortType = "date";
+        $scope.sortReverse = false;
+
+        $scope.dateFilter = "all";
+
+        function processMeasurements(measurements){
+          for(var i=0; i < measurements.length; i++){
+            Measurement.get({id: measurements[i].id}, function (measurement) {
+              $scope.items.push(resultsUtil.calculateResultsOverview(measurement));
+            }, function () {
+              toaster.pop("error", "Fetch measurement error", "Unable to fetch the measurement");
+            });
+          }
+        };
+
+        $scope.refreshUserWorkouts = function(){
+          // TODO: swap hardcoded -1 with all users
+
+          if($state.params.id === ""){
+            Measurement.all(processMeasurements, function () {
+              console.error("Could not fetch results.");
+            });
+          } else {
+            Measurement.query({userId: $state.params.id}, processMeasurements, function () {
+              console.error("Could not fetch results.");
+            });
+          }
+        }
+
+        $scope.goToMeasurement = function(item){
+          $state.go('main.results', {trainee: $state.params.id, id: item.id});
+        }
+
+        $scope.refreshUserWorkouts();
+      }]
+    });
+  }]);
+
+
+dashboard.filter("dateRangeFilter", function() {
+  return function(items, dateFilter) {
+    var days = -1;
+    switch(dateFilter) {
+      case 'day':
+        days = 1;
+        break;
+      case 'week':
+        days = 7;
+        break;
+      case 'month':
+        days = 30;
+        break;
+      case 'all':
+      default:
+        // return unfiltered items
+        return items;
+    }
+
+
+    var from = new Date();
+    from.setDate(from.getDate() - days);
+    var to = new Date();
+
+    var result = [];
+    for (var i=0; i<items.length; i++){
+     var d = new Date(items[i].date);
+     if (d > from && d < to)  {
+      result.push(items[i]);
+     }
+      }
+     return result;
+  };
+});
