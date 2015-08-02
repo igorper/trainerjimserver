@@ -57,11 +57,11 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
           // TODO: swap hardcoded -1 with all users
 
           if($state.params.id === ""){
-            Measurement.all(processMeasurements, function () {
+            Measurement.query(processMeasurements, function () {
               console.error("Could not fetch results.");
             });
           } else {
-            Measurement.query({userId: $state.params.id}, processMeasurements, function () {
+            Measurement.queryForUser({userId: $state.params.id}, processMeasurements, function () {
               console.error("Could not fetch results.");
             });
           }

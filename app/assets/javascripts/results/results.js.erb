@@ -33,7 +33,7 @@ results.controller("ResultsCtrl", ['$scope', '$http', 'Measurement', '$compile',
     $scope.users = [];
 
     $scope.userDetails = User.current(function (userDetails) {
-      $scope.results = Measurement.query({userId: $stateParams.trainee == undefined ? userDetails.id : $stateParams.trainee}, function (measurements) {
+      $scope.results = Measurement.queryForUser({userId: $stateParams.trainee == undefined ? userDetails.id : $stateParams.trainee}, function (measurements) {
         for (var i = 0; i < measurements.length; i++) {
           var measurement = measurements[i];
           $scope.calendarSources.push([{

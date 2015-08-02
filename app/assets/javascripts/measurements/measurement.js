@@ -4,13 +4,13 @@ measurement.factory('Measurement', ["$resource", function ($resource) {
   return $resource("/api/v1/measurements/:id.json",
     {id: '@id'},
     {
-      query: {
+      queryForUser: {
         method: 'GET',
         isArray: true,
         params: {userId: '@user_id'},
         url: '/api/v1/users/:userId/measurements/.json'
       },
-      all: {
+      query: {
         method: 'GET',
         isArray: true,
         url: '/api/v1/measurements.json'
