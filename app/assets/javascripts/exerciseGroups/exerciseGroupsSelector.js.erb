@@ -1,31 +1,20 @@
 var exerciseGroupsSelector = angular.module('exerciseGroups.exerciseGroupsSelector', [
   'util.promiseUi',
   'ui.bootstrap',
-  'exerciseGroups.exerciseGroup',
   'toaster'
 ]);
 
 exerciseGroupsSelector.directive('exerciseGroupsSelector', [function () {
   return {
     restrict: 'E',
-    scope: {selectedExerciseGroupIds: '=', exerciseGroups: '=?'},
+    scope: {selectedExerciseGroupIds: '=', exerciseGroups: '='},
     templateUrl: '<%= asset_path('exerciseGroups/exercise-groups-selector.html') %>',
-    controller: ['$scope', 'ExerciseGroup', function ($scope, ExerciseGroup) {
+    controller: ['$scope', function ($scope) {
       $scope.NO_GROUP = 'noGroup';
       $scope.selection = {};
-
+      $scope.exerciseGroups.$promise.then(initialiseExerciseGroups);
       $scope.$watch('selectedExerciseGroupIds', refreshRadioButtonsSelection);
       $scope.$watchCollection('[selection.group, selection.machineGroup]', refreshSelectedGroupIds);
-
-      if ($scope.exerciseGroups == undefined) {
-        $scope.exerciseGroups = ExerciseGroup.query();
-      }
-
-      if ($scope.exerciseGroups.$promise) {
-        $scope.exerciseGroups.$promise.then(initialiseExerciseGroups);
-      } else {
-        initialiseExerciseGroups(initialiseExerciseGroups);
-      }
 
       function refreshRadioButtonsSelection(exerciseGroupIds) {
         $scope.selection.group = toRadioGroupSelection($scope.exerciseGroups, exerciseGroupIds, "group-");
@@ -37,7 +26,7 @@ exerciseGroupsSelector.directive('exerciseGroupsSelector', [function () {
       }
 
       function initialiseExerciseGroups(exerciseGroups) {
-        $scope.exerciseGroups = _.filter(exerciseGroups, function (exerciseGroup) {
+        $scope.bodyGroups = _.filter(exerciseGroups, function (exerciseGroup) {
           return !exerciseGroup.is_machine_group;
         });
         $scope.machineGroups = _.filter(exerciseGroups, function (exerciseGroup) {

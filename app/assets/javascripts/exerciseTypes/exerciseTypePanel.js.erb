@@ -1,12 +1,8 @@
 var exerciseTypePanel = angular.module('exerciseTypes.exerciseTypePanel', [
-  'exerciseTypes.exerciseType',
   'users.exerciseTypes.photos',
   'util.filters.propsFilter',
   'util.promiseUi',
   'ui.bootstrap',
-  'exerciseGroups.exerciseGroup',
-  'exerciseTypes.exerciseTypeEditor',
-  'exerciseTypes.exerciseTypeDetails',
   'exerciseGroups.exerciseGroupsSelector',
   'toaster'
 ]);
@@ -21,15 +17,14 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
       onExerciseTypeEditClicked: '&',
       editorUserId: '=',
       isAdministrator: '=',
-      exerciseGroups: '=?',
-      exerciseTypes: '=?',
+      exerciseGroups: '=',
+      exerciseTypes: '=',
       userExerciseTypePhotos: '=?'
     },
     templateUrl: '<%= asset_path('exerciseTypes/exercise-type-panel.html') %>',
-    controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'ExerciseGroup', 'toaster', function ($scope, ExerciseType, UserExerciseTypePhotos, ExerciseGroup, toaster) {
+    controller: ['$scope', 'UserExerciseTypePhotos', function ($scope, UserExerciseTypePhotos) {
       $scope.filter = {};
       $scope.selectedExerciseGroupIds = [];
-      $scope.exerciseTypes = $scope.exerciseTypes == undefined ? ExerciseType.query() : $scope.exerciseTypes;
 
       if ($scope.userExerciseTypePhotos == undefined) {
         UserExerciseTypePhotos.primaryPhotos(initializePhotos);

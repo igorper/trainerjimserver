@@ -4,21 +4,21 @@
   <div class="row">
     <div class="col-sm-12">
       <div class="btn-group">
-        <label class="btn btn-success" ng-repeat="exerciseGroup in exerciseGroups" ng-model="selection.group"
-               btn-radio="'group-{{exerciseGroup.id}}'">{{exerciseGroup.name}}</label>
+        <label class="btn btn-success" ng-repeat="group in bodyGroups" ng-model="selection.group"
+               btn-radio="'group-{{group.id}}'">{{group.name}}</label>
         <label class="btn btn-success" ng-model="selection.group" btn-radio="'{{NO_GROUP}}'">All</label>
       </div>
     </div>
   </div>
 
-  <h5 style="font-weight: bold;"> Equipment:</h5>
+  <h5 style="font-weight: bold;">Equipment:</h5>
 
   <div class="row">
     <div class="col-sm-12">
       <div class="btn-group">
-        <label class="btn btn-success" ng-repeat="exerciseGroup in machineGroups"
+        <label class="btn btn-success" ng-repeat="group in machineGroups"
                ng-model="selection.machineGroup"
-               btn-radio="'machineGroup-{{exerciseGroup.id}}'">{{exerciseGroup.name}}</label>
+               btn-radio="'machineGroup-{{group.id}}'">{{group.name}}</label>
         <label class="btn btn-success" ng-model="selection.machineGroup" btn-radio="'{{NO_GROUP}}'">All</label>
       </div>
     </div>
