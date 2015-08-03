@@ -28,13 +28,13 @@
   padding: 0;
   align-items: center;
   text-align: center;
-  margin-left: 102px;
-  margin-top: -143px;
+  margin-left: 105px;
+  margin-top: -122px;
   border-radius: 0;
 }
 
 .exercise-type-panel .exercise-type-item .edit-btn.delete-btn {
-  margin-left: -5px;
+  margin-left: -2px;
 }
 
 .exercise-type-panel .exercise-type-item .edit-btn > div {
