@@ -7,6 +7,7 @@ var exerciseTypePanel = angular.module('exerciseTypes.exerciseTypePanel', [
   'exerciseGroups.exerciseGroup',
   'exerciseTypes.exerciseTypeEditor',
   'exerciseTypes.exerciseTypeDetails',
+  'exerciseGroups.exerciseGroupsSelector',
   'toaster'
 ]);
 
@@ -16,49 +17,22 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
     scope: {onExerciseTypeClicked: '&', editorUserId: '=', isAdministrator: '='},
     templateUrl: '<%= asset_path('exerciseTypes/exercise-type-panel.html') %>',
     controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'ExerciseGroup', 'toaster', function ($scope, ExerciseType, UserExerciseTypePhotos, ExerciseGroup, toaster) {
-      $scope.NO_GROUP = 'noGroup';
-      $scope.selection = {};
       $scope.filter = {};
       $scope.isChoosingExerciseTypes = true;
+      $scope.selectedExerciseGroupIds = [];
 
       function refreshExerciseTypesList() {
         $scope.exerciseTypes = ExerciseType.query();
       }
 
       function unselectExerciseGroups() {
-        $scope.selection.group = $scope.NO_GROUP;
-        $scope.selection.machineGroup = $scope.NO_GROUP;
-      }
-
-      function toRadioGroupSelection(availableGroups, groupIds, radioGroupPrefix) {
-        var foundExerciseGroup = _(availableGroups).find(function (exerciseGroup) {
-          return _(groupIds).contains(exerciseGroup.id);
-        });
-        return foundExerciseGroup ? radioGroupPrefix + foundExerciseGroup.id : $scope.NO_GROUP;
-      }
-
-      function selectExerciseGroups(exerciseGroups) {
-        $scope.selection.group = toRadioGroupSelection($scope.exerciseGroups, exerciseGroups, "group-");
-        $scope.selection.machineGroup = toRadioGroupSelection($scope.machineGroups, exerciseGroups, "machineGroup-");
+        $scope.selectedExerciseGroupIds = [];
       }
 
       refreshExerciseTypesList();
-      unselectExerciseGroups();
-
-      function idOfGroup(exerciseGroup) {
-        var indexOfDash = exerciseGroup.indexOf('-');
-        return indexOfDash < 0 ? null : parseInt(exerciseGroup.substring(indexOfDash + 1));
-      }
 
       $scope.canEditExerciseType = function (exerciseType) {
         return exerciseType.owner_id == $scope.editorUserId || $scope.isAdministrator;
-      };
-
-      $scope.getSelectedGroupIds = function () {
-        return _.filter(
-          [idOfGroup($scope.selection.group), idOfGroup($scope.selection.machineGroup)],
-          _.isNumber
-        );
       };
 
       UserExerciseTypePhotos.primaryPhotos(function (exerciseTypePhotos) {
@@ -67,17 +41,10 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
         }));
       });
 
-      $scope.allExerciseGroups = ExerciseGroup.query(function (exerciseGroups) {
-        $scope.exerciseGroups = _.filter(exerciseGroups, function (exerciseGroup) {
-          return !exerciseGroup.is_machine_group;
-        });
-        $scope.machineGroups = _.filter(exerciseGroups, function (exerciseGroup) {
-          return exerciseGroup.is_machine_group;
-        });
-      });
+      $scope.allExerciseGroups = ExerciseGroup.query();
 
       $scope.hasAnyGroups = function () {
-        return !_.isEmpty($scope.machineGroups) || !_.isEmpty($scope.exerciseGroups);
+        return !_.isEmpty($scope.allExerciseGroups);
       };
 
       $scope.getPrimaryPhoto = function (exerciseType) {
@@ -93,7 +60,7 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
       function editExerciseType(exerciseTypeToEdit) {
         unselectExerciseGroups();
         $scope.editedExerciseType = exerciseTypeToEdit;
-        selectExerciseGroups(exerciseTypeToEdit.exercise_groups);
+        $scope.selectedExerciseGroupIds = exerciseTypeToEdit.exercise_groups;
         $scope.isChoosingExerciseTypes = false;
       }
 
@@ -102,7 +69,7 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
       };
 
       $scope.onNewExerciseSaveClicked = function () {
-        $scope.editedExerciseType.exercise_groups = $scope.getSelectedGroupIds();
+        $scope.editedExerciseType.exercise_groups = $scope.selectedExerciseGroupIds;
         $scope.editedExerciseTypeSaving = $scope.editedExerciseType.$save(function () {
           $scope.isChoosingExerciseTypes = true;
           refreshExerciseTypesList();
@@ -135,11 +102,11 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
 }]);
 
 exerciseTypePanel.filter('bySelectedGroups', function () {
-  return function (exerciseTypes, selectedGroups) {
-    if (_.isEmpty(selectedGroups))
+  return function (exerciseTypes, selectedGroupIds) {
+    if (_.isEmpty(selectedGroupIds))
       return exerciseTypes;
     return _.filter(exerciseTypes, function (exerciseType) {
-      return _.all(selectedGroups, function (selectedGroup) {
+      return _.all(selectedGroupIds, function (selectedGroup) {
         return _.contains(exerciseType.exercise_groups, selectedGroup);
       });
     });

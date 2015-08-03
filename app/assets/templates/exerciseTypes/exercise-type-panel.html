@@ -16,31 +16,12 @@
     </div>
   </div>
 
-  <div class="row exercise-group-grid" ng-if="hasAnyGroups() && (isChoosingExerciseTypes || canEditExerciseType(editedExerciseType))">
+  <div class="row exercise-group-grid"
+       ng-if="hasAnyGroups() && (isChoosingExerciseTypes || canEditExerciseType(editedExerciseType))">
     <div class="col-sm-12">
       <div class="well">
-        <h5 style="font-weight: bold;">Muscle group:</h5>
-
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="btn-group">
-              <label class="btn btn-success" ng-repeat="exerciseGroup in exerciseGroups" ng-model="selection.group"
-                     btn-radio="'group-{{exerciseGroup.id}}'">{{exerciseGroup.name}}</label>
-              <label class="btn btn-success" ng-model="selection.group" btn-radio="'{{NO_GROUP}}'">All</label>
-            </div>
-          </div>
-        </div>
-        <h5 style="font-weight: bold;"> Equipment:</h5>
-
-        <div class="row">
-          <div class="col-sm-12">
-            <div class="btn-group">
-              <label class="btn btn-success" ng-repeat="exerciseGroup in machineGroups"
-                     ng-model="selection.machineGroup" btn-radio="'machineGroup-{{exerciseGroup.id}}'">{{exerciseGroup.name}}</label>
-              <label class="btn btn-success" ng-model="selection.machineGroup" btn-radio="'{{NO_GROUP}}'">All</label>
-            </div>
-          </div>
-        </div>
+        <exercise-groups-selector selected-exercise-group-ids="$parent.selectedExerciseGroupIds"
+                                  exercise-groups="allExerciseGroups"></exercise-groups-selector>
       </div>
     </div>
   </div>
@@ -48,7 +29,7 @@
   <div ng-if="isChoosingExerciseTypes" spin-until="exerciseTypes" class="row exercise-type-grid">
     <div class="col-sm-12">
       <div class="exercise-type-item"
-           ng-repeat="exerciseType in exerciseTypes | propsFilter: {name: filter.keyword} | bySelectedGroups: getSelectedGroupIds() | orderBy:'name'">
+           ng-repeat="exerciseType in exerciseTypes | propsFilter: {name: filter.keyword} | bySelectedGroups: selectedExerciseGroupIds | orderBy:'name'">
         <div ng-click="onExerciseTypeClicked({exerciseType: exerciseType})">
           <div class="thumb"><img ng-src="{{getPrimaryPhoto(exerciseType)}}"/></div>
           <div class="name">
@@ -88,7 +69,8 @@
           <button class="btn btn-danger pull-right" ng-click="onNewExerciseCancelClicked()">
             Back
           </button>
-          <button ng-if="canEditExerciseType(editedExerciseType)" class="btn btn-primary pull-right" style="margin-right: 5px;" ng-click="onNewExerciseSaveClicked()">
+          <button ng-if="canEditExerciseType(editedExerciseType)" class="btn btn-primary pull-right"
+                  style="margin-right: 5px;" ng-click="onNewExerciseSaveClicked()">
             Save
           </button>
         </fieldset>
