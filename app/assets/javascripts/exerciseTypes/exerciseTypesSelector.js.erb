@@ -21,7 +21,7 @@ exerciseTypesSelector.factory('ExerciseTypesSelector', ['$modal', function ($mod
 
         $scope.addedExcercisesCount = 0;
         $scope.editorUserId = options.editorUserId;
-        $scope.isAdministrator = options.isAdministrator;
+        $scope.isAdminMode = options.isAdministrator;
 
         $scope.onExerciseTypeClicked = function (exerciseType) {
           options.onAddExerciseType(exerciseType);
@@ -29,8 +29,7 @@ exerciseTypesSelector.factory('ExerciseTypesSelector', ['$modal', function ($mod
         };
 
         $scope.onExerciseTypeAddClicked = function () {
-          console.log('onExerciseTypeAddClicked');
-
+          $scope.editedExerciseType = new ExerciseType();
         };
 
         $scope.onExerciseTypeEditClicked = function (exerciseType) {
@@ -40,6 +39,14 @@ exerciseTypesSelector.factory('ExerciseTypesSelector', ['$modal', function ($mod
 
         $scope.onExerciseTypeDeleteClicked = function (exerciseType) {
           console.log('onExerciseTypeDeleteClicked', exerciseType);
+        };
+
+        $scope.onEditSaveClicked = function (exerciseType) {
+          console.log('onEditSaveClicked', exerciseType);
+        };
+
+        $scope.onEditCancelClicked = function (exerciseType) {
+          console.log('onEditCancelClicked', exerciseType);
         };
 
         $scope.cancel = function () {

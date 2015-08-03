@@ -1,6 +1,5 @@
 <div class="exercise-type-editor">
   <form>
-
     <div class="row">
       <div class="col-sm-12">
         <div class="form-group">
@@ -8,7 +7,7 @@
           <input id="name"
                  type="text"
                  name="name"
-                 autofocus="true"
+                 autofocus="autofocus"
                  class="form-control"
                  placeholder="exercise name"
                  ng-model="exerciseType.name"/>
@@ -16,7 +15,7 @@
       </div>
     </div>
 
-    <div class="row" ng-if="userDetails.is_admin">
+    <div class="row" ng-if="isAdminMode">
       <div class="col-sm-12">
         <div class="form-group">
           <label>Owner:</label>
@@ -24,6 +23,5 @@
         </div>
       </div>
     </div>
-
   </form>
 </div>

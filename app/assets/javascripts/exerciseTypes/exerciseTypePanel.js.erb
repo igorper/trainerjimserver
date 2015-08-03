@@ -14,7 +14,7 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
       onExerciseTypeDeleteClicked: '&',
       onExerciseTypeEditClicked: '&',
       editorUserId: '=',
-      isAdministrator: '=',
+      isAdminMode: '=',
       exerciseGroups: '=',
       exerciseTypes: '=',
       userExerciseTypePhotos: '='
@@ -32,7 +32,7 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
       }
 
       $scope.canEditExerciseType = function (exerciseType) {
-        return exerciseType.owner_id == $scope.editorUserId || $scope.isAdministrator;
+        return exerciseType.owner_id == $scope.editorUserId || $scope.isAdminMode;
       };
 
       $scope.getPrimaryPhoto = function (exerciseType) {

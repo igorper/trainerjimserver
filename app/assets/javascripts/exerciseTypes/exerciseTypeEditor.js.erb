@@ -1,18 +1,12 @@
 var exerciseTypeEditorModule = angular.module("exerciseTypes.exerciseTypeEditor", [
-  'ngFileUpload',
-  'users.selector',
-  'auth'
+  'users.selector'
 ]);
 
-exerciseTypeEditorModule.directive('exerciseTypeEditor', ['User', function (User) {
+exerciseTypeEditorModule.directive('exerciseTypeEditor', [function () {
   return {
     restrict: 'E',
-    scope: {
-      'exerciseType': '=exerciseType'
-    },
+    scope: {exerciseType: '=', isAdminMode: '=?', onSaveClicked: '&', onCancelClicked: '&'},
     controller: ['$scope', function ($scope) {
-      $scope.files = [];
-      $scope.userDetails = User.current();
     }],
     templateUrl: "<%= asset_path('exerciseTypes/exercise-type-editor.html') %>"
   };

@@ -1,13 +1,19 @@
 <div class="modal-body">
-  <exercise-type-panel on-exercise-type-clicked="onExerciseTypeClicked(exerciseType)"
+  <exercise-type-panel ng-if="!editedExerciseType"
+                       on-exercise-type-clicked="onExerciseTypeClicked(exerciseType)"
                        on-exercise-type-add-clicked="onExerciseTypeAddClicked()"
                        on-exercise-type-edit-clicked="onExerciseTypeEditClicked(exerciseType)"
                        on-exercise-type-delete-clicked="onExerciseTypeDeleteClicked(exerciseType)"
                        editor-user-id="editorUserId"
-                       is-administrator="isAdministrator"
+                       is-admin-mode="isAdminMode"
                        exercise-groups="exerciseGroups"
                        exercise-types="exerciseTypes"
                        user-exercise-type-photos="userExerciseTypePhotos"></exercise-type-panel>
+  <exercise-type-editor ng-if="editedExerciseType"
+                        exercise-type="editedExerciseType"
+                        on-save-clicked="onEditSaveClicked(exerciseType)"
+                        on-cancel-clicked="onEditCancelClicked(exerciseType)"
+                        is-admin-mode="isAdminMode"></exercise-type-editor>
 </div>
 
 <div class="modal-footer">
