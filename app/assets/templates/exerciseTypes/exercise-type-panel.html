@@ -16,10 +16,11 @@
     </div>
   </div>
 
-  <div class="row exercise-group-grid" ng-if="hasAnyGroups()">
+  <div class="row exercise-group-grid" ng-if="hasAnyGroups() && (isChoosingExerciseTypes || canEditExerciseType(editedExerciseType))">
     <div class="col-sm-12">
       <div class="well">
         <h5 style="font-weight: bold;">Muscle group:</h5>
+
         <div class="row">
           <div class="col-sm-12">
             <div class="btn-group">
@@ -30,6 +31,7 @@
           </div>
         </div>
         <h5 style="font-weight: bold;"> Equipment:</h5>
+
         <div class="row">
           <div class="col-sm-12">
             <div class="btn-group">
@@ -53,34 +55,44 @@
             <div class="name-text" ng-bind-html="exerciseType.name | highlight: filter.keyword"></div>
           </div>
         </div>
-        <div class="edit-btn btn btn-primary" ng-click="onExerciseTypeEditClicked(exerciseType)" ng-if="canEditExerciseType(exerciseType)">
+        <div class="edit-btn btn btn-primary" ng-click="onExerciseTypeEditClicked(exerciseType)">
           <div class="glyphicon glyphicon-edit"></div>
         </div>
-        <div class="edit-btn delete-btn btn btn-danger" ng-click="onExerciseTypeDeleteClicked(exerciseType)" ng-if="canEditExerciseType(exerciseType)">
+        <div class="edit-btn delete-btn btn btn-danger" ng-click="onExerciseTypeDeleteClicked(exerciseType)"
+             ng-if="canEditExerciseType(exerciseType)">
           <div class="glyphicon glyphicon-remove-sign"></div>
         </div>
       </div>
     </div>
   </div>
 
-  <div ng-if="!isChoosingExerciseTypes" spin-until="newExerciseTypeSaving" class="row">
-    <div class="col-sm-12">
-      <h3>{{editExerciseTypeTitle()}}</h3>
-      <exercise-type-editor exercise-type="editedExerciseType"></exercise-type-editor>
+  <div ng-if="!isChoosingExerciseTypes" spin-until="newExerciseTypeSaving">
+    <div ng-if="canEditExerciseType(editedExerciseType)" class="row">
+      <div class="col-sm-12">
+        <h3>{{editExerciseTypeTitle()}}</h3>
+        <exercise-type-editor exercise-type="editedExerciseType"></exercise-type-editor>
+      </div>
     </div>
-    <div ng-if="editedExerciseType.id != null" class="col-sm-12">
-      <exercise-type-details exercise-type-id="editedExerciseType.id"
-                             user-id="editorUserId"></exercise-type-details>
+    <div ng-if="editedExerciseType.id != null" class="row photos">
+      <div ng-if="!canEditExerciseType(editedExerciseType)" class="col-sm-12">
+        <h3>{{editedExerciseType.name}}</h3>
+      </div>
+      <div class="col-sm-12">
+        <exercise-type-details exercise-type-id="editedExerciseType.id"
+                               user-id="editorUserId"></exercise-type-details>
+      </div>
     </div>
-    <div class="col-sm-12 pull-right">
-      <fieldset disable-until="newExerciseTypeSaving">
-        <button class="btn btn-danger pull-right" ng-click="onNewExerciseCancelClicked()">
-          Cancel
-        </button>
-        <button class="btn btn-primary pull-right" style="margin-right: 5px;" ng-click="onNewExerciseSaveClicked()">
-          Save
-        </button>
-      </fieldset>
+    <div class="row">
+      <div class="col-sm-12 pull-right">
+        <fieldset disable-until="newExerciseTypeSaving">
+          <button class="btn btn-danger pull-right" ng-click="onNewExerciseCancelClicked()">
+            Back
+          </button>
+          <button ng-if="canEditExerciseType(editedExerciseType)" class="btn btn-primary pull-right" style="margin-right: 5px;" ng-click="onNewExerciseSaveClicked()">
+            Save
+          </button>
+        </fieldset>
+      </div>
     </div>
   </div>
 

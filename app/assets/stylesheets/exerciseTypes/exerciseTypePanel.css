@@ -79,6 +79,10 @@
   transform: translate(-50%, -50%);
 }
 
+.exercise-type-panel .photos {
+  margin-top: 10px;
+}
+
 .exercise-type-panel .add-exercise-type-btn {
   position: absolute;
   right: 40px;

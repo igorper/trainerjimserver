@@ -16,25 +16,12 @@
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="form-group">
-          <label for="short_name">Short name (for mobiles):</label>
-          <input id="short_name"
-                 type="text"
-                 name="short_name"
-                 autofocus="true"
-                 class="form-control"
-                 placeholder="exercise short name"
-                 ng-model="exerciseType.short_name"/>
-        </div>
-      </div>
-    </div>
-
     <div class="row" ng-if="userDetails.is_admin">
       <div class="col-sm-12">
-        <label for="short_name">Owner:</label>
-        <user-selector user-id="exerciseType.owner_id"></user-selector>
+        <div class="form-group">
+          <label>Owner:</label>
+          <user-selector user-id="exerciseType.owner_id"></user-selector>
+        </div>
       </div>
     </div>
 
