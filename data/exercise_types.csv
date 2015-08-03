@@ -1,348 +1,569 @@
-Push Crunch (Barbell),Core,Barbell,,,2,,10:14,10:35,21
-"Bodyweight Side Bridge, Bench",Core,Bench,,,10,,11:10,11:39,29
-Kneeling Crunch (Cable),Core,Cable,,,4,,11:50,12:03,13
-Leg-Hip Raise (Cable),Core,Cable,,,7,,12:10,12:28,18
-Seated Crunch (Cable),Core,Cable,,,1,,12:40,12:55,15
-Side Bend (Cable),Core,Cable,,,39,,12:57,13:12,15
-Side Bend (Lever),Core,Cable,,,10,,,,
-Standing Crunch (Cable),Core,Cable,,,9,,,,
-Straight Leg-Hip Raise (Cable),Core,Cable,,,,,,,
-Twist (Cable),Core,Cable,,,,,,,111
-Twist Down (Cable),Core,Cable,,,,,,,
-Twist Up (Cable),Core,Cable,,,,,,,
-Dumbbell Woodchopper,Core,Dumbbell,,,,,,,
-Dumbbell Woodchopper (Reverse),Core,Dumbbell,,,,,,,
-Push Crunch (Dumbbell),Core,Dumbbell,,,,,,,
-Side Bend (Dumbbell),Core,Dumbbell,,,,,,,
-Leg Raise Crunch (Lever),Core,Machine,"Lever, Cage, Dip Machine, Parallel Bars",Lever,,,,,
-Lying Crunch (Lever),Core,Machine,,Lever,,,,,
-Push Crunch (Lever),Core,Machine,,Lever,,,,,
-Seated Crunch (Lever),Core,Machine,,Lever,,,,,
-Seated Hip Raise Crunch (Lever),Core,Machine,,Lever,,,,,
-Side Crunch (Lever),Core,Machine,,Lever,,,,,
-Twist (Lever),Core,Machine,,Lever,,,,,
-Vertical Leg-Hip Raise,Core,Machine,,Parallel Bars,,,,,
-V' Sit-up,Core,None,Bodyweight,,,,,,
-Bodyweight Butt Ups,Core,None,,,,,,,
-"Bodyweight Crunch, Bicycle",Core,None,,,,,,,
-"Bodyweight Crunch, Cross Body",Core,None,,,,,,,
-"Bodyweight Crunch, Oblique",Core,None,,,,,,,
-"Bodyweight Crunch, Reverse",Core,None,,,,,,,
-"Bodyweight Crunch, Straight Hands",Core,None,,,,,,,
-Bodyweight Flutter Kicks,Core,None,,,,,,,
-Bodyweight Heel Touch,Core,None,,,,,,,
-Bodyweight Hip Raise,Core,None,,,,,,,
-"Bodyweight Leg Raise, Lying",Core,None,,,,,,,
-"Bodyweight Leg Raise, Straight, Variation",Core,None,,,,,,,
-"Bodyweight Leg Raise, V Formation",Core,None,,,,,,,
-Bodyweight Plank,Core,None,,,,,,,
-Bodyweight Plank Jacks,Core,None,,,,,,,
-"Bodyweight Plank, Side",Core,None,,,,,,,
-"Bodyweight Pull In, Lying",Core,None,,,,,,,
-"Bodyweight Pull In, Seated",Core,None,,,,,,,
-Bodyweight Scissor Kick,Core,None,,,,,,,
-Bodyweight Side Bridge,Core,None,,,,,,,
-"Bodyweight Side Bridge, Leg Raise",Core,None,,,,,,,
-Bodyweight Toe Touch,Core,None,,,,,,,
-Bodyweight Twist,Core,None,,,,,,,
-"Bodyweight Twist, Russian",Core,None,,,,,,,
-Crunch,Core,None,,,,,,,
-Crunch Up,Core,None,,,,,,,
-Jack-knife Sit-up,Core,None,,,,,,,
-Lying Twist,Core,None,,,,,,,
-Side Crunch,Core,None,,,,,,,
-Waist Stretch - Kneeling,Core,None,,,,,,,
-Waist Stretch - Lying,Core,None,,,,,,,
-Waist Stretch - Lying Bent Leg,Core,None,,,,,,,
-Waist Stretch - Lying Rollover,Core,None,,,,,,,
-Waist Stretch - Prone,Core,None,,,,,,,
-Waist Stretch - Seated Rollover,Core,None,,,,,,,
-Waist Stretch - Seated Twist,Core,None,,,,,,,
-Waist Stretch - Standing,Core,None,,,,,,,
-Weighted Twisting Crunch,Core,None,,,,,,,
-Weighted Twisting Sit-up,Core,None,,,,,,,
-Stability Ball Crunch,Core,Stability Ball,,,,,,,
-Stability Ball Jackknife,Core,Stability Ball,,,,,,,
-Stability Ball Lying Crunch (Cable),Core,Stability Ball,,,,,,,
-Stability Ball Overhead Crunch,Core,Stability Ball,,,,,,,
-Stability Ball Pass Off,Core,Stability Ball,,,,,,,
-Stability Ball Pike,Core,Stability Ball,,,,,,,
-Stability Ball Plank,Core,Stability Ball,,,,,,,
-"Stability Ball Plank, Twist",Core,Stability Ball,,,,,,,
-Stability Ball Side Bend,Core,Stability Ball,,,,,,,
-Twisting Crunch (Ball),Core,Stability Ball,,,,,,,
-Advanced Kettlebell Windmill,Core,Kettlebell,,,,,,,
-AOS Kettlebell Two Hands Anyhow,Core,Kettlebell,,,,,,,
-Double Kettlebell Windmill,Core,Kettlebell,,,,,,,
-Kettlebell Figure 8 ,Core,Kettlebell,,,,,,,
-Kettlebell Figure 8 To A Hold,Core,Kettlebell,,,,,,,
-Kettlebell Pass Between The Legs,Core,Kettlebell,,,,,,,
-Ketllebell Turkish Get-Up (Lunge Style),Core,Kettlebell,,,,,,,
-Ketllebell Turkish Get-Up (Squat Style),Core,Kettlebell,,,,,,,
-Kettlebell Windmill,Core,Kettlebell,,,,,,,
-Barbell clean,Thigh,Barbell,,,26,,,,
-Barbell Clean and Jerk,Thigh,Barbell,,,,,,,
-"Barbell Clean, Hang",Thigh,Barbell,,,,,,,
-"Barbell Clean, Power",Thigh,Barbell,,,,,,,
-"Barbell Snatch, Hang",Thigh,Barbell,,,,,,,
-"Barbell Snatch, Muscle",Thigh,Barbell,,,,,,,
-"Barbell Snatch, Power",Thigh,Barbell,,,,,,,
-Barbell Squat And Calf Raise,Thigh,Barbell,,,,,,,
-Barbell Squat Sumo,Thigh,Barbell,,,,,,,
-"Barbell Squat, Jump",Thigh,Barbell,,,,,,,
-"Barbell Squat, Kneeling",Thigh,Barbell,,,,,,,
-"Barbell Squat, Overhead",Thigh,Barbell,,,,,,,
-"Barbell Squat, Split",Thigh,Barbell,,,,,,,
-"Barbell Squat, Split, Side",Thigh,Barbell,,,,,,,
-Barbell Thruster,Thigh,Barbell,,,,,,,
-Front Squat (Barbell),Thigh,Barbell,,,,,,,
-Full Squat (Barbell),Thigh,Barbell,,,,,,,
-Glute-Ham Raise (Barbell),Thigh,Barbell,,,,,,,
-Good Morning (Barbell),Thigh,Barbell,,,,,,,
-Hack Squat (Barbell),Thigh,Barbell,,,,,,,
-Hamstring Raise (Barbell),Thigh,Barbell,,,,,,,
-Hyperextension (Barbell),Thigh,Barbell,,,,,,,
-Lateral Step-up (Barbell),Thigh,Barbell,,,,,,,
-Lunge (Barbell),Thigh,Barbell,,,,,,,
-Squat (Barbell),Thigh,Barbell,,,,,,,
-Straight Leg Deadlift (Barbell),Thigh,Barbell,,,,,,,
-Bent-over Leg Curl (Cable),Thigh,Cable,,,9,,,,
-Hip Adduction (Cable),Thigh,Cable,,,,,,,
-Leg Extension (Cable),Thigh,Cable,,,,,,,
-Lunge (Cable),Thigh,Cable,,,,,,,
-Lying Hip Adduction (Cable),Thigh,Cable,,,,,,,
-Lying Leg Curl (Cable),Thigh,Cable,,,,,,,
-Split Squat - Single Leg (Cable),Thigh,Cable,,,,,,,
-Standing Leg Curl (Cable),Thigh,Cable,,,,,,,
-Step Up (Cable),Thigh,Cable,,,,,,,
-Dumbbell Clean (Power),Thigh,Dumbbell,,,12,,,,
-Dumbbell Clean And Jerk,Thigh,Dumbbell,,,,,,,
-"Dumbbell Clean And Jerk, Single Arm",Thigh,Dumbbell,,,,,,,
-"Dumbbell Clean, Hang",Thigh,Dumbbell,,,,,,,
-"Dumbbell Clean, Neutral Grip (Power)",Thigh,Dumbbell,,,,,,,
-Dumbbell Iron Cross,Thigh,Dumbbell,,,,,,,
-"Dumbbell Lunge, Forward, Overhead",Thigh,Dumbbell,,,,,,,
-"Dumbbell Lunge, Walking",Thigh,Dumbbell,,,,,,,
-Split Squat - Single Leg (Dumbbell),Thigh,Dumbbell,,,,,,,
-Step Down (Dumbbell),Thigh,Dumbbell,,,,,,,
-Step Up (Dumbbell),Thigh,Dumbbell,,,,,,,
-Straight Leg Deadlift (Dumbbell),Thigh,Dumbbell,,,,,,,
-Bent Over Leg Curl (Lever),Thigh,Machine,"Lever, Cage, Dip Machine, Parallel Bars",Lever,,,,,
-Kneeling Leg Curl (Lever),Thigh,Machine,,,10,,,,
-Leg Extension (Lever),Thigh,Machine,,,,,,,
-Lying Hip Adduction (Lever),Thigh,Machine,,,,,,,
-Lying Leg Curl (Lever),Thigh,Machine,,,,,,,
-Seated Hip Adduction (Lever),Thigh,Machine,,,,,,,
-Seated Leg Curl (Lever),Thigh,Machine,,,,,,,
-Standing Hip Adduction (Lever),Thigh,Machine,,,,,,,
-Standing Leg Curl (Lever),Thigh,Machine,,,,,,,
-Thigh Stretch - Lever,Thigh,Machine,,,,,,,
-Bodyweight Burpee (On Feet),Thigh,None,Bodyweight,,16,,,,
-"Bodyweight Deadlift, Single Leg",Thigh,None,,,,,,,
-Bodyweight Iron Chair,Thigh,None,,,,,,,
-Bodyweight Mountain Climbers,Thigh,None,,,,,,,
-Bodyweight Squat,Thigh,None,,,,,,,
-Bodyweight Squat and Calf Raises,Thigh,None,,,,,,,
-"Bodyweight Squat, Jump",Thigh,None,,,,,,,
-"Bodyweight Squat, Kneeling",Thigh,None,,,,,,,
-"Bodyweight Squat, Single Leg, Bent",Thigh,None,,,,,,,
-"Bodyweight Squat, Single Leg, Straight",Thigh,None,,,,,,,
-"Bodyweight Squat, Split",Thigh,None,,,,,,,
-"Bodyweight Squat, Split, Side",Thigh,None,,,,,,,
-"Bodyweight Walk, Wide Stance",Thigh,None,,,,,,,
-Thigh Stretch - Lying Prone,Thigh,None,,,,,,,
-Thigh Stretch - Lying Side,Thigh,None,,,,,,,
-Thigh Stretch - Standing,Thigh,None,,,,,,,
-Stability Ball Leg Curl,Thigh,Stability Ball,,,1,,,,
-Front Squats with Two Kettlebells,Thigh,Kettlebell,,,15,,,,
-Kettlebell Alternating Hang Clean,Thigh,Kettlebell,,,,,,,
-Kettlebell Dead Clean,Thigh,Kettlebell,,,,,,,
-Kettlebell Double Snatch,Thigh,Kettlebell,,,,,,,
-Kettlebell Double Swings,Thigh,Kettlebell,,,,,,,
-Kettlebell Hang Clean,Thigh,Kettlebell,,,,,,,
-Kettlebell One-Arm Clean,Thigh,Kettlebell,,,,,,,
-Kettlebell One-Arm Open Palm Clean,Thigh,Kettlebell,,,,,,,
-Kettlebell One-Arm Overhead Kettlebell Squats,Thigh,Kettlebell,,,,,,,
-Kettlebell One-Arm Snatch,Thigh,Kettlebell,,,,,,,
-Kettlebell One-Arm Split Jerk,Thigh,Kettlebell,,,,,,,
-Kettlebell One-Arm Split Snatch,Thigh,Kettlebell,,,,,,,
-Kettlebell One-Arm Swings,Thigh,Kettlebell,,,,,,,
-Kettlebell One-Legged Squat,Thigh,Kettlebell,,,,,,,
-Kettlebell Squats,Thigh,Kettlebell,,,,,,,
-Groin Stretch - Seated Bench,Groin,Bench,,,1,,,,
-Groin Stretch - Kneeling,Groin,None,Bodyweight,,7,,,,
-Groin Stretch - Kneeling Side Lunge,Groin,None,,,,,,,
-Groin Stretch - Lying,Groin,None,,,,,,,
-Groin Stretch - Lying Wall,Groin,None,,,,,,,
-Groin Stretch - Seated ,Groin,None,,,,,,,
-Groin Stretch - Squatting,Groin,None,,,,,,,
-Groin Stretch - Standing Side Lunge,Groin,None,,,,,,,
-Bench Press - Close Grip (Barbell),Upper Arm,Barbell,,,11,,,,
-Biceps Curl (Barbell),Upper Arm,Barbell,,,,,,,
-Biceps Drag Curl (Barbell),Upper Arm,Barbell,,,,,,,
-Incline Bench Press - Close Grip (Barbell),Upper Arm,Barbell,,,,,,,
-Preacher Curl (Barbell),Upper Arm,Barbell,,,,,,,
-Prone Incline Curl (Barbell),Upper Arm,Barbell,,,,,,,
-Reverse Curl (Barbell),Upper Arm,Barbell,,,,,,,
-Triceps Extension - Decline (Barbell),Upper Arm,Barbell,,,,,,,
-Triceps Extension - Incline (Barbell),Upper Arm,Barbell,,,,,,,
-Triceps Extension - Lying (Barbell),Upper Arm,Barbell,,,,,,,
-Triceps Extension - Seated (Barbell),Upper Arm,Barbell,,,,,,,
-Bench Dip (Level 1),Upper Arm,Bench,,,4,,,,
-Bench Dip (Level 2),Upper Arm,Bench,,,,,,,
-Bench Dip (Level 3),Upper Arm,Bench,,,,,,,
-Bench Dip (Level 4),Upper Arm,Bench,,,,,,,
-Biceps Alternating Curl (Cable),Upper Arm,Cable,,,16,,,,
-Biceps Curl (Cable),Upper Arm,Cable,,,,,,,
-Concentration Curl (Cable),Upper Arm,Cable,,,,,,,
-Preacher Curl (Cable),Upper Arm,Cable,,,,,,,
-Prone Incline Curl (Cable),Upper Arm,Cable,,,,,,,
-Reverse Curl (Cable),Upper Arm,Cable,,,,,,,
-Triceps Dip (Cable),Upper Arm,Cable,,,,,,,
-Triceps Extension - Overhead (Cable),Upper Arm,Cable,,,,,,,
-Triceps Extension - Side (Cable),Upper Arm,Cable,,,,,,,
-Triceps Pushdown (Cable),Upper Arm,Cable,,,,,,,
-Triceps Pushdown - Alternating Seated (Cable),Upper Arm,Cable,,,,,,,
-Triceps Pushdown - Heavy (Cable),Upper Arm,Cable,,,,,,,
-Triceps Pushdown - Incline (Cable),Upper Arm,Cable,,,,,,,
-Triceps Pushdown - Rope (Cable),Upper Arm,Cable,,,,,,,
-Triceps Pushdown - Single Arm (Cable),Upper Arm,Cable,,,,,,,
-Triceps Pushdown - V-Bar (Cable),Upper Arm,Cable,,,,,,,
-Biceps Curl (Dumbbell),Upper Arm,Dumbbell,,,26,,,,
-Biceps Curl - Incline (Dumbbell),Upper Arm,Dumbbell,,,,,,,
-Concentration Curl (Dumbbell),Upper Arm,Dumbbell,,,,,,,
-"Dumbbell Biceps Curl, Neutral Grip, Bent Over",Upper Arm,Dumbbell,,,,,,,
-"Dumbbell Biceps Curl, Neutral Grip, Cross Body",Upper Arm,Dumbbell,,,,,,,
-"Dumbbell Biceps Curl, Neutral Grip, Flat Bench",Upper Arm,Dumbbell,,,,,,,
-"Dumbbell Biceps Curl, Overhand Grip",Upper Arm,Dumbbell,,,,,,,
-"Dumbbell Biceps Curl, Overhand Grip, Bent Over",Upper Arm,Dumbbell,,,,,,,
-"Dumbbell Biceps Curl, Overhand Grip, Flat Bench",Upper Arm,Dumbbell,,,,,,,
-"Dumbbell Biceps Curl, Overhand Grip, Incline Bench",Upper Arm,Dumbbell,,,,,,,
-"Dumbbell Biceps Curl, Preacher, Neutral Grip, Sitting",Upper Arm,Dumbbell,,,,,,,
-"Dumbbell Biceps Curl, Preacher, Overhand Grip",Upper Arm,Dumbbell,,,,,,,
-"Dumbbell Biceps Curl, Underhand Grip, Bent Over",Upper Arm,Dumbbell,,,,,,,
-"Dumbbell Biceps Curl, Underhand Grip, Drag",Upper Arm,Dumbbell,,,,,,,
-"Dumbbell Biceps Curl, Underhand Grip, Elbows Up",Upper Arm,Dumbbell,,,,,,,
-"Dumbbell Crossover, Underhand",Upper Arm,Dumbbell,,,,,,,
-Hammer Curl (Dumbbell),Upper Arm,Dumbbell,,,,,,,
-Preacher Curl (Dumbbell),Upper Arm,Dumbbell,,,,,,,
-Prone Incline Curl (Dumbbell),Upper Arm,Dumbbell,,,,,,,
-Triceps Extension - Decline (Dumbbell),Upper Arm,Dumbbell,,,,,,,
-Triceps Extension - Incline (Dumbbell),Upper Arm,Dumbbell,,,,,,,
-Triceps Extension - Lying (Dumbbell),Upper Arm,Dumbbell,,,,,,,
-Triceps Extension - Seated (Dumbbell),Upper Arm,Dumbbell,,,,,,,
-Triceps Extension - Seated Single Arm (Dumbbell),Upper Arm,Dumbbell,,,,,,,
-Triceps Kickback (Dumbbell),Upper Arm,Dumbbell,,,,,,,
-Zottman curl,Upper Arm,Dumbbell,,,,,,,
-Bench Press - Close Grip (Lever),Upper Arm,Machine,"Lever, Cage, Dip Machine, Parallel Bars",Lever,10,,,,
-Biceps Curl (Lever),Upper Arm,Machine,,,,,,,
-Chest Press - Close Grip (Lever),Upper Arm,Machine,,,,,,,
-Hammer Preacher Curl (Lever),Upper Arm,Machine,,,,,,,
-Incline Bench Press - Close Grip (Lever),Upper Arm,Machine,,,,,,,
-Preacher Curl (Lever),Upper Arm,Machine,,,,,,,
-Triceps Dip (Lever),Upper Arm,Machine,,,,,,,
-Triceps Dip - Reverse (Lever),Upper Arm,Machine,,,,,,,
-Triceps Extension (Lever),Upper Arm,Machine,,,,,,,
-Triceps Pushdown (Lever),Upper Arm,Machine,,,,,,,
-Triceps Dip,Upper Arm,Machine,,Dip Machine,2,,,,
-Triceps Dip - Assisted,Upper Arm,Machine,,,,,,,
-Push Up - Close Grip (Level 2),Upper Arm,None,Bodyweight,,7,,,,
-Push Up - Close Grip (Level 3),Upper Arm,None,,,,,,,
-Upper Arm Stretch (Doorway),Upper Arm,None,,,,,,,
-Upper Arm Stretch (Seated),Upper Arm,None,,,,,,,
-Upper Arm Stretch (Standing),Upper Arm,None,,,,,,,
-Upper Arm Stretch (Standing),Upper Arm,None,,,,,,,
-Upper Arm Stretch (Wall),Upper Arm,None,,,,,,,
-"Stability Ball Biceps Curl, Dumbbell, Neutral Grip",Upper Arm,Stability Ball,,,5,,,,
-"Stability Ball Biceps Curl, Dumbbell, Overhand Grip",Upper Arm,Stability Ball,,,,,,,
-"Stability Ball Biceps Curl, Dumbbell, Underhand Grip",Upper Arm,Stability Ball,,,,,,,
-Stability Ball Triceps Extension,Upper Arm,Stability Ball,,,,,,,
-"Stability Ball Triceps Extension, Dumbbell",Upper Arm,Stability Ball,,,,,,,
-Hamstring Stretch - Seated Bench Single Leg,Hamstring,Bench,,,1,,,,
-Hamstring Stretch - Lever,Hamstring,Machine,"Lever, Cage, Dip Machine, Parallel Bars",Lever,1,,,,
-Hamstring Stretch - Lying,Hamstring,None,Bodyweight,,7,,,,
-Hamstring Stretch - Lying with Towel,Hamstring,None,,,,,,,
-Hamstring Stretch - Seated,Hamstring,None,,,,,,,
-Hamstring Stretch - Seated Single Leg,Hamstring,None,,,,,,,
-Hamstring Stretch - Standing,Hamstring,None,,,,,,,
-Hamstring Stretch - Standing Cross Legged,Hamstring,None,,,,,,,
-Hamstring Stretch - Standing Single Leg,Hamstring,None,,,,,,,
-Reverse Preacher Curl (Barbell),Forearm,Barbell,,,3,,,,
-Reverse Wrist Curl (Barbell),Forearm,Barbell,,,,,,,
-Wrist Curl (Barbell),Forearm,Barbell,,,,,,,
-Reverse Preacher Curl (Cable),Forearm,Cable,,,4,,,,
-Reverse Wrist Curl (Cable),Forearm,Cable,,,,,,,
-Roll Up (Cable),Forearm,Cable,,,,,,,
-Wrist Curl (Cable),Forearm,Cable,,,,,,,
-Lying Pronation (Dumbbell),Forearm,Dumbbell,,,5,,,,
-Radial Flexion (Dumbbell),Forearm,Dumbbell,,,,,,,
-Reverse Wrist Curl (Dumbbell),Forearm,Dumbbell,,,,,,,
-Ulnar Flexion (Dumbbell),Forearm,Dumbbell,,,,,,,
-Wrist Curl (Dumbbell),Forearm,Dumbbell,,,,,,,
-Pronation (Lever),Forearm,Machine,"Lever, Cage, Dip Machine, Parallel Bars",Lever,6,,,,
-Radial Flexion (Lever),Forearm,Machine,,,,,,,
-Reverse Preacher Curl (Lever),Forearm,Machine,,,,,,,
-Reverse Wrist Curl (Lever),Forearm,Machine,,,,,,,
-Roller Wrist Flexion (Lever),Forearm,Machine,,,,,,,
-Ulnar Flexion (Lever),Forearm,Machine,,,,,,,
-Stretch - Wrist Extensor (Kneeling),Forearm,None,Bodyweight,,6,,,,
-Stretch - Wrist Extensor (Single Arm),Forearm,None,,,,,,,
-Stretch - Wrist Flexors (Kneeling),Forearm,None,,,,,,,
-Stretch - Wrist Flexors (Seated),Forearm,None,,,,,,,
-Stretch - Wrist Flexors (Single Arm),Forearm,None,,,,,,,
-Stretch - Wrist Flexors (Standing),Forearm,None,,,,,,,
-"Stability Ball Wrist Curl, Dumbbell",Forearm,Stability Ball,,,1,,,,
-Kettlebell Bottoms-Up Clean from the Hang Position,Forearm,Kettlebell,,,1,,,,
-"Barbell Jerk, Balance",Shoulder,Barbell,,,9,,,,
-"Barbell Jerk, Split",Shoulder,Barbell,,,,,,,
-Front Raise (Barbell),Shoulder,Barbell,,,,,,,
-Lying Rear Delt Row (Barbell),Shoulder,Barbell,,,,,,,
-Military Press (Barbell),Shoulder,Barbell,,,,,,,
-Military Press - Seated (Barbell),Shoulder,Barbell,,,,,,,
-Rear Delt Row (Barbell),Shoulder,Barbell,,,,,,,
-Shoulder Press (Barbell),Shoulder,Barbell,,,,,,,
-Upright Row (Barbell),Shoulder,Barbell,,,,,,,
-External Rotation (Cable),Shoulder,Cable,,,16,,,,
-External Rotation - Standing (Cable),Shoulder,Cable,,,,,,,
-External Rotation - Upward (Cable),Shoulder,Cable,,,,,,,
-Front Lateral Raise (Cable),Shoulder,Cable,,,,,,,
-Front Raise (Cable),Shoulder,Cable,,,,,,,
-Internal Rotation (Cable),Shoulder,Cable,,,,,,,
-Lateral Raise (Cable),Shoulder,Cable,,,,,,,
-Rear Delt Pull (Cable),Shoulder,Cable,,,,,,,
-Rear Delt Row (Cable),Shoulder,Cable,,,,,,,
-Rear Lateral Raise (Cable),Shoulder,Cable,,,,,,,
-Seated Rear Lateral Raise (Cable),Shoulder,Cable,,,,,,,
-Shoulder Press (Cable),Shoulder,Cable,,,,,,,
-Single - Lateral Raise (Cable),Shoulder,Cable,,,,,,,
-Standing Cross Row (Cable),Shoulder,Cable,,,,,,,
-Twisting overhead Press (Cable),Shoulder,Cable,,,,,,,
-Upright Row (Cable),Shoulder,Cable,,,,,,,
-Dumbbell Arm Circles,Shoulder,Dumbbell,,,,,,,
-"Dumbbell Fly, Incline Bench, Prone",Shoulder,Dumbbell,,,,,,,
-"Dumbbell Fly, Rear Delt",Shoulder,Dumbbell,,,,,,,
-"Dumbbell Fly, Seated",Shoulder,Dumbbell,,,,,,,
-Dumbbell Jerk,Shoulder,Dumbbell,,,28,,,,
-"Dumbbell Pullover, Incline Bench",Shoulder,Dumbbell,,,,,,,
-Dumbbell Scarecrow,Shoulder,Dumbbell,,,,,,,
-External Rotation - Lying (Dumbbell),Shoulder,Dumbbell,,,,,,,
-External Rotation - Seated (Dumbbell),Shoulder,Dumbbell,,,,,,,
-External Rotation - Upward (Dumbbell),Shoulder,Dumbbell,,,,,,,
-Front Lateral Raise (Dumbbell),Shoulder,Dumbbell,,,,,,,
-Front Raise (Dumbbell),Shoulder,Dumbbell,,,,,,,
-Front Raise - Alternating (Dumbbell),Shoulder,Dumbbell,,,,,,,
-Front Raise - Incline (Dumbbell),Shoulder,Dumbbell,,,,,,,
-Internal Rotation (Dumbbell),Shoulder,Dumbbell,,,,,,,
-Lateral Raise (Dumbbell),Shoulder,Dumbbell,,,,,,,
-Lying Lateral Raise (Dumbbell),Shoulder,Dumbbell,,,,,,,
-Lying Rear Delt Raise (Dumbbell),Shoulder,Dumbbell,,,,,,,
-Lying Rear Delt Row (Dumbbell),Shoulder,Dumbbell,,,,,,,
-Lying Rear Lateral Raise (Dumbbell),Shoulder,Dumbbell,,,,,,,
-Raise (Dumbbell),Shoulder,Dumbbell,,,,,,,
-Rear Delt Row (Dumbbell),Shoulder,Dumbbell,,,,,,,
-Rear Lateral Raise (Dumbbell),Shoulder,Dumbbell,,,,,,,
-Seated Rear Lateral Raise (Dumbbell),Shoulder,Dumbbell,,,,,,,
-Shoulder Press (Dumbbell),Shoulder,Dumbbell,,,,,,,
-Shoulder Press - Single (Dumbbell),Shoulder,Dumbbell,,,,,,,
-Single Lateral Raise (Dumbbell),Shoulder,Dumbbell,,,,,,,
-Upright Row (Dumbbell),Shoulder,Dumbbell,,,,,,,
+"Row, Bent Over, Neutral Grip, Single Arm",Back,Barbell
+"Row, Bent Over, Overhand Grip, Straight Stance",Back,Barbell
+"Row, Bent Over, Underhand Grip",Back,Barbell
+"Row, on Bench, Single Arm",Back,Barbell
+Bent Arm Pullover,Back,Barbell
+Bent-over Row,Back,Barbell
+Pullover,Back,Barbell
+Shrug,Back,Barbell
+Shrug Seated,Back,Barbell
+Superman,Back,Bodyweight
+"Superman, Alternating",Back,Bodyweight
+Lats. Stretch (Seated),Back,Bodyweight
+Lats. Stretch (Standing),Back,Bodyweight
+Lats. Stretch (Wall),Back,Bodyweight
+Alternating Close Grip Pulldown,Back,Cable
+Alternating Pulldown,Back,Cable
+Bent Over Pulldown,Back,Cable
+Close Grip Pulldown,Back,Cable
+Parallel Grip Pull-up,Back,Cable
+Pro-Lat-Bar Pulldown,Back,Cable
+Pulldown,Back,Cable
+Pullover,Back,Cable
+Pullover,Back,Cable
+Seated Pullover,Back,Cable
+Seated Row,Back,Cable
+Seated Row - Straight Back,Back,Cable
+Shrug,Back,Cable
+Underhand Pull-up,Back,Cable
+Underhand Pulldown,Back,Cable
+Bent-over Row,Back,Dumbbell
+"Pullover, Decline Bench",Back,Dumbbell
+"Shrug, Hang Jump",Back,Dumbbell
+"Shrug, Incline Bench",Back,Dumbbell
+"Shrug, Jump",Back,Dumbbell
+"Shrug, Overhead",Back,Dumbbell
+"Shrug, Overhead, Flat Bench",Back,Dumbbell
+"Shrug, Overhead, Incline Bench",Back,Dumbbell
+"Shrug, Overhead, Seated",Back,Dumbbell
+"Shrug, Seated",Back,Dumbbell
+Shrug,Back,Dumbbell
+Alternating Renegade Row,Back,Kettlebell
+Alternating Row,Back,Kettlebell
+One-Arm Row,Back,Kettlebell
+Two-Arm Row,Back,Kettlebell
+Back Stretch,Back,Machine
+Bent-over Row,Back,Machine
+Close Grip Pulldown,Back,Machine
+Front Pulldown,Back,Machine
+Lateral Pulldown,Back,Machine
+Parallel Grip Pulldown,Back,Machine
+Pulldown,Back,Machine
+Seated Row - Narrow Grip,Back,Machine
+Seated Row - Wide Grip,Back,Machine
+Shrug,Back,Machine
+Shrug - Hands-free,Back,Machine
+Standing Row,Back,Machine
+Pull-up,Back,Machine
+Pull-up (Underhand) - Assisted,Back,Machine
+Pull-up (Underhand) - Assisted Standing,Back,Machine
+Pull-up - Assisted,Back,Machine
+"Pull-up, Close Grip",Back,Machine
+Pull-up,Back,Machine
+Pull-up (Underhand) - Assisted,Back,Machine
+Pull-up (Underhand) - Assisted Standing,Back,Machine
+Pull-up - Assisted,Back,Machine
+"Pull-up, Close Grip",Back,Machine
+Stability Ball Side Raise,Back,Stability Ball
+"Stability Ball Fly, Dumbbell, Flat, Prone",Back,Stability Ball
+Stability Ball Hyperextension,Back,Stability Ball
+"Stability Ball Hyperextension, Legs Up",Back,Stability Ball
+Reverse Calf Raise,Calves,Barbell
+Seated Calf Raise,Calves,Barbell
+Standing Calf Raise,Calves,Barbell
+Calf Stretch - Bent Knee Pushing against Wall,Calves,Bodyweight
+Calf Stretch - Kneeling,Calves,Bodyweight
+Calf Stretch - Lunge,Calves,Bodyweight
+Calf Stretch - Lunging with Bent Knee,Calves,Bodyweight
+Calf Stretch - Pike,Calves,Bodyweight
+Calf Stretch - Pike with Bent Knee,Calves,Bodyweight
+Calf Stretch - Pushing against Wall,Calves,Bodyweight
+Calf Stretch - Seated,Calves,Bodyweight
+Calf Stretch - Standing against Wall,Calves,Bodyweight
+Calf Stretch - Standing against Wall with Bent Knee,Calves,Bodyweight
+Calf Stretch - Step,Calves,Bodyweight
+Single Leg Calf Raise,Calves,Bodyweight
+Standing Calf Raise,Calves,Bodyweight
+Calves - Reverse Calf Raise,Calves,Dumbbell
+Calves - Standing Calf Raise,Calves,Dumbbell
+Calves - Seated Calf Press,Calves,Machine
+Calves - Standing Calf Raise,Calves,Machine
+"Bench Press, Flat, Overhand Wide Grip",Chest,Barbell
+"Bench Press, Incline, Overhand Narrow Grip",Chest,Barbell
+"Bench Press, Incline, Underhand Grip",Chest,Barbell
+Bench Press,Chest,Barbell
+Decline Bench Press,Chest,Barbell
+Guillotine Bench Press,Chest,Barbell
+Incline Bench Press,Chest,Barbell
+Incline Shoulder Raise,Chest,Barbell
+Powerlift Bench Press,Chest,Barbell
+T-Pushup,Chest,Bodyweight
+Chest Stretch - Bent Arm,Chest,Bodyweight
+Chest Stretch - Straight Arm,Chest,Bodyweight
+Chest Stretch - Yawn,Chest,Bodyweight
+Push Up,Chest,Bodyweight
+Bench Press,Chest,Cable
+"Cable Fly, Incline Bench",Chest,Cable
+Decline Fly,Chest,Cable
+Decline Press,Chest,Cable
+Incline Bench Press,Chest,Cable
+Incline Press,Chest,Cable
+Lying Fly,Chest,Cable
+Press,Chest,Cable
+Seated Fly,Chest,Cable
+Shoulder Raise,Chest,Cable
+Single Arm Incline Press,Chest,Cable
+Standing Fly,Chest,Cable
+Standing Incline Press,Chest,Cable
+Standing Press,Chest,Cable
+Twisting Press,Chest,Cable
+Bench Press,Chest,Dumbbell
+Decline Bench Press,Chest,Dumbbell
+Decline Fly,Chest,Dumbbell
+"Bench Press, Decline, Neutral Grip",Chest,Dumbbell
+"Bench Press, Decline, Overhand Grip",Chest,Dumbbell
+"Bench Press, Decline, Underhand Grip",Chest,Dumbbell
+"Bench Press, Incline, Neutral Grip",Chest,Dumbbell
+"Bench Press, Incline, Overhand Grip",Chest,Dumbbell
+"Bench Press, Incline, Underhand Grip",Chest,Dumbbell
+"Fly, Incline Bench",Chest,Dumbbell
+Fly,Chest,Dumbbell
+Incline Bench Press,Chest,Dumbbell
+Incline Shoulder Raise,Chest,Dumbbell
+Pullover,Chest,Dumbbell
+Alternating Floor Press,Chest,Kettlebell
+Extended Range One Arm Floor Press,Chest,Kettlebell
+Leg Over Floor Press,Chest,Kettlebell
+One Arm Floor Press,Chest,Kettlebell
+Bench Press,Chest,Machine
+Chest Dip,Chest,Machine
+Decline Fly,Chest,Machine
+Fly,Chest,Machine
+Incline Bench Press,Chest,Machine
+Incline Chest Press,Chest,Machine
+Incline Fly,Chest,Machine
+Icline Shoulder Raise,Chest,Machine
+Parallel Grip Incline Bench Press,Chest,Machine
+Press,Chest,Machine
+Seated Fly,Chest,Machine
+Chest Dip (Assisted),Chest,Machine
+Dip,Chest,Machine
+Medicine Ball Fly,Chest,Stability Ball
+"Stability Ball Chest Press, Dumbbell, Flat",Chest,Stability Ball
+"Stability Ball Chest Press, Dumbbell, Incline",Chest,Stability Ball
+"Stability Ball Fly, Dumbbell, Flat",Chest,Stability Ball
+"Stability Ball Fly, Dumbbell, Incline",Chest,Stability Ball
+"Stability Ball Pullover, Dumbbell",Chest,Stability Ball
+"Stability Ball Pullover, Dumbbell, Bent Arm",Chest,Stability Ball
+Stability Ball Pushup,Chest,Stability Ball
+"Stability Ball Pushup, Legs on Ball",Chest,Stability Ball
+"Stability Ball Pushup, on Knees",Chest,Stability Ball
+Push Crunch,Core,Barbell
+V Sit-up,Core,Bodyweight
+Butt Ups,Core,Bodyweight
+"Crunch, Bicycle",Core,Bodyweight
+"Crunch, Cross Body",Core,Bodyweight
+"Crunch, Oblique",Core,Bodyweight
+"Crunch, Reverse",Core,Bodyweight
+"Crunch, Straight Hands",Core,Bodyweight
+Flutter Kicks,Core,Bodyweight
+Heel Touch,Core,Bodyweight
+Hip Raise,Core,Bodyweight
+"Leg Raise, Lying",Core,Bodyweight
+"Leg Raise, Straight, Variation",Core,Bodyweight
+"Leg Raise, V Formation",Core,Bodyweight
+Plank,Core,Bodyweight
+Plank Jacks,Core,Bodyweight
+"Plank, Side",Core,Bodyweight
+"Pull In, Lying",Core,Bodyweight
+"Pull In, Seated",Core,Bodyweight
+Scissor Kick,Core,Bodyweight
+Side Bridge,Core,Bodyweight
+"Side Bridge, Leg Raise",Core,Bodyweight
+Toe Touch,Core,Bodyweight
+Twist,Core,Bodyweight
+"Twist, Russian",Core,Bodyweight
+Crunch,Core,Bodyweight
+Crunch Up,Core,Bodyweight
+Jack-knife Sit-up,Core,Bodyweight
+Lying Twist,Core,Bodyweight
+Side Crunch,Core,Bodyweight
+Waist Stretch - Kneeling,Core,Bodyweight
+Waist Stretch - Lying,Core,Bodyweight
+Waist Stretch - Lying Bent Leg,Core,Bodyweight
+Waist Stretch - Lying Rollover,Core,Bodyweight
+Waist Stretch - Prone,Core,Bodyweight
+Waist Stretch - Seated Rollover,Core,Bodyweight
+Waist Stretch - Seated Twist,Core,Bodyweight
+Waist Stretch - Standing,Core,Bodyweight
+Weighted Twisting Crunch,Core,Bodyweight
+Weighted Twisting Sit-up,Core,Bodyweight
+Kneeling Crunch,Core,Cable
+Leg-Hip Raise,Core,Cable
+Seated Crunch,Core,Cable
+Side Bend,Core,Cable
+Side Bend,Core,Cable
+Standing Crunch,Core,Cable
+Straight Leg-Hip Raise,Core,Cable
+Twist,Core,Cable
+Twist Down,Core,Cable
+Twist Up,Core,Cable
+Woodchopper,Core,Dumbbell
+Woodchopper (Reverse),Core,Dumbbell
+Push Crunch,Core,Dumbbell
+Side Bend,Core,Dumbbell
+Advanced Windmill,Core,Kettlebell
+AOS Two Hands Anyhow,Core,Kettlebell
+Double Windmill,Core,Kettlebell
+Figure 8,Core,Kettlebell
+Figure 8 To A Hold,Core,Kettlebell
+Pass Between The Legs,Core,Kettlebell
+Turkish Get-Up (Lunge Style),Core,Kettlebell
+Turkish Get-Up (Squat Style),Core,Kettlebell
+Windmill,Core,Kettlebell
+Leg Raise Crunch,Core,Machine
+Lying Crunch,Core,Machine
+Push Crunch,Core,Machine
+Seated Crunch,Core,Machine
+Seated Hip Raise Crunch,Core,Machine
+Side Crunch,Core,Machine
+Twist,Core,Machine
+Vertical Leg-Hip Raise,Core,Machine
+Stability Ball Crunch,Core,Stability Ball
+Stability Ball Jackknife,Core,Stability Ball
+Stability Ball Lying Crunch,Core,Stability Ball
+Stability Ball Overhead Crunch,Core,Stability Ball
+Stability Ball Pass Off,Core,Stability Ball
+Stability Ball Pike,Core,Stability Ball
+Stability Ball Plank,Core,Stability Ball
+"Stability Ball Plank, Twist",Core,Stability Ball
+Stability Ball Side Bend,Core,Stability Ball
+Twisting Crunch (Ball),Core,Stability Ball
+Reverse Preacher Curl,Forearm,Barbell
+Reverse Wrist Curl,Forearm,Barbell
+Wrist Curl,Forearm,Barbell
+Stretch - Wrist Extensor (Kneeling),Forearm,Bodyweight
+Stretch - Wrist Extensor (Single Arm),Forearm,Bodyweight
+Stretch - Wrist Flexors (Kneeling),Forearm,Bodyweight
+Stretch - Wrist Flexors (Seated),Forearm,Bodyweight
+Stretch - Wrist Flexors (Single Arm),Forearm,Bodyweight
+Stretch - Wrist Flexors (Standing),Forearm,Bodyweight
+Reverse Preacher Curl,Forearm,Cable
+Reverse Wrist Curl,Forearm,Cable
+Roll Up,Forearm,Cable
+Wrist Curl,Forearm,Cable
+Lying Pronation,Forearm,Dumbbell
+Radial Flexion,Forearm,Dumbbell
+Reverse Wrist Curl,Forearm,Dumbbell
+Ulnar Flexion,Forearm,Dumbbell
+Wrist Curl,Forearm,Dumbbell
+Bottoms-Up Clean from the Hang Position,Forearm,Kettlebell
+Pronation,Forearm,Machine
+Radial Flexion,Forearm,Machine
+Reverse Preacher Curl,Forearm,Machine
+Reverse Wrist Curl,Forearm,Machine
+Roller Wrist Flexion,Forearm,Machine
+Ulnar Flexion,Forearm,Machine
+"Stability Ball Wrist Curl, Dumbbell",Forearm,Stability Ball
+Groin Stretch - Kneeling,Groin,Bodyweight
+Groin Stretch - Kneeling Side Lunge,Groin,Bodyweight
+Groin Stretch - Lying,Groin,Bodyweight
+Groin Stretch - Lying Wall,Groin,Bodyweight
+Groin Stretch - Seated,Groin,Bodyweight
+Groin Stretch - Squatting,Groin,Bodyweight
+Groin Stretch - Standing Side Lunge,Groin,Bodyweight
+Alternating Lunge,Hip,Barbell
+Deadlift,Hip,Barbell
+Good Morning - Bent Knee,Hip,Barbell
+Rear Lunge,Hip,Barbell
+Romanian Deadlift,Hip,Barbell
+Side Lunge,Hip,Barbell
+Squat,Hip,Barbell
+Step-ups,Hip,Barbell
+Sumo Deadlift,Hip,Barbell
+Bridge,Hip,Bodyweight
+Glute Kickback,Hip,Bodyweight
+Hip Extension,Hip,Bodyweight
+Hip Stretch - Lying,Hip,Bodyweight
+Hip Stretch - Lying Iliotibial,Hip,Bodyweight
+Hip Stretch - Lying Rollover,Hip,Bodyweight
+Hip Stretch - Lying Twist,Hip,Bodyweight
+Hip Stretch - Lying Wall,Hip,Bodyweight
+Hip Stretch - Modified Lying,Hip,Bodyweight
+Hip Stretch - Prone,Hip,Bodyweight
+Hip Stretch - Seated Rotator,Hip,Bodyweight
+Hip Stretch - Seated Twist,Hip,Bodyweight
+Hip Stretch - Side Twist,Hip,Bodyweight
+Hip Stretch - Squatting,Hip,Bodyweight
+Hip Stretch - Standing,Hip,Bodyweight
+Hip Stretch - Wall,Hip,Bodyweight
+Hip Abduction,Hip,Cable
+Hip Extension,Hip,Cable
+Rear Lunge,Hip,Cable
+Romanian Deadlift,Hip,Cable
+Squat,Hip,Cable
+Step-ups,Hip,Cable
+Hip Abduction,Hip,Dumbbell
+Lunge,Hip,Dumbbell
+Rear Lunge,Hip,Dumbbell
+Side Lunge,Hip,Dumbbell
+Squat,Hip,Dumbbell
+Step-ups,Hip,Dumbbell
+V Squat,Hip,Machine
+Hip Abduction,Hip,Machine
+Hip Abduction - Standing,Hip,Machine
+Hip Extension,Hip,Machine
+Hip Stretch,Hip,Machine
+Leg Press,Hip,Machine
+Squat,Hip,Machine
+Stability Ball Bridge,Hip,Stability Ball
+Shin Stretch - Kneeling,Lower Leg,Bodyweight
+Shin Stretch - Lying,Lower Leg,Bodyweight
+"Jerk, Balance",Shoulder,Barbell
+"Jerk, Split",Shoulder,Barbell
+Front Raise,Shoulder,Barbell
+Lying Rear Delt Row,Shoulder,Barbell
+Military Press,Shoulder,Barbell
+Military Press - Seated,Shoulder,Barbell
+Rear Delt Row,Shoulder,Barbell
+Shoulder Press,Shoulder,Barbell
+Upright Row,Shoulder,Barbell
+Deltoid (Anterior) Stretch - (Wall),Shoulder,Bodyweight
+"Stretch - Deltoid, Lateral (Standing)",Shoulder,Bodyweight
+Stretch - Infraspinatus (Bend-over),Shoulder,Bodyweight
+Stretch - Infraspinatus (Lying),Shoulder,Bodyweight
+Subscapularis Stretch (Doorway),Shoulder,Bodyweight
+External Rotation,Shoulder,Cable
+External Rotation - Standing,Shoulder,Cable
+External Rotation - Upward,Shoulder,Cable
+Front Lateral Raise,Shoulder,Cable
+Front Raise,Shoulder,Cable
+Internal Rotation,Shoulder,Cable
+Lateral Raise,Shoulder,Cable
+Rear Delt Pull,Shoulder,Cable
+Rear Delt Row,Shoulder,Cable
+Rear Lateral Raise,Shoulder,Cable
+Seated Rear Lateral Raise,Shoulder,Cable
+Shoulder Press,Shoulder,Cable
+Single - Lateral Raise,Shoulder,Cable
+Standing Cross Row,Shoulder,Cable
+Twisting overhead Press,Shoulder,Cable
+Upright Row,Shoulder,Cable
+Arm Circles,Shoulder,Dumbbell
+"Fly, Incline Bench, Prone",Shoulder,Dumbbell
+"Fly, Rear Delt",Shoulder,Dumbbell
+"Fly, Seated",Shoulder,Dumbbell
+Jerk,Shoulder,Dumbbell
+"Pullover, Incline Bench",Shoulder,Dumbbell
+Scarecrow,Shoulder,Dumbbell
+External Rotation - Lying,Shoulder,Dumbbell
+External Rotation - Seated,Shoulder,Dumbbell
+External Rotation - Upward,Shoulder,Dumbbell
+Front Lateral Raise,Shoulder,Dumbbell
+Front Raise,Shoulder,Dumbbell
+Front Raise - Alternating,Shoulder,Dumbbell
+Front Raise - Incline,Shoulder,Dumbbell
+Internal Rotation,Shoulder,Dumbbell
+Lateral Raise,Shoulder,Dumbbell
+Lying Lateral Raise,Shoulder,Dumbbell
+Lying Rear Delt Raise,Shoulder,Dumbbell
+Lying Rear Delt Row,Shoulder,Dumbbell
+Lying Rear Lateral Raise,Shoulder,Dumbbell
+Raise,Shoulder,Dumbbell
+Rear Delt Row,Shoulder,Dumbbell
+Rear Lateral Raise,Shoulder,Dumbbell
+Seated Rear Lateral Raise,Shoulder,Dumbbell
+Shoulder Press,Shoulder,Dumbbell
+Shoulder Press - Single,Shoulder,Dumbbell
+Single Lateral Raise,Shoulder,Dumbbell
+Upright Row,Shoulder,Dumbbell
+Alternating Press,Shoulder,Kettlebell
+Alternating Seated Press,Shoulder,Kettlebell
+Arnold Press,Shoulder,Kettlebell
+Double Jerk,Shoulder,Kettlebell
+Double Push Press,Shoulder,Kettlebell
+Long Cycle Press (Pro Series),Shoulder,Kettlebell
+One-Arm Jerk,Shoulder,Kettlebell
+One-Arm Military Press To the Side,Shoulder,Kettlebell
+One-Arm Para Press,Shoulder,Kettlebell
+One-Arm Push Press,Shoulder,Kettlebell
+One-Arm Seated Military Press,Shoulder,Kettlebell
+One-Arm Stomp Jerk,Shoulder,Kettlebell
+Seated Press,Shoulder,Kettlebell
+Seesaw Press,Shoulder,Kettlebell
+Two-Arm Military Press,Shoulder,Kettlebell
+External Rotation,Shoulder,Machine
+Internal Rotation,Shoulder,Machine
+Lateral Raise,Shoulder,Machine
+Lying Rear Lateral Raise,Shoulder,Machine
+Military Press,Shoulder,Machine
+Seated Rear Delt Row,Shoulder,Machine
+Seated Rear Lateral Raise,Shoulder,Machine
+Shoulder Press,Shoulder,Machine
+Stability Ball Scarecrow,Shoulder,Stability Ball
+Clean,Thigh,Barbell
+Clean and Jerk,Thigh,Barbell
+"Clean, Hang",Thigh,Barbell
+"Clean, Power",Thigh,Barbell
+"Snatch, Hang",Thigh,Barbell
+"Snatch, Muscle",Thigh,Barbell
+"Snatch, Power",Thigh,Barbell
+Squat And Calf Raise,Thigh,Barbell
+Squat Sumo,Thigh,Barbell
+"Squat, Jump",Thigh,Barbell
+"Squat, Kneeling",Thigh,Barbell
+"Squat, Overhead",Thigh,Barbell
+"Squat, Split",Thigh,Barbell
+"Squat, Split, Side",Thigh,Barbell
+Thruster,Thigh,Barbell
+Front Squat,Thigh,Barbell
+Full Squat,Thigh,Barbell
+Glute-Ham Raise,Thigh,Barbell
+Good Morning,Thigh,Barbell
+Hack Squat,Thigh,Barbell
+Hamstring Raise,Thigh,Barbell
+Hyperextension,Thigh,Barbell
+Lateral Step-up,Thigh,Barbell
+Lunge,Thigh,Barbell
+Squat,Thigh,Barbell
+Straight Leg Deadlift,Thigh,Barbell
+Burpee (On Feet),Thigh,Bodyweight
+"Deadlift, Single Leg",Thigh,Bodyweight
+Iron Chair,Thigh,Bodyweight
+Mountain Climbers,Thigh,Bodyweight
+Squat,Thigh,Bodyweight
+Squat and Calf Raises,Thigh,Bodyweight
+"Squat, Jump",Thigh,Bodyweight
+"Squat, Kneeling",Thigh,Bodyweight
+"Squat, Single Leg, Bent",Thigh,Bodyweight
+"Squat, Single Leg, Straight",Thigh,Bodyweight
+"Squat, Split",Thigh,Bodyweight
+"Squat, Split, Side",Thigh,Bodyweight
+"Walk, Wide Stance",Thigh,Bodyweight
+Thigh Stretch - Lying Prone,Thigh,Bodyweight
+Thigh Stretch - Lying Side,Thigh,Bodyweight
+Thigh Stretch - Standing,Thigh,Bodyweight
+Bent-over Leg Curl,Thigh,Cable
+Hip Adduction,Thigh,Cable
+Leg Extension,Thigh,Cable
+Lunge,Thigh,Cable
+Lying Hip Adduction,Thigh,Cable
+Lying Leg Curl,Thigh,Cable
+Split Squat - Single Leg,Thigh,Cable
+Standing Leg Curl,Thigh,Cable
+Step Up,Thigh,Cable
+Clean (Power),Thigh,Dumbbell
+Clean And Jerk,Thigh,Dumbbell
+"Clean And Jerk, Single Arm",Thigh,Dumbbell
+"Clean, Hang",Thigh,Dumbbell
+"Clean, Neutral Grip (Power)",Thigh,Dumbbell
+Iron Cross,Thigh,Dumbbell
+"Lunge, Forward, Overhead",Thigh,Dumbbell
+"Lunge, Walking",Thigh,Dumbbell
+Split Squat - Single Leg,Thigh,Dumbbell
+Step Down,Thigh,Dumbbell
+Step Up,Thigh,Dumbbell
+Straight Leg Deadlift,Thigh,Dumbbell
+Front Squats with Two Kettlebells,Thigh,Kettlebell
+Alternating Hang Clean,Thigh,Kettlebell
+Dead Clean,Thigh,Kettlebell
+Double Snatch,Thigh,Kettlebell
+Double Swings,Thigh,Kettlebell
+Hang Clean,Thigh,Kettlebell
+One-Arm Clean,Thigh,Kettlebell
+One-Arm Open Palm Clean,Thigh,Kettlebell
+One-Arm Overhead Squats,Thigh,Kettlebell
+One-Arm Snatch,Thigh,Kettlebell
+One-Arm Split Jerk,Thigh,Kettlebell
+One-Arm Split Snatch,Thigh,Kettlebell
+One-Arm Swings,Thigh,Kettlebell
+One-Legged Squat,Thigh,Kettlebell
+Squats,Thigh,Kettlebell
+Bent Over Leg Curl,Thigh,Machine
+Kneeling Leg Curl,Thigh,Machine
+Leg Extension,Thigh,Machine
+Lying Hip Adduction,Thigh,Machine
+Lying Leg Curl,Thigh,Machine
+Seated Hip Adduction,Thigh,Machine
+Seated Leg Curl,Thigh,Machine
+Standing Hip Adduction,Thigh,Machine
+Standing Leg Curl,Thigh,Machine
+Thigh Stretch - Lever,Thigh,Machine
+Stability Ball Leg Curl,Thigh,Stability Ball
+Bench Press - Close Grip,Upper Arm,Barbell
+Biceps Curl,Upper Arm,Barbell
+Biceps Drag Curl,Upper Arm,Barbell
+Incline Bench Press - Close Grip,Upper Arm,Barbell
+Preacher Curl,Upper Arm,Barbell
+Prone Incline Curl,Upper Arm,Barbell
+Reverse Curl,Upper Arm,Barbell
+Triceps Extension - Decline,Upper Arm,Barbell
+Triceps Extension - Incline,Upper Arm,Barbell
+Triceps Extension - Lying,Upper Arm,Barbell
+Triceps Extension - Seated,Upper Arm,Barbell
+Push Up - Close Grip (Level 2),Upper Arm,Bodyweight
+Push Up - Close Grip (Level 3),Upper Arm,Bodyweight
+Upper Arm Stretch (Doorway),Upper Arm,Bodyweight
+Upper Arm Stretch (Seated),Upper Arm,Bodyweight
+Upper Arm Stretch (Standing),Upper Arm,Bodyweight
+Upper Arm Stretch (Standing),Upper Arm,Bodyweight
+Upper Arm Stretch (Wall),Upper Arm,Bodyweight
+Biceps Alternating Curl,Upper Arm,Cable
+Biceps Curl,Upper Arm,Cable
+Concentration Curl,Upper Arm,Cable
+Preacher Curl,Upper Arm,Cable
+Prone Incline Curl,Upper Arm,Cable
+Reverse Curl,Upper Arm,Cable
+Triceps Dip,Upper Arm,Cable
+Triceps Extension - Overhead,Upper Arm,Cable
+Triceps Extension - Side,Upper Arm,Cable
+Triceps Pushdown,Upper Arm,Cable
+Triceps Pushdown - Alternating Seated,Upper Arm,Cable
+Triceps Pushdown - Heavy,Upper Arm,Cable
+Triceps Pushdown - Incline,Upper Arm,Cable
+Triceps Pushdown - Rope,Upper Arm,Cable
+Triceps Pushdown - Single Arm,Upper Arm,Cable
+Triceps Pushdown - V-Bar,Upper Arm,Cable
+Biceps Curl,Upper Arm,Dumbbell
+Biceps Curl - Incline,Upper Arm,Dumbbell
+Concentration Curl,Upper Arm,Dumbbell
+"Biceps Curl, Neutral Grip, Bent Over",Upper Arm,Dumbbell
+"Biceps Curl, Neutral Grip, Cross Body",Upper Arm,Dumbbell
+"Biceps Curl, Neutral Grip, Flat Bench",Upper Arm,Dumbbell
+"Biceps Curl, Overhand Grip",Upper Arm,Dumbbell
+"Biceps Curl, Overhand Grip, Bent Over",Upper Arm,Dumbbell
+"Biceps Curl, Overhand Grip, Flat Bench",Upper Arm,Dumbbell
+"Biceps Curl, Overhand Grip, Incline Bench",Upper Arm,Dumbbell
+"Biceps Curl, Preacher, Neutral Grip, Sitting",Upper Arm,Dumbbell
+"Biceps Curl, Preacher, Overhand Grip",Upper Arm,Dumbbell
+"Biceps Curl, Underhand Grip, Bent Over",Upper Arm,Dumbbell
+"Biceps Curl, Underhand Grip, Drag",Upper Arm,Dumbbell
+"Biceps Curl, Underhand Grip, Elbows Up",Upper Arm,Dumbbell
+"Crossover, Underhand",Upper Arm,Dumbbell
+Hammer Curl,Upper Arm,Dumbbell
+Preacher Curl,Upper Arm,Dumbbell
+Prone Incline Curl,Upper Arm,Dumbbell
+Triceps Extension - Decline,Upper Arm,Dumbbell
+Triceps Extension - Incline,Upper Arm,Dumbbell
+Triceps Extension - Lying,Upper Arm,Dumbbell
+Triceps Extension - Seated,Upper Arm,Dumbbell
+Triceps Extension - Seated Single Arm,Upper Arm,Dumbbell
+Triceps Kickback,Upper Arm,Dumbbell
+Zottman curl,Upper Arm,Dumbbell
+Bench Press - Close Grip,Upper Arm,Machine
+Biceps Curl,Upper Arm,Machine
+Chest Press - Close Grip,Upper Arm,Machine
+Hammer Preacher Curl,Upper Arm,Machine
+Incline Bench Press - Close Grip,Upper Arm,Machine
+Preacher Curl,Upper Arm,Machine
+Triceps Dip,Upper Arm,Machine
+Triceps Dip - Reverse,Upper Arm,Machine
+Triceps Extension,Upper Arm,Machine
+Triceps Pushdown,Upper Arm,Machine
+Triceps Dip,Upper Arm,Machine
+Triceps Dip - Assisted,Upper Arm,Machine
+"Stability Ball Biceps Curl, Dumbbell, Neutral Grip",Upper Arm,Stability Ball
+"Stability Ball Biceps Curl, Dumbbell, Overhand Grip",Upper Arm,Stability Ball
+"Stability Ball Biceps Curl, Dumbbell, Underhand Grip",Upper Arm,Stability Ball
+Stability Ball Triceps Extension,Upper Arm,Stability Ball
+"Stability Ball Triceps Extension, Dumbbell",Upper Arm,Stability Ball

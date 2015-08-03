@@ -19,16 +19,20 @@
   <div class="row exercise-group-grid" ng-if="hasAnyGroups()">
     <div class="col-sm-12">
       <div class="well">
+        <h5 style="font-weight: bold;">Muscle group:</h5>
         <div class="row">
-          <div class="col-sm-6">
+          <div class="col-sm-12">
             <div class="btn-group">
               <label class="btn btn-success" ng-repeat="exerciseGroup in exerciseGroups" ng-model="selection.group"
                      btn-radio="'group-{{exerciseGroup.id}}'">{{exerciseGroup.name}}</label>
               <label class="btn btn-success" ng-model="selection.group" btn-radio="'{{NO_GROUP}}'">All</label>
             </div>
           </div>
-          <div class="col-sm-6">
-            <div class="btn-group pull-right">
+        </div>
+        <h5 style="font-weight: bold;"> Equipment:</h5>
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="btn-group">
               <label class="btn btn-success" ng-repeat="exerciseGroup in machineGroups"
                      ng-model="selection.machineGroup" btn-radio="'machineGroup-{{exerciseGroup.id}}'">{{exerciseGroup.name}}</label>
               <label class="btn btn-success" ng-model="selection.machineGroup" btn-radio="'{{NO_GROUP}}'">All</label>
