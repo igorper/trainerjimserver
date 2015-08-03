@@ -1,18 +1,18 @@
 var exerciseTypesSelector = angular.module('exerciseTypes.selector', [
-  'ui.select',
   'exerciseTypes.exerciseType',
   'exerciseGroups.exerciseGroup',
   'exerciseTypes.exerciseTypePanel',
-  'toaster'
+  'users.exerciseTypes.photos'
 ]);
 
 exerciseTypesSelector.factory('ExerciseTypesSelector', ['$modal', function ($modal) {
   return function (options) {
     return $modal.open({
       templateUrl: '<%= asset_path('exerciseTypes/exercise-type-selector.html') %>',
-      controller: ['$scope', '$modalInstance', 'ExerciseGroup', 'ExerciseType', function ($scope, $modalInstance, ExerciseGroup, ExerciseType) {
+      controller: ['$scope', '$modalInstance', 'ExerciseGroup', 'ExerciseType', 'UserExerciseTypePhotos', function ($scope, $modalInstance, ExerciseGroup, ExerciseType, UserExerciseTypePhotos) {
         $scope.exerciseGroups = ExerciseGroup.query();
         $scope.exerciseTypes = ExerciseType.query();
+        $scope.userExerciseTypePhotos = UserExerciseTypePhotos.primaryPhotos();
 
         options = angular.extend(
           {onAddExerciseType: $modalInstance.close},

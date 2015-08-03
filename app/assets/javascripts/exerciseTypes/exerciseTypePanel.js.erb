@@ -1,10 +1,8 @@
 var exerciseTypePanel = angular.module('exerciseTypes.exerciseTypePanel', [
-  'users.exerciseTypes.photos',
   'util.filters.propsFilter',
   'util.promiseUi',
   'ui.bootstrap',
-  'exerciseGroups.exerciseGroupsSelector',
-  'toaster'
+  'exerciseGroups.exerciseGroupsSelector'
 ]);
 
 exerciseTypePanel.directive('exerciseTypePanel', [function () {
@@ -19,20 +17,15 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
       isAdministrator: '=',
       exerciseGroups: '=',
       exerciseTypes: '=',
-      userExerciseTypePhotos: '=?'
+      userExerciseTypePhotos: '='
     },
     templateUrl: '<%= asset_path('exerciseTypes/exercise-type-panel.html') %>',
-    controller: ['$scope', 'UserExerciseTypePhotos', function ($scope, UserExerciseTypePhotos) {
+    controller: ['$scope', function ($scope) {
       $scope.filter = {};
       $scope.selectedExerciseGroupIds = [];
+      $scope.userExerciseTypePhotos.$promise.then(createExerciseTypeIdToPhotoMap);
 
-      if ($scope.userExerciseTypePhotos == undefined) {
-        UserExerciseTypePhotos.primaryPhotos(initializePhotos);
-      } else {
-        initializePhotos($scope.userExerciseTypePhotos);
-      }
-
-      function initializePhotos(exerciseTypePhotos) {
+      function createExerciseTypeIdToPhotoMap(exerciseTypePhotos) {
         $scope.exerciseTypeIdToThumbPath = _.object(_.map(exerciseTypePhotos, function (el) {
           return [el.exercise_type_id, el.thumb_image_url];
         }));
