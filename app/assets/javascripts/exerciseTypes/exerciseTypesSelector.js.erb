@@ -26,6 +26,20 @@ exerciseTypesSelector.factory('ExerciseTypesSelector', ['$modal', function ($mod
               ++$scope.addedExcercisesCount;
           };
 
+          $scope.onExerciseTypeAddClicked = function () {
+            console.log('onExerciseTypeAddClicked');
+
+          };
+
+          $scope.onExerciseTypeEditClicked = function (exerciseType) {
+            console.log('onExerciseTypeEditClicked', exerciseType);
+
+          };
+
+          $scope.onExerciseTypeDeleteClicked = function (exerciseType) {
+            console.log('onExerciseTypeDeleteClicked', exerciseType);
+          };
+
           $scope.cancel = function () {
             if ($scope.addedExcercisesCount > 0) {
               $modalInstance.close({addedExercisesCount: $scope.addedExcercisesCount});

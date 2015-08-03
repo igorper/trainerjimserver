@@ -14,37 +14,37 @@ var exerciseTypePanel = angular.module('exerciseTypes.exerciseTypePanel', [
 exerciseTypePanel.directive('exerciseTypePanel', [function () {
   return {
     restrict: 'E',
-    scope: {onExerciseTypeClicked: '&', editorUserId: '=', isAdministrator: '='},
+    scope: {
+      onExerciseTypeClicked: '&',
+      onExerciseTypeAddClicked: '&',
+      onExerciseTypeDeleteClicked: '&',
+      onExerciseTypeEditClicked: '&',
+      editorUserId: '=',
+      isAdministrator: '=',
+      exerciseGroups: '=?',
+      exerciseTypes: '=?',
+      userExerciseTypePhotos: '=?'
+    },
     templateUrl: '<%= asset_path('exerciseTypes/exercise-type-panel.html') %>',
     controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'ExerciseGroup', 'toaster', function ($scope, ExerciseType, UserExerciseTypePhotos, ExerciseGroup, toaster) {
       $scope.filter = {};
-      $scope.isChoosingExerciseTypes = true;
       $scope.selectedExerciseGroupIds = [];
+      $scope.exerciseTypes = $scope.exerciseTypes == undefined ? ExerciseType.query() : $scope.exerciseTypes;
 
-      function refreshExerciseTypesList() {
-        $scope.exerciseTypes = ExerciseType.query();
+      if ($scope.userExerciseTypePhotos == undefined) {
+        UserExerciseTypePhotos.primaryPhotos(initializePhotos);
+      } else {
+        initializePhotos($scope.userExerciseTypePhotos);
       }
 
-      function unselectExerciseGroups() {
-        $scope.selectedExerciseGroupIds = [];
-      }
-
-      refreshExerciseTypesList();
-
-      $scope.canEditExerciseType = function (exerciseType) {
-        return exerciseType.owner_id == $scope.editorUserId || $scope.isAdministrator;
-      };
-
-      UserExerciseTypePhotos.primaryPhotos(function (exerciseTypePhotos) {
+      function initializePhotos(exerciseTypePhotos) {
         $scope.exerciseTypeIdToThumbPath = _.object(_.map(exerciseTypePhotos, function (el) {
           return [el.exercise_type_id, el.thumb_image_url];
         }));
-      });
+      }
 
-      $scope.allExerciseGroups = ExerciseGroup.query();
-
-      $scope.hasAnyGroups = function () {
-        return !_.isEmpty($scope.allExerciseGroups);
+      $scope.canEditExerciseType = function (exerciseType) {
+        return exerciseType.owner_id == $scope.editorUserId || $scope.isAdministrator;
       };
 
       $scope.getPrimaryPhoto = function (exerciseType) {
@@ -55,47 +55,6 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
           }
         }
         return 'photos/exercise-types/thumb/weight1.png';
-      };
-
-      function editExerciseType(exerciseTypeToEdit) {
-        unselectExerciseGroups();
-        $scope.editedExerciseType = exerciseTypeToEdit;
-        $scope.selectedExerciseGroupIds = exerciseTypeToEdit.exercise_groups;
-        $scope.isChoosingExerciseTypes = false;
-      }
-
-      $scope.onCreateExerciseTypeClicked = function () {
-        editExerciseType(new ExerciseType());
-      };
-
-      $scope.onNewExerciseSaveClicked = function () {
-        $scope.editedExerciseType.exercise_groups = $scope.selectedExerciseGroupIds;
-        $scope.editedExerciseTypeSaving = $scope.editedExerciseType.$save(function () {
-          $scope.isChoosingExerciseTypes = true;
-          refreshExerciseTypesList();
-          unselectExerciseGroups();
-        }, function () {
-          toaster.pop("error", "Exercise type not saved", "An error occurred while uploading the exercise type.");
-        });
-      };
-
-      $scope.onNewExerciseCancelClicked = function () {
-        $scope.isChoosingExerciseTypes = true;
-        unselectExerciseGroups();
-      };
-
-      $scope.onExerciseTypeEditClicked = function (exerciseType) {
-        editExerciseType(new ExerciseType(exerciseType));
-      };
-
-      $scope.onExerciseTypeDeleteClicked = function (exerciseType) {
-        ExerciseType.delete({id: exerciseType.id}, refreshExerciseTypesList, function () {
-          toaster.pop("error", "Exercise type not deleted", "Could not delete the exercise type. The exercise type is in use.");
-        });
-      };
-
-      $scope.editExerciseTypeTitle = function () {
-        return $scope.editedExerciseType && $scope.editedExerciseType.id ? "Edit exercise type" : "Create new exercise type";
       };
     }]
   };
