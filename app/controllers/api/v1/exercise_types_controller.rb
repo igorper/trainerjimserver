@@ -1,15 +1,13 @@
 class Api::V1::ExerciseTypesController < ActionController::Base
 
   include AuthenticationHelper
-  include PaginationHelper
   include ExerciseTypeHelper
+  include ConditionalRenderHelper
 
   def index
     when_signed_in do
       @exercise_types = current_user_exercise_types.includes(:exercise_groups)
-      fresh_when last_modified: @exercise_types.maximum(:updated_at).try(:utc),
-                 etag: "exercise_types:index;current_user:#{current_user.id}",
-                 template: false
+      conditional_render(@exercise_types, "exercise_types:index;current_user:#{current_user.id}")
     end
   end
 
