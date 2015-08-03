@@ -17,8 +17,7 @@
   overflow: hidden;
   margin: 2px;
   cursor: pointer;
-  align-items: center;
-  padding: 4px;
+  padding: 2px;
 }
 
 .exercise-type-panel .exercise-type-item .edit-btn {
@@ -48,8 +47,22 @@
 }
 
 .exercise-type-panel .exercise-type-item .name {
+  position: absolute;
+  width: 129px;
+  height: 40px;
+  margin-left: 1px;
+  margin-top: -41px;
+  display: flex;
+  align-items: center;
+  padding: 0 2px;
+  background-color: rgba(0, 0, 0, 0.7);
+  border-radius: 3px;
+}
+
+.exercise-type-panel .exercise-type-item .name-text {
+  color: white;
   text-align: center;
-  height: 18px;
+  width: 100%;
 }
 
 .exercise-type-panel .exercise-type-item .thumb {
