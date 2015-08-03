@@ -57,3 +57,5 @@ group :test do
   gem 'factory_girl_rails'
   gem 'factory_girl'
 end
+
+gem 'rb-readline'

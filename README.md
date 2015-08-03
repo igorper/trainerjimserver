@@ -193,3 +193,36 @@ DETAIL:  Key (training_id)=(1041130383) is not present in table "trainings".
 ```
 
 __Solution__: Look at [this solution](http://stackoverflow.com/questions/28046415/loading-rails-fixtures-in-a-specific-order-when-testing).
+
+
+## Rails console in production server
+
+Running ``bundle exec rails c`` produces the following exception:
+
+```
+/home/trainerjim/.rbenv/versions/2.1.5/lib/ruby/2.1.0/irb/completion.rb:9:in `require': cannot load such file -- readline (LoadError)
+        from /home/trainerjim/.rbenv/versions/2.1.5/lib/ruby/2.1.0/irb/completion.rb:9:in `<top (required)>'
+        from /home/trainerjim/trainerjimserver-cap/shared/bundle/ruby/2.1.0/gems/railties-4.2.1/lib/rails/commands/console.rb:3:in `require'
+        from /home/trainerjim/trainerjimserver-cap/shared/bundle/ruby/2.1.0/gems/railties-4.2.1/lib/rails/commands/console.rb:3:in `<top (required)>'
+        from /home/trainerjim/trainerjimserver-cap/shared/bundle/ruby/2.1.0/gems/railties-4.2.1/lib/rails/commands/commands_tasks.rb:123:in `require'
+        from /home/trainerjim/trainerjimserver-cap/shared/bundle/ruby/2.1.0/gems/railties-4.2.1/lib/rails/commands/commands_tasks.rb:123:in `require_command!'
+        from /home/trainerjim/trainerjimserver-cap/shared/bundle/ruby/2.1.0/gems/railties-4.2.1/lib/rails/commands/commands_tasks.rb:58:in `console'
+        from /home/trainerjim/trainerjimserver-cap/shared/bundle/ruby/2.1.0/gems/railties-4.2.1/lib/rails/commands/commands_tasks.rb:39:in `run_command!'
+        from /home/trainerjim/trainerjimserver-cap/shared/bundle/ruby/2.1.0/gems/railties-4.2.1/lib/rails/commands.rb:17:in `<top (required)>'
+        from bin/rails:6:in `require'
+        from bin/rails:6:in `<main>'
+```
+
+__Solution__:
+
+1. Invoke:
+
+    ```
+    sudo apt-get install libreadline-dev
+    ```
+
+2. Add the following line to `Gemfile`:
+
+    ```
+    gem 'rb-readline'
+    ```
