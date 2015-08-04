@@ -30,6 +30,14 @@
       </div>
     </div>
 
+
+    <div class="row">
+      <div ng-if="exerciseType.id != null" class="col-sm-12">
+        <exercise-type-details exercise-type-id="exerciseType.id"
+                               user-id="editorUserId"></exercise-type-details>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-sm-12 pull-right">
         <fieldset>

@@ -1,11 +1,12 @@
 var exerciseTypeEditorModule = angular.module("exerciseTypes.exerciseTypeEditor", [
-  'users.selector'
+  'users.selector',
+  'exerciseTypes.exerciseTypeDetails'
 ]);
 
 exerciseTypeEditorModule.directive('exerciseTypeEditor', [function () {
   return {
     restrict: 'E',
-    scope: {exerciseType: '=', isAdminMode: '=?', onSaved: '&', onCancelClicked: '&'},
+    scope: {exerciseType: '=', editorUserId: '=', isAdminMode: '=?', onSaved: '&', onCancelClicked: '&'},
     controller: ['$scope', function ($scope) {
       $scope.onSaveClicked = function () {
         $scope.exerciseTypeSaving = $scope.exerciseType.$save(function (savedExerciseType) {
