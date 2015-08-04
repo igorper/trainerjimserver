@@ -2,26 +2,29 @@ var exerciseTypesSelector = angular.module('exerciseTypes.selector', [
   'exerciseTypes.exerciseType',
   'exerciseGroups.exerciseGroup',
   'exerciseTypes.exerciseTypePanel',
-  'users.exerciseTypes.photos'
+  'users.exerciseTypes.photos',
+  'toaster'
 ]);
 
 exerciseTypesSelector.factory('ExerciseTypesSelector', ['$modal', function ($modal) {
   return function (options) {
     return $modal.open({
       templateUrl: '<%= asset_path('exerciseTypes/exercise-type-selector.html') %>',
-      controller: ['$scope', '$modalInstance', 'ExerciseGroup', 'ExerciseType', 'UserExerciseTypePhotos', function ($scope, $modalInstance, ExerciseGroup, ExerciseType, UserExerciseTypePhotos) {
-        $scope.exerciseGroups = ExerciseGroup.query();
-        $scope.exerciseTypes = ExerciseType.query();
-        $scope.userExerciseTypePhotos = UserExerciseTypePhotos.primaryPhotos();
-
+      controller: ['$scope', '$modalInstance', 'ExerciseGroup', 'ExerciseType', 'UserExerciseTypePhotos', 'toaster', function ($scope, $modalInstance, ExerciseGroup, ExerciseType, UserExerciseTypePhotos, toaster) {
         options = angular.extend(
           {onAddExerciseType: $modalInstance.close},
           options
         );
-
+        refreshExerciseTypesList();
+        $scope.exerciseGroups = ExerciseGroup.query();
+        $scope.userExerciseTypePhotos = UserExerciseTypePhotos.primaryPhotos();
         $scope.addedExcercisesCount = 0;
         $scope.editorUserId = options.editorUserId;
         $scope.isAdminMode = options.isAdministrator;
+
+        function refreshExerciseTypesList() {
+          $scope.exerciseTypes = ExerciseType.query();
+        }
 
         $scope.onExerciseTypeClicked = function (exerciseType) {
           options.onAddExerciseType(exerciseType);
@@ -33,20 +36,22 @@ exerciseTypesSelector.factory('ExerciseTypesSelector', ['$modal', function ($mod
         };
 
         $scope.onExerciseTypeEditClicked = function (exerciseType) {
-          console.log('onExerciseTypeEditClicked', exerciseType);
-
+          $scope.editedExerciseType = new ExerciseType(exerciseType);
         };
 
         $scope.onExerciseTypeDeleteClicked = function (exerciseType) {
-          console.log('onExerciseTypeDeleteClicked', exerciseType);
+          ExerciseType.delete({id: exerciseType.id}, refreshExerciseTypesList, function () {
+            toaster.pop("error", "Exercise type not deleted", "Could not delete the exercise type. The exercise type is in use.");
+          });
         };
 
-        $scope.onEditSaveClicked = function (exerciseType) {
-          console.log('onEditSaveClicked', exerciseType);
+        $scope.onExerciseTypeSaved = function () {
+          $scope.editedExerciseType = null;
+          refreshExerciseTypesList();
         };
 
-        $scope.onEditCancelClicked = function (exerciseType) {
-          console.log('onEditCancelClicked', exerciseType);
+        $scope.onEditCancelClicked = function () {
+          $scope.editedExerciseType = null;
         };
 
         $scope.cancel = function () {
@@ -56,8 +61,7 @@ exerciseTypesSelector.factory('ExerciseTypesSelector', ['$modal', function ($mod
             $modalInstance.dismiss();
           }
         };
-      }
-      ],
+      }],
       backdrop: true,
       size: 'lg',
       windowClass: 'modal-window'

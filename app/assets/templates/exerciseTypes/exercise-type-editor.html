@@ -1,5 +1,11 @@
-<div class="exercise-type-editor">
+<div spin-until="exerciseType" class="exercise-type-editor">
   <form>
+    <div class="row">
+      <div class="col-sm-12">
+        <h3>Edit exercise type</h3>
+      </div>
+    </div>
+
     <div class="row">
       <div class="col-sm-12">
         <div class="form-group">
@@ -21,6 +27,21 @@
           <label>Owner:</label>
           <user-selector user-id="exerciseType.owner_id"></user-selector>
         </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12 pull-right">
+        <fieldset>
+          <button class="btn btn-danger pull-right"
+                  ng-click="onCancelClicked()">
+            Cancel
+          </button>
+          <button class="btn btn-primary pull-right" style="margin-right: 5px;"
+                  ng-click="onSaveClicked()">
+            Save
+          </button>
+        </fieldset>
       </div>
     </div>
   </form>

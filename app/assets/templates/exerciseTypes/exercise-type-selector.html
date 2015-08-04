@@ -11,7 +11,7 @@
                        user-exercise-type-photos="userExerciseTypePhotos"></exercise-type-panel>
   <exercise-type-editor ng-if="editedExerciseType"
                         exercise-type="editedExerciseType"
-                        on-save-clicked="onEditSaveClicked(exerciseType)"
+                        on-saved="onExerciseTypeSaved(exerciseType)"
                         on-cancel-clicked="onEditCancelClicked(exerciseType)"
                         is-admin-mode="isAdminMode"></exercise-type-editor>
 </div>
