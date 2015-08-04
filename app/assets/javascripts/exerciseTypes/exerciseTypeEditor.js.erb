@@ -8,7 +8,7 @@ exerciseTypeEditorModule.directive('exerciseTypeEditor', [function () {
     scope: {exerciseType: '=', isAdminMode: '=?', onSaved: '&', onCancelClicked: '&'},
     controller: ['$scope', function ($scope) {
       $scope.onSaveClicked = function () {
-        $scope.exerciseType.$save(function (savedExerciseType) {
+        $scope.exerciseTypeSaving = $scope.exerciseType.$save(function (savedExerciseType) {
           $scope.onSaved({exerciseType: savedExerciseType});
         });
       }
