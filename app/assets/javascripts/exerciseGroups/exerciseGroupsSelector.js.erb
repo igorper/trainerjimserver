@@ -12,17 +12,22 @@ exerciseGroupsSelector.directive('exerciseGroupsSelector', [function () {
     controller: ['$scope', function ($scope) {
       $scope.NO_GROUP = 'noGroup';
       $scope.selection = {};
+      var exerciseGroupsInitialized = false;
       $scope.$watch('exerciseGroups', initialiseExerciseGroups);
       $scope.$watch('selectedExerciseGroupIds', refreshRadioButtonsSelection);
       $scope.$watchCollection('[selection.group, selection.machineGroup]', refreshSelectedGroupIds);
 
       function refreshRadioButtonsSelection(exerciseGroupIds) {
-        $scope.selection.group = toRadioGroupSelection($scope.exerciseGroups, exerciseGroupIds, "group-");
-        $scope.selection.machineGroup = toRadioGroupSelection($scope.machineGroups, exerciseGroupIds, "machineGroup-");
+        if (exerciseGroupsInitialized) {
+          $scope.selection.group = toRadioGroupSelection($scope.exerciseGroups, exerciseGroupIds, "group-");
+          $scope.selection.machineGroup = toRadioGroupSelection($scope.machineGroups, exerciseGroupIds, "machineGroup-");
+        }
       }
 
       function refreshSelectedGroupIds(newRadioSelection) {
-        $scope.selectedExerciseGroupIds = _(newRadioSelection).map(idOfGroup).filter(_.isNumber);
+        if (exerciseGroupsInitialized) {
+          $scope.selectedExerciseGroupIds = _(newRadioSelection).map(idOfGroup).filter(_.isNumber);
+        }
       }
 
       function initialiseExerciseGroups(exerciseGroups) {
@@ -32,6 +37,7 @@ exerciseGroupsSelector.directive('exerciseGroupsSelector', [function () {
         $scope.machineGroups = _.filter(exerciseGroups, function (exerciseGroup) {
           return exerciseGroup.is_machine_group;
         });
+        exerciseGroupsInitialized = true;
         refreshRadioButtonsSelection($scope.selectedExerciseGroupIds);
       }
 

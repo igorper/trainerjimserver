@@ -2,21 +2,6 @@
   <form>
     <div class="row">
       <div class="col-sm-12">
-        <h3>Edit exercise type</h3>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="well">
-          <exercise-groups-selector selected-exercise-group-ids="exerciseType.exercise_groups"
-                                    exercise-groups="exerciseGroups"></exercise-groups-selector>
-        </div>
-      </div>
-    </div>
-
-    <div class="row">
-      <div class="col-sm-12">
         <div class="form-group">
           <label for="name">Name:</label>
           <input id="name"
@@ -35,6 +20,15 @@
         <div class="form-group">
           <label>Owner:</label>
           <user-selector user-id="exerciseType.owner_id"></user-selector>
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <exercise-groups-selector selected-exercise-group-ids="exerciseType.exercise_groups"
+                                    exercise-groups="exerciseGroups"></exercise-groups-selector>
         </div>
       </div>
     </div>

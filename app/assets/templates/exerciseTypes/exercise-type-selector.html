@@ -1,3 +1,8 @@
+<div ng-if="editedExerciseType" class="modal-header">
+  <h3 ng-if="editedExerciseType.id != null" class="modal-title">Edit exercise</h3>
+  <h3 ng-if="editedExerciseType.id == null" class="modal-title">Create new exercise</h3>
+</div>
+
 <div class="modal-body">
   <exercise-type-panel ng-if="!editedExerciseType"
                        on-exercise-type-clicked="onExerciseTypeClicked(exerciseType)"
