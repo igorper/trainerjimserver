@@ -51,7 +51,7 @@ module TrainingHelper
   end
 
   def full_trainings
-    Training.includes(exercises: [:exercise_type, :series])
+    Training.includes(exercises: [:exercise_type, :series, {exercise_type: [:exercise_groups]}])
   end
 
   def active_trainings(trainings)
