@@ -1,9 +1,10 @@
 var exerciseTypeEditorModule = angular.module("exerciseTypes.exerciseTypeEditor", [
   'users.selector',
-  'exerciseTypes.exerciseTypeDetails'
+  'exerciseTypes.exerciseTypeDetails',
+  'toaster'
 ]);
 
-exerciseTypeEditorModule.directive('exerciseTypeEditor', [function () {
+exerciseTypeEditorModule.directive('exerciseTypeEditor', ['toaster', function (toaster) {
   return {
     restrict: 'E',
     scope: {
@@ -18,6 +19,8 @@ exerciseTypeEditorModule.directive('exerciseTypeEditor', [function () {
       $scope.onSaveClicked = function () {
         $scope.exerciseTypeSaving = $scope.exerciseType.$save(function (savedExerciseType) {
           $scope.onSaved({exerciseType: savedExerciseType});
+        }, function () {
+          toaster.pop("error", "Exercise type not saved", "Could not save the exercise type. An unexpected error occurred.");
         });
       }
     }],
