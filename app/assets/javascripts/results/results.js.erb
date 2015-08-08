@@ -240,8 +240,7 @@ results.factory('resultsUtil', [function () {
       tooHardRating : TOO_HARD_RATING,
       tooEasyRating: TOO_EASY_RATING
     },
-    calculateResultsOverview: function (selectedTraining) {
-
+    calculateResultsOverview: function (selectedTraining, exerciseGroups) {
       /**
        * Create a lookup table for planned series. Each series can be looked up by it's id, which is also stored
        * for each series execution. Besides each series data id of the parent exercise is added to retain the information
@@ -249,7 +248,7 @@ results.factory('resultsUtil', [function () {
        * @param trainingPlan
        * @returns {Array}
        */
-      function getPlannedSeriesLookup(selectedTraining) {
+      function getPlannedSeriesLookup(selectedTraining, exerciseGroups) {
 
         var performedSeriesIds = _.pluck(selectedTraining.series_executions, 'series_id');
         var expectedOrder = 1;
@@ -258,6 +257,26 @@ results.factory('resultsUtil', [function () {
           var exercise = selectedTraining.training.exercises[i];
           for (var j = 0; j < exercise.series.length; j++) {
             var series = exercise.series[j];
+
+            // add information on exercise groups
+            series.muscleGroups = [];
+            series.equipmentGroups = [];
+            for(var k=0; k < exercise.exercise_type.exercise_groups.length; k++) {
+              var group = _.where(exerciseGroups, {id: exercise.exercise_type.exercise_groups[k]});
+
+              // no information available for this group, just skip adding it
+              if(group.length == 0){
+                continue;
+              }
+
+              // if more than one groups were found just use the first one
+              if(group[0].is_machine_group){
+                series.equipmentGroups.push(group[0].name);
+              } else {
+                series.muscleGroups.push(group[0].name);
+              }
+            }
+
             // save expected order for executed series (ignoring not executed series
             // does not mess the results if a particular series was skipped)
             if (_.contains(performedSeriesIds, series.id)) {
@@ -270,7 +289,7 @@ results.factory('resultsUtil', [function () {
         return lookup;
       }
 
-      var lookupSeries = getPlannedSeriesLookup(selectedTraining);
+      var lookupSeries = getPlannedSeriesLookup(selectedTraining, exerciseGroups);
 
       var overview = {};
       overview.trainingRatingIcon = smileLookup[selectedTraining.rating] + "-on"
@@ -280,6 +299,8 @@ results.factory('resultsUtil', [function () {
       overview.performedSeries = selectedTraining.series_executions.length;
       overview.totalSeries = _.flatten(_.pluck(selectedTraining.training.exercises, 'series')).length;
 
+      var cntMuscleGroups = {};
+      var cntEquipmentGroups = {};
       var performedSeriesExerciseId = [];
       var restInSeconds = 0, exerciseInSeconds = 0;
       var restDiff = 0;
@@ -294,6 +315,22 @@ results.factory('resultsUtil', [function () {
         var se = selectedTraining.series_executions[i];
         var parentSeries = lookupSeries[se.series_id];
         parentSeries.execution = se;
+
+        for(var j=0; j < parentSeries.muscleGroups.length; j++){
+          if(!cntMuscleGroups[parentSeries.muscleGroups[j]]) {
+            cntMuscleGroups[parentSeries.muscleGroups[j]] = 0;
+          }
+
+          cntMuscleGroups[parentSeries.muscleGroups[j]] += 1;
+        }
+
+        for(var j=0; j < parentSeries.equipmentGroups.length; j++){
+          if(!cntEquipmentGroups[parentSeries.equipmentGroups[j]]) {
+            cntEquipmentGroups[parentSeries.equipmentGroups[j]] = 0;
+          }
+
+          cntEquipmentGroups[parentSeries.equipmentGroups[j]] += 1;
+        }
 
         performedSeriesExerciseId.push(parentSeries.exercise_id);
 
@@ -316,6 +353,14 @@ results.factory('resultsUtil', [function () {
         cntHeavy += se.rating == TOO_HARD_RATING ? 1 : 0;
         cntEasy += se.rating == TOO_EASY_RATING ? 1 : 0;
       }
+
+      overview.muscleGroups = _.map(cntMuscleGroups, function (value, key) {
+       return {key: key, y: value};
+      });
+
+      overview.equipmentGroups = _.map(cntEquipmentGroups, function (value, key) {
+        return {key: key, y: value};
+      });
 
       overview.numExercisesPerformed = _.unique(performedSeriesExerciseId).length;
       overview.totalRestInMinutes = restInSeconds / 60.0;

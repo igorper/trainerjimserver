@@ -4,6 +4,7 @@
 *= require fullcalendar/dist/fullcalendar
 *= require angular-ui-grid/ui-grid
 *= require bootstrap/dist/css/bootstrap
+*= require nvd3/nv.d3
 *= require_tree .
 */
 

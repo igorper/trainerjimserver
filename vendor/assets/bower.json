@@ -19,8 +19,9 @@
     "angular-http-auth": "latest",
     "ng-file-upload": "latest",
     "d3": "latest",
-    "angular-spinner": "latest",
     "spin.js": "latest",
-    "bootstrap": "latest"
+    "bootstrap": "latest",
+    "nvd3": "latest",
+    "angular-nvd3": "latest"
   }
 }
