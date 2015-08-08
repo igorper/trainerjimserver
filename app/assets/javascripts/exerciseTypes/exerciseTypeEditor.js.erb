@@ -22,7 +22,11 @@ exerciseTypeEditorModule.directive('exerciseTypeEditor', ['toaster', function (t
         }, function () {
           toaster.pop("error", "Exercise type not saved", "Could not save the exercise type. An unexpected error occurred.");
         });
-      }
+      };
+
+      $scope.canUserEditDetails = function () {
+        return $scope.exerciseType.id == undefined || $scope.isAdminMode || $scope.exerciseType.owner_id == $scope.editorUserId;
+      };
     }],
     templateUrl: "<%= asset_path('exerciseTypes/exercise-type-editor.html') %>"
   };

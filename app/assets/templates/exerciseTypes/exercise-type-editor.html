@@ -1,34 +1,36 @@
 <div spin-until="exerciseTypeSaving" class="exercise-type-editor">
   <form>
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="form-group">
-          <label for="name">Name:</label>
-          <input id="name"
-                 type="text"
-                 name="name"
-                 autofocus="autofocus"
-                 class="form-control"
-                 placeholder="exercise name"
-                 ng-model="exerciseType.name"/>
+    <div ng-if="canUserEditDetails()">
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label for="name">Name:</label>
+            <input id="name"
+                   type="text"
+                   name="name"
+                   autofocus="autofocus"
+                   class="form-control"
+                   placeholder="exercise name"
+                   ng-model="exerciseType.name"/>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="row" ng-if="isAdminMode">
-      <div class="col-sm-12">
-        <div class="form-group">
-          <label>Owner:</label>
-          <user-selector user-id="exerciseType.owner_id"></user-selector>
+      <div class="row" ng-if="isAdminMode">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <label>Owner:</label>
+            <user-selector user-id="exerciseType.owner_id"></user-selector>
+          </div>
         </div>
       </div>
-    </div>
 
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="form-group">
-          <exercise-groups-selector selected-exercise-group-ids="exerciseType.exercise_groups"
-                                    exercise-groups="exerciseGroups"></exercise-groups-selector>
+      <div class="row">
+        <div class="col-sm-12">
+          <div class="form-group">
+            <exercise-groups-selector selected-exercise-group-ids="exerciseType.exercise_groups"
+                                      exercise-groups="exerciseGroups"></exercise-groups-selector>
+          </div>
         </div>
       </div>
     </div>
@@ -47,7 +49,9 @@
                   ng-click="onCancelClicked()">
             Cancel
           </button>
-          <button class="btn btn-primary pull-right" style="margin-right: 5px;"
+          <button ng-if="canUserEditDetails()"
+                  class="btn btn-primary pull-right"
+                  style="margin-right: 5px;"
                   ng-click="onSaveClicked()">
             Save
           </button>
