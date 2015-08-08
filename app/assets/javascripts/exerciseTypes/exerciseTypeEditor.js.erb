@@ -9,11 +9,13 @@ exerciseTypeEditorModule.directive('exerciseTypeEditor', ['toaster', function (t
     restrict: 'E',
     scope: {
       exerciseType: '=',
+      exerciseGroups: '=',
       editorUserId: '=',
       isAdminMode: '=?',
       onSaved: '&',
       onCancelClicked: '&',
-      exerciseGroups: '='
+      onPhotoAdded: '&',
+      onPhotoRemoved: '&'
     },
     controller: ['$scope', function ($scope) {
       $scope.onSaveClicked = function () {

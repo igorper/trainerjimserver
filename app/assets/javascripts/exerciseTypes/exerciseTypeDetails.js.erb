@@ -14,7 +14,9 @@ exerciseTypeDetailsModule.directive('exerciseTypeDetails', function () {
     scope: {
       'exerciseTypeId': '=',
       'userId': '=',
-      'trainer': '='
+      'trainer': '=',
+      onPhotoAdded: '&',
+      onPhotoRemoved: '&'
     },
     controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'TakePhotoDialog', 'PhotoCarouselDialog', function ($scope, ExerciseType, UserExerciseTypePhotos, TakePhotoDialog, PhotoCarouselDialog) {
       $scope.exerciseType = ExerciseType.get({id: $scope.exerciseTypeId});
@@ -32,22 +34,36 @@ exerciseTypeDetailsModule.directive('exerciseTypeDetails', function () {
         return photo.user_id == $scope.userId || ($scope.trainer && photo.user_id == $scope.trainer.id);
       };
 
-      $scope.onDeletePhotoClicked = function (photo) {
-        photo.$delete().then(refreshPhotos);
+      $scope.onDeletePhotoClicked = function (userExerciseTypePhoto) {
+        var photoCopy = new UserExerciseTypePhotos(userExerciseTypePhoto);
+        userExerciseTypePhoto.$delete().then(function () {
+          onPhotoRemoved(photoCopy);
+        });
+      };
+
+      $scope.onTakePhotoClicked = function () {
+        TakePhotoDialog().result.then(uploadExerciseTypePhoto);
       };
 
       $scope.onPhotoClicked = function (photoIndex) {
         PhotoCarouselDialog($scope.userPhotos, photoIndex);
       };
 
-
-      function uploadExerciseTypePhoto(photos) {
-        $scope.photoUploaded = UserExerciseTypePhotos.add($scope.userId, $scope.exerciseTypeId, photos[0]).then(refreshPhotos);
+      function onPhotoRemoved(userExerciseTypePhoto) {
+        $scope.onPhotoRemoved({userExerciseTypePhoto: userExerciseTypePhoto});
+        refreshPhotos();
       }
 
-      $scope.onTakePhotoClicked = function () {
-        TakePhotoDialog().result.then(uploadExerciseTypePhoto);
-      };
+      function onPhotoAddedHttpResponse(userExerciseTypePhotoHttpResponse) {
+        var userExerciseTypePhoto = new UserExerciseTypePhotos(userExerciseTypePhotoHttpResponse.data);
+        $scope.onPhotoAdded({userExerciseTypePhoto: userExerciseTypePhoto});
+        refreshPhotos();
+      }
+
+      function uploadExerciseTypePhoto(photos) {
+        $scope.photoUploaded = UserExerciseTypePhotos.add($scope.userId, $scope.exerciseTypeId, photos[0])
+          .then(onPhotoAddedHttpResponse);
+      }
     }],
     templateUrl: '<%= asset_path('exerciseTypes/exercise-type-details.html') %>'
   };

@@ -38,6 +38,8 @@
     <div class="row">
       <div ng-if="exerciseType.id != null" class="col-sm-12">
         <exercise-type-details exercise-type-id="exerciseType.id"
+                               on-photo-added="onPhotoAdded({userExerciseTypePhoto: userExerciseTypePhoto})"
+                               on-photo-removed="onPhotoRemoved({userExerciseTypePhoto: userExerciseTypePhoto})"
                                user-id="editorUserId"></exercise-type-details>
       </div>
     </div>

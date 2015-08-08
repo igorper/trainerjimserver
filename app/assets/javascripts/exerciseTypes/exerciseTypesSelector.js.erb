@@ -48,11 +48,27 @@ exerciseTypesSelector.factory('ExerciseTypesSelector', ['$modal', function ($mod
         $scope.onExerciseTypeSaved = function () {
           $scope.editedExerciseType = null;
           refreshExerciseTypesList();
+          refreshPhotoListIfDirty();
         };
 
         $scope.onEditCancelClicked = function () {
           $scope.editedExerciseType = null;
+          refreshPhotoListIfDirty();
         };
+
+        $scope.onPhotoAdded = markPhotoListAsDirty;
+
+        $scope.onPhotoRemoved = markPhotoListAsDirty;
+
+        function markPhotoListAsDirty() {
+          $scope.isPhotoListDirty = true;
+        }
+
+        function refreshPhotoListIfDirty() {
+          if ($scope.isPhotoListDirty) {
+            $scope.userExerciseTypePhotos = UserExerciseTypePhotos.primaryPhotos();
+          }
+        }
 
         $scope.cancel = function () {
           if ($scope.addedExcercisesCount > 0) {
