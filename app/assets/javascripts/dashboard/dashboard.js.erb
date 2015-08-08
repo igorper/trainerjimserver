@@ -1,6 +1,7 @@
 var dashboard = angular.module('dashboard', [
   'ui.router',
-  'results'
+  'results',
+  'nvd3'
 ]);
 
 dashboard.config(['$stateProvider', function ($stateProvider) {
@@ -34,8 +35,8 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
     .state('main.dashboard.user', {
       url: '/:id',
       templateUrl: "<%= asset_path('dashboard/dashboard-user.html') %>",
-      controller: ['$scope', 'Measurement', '$state', 'toaster', 'resultsUtil', function ($scope, Measurement,
-                                                                                          $state, toaster, resultsUtil) {
+      controller: ['$scope', 'Measurement', '$state', 'toaster', 'resultsUtil', 'ExerciseGroup', function ($scope, Measurement,
+                                                                                          $state, toaster, resultsUtil, ExerciseGroup) {
         $scope.items  = [];
 
         $scope.sortType = "date";
@@ -43,14 +44,48 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
 
         $scope.dateFilter = "all";
 
+        $scope.exerciseGroups = ExerciseGroup.query(function(exerciseGroups){
+          $scope.refreshUserWorkouts();
+        });
+
+        $scope.muscleGroups = [];
+        $scope.equipmentGroups = [];
+
         function processMeasurements(measurements){
           for(var i=0; i < measurements.length; i++){
             Measurement.get({id: measurements[i].id}, function (measurement) {
-              $scope.items.push(resultsUtil.calculateResultsOverview(measurement));
+              var overview = resultsUtil.calculateResultsOverview(measurement, $scope.exerciseGroups);
+
+              $scope.items.push(overview);
+
+              // aggregate muscle groups
+              for(var j=0; j < overview.muscleGroups.length; j++){
+                var mg = _.where($scope.muscleGroups, {key: overview.muscleGroups[j].key});
+
+                if(mg.length === 0){
+                  $scope.muscleGroups.push(overview.muscleGroups[j]);
+                } else {
+                  mg[0].y += overview.muscleGroups[j].y;
+                }
+              }
+
+              // aggregate equipment types
+              for(var j=0; j < overview.equipmentGroups.length; j++){
+                var mg = _.where($scope.equipmentGroups, {key: overview.equipmentGroups[j].key});
+
+                if(mg.length === 0){
+                  $scope.equipmentGroups.push(overview.equipmentGroups[j]);
+                } else {
+                  mg[0].y += overview.equipmentGroups[j].y;
+                }
+              }
+
             }, function () {
               toaster.pop("error", "Fetch measurement error", "Unable to fetch the measurement");
             });
           }
+
+
         };
 
         $scope.refreshUserWorkouts = function(){
@@ -71,7 +106,76 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
           $state.go('main.results', {trainee: $state.params.id, id: item.id});
         }
 
-        $scope.refreshUserWorkouts();
+        $scope.allUsersSelected = function(){
+          return $state.params.id === "";
+        }
+
+        $scope.options = {
+          chart: {
+            type: 'pieChart',
+            x: function(d){return d.key;},
+            y: function(d){return d.y;},
+            showLabels: true,
+            transitionDuration: 500,
+            height: 300
+          }
+        };
+
+        $scope.scatterOptions = {
+          chart: {
+            type: 'scatterChart',
+            height: 450,
+            color: d3.scale.category10().range(),
+            scatter: {
+              onlyCircles: false
+            },
+            showDistX: true,
+            showDistY: true,
+            tooltipContent: function(key) {
+              return '<h3>' + key + '</h3>';
+            },
+            transitionDuration: 350,
+            xAxis: {
+              axisLabel: 'X Axis',
+              tickFormat: function(d){
+                return d3.format('.02f')(d);
+              }
+            },
+            yAxis: {
+              axisLabel: 'Y Axis',
+              tickFormat: function(d){
+                return d3.format('.02f')(d);
+              },
+              axisLabelDistance: 30
+            }
+          }
+        };
+
+        $scope.scatterData = generateData(4,40);
+
+        /* Random Data Generator (took from nvd3.org) */
+        function generateData(groups, points) {
+          var data = [],
+            shapes = ['circle', 'cross', 'triangle-up', 'triangle-down', 'diamond', 'square'],
+            random = d3.random.normal();
+
+          for (var i = 0; i < groups; i++) {
+            data.push({
+              key: 'Group ' + i,
+              values: []
+            });
+
+            for (var j = 0; j < points; j++) {
+              data[i].values.push({
+                x: random()
+                , y: random()
+                , size: Math.random()
+                , shape: shapes[j % 6]
+              });
+            }
+          }
+          return data;
+        }
       }]
     });
   }]);
