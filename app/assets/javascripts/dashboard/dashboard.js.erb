@@ -1,7 +1,8 @@
 var dashboard = angular.module('dashboard', [
   'ui.router',
   'results',
-  'nvd3'
+  'nvd3',
+  'util.promiseUi'
 ]);
 
 dashboard.config(['$stateProvider', function ($stateProvider) {
@@ -10,12 +11,9 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
     abstract: true,
     templateUrl: "<%= asset_path('dashboard/dashboard.html') %>",
     controller: ['$scope', 'Trainee', '$state', 'toaster', function ($scope, Trainee, $state, toaster) {
-      $scope.users = [];
-
       $scope.state = $state;
 
-      Trainee.query(function (trainees) {
-        $scope.users = trainees;
+      $scope.users = Trainee.query(function () {
       }, function () {
         toaster.pop("error", "Trainees listing", "Could get the list of trainees. Try logging in again.");
       });
@@ -42,7 +40,7 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
 
       $scope.dateFilter = "all";
 
-      $scope.exerciseGroups = ExerciseGroup.query(function (exerciseGroups) {
+      $scope.exerciseGroups = ExerciseGroup.query(function () {
         $scope.refreshUserWorkouts();
       });
 
@@ -183,7 +181,7 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
 }]);
 
 
-dashboard.filter("dateRangeFilter", function () {
+dashboard.filter('dateRangeFilter', function () {
   function daysInPeriod(periodName) {
     switch (periodName) {
       case 'day':
@@ -197,7 +195,7 @@ dashboard.filter("dateRangeFilter", function () {
     }
   }
 
-  function getItemsWithinDays(items, days) {
+  function withinDaysFilter(items, days) {
     var from = new Date();
     from.setDate(from.getDate() - days);
     return _.filter(items, function (item) {
@@ -207,6 +205,6 @@ dashboard.filter("dateRangeFilter", function () {
 
   return function (items, periodName) {
     var days = daysInPeriod(periodName);
-    return _.isUndefined(days) ? items : getItemsWithinDays(items, days);
+    return _.isUndefined(days) ? items : withinDaysFilter(items, days);
   };
 });
