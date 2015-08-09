@@ -1,4 +1,4 @@
-<div class="dashboard-user">
+<div spin-until="overviewCalculationPromise" class="dashboard-user">
   <h2>Training overview</h2>
 
   <nvd3 options="scatterOptions" data="scatterData" ng-show="allUsersSelected()"></nvd3>
@@ -27,7 +27,7 @@
   </div>
 
   <div class="row">
-    <div class="col-sm-12" spin-until="exerciseGroups">
+    <div class="col-sm-12">
       <div class="table-responsive">
         <table class="table table-bordered table-striped">
           <thead>

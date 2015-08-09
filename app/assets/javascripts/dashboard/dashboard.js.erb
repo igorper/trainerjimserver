@@ -31,72 +31,76 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
   $stateProvider.state('main.dashboard.user', {
     url: '/:id',
     templateUrl: "<%= asset_path('dashboard/dashboard-user.html') %>",
-    controller: ['$scope', 'Measurement', '$state', 'toaster', 'resultsUtil', 'ExerciseGroup', function ($scope, Measurement,
-                                                                                                         $state, toaster, resultsUtil, ExerciseGroup) {
+    controller: ['$scope', 'Measurement', '$state', 'toaster', 'resultsUtil', 'ExerciseGroup', '$q', function ($scope, Measurement,
+                                                                                                               $state, toaster, resultsUtil, ExerciseGroup, promise) {
       $scope.items = [];
 
       $scope.sortType = "date";
       $scope.sortReverse = false;
-
       $scope.dateFilter = "all";
 
-      $scope.exerciseGroups = ExerciseGroup.query(function () {
-        $scope.refreshUserWorkouts();
-      });
+      $scope.overviewCalculationPromise = promise
+        .all({measurements: fetchMeasurements(), exerciseGroups: fetchExerciseGroups()})
+        .then(calculateMeasurementsOverview);
 
       $scope.muscleGroups = [];
       $scope.equipmentGroups = [];
 
-      function processMeasurements(measurements) {
-        for (var i = 0; i < measurements.length; i++) {
-          Measurement.get({id: measurements[i].id}, function (measurement) {
-            var overview = resultsUtil.calculateResultsOverview(measurement, $scope.exerciseGroups);
-
-            $scope.items.push(overview);
-
-            // aggregate muscle groups
-            for (var j = 0; j < overview.muscleGroups.length; j++) {
-              var mg = _.where($scope.muscleGroups, {key: overview.muscleGroups[j].key});
-
-              if (mg.length === 0) {
-                $scope.muscleGroups.push(overview.muscleGroups[j]);
-              } else {
-                mg[0].y += overview.muscleGroups[j].y;
-              }
-            }
-
-            // aggregate equipment types
-            for (var j = 0; j < overview.equipmentGroups.length; j++) {
-              var mg = _.where($scope.equipmentGroups, {key: overview.equipmentGroups[j].key});
-
-              if (mg.length === 0) {
-                $scope.equipmentGroups.push(overview.equipmentGroups[j]);
-              } else {
-                mg[0].y += overview.equipmentGroups[j].y;
-              }
-            }
-
-          }, function () {
-            toaster.pop("error", "Fetch measurement error", "Unable to fetch the measurement");
-          });
+      function fetchMeasurements() {
+        if ($state.params.id === "") {
+          return Measurement.query().$promise;
+        } else {
+          return Measurement.queryForUser({userId: $state.params.id}).$promise;
         }
-
-
       }
 
-      $scope.refreshUserWorkouts = function () {
-        // TODO: swap hardcoded -1 with all users
+      function fetchExerciseGroups() {
+        return ExerciseGroup.query().$promise;
+      }
 
-        if ($state.params.id === "") {
-          Measurement.query(processMeasurements, function () {
-            console.error("Could not fetch results.");
-          });
-        } else {
-          Measurement.queryForUser({userId: $state.params.id}, processMeasurements, function () {
-            console.error("Could not fetch results.");
-          });
+      function calculateMeasurementsOverview(allData) {
+        var exerciseGroups = allData.exerciseGroups;
+        return promise.all(_.map(allData.measurements, function (measurement) {
+          return calculateMeasurementOverview(measurement.id, exerciseGroups);
+        })).catch(function () {
+          toaster.pop("error", "Error while fetching measurements", "Unable to fetch measurements. An unexpected error occurred.");
+        });
+      }
+
+      function calculateMeasurementOverview(measurementId, exerciseGroups) {
+        return Measurement.get({id: measurementId}).$promise.then(function (measurementDetails) {
+          addMeasurementOverview(measurementDetails, exerciseGroups);
+        });
+      }
+
+      function addMeasurementOverview(measurement, exerciseGroups) {
+        var overview = resultsUtil.calculateResultsOverview(measurement, exerciseGroups);
+
+        $scope.items.push(overview);
+
+        // aggregate muscle groups
+        for (var j = 0; j < overview.muscleGroups.length; j++) {
+          var muscleGroup = _.where($scope.muscleGroups, {key: overview.muscleGroups[j].key});
+
+          if (muscleGroup.length === 0) {
+            $scope.muscleGroups.push(overview.muscleGroups[j]);
+          } else {
+            muscleGroup[0].y += overview.muscleGroups[j].y;
+          }
         }
-      };
+
+        // aggregate equipment types
+        for (var j = 0; j < overview.equipmentGroups.length; j++) {
+          var mg = _.where($scope.equipmentGroups, {key: overview.equipmentGroups[j].key});
+
+          if (mg.length === 0) {
+            $scope.equipmentGroups.push(overview.equipmentGroups[j]);
+          } else {
+            mg[0].y += overview.equipmentGroups[j].y;
+          }
+        }
+      }
+
 
       $scope.goToMeasurement = function (item) {
         $state.go('main.results', {trainee: $state.params.id, id: item.id});
