@@ -5,213 +5,208 @@ var dashboard = angular.module('dashboard', [
 ]);
 
 dashboard.config(['$stateProvider', function ($stateProvider) {
-    $stateProvider
-      .state('main.dashboard', {
-        url: '/dashboard',
-        abstract: true,
-        templateUrl: "<%= asset_path('dashboard/dashboard.html') %>",
-        controller: ['$scope', 'Trainee', '$state', 'toaster', function ($scope, Trainee, $state, toaster) {
-          $scope.users = [];
+  $stateProvider.state('main.dashboard', {
+    url: '/dashboard',
+    abstract: true,
+    templateUrl: "<%= asset_path('dashboard/dashboard.html') %>",
+    controller: ['$scope', 'Trainee', '$state', 'toaster', function ($scope, Trainee, $state, toaster) {
+      $scope.users = [];
 
-          $scope.state = $state;
+      $scope.state = $state;
 
-          Trainee.query(function (trainees) {
-            $scope.users = trainees;
-          }, function () {
-            toaster.pop("error", "Trainees listing", "Could get the list of trainees. Try logging in again.");
-          });
-
-          $scope.getCurrentUserId = function(){
-            return $state.params.id == "" ? null : parseInt($state.params.id);
-          }
-
-          $scope.onUserSelected = function (user) {
-            $state.go('main.dashboard.user', {id: user === undefined ? '' : user.id});
-          };
-        }]
+      Trainee.query(function (trainees) {
+        $scope.users = trainees;
+      }, function () {
+        toaster.pop("error", "Trainees listing", "Could get the list of trainees. Try logging in again.");
       });
 
-  $stateProvider
-    .state('main.dashboard.user', {
-      url: '/:id',
-      templateUrl: "<%= asset_path('dashboard/dashboard-user.html') %>",
-      controller: ['$scope', 'Measurement', '$state', 'toaster', 'resultsUtil', 'ExerciseGroup', function ($scope, Measurement,
-                                                                                          $state, toaster, resultsUtil, ExerciseGroup) {
-        $scope.items  = [];
+      $scope.getCurrentUserId = function () {
+        return $state.params.id == "" ? null : parseInt($state.params.id);
+      };
 
-        $scope.sortType = "date";
-        $scope.sortReverse = false;
+      $scope.onUserSelected = function (user) {
+        $state.go('main.dashboard.user', {id: user === undefined ? '' : user.id});
+      };
+    }]
+  });
 
-        $scope.dateFilter = "all";
+  $stateProvider.state('main.dashboard.user', {
+    url: '/:id',
+    templateUrl: "<%= asset_path('dashboard/dashboard-user.html') %>",
+    controller: ['$scope', 'Measurement', '$state', 'toaster', 'resultsUtil', 'ExerciseGroup', function ($scope, Measurement,
+                                                                                                         $state, toaster, resultsUtil, ExerciseGroup) {
+      $scope.items = [];
 
-        $scope.exerciseGroups = ExerciseGroup.query(function(exerciseGroups){
-          $scope.refreshUserWorkouts();
-        });
+      $scope.sortType = "date";
+      $scope.sortReverse = false;
 
-        $scope.muscleGroups = [];
-        $scope.equipmentGroups = [];
+      $scope.dateFilter = "all";
 
-        function processMeasurements(measurements){
-          for(var i=0; i < measurements.length; i++){
-            Measurement.get({id: measurements[i].id}, function (measurement) {
-              var overview = resultsUtil.calculateResultsOverview(measurement, $scope.exerciseGroups);
+      $scope.exerciseGroups = ExerciseGroup.query(function (exerciseGroups) {
+        $scope.refreshUserWorkouts();
+      });
 
-              $scope.items.push(overview);
+      $scope.muscleGroups = [];
+      $scope.equipmentGroups = [];
 
-              // aggregate muscle groups
-              for(var j=0; j < overview.muscleGroups.length; j++){
-                var mg = _.where($scope.muscleGroups, {key: overview.muscleGroups[j].key});
+      function processMeasurements(measurements) {
+        for (var i = 0; i < measurements.length; i++) {
+          Measurement.get({id: measurements[i].id}, function (measurement) {
+            var overview = resultsUtil.calculateResultsOverview(measurement, $scope.exerciseGroups);
 
-                if(mg.length === 0){
-                  $scope.muscleGroups.push(overview.muscleGroups[j]);
-                } else {
-                  mg[0].y += overview.muscleGroups[j].y;
-                }
+            $scope.items.push(overview);
+
+            // aggregate muscle groups
+            for (var j = 0; j < overview.muscleGroups.length; j++) {
+              var mg = _.where($scope.muscleGroups, {key: overview.muscleGroups[j].key});
+
+              if (mg.length === 0) {
+                $scope.muscleGroups.push(overview.muscleGroups[j]);
+              } else {
+                mg[0].y += overview.muscleGroups[j].y;
               }
-
-              // aggregate equipment types
-              for(var j=0; j < overview.equipmentGroups.length; j++){
-                var mg = _.where($scope.equipmentGroups, {key: overview.equipmentGroups[j].key});
-
-                if(mg.length === 0){
-                  $scope.equipmentGroups.push(overview.equipmentGroups[j]);
-                } else {
-                  mg[0].y += overview.equipmentGroups[j].y;
-                }
-              }
-
-            }, function () {
-              toaster.pop("error", "Fetch measurement error", "Unable to fetch the measurement");
-            });
-          }
-
-
-        };
-
-        $scope.refreshUserWorkouts = function(){
-          // TODO: swap hardcoded -1 with all users
-
-          if($state.params.id === ""){
-            Measurement.query(processMeasurements, function () {
-              console.error("Could not fetch results.");
-            });
-          } else {
-            Measurement.queryForUser({userId: $state.params.id}, processMeasurements, function () {
-              console.error("Could not fetch results.");
-            });
-          }
-        }
-
-        $scope.goToMeasurement = function(item){
-          $state.go('main.results', {trainee: $state.params.id, id: item.id});
-        }
-
-        $scope.allUsersSelected = function(){
-          return $state.params.id === "";
-        }
-
-        $scope.options = {
-          chart: {
-            type: 'pieChart',
-            x: function(d){return d.key;},
-            y: function(d){return d.y;},
-            showLabels: true,
-            transitionDuration: 500,
-            height: 300
-          }
-        };
-
-        $scope.scatterOptions = {
-          chart: {
-            type: 'scatterChart',
-            height: 450,
-            color: d3.scale.category10().range(),
-            scatter: {
-              onlyCircles: false
-            },
-            showDistX: true,
-            showDistY: true,
-            tooltipContent: function(key) {
-              return '<h3>' + key + '</h3>';
-            },
-            transitionDuration: 350,
-            xAxis: {
-              axisLabel: 'X Axis',
-              tickFormat: function(d){
-                return d3.format('.02f')(d);
-              }
-            },
-            yAxis: {
-              axisLabel: 'Y Axis',
-              tickFormat: function(d){
-                return d3.format('.02f')(d);
-              },
-              axisLabelDistance: 30
             }
-          }
-        };
 
-        $scope.scatterData = generateData(4,40);
+            // aggregate equipment types
+            for (var j = 0; j < overview.equipmentGroups.length; j++) {
+              var mg = _.where($scope.equipmentGroups, {key: overview.equipmentGroups[j].key});
 
-        /* Random Data Generator (took from nvd3.org) */
-        function generateData(groups, points) {
-          var data = [],
-            shapes = ['circle', 'cross', 'triangle-up', 'triangle-down', 'diamond', 'square'],
-            random = d3.random.normal();
-
-          for (var i = 0; i < groups; i++) {
-            data.push({
-              key: 'Group ' + i,
-              values: []
-            });
-
-            for (var j = 0; j < points; j++) {
-              data[i].values.push({
-                x: random()
-                , y: random()
-                , size: Math.random()
-                , shape: shapes[j % 6]
-              });
+              if (mg.length === 0) {
+                $scope.equipmentGroups.push(overview.equipmentGroups[j]);
+              } else {
+                mg[0].y += overview.equipmentGroups[j].y;
+              }
             }
-          }
-          return data;
+
+          }, function () {
+            toaster.pop("error", "Fetch measurement error", "Unable to fetch the measurement");
+          });
         }
-      }]
-    });
-  }]);
 
 
-dashboard.filter("dateRangeFilter", function() {
-  return function(items, dateFilter) {
-    var days = -1;
-    switch(dateFilter) {
+      }
+
+      $scope.refreshUserWorkouts = function () {
+        // TODO: swap hardcoded -1 with all users
+
+        if ($state.params.id === "") {
+          Measurement.query(processMeasurements, function () {
+            console.error("Could not fetch results.");
+          });
+        } else {
+          Measurement.queryForUser({userId: $state.params.id}, processMeasurements, function () {
+            console.error("Could not fetch results.");
+          });
+        }
+      };
+
+      $scope.goToMeasurement = function (item) {
+        $state.go('main.results', {trainee: $state.params.id, id: item.id});
+      };
+
+      $scope.allUsersSelected = function () {
+        return $state.params.id === "";
+      };
+
+      $scope.options = {
+        chart: {
+          type: 'pieChart',
+          x: function (d) {
+            return d.key;
+          },
+          y: function (d) {
+            return d.y;
+          },
+          showLabels: true,
+          transitionDuration: 500,
+          height: 300
+        }
+      };
+
+      $scope.scatterOptions = {
+        chart: {
+          type: 'scatterChart',
+          height: 450,
+          color: d3.scale.category10().range(),
+          scatter: {
+            onlyCircles: false
+          },
+          showDistX: true,
+          showDistY: true,
+          tooltipContent: function (key) {
+            return '<h3>' + key + '</h3>';
+          },
+          transitionDuration: 350,
+          xAxis: {
+            axisLabel: 'X Axis',
+            tickFormat: function (d) {
+              return d3.format('.02f')(d);
+            }
+          },
+          yAxis: {
+            axisLabel: 'Y Axis',
+            tickFormat: function (d) {
+              return d3.format('.02f')(d);
+            },
+            axisLabelDistance: 30
+          }
+        }
+      };
+
+      $scope.scatterData = generateData(4, 40);
+
+      /* Random Data Generator (took from nvd3.org) */
+      function generateData(groups, points) {
+        var data = [],
+          shapes = ['circle', 'cross', 'triangle-up', 'triangle-down', 'diamond', 'square'],
+          random = d3.random.normal();
+
+        for (var i = 0; i < groups; i++) {
+          data.push({
+            key: 'Group ' + i,
+            values: []
+          });
+
+          for (var j = 0; j < points; j++) {
+            data[i].values.push({
+              x: random()
+              , y: random()
+              , size: Math.random()
+              , shape: shapes[j % 6]
+            });
+          }
+        }
+        return data;
+      }
+    }]
+  });
+}]);
+
+
+dashboard.filter("dateRangeFilter", function () {
+  function daysInPeriod(periodName) {
+    switch (periodName) {
       case 'day':
-        days = 1;
-        break;
+        return 1;
       case 'week':
-        days = 7;
-        break;
+        return 7;
       case 'month':
-        days = 30;
-        break;
-      case 'all':
+        return 30;
       default:
-        // return unfiltered items
-        return items;
+        return undefined;
     }
+  }
 
-
+  function getItemsWithinDays(items, days) {
     var from = new Date();
     from.setDate(from.getDate() - days);
-    var to = new Date();
+    return _.filter(items, function (item) {
+      return new Date(item.date) > from;
+    });
+  }
 
-    var result = [];
-    for (var i=0; i<items.length; i++){
-     var d = new Date(items[i].date);
-     if (d > from && d < to)  {
-      result.push(items[i]);
-     }
-      }
-     return result;
+  return function (items, periodName) {
+    var days = daysInPeriod(periodName);
+    return _.isUndefined(days) ? items : getItemsWithinDays(items, days);
   };
 });
