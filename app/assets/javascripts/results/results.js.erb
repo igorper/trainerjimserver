@@ -245,16 +245,14 @@ results.factory('resultsUtil', [function () {
        * Create a lookup table for planned series. Each series can be looked up by it's id, which is also stored
        * for each series execution. Besides each series data id of the parent exercise is added to retain the information
        * of the exercise the series belongs to.
-       * @param trainingPlan
-       * @returns {Array}
        */
-      function getPlannedSeriesLookup(selectedTraining, exerciseGroups) {
+      function getPlannedSeriesLookup(selectedMeasurement, exerciseGroups) {
 
-        var performedSeriesIds = _.pluck(selectedTraining.series_executions, 'series_id');
+        var performedSeriesIds = _.pluck(selectedMeasurement.series_executions, 'series_id');
         var expectedOrder = 1;
         var lookup = [];
-        for (var i = 0; i < selectedTraining.training.exercises.length; i++) {
-          var exercise = selectedTraining.training.exercises[i];
+        for (var i = 0; i < selectedMeasurement.training.exercises.length; i++) {
+          var exercise = selectedMeasurement.training.exercises[i];
           for (var j = 0; j < exercise.series.length; j++) {
             var series = exercise.series[j];
 

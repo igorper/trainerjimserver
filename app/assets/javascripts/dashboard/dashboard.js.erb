@@ -41,7 +41,8 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
 
       $scope.overviewCalculationPromise = promise
         .all({measurements: fetchMeasurements(), exerciseGroups: fetchExerciseGroups()})
-        .then(calculateMeasurementsOverview);
+        .then(calculateMeasurementsOverview)
+        .catch(overviewCalculationFailed);
 
       $scope.muscleGroups = [];
       $scope.equipmentGroups = [];
@@ -59,12 +60,13 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
       }
 
       function calculateMeasurementsOverview(allData) {
-        var exerciseGroups = allData.exerciseGroups;
         return promise.all(_.map(allData.measurements, function (measurement) {
-          return calculateMeasurementOverview(measurement.id, exerciseGroups);
-        })).catch(function () {
-          toaster.pop("error", "Error while fetching measurements", "Unable to fetch measurements. An unexpected error occurred.");
-        });
+          return calculateMeasurementOverview(measurement.id, allData.exerciseGroups);
+        }));
+      }
+
+      function overviewCalculationFailed() {
+        toaster.pop("error", "Error while fetching measurements", "Unable to fetch measurements. An unexpected error occurred.");
       }
 
       function calculateMeasurementOverview(measurementId, exerciseGroups) {
@@ -73,32 +75,67 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
         });
       }
 
+      $scope.exerciseGroupIdsToCount = {};
+
       function addMeasurementOverview(measurement, exerciseGroups) {
         var overview = resultsUtil.calculateResultsOverview(measurement, exerciseGroups);
+        var idsToExerciseGroups = toExerciseGroupLookupById(exerciseGroups);
+        var seriesToExerciseGroups = extractSeriesToExerciseGroupsMap(measurement.training.exercises);
+        countExerciseGroups(measurement, seriesToExerciseGroups, $scope.exerciseGroupIdsToCount);
+        var groupCounts = _.partition(toGroupAndCounts(idsToExerciseGroups), function (exerciseGroupAndCount) {
+          return exerciseGroupAndCount.exerciseGroup.is_machine_group;
+        });
+        $scope.muscleGroups = groupCounts[0];
+        $scope.equipmentGroups = groupCounts[1];
 
         $scope.items.push(overview);
+      }
 
-        // aggregate muscle groups
-        for (var j = 0; j < overview.muscleGroups.length; j++) {
-          var muscleGroup = _.where($scope.muscleGroups, {key: overview.muscleGroups[j].key});
+      /**
+       * @return {*} an object of the form `{exerciseGroup, count}`.
+       */
+      function toGroupAndCounts(exerciseGroupsLookupById) {
+        return _.map($scope.exerciseGroupIdsToCount, function (count, exerciseGroupId) {
+          return {exerciseGroup: exerciseGroupsLookupById[exerciseGroupId], count: count};
+        });
+      }
 
-          if (muscleGroup.length === 0) {
-            $scope.muscleGroups.push(overview.muscleGroups[j]);
-          } else {
-            muscleGroup[0].y += overview.muscleGroups[j].y;
-          }
-        }
+      /**
+       * @return {*} an object with exercise group IDs as keys and exercise groups themselves as values.
+       */
+      function toExerciseGroupLookupById(exerciseGroups) {
+        return _.object(_.map(exerciseGroups, function (exerciseGroup) {
+          return [exerciseGroup.id, exerciseGroup];
+        }));
+      }
 
-        // aggregate equipment types
-        for (var j = 0; j < overview.equipmentGroups.length; j++) {
-          var mg = _.where($scope.equipmentGroups, {key: overview.equipmentGroups[j].key});
+      /**
+       * @param measurement the measurement from which to count executed exercise  groups.
+       * @param seriesToExerciseGroup a lookup object of series IDs as keys and exercise groups as values.
+       * @param outputExerciseGroupToCount an object with exercise group IDs as keys and counts as values. This
+       * object will be updated with counts.
+       * @return an object with exercise group IDs as keys and counts as values.
+       */
+      function countExerciseGroups(measurement, seriesToExerciseGroup, outputExerciseGroupToCount) {
+        return _.reduce(measurement.series_executions, function (exerciseGroupCounts, seriesExecution) {
+          _.each(seriesToExerciseGroup[seriesExecution.series_id], function (groupId) {
+            exerciseGroupCounts[groupId] = 1 + (exerciseGroupCounts[groupId] || 0);
+          });
+          return exerciseGroupCounts;
+        }, outputExerciseGroupToCount);
+      }
 
-          if (mg.length === 0) {
-            $scope.equipmentGroups.push(overview.equipmentGroups[j]);
-          } else {
-            mg[0].y += overview.equipmentGroups[j].y;
-          }
-        }
+      /**
+       * @return {*} an object with series IDs as keys and lists of groups to which these series belong as
+       * values.
+       */
+      function extractSeriesToExerciseGroupsMap(exercises) {
+        return _.reduce(exercises, function (seriesToExerciseGroups, exercise) {
+          _.each(exercise.series, function (serie) {
+            seriesToExerciseGroups[serie.id] = _.union(exercise.exercise_type.exercise_groups, seriesToExerciseGroups[serie.id]);
+          });
+          return seriesToExerciseGroups;
+        }, {});
       }
 
 
@@ -114,10 +151,10 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
         chart: {
           type: 'pieChart',
           x: function (d) {
-            return d.key;
+            return d.exerciseGroup.name;
           },
           y: function (d) {
-            return d.y;
+            return d.count;
           },
           showLabels: true,
           transitionDuration: 500,
