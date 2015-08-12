@@ -192,7 +192,9 @@ rails c
 Now run the following:
 
 ```
-ExerciseGroup.first.photo = Rails.root.join('app/assets/images/logo_full.png').open()
+my_group = ExerciseGroup.first
+my_group.photo = Rails.root.join('app/assets/images/logo_full.png').open()
+my_group.save
 ```
 
 # Symptoms and solutions
