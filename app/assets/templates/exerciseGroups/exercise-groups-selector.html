@@ -6,7 +6,8 @@
 
       <div>
         <div class="btn-group">
-          <label class="btn btn-success" ng-repeat="group in bodyGroups" ng-model="selection.group"
+          <label class="btn btn-success" ng-repeat="group in bodyGroups | orderBy:'name'"
+                 ng-model="selection.group"
                  btn-radio="'group-{{group.id}}'">{{group.name}}</label>
           <label class="btn btn-success" ng-model="selection.group" btn-radio="'{{NO_GROUP}}'">All</label>
         </div>
@@ -21,7 +22,7 @@
 
       <div>
         <div class="btn-group">
-          <label class="btn btn-success" ng-repeat="group in machineGroups"
+          <label class="btn btn-success" ng-repeat="group in machineGroups | orderBy:'name'"
                  ng-model="selection.machineGroup"
                  btn-radio="'machineGroup-{{group.id}}'">{{group.name}}</label>
           <label class="btn btn-success" ng-model="selection.machineGroup" btn-radio="'{{NO_GROUP}}'">All</label>

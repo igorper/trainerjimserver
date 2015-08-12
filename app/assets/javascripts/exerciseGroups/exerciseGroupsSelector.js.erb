@@ -17,7 +17,7 @@ exerciseGroupsSelector.directive('exerciseGroupsSelector', [function () {
 
       function refreshRadioButtonsSelection(exerciseGroupIds) {
         if (exerciseGroupsInitialized) {
-          $scope.selection.group = toRadioGroupSelection($scope.exerciseGroups, exerciseGroupIds, "group-");
+          $scope.selection.group = toRadioGroupSelection($scope.bodyGroups, exerciseGroupIds, "group-");
           $scope.selection.machineGroup = toRadioGroupSelection($scope.machineGroups, exerciseGroupIds, "machineGroup-");
         }
       }
