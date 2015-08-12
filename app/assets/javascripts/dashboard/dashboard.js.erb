@@ -41,17 +41,17 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
 
       $scope.overviewCalculationPromise = promise
         .all({measurements: fetchMeasurements(), exerciseGroups: fetchExerciseGroups()})
-        .then(calculateMeasurementsOverview)
-        .catch(overviewCalculationFailed);
+        .catch(overviewCalculationFailed)
+        .then(calculateMeasurementsOverview);
 
       $scope.muscleGroups = [];
       $scope.equipmentGroups = [];
 
       function fetchMeasurements() {
         if ($state.params.id === "") {
-          return Measurement.query().$promise;
+          return Measurement.detailedMeasurements().$promise;
         } else {
-          return Measurement.queryForUser({userId: $state.params.id}).$promise;
+          return Measurement.detailedMeasurementsForUser({userId: $state.params.id}).$promise;
         }
       }
 
@@ -60,19 +60,13 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
       }
 
       function calculateMeasurementsOverview(allData) {
-        return promise.all(_.map(allData.measurements, function (measurement) {
-          return calculateMeasurementOverview(measurement.id, allData.exerciseGroups);
-        }));
+        return _.map(allData.measurements, function (measurement) {
+          return addMeasurementOverview(measurement, allData.exerciseGroups);
+        });
       }
 
       function overviewCalculationFailed() {
         toaster.pop("error", "Error while fetching measurements", "Unable to fetch measurements. An unexpected error occurred.");
-      }
-
-      function calculateMeasurementOverview(measurementId, exerciseGroups) {
-        return Measurement.get({id: measurementId}).$promise.then(function (measurementDetails) {
-          addMeasurementOverview(measurementDetails, exerciseGroups);
-        });
       }
 
       $scope.exerciseGroupIdsToCount = {};

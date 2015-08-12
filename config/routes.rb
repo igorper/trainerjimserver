@@ -24,8 +24,11 @@ Trainerjim::Application.routes.draw do
       # END: Users
 
       # START: Measurements
-      resources :measurements
+      resources :measurements do
+        get 'detailed_measurements', on: :collection
+      end
       get 'users/:user_id/measurements', to: 'measurements#user_measurements'
+      get 'users/:user_id/detailed_measurements', to: 'measurements#detailed_user_measurements'
       # END: Measurements
 
       # START: User Exercise Type Photos

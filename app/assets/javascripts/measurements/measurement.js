@@ -10,10 +10,17 @@ measurement.factory('Measurement', ["$resource", function ($resource) {
         params: {userId: '@user_id'},
         url: '/api/v1/users/:userId/measurements/.json'
       },
-      query: {
+      detailedMeasurementsForUser: {
         method: 'GET',
         isArray: true,
-        url: '/api/v1/measurements.json'
+        params: {userId: '@user_id'},
+        url: '/api/v1/users/:userId/detailed_measurements.json'
+      },
+      detailedMeasurements: {
+        method: 'GET',
+        isArray: true,
+        params: {},
+        url: '/api/v1/measurements/detailed_measurements.json'
       }
     }
   );

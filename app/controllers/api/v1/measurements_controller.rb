@@ -6,9 +6,9 @@ class Api::V1::MeasurementsController < ActionController::Base
   def index
     when_signed_in do
       @measurements = Measurement
-                          .joins(:trainee, :training, trainee: [:trainer])
-                          .includes(:training)
+                          .includes(:trainee, :training, trainee: [:trainer])
                           .where('trainers_users.id = :user_id OR measurements.trainee_id = :user_id', user_id: current_user.id)
+                          .references(:trainee, trainee: [:trainer])
     end
   end
 
@@ -16,6 +16,24 @@ class Api::V1::MeasurementsController < ActionController::Base
     when_trainer_of(params[:user_id]) { |trainee|
       @measurements = Measurement.includes(:training).where(trainee_id: trainee.id)
       render :index
+    }
+  end
+
+  def detailed_measurements
+    when_signed_in do
+      @measurements = get_detailed_measurements
+                          .where('trainers_users.id = :user_id', user_id: current_user.id)
+                          .references(trainee: [:trainer])
+      render :detailed_list
+    end
+  end
+
+  def detailed_user_measurements
+    when_trainer_of(params[:user_id]) { |trainee|
+      @measurements = get_detailed_measurements
+                          .where('measurements.trainee_id = :trainee_id', trainer_id: current_user.id, trainee_id: trainee.id)
+                          .references(:trainee, trainee: [:trainer])
+      render :detailed_list
     }
   end
 
@@ -68,6 +86,10 @@ class Api::V1::MeasurementsController < ActionController::Base
           )
       )
     }
+  end
+
+  def get_detailed_measurements
+    Measurement.includes(:series_executions, {trainee: [:trainer], training: full_trainings_includes})
   end
 
 
