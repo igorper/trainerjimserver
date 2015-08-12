@@ -125,6 +125,10 @@ div.results .chart div {
   color: white;
 }
 
+svg.chart {
+  width: auto;
+}
+
 div.results .blue {
   stroke: white;
   fill: steelblue;

@@ -179,6 +179,24 @@ Use `sudo -u postgres <command>` to do this as root via ssh on production server
         screen -ls
         screen -r <pid.tty.host>
 
+# Tips and tricks
+
+## Adding a photo through the Rails console
+
+Start the Rails console:
+
+```
+rails c
+```
+
+Now run the following:
+
+```
+my_group = ExerciseGroup.first
+my_group.photo = Rails.root.join('app/assets/images/logo_full.png').open()
+my_group.save
+```
+
 # Symptoms and solutions
 
 ## Test fixtures throw ForeignKeyViolation
