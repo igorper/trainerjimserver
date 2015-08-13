@@ -35,14 +35,34 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
         return exerciseType.owner_id == $scope.editorUserId || $scope.isAdminMode;
       };
 
-      $scope.getPrimaryPhoto = function (exerciseType) {
+      function getExerciseTyoePrimaryPhoto(exerciseType) {
         if ($scope.exerciseTypeIdToThumbPath) {
           var thumbPhotoSrc = $scope.exerciseTypeIdToThumbPath[exerciseType.id];
           if (thumbPhotoSrc) {
             return thumbPhotoSrc;
           }
         }
-        return 'photos/exercise-types/thumb/weight1.png';
+        return null;
+      }
+
+      function getFirstExerciseGroupPhoto(exerciseGroupIds) {
+        var exerciseGroupPhoto = _.chain($scope.exerciseGroups)
+          .filter(function (exerciseGroup) {
+            return !exerciseGroup.thumb_image_url.startsWith('/photos/thumb/missing') &&
+              _.contains(exerciseGroupIds, exerciseGroup.id);
+          })
+          .map(function (exerciseGroup) {
+            return exerciseGroup.thumb_image_url;
+          })
+          .first()
+          .value();
+        return exerciseGroupPhoto;
+      }
+
+      $scope.getPrimaryPhoto = function (exerciseType) {
+        return getExerciseTyoePrimaryPhoto(exerciseType) ||
+          getFirstExerciseGroupPhoto(exerciseType.exercise_groups) ||
+          'photos/exercise-types/thumb/weight1.png';
       };
     }]
   };
