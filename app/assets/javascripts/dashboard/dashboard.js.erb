@@ -71,9 +71,18 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
 
       $scope.exerciseGroupIdsToCount = {};
 
+      function toLookupById(itemsWithIds) {
+        return _.chain(itemsWithIds)
+          .map(function (item) {
+            return [item.id, item];
+          })
+          .object()
+          .value();
+      }
+
       function addMeasurementOverview(measurement, exerciseGroups) {
         var overview = resultsUtil.calculateResultsOverview(measurement, exerciseGroups);
-        var idsToExerciseGroups = toExerciseGroupLookupById(exerciseGroups);
+        var idsToExerciseGroups = toLookupById(exerciseGroups);
         var seriesToExerciseGroups = extractSeriesToExerciseGroupsMap(measurement.training.exercises);
         countExerciseGroups(measurement, seriesToExerciseGroups, $scope.exerciseGroupIdsToCount);
         var groupCounts = _.partition(toGroupAndCounts(idsToExerciseGroups), function (exerciseGroupAndCount) {
@@ -86,7 +95,7 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
       }
 
       /**
-       * @return {*} an object of the form `{exerciseGroup, count}`.
+       * @return {*} a list of objects of the form `{exerciseGroup, count}`.
        */
       function toGroupAndCounts(exerciseGroupsLookupById) {
         return _.map($scope.exerciseGroupIdsToCount, function (count, exerciseGroupId) {
@@ -95,28 +104,19 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
       }
 
       /**
-       * @return {*} an object with exercise group IDs as keys and exercise groups themselves as values.
-       */
-      function toExerciseGroupLookupById(exerciseGroups) {
-        return _.object(_.map(exerciseGroups, function (exerciseGroup) {
-          return [exerciseGroup.id, exerciseGroup];
-        }));
-      }
-
-      /**
        * @param measurement the measurement from which to count executed exercise  groups.
        * @param seriesToExerciseGroup a lookup object of series IDs as keys and exercise groups as values.
-       * @param outputExerciseGroupToCount an object with exercise group IDs as keys and counts as values. This
+       * @param outputExerciseGroupToCountMap an object with exercise group IDs as keys and counts as values. This
        * object will be updated with counts.
        * @return an object with exercise group IDs as keys and counts as values.
        */
-      function countExerciseGroups(measurement, seriesToExerciseGroup, outputExerciseGroupToCount) {
+      function countExerciseGroups(measurement, seriesToExerciseGroup, outputExerciseGroupToCountMap) {
         return _.reduce(measurement.series_executions, function (exerciseGroupCounts, seriesExecution) {
           _.each(seriesToExerciseGroup[seriesExecution.series_id], function (groupId) {
             exerciseGroupCounts[groupId] = 1 + (exerciseGroupCounts[groupId] || 0);
           });
           return exerciseGroupCounts;
-        }, outputExerciseGroupToCount);
+        }, outputExerciseGroupToCountMap);
       }
 
       /**
