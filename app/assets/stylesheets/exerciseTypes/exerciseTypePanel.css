@@ -54,7 +54,8 @@
   margin-top: -56px;
   display: flex;
   align-items: center;
-  background-color: rgba(0, 0, 0, 0.7);
+  background-color: rgba(0, 0, 0, 0.5);
+  font-weight: bold;
   border-radius: 3px;
 }
 
