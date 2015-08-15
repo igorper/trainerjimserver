@@ -31,7 +31,7 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
   $stateProvider.state('main.dashboard.user', {
     url: '/:id',
     templateUrl: "<%= asset_path('dashboard/dashboard-user.html') %>",
-    controller: ['$scope', 'Measurement', '$state', 'toaster', 'resultsUtil', 'ExerciseGroup', '$q', 'DashboardStats', function ($scope, Measurement, $state, toaster, resultsUtil, ExerciseGroup, promise, DashboardStats) {
+    controller: ['$scope', 'Measurement', '$state', 'toaster', 'ExerciseGroup', '$q', 'DashboardStats', function ($scope, Measurement, $state, toaster, ExerciseGroup, promise, DashboardStats) {
       $scope.sortType = "date";
       $scope.sortReverse = false;
       $scope.periodName = "all";
@@ -41,9 +41,6 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
         .catch(overviewCalculationFailed)
         .then(function (fetchedData) {
           $scope.dashboardStats = new DashboardStats(fetchedData.measurements, fetchedData.exerciseGroups);
-          $scope.items = _.map(fetchedData.measurements, function (measurement) {
-            return resultsUtil.calculateResultsOverview(measurement, fetchedData.exerciseGroups);
-          });
         });
 
 
@@ -60,8 +57,9 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
       }
 
 
-      $scope.goToMeasurement = function (item) {
-        $state.go('main.results', {trainee: $state.params.id, id: item.id});
+      $scope.goToResults = function (measurement) {
+        console.log("Going to:", measurement);
+        $state.go('main.results', {trainee: measurement.trainee_id, id: measurement.id});
       };
 
       $scope.allUsersSelected = function () {
@@ -171,15 +169,58 @@ dashboard.filter('withinPeriodFilter', function () {
   };
 });
 
-dashboard.factory('DashboardStats', [function () {
+function toLookupById(itemsWithIds) {
+  return _.reduce(itemsWithIds, function (lookupById, item) {
+    lookupById[item.id] = item;
+    return lookupById;
+  }, {});
+}
+
+dashboard.factory('MeasurementStats', [function () {
+  var TOO_HARD_RATING = 0;
+  var OKAY_RATING = 1;
+  var TOO_EASY_RATING = 2;
+
+  function MeasurementStats(measurement) {
+    this.measurement = measurement;
+    this.seriesLookup = toLookupById(_.chain(measurement.training.exercises).pluck('series').flatten().value());
+    this.name = measurement.training.name;
+    this.date = measurement.start_time;
+    this.comment = measurement.comment;
+    this.totalSeries = countSeriesInTraining(measurement.training);
+    this.performedSeries = measurement.series_executions.length;
+    this.seriesSkipped = this.totalSeries - this.performedSeries;
+    this.restTimeChangeInSeconds = restTimeChangeInSeconds(measurement.series_executions, this.seriesLookup);
+    this.seriesTooHardCount = _.chain(measurement.series_executions).where({rating: TOO_HARD_RATING}).size().value();
+    this.seriesTooEasyCount = _.chain(measurement.series_executions).where({rating: TOO_EASY_RATING}).size().value();
+    this.seriesOkayCount = _.chain(measurement.series_executions).where({rating: OKAY_RATING}).size().value();
+  }
+
+  function countSeriesInTraining(training) {
+    return _.reduce(training.exercises, function (count, exercise) {
+      return count + _.size(exercise.series);
+    }, 0);
+  }
+
+  function restTimeChangeInSeconds(seriesExecutions, seriesLookup) {
+    return _.reduce(seriesExecutions, function (change, se) {
+      return change + se.rest_time - seriesLookup[se.series_id].rest_time;
+    }, 0);
+  }
+
+  return MeasurementStats;
+}]);
+
+dashboard.factory('DashboardStats', ['MeasurementStats', function (MeasurementStats) {
   function DashboardStats(measurements, exerciseGroups) {
-
-    var exerciseGroupsCounts = countExerciseGroups(measurements);
-    var exerciseGroupsLookup = toLookupById(exerciseGroups);
-    var partitionedGroupCounts = partitionExerciseGroupCounts(exerciseGroupsLookup, exerciseGroupsCounts);
-
-    this.muscleGroupCounts = partitionedGroupCounts[0];
-    this.equipmentGroupCounts = partitionedGroupCounts[1];
+    this.exerciseGroupsCounts = countExerciseGroups(measurements);
+    this.exerciseGroupsLookup = toLookupById(exerciseGroups);
+    this.partitionedGroupCounts = partitionExerciseGroupCounts(this.exerciseGroupsLookup, this.exerciseGroupsCounts);
+    this.muscleGroupCounts = this.partitionedGroupCounts[0];
+    this.equipmentGroupCounts = this.partitionedGroupCounts[1];
+    this.measurementsStats = _.map(measurements, function (measurement) {
+      return new MeasurementStats(measurement);
+    });
 
 
     /**
@@ -213,13 +254,6 @@ dashboard.factory('DashboardStats', [function () {
         });
       });
       return seriesToExerciseGroups;
-    }
-
-    function toLookupById(itemsWithIds) {
-      return _.reduce(itemsWithIds, function (lookupById, item) {
-        lookupById[item.id] = item;
-        return lookupById;
-      }, {});
     }
 
     function partitionExerciseGroupCounts(exerciseGroupsLookup, exerciseGroupCounters) {

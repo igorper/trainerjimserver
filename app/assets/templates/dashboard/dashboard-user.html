@@ -87,15 +87,22 @@
           </thead>
 
           <tbody>
-          <tr ng-repeat="item in items | withinPeriodFilter:periodName | orderBy:sortType:sortReverse">
-            <td>{{ item.date | date: 'd.M.yyyy' }}</td>
-            <td>{{ item.name }}</td>
-            <td>{{ item.seriesSkipped }}</td>
-            <td>{{ item.averageRestDifferenceInSec }}</td>
-            <td>{{ item.numberIntensityChanges }}</td>
-            <td>{{ item.comment }}</td>
+          <tr ng-repeat="measurementStats in dashboardStats.measurementsStats | withinPeriodFilter:periodName | orderBy:sortType:sortReverse">
+            <td>{{ measurementStats.date | date: 'd.M.yyyy' }}</td>
+            <td>{{ measurementStats.name }}</td>
+            <td>{{ measurementStats.seriesSkipped }} (out of {{measurementStats.totalSeries}})</td>
             <td>
-              <button class="btn btn-danger center-block" ng-click="goToMeasurement(item)">
+              {{ measurementStats.restTimeChangeInSeconds }}s
+            </td>
+            <td>
+              <span class="glyphicon glyphicon-thumbs-down"></span>
+              {{ measurementStats.seriesTooHardCount }}
+              <span class="glyphicon glyphicon-thumbs-up"></span>
+              {{ measurementStats.seriesTooEasyCount }}
+            </td>
+            <td>{{ measurementStats.comment }}</td>
+            <td>
+              <button class="btn btn-danger center-block" ng-click="goToResults(measurementStats.measurement)">
                 View
               </button>
             </td>
