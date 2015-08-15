@@ -87,7 +87,8 @@
           </thead>
 
           <tbody>
-          <tr ng-repeat="measurementStats in dashboardStats.measurementsStats | withinPeriodFilter:periodName | orderBy:sortType:sortReverse">
+          <tr
+            ng-repeat="measurementStats in dashboardStats.measurementsStats | withinPeriodFilter:periodName | orderBy:sortType:sortReverse">
             <td>{{ measurementStats.date | date: 'd.M.yyyy' }}</td>
             <td>{{ measurementStats.name }}</td>
             <td>{{ measurementStats.seriesSkipped }} (out of {{measurementStats.totalSeries}})</td>
@@ -95,10 +96,14 @@
               {{ measurementStats.restTimeChangeInSeconds }}s
             </td>
             <td>
-              <span class="glyphicon glyphicon-thumbs-down"></span>
-              {{ measurementStats.seriesTooHardCount }}
-              <span class="glyphicon glyphicon-thumbs-up"></span>
-              {{ measurementStats.seriesTooEasyCount }}
+              <div class="rating-indicator" tooltip="Number of too hard series.">
+                <span class="glyphicon glyphicon-thumbs-down"></span>
+                <span class="label label-danger">{{ measurementStats.seriesTooHardCount }}</span>
+              </div>
+              <div class="rating-indicator" tooltip="Number of too easy series.">
+                <span class="glyphicon glyphicon-thumbs-up"></span>
+                <span class="label label-info">{{ measurementStats.seriesTooEasyCount }}</span>
+              </div>
             </td>
             <td>{{ measurementStats.comment }}</td>
             <td>
