@@ -5,10 +5,10 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-6">
-        <nvd3 options='options' data='muscleGroups' ng-hide="allUsersSelected()"></nvd3>
+        <nvd3 options='options' data='dashboardStats.muscleGroupCounts' ng-hide="allUsersSelected()"></nvd3>
       </div>
       <div class="col-sm-6">
-        <nvd3 options='options' data='equipmentGroups' ng-hide="allUsersSelected()"></nvd3>
+        <nvd3 options='options' data='dashboardStats.equipmentGroupCounts' ng-hide="allUsersSelected()"></nvd3>
       </div>
     </div>
   </div>
@@ -18,10 +18,10 @@
   <div class="row filter">
     <div class="col-sm-12">
       <div class="btn-group">
-        <label class="btn btn-primary" ng-model="dateFilter" btn-radio="'month'">Last month</label>
-        <label class="btn btn-primary" ng-model="dateFilter" btn-radio="'week'">Last week</label>
-        <label class="btn btn-primary" ng-model="dateFilter" btn-radio="'day'">Last 24 hours</label>
-        <label class="btn btn-primary" ng-model="dateFilter" btn-radio="'all'">All</label>
+        <label class="btn btn-primary" ng-model="periodName" btn-radio="'month'">Last month</label>
+        <label class="btn btn-primary" ng-model="periodName" btn-radio="'week'">Last week</label>
+        <label class="btn btn-primary" ng-model="periodName" btn-radio="'day'">Last 24 hours</label>
+        <label class="btn btn-primary" ng-model="periodName" btn-radio="'all'">All</label>
       </div>
     </div>
   </div>
@@ -87,7 +87,7 @@
           </thead>
 
           <tbody>
-          <tr ng-repeat="item in items | dateRangeFilter:dateFilter | orderBy:sortType:sortReverse">
+          <tr ng-repeat="item in items | withinPeriodFilter:periodName | orderBy:sortType:sortReverse">
             <td>{{ item.date | date: 'd.M.yyyy' }}</td>
             <td>{{ item.name }}</td>
             <td>{{ item.seriesSkipped }}</td>

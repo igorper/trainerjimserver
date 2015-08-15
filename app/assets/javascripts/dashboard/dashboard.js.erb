@@ -31,21 +31,21 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
   $stateProvider.state('main.dashboard.user', {
     url: '/:id',
     templateUrl: "<%= asset_path('dashboard/dashboard-user.html') %>",
-    controller: ['$scope', 'Measurement', '$state', 'toaster', 'resultsUtil', 'ExerciseGroup', '$q', function ($scope, Measurement,
-                                                                                                               $state, toaster, resultsUtil, ExerciseGroup, promise) {
-      $scope.items = [];
-
+    controller: ['$scope', 'Measurement', '$state', 'toaster', 'resultsUtil', 'ExerciseGroup', '$q', 'DashboardStats', function ($scope, Measurement, $state, toaster, resultsUtil, ExerciseGroup, promise, DashboardStats) {
       $scope.sortType = "date";
       $scope.sortReverse = false;
-      $scope.dateFilter = "all";
+      $scope.periodName = "all";
 
       $scope.overviewCalculationPromise = promise
-        .all({measurements: fetchMeasurements(), exerciseGroups: fetchExerciseGroups()})
+        .all({measurements: fetchMeasurements(), exerciseGroups: ExerciseGroup.query().$promise})
         .catch(overviewCalculationFailed)
-        .then(calculateMeasurementsOverview);
+        .then(function (fetchedData) {
+          $scope.dashboardStats = new DashboardStats(fetchedData.measurements, fetchedData.exerciseGroups);
+          $scope.items = _.map(fetchedData.measurements, function (measurement) {
+            return resultsUtil.calculateResultsOverview(measurement, fetchedData.exerciseGroups);
+          });
+        });
 
-      $scope.muscleGroups = [];
-      $scope.equipmentGroups = [];
 
       function fetchMeasurements() {
         if ($state.params.id === "") {
@@ -55,81 +55,8 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
         }
       }
 
-      function fetchExerciseGroups() {
-        return ExerciseGroup.query().$promise;
-      }
-
-      function calculateMeasurementsOverview(allData) {
-        return _.map(allData.measurements, function (measurement) {
-          return addMeasurementOverview(measurement, allData.exerciseGroups);
-        });
-      }
-
       function overviewCalculationFailed() {
         toaster.pop("error", "Error while fetching measurements", "Unable to fetch measurements. An unexpected error occurred.");
-      }
-
-      $scope.exerciseGroupIdsToCount = {};
-
-      function toLookupById(itemsWithIds) {
-        return _.chain(itemsWithIds)
-          .map(function (item) {
-            return [item.id, item];
-          })
-          .object()
-          .value();
-      }
-
-      function addMeasurementOverview(measurement, exerciseGroups) {
-        var overview = resultsUtil.calculateResultsOverview(measurement, exerciseGroups);
-        var idsToExerciseGroups = toLookupById(exerciseGroups);
-        var seriesToExerciseGroups = extractSeriesToExerciseGroupsMap(measurement.training.exercises);
-        countExerciseGroups(measurement, seriesToExerciseGroups, $scope.exerciseGroupIdsToCount);
-        var groupCounts = _.partition(toGroupAndCounts(idsToExerciseGroups), function (exerciseGroupAndCount) {
-          return exerciseGroupAndCount.exerciseGroup.is_machine_group;
-        });
-        $scope.muscleGroups = groupCounts[0];
-        $scope.equipmentGroups = groupCounts[1];
-
-        $scope.items.push(overview);
-      }
-
-      /**
-       * @return {*} a list of objects of the form `{exerciseGroup, count}`.
-       */
-      function toGroupAndCounts(exerciseGroupsLookupById) {
-        return _.map($scope.exerciseGroupIdsToCount, function (count, exerciseGroupId) {
-          return {exerciseGroup: exerciseGroupsLookupById[exerciseGroupId], count: count};
-        });
-      }
-
-      /**
-       * @param measurement the measurement from which to count executed exercise  groups.
-       * @param seriesToExerciseGroup a lookup object of series IDs as keys and exercise groups as values.
-       * @param outputExerciseGroupToCountMap an object with exercise group IDs as keys and counts as values. This
-       * object will be updated with counts.
-       * @return an object with exercise group IDs as keys and counts as values.
-       */
-      function countExerciseGroups(measurement, seriesToExerciseGroup, outputExerciseGroupToCountMap) {
-        return _.reduce(measurement.series_executions, function (exerciseGroupCounts, seriesExecution) {
-          _.each(seriesToExerciseGroup[seriesExecution.series_id], function (groupId) {
-            exerciseGroupCounts[groupId] = 1 + (exerciseGroupCounts[groupId] || 0);
-          });
-          return exerciseGroupCounts;
-        }, outputExerciseGroupToCountMap);
-      }
-
-      /**
-       * @return {*} an object with series IDs as keys and lists of groups to which these series belong as
-       * values.
-       */
-      function extractSeriesToExerciseGroupsMap(exercises) {
-        return _.reduce(exercises, function (seriesToExerciseGroups, exercise) {
-          _.each(exercise.series, function (serie) {
-            seriesToExerciseGroups[serie.id] = _.union(exercise.exercise_type.exercise_groups, seriesToExerciseGroups[serie.id]);
-          });
-          return seriesToExerciseGroups;
-        }, {});
       }
 
 
@@ -216,7 +143,7 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
 }]);
 
 
-dashboard.filter('dateRangeFilter', function () {
+dashboard.filter('withinPeriodFilter', function () {
   function daysInPeriod(periodName) {
     switch (periodName) {
       case 'day':
@@ -243,3 +170,69 @@ dashboard.filter('dateRangeFilter', function () {
     return _.isUndefined(days) ? items : withinDaysFilter(items, days);
   };
 });
+
+dashboard.factory('DashboardStats', [function () {
+  function DashboardStats(measurements, exerciseGroups) {
+
+    var exerciseGroupsCounts = countExerciseGroups(measurements);
+    var exerciseGroupsLookup = toLookupById(exerciseGroups);
+    var partitionedGroupCounts = partitionExerciseGroupCounts(exerciseGroupsLookup, exerciseGroupsCounts);
+
+    this.muscleGroupCounts = partitionedGroupCounts[0];
+    this.equipmentGroupCounts = partitionedGroupCounts[1];
+
+
+    /**
+     * @param measurements the measurement in which to count executed exercise groups.
+     * @return a lookup object from exercise groups to the number of times they appeared in executed series
+     * in the given measurements.
+     */
+    function countExerciseGroups(measurements) {
+      var seriesToExerciseGroups = extractSeriesToExerciseGroupIdsLookup(measurements);
+      var exerciseGroupCounts = {};
+      _.each(measurements, function (measurement) {
+        _.each(measurement.series_executions, function (seriesExecution) {
+          _.each(seriesToExerciseGroups[seriesExecution.series_id], function (groupId) {
+            exerciseGroupCounts[groupId] = 1 + (exerciseGroupCounts[groupId] || 0);
+          });
+        });
+      });
+      return exerciseGroupCounts;
+    }
+
+    /**
+     * @return {*} a lookup object of series IDs to lists of group IDs to which these series belong.
+     */
+    function extractSeriesToExerciseGroupIdsLookup(measurements) {
+      var seriesToExerciseGroups = {};
+      _.each(measurements, function (measurement) {
+        _.each(measurement.training.exercises, function (exercise) {
+          _.each(exercise.series, function (serie) {
+            seriesToExerciseGroups[serie.id] = _.union(exercise.exercise_type.exercise_groups, seriesToExerciseGroups[serie.id]);
+          });
+        });
+      });
+      return seriesToExerciseGroups;
+    }
+
+    function toLookupById(itemsWithIds) {
+      return _.reduce(itemsWithIds, function (lookupById, item) {
+        lookupById[item.id] = item;
+        return lookupById;
+      }, {});
+    }
+
+    function partitionExerciseGroupCounts(exerciseGroupsLookup, exerciseGroupCounters) {
+      return _.chain(exerciseGroupCounters)
+        .map(function (count, exerciseGroupId) {
+          return {exerciseGroup: exerciseGroupsLookup[exerciseGroupId], count: count};
+        })
+        .partition(function (exerciseGroupAndCount) {
+          return exerciseGroupAndCount.exerciseGroup.is_machine_group;
+        })
+        .value();
+    }
+  }
+
+  return DashboardStats;
+}]);
