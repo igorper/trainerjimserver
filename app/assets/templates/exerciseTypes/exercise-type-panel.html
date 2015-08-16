@@ -32,14 +32,13 @@
            ng-repeat="exerciseType in exerciseTypes | propsFilter: {name: filter.keyword} | bySelectedGroups: selectedExerciseGroupIds | orderBy:'name'">
         <div ng-click="onExerciseTypeClicked({exerciseType: exerciseType})">
           <div class="thumb"><img ng-src="{{getPrimaryPhoto(exerciseType)}}"/></div>
-          <div class="name">
-            <div class="name-text" ng-bind-html="exerciseType.name | highlight: filter.keyword"></div>
-          </div>
+          <div class="name-text" ng-bind-html="exerciseType.name | highlight: filter.keyword"></div>
         </div>
         <div class="edit-btn btn btn-primary" ng-click="onExerciseTypeEditClicked({exerciseType: exerciseType})">
           <div class="glyphicon glyphicon-edit"></div>
         </div>
-        <div class="edit-btn delete-btn btn btn-danger" ng-click="onExerciseTypeDeleteClicked({exerciseType: exerciseType})"
+        <div class="edit-btn delete-btn btn btn-danger"
+             ng-click="onExerciseTypeDeleteClicked({exerciseType: exerciseType})"
              ng-if="canEditExerciseType(exerciseType)">
           <div class="glyphicon glyphicon-remove-sign"></div>
         </div>
