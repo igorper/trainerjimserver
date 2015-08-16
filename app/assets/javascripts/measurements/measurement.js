@@ -1,7 +1,7 @@
-var measurement = angular.module("measurements", ["ngResource"]);
+var measurement = angular.module('measurements', ['ngResource']);
 
-measurement.factory('Measurement', ["$resource", function ($resource) {
-  return $resource("/api/v1/measurements/:id.json",
+measurement.factory('Measurement', ['$resource', function ($resource) {
+  var Measurement = $resource('/api/v1/measurements/:id.json',
     {id: '@id'},
     {
       queryForUser: {
@@ -24,4 +24,10 @@ measurement.factory('Measurement', ["$resource", function ($resource) {
       }
     }
   );
+
+  Measurement.TOO_HARD_RATING = 0;
+  Measurement.OKAY_RATING = 1;
+  Measurement.TOO_EASY_RATING = 2;
+
+  return Measurement;
 }]);

@@ -4,10 +4,10 @@
   <div class="container">
     <div class="row">
       <div class="col-sm-6">
-        <nvd3 options='executedExerciseGroupsPieChartOptions' data='dashboardStats.muscleGroupCounts'></nvd3>
+        <nvd3 options='executedExerciseGroupsPieChartOptions' data='stats.muscleGroupCounts'></nvd3>
       </div>
       <div class="col-sm-6">
-        <nvd3 options='executedExerciseGroupsPieChartOptions' data='dashboardStats.equipmentGroupCounts'></nvd3>
+        <nvd3 options='executedExerciseGroupsPieChartOptions' data='stats.equipmentGroupCounts'></nvd3>
       </div>
     </div>
   </div>
@@ -59,20 +59,20 @@
               </a>
             </td>
             <td class="col-sm-1">
-              <a href="" ng-click="sortType = 'averageRestDifferenceInSec'; sortReverse = !sortReverse">
+              <a href="" ng-click="sortType = 'restTimeChangeInSeconds'; sortReverse = !sortReverse">
                 Rest change
-          <span ng-show="sortType == 'averageRestDifferenceInSec' && !sortReverse"
+          <span ng-show="sortType == 'restTimeChangeInSeconds' && !sortReverse"
                 class="glyphicon glyphicon-sort-by-attributes"></span>
-          <span ng-show="sortType == 'averageRestDifferenceInSec' && sortReverse"
+          <span ng-show="sortType == 'restTimeChangeInSeconds' && sortReverse"
                 class="glyphicon glyphicon-sort-by-attributes-alt"></span>
               </a>
             </td>
             <td class="col-sm-1">
-              <a href="" ng-click="sortType = 'numberIntensityChanges'; sortReverse = !sortReverse">
+              <a href="" ng-click="sortType = 'seriesNotOkayCount'; sortReverse = !sortReverse">
                 Intensity alerts
-          <span ng-show="sortType == 'numberIntensityChanges' && !sortReverse"
+          <span ng-show="sortType == 'seriesNotOkayCount' && !sortReverse"
                 class="glyphicon glyphicon-sort-by-attributes"></span>
-          <span ng-show="sortType == 'numberIntensityChanges' && sortReverse"
+          <span ng-show="sortType == 'seriesNotOkayCount' && sortReverse"
                 class="glyphicon glyphicon-sort-by-attributes-alt"></span>
               </a>
             </td>
@@ -87,7 +87,7 @@
 
           <tbody>
           <tr
-            ng-repeat="measurementStats in dashboardStats.measurementsStats | withinPeriodFilter:periodName | orderBy:sortType:sortReverse">
+            ng-repeat="measurementStats in stats.measurementsStats | withinPeriodFilter:periodName | orderBy:sortType:sortReverse">
             <td>{{ measurementStats.date | date: 'd.M.yyyy' }}</td>
             <td>{{ measurementStats.name }}</td>
             <td>{{ measurementStats.seriesSkipped }} (out of {{measurementStats.totalSeries}})</td>
