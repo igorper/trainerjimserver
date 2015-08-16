@@ -112,6 +112,6 @@ dashboard.filter('withinPeriodFilter', function () {
 
   return function (items, periodName) {
     var days = daysInPeriod(periodName);
-    return _.isUndefined(days) ? items : withinDaysFilter(items, days);
+    return _.isFinite(days) ? withinDaysFilter(items, days) : items;
   };
 });
