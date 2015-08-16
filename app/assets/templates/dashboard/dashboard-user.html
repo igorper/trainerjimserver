@@ -1,14 +1,13 @@
 <div spin-until="overviewCalculationPromise" class="dashboard-user">
   <h2>Training overview</h2>
 
-  <nvd3 options="scatterOptions" data="scatterData" ng-show="allUsersSelected()"></nvd3>
   <div class="container">
     <div class="row">
       <div class="col-sm-6">
-        <nvd3 options='options' data='dashboardStats.muscleGroupCounts' ng-hide="allUsersSelected()"></nvd3>
+        <nvd3 options='executedExerciseGroupsPieChartOptions' data='dashboardStats.muscleGroupCounts'></nvd3>
       </div>
       <div class="col-sm-6">
-        <nvd3 options='options' data='dashboardStats.equipmentGroupCounts' ng-hide="allUsersSelected()"></nvd3>
+        <nvd3 options='executedExerciseGroupsPieChartOptions' data='dashboardStats.equipmentGroupCounts'></nvd3>
       </div>
     </div>
   </div>

@@ -66,7 +66,7 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
         return $state.params.id === "";
       };
 
-      $scope.options = {
+      $scope.executedExerciseGroupsPieChartOptions = {
         chart: {
           type: 'pieChart',
           x: function (d) {
@@ -80,62 +80,6 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
           height: 300
         }
       };
-
-      $scope.scatterOptions = {
-        chart: {
-          type: 'scatterChart',
-          height: 450,
-          color: d3.scale.category10().range(),
-          scatter: {
-            onlyCircles: false
-          },
-          showDistX: true,
-          showDistY: true,
-          tooltipContent: function (key) {
-            return '<h3>' + key + '</h3>';
-          },
-          transitionDuration: 350,
-          xAxis: {
-            axisLabel: 'X Axis',
-            tickFormat: function (d) {
-              return d3.format('.02f')(d);
-            }
-          },
-          yAxis: {
-            axisLabel: 'Y Axis',
-            tickFormat: function (d) {
-              return d3.format('.02f')(d);
-            },
-            axisLabelDistance: 30
-          }
-        }
-      };
-
-      $scope.scatterData = generateData(4, 40);
-
-      /* Random Data Generator (took from nvd3.org) */
-      function generateData(groups, points) {
-        var data = [],
-          shapes = ['circle', 'cross', 'triangle-up', 'triangle-down', 'diamond', 'square'],
-          random = d3.random.normal();
-
-        for (var i = 0; i < groups; i++) {
-          data.push({
-            key: 'Group ' + i,
-            values: []
-          });
-
-          for (var j = 0; j < points; j++) {
-            data[i].values.push({
-              x: random()
-              , y: random()
-              , size: Math.random()
-              , shape: shapes[j % 6]
-            });
-          }
-        }
-        return data;
-      }
     }]
   });
 }]);
@@ -183,11 +127,12 @@ dashboard.factory('MeasurementStats', [function () {
 
   function MeasurementStats(measurement) {
     this.measurement = measurement;
-    this.seriesLookup = toLookupById(_.chain(measurement.training.exercises).pluck('series').flatten().value());
-    this.name = measurement.training.name;
+    var training = measurement.training;
+    this.seriesLookup = toLookupById(_.chain(training.exercises).pluck('series').flatten().value());
+    this.name = training.name;
     this.date = measurement.start_time;
     this.comment = measurement.comment;
-    this.totalSeries = countSeriesInTraining(measurement.training);
+    this.totalSeries = countSeriesInTraining(training);
     this.performedSeries = measurement.series_executions.length;
     this.seriesSkipped = this.totalSeries - this.performedSeries;
     this.restTimeChangeInSeconds = restTimeChangeInSeconds(measurement.series_executions, this.seriesLookup);
@@ -213,59 +158,58 @@ dashboard.factory('MeasurementStats', [function () {
 
 dashboard.factory('DashboardStats', ['MeasurementStats', function (MeasurementStats) {
   function DashboardStats(measurements, exerciseGroups) {
-    this.exerciseGroupsCounts = countExerciseGroups(measurements);
+    this.executedExerciseGroupsCounts = countExecutedExerciseGroups(measurements);
     this.exerciseGroupsLookup = toLookupById(exerciseGroups);
-    this.partitionedGroupCounts = partitionExerciseGroupCounts(this.exerciseGroupsLookup, this.exerciseGroupsCounts);
+    this.partitionedGroupCounts = partitionExerciseGroupCounts(this.exerciseGroupsLookup, this.executedExerciseGroupsCounts);
     this.muscleGroupCounts = this.partitionedGroupCounts[0];
     this.equipmentGroupCounts = this.partitionedGroupCounts[1];
     this.measurementsStats = _.map(measurements, function (measurement) {
       return new MeasurementStats(measurement);
     });
+  }
 
-
-    /**
-     * @param measurements the measurement in which to count executed exercise groups.
-     * @return a lookup object from exercise groups to the number of times they appeared in executed series
-     * in the given measurements.
-     */
-    function countExerciseGroups(measurements) {
-      var seriesToExerciseGroups = extractSeriesToExerciseGroupIdsLookup(measurements);
-      var exerciseGroupCounts = {};
-      _.each(measurements, function (measurement) {
-        _.each(measurement.series_executions, function (seriesExecution) {
-          _.each(seriesToExerciseGroups[seriesExecution.series_id], function (groupId) {
-            exerciseGroupCounts[groupId] = 1 + (exerciseGroupCounts[groupId] || 0);
-          });
+  /**
+   * @param measurements the measurement in which to count executed exercise groups.
+   * @return a lookup object from exercise groups to the number of times they appeared in executed series
+   * in the given measurements.
+   */
+  function countExecutedExerciseGroups(measurements) {
+    var seriesToExerciseGroups = extractSeriesToExerciseGroupIdsLookup(measurements);
+    var exerciseGroupCounts = {};
+    _.each(measurements, function (measurement) {
+      _.each(measurement.series_executions, function (seriesExecution) {
+        _.each(seriesToExerciseGroups[seriesExecution.series_id], function (groupId) {
+          exerciseGroupCounts[groupId] = 1 + (exerciseGroupCounts[groupId] || 0);
         });
       });
-      return exerciseGroupCounts;
-    }
+    });
+    return exerciseGroupCounts;
+  }
 
-    /**
-     * @return {*} a lookup object of series IDs to lists of group IDs to which these series belong.
-     */
-    function extractSeriesToExerciseGroupIdsLookup(measurements) {
-      var seriesToExerciseGroups = {};
-      _.each(measurements, function (measurement) {
-        _.each(measurement.training.exercises, function (exercise) {
-          _.each(exercise.series, function (serie) {
-            seriesToExerciseGroups[serie.id] = _.union(exercise.exercise_type.exercise_groups, seriesToExerciseGroups[serie.id]);
-          });
+  /**
+   * @return {*} a lookup object of series IDs to lists of group IDs to which these series belong.
+   */
+  function extractSeriesToExerciseGroupIdsLookup(measurements) {
+    var seriesToExerciseGroups = {};
+    _.each(measurements, function (measurement) {
+      _.each(measurement.training.exercises, function (exercise) {
+        _.each(exercise.series, function (serie) {
+          seriesToExerciseGroups[serie.id] = _.union(exercise.exercise_type.exercise_groups, seriesToExerciseGroups[serie.id]);
         });
       });
-      return seriesToExerciseGroups;
-    }
+    });
+    return seriesToExerciseGroups;
+  }
 
-    function partitionExerciseGroupCounts(exerciseGroupsLookup, exerciseGroupCounters) {
-      return _.chain(exerciseGroupCounters)
-        .map(function (count, exerciseGroupId) {
-          return {exerciseGroup: exerciseGroupsLookup[exerciseGroupId], count: count};
-        })
-        .partition(function (exerciseGroupAndCount) {
-          return exerciseGroupAndCount.exerciseGroup.is_machine_group;
-        })
-        .value();
-    }
+  function partitionExerciseGroupCounts(exerciseGroupsLookup, exerciseGroupCounters) {
+    return _.chain(exerciseGroupCounters)
+      .map(function (count, exerciseGroupId) {
+        return {exerciseGroup: exerciseGroupsLookup[exerciseGroupId], count: count};
+      })
+      .partition(function (exerciseGroupAndCount) {
+        return exerciseGroupAndCount.exerciseGroup.is_machine_group;
+      })
+      .value();
   }
 
   return DashboardStats;
