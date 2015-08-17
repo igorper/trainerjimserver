@@ -7,6 +7,18 @@
   width: 164px;
 }
 
+@media (min-width: 768px) and (max-width: 991px) {
+  .header-menu .navbar > .container {
+    padding-left: 0;
+    padding-right: 10px;
+    width: 766px;
+  }
+
+  .header-menu div.logo-part {
+    width: 90px;
+  }
+}
+
 .header-menu ul.left-part li button {
   margin-left: 5px;
   margin-right: 5px;
