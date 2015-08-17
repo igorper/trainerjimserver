@@ -87,7 +87,7 @@
 
           <tbody>
           <tr
-            ng-repeat="measurementStats in stats.measurementsStats | withinPeriodFilter:periodName | orderBy:sortType:sortReverse">
+            ng-repeat="measurementStats in stats.measurementsStats | withinPeriod:periodName | orderBy:sortType:sortReverse">
             <td>{{ measurementStats.date | date: 'd.M.yyyy' }}</td>
             <td>{{ measurementStats.name }}</td>
             <td>{{ measurementStats.seriesSkipped }} (out of {{measurementStats.totalSeries}})</td>

@@ -4,7 +4,9 @@ var dashboard = angular.module('dashboard', [
   'nvd3',
   'exerciseGroups.exerciseGroup',
   'util.promiseUi',
-  'measurements.stats'
+  'measurements.stats',
+  'dashboard.overview',
+  'dashboard.user'
 ]);
 
 
@@ -12,106 +14,40 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
   $stateProvider.state('main.dashboard', {
     url: '/dashboard',
     abstract: true,
-    templateUrl: "<%= asset_path('dashboard/dashboard.html') %>",
-    controller: ['$scope', 'Trainee', '$state', 'toaster', function ($scope, Trainee, $state, toaster) {
-      $scope.state = $state;
+    templateUrl: '<%= asset_path('dashboard/dashboard.html') %>',
+    controller: 'DashboardCtrl'  });
 
-      $scope.users = Trainee.query(function () {
-      }, function () {
-        toaster.pop("error", "Trainees listing", "Could get the list of trainees. Try logging in again.");
-      });
-
-      $scope.getCurrentUserId = function () {
-        return $state.params.id == "" ? null : parseInt($state.params.id);
-      };
-
-      $scope.onUserSelected = function (user) {
-        $state.go('main.dashboard.user', {id: user === undefined ? '' : user.id});
-      };
-    }]
+  $stateProvider.state('main.dashboard.overview', {
+    url: '/',
+    templateUrl: '<%= asset_path('dashboard/dashboard-overview.html') %>',
+    controller: 'DashboardOverviewCtrl'
   });
 
   $stateProvider.state('main.dashboard.user', {
-    url: '/:id',
-    templateUrl: "<%= asset_path('dashboard/dashboard-user.html') %>",
-    controller: ['$scope', 'Measurement', '$state', 'toaster', 'ExerciseGroup', '$q', 'MeasurementStats', function ($scope, Measurement, $state, toaster, ExerciseGroup, promise, MeasurementStats) {
-      $scope.sortType = "date";
-      $scope.sortReverse = false;
-      $scope.periodName = "all";
-
-      $scope.overviewCalculationPromise = promise
-        .all({measurements: fetchMeasurements(), exerciseGroups: ExerciseGroup.query().$promise})
-        .catch(overviewCalculationFailed)
-        .then(function (fetchedData) {
-          $scope.stats = MeasurementStats.calculateMeasurementListStats(fetchedData.measurements, fetchedData.exerciseGroups);
-        });
-
-
-      function fetchMeasurements() {
-        if ($state.params.id === "") {
-          return Measurement.detailedMeasurements().$promise;
-        } else {
-          return Measurement.detailedMeasurementsForUser({userId: $state.params.id}).$promise;
-        }
-      }
-
-      function overviewCalculationFailed() {
-        toaster.pop("error", "Error while fetching measurements", "Unable to fetch measurements. An unexpected error occurred.");
-      }
-
-
-      $scope.goToResults = function (measurement) {
-        console.log("Going to:", measurement);
-        $state.go('main.results', {trainee: measurement.trainee_id, id: measurement.id});
-      };
-
-      $scope.allUsersSelected = function () {
-        return $state.params.id === "";
-      };
-
-      $scope.executedExerciseGroupsPieChartOptions = {
-        chart: {
-          type: 'pieChart',
-          x: function (d) {
-            return d.exerciseGroup.name;
-          },
-          y: function (d) {
-            return d.count;
-          },
-          showLabels: true,
-          transitionDuration: 500,
-          height: 300
-        }
-      };
-    }]
+    url: '/:userId',
+    templateUrl: '<%= asset_path('dashboard/dashboard-user.html') %>',
+    controller: 'DashboardUserCtrl'
   });
 }]);
 
 
-dashboard.filter('withinPeriodFilter', function () {
-  function daysInPeriod(periodName) {
-    switch (periodName) {
-      case 'day':
-        return 1;
-      case 'week':
-        return 7;
-      case 'month':
-        return 30;
-      default:
-        return undefined;
-    }
-  }
+dashboard.controller('DashboardCtrl', ['$scope', 'Trainee', '$state', 'toaster', function ($scope, Trainee, $state, toaster) {
+    $scope.state = $state;
 
-  function withinDaysFilter(items, days) {
-    var from = new Date();
-    from.setDate(from.getDate() - days);
-    return _.filter(items, function (item) {
-      return new Date(item.date) > from;
+    $scope.users = Trainee.query(_.noop, function () {
+      toaster.pop("error", "Trainees listing", "Could get the list of trainees. Try logging in again.");
     });
-  }
 
-  return function (items, periodName) {
-    var days = daysInPeriod(periodName);
-    return _.isFinite(days) ? withinDaysFilter(items, days) : items;
-  };
-});
+    $scope.getCurrentUserId = function () {
+      return $state.params.id == "" ? null : parseInt($state.params.id);
+    };
+
+    $scope.onUserSelected = function (user) {
+      if (_.isUndefined(user)) {
+        $state.go('main.dashboard.overview');
+      } else {
+        $state.go('main.dashboard.user', {userId: user.id});
+      }
+    };
+  }]
+);
