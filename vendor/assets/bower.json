@@ -18,10 +18,14 @@
     "moment": "latest",
     "angular-http-auth": "latest",
     "ng-file-upload": "latest",
-    "d3": "latest",
+    "d3": "3.5.6",
     "spin.js": "latest",
     "bootstrap": "latest",
-    "nvd3": "latest",
+    "nvd3": "1.7.1",
     "angular-nvd3": "latest"
+  },
+  "resolutions": {
+    "d3": "3.5.6",
+    "nvd3": "1.7.1"
   }
 }
