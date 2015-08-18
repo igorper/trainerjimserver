@@ -8,6 +8,8 @@
 
 require 'csv'
 
+include FactoryGirl::Syntax::Methods
+
 def is_none(ex)
   ex.nil? || ex.downcase == 'none'
 end
@@ -15,11 +17,10 @@ end
 exercise_types_data = CSV.read(Rails.root.join('data', 'exercise_types.csv'))
 body_groups = exercise_types_data.map { |row| row[1] }.uniq.reject(&method(:is_none)).map { |group| ExerciseGroup.create(name: group) }
 machine_groups = exercise_types_data.map { |row| row[2] }.uniq.reject(&method(:is_none)).map { |group| ExerciseGroup.create(name: group, is_machine_group: true) }
-exercise_groups = (body_groups + machine_groups).map{|grp| [grp.name, grp]}.to_h
-exercise_types = exercise_types_data.map { |row| ExerciseType.create(name: row[0], exercise_groups: [row[1], row[2]].map {|exercise_group| exercise_groups[exercise_group] }.compact) }
+exercise_groups = (body_groups + machine_groups).map { |grp| [grp.name, grp] }.to_h
+exercise_types = exercise_types_data.map { |row| ExerciseType.create(name: row[0], exercise_groups: [row[1], row[2]].map { |exercise_group| exercise_groups[exercise_group] }.compact) }
 
-
-trainer = User.create(email: 'jim@example.com', password: 'trainerjim', full_name: 'Jim the Trainer', is_trainer: true)
+trainer = create(:user, :trainer, email: 'jim@example.com', full_name: 'Jim the Trainer')
 matej = User.create(email: 'matej.urbas@gmail.com', password: 'trainerjim', full_name: 'Matej', is_administrator: true, trainer: trainer)
 igor = User.create(email: 'igor.pernek@gmail.com', password: 'trainerjim', full_name: 'Igor', is_administrator: true, trainer: trainer)
 damjan = User.create(email: 'damjan.obal@example.com', password: 'trainerjim', full_name: 'Damjan', is_administrator: true, trainer: trainer)
@@ -27,16 +28,40 @@ blaz = User.create(email: 'snuderl@example.com', password: 'trainerjim', full_na
 marusa = User.create(email: 'marusa@example.com', password: 'trainerjim', full_name: 'Marusa', trainer: trainer)
 kristjan = User.create(email: 'kristjan.korez@example.com', password: 'trainerjim', full_name: 'Kristjan', is_trainer: true)
 
+users = build_list(:user, 5, trainer: trainer)
+
+users.each do |user|
+  puts("Generating user: #{user.full_name}...")
+  user.trainings = build_list(:training, rand(5) + 1) do |training|
+    training.exercises = build_list(:exercise, rand(10) + 1) do |exercise|
+      exercise.exercise_type = exercise_types.sample
+      exercise.series = build_list(:series, rand(5) + 1)
+    end
+
+    all_series = training.exercises.flat_map { |e| e.series }
+
+    user.measurements += build_list(:measurement, rand(20)) do |measurement|
+      measurement.training = training
+      executed_series = all_series.sample(rand(all_series.length + 1))
+      measurement.series_executions = build_list(:series_execution, executed_series.length) do |series_execution|
+        series_execution.series = executed_series.pop
+      end
+    end
+  end
+  user.save
+  puts("Done. (generated user #{user.full_name}).")
+end
+
 core = ExerciseGroup.find_by_name('Core')
-arms = ExerciseGroup.find_by_name('Groin')
-legs = ExerciseGroup.find_by_name('Calves')
+arms = ExerciseGroup.find_by_name('Arms')
+legs = ExerciseGroup.find_by_name('Legs')
 back = ExerciseGroup.find_by_name('Back')
 
 free_weights = ExerciseGroup.find_by_name('Dumbbell')
 bench_group = ExerciseGroup.find_by_name('Barbell')
 body_weight = ExerciseGroup.find_by_name('Bodyweight')
 machine = ExerciseGroup.find_by_name('Machine')
-mat = ExerciseGroup.find_by_name('Cable')
+mat = ExerciseGroup.find_by_name('Stability Ball')
 
 bench = ExerciseType.create(name: 'Bench press', exercise_groups: [arms, back, bench_group])
 incline = ExerciseType.create(name: 'Incline press', exercise_groups: [arms, machine])

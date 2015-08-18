@@ -27,9 +27,10 @@ class User < ActiveRecord::Base
   devise :database_authenticatable, :registerable, :confirmable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  belongs_to :trainer, :class_name => "User", :foreign_key => 'trainer_id'
-  has_many :measurements, :dependent => :delete_all
+  belongs_to :trainer, class_name: :User, foreign_key: :trainer_id
+  has_many :measurements, foreign_key: :trainee_id
   has_many :trainees, class_name: :User, foreign_key: :trainer_id
+  has_many :trainings, foreign_key: :trainee_id
   has_and_belongs_to_many :roles
 
   has_attached_file :photo, styles: { large: "1400x900>", medium: "300x300>" }, default_url: "/images/user-photos/:style/missing.png"

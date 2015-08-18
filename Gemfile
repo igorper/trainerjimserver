@@ -54,8 +54,12 @@ group :test do
   gem 'minitest'
   gem 'rspec-rails'
   gem 'capybara'
+end
+
+group :development, :test do
   gem 'factory_girl_rails'
   gem 'factory_girl'
+  gem 'faker'
 end
 
 gem 'rb-readline'
