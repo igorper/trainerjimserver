@@ -26,10 +26,14 @@
     </div>
   </div>
 
+  <button class="pagination-button btn btn-info" ng-disabled="pageIndex == 0" ng-click="goToPreviousPage()">
+    &lt;&lt;&lt; PREVIOUS PAGE
+  </button>
+
   <div spin-until="exerciseTypes" class="row exercise-type-grid">
     <div class="col-sm-12">
       <div class="exercise-type-item"
-           ng-repeat="exerciseType in exerciseTypes | propsFilter: {name: filter.keyword} | bySelectedGroups: selectedExerciseGroupIds | orderBy:'name'">
+           ng-repeat="exerciseType in filteredExerciseTypes">
         <div ng-click="onExerciseTypeClicked({exerciseType: exerciseType})">
           <div class="thumb"><img ng-src="{{getPrimaryPhoto(exerciseType)}}"/></div>
           <div class="name-text" ng-bind-html="exerciseType.name | highlight: filter.keyword"></div>
@@ -45,6 +49,10 @@
       </div>
     </div>
   </div>
+
+  <button class="pagination-button btn btn-info" ng-disabled="!hasMoreExerciseTypes" ng-click="goToNextPage()">
+    NEXT PAGE &gt;&gt;&gt;
+  </button>
 
   <div class="add-exercise-type-btn" ng-click="onExerciseTypeAddClicked()">
     <div class="glyphicon glyphicon-plus"></div>
