@@ -28,11 +28,14 @@ blaz = User.create(email: 'snuderl@example.com', password: 'trainerjim', full_na
 marusa = User.create(email: 'marusa@example.com', password: 'trainerjim', full_name: 'Marusa', trainer: trainer)
 kristjan = User.create(email: 'kristjan.korez@example.com', password: 'trainerjim', full_name: 'Kristjan', is_trainer: true)
 
-users = build_list(:user, 5, trainer: trainer)
+users = build_list(:user, 10, trainer: trainer)
 
 users.each do |user|
   puts("Generating user: #{user.full_name}...")
-  user.trainings = build_list(:training, rand(5) + 1) do |training|
+
+  last_measurement_ago = rand(10).days
+
+  user.trainings = build_list(:training, rand(2) + 1) do |training|
     training.exercises = build_list(:exercise, rand(10) + 1) do |exercise|
       exercise.exercise_type = exercise_types.sample
       exercise.series = build_list(:series, rand(5) + 1)
@@ -40,16 +43,16 @@ users.each do |user|
 
     all_series = training.exercises.flat_map { |e| e.series }
 
-    user.measurements += build_list(:measurement, rand(20)) do |measurement|
-      measurement.training = training
+    user.measurements += build_list(:measurement, rand(20), training: training) do |measurement|
       executed_series = all_series.sample(rand(all_series.length + 1))
+      measurement.start_time -= last_measurement_ago
+      measurement.end_time -= last_measurement_ago
       measurement.series_executions = build_list(:series_execution, executed_series.length) do |series_execution|
         series_execution.series = executed_series.pop
       end
     end
   end
   user.save
-  puts("Done. (generated user #{user.full_name}).")
 end
 
 core = ExerciseGroup.find_by_name('Core')

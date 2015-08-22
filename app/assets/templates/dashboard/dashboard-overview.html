@@ -1,122 +1,76 @@
 <div class="dashboard-overview">
-  <div spin-until="overviewCalculationPromise" class="dashboard-user">
-    <h2>Training overview</h2>
+  <div class="row" spin-until="inactiveUsersLoading">
+    <h2>Overview</h2>
+
+    <h4>Inactive users</h4>
+
+    <ul>
+      <li ng-repeat="user in inactiveUsers">
+        {{user.full_name}}
+      </li>
+    </ul>
 
     <div>
-      <div class="row">
-        <div class="col-sm-6">
-          <nvd3 options='executedExerciseGroupsPieChartOptions' data='stats.muscleGroupCounts'></nvd3>
-        </div>
-        <div class="col-sm-6">
-          <nvd3 options='executedExerciseGroupsPieChartOptions' data='stats.equipmentGroupCounts'></nvd3>
-        </div>
-      </div>
+      Users, who have not done an exercise in a whole week.
+
+      <ul>
+        <li>displays users that have not done any exercises for a month or more.</li>
+        <li>displays the date of the last measurement</li>
+        <li>people who haven't performed exercises for longest appear closer to top-left.</li>
+      </ul>
     </div>
+  </div>
 
-    <h4>Filter by date</h4>
+  <div class="row" spin-until="intensityAlertsLoading">
+    <h4>Intensity alerts</h4>
 
-    <div class="row filter">
-      <div class="col-sm-12">
-        <div class="btn-group">
-          <label class="btn btn-primary" ng-model="periodName" btn-radio="'month'">Last month</label>
-          <label class="btn btn-primary" ng-model="periodName" btn-radio="'week'">Last week</label>
-          <label class="btn btn-primary" ng-model="periodName" btn-radio="'day'">Last 24 hours</label>
-          <label class="btn btn-primary" ng-model="periodName" btn-radio="'all'">All</label>
-        </div>
-      </div>
+    <ul>
+      <li ng-repeat="intensityAlert in intensityAlerts">
+        {{intensityAlert}}
+      </li>
+    </ul>
+
+    <div>
+      <ul>
+        <li>Users with the most intensity alerts will appear near the top</li>
+      </ul>
     </div>
+  </div>
 
-    <div class="row">
-      <div class="col-sm-12">
-        <div class="table-responsive">
-          <table class="table table-bordered table-striped">
-            <thead>
-            <tr>
-              <td class="col-sm-1">
-                <a href="" ng-click="sortType = 'date'; sortReverse = !sortReverse">
-                  Date
-                <span ng-show="sortType == 'date' && !sortReverse"
-                      class="glyphicon glyphicon-sort-by-attributes"></span>
-              <span ng-show="sortType == 'date' && sortReverse"
-                    class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-                </a>
-              </td>
-              <td class="col-sm-2">
-                <a href="" ng-click="sortType = 'name'; sortReverse = !sortReverse">
-                  Name
-                <span ng-show="sortType == 'name' && !sortReverse"
-                      class="glyphicon glyphicon-sort-by-attributes"></span>
-              <span ng-show="sortType == 'name' && sortReverse"
-                    class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-                </a>
-              </td>
-              <td class="col-sm-1">
-                <a href="" ng-click="sortType = 'seriesSkipped'; sortReverse = !sortReverse">
-                  Series skipped
-          <span ng-show="sortType == 'seriesSkipped' && !sortReverse"
-                class="glyphicon glyphicon-sort-by-attributes"></span>
-          <span ng-show="sortType == 'seriesSkipped' && sortReverse"
-                class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-                </a>
-              </td>
-              <td class="col-sm-1">
-                <a href="" ng-click="sortType = 'restTimeChangeInSeconds'; sortReverse = !sortReverse">
-                  Rest change
-          <span ng-show="sortType == 'restTimeChangeInSeconds' && !sortReverse"
-                class="glyphicon glyphicon-sort-by-attributes"></span>
-          <span ng-show="sortType == 'restTimeChangeInSeconds' && sortReverse"
-                class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-                </a>
-              </td>
-              <td class="col-sm-1">
-                <a href="" ng-click="sortType = 'seriesNotOkayCount'; sortReverse = !sortReverse">
-                  Intensity alerts
-          <span ng-show="sortType == 'seriesNotOkayCount' && !sortReverse"
-                class="glyphicon glyphicon-sort-by-attributes"></span>
-          <span ng-show="sortType == 'seriesNotOkayCount' && sortReverse"
-                class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-                </a>
-              </td>
-              <td class="col-sm-3">
-                Comment
-              </td>
-              <td class="col-sm-1">
+  <div class="row" spin-until="totalRestLoading">
+    <h4>Too long pauses</h4>
 
-              </td>
-            </tr>
-            </thead>
+    <h5>Total</h5>
 
-            <tbody>
-            <tr
-              ng-repeat="measurementStats in stats.measurementsStats | withinPeriod:periodName | orderBy:sortType:sortReverse">
-              <td>{{ measurementStats.date | date: 'd.M.yyyy' }}</td>
-              <td>{{ measurementStats.name }}</td>
-              <td>{{ measurementStats.seriesSkipped }} (out of {{measurementStats.totalSeries}})</td>
-              <td>
-                {{ measurementStats.restTimeChangeInSeconds }}s
-              </td>
-              <td>
-                <div class="rating-indicator" tooltip="Number of too hard series.">
-                  <span class="glyphicon glyphicon-thumbs-down"></span>
-                  <span class="label label-danger">{{ measurementStats.seriesTooHardCount }}</span>
-                </div>
-                <div class="rating-indicator" tooltip="Number of too easy series.">
-                  <span class="glyphicon glyphicon-thumbs-up"></span>
-                  <span class="label label-info">{{ measurementStats.seriesTooEasyCount }}</span>
-                </div>
-              </td>
-              <td>{{ measurementStats.comment }}</td>
-              <td>
-                <button class="btn btn-danger center-block" ng-click="goToResults(measurementStats.measurement)">
-                  View
-                </button>
-              </td>
-            </tr>
-            </tbody>
+    <ul>
+      <li ng-repeat="totalRest in totalRests">
+        {{totalRest}}
+      </li>
+    </ul>
 
-          </table>
-        </div>
-      </div>
+    <h5>Planned</h5>
+
+    <ul>
+      <li ng-repeat="rest in plannedRests">
+        {{rest}}
+      </li>
+    </ul>
+
+    <div>
+      <ul>
+        <li>users who take too long pauses between exercises should appear near the top here.</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="row" spin-until="totalRestLoading">
+    <h4>Too long on the same training</h4>
+
+    <div>
+      <ul>
+        <li>how long on the same training</li>
+        <li>how many exercises on that training</li>
+      </ul>
     </div>
   </div>
 </div>

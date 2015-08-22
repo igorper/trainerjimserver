@@ -31,6 +31,15 @@ Trainerjim::Application.routes.draw do
       get 'users/:user_id/detailed_measurements', to: 'measurements#detailed_user_measurements'
       # END: Measurements
 
+      # START: Dashboard
+      namespace :dashboard do
+        get :rating_counts
+        get :monthly_overview
+        get :total_rest
+        get :planned_rest
+      end
+      # END: Dashboard
+
       # START: User Exercise Type Photos
       get 'users/:user_id/exercise_photos', to: 'user_exercise_photos#user_exercise_photos'
       get 'users/:user_id/trainings/:training_id/exercise_photos', to: 'user_exercise_photos#user_training_photos'

@@ -1,5 +1,6 @@
 var measurementsStats = angular.module('measurements.stats', [
-  'measurements'
+  'measurements',
+  'util.collections'
 ]);
 
 measurementsStats.factory('MeasurementStats', ['Measurement', function (Measurement) {
@@ -38,13 +39,6 @@ measurementsStats.factory('MeasurementStats', ['Measurement', function (Measurem
 
     return stats;
   };
-
-  function toLookupById(itemsWithIds) {
-    return _.reduce(itemsWithIds, function (lookupById, item) {
-      lookupById[item.id] = item;
-      return lookupById;
-    }, {});
-  }
 
   function countSeriesInTraining(training) {
     return _.reduce(training.exercises, function (count, exercise) {

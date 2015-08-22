@@ -21,7 +21,8 @@ measurement.factory('Measurement', ['$resource', function ($resource) {
         isArray: true,
         params: {},
         url: '/api/v1/measurements/detailed_measurements.json'
-      }
+      },
+      monthlyOverview: {method: 'GET', isArray: true, params: {}, url: '/api/v1/measurements/monthly_overview.json'}
     }
   );
 

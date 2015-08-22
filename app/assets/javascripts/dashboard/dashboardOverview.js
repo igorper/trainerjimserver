@@ -1,50 +1,42 @@
 var dashboardOverview = angular.module('dashboard.overview', [
-  'ui.router',
-  'nvd3',
-  'exerciseGroups.exerciseGroup',
+  'trainees',
   'util.promiseUi',
-  'measurements.stats',
-  'util.filters.withinPeriod'
+  'util.collections',
+  'dashboard'
 ]);
 
+dashboardOverview.controller('DashboardOverviewCtrl', ['$scope', 'Trainee', '$q', 'Dashboard', function ($scope, Trainee, promise, Dashboard) {
+  var trainees = Trainee.query().$promise;
+  var traineeIdToMeasurements = Dashboard.monthlyOverview().$promise.then(_.partial(toLookupManyByField, _, 'trainee_id'));
+  var traineeIdToRatingCounts = Dashboard.ratingCounts().$promise.then(_.partial(toLookupByField, _, 'user_id'));
+  var traineeIdToTotalRest = Dashboard.totalRest().$promise.then(_.partial(toLookupByField, _, 'user_id'));
+  var traineeIdToPlannedRest = Dashboard.plannedRest().$promise.then(_.partial(toLookupByField, _, 'user_id'));
 
-dashboardOverview.controller('DashboardOverviewCtrl', ['$scope', 'Measurement', '$state', 'toaster', 'ExerciseGroup', '$q', 'MeasurementStats', function ($scope, Measurement, $state, toaster, ExerciseGroup, promise, MeasurementStats) {
-    $scope.sortType = "date";
-    $scope.sortReverse = false;
-    $scope.periodName = "all";
+  $scope.inactiveUsersLoading = promise.all([trainees, traineeIdToMeasurements]).then(function (allData) {
+    $scope.inactiveUsers = calculateInactiveUsers(allData[0], allData[1]);
+  });
 
-    $scope.overviewCalculationPromise = promise
-      .all({measurements: fetchMeasurements(), exerciseGroups: ExerciseGroup.query().$promise})
-      .catch(overviewCalculationFailed)
-      .then(function (fetchedData) {
-        $scope.stats = MeasurementStats.calculateMeasurementListStats(fetchedData.measurements, fetchedData.exerciseGroups);
-      });
+  $scope.intensityAlertsLoading = promise.all([trainees, traineeIdToRatingCounts]).then(function (allData) {
+    $scope.intensityAlerts = allData[1];
+  });
 
-    function fetchMeasurements() {
-      return Measurement.detailedMeasurements().$promise;
-    }
+  $scope.totalRestLoading = promise.all([trainees, traineeIdToTotalRest, traineeIdToPlannedRest]).then(function (allData) {
+    $scope.totalRests = allData[1];
+    $scope.plannedRests = allData[2];
+  });
 
-    function overviewCalculationFailed() {
-      toaster.pop("error", "Error while fetching measurements", "Unable to fetch measurements. An unexpected error occurred.");
-    }
+  function calculateInactiveUsers(trainees, traineeIdToMeasurements) {
+    var weekAgo = new Date();
+    weekAgo.setDate(weekAgo.getDate() - 7);
+    return _(trainees).filter(function (trainee) {
+      return inactiveSince(trainee, weekAgo, traineeIdToMeasurements);
+    });
+  }
 
-    $scope.goToResults = function (measurement) {
-      $state.go('main.results', {trainee: measurement.trainee_id, id: measurement.id});
-    };
+  function inactiveSince(trainee, since, traineeIdToMeasurements) {
+    return _.every(traineeIdToMeasurements[trainee.id], function (measurement) {
+      return new Date(measurement.start_time) < since;
+    });
+  }
 
-    $scope.executedExerciseGroupsPieChartOptions = {
-      chart: {
-        type: 'pieChart',
-        x: function (d) {
-          return d.exerciseGroup.name;
-        },
-        y: function (d) {
-          return d.count;
-        },
-        showLabels: true,
-        transitionDuration: 500,
-        height: 300
-      }
-    };
-  }]
-);
+}]);

@@ -9,13 +9,25 @@ var dashboard = angular.module('dashboard', [
   'dashboard.user'
 ]);
 
+dashboard.factory('Dashboard', ['$resource', function ($resource) {
+  return $resource('/api/v1/dashboard/:action.json', {},
+    {
+      monthlyOverview: {method: 'GET', isArray: true, params: {action: 'monthly_overview'}},
+      ratingCounts: {method: 'GET', isArray: true, params: {action: 'rating_counts'}},
+      totalRest: {method: 'GET', isArray: true, params: {action: 'total_rest'}},
+      plannedRest: {method: 'GET', isArray: true, params: {action: 'planned_rest'}}
+    }
+  );
+}]);
+
 
 dashboard.config(['$stateProvider', function ($stateProvider) {
   $stateProvider.state('main.dashboard', {
     url: '/dashboard',
     abstract: true,
     templateUrl: '<%= asset_path('dashboard/dashboard.html') %>',
-    controller: 'DashboardCtrl'  });
+    controller: 'DashboardCtrl'
+  });
 
   $stateProvider.state('main.dashboard.overview', {
     url: '/',
