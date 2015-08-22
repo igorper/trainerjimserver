@@ -1,5 +1,22 @@
 <div spin-until="overviewCalculationPromise" class="dashboard-user">
-  <h2>Training overview</h2>
+    <div class="row filter">
+        <div class="col-sm-6">
+            <div class="btn-group center-block">
+                <label class="btn btn-primary" ng-model="periodName" btn-radio="'month'">Summary</label>
+                <label class="btn btn-primary" ng-model="periodName" btn-radio="'week'">Calendar</label>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="btn-group pull-right">
+                <label class="btn btn-success" ng-model="periodName" btn-radio="'month'">Last month</label>
+                <label class="btn btn-success" ng-model="periodName" btn-radio="'week'">Last week</label>
+                <label class="btn btn-success" ng-model="periodName" btn-radio="'day'">Last 24 hours</label>
+                <label class="btn btn-success" ng-model="periodName" btn-radio="'all'">All</label>
+            </div>
+        </div>
+    </div>
+
+  <h2>Trainings summary</h2>
 
   <div class="row">
     <div class="col-sm-6">
@@ -7,19 +24,6 @@
     </div>
     <div class="col-sm-6">
       <nvd3 options='executedExerciseGroupsPieChartOptions' data='stats.equipmentGroupCounts'></nvd3>
-    </div>
-  </div>
-
-  <h4>Filter by date</h4>
-
-  <div class="row filter">
-    <div class="col-sm-12">
-      <div class="btn-group">
-        <label class="btn btn-primary" ng-model="periodName" btn-radio="'month'">Last month</label>
-        <label class="btn btn-primary" ng-model="periodName" btn-radio="'week'">Last week</label>
-        <label class="btn btn-primary" ng-model="periodName" btn-radio="'day'">Last 24 hours</label>
-        <label class="btn btn-primary" ng-model="periodName" btn-radio="'all'">All</label>
-      </div>
     </div>
   </div>
 

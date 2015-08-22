@@ -4,21 +4,6 @@
       <div class="jim-box">
         <div class="row calendar-overview">
           <div class="col-sm-12 col-md-5">
-            <div class="row user-filter" ng-show="userDetails.is_trainer">
-              <div class="col-xs-12 col-sm-3">
-                Trainee:
-              </div>
-              <div class="col-xs-12 col-sm-9">
-                <ui-select ng-model="user.selected" on-select="onTraineeChanged($item, $model)">
-                  <ui-select-match placeholder="Select a trainee">
-                    <span>{{$select.selected.full_name}}</span>
-                  </ui-select-match>
-                  <ui-select-choices repeat="user in users | propsFilter: {full_name: $select.search}">
-                    <div ng-bind-html="user.full_name | highlight: $select.search"></div>
-                  </ui-select-choices>
-                </ui-select>
-              </div>
-            </div>
             <div class="row" ui-calendar="uiConfig.calendar" ng-model="calendarSources"
                  calendar="myCalendar1"></div>
           </div>
@@ -39,10 +24,10 @@
                 </div>
                 <div class="col-xs-12 col-sm-4">
                   <div class="overview-details-switch btn-group pull-right">
-                    <label class="btn btn-primary" ng-model="trainingPage" btn-radio="'Overview'">
+                    <label class="btn btn-success" ng-model="trainingPage" btn-radio="'Overview'">
                       Overview
                     </label>
-                    <label class="btn btn-primary" ng-model="trainingPage" btn-radio="'Details'">
+                    <label class="btn btn-success" ng-model="trainingPage" btn-radio="'Details'">
                       Details
                     </label>
                   </div>
