@@ -39,7 +39,7 @@ dashboard.controller('DashboardCtrl', ['$scope', 'Trainee', '$state', 'toaster',
     });
 
     $scope.getCurrentUserId = function () {
-      return $state.params.id == "" ? null : parseInt($state.params.id);
+      return $state.params.userId == undefined ? null : parseInt($state.params.userId);
     };
 
     $scope.onUserSelected = function (user) {
