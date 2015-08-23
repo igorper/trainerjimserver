@@ -22,8 +22,64 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
     templateUrl: '<%= asset_path('exerciseTypes/exercise-type-panel.html') %>',
     controller: ['$scope', function ($scope) {
       $scope.filter = {};
+      $scope.orderedExerciseTypes = [];
       $scope.selectedExerciseGroupIds = [];
+      $scope.pageIndex = 0;
+      $scope.itemsPerPage = 20;
       $scope.userExerciseTypePhotos.$promise.then(createExerciseTypeIdToPhotoMap);
+      $scope.exerciseTypes.$promise.then(function (exerciseTypes) {
+        $scope.orderedExerciseTypes = _.sortBy(exerciseTypes, function (exerciseType) {
+          return exerciseType.name;
+        });
+        refreshExerciseTypeGrid();
+      });
+      $scope.$watchGroup(['filter.keyword', 'selectedExerciseGroupIds'], resetExerciseTypeGridPagination);
+
+      $scope.goToNextPage = function () {
+        ++$scope.pageIndex;
+        refreshExerciseTypeGrid();
+      };
+
+      $scope.goToPreviousPage = function () {
+        --$scope.pageIndex;
+        refreshExerciseTypeGrid();
+      };
+
+      function resetExerciseTypeGridPagination() {
+        $scope.pageIndex = 0;
+        refreshExerciseTypeGrid();
+      }
+
+      function refreshExerciseTypeGrid() {
+        var exerciseTypes = _.chain($scope.orderedExerciseTypes);
+        exerciseTypes = filterByName(exerciseTypes, $scope.filter.keyword);
+        exerciseTypes = filterBySelectedGroups(exerciseTypes, $scope.selectedExerciseGroupIds);
+        exerciseTypes = exerciseTypes.rest($scope.pageIndex * $scope.itemsPerPage);
+        exerciseTypes = exerciseTypes.first($scope.itemsPerPage + 1).value();
+        $scope.hasMoreExerciseTypes = exerciseTypes.length > $scope.itemsPerPage;
+        $scope.filteredExerciseTypes = _.first(exerciseTypes, $scope.itemsPerPage);
+      }
+
+      function filterByName(itemsWithName, stringFilter) {
+        if (!_.isString(stringFilter) || _.isEmpty(stringFilter)) {
+          return itemsWithName;
+        }
+        stringFilter = stringFilter.toLowerCase();
+        return itemsWithName.filter(function (item) {
+          return _.isString(item.name) && item.name.toLowerCase().indexOf(stringFilter) >= 0;
+        });
+      }
+
+      function filterBySelectedGroups(exerciseTypes, selectedGroupIds) {
+        if (_.isEmpty(selectedGroupIds)) {
+          return exerciseTypes;
+        }
+        return exerciseTypes.filter(function (exerciseType) {
+          return _.all(selectedGroupIds, function (selectedGroup) {
+            return _.contains(exerciseType.exercise_groups, selectedGroup);
+          });
+        });
+      }
 
       function createExerciseTypeIdToPhotoMap(exerciseTypePhotos) {
         $scope.exerciseTypeIdToThumbPath = _.object(_.map(exerciseTypePhotos, function (el) {
@@ -35,7 +91,7 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
         return exerciseType.owner_id == $scope.editorUserId || $scope.isAdminMode;
       };
 
-      function getExerciseTyoePrimaryPhoto(exerciseType) {
+      function getExerciseTypePrimaryPhoto(exerciseType) {
         if ($scope.exerciseTypeIdToThumbPath) {
           var thumbPhotoSrc = $scope.exerciseTypeIdToThumbPath[exerciseType.id];
           if (thumbPhotoSrc) {
@@ -46,7 +102,7 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
       }
 
       function getFirstExerciseGroupPhoto(exerciseGroupIds) {
-        var exerciseGroupPhoto = _.chain($scope.exerciseGroups)
+        return _.chain($scope.exerciseGroups)
           .filter(function (exerciseGroup) {
             return !exerciseGroup.thumb_image_url.startsWith('/photos/thumb/missing') &&
               _.contains(exerciseGroupIds, exerciseGroup.id);
@@ -56,26 +112,13 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
           })
           .first()
           .value();
-        return exerciseGroupPhoto;
       }
 
       $scope.getPrimaryPhoto = function (exerciseType) {
-        return getExerciseTyoePrimaryPhoto(exerciseType) ||
+        return getExerciseTypePrimaryPhoto(exerciseType) ||
           getFirstExerciseGroupPhoto(exerciseType.exercise_groups) ||
           'photos/exercise-types/thumb/weight1.png';
       };
     }]
   };
 }]);
-
-exerciseTypePanel.filter('bySelectedGroups', function () {
-  return function (exerciseTypes, selectedGroupIds) {
-    if (_.isEmpty(selectedGroupIds))
-      return exerciseTypes;
-    return _.filter(exerciseTypes, function (exerciseType) {
-      return _.all(selectedGroupIds, function (selectedGroup) {
-        return _.contains(exerciseType.exercise_groups, selectedGroup);
-      });
-    });
-  };
-});

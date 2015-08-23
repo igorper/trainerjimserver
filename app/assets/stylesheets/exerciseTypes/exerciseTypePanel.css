@@ -1,13 +1,14 @@
-.exercise-type-panel .exercise-type-grid {
-  height: 308px;
-  overflow: scroll;
-  overflow-x: hidden;
-}
-
 .exercise-type-panel .exercise-group-grid .well {
   margin-top: 5px;
   margin-bottom: 5px;
   padding: 5px;
+}
+
+.exercise-type-panel .pagination-button {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  margin-bottom: 5px;
 }
 
 .exercise-type-panel .exercise-type-item {
