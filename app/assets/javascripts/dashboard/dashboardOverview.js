@@ -28,15 +28,14 @@ dashboardOverview.controller('DashboardOverviewCtrl', ['$scope', 'Trainee', '$q'
   function calculateInactiveUsers(trainees, traineeIdToMeasurements) {
     var weekAgo = new Date();
     weekAgo.setDate(weekAgo.getDate() - 7);
-    return _(trainees).filter(function (trainee) {
-      return inactiveSince(trainee, weekAgo, traineeIdToMeasurements);
+    return _.filter(trainees, function (trainee) {
+      return noMeasurementSince(traineeIdToMeasurements[trainee.id], weekAgo);
     });
   }
 
-  function inactiveSince(trainee, since, traineeIdToMeasurements) {
-    return _.every(traineeIdToMeasurements[trainee.id], function (measurement) {
+  function noMeasurementSince(measurements, since) {
+    return _.every(measurements, function (measurement) {
       return new Date(measurement.start_time) < since;
     });
   }
-
 }]);

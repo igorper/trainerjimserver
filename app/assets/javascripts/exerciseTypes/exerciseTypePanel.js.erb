@@ -54,10 +54,10 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
         var exerciseTypes = _.chain($scope.orderedExerciseTypes);
         exerciseTypes = filterByName(exerciseTypes, $scope.filter.keyword);
         exerciseTypes = filterBySelectedGroups(exerciseTypes, $scope.selectedExerciseGroupIds);
-        exerciseTypes = exerciseTypes.rest($scope.pageIndex * $scope.itemsPerPage);
-        exerciseTypes = exerciseTypes.first($scope.itemsPerPage + 1).value();
+        exerciseTypes = exerciseTypes.drop($scope.pageIndex * $scope.itemsPerPage);
+        exerciseTypes = exerciseTypes.take($scope.itemsPerPage + 1).value();
         $scope.hasMoreExerciseTypes = exerciseTypes.length > $scope.itemsPerPage;
-        $scope.filteredExerciseTypes = _.first(exerciseTypes, $scope.itemsPerPage);
+        $scope.filteredExerciseTypes = _.take(exerciseTypes, $scope.itemsPerPage);
       }
 
       function filterByName(itemsWithName, stringFilter) {

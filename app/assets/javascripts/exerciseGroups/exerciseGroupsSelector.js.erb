@@ -24,7 +24,7 @@ exerciseGroupsSelector.directive('exerciseGroupsSelector', [function () {
 
       function refreshSelectedGroupIds(newRadioSelection) {
         if (exerciseGroupsInitialized) {
-          $scope.selectedExerciseGroupIds = _(newRadioSelection).map(idOfGroup).filter(_.isNumber);
+          $scope.selectedExerciseGroupIds = _(newRadioSelection).map(idOfGroup).filter(_.isNumber).value();
         }
       }
 

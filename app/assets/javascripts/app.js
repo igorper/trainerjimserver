@@ -1,5 +1,5 @@
 //= require spin.js/spin
-//= require underscore/underscore
+//= require lodash/lodash
 //= require jquery/dist/jquery
 //= require jquery-ui/jquery-ui
 //= require touchpunch/touchpunch
@@ -20,7 +20,7 @@
 //= require angular-ui-sortable/sortable
 //= require angularjs-toaster/toaster
 //= require angular-bootstrap/ui-bootstrap-tpls
-//= require nvd3/build/nv.d3
+//= require nvd3/nv.d3
 //= require angular-nvd3/dist/angular-nvd3
 //= require_tree .
 
