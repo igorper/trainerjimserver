@@ -1,122 +1,12 @@
-<div spin-until="overviewCalculationPromise" class="dashboard-user">
-    <div class="row filter">
-        <div class="col-sm-6">
-            <div class="btn-group center-block">
-                <label class="btn btn-primary" ng-model="periodName" btn-radio="'month'">Summary</label>
-                <label class="btn btn-primary" ng-model="periodName" btn-radio="'week'">Calendar</label>
-            </div>
-        </div>
-        <div class="col-sm-6">
-            <div class="btn-group pull-right">
-                <label class="btn btn-success" ng-model="periodName" btn-radio="'month'">Last month</label>
-                <label class="btn btn-success" ng-model="periodName" btn-radio="'week'">Last week</label>
-                <label class="btn btn-success" ng-model="periodName" btn-radio="'day'">Last 24 hours</label>
-                <label class="btn btn-success" ng-model="periodName" btn-radio="'all'">All</label>
-            </div>
-        </div>
-    </div>
-
-  <h2>Trainings summary</h2>
-
-  <div class="row">
+<div spin-until="statsPromise" class="dashboard-user">
+  <div class="row filter">
     <div class="col-sm-6">
-      <nvd3 options='executedExerciseGroupsPieChartOptions' data='stats.muscleGroupCounts'></nvd3>
-    </div>
-    <div class="col-sm-6">
-      <nvd3 options='executedExerciseGroupsPieChartOptions' data='stats.equipmentGroupCounts'></nvd3>
-    </div>
-  </div>
-
-  <div class="row">
-    <div class="col-sm-12">
-      <div class="table-responsive">
-        <table class="table table-bordered table-striped">
-          <thead>
-          <tr>
-            <td class="col-sm-1">
-              <a href="" ng-click="sortType = 'date'; sortReverse = !sortReverse">
-                Date
-                <span ng-show="sortType == 'date' && !sortReverse"
-                      class="glyphicon glyphicon-sort-by-attributes"></span>
-              <span ng-show="sortType == 'date' && sortReverse"
-                    class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-              </a>
-            </td>
-            <td class="col-sm-2">
-              <a href="" ng-click="sortType = 'name'; sortReverse = !sortReverse">
-                Name
-                <span ng-show="sortType == 'name' && !sortReverse"
-                      class="glyphicon glyphicon-sort-by-attributes"></span>
-              <span ng-show="sortType == 'name' && sortReverse"
-                    class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-              </a>
-            </td>
-            <td class="col-sm-1">
-              <a href="" ng-click="sortType = 'seriesSkipped'; sortReverse = !sortReverse">
-                Series skipped
-          <span ng-show="sortType == 'seriesSkipped' && !sortReverse"
-                class="glyphicon glyphicon-sort-by-attributes"></span>
-          <span ng-show="sortType == 'seriesSkipped' && sortReverse"
-                class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-              </a>
-            </td>
-            <td class="col-sm-1">
-              <a href="" ng-click="sortType = 'restTimeChangeInSeconds'; sortReverse = !sortReverse">
-                Rest change
-          <span ng-show="sortType == 'restTimeChangeInSeconds' && !sortReverse"
-                class="glyphicon glyphicon-sort-by-attributes"></span>
-          <span ng-show="sortType == 'restTimeChangeInSeconds' && sortReverse"
-                class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-              </a>
-            </td>
-            <td class="col-sm-1">
-              <a href="" ng-click="sortType = 'seriesNotOkayCount'; sortReverse = !sortReverse">
-                Intensity alerts
-          <span ng-show="sortType == 'seriesNotOkayCount' && !sortReverse"
-                class="glyphicon glyphicon-sort-by-attributes"></span>
-          <span ng-show="sortType == 'seriesNotOkayCount' && sortReverse"
-                class="glyphicon glyphicon-sort-by-attributes-alt"></span>
-              </a>
-            </td>
-            <td class="col-sm-3">
-              Comment
-            </td>
-            <td class="col-sm-1">
-
-            </td>
-          </tr>
-          </thead>
-
-          <tbody>
-          <tr
-            ng-repeat="measurementStats in stats.measurementsStats | withinPeriod:periodName | orderBy:sortType:sortReverse">
-            <td>{{ measurementStats.date | date: 'd.M.yyyy' }}</td>
-            <td>{{ measurementStats.name }}</td>
-            <td>{{ measurementStats.seriesSkipped }} (out of {{measurementStats.totalSeries}})</td>
-            <td>
-              {{ measurementStats.restTimeChangeInSeconds }}s
-            </td>
-            <td>
-              <div class="rating-indicator" tooltip="Number of too hard series.">
-                <span class="glyphicon glyphicon-thumbs-down"></span>
-                <span class="label label-danger">{{ measurementStats.seriesTooHardCount }}</span>
-              </div>
-              <div class="rating-indicator" tooltip="Number of too easy series.">
-                <span class="glyphicon glyphicon-thumbs-up"></span>
-                <span class="label label-info">{{ measurementStats.seriesTooEasyCount }}</span>
-              </div>
-            </td>
-            <td>{{ measurementStats.comment }}</td>
-            <td>
-              <button class="btn btn-danger center-block" ng-click="goToResults(measurementStats.measurement)">
-                View
-              </button>
-            </td>
-          </tr>
-          </tbody>
-
-        </table>
+      <div class="btn-group">
+        <label class="btn btn-primary" ui-sref="main.dashboard.user.summary" ui-sref-active="active">Summary</label>
+        <label class="btn btn-primary" ui-sref="main.dashboard.user.calendar" ui-sref-active="active">Calendar</label>
       </div>
     </div>
   </div>
+
+  <ui-view></ui-view>
 </div>

@@ -7,17 +7,17 @@ var dashboardUser = angular.module('dashboard.user', [
   'util.filters.withinPeriod'
 ]);
 
-
 dashboardUser.controller('DashboardUserCtrl', ['$scope', 'Measurement', '$state', 'toaster', 'ExerciseGroup', '$q', 'MeasurementStats', function ($scope, Measurement, $state, toaster, ExerciseGroup, promise, MeasurementStats) {
     $scope.sortType = "date";
     $scope.sortReverse = false;
     $scope.periodName = "all";
 
-    $scope.overviewCalculationPromise = promise
+    $scope.statsPromise = promise
       .all({measurements: fetchMeasurements(), exerciseGroups: ExerciseGroup.query().$promise})
       .catch(overviewCalculationFailed)
       .then(function (fetchedData) {
         $scope.stats = MeasurementStats.calculateMeasurementListStats(fetchedData.measurements, fetchedData.exerciseGroups);
+        return $scope.stats;
       });
 
     function fetchMeasurements() {

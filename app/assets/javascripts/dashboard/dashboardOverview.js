@@ -13,7 +13,7 @@ dashboardOverview.controller('DashboardOverviewCtrl', ['$scope', 'Measurement', 
     $scope.sortReverse = false;
     $scope.periodName = "all";
 
-    $scope.overviewCalculationPromise = promise
+    $scope.statsPromise = promise
       .all({measurements: fetchMeasurements(), exerciseGroups: ExerciseGroup.query().$promise})
       .catch(overviewCalculationFailed)
       .then(function (fetchedData) {

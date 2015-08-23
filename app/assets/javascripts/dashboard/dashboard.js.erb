@@ -6,7 +6,10 @@ var dashboard = angular.module('dashboard', [
   'util.promiseUi',
   'measurements.stats',
   'dashboard.overview',
-  'dashboard.user'
+  'dashboard.user',
+  'dashboard.user.calendar',
+  'dashboard.user.calendar.overview',
+  'dashboard.user.calendar.details'
 ]);
 
 
@@ -28,6 +31,30 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
     templateUrl: '<%= asset_path('dashboard/dashboard-user.html') %>',
     controller: 'DashboardUserCtrl'
   });
+
+  $stateProvider.state('main.dashboard.user.summary', {
+    url: '/summary',
+    templateUrl: '<%= asset_path('dashboard/dashboard-user-summary.html') %>',
+    controller: 'DashboardUserCtrl'
+  });
+
+  $stateProvider.state('main.dashboard.user.calendar', {
+    url: '/calendar/:trainingId',
+    templateUrl: '<%= asset_path('dashboard/dashboard-user-calendar.html') %>',
+    controller: 'DashboardUserCalendarCtrl'
+  });
+
+  $stateProvider.state('main.dashboard.user.calendar.overview', {
+    url: '/overview',
+    templateUrl: '<%= asset_path('dashboard/dashboard-user-calendar-overview.html') %>',
+    controller: 'DashboardUserCalendarOverviewCtrl'
+  });
+
+  $stateProvider.state('main.dashboard.user.calendar.details', {
+    url: '/details',
+    templateUrl: '<%= asset_path('dashboard/dashboard-user-calendar-details.html') %>',
+    controller: 'DashboardUserCalendarDetailsCtrl'
+  });
 }]);
 
 
@@ -39,14 +66,14 @@ dashboard.controller('DashboardCtrl', ['$scope', 'Trainee', '$state', 'toaster',
     });
 
     $scope.getCurrentUserId = function () {
-      return $state.params.userId == undefined ? null : parseInt($state.params.userId);
+      return $state.params.userId === undefined ? null : parseInt($state.params.userId);
     };
 
     $scope.onUserSelected = function (user) {
       if (_.isUndefined(user)) {
         $state.go('main.dashboard.overview');
       } else {
-        $state.go('main.dashboard.user', {userId: user.id});
+        $state.go('main.dashboard.user.summary', {userId: user.id});
       }
     };
   }]

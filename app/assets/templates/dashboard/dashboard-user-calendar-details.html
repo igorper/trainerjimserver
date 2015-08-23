@@ -1,0 +1,62 @@
+<div class="dashboard-user-calendar-details">
+  <div ng-repeat="exercise in selectedTraining.training.exercises">
+    <div class="row">
+      <div class="col-sm-12 section-title">{{exercise.exercise_type.name}}</div>
+    </div>
+
+    <div class="row" ng-repeat="series in exercise.series">
+      <div class="col-sm-1 property">
+        <!--<div class="title" ng-show="series.execution">
+          <div>
+            #{{series.execution.order}}
+          </div>
+        </div>-->
+      </div>
+      <div class="col-sm-2">
+        <div class="title">
+          <div class="series-rating {{smileLookupCssClass[series.execution.rating] + '-on'}}"></div>
+        </div>
+      </div>
+      <div ng-show="series.execution">
+        <div class="col-sm-3 property">
+          <horizontal-bar class="chart-label"
+                            label="series.execution.rest_time + ' s'"
+                            tooltip="Rest: {{series.execution.rest_time}} of {{series.rest_time}} s"
+                            expected="series.rest_time"
+                            actual="series.execution.rest_time"
+                            ng-hide="{{series.execution.order == 1}}"
+                            rest="true"></horizontal-bar>
+        </div>
+        <div class="col-sm-3 property" ng-show="isDurationExercise(exercise)">
+          <horizontal-bar class="chart-label"
+                            label="series.execution.duration_seconds + ' sec'"
+                            tooltip="Duration: {{series.execution.duration_seconds}} of {{series.repeat_count}} seconds."
+                            expected="series.repeat_count"
+                            actual="series.execution.duration_seconds"
+                            rest="false"></horizontal-bar>
+        </div>
+        <div class="col-sm-3 property" ng-hide="isDurationExercise(exercise)">
+          <horizontal-bar class="chart-label"
+                            label="series.execution.num_repetitions + ' rep'"
+                            tooltip="Reps: {{series.execution.num_repetitions}} of {{series.repeat_count}}."
+                            expected="series.repeat_count"
+                            actual="series.execution.num_repetitions"
+                            rest="false"></horizontal-bar>
+        </div>
+        <div class="col-sm-3 property">
+          <horizontal-bar class="chart-label"
+                            label="series.execution.weight + ' kg'"
+                            tooltip="Weight: {{series.execution.weight}} of {{series.weight}} kg."
+                            expected="series.weight"
+                            actual="series.execution.weight"
+                            rest="false"></horizontal-bar>
+        </div>
+      </div>
+      <div ng-hide="series.execution">
+        <div class="col-sm-offset-3 col-sm-3 property skipped">
+          SKIPPED
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
