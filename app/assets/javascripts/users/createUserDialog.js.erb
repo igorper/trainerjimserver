@@ -23,8 +23,7 @@ createUserDialog.factory('CreateUserDialog', ['$modal', 'User', 'toaster', funct
         $scope.title = $scope.options.dialogTitle;
 
         $scope.onCreateClicked = function () {
-          var photo = $scope.photos ? $scope.photos[0] : null;
-          $scope.uploaded = $scope.options.userResource.create($scope.user, photo).then(function (user) {
+          $scope.uploaded = $scope.options.userResource.create($scope.user, $scope.photo).then(function (user) {
             $scope.$close(user);
           }, function () {
             toaster.pop("error", "Create user failed", "Could not create the user. Please verify the email.");

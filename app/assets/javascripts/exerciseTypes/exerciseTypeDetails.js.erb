@@ -60,8 +60,8 @@ exerciseTypeDetailsModule.directive('exerciseTypeDetails', function () {
         refreshPhotos();
       }
 
-      function uploadExerciseTypePhoto(photos) {
-        $scope.photoUploaded = UserExerciseTypePhotos.add($scope.userId, $scope.exerciseTypeId, photos[0])
+      function uploadExerciseTypePhoto(photo) {
+        $scope.photoUploaded = UserExerciseTypePhotos.add($scope.userId, $scope.exerciseTypeId, photo)
           .then(onPhotoAddedHttpResponse);
       }
     }],

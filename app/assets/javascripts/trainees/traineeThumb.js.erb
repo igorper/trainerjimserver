@@ -16,8 +16,8 @@ traineeThumbModule.directive('traineeThumb', function () {
     },
     controller: ['$scope', 'TakePhotoDialog', 'Trainee', function ($scope, TakePhotoDialog, Trainee) {
       $scope.onTakePhoto = function () {
-        TakePhotoDialog().result.then(function (photos) {
-          $scope.photoUploaded = Trainee.setPhoto($scope.trainee, photos[0]).then($scope.onTraineePhotoChanged);
+        TakePhotoDialog().result.then(function (photo) {
+          $scope.photoUploaded = Trainee.setPhoto($scope.trainee, photo).then($scope.onTraineePhotoChanged);
         });
       };
     }],

@@ -5,14 +5,7 @@ var takePhoto = angular.module('photos.takePhoto', [
 takePhoto.directive('takePhoto', function () {
   return {
     restrict: 'E',
-    scope: {
-      'photos': '='
-    },
-    controller: ['$scope', function ($scope) {
-      $scope.anyPhotosSelected = function () {
-        return !$scope.photos || $scope.photos.length == 0;
-      }
-    }],
+    scope: {'photo': '='},
     templateUrl: "<%= asset_path('photos/take-photo.html') %>"
   };
 });

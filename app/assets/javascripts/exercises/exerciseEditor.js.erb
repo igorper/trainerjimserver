@@ -34,11 +34,11 @@ exerciseEditorModule.directive('exerciseEditor', function () {
         $scope.showDescription = false;
       }
 
-      function uploadExerciseTypePhoto(photos) {
+      function uploadExerciseTypePhoto(photo) {
         var traineeId = $scope.training.trainee.id;
         var exerciseTypeId = $scope.exercise.exercise_type.id;
         $scope.photoUploaded = UserExerciseTypePhotos
-          .add(traineeId, exerciseTypeId, photos[0])
+          .add(traineeId, exerciseTypeId, photo)
           .then(hideDescription);
       }
 
