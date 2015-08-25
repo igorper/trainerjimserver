@@ -33,6 +33,12 @@
   background-size: contain;
 }
 
+.dashboard-user-calendar div.icon-small {
+  width: 30px;
+  height: 30px;
+  background-size: contain;
+}
+
 .dashboard-user-calendar .section-title {
   font-size: 1.8em;
   font-weight: 500;
@@ -57,8 +63,8 @@
 }
 
 .dashboard-user-calendar .series-rating {
-  width: 30px;
-  height: 30px;
+  width: 40px;
+  height: 40px;
   background-size: contain;
 }
 
@@ -97,4 +103,8 @@
 
 .dashboard-user-calendar-details .row {
   margin: 10px 0;
+}
+
+.dashboard-user-calendar .icon-bullets {
+  margin: 5px;
 }
