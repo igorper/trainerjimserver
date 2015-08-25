@@ -1,76 +1,72 @@
 <div class="dashboard-overview">
+  <h2>Overview</h2>
+
   <div class="row" spin-until="inactiveUsersLoading">
-    <h2>Overview</h2>
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Inactive users</h3>
+        </div>
 
-    <h4>Inactive users</h4>
-
-    <ul>
-      <li ng-repeat="user in inactiveUsers">
-        {{user}}
-      </li>
-    </ul>
-
-    <div>
-      Users, who have not done an exercise in a whole week.
-
-      <ul>
-        <li>displays users that have not done any exercises for a month or more.</li>
-        <li>displays the date of the last measurement</li>
-        <li>people who haven't performed exercises for longest appear closer to top-left.</li>
-      </ul>
+        <div class="panel-body user-reports">
+          <user-strip ng-repeat="inactivityReport in inactivityReports | orderBy:'lastActiveDate'"
+                      user="inactivityReport.user" ng-click="onUserSelected(inactivityReport.user)">
+            {{inactivityReport.inactiveSinceMessage}}
+          </user-strip>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="row" spin-until="intensityAlertsLoading">
-    <h4>Intensity alerts</h4>
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Intensity alerts last month</h3>
+        </div>
 
-    <ul>
-      <li ng-repeat="intensityAlert in intensityAlerts">
-        {{intensityAlert}}
-      </li>
-    </ul>
-
-    <div>
-      <ul>
-        <li>Users with the most intensity alerts will appear near the top</li>
-      </ul>
+        <div class="panel-body user-reports">
+          <user-strip ng-repeat="intensityAlert in intensityAlerts | orderBy:'totalIntensityAlerts':true"
+                      user="intensityAlert.user" ng-click="onUserSelected(intensityAlert.user)">
+            <div class="rating-indicator" tooltip="Number of too hard series.">
+              <span class="glyphicon glyphicon-thumbs-down"></span>
+              <span class="label label-danger">{{ intensityAlert.ratingCounts.too_hard_count }}</span>
+            </div>
+            <div class="rating-indicator" tooltip="Number of too easy series.">
+              <span class="glyphicon glyphicon-thumbs-up"></span>
+              <span class="label label-info">{{ intensityAlert.ratingCounts.too_easy_count }}</span>
+            </div>
+          </user-strip>
+        </div>
+      </div>
     </div>
   </div>
 
   <div class="row" spin-until="totalRestLoading">
-    <h4>Too long pauses</h4>
+    <div class="col-sm-12">
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Pauses</h3>
+        </div>
 
-    <h5>Total</h5>
-
-    <ul>
-      <li ng-repeat="totalRest in totalRests">
-        {{totalRest}}
-      </li>
-    </ul>
-
-    <h5>Planned</h5>
-
-    <ul>
-      <li ng-repeat="rest in plannedRests">
-        {{rest}}
-      </li>
-    </ul>
-
-    <div>
-      <ul>
-        <li>users who take too long pauses between exercises should appear near the top here.</li>
-      </ul>
+        <div class="panel-body user-reports">
+          <user-strip ng-repeat="restReport in restReports | orderBy:'restChangeInSeconds':true"
+                      user="restReport.user" ng-click="onUserSelected(restReport.user)">
+            Rest change: {{restReport.restChangeInSeconds}}s
+          </user-strip>
+        </div>
+      </div>
     </div>
   </div>
 
-  <div class="row" spin-until="totalRestLoading">
-    <h4>Too long on the same training</h4>
+  <!--<div class="row" spin-until="totalRestLoading">-->
+    <!--<h4>Too long on the same training</h4>-->
 
-    <div>
-      <ul>
-        <li>how long on the same training</li>
-        <li>how many exercises on that training</li>
-      </ul>
-    </div>
-  </div>
+    <!--<div>-->
+      <!--<ul>-->
+        <!--<li>how long on the same training</li>-->
+        <!--<li>how many exercises on that training</li>-->
+      <!--</ul>-->
+    <!--</div>-->
+  <!--</div>-->
 </div>

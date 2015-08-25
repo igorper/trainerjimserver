@@ -1,0 +1,10 @@
+var userStrip = angular.module('users.userStrip', []);
+
+userStrip.directive('userStrip', [function () {
+  return {
+    scope: {user: '='},
+    transclude: true,
+    templateUrl: '<%= asset_path('users/user-strip.html') %>',
+    controller: ['$scope', function ($scope) {}]
+  };
+}]);
