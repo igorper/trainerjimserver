@@ -1,13 +1,4 @@
 <div class="dashboard-user-calendar">
-  <div class="row negative-row" ng-show="isTrainingSelected">
-    <div class="col-sm-offset-6 col-sm-6">
-      <div class="btn-group pull-right">
-        <label class="btn btn-success" ui-sref="main.dashboard.user.calendar.overview" ui-sref-active="active">Overview</label>
-        <label class="btn btn-success" ui-sref="main.dashboard.user.calendar.details" ui-sref-active="active">Details</label>
-      </div>
-    </div>
-  </div>
-
   <div class="row main-content">
     <div class="col-sm-12 col-md-5">
       <div ui-calendar="uiConfig.calendar" ng-model="calendarSources"

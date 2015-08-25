@@ -11,6 +11,19 @@ dashboardUserCalendar.controller('DashboardUserCalendarCtrl', ['$scope', 'Measur
   $scope.selectedTraining = null;
   $scope.calendarSources = [];
 
+  $scope.isTrainingSelected = $state.params.trainingId !== "";
+
+  $scope.populateRightMenu([
+    {
+      name: "Overview",
+      link: "main.dashboard.user.calendar.overview"
+    },
+    {
+      name: "Details",
+      link: "main.dashboard.user.calendar.details"
+    }
+  ], $scope.isTrainingSelected);
+
   $scope.statsPromise.then(function (data) {
     // populate the calendar input source
     for (var i = 0; i < data.measurementsStats.length; i++) {
@@ -31,8 +44,6 @@ dashboardUserCalendar.controller('DashboardUserCalendarCtrl', ['$scope', 'Measur
       $scope.uiConfig.calendar['defaultDate'] = $scope.selectedTraining.date;
     }
   });
-
-  $scope.isTrainingSelected = $state.params.trainingId !== "";
 
   $scope.alertOnEventClick = function (date, jsEvent, view) {
     $state.go('main.dashboard.user.calendar.overview', {trainingId: date.training.id});

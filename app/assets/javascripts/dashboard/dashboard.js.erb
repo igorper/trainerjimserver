@@ -7,6 +7,7 @@ var dashboard = angular.module('dashboard', [
   'measurements.stats',
   'dashboard.overview',
   'dashboard.user',
+  'dashboard.user.summary',
   'dashboard.user.calendar',
   'dashboard.user.calendar.overview',
   'dashboard.user.calendar.details'
@@ -33,9 +34,12 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
   });
 
   $stateProvider.state('main.dashboard.user.summary', {
-    url: '/summary',
+    url: '/summary/:filter',
     templateUrl: '<%= asset_path('dashboard/dashboard-user-summary.html') %>',
-    controller: 'DashboardUserCtrl'
+    controller: 'DashboardUserSummaryCtrl',
+    params:{
+      filter: 'all'
+    }
   });
 
   $stateProvider.state('main.dashboard.user.calendar', {
@@ -73,7 +77,7 @@ dashboard.controller('DashboardCtrl', ['$scope', 'Trainee', '$state', 'toaster',
       if (_.isUndefined(user)) {
         $state.go('main.dashboard.overview');
       } else {
-        $state.go('main.dashboard.user.summary', {userId: user.id});
+        $state.go('main.dashboard.user.summary', {userId: user.id, filter: 'all'});
       }
     };
   }]

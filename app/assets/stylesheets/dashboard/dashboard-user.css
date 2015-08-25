@@ -8,8 +8,8 @@
   cursor: pointer;
 }
 
-.dashboard-user .negative-row {
-  margin-top: -50px;
+.dashboard-user .top-buffer {
+  margin-top: 5px;
 }
 
 .dashboard-user .main-content {
