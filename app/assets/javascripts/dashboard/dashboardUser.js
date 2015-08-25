@@ -33,6 +33,10 @@ dashboardUser.controller('DashboardUserCtrl', ['$scope', 'Measurement', '$state'
         return $scope.stats;
       });
 
+    $scope.goToTrainingDetails = function(trainingId){
+      $state.go('main.dashboard.user.calendar.overview', {trainingId: trainingId});
+    }
+
     function fetchMeasurements() {
       return Measurement.detailedMeasurementsForUser($state.params).$promise;
     }

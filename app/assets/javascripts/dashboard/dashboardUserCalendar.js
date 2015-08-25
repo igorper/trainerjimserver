@@ -46,7 +46,7 @@ dashboardUserCalendar.controller('DashboardUserCalendarCtrl', ['$scope', 'Measur
   });
 
   $scope.alertOnEventClick = function (date, jsEvent, view) {
-    $state.go('main.dashboard.user.calendar.overview', {trainingId: date.training.id});
+    $scope.goToTrainingDetails(date.training.id);
   };
 
   /* Render Tooltip */

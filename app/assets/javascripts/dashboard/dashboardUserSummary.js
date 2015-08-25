@@ -27,10 +27,6 @@ dashboardUserSummary.controller('DashboardUserSummaryCtrl', ['$scope', '$state',
     }
   ], true);
 
-  $scope.goToResults = function (measurement) {
-    $state.go('main.results', {trainee: measurement.trainee_id, id: measurement.id});
-  };
-
   $scope.executedExerciseGroupsPieChartOptions = {
     chart: {
       type: 'pieChart',
