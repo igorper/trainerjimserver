@@ -1,0 +1,110 @@
+.dashboard-user-calendar .bored-on {
+  background-image: url(/results/SmileyON_Bored.png);
+}
+
+.dashboard-user-calendar .happy-on {
+  background-image: url(/results/SmileyON_Happy.png);
+}
+
+.dashboard-user-calendar .sweat-on {
+  background-image: url(/results/SmileyON_Sweat.png);
+}
+
+.dashboard-user-calendar .bored-off {
+  background-image: url(/results/SmileyFaded_Bored.png);
+}
+
+.dashboard-user-calendar .happy-off {
+  background-image: url(/results/SmileyFaded_Happy.png);
+}
+
+.dashboard-user-calendar .sweat-off {
+  background-image: url(/results/SmileyFaded_Sweat.png);
+}
+
+.dashboard-user-calendar .fc-event {
+  background-color: transparent;
+  border-color: transparent;
+}
+
+.dashboard-user-calendar div.fc-content {
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+}
+
+.dashboard-user-calendar div.icon-small {
+  width: 30px;
+  height: 30px;
+  background-size: contain;
+}
+
+.dashboard-user-calendar .section-title {
+  font-size: 1.8em;
+  font-weight: 500;
+}
+
+.dashboard-user-calendar .property {
+  font-size: 1.3em;
+}
+
+.dashboard-user-calendar .property .title {
+  font-weight: bold;
+}
+
+.dashboard-user-calendar-overview .large-margin {
+  margin: 10px 0;
+}
+
+.dashboard-user-calendar .training-rating {
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+}
+
+.dashboard-user-calendar .series-rating {
+  width: 40px;
+  height: 40px;
+  background-size: contain;
+}
+
+.dashboard-user-calendar .skipped {
+  color: red;
+}
+
+.dashboard-user-calendar .chart-label {
+  font-weight: bold;
+}
+
+.dashboard-user-calendar .chart div {
+  font: 10px sans-serif;
+  padding: 3px;
+  color: white;
+}
+
+.dashboard-user-calendar svg.chart {
+  width: auto;
+}
+
+.dashboard-user-calendar .blue {
+  stroke: white;
+  fill: steelblue;
+}
+
+.dashboard-user-calendar .green {
+  stroke: white;
+  fill: #FBC912;
+}
+
+.dashboard-user-calendar .red {
+  stroke: white;
+  fill: red;
+}
+
+.dashboard-user-calendar-details .row {
+  margin: 10px 0;
+}
+
+.dashboard-user-calendar .icon-bullets {
+  margin: 5px;
+}

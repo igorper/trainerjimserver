@@ -7,3 +7,11 @@
   display: inline-block;
   cursor: pointer;
 }
+
+.dashboard-user .top-buffer {
+  margin-top: 5px;
+}
+
+.dashboard-user .main-content {
+  margin-top: 20px;
+}
