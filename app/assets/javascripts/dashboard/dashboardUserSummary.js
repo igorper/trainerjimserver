@@ -5,7 +5,7 @@ var dashboardUserSummary = angular.module('dashboard.user.summary', [
 
 dashboardUserSummary.controller('DashboardUserSummaryCtrl', ['$scope', '$state', function ($scope, $state) {
   $scope.sortType = "date";
-  $scope.sortReverse = false;
+  $scope.sortReverse = true;
   $scope.periodName = $state.params.filter;
 
   $scope.populateRightMenu([
