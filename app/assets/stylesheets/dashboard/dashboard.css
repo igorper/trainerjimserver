@@ -1,3 +1,49 @@
-.dashboard .workouts-list{
+.dashboard .trainees-list{
     margin-top: 25px;
+}
+
+.dashboard .trainees-list .user-strip .header {
+  border-top: none;
+}
+
+.dashboard .trainees-list .highlighted .user-strip .header {
+  background-color: #0083ce;
+  color: white;
+}
+
+.dashboard .trainees-list .highlighted .user-strip:hover .header {
+  background-color: #0063ae;
+}
+
+.dashboard .trainees-list .user-strip:hover .header {
+  background-color: #fafafa;
+}
+
+
+.dashboard .trainees-list .overview {
+  background-color: white;
+  cursor: pointer;
+  border: 1px solid #ddd;
+  height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.dashboard .trainees-list .overview.highlighted {
+  background-color: #0083ce;
+  color: white;
+}
+
+.dashboard .trainees-list .overview:hover {
+  background-color: #fafafa;
+}
+
+.dashboard .trainees-list .overview.highlighted:hover {
+  background-color: #0063ae;
+}
+
+.dashboard .trainees-list .overview .glyphicon {
+  font-size: 2em;
+  width: 55px;
+  text-align: center;
 }

@@ -1,8 +1,12 @@
 <div class="user-strip">
   <div class="header">
-    <img ng-src="{{user.photo}}"/>
+    <div class="photo">
+      <img ng-src="{{user.photo}}"/>
+    </div>
 
-    <div>{{user.full_name}}</div>
+    <div class="name">
+      {{user.full_name}}
+    </div>
   </div>
   <div class="content" ng-transclude></div>
 </div>

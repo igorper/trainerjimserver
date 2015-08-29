@@ -1,28 +1,19 @@
 <div class="container-fluid dashboard">
   <div class="row">
-    <div class="col-sm-2">
-      <div spin-until="users" class="workouts-list">
-          <ul class="nav nav-tabs nav-stacked">
-              <li ng-class="{highlighted: getCurrentUserId() === null}">
-                  <a href="" ng-click="onUserSelected()">
-                      <div spin-until="workouts" class="content">
-                          All
-                      </div>
-                  </a>
-              </li>
-              <li ng-repeat="user in users" ng-class="{highlighted: user.id === getCurrentUserId()}">
-                  <a href="" ng-click="onUserSelected(user)">
-                      <div class="content">
-                          {{user.full_name}}
-                      </div>
-                  </a>
-              </li>
-          </ul>
+    <div class="col-sm-2 trainees-list">
+      <div class="overview" ng-class="{highlighted: getCurrentUserId() === null}" ng-click="onUserSelected()">
+        <div class="glyphicon glyphicon-list"></div>
+        <div>Overview</div>
+      </div>
+      <div spin-until="users">
+        <user-strip ng-repeat="user in users | orderBy:'full_name'" user="user"
+                    ng-click="onUserSelected(user)"
+                    ng-class="{highlighted: user.id === getCurrentUserId()}"></user-strip>
       </div>
     </div>
     <div class="col-sm-10">
       <div class="jim-box">
-          <ui-view></ui-view>
+        <ui-view></ui-view>
       </div>
     </div>
   </div>

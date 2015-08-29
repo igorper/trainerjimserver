@@ -8,15 +8,23 @@
   align-items: center;
   height: 44px;
   border: 1px solid #ddd;
+  background-color: white;
 }
 
 .user-strip:hover .header {
   background-color: #fafafa;
 }
 
-.user-strip .header img {
+.user-strip .header .photo img {
   max-height: 36px;
-  max-width: 64px;
+  max-width: 48px;
   border-radius: 3px;
-  margin: 0 5px 0 3px;
+  margin: auto;
+}
+
+.user-strip .header .photo {
+  width: 48px;
+  margin-right: 5px;
+  margin-left: 3px;
+  display: flex;
 }

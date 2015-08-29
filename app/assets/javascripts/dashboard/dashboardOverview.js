@@ -21,21 +21,6 @@ dashboardOverview.controller('DashboardOverviewCtrl', ['$scope', 'Trainee', '$q'
     $scope.intensityAlerts = calculateIntensityAlerts(allData[0], allData[1]);
   });
 
-  function calculateRestReports(users, userIdToTotalRest, userIdToPlannedRest) {
-    return _(users)
-      .map(function (user) {
-        var totalRest = _.get(userIdToTotalRest, [user.id, 'rest_time'], 0);
-        var plannedRest = _.get(userIdToPlannedRest, [user.id, 'rest_time'], 0);
-        return {
-          user: user,
-          totalRestInSeconds: totalRest,
-          plannedRestInSeconds: plannedRest,
-          restChangeInSeconds: totalRest - plannedRest
-        };
-      })
-      .value();
-  }
-
   $scope.totalRestLoading = promise.all([trainees, traineeIdToTotalRest, traineeIdToPlannedRest]).then(function (allData) {
     $scope.restReports = calculateRestReports(allData[0], allData[1], allData[2]);
   });
@@ -56,6 +41,35 @@ dashboardOverview.controller('DashboardOverviewCtrl', ['$scope', 'Trainee', '$q'
         };
       })
       .value();
+  }
+
+  function calculateIntensityAlerts(users, userIdToRatingCounts) {
+    return _(users)
+      .filter(function (user) {
+        return _.has(userIdToRatingCounts, user.id);
+      })
+      .map(function (user) {
+        var ratingCounts = userIdToRatingCounts[user.id];
+        return {
+          user: user,
+          totalIntensityAlerts: ratingCounts.too_easy_count + ratingCounts.too_hard_count,
+          ratingCounts: ratingCounts
+        };
+      })
+      .value();
+  }
+
+  function calculateRestReports(users, userIdToTotalRest, userIdToPlannedRest) {
+    return _.map(users, function (user) {
+      var totalRest = _.get(userIdToTotalRest, [user.id, 'rest_time'], 0);
+      var plannedRest = _.get(userIdToPlannedRest, [user.id, 'rest_time'], 0);
+      return {
+        user: user,
+        totalRestInSeconds: totalRest,
+        plannedRestInSeconds: plannedRest,
+        restChangeInSeconds: totalRest - plannedRest
+      };
+    });
   }
 
   function getLastActiveDate(user, userIdToMeasurements) {
@@ -80,21 +94,5 @@ dashboardOverview.controller('DashboardOverviewCtrl', ['$scope', 'Trainee', '$q'
     return _.every(measurements, function (measurement) {
       return new Date(measurement.start_time) < since;
     });
-  }
-
-  function calculateIntensityAlerts(users, userIdToRatingCounts) {
-    return _(users)
-      .filter(function (user) {
-        return _.has(userIdToRatingCounts, user.id);
-      })
-      .map(function (user) {
-        var ratingCounts = userIdToRatingCounts[user.id];
-        return {
-          user: user,
-          totalIntensityAlerts: ratingCounts.too_easy_count + ratingCounts.too_hard_count,
-          ratingCounts: ratingCounts
-        };
-      })
-      .value();
   }
 }]);
