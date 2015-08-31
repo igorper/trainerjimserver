@@ -23,6 +23,17 @@ class Api::V1::UsersController < ActionController::Base
     end
   end
 
+  def my_trainer
+    when_signed_in do
+      @user = current_user.trainer
+      if @user
+        render :show
+      else
+        render 'api/v1/http_responses/empty'
+      end
+    end
+  end
+
   def name
     when_signed_in do
       user_id = params[:id].to_i

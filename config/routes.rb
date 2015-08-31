@@ -15,11 +15,12 @@ Trainerjim::Application.routes.draw do
 
       # START: Users
       resources :users do
-        post 'confirm', on: :collection
-        post 'confirm_user_details', on: :collection
-        post 'name', on: :member
-        post 'password', on: :member
-        get 'current', on: :collection
+        post :confirm, on: :collection
+        post :confirm_user_details, on: :collection
+        post :name, on: :member
+        post :password, on: :member
+        get :current, on: :collection
+        get :my_trainer, on: :collection
       end
       # END: Users
 
