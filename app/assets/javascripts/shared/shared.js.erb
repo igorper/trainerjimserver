@@ -20,7 +20,8 @@ shared.controller('HeaderCtrl', ['$scope', '$state', 'Auth', 'User', 'isLinkActi
   $scope.topNavigation = [
     {
       name: "Dashboard",
-      link: "main.dashboard.overview"
+      link: "main.dashboard.overview",
+      isShown: isCurrentUserTrainer
     },
     {
       name: "Templates",
@@ -30,11 +31,13 @@ shared.controller('HeaderCtrl', ['$scope', '$state', 'Auth', 'User', 'isLinkActi
       name: "Trainees",
       link: "main.trainees",
       activeUrls: ["main.trainee"],
-      isShown: function () {
-        return $scope.userDetails && $scope.userDetails.is_trainer;
-      }
+      isShown: isCurrentUserTrainer
     }
   ];
+
+  function isCurrentUserTrainer() {
+    return $scope.userDetails && $scope.userDetails.is_trainer;
+  }
 
   $scope.isLinkActive = isLinkActive;
 
