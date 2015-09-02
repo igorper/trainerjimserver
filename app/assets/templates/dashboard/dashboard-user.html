@@ -7,7 +7,7 @@
       </div>
     </div>
     <div class="col-sm-6 col-xs-12 top-buffer">
-      <div class="btn-group pull-right" ng-show="rightMenu.visible">
+      <div class="btn-group pull-right" ng-if="rightMenu.items">
         <label ng-repeat="menuItem in rightMenu.items" class="btn btn-success" ui-sref="{{menuItem.link}}" ui-sref-active="active">{{menuItem.name}}</label>
       </div>
     </div>

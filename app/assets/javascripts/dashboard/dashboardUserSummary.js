@@ -8,7 +8,7 @@ dashboardUserSummary.controller('DashboardUserSummaryCtrl', ['$scope', '$state',
   $scope.sortReverse = true;
   $scope.periodName = $state.params.filter;
 
-  $scope.populateRightMenu([
+  $scope.rightMenu.items = [
     {
       name: "All",
       link: "main.dashboard.user.summary({filter: 'all'})"
@@ -25,7 +25,7 @@ dashboardUserSummary.controller('DashboardUserSummaryCtrl', ['$scope', '$state',
       name: "Last 24 hours",
       link: "main.dashboard.user.summary({filter: 'day'})"
     }
-  ], true);
+  ];
 
   $scope.executedExerciseGroupsPieChartOptions = {
     chart: {

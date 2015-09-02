@@ -7,23 +7,7 @@ var dashboardUser = angular.module('dashboard.user', [
 ]);
 
 dashboardUser.controller('DashboardUserCtrl', ['$scope', 'Measurement', '$state', 'toaster', 'ExerciseGroup', '$q', 'MeasurementStats', function ($scope, Measurement, $state, toaster, ExerciseGroup, promise, MeasurementStats) {
-    $scope.rightMenu = {
-      items: [],
-      visible: false
-    };
-
-    $scope.populateRightMenu = function (menuItems, visible) {
-      // clear the array and push navigation for this page
-      // it's important that we do not create a new array here otherwise
-      // the binding between the template and the array will be lost
-      $scope.rightMenu.items.length = 0;
-
-      for(var i=0; i < menuItems.length; i++){
-        $scope.rightMenu.items.push(menuItems[i]);
-      }
-
-      $scope.rightMenu.visible = visible;
-    }
+    $scope.rightMenu = {items: []};
 
     $scope.statsPromise = promise
       .all({measurements: fetchMeasurements(), exerciseGroups: ExerciseGroup.query().$promise})
@@ -33,9 +17,9 @@ dashboardUser.controller('DashboardUserCtrl', ['$scope', 'Measurement', '$state'
         return $scope.stats;
       });
 
-    $scope.goToTrainingDetails = function(trainingId){
+    $scope.goToTrainingDetails = function (trainingId) {
       $state.go('main.dashboard.user.calendar.overview', {trainingId: trainingId});
-    }
+    };
 
     function fetchMeasurements() {
       return Measurement.detailedMeasurementsForUser($state.params).$promise;

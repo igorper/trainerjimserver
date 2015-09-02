@@ -13,7 +13,7 @@ dashboardUserCalendar.controller('DashboardUserCalendarCtrl', ['$scope', 'Measur
 
   $scope.isTrainingSelected = $state.params.trainingId !== "";
 
-  $scope.populateRightMenu([
+  $scope.rightMenu.items = $scope.isTrainingSelected ? [
     {
       name: "Overview",
       link: "main.dashboard.user.calendar.overview"
@@ -22,7 +22,7 @@ dashboardUserCalendar.controller('DashboardUserCalendarCtrl', ['$scope', 'Measur
       name: "Details",
       link: "main.dashboard.user.calendar.details"
     }
-  ], $scope.isTrainingSelected);
+  ] : [];
 
   $scope.statsPromise.then(function (data) {
     // populate the calendar input source
@@ -36,9 +36,11 @@ dashboardUserCalendar.controller('DashboardUserCalendarCtrl', ['$scope', 'Measur
       }]);
     }
 
-    if($scope.isTrainingSelected) {
+    if ($scope.isTrainingSelected) {
       // also store the currently selected training in a variable
-      $scope.selectedTraining = _.find(data.measurementsStats, function(item) {return item.measurement.id === parseInt($state.params.trainingId);});
+      $scope.selectedTraining = _.find(data.measurementsStats, function (item) {
+        return item.measurement.id === parseInt($state.params.trainingId);
+      });
 
       // and make the calendar stay on the page with the selected training
       $scope.uiConfig.calendar['defaultDate'] = $scope.selectedTraining.date;
