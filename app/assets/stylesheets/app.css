@@ -5,6 +5,7 @@
 *= require angular-ui-grid/ui-grid
 *= require bootstrap/dist/css/bootstrap
 *= require nvd3/nv.d3
+*= require intro.js/introjs.css
 *= require_tree .
 */
 

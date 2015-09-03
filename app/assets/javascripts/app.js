@@ -22,6 +22,7 @@
 //= require angular-bootstrap/ui-bootstrap-tpls
 //= require nvd3/nv.d3
 //= require angular-nvd3/dist/angular-nvd3
+//= require intro.js/intro
 //= require_tree .
 
 var trainerjimApp = angular.module('app', [
