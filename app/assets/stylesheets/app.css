@@ -17,3 +17,8 @@ html {
 body {
   margin-bottom: 115px;
 }
+
+/* Workaround: fixes the size of the step number indicator in the top-left corner. */
+.introjs-helperNumberLayer {
+  box-sizing: content-box;;
+}

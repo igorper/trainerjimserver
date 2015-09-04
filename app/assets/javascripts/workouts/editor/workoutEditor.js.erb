@@ -1,4 +1,5 @@
-angular.module('workouts.editor', [
+var workoutEditor = angular.module('workouts.editor', [
+  'ngStorage',
   'ui.router',
   'ui.bootstrap',
   'ui.sortable',
@@ -8,83 +9,134 @@ angular.module('workouts.editor', [
   'exerciseTypes.exerciseType',
   'exerciseTypes.exerciseTypeDetails',
   'exercises.editor'
-])
-  .directive('workoutEditor', function () {
-    return {
-      restrict: 'E',
-      scope: {
-        training: '=',
-        trainer: '=',
-        onSaveClicked: '&',
-        onDeleteClicked: '&'
-      },
-      controller: 'WorkoutEditorCtrl',
-      templateUrl: '<%= asset_path('workouts/editor/workout-editor-v1.html') %>'
-    };
-  })
-  .controller('WorkoutEditorCtrl', ['$scope', 'ExerciseType', 'ExerciseTypesSelector', function ($scope, ExerciseType, ExerciseTypesSelector) {
-    $scope.fetchExerciseType = function (exerciseTypeId) {
-      return ExerciseType.get({id: exerciseTypeId});
-    };
+]);
 
-    $scope.sortableOptions = {
-      handle: '.move'
-    };
+workoutEditor.directive('workoutEditor', function () {
+  return {
+    restrict: 'E',
+    scope: {
+      training: '=',
+      trainer: '=',
+      onSaveClicked: '&',
+      onDeleteClicked: '&'
+    },
+    controller: 'WorkoutEditorCtrl',
+    templateUrl: '<%= asset_path('workouts/editor/workout-editor-v1.html') %>'
+  };
+});
 
-    $scope.removeExercise = function (exercise) {
-      // at least one exercise has to be left in the training
-      if ($scope.training.exercises.length > 1) {
-        $scope.training.exercises.splice($scope.training.exercises.indexOf(exercise), 1);
-      }
-    };
+workoutEditor.controller('WorkoutEditorCtrl', ['$scope', 'ExerciseType', 'ExerciseTypesSelector', '$localStorage', function ($scope, ExerciseType, ExerciseTypesSelector, $localStorage) {
+  $scope.fetchExerciseType = function (exerciseTypeId) {
+    return ExerciseType.get({id: exerciseTypeId});
+  };
 
-    $scope.applyToAllSeries = function (exercise, selectedSeries) {
-      for (var i = 0; i < $scope.training.exercises.length; i++) {
-        var loopedExercise = $scope.training.exercises[i];
-        // set selected series information to all series of the same exercise type.
-        // we have to loop all the exercises and not just set series information for
-        // the input exercise, as the same exercise could be added many times to the training plan
-        // (this is particularly common in training plans where different exercises are added in blocks of e.g.
-        // one series of two successive exercise without rest)
-        if (loopedExercise.exercise_type.id == exercise.exercise_type.id) {
-          for (var j = 0; j < loopedExercise.series.length; j++) {
-            var loopedSeries = loopedExercise.series[j];
-            loopedSeries.repeat_count = selectedSeries.repeat_count;
-            loopedSeries.weight = selectedSeries.weight;
-            loopedSeries.rest_time = selectedSeries.rest_time;
-          }
+  $scope.sortableOptions = {
+    handle: '.move'
+  };
+
+  $scope.removeExercise = function (exercise) {
+    // at least one exercise has to be left in the training
+    if ($scope.training.exercises.length > 1) {
+      $scope.training.exercises.splice($scope.training.exercises.indexOf(exercise), 1);
+    }
+  };
+
+  $scope.applyToAllSeries = function (exercise, selectedSeries) {
+    for (var i = 0; i < $scope.training.exercises.length; i++) {
+      var loopedExercise = $scope.training.exercises[i];
+      // set selected series information to all series of the same exercise type.
+      // we have to loop all the exercises and not just set series information for
+      // the input exercise, as the same exercise could be added many times to the training plan
+      // (this is particularly common in training plans where different exercises are added in blocks of e.g.
+      // one series of two successive exercise without rest)
+      if (loopedExercise.exercise_type.id == exercise.exercise_type.id) {
+        for (var j = 0; j < loopedExercise.series.length; j++) {
+          var loopedSeries = loopedExercise.series[j];
+          loopedSeries.repeat_count = selectedSeries.repeat_count;
+          loopedSeries.weight = selectedSeries.weight;
+          loopedSeries.rest_time = selectedSeries.rest_time;
         }
       }
-    };
+    }
+  };
 
-    function addExercise(exerciseType) {
-      $scope.training.exercises.push({
-        duration_after_repetition: null,
-        duration_up_repetition: null,
-        duration_middle_repetition: null,
-        duration_down_repetition: null,
-        guidance_type: "manual",
-        selectedSeries: 0,
-        series: [
-          {
-            repeat_count: 0,
-            weight: 0,
-            rest_time: 0
-          }
-        ],
-        exercise_type: exerciseType
-      });
-      scrollToLastExercise();
+  function addExercise(exerciseType) {
+    $scope.training.exercises.push({
+      duration_after_repetition: null,
+      duration_up_repetition: null,
+      duration_middle_repetition: null,
+      duration_down_repetition: null,
+      guidance_type: "manual",
+      selectedSeries: 0,
+      series: [
+        {
+          repeat_count: 0,
+          weight: 0,
+          rest_time: 0
+        }
+      ],
+      exercise_type: exerciseType
+    });
+    scrollToLastExercise();
+  }
+
+  function scrollToLastExercise() {
+    var elementToScrollTo = $('.exercise-item:last');
+    $('html, body').animate({scrollTop: elementToScrollTo.offset().top}, 500);
+  }
+
+  $scope.editExercise = function () {
+    ExerciseTypesSelector({
+      onAddExerciseType: addExercise,
+      editorUserId: $scope.trainer.id,
+      isAdministrator: $scope.trainer.is_admin
+    }).result.then(scrollToLastExercise);
+  };
+
+  function showTrainingInstructions() {
+    if ($localStorage.trainingInstructionsSeen) {
+      return;
+    }
+    var intro = introJs();
+    intro.setOptions({
+      steps: [
+        {
+          intro: "<h4>How to create a new training?</h4>"
+        },
+        {
+          element: document.querySelector('.workouts-list .create-workout'),
+          intro: "Click here to create a new training.",
+          position: 'top'
+        },
+        {
+          element: document.querySelector('.workout-editor .btn.add-exercise'),
+          intro: "Add exercises to the training.",
+          position: 'left'
+        },
+        {
+          element: document.querySelector('.workout-editor .the-name-value'),
+          intro: "Choose a name for your new training. It will appear on the mobile app."
+        },
+        {
+          element: document.querySelector('.workout-editor .btn.save'),
+          intro: "Store the training when you're done.",
+          position: 'left'
+        },
+        {
+          intro: "That's it! Now create a training and get pumping!"
+        }
+      ]
+    });
+
+    function markSeen() {
+      $localStorage.trainingInstructionsSeen = true;
     }
 
-    function scrollToLastExercise() {
-      var elementToScrollTo = $('.exercise-item:last');
-      $('html, body').animate({scrollTop: elementToScrollTo.offset().top}, 500);
-    }
+    intro.oncomplete(markSeen);
+    intro.onexit(markSeen);
+    intro.start();
+  }
 
-    $scope.editExercise = function () {
-      ExerciseTypesSelector({onAddExerciseType: addExercise, editorUserId: $scope.trainer.id, isAdministrator: $scope.trainer.is_admin}).result.then(scrollToLastExercise);
-    };
-  }])
-;
+  showTrainingInstructions();
+}]);
 

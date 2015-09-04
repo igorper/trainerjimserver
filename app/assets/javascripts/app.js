@@ -23,6 +23,7 @@
 //= require nvd3/nv.d3
 //= require angular-nvd3/dist/angular-nvd3
 //= require intro.js/intro
+//= require ngstorage/ngStorage
 //= require_tree .
 
 var trainerjimApp = angular.module('app', [
