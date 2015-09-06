@@ -42,7 +42,17 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
   var userDashboard = {
     url: '/:userId',
     templateUrl: '<%= asset_path('dashboard/dashboard-user.html') %>',
-    controller: DashboardUserCtrl()
+    controller: 'DashboardUserCtrl',
+    resolve: {
+      userDashboardOptions: ['$stateParams', '$q', function ($stateParams, promise) {
+        return {
+          userIdPromise: promise(function (resolve) {
+            resolve($stateParams.userId);
+          }),
+          statePrefix: 'main.dashboard'
+        };
+      }]
+    }
   };
 
   var userSummaryDashboard = {
@@ -87,17 +97,17 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
   var currentUserDashboard = _.extend(_.clone(userDashboard), {
     url: '',
     abstract: true,
-    controller: DashboardUserCtrl({
-      userIdPromise: ['User', function (User) {
-        return User.current().$promise.then(function (user) {
-          return user.id;
-        });
-      }],
-      calendarState: 'main.myDashboard.user.calendar',
-      calendarOverviewState: 'main.myDashboard.user.calendar.overview',
-      calendarDetailsState: 'main.myDashboard.user.calendar.details',
-      summaryState: 'main.myDashboard.user.summary'
-    })
+    controller: 'DashboardUserCtrl',
+    resolve: {
+      userDashboardOptions: ['User', function (User) {
+        return {
+          userIdPromise: User.current().$promise.then(function (user) {
+            return user.id;
+          }),
+          statePrefix: 'main.myDashboard'
+        };
+      }]
+    }
   });
 
   $stateProvider.state('main.myDashboard', myDashboard);

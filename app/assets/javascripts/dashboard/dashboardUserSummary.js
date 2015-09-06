@@ -28,7 +28,7 @@ dashboardUserSummary.controller('DashboardUserSummaryCtrl', ['$scope', '$state',
   ];
 
   function getSummaryLink(filter) {
-    return $scope.userDashboardOptions.summaryState + "({filter: '" + filter + "'})"
+    return $scope.userDashboardOptions.statePrefix + ".user.summary({filter: '" + filter + "'})"
   }
 
   $scope.executedExerciseGroupsPieChartOptions = {
