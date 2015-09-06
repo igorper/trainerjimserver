@@ -21,7 +21,14 @@ shared.controller('HeaderCtrl', ['$scope', '$state', 'Auth', 'User', 'isLinkActi
     {
       name: "Dashboard",
       link: "main.dashboard.overview",
-      isShown: isCurrentUserTrainer
+      isShown: isCurrentUserTrainer,
+      activeUrls: ['main.dashboard']
+    },
+    {
+      name: "Dashboard",
+      link: "main.myDashboard.user.summary",
+      isShown: _.negate(isCurrentUserTrainer),
+      activeUrls: ['main.myDashboard']
     },
     {
       name: "Templates",

@@ -26,57 +26,90 @@ dashboard.factory('Dashboard', ['$resource', function ($resource) {
 
 
 dashboard.config(['$stateProvider', function ($stateProvider) {
-  $stateProvider.state('main.dashboard', {
+  var mainDashboard = {
     url: '/dashboard',
     abstract: true,
     templateUrl: '<%= asset_path('dashboard/dashboard.html') %>',
     controller: 'DashboardCtrl'
-  });
+  };
 
-  $stateProvider.state('main.dashboard.overview', {
+  var dashboardOverview = {
     url: '/',
     templateUrl: '<%= asset_path('dashboard/dashboard-overview.html') %>',
     controller: 'DashboardOverviewCtrl'
-  });
+  };
 
-  $stateProvider.state('main.dashboard.user', {
+  var userDashboard = {
     url: '/:userId',
     templateUrl: '<%= asset_path('dashboard/dashboard-user.html') %>',
-    controller: 'DashboardUserCtrl'
-  });
+    controller: DashboardUserCtrl()
+  };
 
-  $stateProvider.state('main.dashboard.user.summary', {
+  var userSummaryDashboard = {
     url: '/summary/:filter',
     templateUrl: '<%= asset_path('dashboard/dashboard-user-summary.html') %>',
     controller: 'DashboardUserSummaryCtrl',
-    params:{
-      filter: 'all'
-    }
-  });
+    params: {filter: 'all'}
+  };
 
-  $stateProvider.state('main.dashboard.user.calendar', {
+  var userCalendarDashboard = {
     url: '/calendar/:trainingId',
     templateUrl: '<%= asset_path('dashboard/dashboard-user-calendar.html') %>',
     controller: 'DashboardUserCalendarCtrl'
-  });
+  };
 
-  $stateProvider.state('main.dashboard.user.calendar.overview', {
+  var userCalendarOverviewDashboard = {
     url: '/overview',
     templateUrl: '<%= asset_path('dashboard/dashboard-user-calendar-overview.html') %>',
     controller: 'DashboardUserCalendarOverviewCtrl'
-  });
+  };
 
-  $stateProvider.state('main.dashboard.user.calendar.details', {
+  var userCalendarDetails = {
     url: '/details',
     templateUrl: '<%= asset_path('dashboard/dashboard-user-calendar-details.html') %>',
     controller: 'DashboardUserCalendarDetailsCtrl'
+  };
+
+  $stateProvider.state('main.dashboard', mainDashboard);
+  $stateProvider.state('main.dashboard.overview', dashboardOverview);
+  $stateProvider.state('main.dashboard.user', userDashboard);
+  $stateProvider.state('main.dashboard.user.summary', userSummaryDashboard);
+  $stateProvider.state('main.dashboard.user.calendar', userCalendarDashboard);
+  $stateProvider.state('main.dashboard.user.calendar.overview', userCalendarOverviewDashboard);
+  $stateProvider.state('main.dashboard.user.calendar.details', userCalendarDetails);
+
+  var myDashboard = {
+    url: '/my-dashboard',
+    abstract: true,
+    templateUrl: '<%= asset_path('dashboard/my-dashboard.html') %>'
+  };
+
+  var currentUserDashboard = _.extend(_.clone(userDashboard), {
+    url: '',
+    abstract: true,
+    controller: DashboardUserCtrl({
+      userIdPromise: ['User', function (User) {
+        return User.current().$promise.then(function (user) {
+          return user.id;
+        });
+      }],
+      calendarState: 'main.myDashboard.user.calendar',
+      calendarOverviewState: 'main.myDashboard.user.calendar.overview',
+      calendarDetailsState: 'main.myDashboard.user.calendar.details',
+      summaryState: 'main.myDashboard.user.summary'
+    })
   });
+
+  $stateProvider.state('main.myDashboard', myDashboard);
+  $stateProvider.state('main.myDashboard.user', currentUserDashboard);
+  $stateProvider.state('main.myDashboard.user.summary', _.clone(userSummaryDashboard));
+  $stateProvider.state('main.myDashboard.user.calendar', _.clone(userCalendarDashboard));
+  $stateProvider.state('main.myDashboard.user.calendar.overview', _.clone(userCalendarOverviewDashboard));
+  $stateProvider.state('main.myDashboard.user.calendar.details', _.clone(userCalendarDetails));
 }]);
 
 
 dashboard.controller('DashboardCtrl', ['$scope', 'Trainee', '$state', 'toaster', function ($scope, Trainee, $state, toaster) {
-    $scope.state = $state;
-
     $scope.users = Trainee.query(_.noop, function () {
       toaster.pop("error", "Trainees listing", "Could get the list of trainees. Try logging in again.");
     });

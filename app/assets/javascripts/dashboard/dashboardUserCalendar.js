@@ -16,11 +16,11 @@ dashboardUserCalendar.controller('DashboardUserCalendarCtrl', ['$scope', 'Measur
   $scope.rightMenu.items = $scope.isTrainingSelected ? [
     {
       name: "Overview",
-      link: "main.dashboard.user.calendar.overview"
+      link: $scope.userDashboardOptions.calendarOverviewState
     },
     {
       name: "Details",
-      link: "main.dashboard.user.calendar.details"
+      link: $scope.userDashboardOptions.calendarDetailsState
     }
   ] : [];
 

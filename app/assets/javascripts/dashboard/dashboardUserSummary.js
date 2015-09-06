@@ -11,21 +11,25 @@ dashboardUserSummary.controller('DashboardUserSummaryCtrl', ['$scope', '$state',
   $scope.rightMenu.items = [
     {
       name: "All",
-      link: "main.dashboard.user.summary({filter: 'all'})"
+      link: getSummaryLink('all')
     },
     {
       name: "Last month",
-      link: "main.dashboard.user.summary({filter: 'month'})"
+      link: getSummaryLink('month')
     },
     {
       name: "Last week",
-      link: "main.dashboard.user.summary({filter: 'week'})"
+      link: getSummaryLink('week')
     },
     {
       name: "Last 24 hours",
-      link: "main.dashboard.user.summary({filter: 'day'})"
+      link: getSummaryLink('day')
     }
   ];
+
+  function getSummaryLink(filter) {
+    return $scope.userDashboardOptions.summaryState + "({filter: '" + filter + "'})"
+  }
 
   $scope.executedExerciseGroupsPieChartOptions = {
     chart: {
