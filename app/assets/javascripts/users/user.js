@@ -16,11 +16,11 @@ users.factory('currentUserChanged', ['$rootScope', function ($rootScope) {
   };
 }]);
 
-users.factory('User', ['$resource', 'currentUserChanged', 'Upload', '$q', function ($resource, currentUserChanged, Upload, $q) {
+users.factory('User', ['$resource', '$rootScope', 'currentUserChanged', 'Upload', '$q', function ($resource, $rootScope, currentUserChanged, Upload, $q) {
   var User = $resource('/api/v1/users/:id.json', {id: '@id'}, {
     confirm: {method: 'POST', url: '/api/v1/users/confirm.json'},
     confirmUserDetails: {method: 'POST', url: '/api/v1/users/confirm_user_details.json'},
-    current: {method: 'GET', url: '/api/v1/users/current.json'},
+    currentImpl: {method: 'GET', url: '/api/v1/users/current.json'},
     setNameImpl: {method: 'POST', url: '/api/v1/users/:id/name.json'},
     setPasswordImpl: {method: 'POST', url: '/api/v1/users/:id/password.json'}
   });
@@ -45,6 +45,18 @@ users.factory('User', ['$resource', 'currentUserChanged', 'Upload', '$q', functi
       }, reject);
     });
   };
+
+  User.current = function (successCallback, failureCallback) {
+    if (_.isUndefined(User.cachedCurrentUser)) {
+      User.cachedCurrentUser = User.currentImpl();
+    }
+    User.cachedCurrentUser.$promise.then(successCallback, failureCallback);
+    return User.cachedCurrentUser;
+  };
+
+  $rootScope.$on(USER_CHANGED_EVENT, function (event, updatedUser) {
+    User.cachedCurrentUser = undefined;
+  });
 
   return User;
 }]);
