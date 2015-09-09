@@ -41,6 +41,7 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
 
   var userDashboard = {
     url: '/:userId',
+    abstract: true,
     templateUrl: '<%= asset_path('dashboard/dashboard-user.html') %>',
     controller: 'DashboardUserCtrl',
     resolve: {
@@ -94,10 +95,8 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
     templateUrl: '<%= asset_path('dashboard/my-dashboard.html') %>'
   };
 
-  var currentUserDashboard = _.extend(_.clone(userDashboard), {
+  var userMyDashboard = _.extend(_.clone(userDashboard), {
     url: '',
-    abstract: true,
-    controller: 'DashboardUserCtrl',
     resolve: {
       userDashboardOptions: ['User', function (User) {
         return {
@@ -111,7 +110,7 @@ dashboard.config(['$stateProvider', function ($stateProvider) {
   });
 
   $stateProvider.state('main.myDashboard', myDashboard);
-  $stateProvider.state('main.myDashboard.user', currentUserDashboard);
+  $stateProvider.state('main.myDashboard.user', userMyDashboard);
   $stateProvider.state('main.myDashboard.user.summary', _.clone(userSummaryDashboard));
   $stateProvider.state('main.myDashboard.user.calendar', _.clone(userCalendarDashboard));
   $stateProvider.state('main.myDashboard.user.calendar.overview', _.clone(userCalendarOverviewDashboard));
