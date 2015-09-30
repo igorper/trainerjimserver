@@ -13,22 +13,14 @@ dashboardOverview.controller('DashboardOverviewCtrl', ['$scope', 'Trainee', '$q'
   var traineeIdToTotalRest = Dashboard.totalRest().$promise.then(_.partial(toLookupByField, _, 'user_id'));
   var traineeIdToPlannedRest = Dashboard.plannedRest().$promise.then(_.partial(toLookupByField, _, 'user_id'));
 
-  $scope.inactiveUsersLoading = promise.all([trainees, traineeIdToMeasurements]).then(function (allData) {
-    $scope.inactivityReports = calculateInactivityReports(allData[0], allData[1]);
-  });
-
-  $scope.intensityAlertsLoading = promise.all([trainees, traineeIdToRatingCounts]).then(function (allData) {
-    $scope.intensityAlerts = calculateIntensityAlerts(allData[0], allData[1]);
-  });
-
-  $scope.totalRestLoading = promise.all([trainees, traineeIdToTotalRest, traineeIdToPlannedRest]).then(function (allData) {
-    $scope.restReports = calculateRestReports(allData[0], allData[1], allData[2]);
-  });
+  $scope.inactiveUsersLoading = promise.all([trainees, traineeIdToMeasurements]).then(_.spread(calculateInactivityReports));
+  $scope.intensityAlertsLoading = promise.all([trainees, traineeIdToRatingCounts]).then(_.spread(calculateIntensityAlerts));
+  $scope.totalRestLoading = promise.all([trainees, traineeIdToTotalRest, traineeIdToPlannedRest]).then(_.spread(calculateRestReports));
 
   function calculateInactivityReports(users, userIdToMeasurements) {
     var weekAgo = new Date();
     weekAgo.setDate(weekAgo.getDate() - 7);
-    return _(users)
+    $scope.inactivityReports = _(users)
       .filter(function (user) {
         return noMeasurementSince(userIdToMeasurements[user.id], weekAgo);
       })
@@ -44,7 +36,7 @@ dashboardOverview.controller('DashboardOverviewCtrl', ['$scope', 'Trainee', '$q'
   }
 
   function calculateIntensityAlerts(users, userIdToRatingCounts) {
-    return _(users)
+    $scope.intensityAlerts = _(users)
       .filter(function (user) {
         return _.has(userIdToRatingCounts, user.id);
       })
@@ -60,7 +52,7 @@ dashboardOverview.controller('DashboardOverviewCtrl', ['$scope', 'Trainee', '$q'
   }
 
   function calculateRestReports(users, userIdToTotalRest, userIdToPlannedRest) {
-    return _.map(users, function (user) {
+    $scope.restReports = _.map(users, function (user) {
       var totalRest = _.get(userIdToTotalRest, [user.id, 'rest_time'], 0);
       var plannedRest = _.get(userIdToPlannedRest, [user.id, 'rest_time'], 0);
       return {

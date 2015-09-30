@@ -24,18 +24,18 @@ measurementsStats.factory('MeasurementStats', ['Measurement', function (Measurem
 
     stats.measurement = measurement;
     stats.training = extractTrainingWithSeriesExecutions(measurement);
-    stats.seriesLookup = toLookupById(_.chain(stats.training.exercises).pluck('series').flatten().value());
+    stats.seriesLookup = toLookupById(_(stats.training.exercises).pluck('series').flatten().value());
     stats.exerciseLookup = createExerciseLookup(stats.training.exercises);
     stats.name = stats.training.name;
     stats.date = measurement.start_time;
     stats.comment = measurement.comment;
     stats.totalSeries = countSeriesInTraining(stats.training);
-    stats.performedSeries = measurement.series_executions.length;
+    stats.performedSeries = _(measurement.series_executions).pluck('series_id').uniq().size();
     stats.seriesSkipped = stats.totalSeries - stats.performedSeries;
     stats.restTimeChangeInSeconds = restTimeChangeInSeconds(measurement.series_executions, stats.seriesLookup);
-    stats.seriesTooHardCount = _.chain(measurement.series_executions).where({rating: Measurement.TOO_HARD_RATING}).size().value();
-    stats.seriesTooEasyCount = _.chain(measurement.series_executions).where({rating: Measurement.TOO_EASY_RATING}).size().value();
-    stats.seriesOkayCount = _.chain(measurement.series_executions).where({rating: Measurement.OKAY_RATING}).size().value();
+    stats.seriesTooHardCount = _(measurement.series_executions).where({rating: Measurement.TOO_HARD_RATING}).size();
+    stats.seriesTooEasyCount = _(measurement.series_executions).where({rating: Measurement.TOO_EASY_RATING}).size();
+    stats.seriesOkayCount = _(measurement.series_executions).where({rating: Measurement.OKAY_RATING}).size();
     stats.seriesNotOkayCount = stats.performedSeries - stats.seriesOkayCount;
     stats.durationInMinutes = (new Date(measurement.end_time) - new Date(measurement.start_time)) / (1000 * 60);
     stats.totalRestInMinutes = totalRestInSeconds(measurement.series_executions) / 60.0;
@@ -163,7 +163,7 @@ measurementsStats.factory('MeasurementStats', ['Measurement', function (Measurem
   }
 
   function partitionExerciseGroupCounts(exerciseGroupsLookup, exerciseGroupCounters) {
-    return _.chain(exerciseGroupCounters)
+    return _(exerciseGroupCounters)
       .map(function (count, exerciseGroupId) {
         return {exerciseGroup: exerciseGroupsLookup[exerciseGroupId], count: count};
       })

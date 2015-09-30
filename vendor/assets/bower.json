@@ -23,6 +23,7 @@
     "bootstrap": "latest",
     "nvd3": "latest",
     "angular-nvd3": "latest",
-    "ngstorage": "latest"
+    "ngstorage": "latest",
+    "angular-mocks": "latest"
   }
 }

@@ -18,6 +18,11 @@
         #!bash
         bundle exec rake bower:install
 
+## Running JavaScript tests
+
+1. Install Karma with `npm install -g karma-cli karma karma-jasmine karma-chrome-launcher`
+1. Run `karma start karma.tests.js`
+
 ## Create the production database
 
 Here's how you can create the production database (but don't seed it, because it will send registration emails to the users):
