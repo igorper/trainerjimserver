@@ -33,7 +33,7 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
         });
         refreshExerciseTypeGrid();
       });
-      $scope.$watchGroup(['filter.keyword', 'selectedExerciseGroupIds'], resetExerciseTypeGridPagination);
+      $scope.$watchGroup(['filter.keyword', 'filter.my_exercises_only', 'selectedExerciseGroupIds'], resetExerciseTypeGridPagination);
 
       $scope.goToNextPage = function () {
         ++$scope.pageIndex;
@@ -52,6 +52,9 @@ exerciseTypePanel.directive('exerciseTypePanel', [function () {
 
       function refreshExerciseTypeGrid() {
         var exerciseTypes = _.chain($scope.orderedExerciseTypes);
+        if ($scope.filter.my_exercises_only) {
+          exerciseTypes = exerciseTypes.where({owner_id: $scope.editorUserId});
+        }
         exerciseTypes = filterByName(exerciseTypes, $scope.filter.keyword);
         exerciseTypes = filterBySelectedGroups(exerciseTypes, $scope.selectedExerciseGroupIds);
         exerciseTypes = exerciseTypes.drop($scope.pageIndex * $scope.itemsPerPage);
