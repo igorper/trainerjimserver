@@ -21,7 +21,7 @@
 ## Running JavaScript tests
 
 1. Install Karma with `npm install -g karma-cli karma karma-jasmine karma-chrome-launcher`
-1. Run `karma start karma.tests.js`
+1. Run `karma start`
 
 ## Create the production database
 
@@ -43,7 +43,7 @@ For a list of deployment targets see files in directory `config/deploy`.
 
 ## Open Rails console remotely
 
-    cap <deployment_target> rails:console
+    cap <deployment_target> rails:console 
 
 ## Running tests
 
