@@ -23,6 +23,13 @@
 1. Install Karma with `npm install -g karma-cli karma karma-jasmine karma-chrome-launcher`
 1. Run `karma start`
 
+## Create an on-boarding trainer account
+
+```
+load(Rails.application.root.join('lib/account_creation.rb'))
+AccountCreation.create_trainer("trainer@example.com", "some password", "Full Name")
+```
+
 ## Create the production database
 
 Here's how you can create the production database (but don't seed it, because it will send registration emails to the users):
@@ -40,10 +47,6 @@ Remotely:
     cap <deployment_target> do:invoke task="db:truncate db:seed"
 
 For a list of deployment targets see files in directory `config/deploy`.
-
-## Open Rails console remotely
-
-    cap <deployment_target> rails:console 
 
 ## Running tests
 
