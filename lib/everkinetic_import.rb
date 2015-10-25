@@ -92,7 +92,7 @@ module EverkineticImport
     end
   end
 
-  def self.delete_old_exercise_types(path)
+  def self.delete_old_exercise_types()
     ExerciseType.all.each do |exercise_type|
       if exercise_type.description.nil?
         begin
