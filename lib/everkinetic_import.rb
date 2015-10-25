@@ -22,8 +22,8 @@ module EverkineticImport
 
     {
         exercises: found_exercises,
-        primary: SortedSet.new(found_exercises.reduce(Set.new) { |types, ex| types.merge(ex[:primary]) }),
-        equipment: SortedSet.new(found_exercises.reduce(Set.new) { |types, ex| types.merge(ex[:equipment]) })
+        primary: found_exercises.reduce(SortedSet.new) { |types, ex| types.merge(ex[:primary]) },
+        equipment: found_exercises.reduce(SortedSet.new) { |types, ex| types.merge(ex[:equipment]) }
     }
   end
 
