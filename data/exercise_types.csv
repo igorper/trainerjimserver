@@ -32,15 +32,15 @@ Side Lunge,Legs,Barbell
 Squat,Legs,Barbell
 Step-ups,Legs,Barbell
 Sumo Deadlift,Legs,Barbell
-"Jerk, Balance",Shoulder,Barbell
-"Jerk, Split",Shoulder,Barbell
-Front Raise,Shoulder,Barbell
-Lying Rear Delt Row,Shoulder,Barbell
-Military Press,Shoulder,Barbell
-Military Press - Seated,Shoulder,Barbell
-Rear Delt Row,Shoulder,Barbell
-Shoulder Press,Shoulder,Barbell
-Upright Row,Shoulder,Barbell
+"Jerk, Balance",Shoulders,Barbell
+"Jerk, Split",Shoulders,Barbell
+Front Raise,Shoulders,Barbell
+Lying Rear Delt Row,Shoulders,Barbell
+Military Press,Shoulders,Barbell
+Military Press - Seated,Shoulders,Barbell
+Rear Delt Row,Shoulders,Barbell
+Shoulder Press,Shoulders,Barbell
+Upright Row,Shoulders,Barbell
 Clean,Legs,Barbell
 Clean and Jerk,Legs,Barbell
 "Clean, Hang",Legs,Barbell
@@ -171,11 +171,11 @@ Hip Stretch - Standing,Legs,Bodyweight
 Hip Stretch - Wall,Legs,Bodyweight
 Shin Stretch - Kneeling,Legs,Bodyweight
 Shin Stretch - Lying,Legs,Bodyweight
-Deltoid (Anterior) Stretch - (Wall),Shoulder,Bodyweight
-"Stretch - Deltoid, Lateral (Standing)",Shoulder,Bodyweight
-Stretch - Infraspinatus (Bend-over),Shoulder,Bodyweight
-Stretch - Infraspinatus (Lying),Shoulder,Bodyweight
-Subscapularis Stretch (Doorway),Shoulder,Bodyweight
+Deltoid (Anterior) Stretch - (Wall),Shoulders,Bodyweight
+"Stretch - Deltoid, Lateral (Standing)",Shoulders,Bodyweight
+Stretch - Infraspinatus (Bend-over),Shoulders,Bodyweight
+Stretch - Infraspinatus (Lying),Shoulders,Bodyweight
+Subscapularis Stretch (Doorway),Shoulders,Bodyweight
 Burpee (On Feet),Legs,Bodyweight
 "Deadlift, Single Leg",Legs,Bodyweight
 Iron Chair,Legs,Bodyweight
@@ -241,34 +241,34 @@ Rear Lunge,Legs,Dumbbell
 Side Lunge,Legs,Dumbbell
 Squat,Legs,Dumbbell
 Step-ups,Legs,Dumbbell
-Arm Circles,Shoulder,Dumbbell
-"Fly, Incline Bench, Prone",Shoulder,Dumbbell
-"Fly, Rear Delt",Shoulder,Dumbbell
-"Fly, Seated",Shoulder,Dumbbell
-Jerk,Shoulder,Dumbbell
-"Pullover, Incline Bench",Shoulder,Dumbbell
-Scarecrow,Shoulder,Dumbbell
-External Rotation - Lying,Shoulder,Dumbbell
-External Rotation - Seated,Shoulder,Dumbbell
-External Rotation - Upward,Shoulder,Dumbbell
-Front Lateral Raise,Shoulder,Dumbbell
-Front Raise,Shoulder,Dumbbell
-Front Raise - Alternating,Shoulder,Dumbbell
-Front Raise - Incline,Shoulder,Dumbbell
-Internal Rotation,Shoulder,Dumbbell
-Lateral Raise,Shoulder,Dumbbell
-Lying Lateral Raise,Shoulder,Dumbbell
-Lying Rear Delt Raise,Shoulder,Dumbbell
-Lying Rear Delt Row,Shoulder,Dumbbell
-Lying Rear Lateral Raise,Shoulder,Dumbbell
-Raise,Shoulder,Dumbbell
-Rear Delt Row,Shoulder,Dumbbell
-Rear Lateral Raise,Shoulder,Dumbbell
-Seated Rear Lateral Raise,Shoulder,Dumbbell
-Shoulder Press,Shoulder,Dumbbell
-Shoulder Press - Single,Shoulder,Dumbbell
-Single Lateral Raise,Shoulder,Dumbbell
-Upright Row,Shoulder,Dumbbell
+Arm Circles,Shoulders,Dumbbell
+"Fly, Incline Bench, Prone",Shoulders,Dumbbell
+"Fly, Rear Delt",Shoulders,Dumbbell
+"Fly, Seated",Shoulders,Dumbbell
+Jerk,Shoulders,Dumbbell
+"Pullover, Incline Bench",Shoulders,Dumbbell
+Scarecrow,Shoulders,Dumbbell
+External Rotation - Lying,Shoulders,Dumbbell
+External Rotation - Seated,Shoulders,Dumbbell
+External Rotation - Upward,Shoulders,Dumbbell
+Front Lateral Raise,Shoulders,Dumbbell
+Front Raise,Shoulders,Dumbbell
+Front Raise - Alternating,Shoulders,Dumbbell
+Front Raise - Incline,Shoulders,Dumbbell
+Internal Rotation,Shoulders,Dumbbell
+Lateral Raise,Shoulders,Dumbbell
+Lying Lateral Raise,Shoulders,Dumbbell
+Lying Rear Delt Raise,Shoulders,Dumbbell
+Lying Rear Delt Row,Shoulders,Dumbbell
+Lying Rear Lateral Raise,Shoulders,Dumbbell
+Raise,Shoulders,Dumbbell
+Rear Delt Row,Shoulders,Dumbbell
+Rear Lateral Raise,Shoulders,Dumbbell
+Seated Rear Lateral Raise,Shoulders,Dumbbell
+Shoulder Press,Shoulders,Dumbbell
+Shoulder Press - Single,Shoulders,Dumbbell
+Single Lateral Raise,Shoulders,Dumbbell
+Upright Row,Shoulders,Dumbbell
 Clean (Power),Legs,Dumbbell
 Clean And Jerk,Legs,Dumbbell
 "Clean And Jerk, Single Arm",Legs,Dumbbell
@@ -325,21 +325,21 @@ Turkish Get-Up (Lunge Style),Core,Kettlebell
 Turkish Get-Up (Squat Style),Core,Kettlebell
 Windmill,Core,Kettlebell
 Bottoms-Up Clean from the Hang Position,Arms,Kettlebell
-Alternating Press,Shoulder,Kettlebell
-Alternating Seated Press,Shoulder,Kettlebell
-Arnold Press,Shoulder,Kettlebell
-Double Jerk,Shoulder,Kettlebell
-Double Push Press,Shoulder,Kettlebell
-Long Cycle Press (Pro Series),Shoulder,Kettlebell
-One-Arm Jerk,Shoulder,Kettlebell
-One-Arm Military Press To the Side,Shoulder,Kettlebell
-One-Arm Para Press,Shoulder,Kettlebell
-One-Arm Push Press,Shoulder,Kettlebell
-One-Arm Seated Military Press,Shoulder,Kettlebell
-One-Arm Stomp Jerk,Shoulder,Kettlebell
-Seated Press,Shoulder,Kettlebell
-Seesaw Press,Shoulder,Kettlebell
-Two-Arm Military Press,Shoulder,Kettlebell
+Alternating Press,Shoulders,Kettlebell
+Alternating Seated Press,Shoulders,Kettlebell
+Arnold Press,Shoulders,Kettlebell
+Double Jerk,Shoulders,Kettlebell
+Double Push Press,Shoulders,Kettlebell
+Long Cycle Press (Pro Series),Shoulders,Kettlebell
+One-Arm Jerk,Shoulders,Kettlebell
+One-Arm Military Press To the Side,Shoulders,Kettlebell
+One-Arm Para Press,Shoulders,Kettlebell
+One-Arm Push Press,Shoulders,Kettlebell
+One-Arm Seated Military Press,Shoulders,Kettlebell
+One-Arm Stomp Jerk,Shoulders,Kettlebell
+Seated Press,Shoulders,Kettlebell
+Seesaw Press,Shoulders,Kettlebell
+Two-Arm Military Press,Shoulders,Kettlebell
 Front Squats with Two Kettlebells,Legs,Kettlebell
 Alternating Hang Clean,Legs,Kettlebell
 Dead Clean,Legs,Kettlebell
@@ -453,29 +453,29 @@ Hip Abduction - Standing,Legs,Machine
 Hip Stretch,Legs,Machine
 Leg Press,Legs,Machine
 Squat,Legs,Machine
-External Rotation,Shoulder,Machine
-External Rotation - Standing,Shoulder,Machine
-External Rotation - Upward,Shoulder,Machine
-Front Lateral Raise,Shoulder,Machine
-Front Raise,Shoulder,Machine
-Internal Rotation,Shoulder,Machine
-Lateral Raise,Shoulder,Machine
-Rear Delt Pull,Shoulder,Machine
-Rear Delt Row,Shoulder,Machine
-Rear Lateral Raise,Shoulder,Machine
-Seated Rear Lateral Raise,Shoulder,Machine
-Shoulder Press,Shoulder,Machine
-Single - Lateral Raise,Shoulder,Machine
-Standing Cross Row,Shoulder,Machine
-Twisting overhead Press,Shoulder,Machine
-Upright Row,Shoulder,Machine
-Internal Rotation,Shoulder,Machine
-Lateral Raise,Shoulder,Machine
-Lying Rear Lateral Raise,Shoulder,Machine
-Military Press,Shoulder,Machine
-Seated Rear Delt Row,Shoulder,Machine
-Seated Rear Lateral Raise,Shoulder,Machine
-Shoulder Press,Shoulder,Machine
+External Rotation,Shoulders,Machine
+External Rotation - Standing,Shoulders,Machine
+External Rotation - Upward,Shoulders,Machine
+Front Lateral Raise,Shoulders,Machine
+Front Raise,Shoulders,Machine
+Internal Rotation,Shoulders,Machine
+Lateral Raise,Shoulders,Machine
+Rear Delt Pull,Shoulders,Machine
+Rear Delt Row,Shoulders,Machine
+Rear Lateral Raise,Shoulders,Machine
+Seated Rear Lateral Raise,Shoulders,Machine
+Shoulder Press,Shoulders,Machine
+Single - Lateral Raise,Shoulders,Machine
+Standing Cross Row,Shoulders,Machine
+Twisting overhead Press,Shoulders,Machine
+Upright Row,Shoulders,Machine
+Internal Rotation,Shoulders,Machine
+Lateral Raise,Shoulders,Machine
+Lying Rear Lateral Raise,Shoulders,Machine
+Military Press,Shoulders,Machine
+Seated Rear Delt Row,Shoulders,Machine
+Seated Rear Lateral Raise,Shoulders,Machine
+Shoulder Press,Shoulders,Machine
 Bent-over Leg Curl,Legs,Machine
 Hip Adduction,Legs,Machine
 Leg Extension,Legs,Machine
@@ -548,7 +548,7 @@ Stability Ball Side Bend,Core,Stability Ball
 Twisting Crunch (Ball),Core,Stability Ball
 "Stability Ball Wrist Curl, Dumbbell",Arms,Stability Ball
 Stability Ball Bridge,Legs,Stability Ball
-Stability Ball Scarecrow,Shoulder,Stability Ball
+Stability Ball Scarecrow,Shoulders,Stability Ball
 Stability Ball Leg Curl,Legs,Stability Ball
 "Stability Ball Biceps Curl, Dumbbell, Neutral Grip",Arms,Stability Ball
 "Stability Ball Biceps Curl, Dumbbell, Overhand Grip",Arms,Stability Ball

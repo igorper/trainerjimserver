@@ -60,6 +60,7 @@ arms = ExerciseGroup.find_by_name('Arms')
 legs = ExerciseGroup.find_by_name('Legs')
 back = ExerciseGroup.find_by_name('Back')
 
+band = ExerciseGroup.create(name: 'Band', is_machine_group: true)
 free_weights = ExerciseGroup.find_by_name('Dumbbell')
 bench_group = ExerciseGroup.find_by_name('Barbell')
 body_weight = ExerciseGroup.find_by_name('Bodyweight')
