@@ -25,6 +25,8 @@
 
 ## Create an on-boarding trainer account
 
+SSH into the server. Log in as `trainerjim`. Navigate to `/home/trainerjim/trainerjimserver-cap/current`. Run `RAILS_ENV=staging rails c`.
+
 ```
 load(Rails.application.root.join('lib/account_creation.rb'))
 AccountCreation.create_trainer("trainer@example.com", "some password", "Full Name")

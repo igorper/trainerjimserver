@@ -56,10 +56,11 @@ group :test do
   gem 'capybara'
 end
 
-group :development, :test do
+group :development, :test, :staging do
   gem 'factory_girl_rails'
   gem 'factory_girl'
   gem 'faker'
+  gem 'nokogiri'
 end
 
 gem 'rb-readline'

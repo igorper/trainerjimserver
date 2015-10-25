@@ -257,6 +257,7 @@ DEPENDENCIES
   mail
   minitest
   multi_json
+  nokogiri
   paperclip
   pg
   rails (>= 4.0.0)
