@@ -18,8 +18,12 @@ exerciseTypeDetailsModule.directive('exerciseTypeDetails', function () {
       onPhotoAdded: '&',
       onPhotoRemoved: '&'
     },
-    controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'TakePhotoDialog', 'PhotoCarouselDialog', function ($scope, ExerciseType, UserExerciseTypePhotos, TakePhotoDialog, PhotoCarouselDialog) {
-      $scope.exerciseType = ExerciseType.get({id: $scope.exerciseTypeId});
+    controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'TakePhotoDialog', 'PhotoCarouselDialog', '$element', function ($scope, ExerciseType, UserExerciseTypePhotos, TakePhotoDialog, PhotoCarouselDialog, $element) {
+      $scope.exerciseType = ExerciseType.get({id: $scope.exerciseTypeId}, showDescription);
+
+      function showDescription(exerciseType) {
+        $element.find('.description').html(exerciseType.description);
+      }
 
       function refreshPhotos() {
         $scope.userPhotos = UserExerciseTypePhotos.query({
