@@ -1,13 +1,103 @@
+# Usage:
+# > load(Rails.application.root.join('lib/account_creation.rb'))
+# > AccountCreation.create_trainer("trainer@example.com", "some password", "Full Name")
+
 module AccountCreation
   extend FactoryGirl::Syntax::Methods
 
   def self.create_trainer(email, password, full_name)
     trainer = create(:user, :trainer, email: email, full_name: full_name, password: password)
-    training = create(:training, name: 'Maximum Power Training')
+    training = create(:training, name: 'Full Body Training')
 
-    add_exercise(training, 'Bench Press', (1..3).map { |_| {repeat_count: 10, weight: 25, rest_time: 60} })
-    add_exercise(training, 'Incline Bench Press', (1..2).map { |_| {repeat_count: 8, weight: 50, rest_time: 30} })
-    add_exercise(training, 'Row, Bent Over, Underhand Grip', (1..4).map { |_| {repeat_count: 12, weight: 5, rest_time: 30} }, guidance_type = 'duration')
+    add_exercise(
+        training,
+        'Bench Press Dumbbell',
+        [
+            {repeat_count: 8, weight: 8, rest_time: 30},
+            {repeat_count: 10, weight: 8, rest_time: 30},
+            {repeat_count: 12, weight: 8, rest_time: 30},
+        ]
+    )
+
+    add_exercise(
+        training,
+        'Wide Grip Lat Pull Down',
+        [
+            {repeat_count: 8, weight: 30, rest_time: 30},
+            {repeat_count: 10, weight: 30, rest_time: 30},
+            {repeat_count: 12, weight: 30, rest_time: 30},
+        ]
+    )
+
+    add_exercise(
+        training,
+        'Cuban Dumbbell Press',
+        [
+            {repeat_count: 8, weight: 8, rest_time: 30},
+            {repeat_count: 10, weight: 8, rest_time: 30},
+            {repeat_count: 12, weight: 8, rest_time: 30},
+        ]
+    )
+
+    add_exercise(
+        training,
+        'Leg Press',
+        [
+            {repeat_count: 8, weight: 65, rest_time: 30},
+            {repeat_count: 10, weight: 65, rest_time: 30},
+            {repeat_count: 12, weight: 65, rest_time: 30},
+        ]
+    )
+
+    add_exercise(
+        training,
+        'Lying Leg Curl Machine',
+        [
+            {repeat_count: 8, weight: 55, rest_time: 30},
+            {repeat_count: 10, weight: 55, rest_time: 30},
+            {repeat_count: 12, weight: 55, rest_time: 30},
+        ]
+    )
+
+    add_exercise(
+        training,
+        'Triceps Pushdown with Rope and Cable',
+        [
+            {repeat_count: 8, weight: 20, rest_time: 30},
+            {repeat_count: 10, weight: 20, rest_time: 30},
+            {repeat_count: 12, weight: 20, rest_time: 30},
+        ]
+    )
+
+    add_exercise(
+        training,
+        'Biceps Curl with Dumbbell',
+        [
+            {repeat_count: 8, weight: 6, rest_time: 30},
+            {repeat_count: 10, weight: 6, rest_time: 30},
+            {repeat_count: 12, weight: 6, rest_time: 30},
+        ]
+    )
+
+    add_exercise(
+        training,
+        'Standing Calf Raises using Machine',
+        [
+            {repeat_count: 8, weight: 15, rest_time: 30},
+            {repeat_count: 10, weight: 15, rest_time: 30},
+            {repeat_count: 12, weight: 15, rest_time: 30},
+        ]
+    )
+
+    add_exercise(
+        training,
+        'Crunches',
+        [
+            {repeat_count: 8, weight: 10, rest_time: 30},
+            {repeat_count: 10, weight: 10, rest_time: 30},
+            {repeat_count: 12, weight: 10, rest_time: 30},
+        ]
+    )
 
     trainer.trainings = [training]
     trainer.save
