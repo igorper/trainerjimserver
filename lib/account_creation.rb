@@ -1,6 +1,7 @@
 # Usage:
-# > load(Rails.application.root.join('lib/account_creation.rb'))
-# > AccountCreation.create_trainer("trainer@example.com", "some password", "Full Name")
+# bash> RAILS_ENV=staging rails c
+# rails> load(Rails.application.root.join('lib/account_creation.rb'))
+# rails> AccountCreation.create_trainer("trainer@example.com", "some password", "Full Name")
 
 module AccountCreation
   extend FactoryGirl::Syntax::Methods
