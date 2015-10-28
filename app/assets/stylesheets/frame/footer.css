@@ -31,16 +31,12 @@
   margin: 0 5px;
 }
 
-.footer .container .content .left .links a.first {
-  margin-left: 0;
-}
-
-.footer .container .content .left .links a.mobile-app {
+.footer .container .content .left .links a {
   font-weight: bold;
   text-decoration: underline;
 }
 
-.footer .container .content .left .links a.mobile-app:hover {
+.footer .container .content .left .links a:hover {
   text-decoration: none;
 }
 
@@ -48,10 +44,7 @@
   padding-top: 8px;
   font-size: 0.8em;
   color: black;
-}
-
-.footer .container .content .right {
-  float: right;
+  margin-left: 35px;
 }
 
 .footer .container .content .right .social {
