@@ -102,6 +102,7 @@ module AccountCreation
     )
 
     trainer.trainings = [training]
+    trainer.trainer = trainer
     trainer.save
   end
 
