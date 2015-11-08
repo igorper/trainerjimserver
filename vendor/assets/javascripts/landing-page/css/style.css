@@ -206,6 +206,14 @@ img {
   margin-top: 30px;
 }
 
+#home .jim-logo {
+  height: 110px;
+  background-image: url(../images/jim-logo.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  margin-bottom: 15px;
+}
+
 /* end home */
 
 /* start divider */
