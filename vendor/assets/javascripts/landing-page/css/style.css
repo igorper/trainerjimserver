@@ -244,8 +244,8 @@ img {
 /* start sign-in */
 #sign-in {
   background: #f8f8f8;
-  padding-top: 80px;
-  padding-bottom: 80px;
+  padding-top: 40px;
+  padding-bottom: 40px;
 }
 
 #sign-in .top-icon {
@@ -253,15 +253,10 @@ img {
   margin-bottom: 15px;
 }
 
-#sign-in .fa {
-  color: #28a7e9;
-  font-size: 60px;
+#sign-in .title {
+  text-align: center;
+  padding-bottom: 20px;
 }
-
-#sign-in h3 {
-  font-size: 20px;
-}
-
 /* end sign-in */
 
 /* start feature */
