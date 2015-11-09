@@ -17,7 +17,7 @@
    inkscape:export-filename="C:\Users\matej\Programming\trainerjimserver\vendor\assets\javascripts\landing-page\images\jim-logo.png"
    inkscape:export-xdpi="90"
    inkscape:export-ydpi="90"
-   sodipodi:docname="New document 2">
+   sodipodi:docname="jim-logo.svg">
   <defs
      id="defs3050" />
   <sodipodi:namedview
@@ -27,11 +27,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0"
      inkscape:pageshadow="2"
-     inkscape:zoom="0.35"
-     inkscape:cx="113.57166"
-     inkscape:cy="-261.3802"
+     inkscape:zoom="2"
+     inkscape:cx="35.57166"
+     inkscape:cy="-42.946168"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="g3069"
      showgrid="false"
      fit-margin-top="0"
      fit-margin-left="0"
@@ -50,7 +50,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
@@ -79,7 +79,7 @@
          inkscape:connector-curvature="0" />
       <path
          id="path15"
-         style="fill:#e1ac25;fill-rule:nonzero;stroke-linejoin:round;stroke-miterlimit:1.41420996"
+         style="fill:#838383;fill-rule:nonzero;stroke-linejoin:round;stroke-miterlimit:1.41420996000000000;fill-opacity:1"
          d="m 357.10265,161.40042 -1.04167,0.94583 c 0,0 -23.70419,9.90835 -41.8417,36.5792 0,0 -27.35836,41.13337 -2.4375,87.67508 0,0 8.99584,16.90834 33.95836,29.80835 0,0 12.05834,-13.42084 21.12085,-16.38334 l 1.39166,1.74166 c 0,0 -21.87918,13.35001 -31.50002,55.07088 0,0 -12.35834,38.03753 6.05417,77.57923 0,0 13.77501,32.75419 19.17918,37.6417 l -0.80416,1.30416 c 0,0 -52.07088,-45.57503 -35.00837,-115.10842 0,0 5.77084,-25.11252 15.49168,-34.43336 0,0 -47.13337,-5.63334 -48.93337,-78.17507 0,0 4.2,-73.73339 64.37089,-84.2459"
          inkscape:connector-curvature="0" />
     </g>

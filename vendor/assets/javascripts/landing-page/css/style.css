@@ -168,6 +168,13 @@ img {
   color: #adddff;
 }
 
+.navbar-default .nav li .btn {
+  color: #fff;
+  font-weight: bold;
+  margin-top: 4px;
+  margin-left: 15px;
+}
+
 .navbar-default .navbar-toggle {
   border: none;
   padding-top: 20px;
@@ -234,9 +241,31 @@ img {
 
 /* end divider */
 
+/* start sign-in */
+#sign-in {
+  background: #f8f8f8;
+  padding-top: 80px;
+  padding-bottom: 80px;
+}
+
+#sign-in .top-icon {
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+#sign-in .fa {
+  color: #28a7e9;
+  font-size: 60px;
+}
+
+#sign-in h3 {
+  font-size: 20px;
+}
+
+/* end sign-in */
+
 /* start feature */
 #feature {
-  background: #f8f8f8;
   padding-top: 80px;
   padding-bottom: 80px;
 }
@@ -265,6 +294,7 @@ img {
 
 /* start feature1 */
 #feature1 {
+  background: #f8f8f8;
   padding-top: 60px;
   padding-bottom: 60px;
 }
@@ -293,7 +323,6 @@ img {
 
 /* start pricing */
 #pricing {
-  background: #f8f8f8;
   text-align: center;
   padding-top: 80px;
   padding-bottom: 80px;
