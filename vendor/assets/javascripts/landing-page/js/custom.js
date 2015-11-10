@@ -69,10 +69,22 @@ $(function () {
   });
 
   function disableForm(form) {
-    form.find('input, button').attr('disabled', '');
+    form.find('input,button,textarea').attr('disabled', '');
   }
 
   function enableForm(form) {
-    form.find('input, button').removeAttr('disabled');
+    form.find('input,button,textarea').removeAttr('disabled');
   }
+
+  var contactForm = $('.contact-form form');
+  var contactEmail = contactForm.find('input.email');
+  var contactMessage = contactForm.find('textarea.message');
+  contactForm.find('input.send').click(function (event) {
+    disableForm(contactForm);
+    $.post('api/v1/queries/general_query.json', {email: contactEmail.val(), message: contactMessage.val()})
+      .always(function () {
+        enableForm(contactForm);
+      });
+    event.preventDefault();
+  });
 });

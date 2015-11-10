@@ -56,6 +56,11 @@ Trainerjim::Application.routes.draw do
         post 'photo', on: :member
         resources :trainings, controller: 'trainees/trainee_trainings'
       end
+
+      namespace :queries do
+        post :general_query
+      end
+
     end
   end
 
