@@ -33,7 +33,6 @@
       <ul class="nav navbar-nav navbar-right text-uppercase">
         <li><a href="#home">Home</a></li>
         <li><a href="#feature">Features</a></li>
-        <li><a href="#pricing">Pricing</a></li>
         <li><a href="#download">Download</a></li>
         <li><a href="#contact">Contact</a></li>
         <li><a href="#sign-in">
@@ -56,7 +55,12 @@
             TrainerJim empowers personal trainers and strengthens their link with trainees.
           </p>
 
-          <%= image_tag "landing-page/images/software-img.png", class: "img-responsive", alt: "home img" %>
+          <p>
+            <a href="https://play.google.com/store/apps/details?id=TrainerJim">
+              <img alt="Android app on Google Play"
+                   src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png"/>
+            </a>
+          </p>
         </div>
         <div class="col-md-1"></div>
       </div>
@@ -186,19 +190,26 @@
   </div>
 </section>
 
-<section id="feature">
+<section id="feature" class="feature">
   <div class="container">
     <div class="row">
       <div class="col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
-        <h2 class="text-uppercase">Our Software Features</h2>
+        <h2 class="text-uppercase">TrainerJim for personal trainers</h2>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-          dolore magna aliqua.</p>
+        <p>
+          TrainerJim empowers personal trainers with the ability to cater for a great number of
+          trainees seamlessly.
+        </p>
 
-        <p><span><i class="fa fa-mobile"></i></span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>
+          <i class="fa fa-laptop"></i> Trainers can set up training programmes online and
+          assign them to their trainees.
+        </p>
 
-        <p><i class="fa fa-code"></i>Quis autem velis reprehenderit et quis voluptate velit esse quam.</p>
+        <p>
+          <i class="fa fa-mobile"></i> Trainees will execute the training with the help of
+          our mobile application.
+        </p>
       </div>
       <div class="col-md-6 wow fadeInRight" data-wow-delay="0.6s">
         <%= image_tag "landing-page/images/software-img.png", class: "img-responsive", alt: "feature img" %>
@@ -207,83 +218,27 @@
   </div>
 </section>
 
-<section id="feature1">
+<section id="feature1" class="feature">
   <div class="container">
     <div class="row">
       <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
         <%= image_tag "landing-page/images/software-img.png", class: "img-responsive", alt: "feature img" %>
       </div>
       <div class="col-md-6 wow fadeInUp" data-wow-delay="0.6s">
-        <h2 class="text-uppercase">More of Your Software</h2>
+        <h2 class="text-uppercase">TrainerJim for trainees</h2>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-          dolore magna aliqua.</p>
+        <p>
+          Your personal trainer will set up a training that
+          fits your individual goals, requirements, and levels.
+        </p>
 
-        <p><span><i class="fa fa-mobile"></i></span>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do
-          eiusmod tempor incididunt ut labore et dolore magna aliqua.</p>
+        <p>
+          <i class="fa fa-mobile"></i> Download the app.
+        </p>
 
-        <p><i class="fa fa-code"></i>Quis autem velis reprehenderit et quis voluptate velit esse quam.</p>
-      </div>
-    </div>
-  </div>
-</section>
-
-<section id="pricing">
-  <div class="container">
-    <div class="row">
-      <div class="col-md-12 wow bounceIn">
-        <h2 class="text-uppercase">Our Pricing</h2>
-      </div>
-      <div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
-        <div class="pricing text-uppercase">
-          <div class="pricing-title">
-            <h4>Basic Plan</h4>
-
-            <p>$11</p>
-            <small class="text-lowercase">monthly</small>
-          </div>
-          <ul>
-            <li>6 GB Space</li>
-            <li>600 GB Bandwidth</li>
-            <li>60 More Themes</li>
-            <li>Lifetime Support</li>
-          </ul>
-          <button class="btn btn-primary text-uppercase">Sign up</button>
-        </div>
-      </div>
-      <div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
-        <div class="pricing active text-uppercase">
-          <div class="pricing-title">
-            <h4>Business Plan</h4>
-
-            <p>$22</p>
-            <small class="text-lowercase">monthly</small>
-          </div>
-          <ul>
-            <li>15 GB space</li>
-            <li>1,500 GB Bandwidth</li>
-            <li>150 More Themes</li>
-            <li>Lifetime Support</li>
-          </ul>
-          <button class="btn btn-primary text-uppercase">Sign up</button>
-        </div>
-      </div>
-      <div class="col-md-4 wow fadeIn" data-wow-delay="0.6s">
-        <div class="pricing text-uppercase">
-          <div class="pricing-title">
-            <h4>Pro Plan</h4>
-
-            <p>$33</p>
-            <small class="text-lowercase">monthly</small>
-          </div>
-          <ul>
-            <li>35 GB space</li>
-            <li>3,500 GB bandwidth</li>
-            <li>350 more themes</li>
-            <li>Lifetime Support</li>
-          </ul>
-          <button class="btn btn-primary text-uppercase">Sign Up</button>
-        </div>
+        <p>
+          <i class="fa fa-cogs"></i> Go to the gym and start pumping.
+        </p>
       </div>
     </div>
   </div>
@@ -293,11 +248,21 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6 wow fadeInLeft" data-wow-delay="0.6s">
-        <h2 class="text-uppercase">Download Our Software</h2>
+        <h2 class="text-uppercase">Download the TrainerJim App</h2>
 
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et
-          dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation. </p>
-        <button class="btn btn-primary text-uppercase"><i class="fa fa-download"></i> Download</button>
+        <p>
+          The TrainerJim App will guide you through the training prepared by your personal trainer.
+        </p>
+
+        <p>
+          The app requires minimal attention and keeps you focused on the training.
+          Use the app to provide your personal trainer with feedback.
+        </p>
+
+        <a href="https://play.google.com/store/apps/details?id=TrainerJim">
+          <img alt="Android app on Google Play"
+               src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png"/>
+        </a>
       </div>
       <div class="col-md-6 wow fadeInRight" data-wow-delay="0.6s">
         <%= image_tag "landing-page/images/software-img.png", class: "img-responsive", alt: "feature img" %>
