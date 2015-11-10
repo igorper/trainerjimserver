@@ -70,7 +70,7 @@ shared.controller('HeaderCtrl', ['$scope', '$state', 'Auth', 'User', 'isLinkActi
 
   $scope.logout = function () {
     Auth.logout(function () {
-      $state.go('welcome');
+      window.location.href = '/';
     });
   };
 }]);

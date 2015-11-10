@@ -9,6 +9,14 @@ $(function () {
     offset: 70
   });
 
+  $.get('api/v1/auth/is_logged_in.json', {})
+    .done(function (response) {
+      if (response.is_logged_in) {
+        goToApp();
+      }
+    });
+
+
   /* Hide mobile menu after clicking on a link
    -----------------------------------------------*/
   $('.navbar-collapse a').click(function () {
@@ -52,13 +60,12 @@ $(function () {
   var logInPassword = logInForm.find('#password');
   var logInAlert = logInForm.find('.alert');
   logInAlert.hide();
+
   logInForm.find('.btn.submit').click(function (event) {
     disableForm(logInForm);
     logInAlert.hide();
     $.post('api/v1/auth/login.json', {email: logInEmail.val(), password: logInPassword.val()})
-      .done(function (data) {
-        window.location.href = '/';
-      })
+      .done(goToApp)
       .fail(function (data) {
         logInAlert.show();
       })
@@ -74,6 +81,10 @@ $(function () {
 
   function enableForm(form) {
     form.find('input,button,textarea').removeAttr('disabled');
+  }
+
+  function goToApp() {
+    window.location.href = '/app';
   }
 
   var contactForm = $('.contact-form form');
