@@ -364,6 +364,7 @@ img {
 
 #contact input {
   height: 50px;
+  width: 75%;
 }
 
 #contact input[type="submit"] {
