@@ -27,7 +27,6 @@
 //= require_tree .
 
 var trainerjimApp = angular.module('app', [
-  'welcome',
   'workouts',
   'trainees',
   'results',
@@ -36,7 +35,6 @@ var trainerjimApp = angular.module('app', [
   'auth.loginDialog',
   'userProfile',
   'accounts',
-  'start',
   'dashboard'
 ]);
 
@@ -70,5 +68,5 @@ trainerjimApp.config(['$stateProvider', function ($stateProvider) {
 }]);
 
 trainerjimApp.config(['$urlRouterProvider', function ($urlRouterProvider) {
-  $urlRouterProvider.otherwise("/start");
+  $urlRouterProvider.otherwise("/workouts/");
 }]);
