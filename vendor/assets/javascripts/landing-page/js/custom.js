@@ -75,6 +75,14 @@ $(function () {
     event.preventDefault();
   });
 
+  var signInSection = $('#sign-in');
+  signInSection.hide();
+
+  $('.navbar-collapse a.sign-in').click(function () {
+    signInSection.toggle(1000);
+    logInEmail.focus();
+  });
+
   function disableForm(form) {
     form.find('input,button,textarea').attr('disabled', '');
   }
