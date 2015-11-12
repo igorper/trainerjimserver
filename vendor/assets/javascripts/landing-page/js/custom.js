@@ -1,3 +1,12 @@
+(function () {
+  $.get('api/v1/auth/is_logged_in.json', {})
+    .done(function (response) {
+      if (response.is_logged_in) {
+        goToApp();
+      }
+    });
+})();
+
 // preloader
 $(window).load(function () {
   $('.preloader').fadeOut(500); // set duration in brackets
@@ -8,13 +17,6 @@ $(function () {
   $('.templatemo-nav').singlePageNav({
     offset: 70
   });
-
-  $.get('api/v1/auth/is_logged_in.json', {})
-    .done(function (response) {
-      if (response.is_logged_in) {
-        goToApp();
-      }
-    });
 
 
   /* Hide mobile menu after clicking on a link
@@ -94,10 +96,6 @@ $(function () {
     form.find('input,button,textarea').removeAttr('disabled');
   }
 
-  function goToApp() {
-    window.location.href = '/app';
-  }
-
   var contactForm = $('.contact-form form');
   var contactEmail = contactForm.find('input.email');
   var contactMessage = contactForm.find('textarea.message');
@@ -125,3 +123,7 @@ $(function () {
     successAlert.hide();
   }
 });
+
+function goToApp() {
+  window.location.href = '/app';
+}
