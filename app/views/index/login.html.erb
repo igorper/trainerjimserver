@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>TrainerJim</title>
+  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="keywords" content="">
+  <meta name="description" content="">
+  <%= stylesheet_link_tag "landing-page/css/animate.min.css", :media => "all" %>
+  <%= stylesheet_link_tag "landing-page/css/bootstrap.min.css", :media => "all" %>
+  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700,800' rel='stylesheet' type='text/css'>
+  <%= stylesheet_link_tag "landing-page/css/style.css", :media => "all" %>
+  <%= javascript_include_tag "landing-page/js/jquery.js" %>
+  <%= javascript_include_tag "landing-page/js/bootstrap.min.js" %>
+  <%= javascript_include_tag "landing-page/js/landing-common.js" %>
+  <%= javascript_include_tag "landing-page/js/login.js" %>
+</head>
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <span class="icon icon-bar"></span>
+        <span class="icon icon-bar"></span>
+        <span class="icon icon-bar"></span>
+      </button>
+      <a href="/" class="navbar-brand"></a>
+    </div>
+    <div class="collapse navbar-collapse">
+      <ul class="nav navbar-nav navbar-right text-uppercase">
+        <li><a href="/#home">Home</a></li>
+        <li><a href="/#feature">Features</a></li>
+        <li><a href="/#download">Download</a></li>
+        <li><a href="/#contact">Contact</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<section id="sign-in">
+  <div class="container">
+    <div class="row">
+      <div class="col-xs-12 title">
+        <h2>JOIN US AND START PUMPING!</h2>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Log in</h3>
+          </div>
+
+          <div class="panel-body">
+            <form class="log-in-form">
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input class="form-control" type="email" name="username" id="email"/>
+              </div>
+
+              <div class="form-group">
+                <label for="password">Password:</label>
+                <input class="form-control" type="password" name="password" id="password" placeholder="password"/>
+              </div>
+
+              <div class="alert alert-danger" role="alert">
+                Could not log in. Please verify your email and password.
+              </div>
+
+              <div class="form-group">
+                <button class="btn btn-primary pull-right submit">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Sign up</h3>
+          </div>
+
+          <div class="panel-body">
+            <form class="sign-up-form">
+              <div class="form-group">
+                <label for="email">Email:</label>
+                <input class="form-control" type="email" name="username" id="email"/>
+              </div>
+
+              <div class="form-group">
+                <label for="password">Password:</label>
+                <input class="form-control" type="password" name="password" id="password" placeholder="password"/>
+              </div>
+
+              <div class="form-group">
+                <label for="full_name">Name:</label>
+                <input class="form-control" type="text" name="full_name" id="full_name"/>
+              </div>
+
+              <div class="form-group">
+                <label for="registration_token">Registration token:</label>
+                <input class="form-control" type="text" name="registration_token" id="registration_token"/>
+              </div>
+
+              <div class="alert alert-success" role="alert">
+                Sign up requested. We will send you a verification email.
+                Please check your email for further instructions.
+              </div>
+
+              <div class="alert alert-danger" role="alert">
+                Could not sign up. Please check your sign-up details.
+              </div>
+
+              <div class="form-group">
+                <button class="btn btn-primary pull-right submit">Submit</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<footer>
+  <div class="container">
+    <div class="row">
+      <p>Copyright © 2015 TrainerJim</p>
+    </div>
+  </div>
+</footer>
+</body>
+</html>

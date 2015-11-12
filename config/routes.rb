@@ -2,6 +2,7 @@ Trainerjim::Application.routes.draw do
 
   root :to => 'index#landing_page', :as => :welcome
   get :app, :to => 'index#index'
+  get :login, :to => 'index#login'
 
   namespace :api do
     namespace :v1 do

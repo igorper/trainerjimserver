@@ -8,4 +8,8 @@ class IndexController < ActionController::Base
     render layout: false
   end
 
+  def login
+    render layout: false
+  end
+
 end
