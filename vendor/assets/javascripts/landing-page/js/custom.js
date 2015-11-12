@@ -1,6 +1,6 @@
 // preloader
 $(window).load(function () {
-  $('.preloader').fadeOut(1000); // set duration in brackets
+  $('.preloader').fadeOut(500); // set duration in brackets
 });
 
 $(function () {
@@ -79,7 +79,7 @@ $(function () {
   signInSection.hide();
 
   $('.navbar-collapse a.sign-in').click(function () {
-    signInSection.toggle(1000);
+    signInSection.toggle(300);
     logInEmail.focus();
   });
 
