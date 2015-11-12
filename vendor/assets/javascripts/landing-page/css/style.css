@@ -26,6 +26,7 @@ h1, h2, h3, h4 {
 
 p {
   line-height: 1.6em;
+  font-size: 1.2em;
 }
 
 /* img */
@@ -209,8 +210,7 @@ img {
 #home p {
   font-weight: 400;
   font-style: italic;
-  line-height: 2em;
-  font-size: 1.35em;
+  font-size: 2em;
 }
 
 #home img {
@@ -449,3 +449,5 @@ footer {
 }
 
 /* end media 360 */
+
+
