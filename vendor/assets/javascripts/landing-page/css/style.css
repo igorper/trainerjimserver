@@ -165,7 +165,7 @@ img {
 .navbar-default .nav li a:hover,
 .navbar-default .nav li a:focus,
 .navbar-default .nav li a.current {
-  color: #adddff;
+  color: #28a7e9;
 }
 
 .navbar-default .nav li .btn {
@@ -196,6 +196,7 @@ img {
 #home {
   background: url('../images/home-bg.jpg') no-repeat;
   background-size: cover;
+  background-position: center bottom;
   color: #fff;
   text-align: center;
   width: 100%;
@@ -209,7 +210,7 @@ img {
   font-weight: 400;
   font-style: italic;
   line-height: 2em;
-  font-size: 1.2em;
+  font-size: 1.35em;
 }
 
 #home img {
@@ -270,15 +271,29 @@ img {
   padding-bottom: 80px;
 }
 
-#feature p {
+#feature .you-will-love {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+#feature .you-will-love .fa-heart {
+  color:red;
+}
+
+.feature {
+  padding-top: 60px;
+  padding-bottom: 60px;
+}
+
+.feature p {
   padding-top: 10px;
 }
 
-#feature span {
+.feature span {
   float: left;
 }
 
-.feature .fa {
+.feature .bullets .fa {
   background: #28a7e9;
   border-radius: 50%;
   color: #fff;
@@ -293,25 +308,15 @@ img {
 
 /* end feature */
 
-/* start feature1 */
-#feature1 {
-  padding-top: 60px;
-  padding-bottom: 60px;
+/* start feature2 */
+#feature2 {
+  background: #f8f8f8;
 }
 
-#feature1 p {
-  padding-top: 10px;
-}
-
-#feature1 span {
-  float: left;
-}
-
-/* end feature1 */
+/* end feature2 */
 
 /* start download */
 #download {
-  background: #f8f8f8;
   padding-top: 80px;
   padding-bottom: 80px;
 }
