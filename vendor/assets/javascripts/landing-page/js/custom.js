@@ -79,8 +79,11 @@ $(function () {
   signInSection.hide();
 
   $('.navbar-collapse a.sign-in').click(function () {
-    signInSection.toggle(300);
-    logInEmail.focus();
+    signInSection.slideToggle(300, function () {
+      logInEmail.focus();
+    });
+    $('#divider,#feature,#feature1,#feature2,#download,#contact').toggle(0);
+    $('#home').slideToggle(300);
   });
 
   function disableForm(form) {
