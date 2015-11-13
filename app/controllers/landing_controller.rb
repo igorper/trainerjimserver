@@ -1,6 +1,6 @@
 class LandingController < ActionController::Base
 
-  def landing_page
+  def landing
     render layout: 'landing_layout'
   end
 

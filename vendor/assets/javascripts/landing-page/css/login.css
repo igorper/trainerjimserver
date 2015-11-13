@@ -1,0 +1,10 @@
+#sign-in .login-panel {
+  width: 500px;
+  max-width: 500px;
+}
+
+#sign-in .login-col {
+  display: flex;
+  justify-content: center;
+}
+
