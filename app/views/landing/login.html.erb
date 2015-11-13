@@ -1,22 +1,6 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="utf-8">
-  <title>TrainerJim</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=Edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="keywords" content="">
-  <meta name="description" content="">
-  <%= stylesheet_link_tag "landing-page/css/animate.min.css", :media => "all" %>
-  <%= stylesheet_link_tag "landing-page/css/bootstrap.min.css", :media => "all" %>
-  <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,400italic,700,800' rel='stylesheet' type='text/css'>
-  <%= stylesheet_link_tag "landing-page/css/style.css", :media => "all" %>
-  <%= javascript_include_tag "landing-page/js/jquery.js" %>
-  <%= javascript_include_tag "landing-page/js/bootstrap.min.js" %>
-  <%= javascript_include_tag "landing-page/js/landing-common.js" %>
+<% content_for :head do %>
   <%= javascript_include_tag "landing-page/js/login.js" %>
-</head>
-<body>
+<% end %>
 
 <nav class="navbar navbar-default navbar-fixed-top templatemo-nav" role="navigation">
   <div class="container">
@@ -131,5 +115,3 @@
     </div>
   </div>
 </footer>
-</body>
-</html>
