@@ -12,6 +12,11 @@ body {
   color: #fff;
 }
 
+.center-horizontal {
+  display: flex;
+  justify-content: center;
+}
+
 /* start h1 group */
 h1 {
   margin-top: 0;
@@ -309,6 +314,13 @@ img {
 /* end feature */
 
 /* start feature2 */
+#feature1 img {
+  max-height: 315px;
+}
+
+/* end feature2 */
+
+/* start feature2 */
 #feature2 {
   background: #f8f8f8;
 }
@@ -330,6 +342,10 @@ img {
   font-weight: bold;
   margin-top: 20px;
   padding: 10px 40px 10px 40px;
+}
+
+#download .mobile-demo {
+  margin-bottom: 25px;
 }
 
 /* end download */
