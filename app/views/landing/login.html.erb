@@ -13,13 +13,13 @@
 
     <div class="row">
       <div class="login-col col-md-12">
-        <div class="login-panel panel panel-default">
-          <div class="panel-heading">
-            <h3 class="panel-title">Log in</h3>
-          </div>
+        <form class="log-in-form">
+          <div class="login-panel panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Log in</h3>
+            </div>
 
-          <div class="panel-body">
-            <form class="log-in-form">
+            <div class="panel-body">
               <div class="form-group">
                 <label for="email">Email:</label>
                 <input class="form-control" type="email" name="username" id="email"/>
@@ -34,13 +34,58 @@
                 Could not log in. Please verify your email and password.
               </div>
 
-              <div class="form-group">
-                <button class="btn btn-primary pull-right submit">Submit</button>
-              </div>
-            </form>
+            </div>
+
+            <div class="panel-footer">
+              <a href="#">Not registered yet? Click here!</a>
+              <button class="btn btn-primary submit">Submit</button>
+            </div>
+        </form>
+      </div>
+
+      <form class="sign-up-form">
+        <div class="sign-up-panel panel panel-default">
+          <div class="panel-heading">
+            <h3 class="panel-title">Sign up</h3>
+          </div>
+
+          <div class="panel-body">
+            <div class="form-group">
+              <label for="email">Email:</label>
+              <input class="form-control" type="email" name="username" id="email"/>
+            </div>
+
+            <div class="form-group">
+              <label for="password">Password:</label>
+              <input class="form-control" type="password" name="password" id="password" placeholder="password"/>
+            </div>
+
+            <div class="form-group">
+              <label for="full_name">Name:</label>
+              <input class="form-control" type="text" name="full_name" id="full_name"/>
+            </div>
+
+            <div class="form-group">
+              <label for="registration_token">Registration token:</label>
+              <input class="form-control" type="text" name="registration_token" id="registration_token"/>
+            </div>
+
+            <div class="alert alert-success" role="alert">
+              Sign up requested. We will send you a verification email.
+              Please check your email for further instructions.
+            </div>
+
+            <div class="alert alert-danger" role="alert">
+              Could not sign up. Please check your sign-up details.
+            </div>
+          </div>
+
+          <div class="panel-footer">
+            <a href="#">Already registered? Click here to log in.</a>
+            <button class="btn btn-primary submit">Submit</button>
           </div>
         </div>
-      </div>
+      </form>
     </div>
   </div>
 </section>

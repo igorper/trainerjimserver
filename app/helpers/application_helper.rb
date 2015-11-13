@@ -8,15 +8,15 @@ module ApplicationHelper
   end
   
   def login_panel_url
-    welcome_url
+    login_url
   end
   
   def signup_url
-    welcome_url
+    login_url
   end
   
   def login_url
-    welcome_url
+    login_url
   end
 
   def resource
