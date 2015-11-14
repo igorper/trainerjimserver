@@ -200,7 +200,7 @@ img {
 
 /* start home */
 #home {
-  background: url('../images/home-bg.jpg') no-repeat;
+  background: url('./images/home-bg.jpg') no-repeat;
   background-size: cover;
   background-position: center bottom;
   color: #fff;
@@ -225,7 +225,7 @@ img {
 
 #home .jim-logo {
   height: 110px;
-  background-image: url(../images/jim-logo.png);
+  background-image: url(./images/jim-logo.png);
   background-repeat: no-repeat;
   background-position: center;
   margin-bottom: 15px;
@@ -352,7 +352,7 @@ img {
 
 /* start contact */
 #contact {
-  background: url('../images/home-bg.jpg') no-repeat;
+  background: url('./images/home-bg.jpg') no-repeat;
   background-size: cover;
   color: #fff;
 }
