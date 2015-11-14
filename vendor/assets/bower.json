@@ -24,6 +24,8 @@
     "nvd3": "latest",
     "angular-nvd3": "latest",
     "ngstorage": "latest",
-    "angular-mocks": "latest"
+    "angular-mocks": "latest",
+    "fontawesome": "latest",
+    "animate.css": "latest"
   }
 }
