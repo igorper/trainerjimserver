@@ -45,6 +45,6 @@ module Trainerjim
 
     # Precompile additional assets
     config.assets.precompile += %w(*.svg *.eot *.woff *.ttf *.png *.jpg *.jpeg *.gif)
-    config.assets.precompile += ['app.js', 'app.css', 'landing-page/landing.js', 'landing-page/landing.css']
+    config.assets.precompile += ['app.js', 'app.css', 'landing.js', 'landing.css']
   end
 end
