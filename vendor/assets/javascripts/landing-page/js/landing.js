@@ -18,29 +18,39 @@ $(function () {
   });
 
   var contactForm = $('.contact-form form');
+  var contactEmailFormGroup = contactForm.find('.form-group.email');
   var contactEmail = contactForm.find('input.email');
+  var emailInvalidAlert = contactForm.find('div.email-invalid');
   var contactMessage = contactForm.find('textarea.message');
-  var failureAlert = contactForm.find('div.alert-danger');
-  var successAlert = contactForm.find('div.alert-success');
-  hideContactUsAlerts();
+  var failureAlert = contactForm.find('div.post-failure');
+  var successAlert = contactForm.find('div.post-success');
+
   contactForm.find('input.send').click(function (event) {
-    disableForm(contactForm);
     hideContactUsAlerts();
-    $.post('api/v1/queries/general_query.json', {email: contactEmail.val(), message: contactMessage.val()})
-      .done(function () {
-        successAlert.show();
-      })
-      .fail(function () {
-        failureAlert.show();
-      })
-      .always(function () {
-        enableForm(contactForm);
-      });
+    if (isValidEmail(contactEmail.val())) {
+      disableForm(contactForm);
+      $.post('api/v1/queries/general_query.json', {email: contactEmail.val(), message: contactMessage.val()})
+        .done(function () {
+          successAlert.show();
+        })
+        .fail(function () {
+          failureAlert.show();
+        })
+        .always(function () {
+          enableForm(contactForm);
+        });
+    } else {
+      console.log("NOT A VALID EMAIL!");
+      contactEmailFormGroup.addClass('has-error');
+      emailInvalidAlert.show();
+    }
     event.preventDefault();
   });
 
   function hideContactUsAlerts() {
     failureAlert.hide();
     successAlert.hide();
+    emailInvalidAlert.hide();
+    contactEmailFormGroup.removeClass('has-error');
   }
 });

@@ -392,6 +392,10 @@ img {
   width: 75%;
 }
 
+#contact .has-error .form-control {
+  background-color: #f2dede;
+}
+
 #contact input[type="submit"] {
   background: #28a7e9;
   color: #fff;

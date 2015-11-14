@@ -33,7 +33,7 @@
           </p>
 
           <p>
-            <a href="https://play.google.com/store/apps/details?id=TrainerJim">
+            <a href="https://play.google.com/store/apps/details?id=com.trainerjim.mobile.android">
               <img alt="Android app on Google Play"
                    src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png"/>
             </a>
@@ -178,7 +178,7 @@
         </p>
 
         <div class="mobile-demo center-horizontal">
-          <a href="https://play.google.com/store/apps/details?id=TrainerJim">
+          <a href="https://play.google.com/store/apps/details?id=com.trainerjim.mobile.android">
             <img alt="Android app on Google Play"
                  src="https://developer.android.com/images/brand/en_app_rgb_wo_60.png"/>
           </a>
@@ -219,22 +219,30 @@
           <div class="contact-form">
             <form>
 
-              <div class="form-group">
+              <div class="form-group email">
                 <input type="email" class="form-control email" placeholder="Email">
+                <div class="email-invalid alert alert-danger" style="display: none;" role="alert">
+                  <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                  Please enter a valid email address.
+                </div>
               </div>
+
               <div class="form-group">
                 <textarea class="form-control message" placeholder="Message (optional)" rows="4"></textarea>
               </div>
 
-              <div class="alert alert-success" role="alert">
+              <div class="post-success alert alert-success" style="display: none;" role="alert">
+                <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                 Your email has been sent. We'll get back to you as soon as possible.
               </div>
 
-              <div class="alert alert-danger" role="alert`">
+              <div class="post-failure alert alert-danger" style="display: none;" role="alert">
+                <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
                 Something went wrong. We couldn't send your email. Try clicking
                 <a href="mailto:hello@trainerjim.com">this email link</a> or try
                 again later.
               </div>
+
 
               <div class="form-group">
                 <input type="submit" class="form-control text-uppercase send" value="Send">
