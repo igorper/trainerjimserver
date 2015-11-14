@@ -13,7 +13,12 @@ $(function () {
   navbarCollapseOnClick();
 
   $('.navbar-collapse li a.sign-in').click(function (event) {
-    window.location.href = '/login';
+    window.location.href = '<%= Rails.application.routes.url_helpers.login_path %>';
+    event.preventDefault();
+  });
+
+  $('.navbar-header a.navbar-brand').click(function (event) {
+    window.location.href = '<%= Rails.application.routes.url_helpers.welcome_path %>';
     event.preventDefault();
   });
 
@@ -40,7 +45,6 @@ $(function () {
           enableForm(contactForm);
         });
     } else {
-      console.log("NOT A VALID EMAIL!");
       contactEmailFormGroup.addClass('has-error');
       emailInvalidAlert.show();
     }
