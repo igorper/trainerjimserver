@@ -41,6 +41,7 @@ module Trainerjim
     # Add the fonts path
     config.assets.paths << Rails.root.join('app', 'assets', 'fonts')
     config.assets.paths << Rails.root.join('app', 'assets', 'templates')
+    config.assets.paths << Rails.root.join('app', 'assets', 'landing-page')
 
     # Precompile additional assets
     config.assets.precompile += %w(*.svg *.eot *.woff *.ttf *.png *.jpg *.jpeg *.gif)
