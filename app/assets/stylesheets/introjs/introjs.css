@@ -1,7 +1,12 @@
-.introjs-tooltiptext {
+.jim-tutorial .introjs-tooltiptext {
   font-size: 1.3em;
 }
 
-.introjs-button {
+.jim-tutorial .introjs-button {
   font-size: 14px;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.jim-tutorial a.introjs-button:focus {
+  text-decoration: none;
 }
