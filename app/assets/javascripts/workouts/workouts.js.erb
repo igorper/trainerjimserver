@@ -19,6 +19,11 @@ workouts.config(['$stateProvider', function ($stateProvider) {
     templateUrl: '<%= asset_path('workouts/workouts.html') %>'
   });
 
+  $stateProvider.state('main.workouts.instructions', {
+    url: '/instructions',
+    templateUrl: '<%= asset_path('workouts/workouts-instructions.html') %>'
+  });
+
   $stateProvider.state('main.workouts.workout', {
     url: '/:trainingId',
     controller: ['$scope', '$stateParams', 'WorkoutCtrlHelper', function ($scope, $stateParams, WorkoutCtrlHelper) {
