@@ -2,6 +2,32 @@
   font-size: 16px;
 }
 
-.workouts-instructions p a {
-  font-size: 16px;
+.workouts-instructions .step .header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.workouts-instructions .step .header .number {
+  height: 40px;
+  width: 40px;
+  background-color: #28a7e9;
+  color: #fff;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  text-align: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.workouts-instructions .step .header h3 {
+  margin: 0;
+  text-align: center;
+}
+
+.workouts-instructions .steps p {
+  text-align: center;
 }
