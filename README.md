@@ -107,9 +107,7 @@ Install dependencies:
 
             sudo su postgres
             psql
-            CREATE ROLE trainerjim LOGIN
-                ENCRYPTED PASSWORD 'md53cc7cd3df4abff9c7954bcd4979cea67'
-                SUPERUSER INHERIT CREATEDB NOCREATEROLE REPLICATION;
+            CREATE ROLE trainerjim LOGIN ENCRYPTED PASSWORD 'md53cc7cd3df4abff9c7954bcd4979cea67' SUPERUSER INHERIT CREATEDB NOCREATEROLE REPLICATION;
 
 * ImageMagick (for the PaperClip gem):
 
