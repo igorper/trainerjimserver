@@ -68,5 +68,5 @@ trainerjimApp.config(['$stateProvider', function ($stateProvider) {
 }]);
 
 trainerjimApp.config(['$urlRouterProvider', function ($urlRouterProvider) {
-  $urlRouterProvider.otherwise("/workouts/");
+  $urlRouterProvider.otherwise("/workouts/instructions");
 }]);
