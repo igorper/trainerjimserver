@@ -31,3 +31,12 @@
 .workouts-instructions .steps p {
   text-align: center;
 }
+
+.empty-state {
+  vertical-align: middle;
+  background-image: url(/workouts/legs.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 600px;
+  height: 500px;
+}
