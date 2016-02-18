@@ -42,7 +42,12 @@ dashboardUserSummary.controller('DashboardUserSummaryCtrl', ['$scope', '$state',
       },
       showLabels: true,
       transitionDuration: 500,
-      height: 300
+      height: 300,
+      tooltips: false,
+      labelType: 'percent',
+      legend: {
+        updateState: false
+      }
     }
   };
 
