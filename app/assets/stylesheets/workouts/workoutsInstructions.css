@@ -32,13 +32,18 @@
   text-align: center;
 }
 
-.empty-state-mobile {
+.empty-state-body-pocket {
   vertical-align: middle;
-  background-image: url(/empty-state-mobile.png);
+  background-image: url(/empty-state-body-pocket.png);
   background-repeat: no-repeat;
-  background-position: center;
-  background-size: 400px;
+  background-position: right;
+  background-size: 200px;
+  margin-right: 150px;
   height: 400px;
+}
+
+.link-tutorial {
+  cursor: pointer;
 }
 
 .empty-state-legs {

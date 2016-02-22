@@ -93,10 +93,10 @@ workoutEditor.controller('WorkoutEditorCtrl', ['$scope', 'ExerciseType', 'Exerci
     }).result.then(scrollToLastExercise);
   };
 
-  function showTrainingInstructions() {
-    if ($localStorage.trainingInstructionsSeen) {
+  $scope.showTrainingInstructions = function() {
+    /*if ($localStorage.trainingInstructionsSeen) {
       return;
-    }
+    }*/
     var intro = introJs();
     intro.setOptions({
       steps: [
@@ -140,6 +140,6 @@ workoutEditor.controller('WorkoutEditorCtrl', ['$scope', 'ExerciseType', 'Exerci
     intro.start();
   }
 
-  showTrainingInstructions();
+  //showTrainingInstructions();
 }]);
 
