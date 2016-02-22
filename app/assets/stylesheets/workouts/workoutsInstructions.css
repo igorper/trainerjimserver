@@ -32,11 +32,20 @@
   text-align: center;
 }
 
-.empty-state {
+.empty-state-mobile {
+  vertical-align: middle;
+  background-image: url(/empty-state-mobile.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 400px;
+  height: 400px;
+}
+
+.empty-state-legs {
   vertical-align: middle;
   background-image: url(/workouts/legs.png);
   background-repeat: no-repeat;
   background-position: center;
   background-size: 600px;
-  height: 500px;
+  height: 400px;
 }

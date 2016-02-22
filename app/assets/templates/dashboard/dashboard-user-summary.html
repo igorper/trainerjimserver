@@ -1,11 +1,11 @@
 <div class="dashboard-user-summary">
-  <div class="main-content">
+  <div class="main-content" ng-show="filteredMeasurementsNotEmpty">
     <div class="row">
       <div class="col-sm-6">
-        <nvd3 options='executedExerciseGroupsPieChartOptions' data='stats.muscleGroupCounts'></nvd3>
+        <nvd3 options='executedExerciseGroupsPieChartOptions' data='filteredPieChartCounts.muscleGroupCounts'></nvd3>
       </div>
       <div class="col-sm-6">
-        <nvd3 options='executedExerciseGroupsPieChartOptions' data='stats.equipmentGroupCounts'></nvd3>
+        <nvd3 options='executedExerciseGroupsPieChartOptions' data='filteredPieChartCounts.equipmentGroupCounts'></nvd3>
       </div>
     </div>
 
@@ -100,6 +100,11 @@
           </table>
         </div>
       </div>
+    </div>
+  </div>
+  <div class="main-content" ng-hide="filteredMeasurementsNotEmpty">
+    <h2 class="text-center">No trainings for this period, you should change the filter.</h2>
+    <div class="row empty-state-mobile">
     </div>
   </div>
 </div>

@@ -3,11 +3,13 @@ var dashboardUserSummary = angular.module('dashboard.user.summary', [
   'nvd3'
 ]);
 
-dashboardUserSummary.controller('DashboardUserSummaryCtrl', ['$scope', '$state', function ($scope, $state) {
+dashboardUserSummary.controller('DashboardUserSummaryCtrl', ['$scope', '$state', 'MeasurementStats', function ($scope, $state, MeasurementStats) {
   $scope.sortType = "date";
   $scope.sortReverse = true;
   $scope.periodName = $state.params.filter;
+  $scope.filteredMeasurementsNotEmpty = true;
 
+  // CAUTION: if changing this take a look at the recalculatePieChartData function
   $scope.rightMenu.items = [
     {
       name: "All",
@@ -31,6 +33,29 @@ dashboardUserSummary.controller('DashboardUserSummaryCtrl', ['$scope', '$state',
     return $scope.userDashboardOptions.statePrefix + ".user.summary({filter: '" + filter + "'})"
   }
 
+  function recalculatePieChartData(fetchedData){
+    // currently all the periodName filter vales are legal moment subtract types
+    // (if another period type is added it should either be check if it is still valid for use with moment subtract
+    // or mapped to a valid moment subtract value)
+    var momentDateSubtractType = $scope.periodName;
+
+    if($scope.periodName !== 'all'){
+      var filteredMeasurements = _.filter(fetchedData.measurements, function(measurement) { return moment(measurement.start_time).isAfter(moment().subtract(1, momentDateSubtractType)); })
+
+      $scope.filteredMeasurementsNotEmpty = filteredMeasurements.length > 0;
+
+      $scope.filteredPieChartCounts = MeasurementStats.calculateMeasurementListStats(filteredMeasurements, fetchedData.exerciseGroups);
+    } else {
+      $scope.filteredPieChartCounts = MeasurementStats.calculateMeasurementListStats(fetchedData.measurements, fetchedData.exerciseGroups);
+    }
+
+
+  }
+
+  $scope.statsPromise.then(function(){
+    recalculatePieChartData($scope.measurementsAndExerciseGroups);
+  });
+
   $scope.executedExerciseGroupsPieChartOptions = {
     chart: {
       type: 'pieChart',
@@ -50,5 +75,4 @@ dashboardUserSummary.controller('DashboardUserSummaryCtrl', ['$scope', '$state',
       }
     }
   };
-
 }]);

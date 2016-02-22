@@ -21,4 +21,22 @@ describe("Measurements Stats", function () {
     var stats = this.MeasurementStats.calculateMeasurementStats(measurements);
     expect(stats.seriesSkipped).toEqual(1);
   });
+
+  it("calculates measurement stats where there are no measurements", function(){
+    var measurements = {}
+
+    var stats = this.MeasurementStats.calculateMeasurementStats(measurements);
+
+    expect(stats).toEqual({});
+  });
+
+  it("calculates measurement list stats where there are no measurements", function(){
+    var measurements = {}
+
+    var stats = this.MeasurementStats.calculateMeasurementListStats(measurements);
+
+    expect(stats).toEqual({});
+  });
+
+
 });

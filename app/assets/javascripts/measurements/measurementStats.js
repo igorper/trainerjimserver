@@ -9,12 +9,15 @@ measurementsStats.factory('MeasurementStats', ['Measurement', function (Measurem
   measurementStatsApi.calculateMeasurementListStats = function (measurements, exerciseGroups) {
     var stats = {};
 
-    stats.executedExerciseGroupsCounts = countExecutedExerciseGroups(measurements);
-    stats.exerciseGroupsLookup = toLookupById(exerciseGroups);
-    stats.partitionedGroupCounts = partitionExerciseGroupCounts(stats.exerciseGroupsLookup, stats.executedExerciseGroupsCounts);
-    stats.muscleGroupCounts = stats.partitionedGroupCounts[0];
-    stats.equipmentGroupCounts = stats.partitionedGroupCounts[1];
-    stats.measurementsStats = _.map(measurements, measurementStatsApi.calculateMeasurementStats);
+    // the input can also be an empty promise object that breaks the calculations
+    if(angular.isArray(measurements)){
+      stats.executedExerciseGroupsCounts = countExecutedExerciseGroups(measurements);
+      stats.exerciseGroupsLookup = toLookupById(exerciseGroups);
+      stats.partitionedGroupCounts = partitionExerciseGroupCounts(stats.exerciseGroupsLookup, stats.executedExerciseGroupsCounts);
+      stats.muscleGroupCounts = stats.partitionedGroupCounts[0];
+      stats.equipmentGroupCounts = stats.partitionedGroupCounts[1];
+      stats.measurementsStats = _.map(measurements, measurementStatsApi.calculateMeasurementStats);
+    }
 
     return stats;
   };
@@ -22,30 +25,33 @@ measurementsStats.factory('MeasurementStats', ['Measurement', function (Measurem
   measurementStatsApi.calculateMeasurementStats = function (measurement) {
     var stats = {};
 
-    stats.measurement = measurement;
-    stats.training = extractTrainingWithSeriesExecutions(measurement);
-    stats.seriesLookup = toLookupById(_(stats.training.exercises).pluck('series').flatten().value());
-    stats.exerciseLookup = createExerciseLookup(stats.training.exercises);
-    stats.name = stats.training.name;
-    stats.date = measurement.start_time;
-    stats.comment = measurement.comment;
-    stats.totalSeries = countSeriesInTraining(stats.training);
-    stats.performedSeries = _(measurement.series_executions).pluck('series_id').uniq().size();
-    stats.seriesSkipped = stats.totalSeries - stats.performedSeries;
-    stats.restTimeChangeInSeconds = restTimeChangeInSeconds(measurement.series_executions, stats.seriesLookup);
-    stats.seriesTooHardCount = _(measurement.series_executions).where({rating: Measurement.TOO_HARD_RATING}).size();
-    stats.seriesTooEasyCount = _(measurement.series_executions).where({rating: Measurement.TOO_EASY_RATING}).size();
-    stats.seriesOkayCount = _(measurement.series_executions).where({rating: Measurement.OKAY_RATING}).size();
-    stats.seriesNotOkayCount = stats.performedSeries - stats.seriesOkayCount;
-    stats.durationInMinutes = (new Date(measurement.end_time) - new Date(measurement.start_time)) / (1000 * 60);
-    stats.totalRestInMinutes = totalRestInSeconds(measurement.series_executions) / 60.0;
-    stats.totalExercisesInMinutes = stats.durationInMinutes - stats.totalRestInMinutes;
-    stats.totalExercises = countExercisesInTraining(stats.training);
-    stats.performedExercises = countPerformedExercises(measurement.series_executions, stats.exerciseLookup);
-    stats.weightChange = calculateWeightChange(measurement.series_executions, stats.seriesLookup);
-    stats.weightChangeNumber = calculateWeightChangeNumber(measurement.series_executions, stats.seriesLookup);
-    stats.repChange = calculateRepChange(measurement.series_executions, stats.seriesLookup);
-    stats.repChangeNumber = calculateRepChangeNumber(measurement.series_executions, stats.seriesLookup);
+    if(measurement.training !== undefined){
+      stats.measurement = measurement;
+      stats.training = extractTrainingWithSeriesExecutions(measurement);
+      stats.seriesLookup = toLookupById(_(stats.training.exercises).pluck('series').flatten().value());
+      stats.exerciseLookup = createExerciseLookup(stats.training.exercises);
+      stats.name = stats.training.name;
+      stats.date = measurement.start_time;
+      stats.comment = measurement.comment;
+      stats.totalSeries = countSeriesInTraining(stats.training);
+      stats.performedSeries = _(measurement.series_executions).pluck('series_id').uniq().size();
+      stats.seriesSkipped = stats.totalSeries - stats.performedSeries;
+      stats.restTimeChangeInSeconds = restTimeChangeInSeconds(measurement.series_executions, stats.seriesLookup);
+      stats.seriesTooHardCount = _(measurement.series_executions).where({rating: Measurement.TOO_HARD_RATING}).size();
+      stats.seriesTooEasyCount = _(measurement.series_executions).where({rating: Measurement.TOO_EASY_RATING}).size();
+      stats.seriesOkayCount = _(measurement.series_executions).where({rating: Measurement.OKAY_RATING}).size();
+      stats.seriesNotOkayCount = stats.performedSeries - stats.seriesOkayCount;
+      stats.durationInMinutes = (new Date(measurement.end_time) - new Date(measurement.start_time)) / (1000 * 60);
+      stats.totalRestInMinutes = totalRestInSeconds(measurement.series_executions) / 60.0;
+      stats.totalExercisesInMinutes = stats.durationInMinutes - stats.totalRestInMinutes;
+      stats.totalExercises = countExercisesInTraining(stats.training);
+      stats.performedExercises = countPerformedExercises(measurement.series_executions, stats.exerciseLookup);
+      stats.weightChange = calculateWeightChange(measurement.series_executions, stats.seriesLookup);
+      stats.weightChangeNumber = calculateWeightChangeNumber(measurement.series_executions, stats.seriesLookup);
+      stats.repChange = calculateRepChange(measurement.series_executions, stats.seriesLookup);
+      stats.repChangeNumber = calculateRepChangeNumber(measurement.series_executions, stats.seriesLookup);
+
+    }
 
     return stats;
   };

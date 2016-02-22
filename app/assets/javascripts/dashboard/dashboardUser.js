@@ -10,6 +10,7 @@ dashboardUser.controller('DashboardUserCtrl', ['$scope', 'Measurement', '$state'
   $scope.userDashboardOptions = myUserDashboardOptions;
 
   $scope.rightMenu = {items: []};
+  $scope.measurementsAndExerciseGroups = null;
 
   var userIdPromise = $scope.userDashboardOptions.userIdPromise;
 
@@ -17,7 +18,8 @@ dashboardUser.controller('DashboardUserCtrl', ['$scope', 'Measurement', '$state'
     .all({measurements: fetchMeasurements(userIdPromise), exerciseGroups: ExerciseGroup.query().$promise})
     .catch(overviewCalculationFailed)
     .then(function (fetchedData) {
-      $scope.stats = MeasurementStats.calculateMeasurementListStats(fetchedData.measurements, fetchedData.exerciseGroups);
+        $scope.measurementsAndExerciseGroups = fetchedData;
+        $scope.stats = MeasurementStats.calculateMeasurementListStats(fetchedData.measurements, fetchedData.exerciseGroups);
       return $scope.stats;
     });
 
