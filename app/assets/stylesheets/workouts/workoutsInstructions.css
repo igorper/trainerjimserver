@@ -6,6 +6,7 @@
   display: flex;
   align-items: center;
   margin-bottom: 20px;
+  height: 90px;
 }
 
 .workouts-instructions .step .header .number {
@@ -21,6 +22,10 @@
   justify-content: center;
   font-weight: bold;
   font-size: 24px;
+}
+
+.workouts-instructions .step .header .description {
+  flex: 1;
 }
 
 .workouts-instructions .step .header h3 {
