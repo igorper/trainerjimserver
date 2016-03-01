@@ -15,6 +15,7 @@
     "angular-ui-calendar": "latest",
     "angular-ui-grid": "latest",
     "angular-translate": "latest",
+    "angular-translate-storage-local": "latest",
     "lodash": "latest",
     "moment": "latest",
     "angular-http-auth": "latest",

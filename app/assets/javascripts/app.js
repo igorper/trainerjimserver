@@ -18,8 +18,12 @@
 //= require angular-animate/angular-animate
 //= require angular-sanitize/angular-sanitize
 //= require angular-ui-sortable/sortable
+//= require angular-cookies/angular-cookies
 //= require angularjs-toaster/toaster
 //= require angular-bootstrap/ui-bootstrap-tpls
+//= require angular-translate/angular-translate
+//= require angular-translate-storage-cookie/angular-translate-storage-cookie
+//= require angular-translate-storage-local/angular-translate-storage-local
 //= require nvd3/nv.d3
 //= require angular-nvd3/dist/angular-nvd3
 //= require intro.js/intro

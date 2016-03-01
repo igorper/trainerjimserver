@@ -129,6 +129,10 @@
   margin: 10px;
 }
 
+.header-menu img.language-flag {
+  max-width: 32px;
+}
+
 @media (max-width: 767px) {
 
   .header-menu .navbar-default .navbar-nav .open .dropdown-menu > li > a {

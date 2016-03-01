@@ -5,7 +5,8 @@ var shared = angular.module('shared', [
   'util.filters.isShown',
   'util.links',
   'users.createUserDialog',
-  'trainees.createTraineeDialog'
+  'trainees.createTraineeDialog',
+  'translations'
 ]);
 
 shared.directive('header', function () {
@@ -16,7 +17,9 @@ shared.directive('header', function () {
   }
 });
 
-shared.controller('HeaderCtrl', ['$scope', '$state', 'Auth', 'User', 'isLinkActive', 'CreateTraineeDialog', 'CreateUserDialog', function ($scope, $state, Auth, User, isLinkActive, CreateTraineeDialog, CreateUserDialog) {
+shared.controller('HeaderCtrl', [
+  '$scope', '$state', 'Auth', 'User', 'isLinkActive', 'CreateTraineeDialog', 'CreateUserDialog', '$translate',
+  function ($scope, $state, Auth, User, isLinkActive, CreateTraineeDialog, CreateUserDialog, $translate) {
   $scope.topNavigation = [
     {
       name: "Dashboard",
@@ -47,6 +50,8 @@ shared.controller('HeaderCtrl', ['$scope', '$state', 'Auth', 'User', 'isLinkActi
   }
 
   $scope.isLinkActive = isLinkActive;
+
+  $scope.useLanguage = $translate.use;
 
   $scope.onNewTraineeClicked = function () {
     CreateTraineeDialog().result.then(function (trainee) {
