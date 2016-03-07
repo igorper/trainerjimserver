@@ -4,6 +4,10 @@ $(window).load(function () {
   $('.preloader').fadeOut(500); // set duration in brackets
 });
 
+function getLanguageQueryString() {
+  return '?l=' + localStorage.getItem('NG_TRANSLATE_LANG_KEY');
+}
+
 $(function () {
   $('.landing-nav').singlePageNav({
     offset: 70
@@ -12,12 +16,12 @@ $(function () {
   navbarCollapseOnClick();
 
   $('.navbar-collapse li a.sign-in').click(function (event) {
-    window.location.href = '<%= Rails.application.routes.url_helpers.login_path %>';
+    window.location.href = '<%= Rails.application.routes.url_helpers.login_path %>' + getLanguageQueryString();
     event.preventDefault();
   });
 
   $('.navbar-header a.navbar-brand').click(function (event) {
-    window.location.href = '<%= Rails.application.routes.url_helpers.welcome_path %>';
+    window.location.href = '<%= Rails.application.routes.url_helpers.welcome_path %>' + getLanguageQueryString();
     event.preventDefault();
   });
 
