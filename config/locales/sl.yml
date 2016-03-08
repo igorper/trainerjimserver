@@ -1,3 +1,39 @@
 sl:
   landing_page:
-    home: "Domov"
+    home: "DOMOV"
+    features: "O STORITVI"
+    download: "PRENOS"
+    contact: "KONTAKT"
+    log_in: "Prijava"
+    description: "Povečajte motivacijo vaših strank. Ponudite treninge, prilagojene posameznemu uporabniku."
+    training_templates: "PREDLOGE TRENINGOV"
+    training_templates_description: "Ustvarite predloge treningov, jih prilagodite posamezni stranki in pošljite na njen mobilni telefon."
+    efficient_training: "UČINKOVITA VADBA"
+    efficient_training_description: "Z uporabo mobilne aplikacije lahko vaše stranke enostavno izvajajo treninge, ki ste jih pripravili zanje."
+    motivation: "MOTIVACIJA"
+    motivation_description: "Spremljajte rezultate vaših strank, jih motivirajte in spodbujajte k napredku."
+    easy_features1: "Narejeno s"
+    easy_features2: "in zelo enostavno"
+    workout_templates: "VADBENE PREDLOGE"
+    workout_templates_list1: "Izberite iz naše velike baze vaj."
+    workout_templates_list2: "Ustvarite svojo vadbeno predlogo, ki jo lahko uporabite večkrat."
+    workout_templates_list3: "Posredujte vadbe svojim strankam."
+    training_assistant: "Vadbeni pomočnik"
+    training_assistant_list1: "Vaše stranke prejmejo treninge na svoje mobilne telefone."
+    training_assistant_list2: "Naša mobilna aplikacija jim pomaga, da vadijo bolj učinkovito."
+    training_assistant_list3: "Podatki o vadbi se avtomatsko zbirajo za analizo."
+    progress_review: SPREMLJANJE NAPREDKA
+    progress_review_list1: "Enostavno spremljajte napredek vaših strank."
+    progress_review_list2: "Preglejte podrobnosti za posamezne vaje."
+    progress_review_list3: "Motivirajte stranke in jim prilagodite trening."
+    mobile_application: "MOBILNA APLIKACIJA"
+    mobile_application_description: "Naša mobilna aplikacija je temelj storitve TrainerJim. Stranke vodi skozi trening, jim informira o vadbi in jim omogoča, da bolj učinkovito vadijo. Poglejte video predstavitev in spoznajte njene prednosti."
+    demo: "Preizkusite demo"
+    offer: "Bi se nam radi pridružili in ponudili svoje storitve s pomočjo TrainerJim-a? Stopite v stik z nami, če ste trener_ka ali lastnik_ca fitnesa."
+    contact_vienna: "Dunaj, Avstrija"
+    contact_maribor: "Maribor, Slovenija"
+    contact_london: "London, VB"
+    
+    
+    
+    

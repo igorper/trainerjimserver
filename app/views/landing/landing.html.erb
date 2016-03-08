@@ -1,11 +1,11 @@
 <% content_for :nav_bar do %>
   <li><a href="#home"><%= I18n.t 'landing_page.home' %></a></li>
-  <li><a href="#feature">Features</a></li>
-  <li><a href="#download">Download</a></li>
-  <li><a href="#contact">Contact</a></li>
+  <li><a href="#feature"><%= I18n.t 'landing_page.features' %></a></li>
+  <li><a href="#download"><%= I18n.t 'landing_page.download' %></a></li>
+  <li><a href="#contact"><%= I18n.t 'landing_page.contact' %></a></li>
   <li>
     <a href="#" class="sign-in">
-      <button type="button" class="btn btn-primary navbar-btn"><i class="fa fa-sign-in"></i> Log in</button>
+      <button type="button" class="btn btn-primary navbar-btn"><i class="fa fa-sign-in"></i><%= I18n.t 'landing_page.log_in' %></button>
     </a>
   </li>
 <% end %>
@@ -23,8 +23,7 @@
           <div class="jim-logo"></div>
 
           <p class="tm-white tagline-head">
-            Increase training motivation of your customers.
-            Offer personalized workouts along with your gym subscriptions.
+            <%= I18n.t 'landing_page.description' %>
           </p>
 
           <p>
@@ -46,28 +45,28 @@
       <div class="col-md-4 landing-box">
         <i class="fa fa-edit"></i>
 
-        <h3 class="text-uppercase">TRAINING TEMPLATES</h3>
+        <h3 class="text-uppercase"><%= I18n.t 'landing_page.training_templates' %></h3>
 
         <p>
-          Create workout templates, customize them per customer and push to their mobile devices.
+          <%= I18n.t 'landing_page.training_templates_description' %>
         </p>
       </div>
       <div class="col-md-4 landing-box">
         <i class="fa fa-mobile"></i>
 
-        <h3 class="text-uppercase">EFFICIENT TRAINING</h3>
+        <h3 class="text-uppercase"><%= I18n.t 'landing_page.efficient_training' %></h3>
 
         <p>
-          Using our mobile app your customers can easily follow the trainings you prepared.
+          <%= I18n.t 'landing_page.efficient_training_description' %>
         </p>
       </div>
       <div class="col-md-4 landing-box">
         <i class="fa fa-dashboard"></i>
 
-        <h3 class="text-uppercase">MOTIVATION</h3>
+        <h3 class="text-uppercase"><%= I18n.t 'landing_page.motivation' %></h3>
 
         <p>
-          Track progress of your customers, motivate them and upgrade their training through time.
+          <%= I18n.t 'landing_page.motivation_description' %>
         </p>
       </div>
     </div>
@@ -78,24 +77,24 @@
   <div class="container">
     <div class="row">
       <div class="col-xs-12 you-will-love">
-        <h1>You’ll <i class="fa fa-heart"></i> how easy it is</h1>
+        <h1><%= I18n.t 'landing_page.easy_features1' %> <i class="fa fa-heart"></i> <%= I18n.t 'landing_page.easy_features2' %></h1>
       </div>
     </div>
 
     <div class="row">
       <div class="bullets col-md-6">
-        <h2 class="text-uppercase">WORKOUT TEMPLATES</h2>
+        <h2 class="text-uppercase"><%= I18n.t 'landing_page.workout_templates' %></h2>
 
         <p>
-          <i class="fa fa-list-ul"></i> Select from our large database of exercises.
+          <i class="fa fa-list-ul"></i> <%= I18n.t 'landing_page.workout_templates_list1' %>
         </p>
 
         <p>
-          <i class="fa fa-file-text"></i> Create your own reusable workout templates.
+          <i class="fa fa-file-text"></i> <%= I18n.t 'landing_page.workout_templates_list2' %>
         </p>
 
         <p>
-          <i class="fa fa-upload"></i> Assign workouts to your customers.
+          <i class="fa fa-upload"></i> <%= I18n.t 'landing_page.workout_templates_list3' %>
         </p>
       </div>
       <div class="col-md-6">
@@ -114,18 +113,18 @@
         </div>
       </div>
       <div class="bullets col-md-6">
-        <h2 class="text-uppercase">TRAINING ASSISTANT</h2>
+        <h2 class="text-uppercase"><%= I18n.t 'landing_page.training_assistant' %></h2>
 
         <p>
-          <i class="fa fa-mobile-phone"></i> Your customers receive workouts on their phones.
+          <i class="fa fa-mobile-phone"></i> <%= I18n.t 'landing_page.training_assistant_list1' %>
         </p>
 
         <p>
-          <i class="fa fa-rocket"></i> Our mobile app helps them train more efficiently.
+          <i class="fa fa-rocket"></i> <%= I18n.t 'landing_page.training_assistant_list2' %>
         </p>
 
         <p>
-          <i class="fa fa-refresh"></i> Training data is automatically collected for analysis.
+          <i class="fa fa-refresh"></i> <%= I18n.t 'landing_page.training_assistant_list3' %>
         </p>
       </div>
     </div>
@@ -136,18 +135,18 @@
   <div class="container">
     <div class="row">
       <div class="bullets col-md-6">
-        <h2 class="text-uppercase">PROGRESS REVIEW</h2>
+        <h2 class="text-uppercase"><%= I18n.t 'landing_page.progress_review' %></h2>
 
         <p>
-          <i class="fa fa-calendar"></i> Easily track the performance of your customers.
+          <i class="fa fa-calendar"></i> <%= I18n.t 'landing_page.progress_review_list1' %>
         </p>
 
         <p>
-          <i class="fa fa-dashboard"></i> Inspect details for individual exercises.
+          <i class="fa fa-dashboard"></i> <%= I18n.t 'landing_page.progress_review_list2' %>
         </p>
 
         <p>
-          <i class="fa fa-check"></i> Provide motivation and adapt trainings.
+          <i class="fa fa-check"></i> <%= I18n.t 'landing_page.progress_review_list3' %>
         </p>
       </div>
 
@@ -163,13 +162,10 @@
   <div class="container">
     <div class="row">
       <div class="col-md-6">
-        <h2 class="text-uppercase">MOBILE APPLICATION</h2>
+        <h2 class="text-uppercase"><%= I18n.t 'landing_page.mobile_application' %></h2>
 
         <p>
-          Our mobile application is the core of TrainerJim.
-          With the guidance, exercise information, and built-in notifications
-          your customers will be able to train more efficiently.
-          View the video for a short demo of the app's functionalities.
+          <%= I18n.t 'landing_page.mobile_application_description' %>
         </p>
 
         <div class="mobile-demo center-horizontal">
@@ -193,21 +189,20 @@
     <div class="container">
       <div class="row">
         <div class="col-md-6">
-          <h2 class="text-uppercase">Request a demo</h2>
+          <h2 class="text-uppercase"><%= I18n.t 'landing_page.demo' %></h2>
 
           <p>
-            Would like to join us and offer your services through TrainerJim?
-            Feel free to contact us if you're a trainer or a gym manager.
+            <%= I18n.t 'landing_page.offer' %>
           </p>
 
           <address>
             <p><i class="fa fa-envelope-o"></i> <a href="mailto:hello@trainerjim.com">hello@trainerjim.com</a></p>
 
-            <p><i class="fa fa-phone"></i> Vienna, Austria: +43 6776 1470 456</p>
+            <p><i class="fa fa-phone"></i> <%= I18n.t 'landing_page.contact_vienna' %>: +43 6776 1470 456</p>
 
-            <p><i class="fa fa-phone"></i> Maribor, Slovenia: +386 31 866 244</p>
+            <p><i class="fa fa-phone"></i> <%= I18n.t 'landing_page.contact_maribor' %>: +386 31 866 244</p>
 
-            <p><i class="fa fa-phone"></i> London, UK: +44 7540 168 854</p>
+            <p><i class="fa fa-phone"></i> <%= I18n.t 'landing_page.contact_london' %>: +44 7540 168 854</p>
           </address>
         </div>
         <div class="col-md-6">
