@@ -64,3 +64,5 @@ group :development, :test, :staging do
 end
 
 gem 'rb-readline'
+
+gem 'rails-i18n'

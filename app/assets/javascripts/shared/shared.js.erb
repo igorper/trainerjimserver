@@ -75,7 +75,7 @@ shared.controller('HeaderCtrl', [
 
   $scope.logout = function () {
     Auth.logout(function () {
-      window.location.href = '/';
+      window.location.href = '/?l=' + localStorage.getItem('NG_TRANSLATE_LANG_KEY');
     });
   };
 }]);
