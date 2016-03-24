@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160208234833) do
+ActiveRecord::Schema.define(version: 20160324113858) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -44,6 +44,18 @@ ActiveRecord::Schema.define(version: 20160208234833) do
 
   add_index "exercise_type_to_groups", ["exercise_group_id"], name: "index_exercise_type_to_groups_on_exercise_group_id", using: :btree
   add_index "exercise_type_to_groups", ["exercise_type_id"], name: "index_exercise_type_to_groups_on_exercise_type_id", using: :btree
+
+  create_table "exercise_type_translations", force: :cascade do |t|
+    t.integer  "exercise_type_id", null: false
+    t.string   "language_code",    null: false
+    t.string   "name"
+    t.string   "description"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "exercise_type_translations", ["exercise_type_id"], name: "index_exercise_type_translations_on_exercise_type_id", using: :btree
+  add_index "exercise_type_translations", ["language_code"], name: "index_exercise_type_translations_on_language_code", using: :btree
 
   create_table "exercise_types", force: :cascade do |t|
     t.string   "name"
@@ -194,6 +206,7 @@ ActiveRecord::Schema.define(version: 20160208234833) do
   add_foreign_key "conversations", "users", column: "sender_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "exercise_type_to_groups", "exercise_groups", on_update: :cascade, on_delete: :cascade
   add_foreign_key "exercise_type_to_groups", "exercise_types", on_update: :cascade, on_delete: :cascade
+  add_foreign_key "exercise_type_translations", "exercise_types", on_update: :cascade, on_delete: :cascade
   add_foreign_key "exercise_types", "users", column: "owner_id", on_update: :cascade, on_delete: :cascade
   add_foreign_key "exercises", "exercise_types", on_update: :cascade, on_delete: :restrict
   add_foreign_key "exercises", "trainings", on_update: :cascade, on_delete: :cascade

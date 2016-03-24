@@ -1,0 +1,5 @@
+curl_sl:
+  exercise_type: curl
+  language_code: sl
+  name: Trebušnjaki
+  description: To so trebušnjaki.
