@@ -8,11 +8,15 @@ class Api::V1::ExerciseTypesController < ActionController::Base
     when_signed_in do
       @exercise_types = current_user_exercise_types.includes(:exercise_groups)
       conditional_render(@exercise_types, "exercise_types:index;current_user:#{current_user.id}")
+      translations = ExerciseTypeHelper.get_translations(current_user_exercise_types, params[:language])
+      @exercise_types = ExerciseTypeHelper.translate_all(@exercise_types, translations)
     end
   end
 
   def show
     @exercise_type = ExerciseType.find_by_id(params[:id])
+    translation = ExerciseTypeHelper.get_translation(@exercise_type, params[:language])
+    @exercise_type = ExerciseTypeHelper.translate(@exercise_type, translation)
   end
 
   def create
