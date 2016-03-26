@@ -9,6 +9,13 @@ class ExerciseTypeHelperTest < ActiveSupport::TestCase
     assert_equal 'To so trebušnjaki.', translated_exercise_types[0].description
   end
 
+  test "leaves the exercise type id in tact when translating" do
+    exercise_types = ExerciseType.where(name: 'Super curl')
+    translations = ExerciseTypeHelper.get_translation_map(exercise_types, 'sl')
+    translated_exercise_types = ExerciseTypeHelper.translate_all(exercise_types, translations)
+    assert_equal exercise_types(:curl).id, translated_exercise_types[0].id
+  end
+
   test "does not translate exercise type if it has no translation" do
     exercise_types = ExerciseType.where(name: 'Bench press')
     translations = ExerciseTypeHelper.get_translation_map(exercise_types, 'sl')

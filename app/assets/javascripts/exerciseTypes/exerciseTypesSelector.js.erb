@@ -3,14 +3,16 @@ var exerciseTypesSelector = angular.module('exerciseTypes.selector', [
   'exerciseGroups.exerciseGroup',
   'exerciseTypes.exerciseTypePanel',
   'users.exerciseTypes.photos',
-  'toaster'
+  'toaster',
+  'pascalprecht.translate'
 ]);
 
 exerciseTypesSelector.factory('ExerciseTypesSelector', ['$modal', function ($modal) {
   return function (options) {
     return $modal.open({
       templateUrl: '<%= asset_path('exerciseTypes/exercise-type-selector.html') %>',
-      controller: ['$scope', '$modalInstance', 'ExerciseGroup', 'ExerciseType', 'UserExerciseTypePhotos', 'toaster', function ($scope, $modalInstance, ExerciseGroup, ExerciseType, UserExerciseTypePhotos, toaster) {
+      controller: ['$scope', '$modalInstance', 'ExerciseGroup', 'ExerciseType', 'UserExerciseTypePhotos', 'toaster', '$translate',
+        function ($scope, $modalInstance, ExerciseGroup, ExerciseType, UserExerciseTypePhotos, toaster, $translate) {
         options = angular.extend(
           {onAddExerciseType: $modalInstance.close},
           options
@@ -23,7 +25,9 @@ exerciseTypesSelector.factory('ExerciseTypesSelector', ['$modal', function ($mod
         $scope.isAdminMode = options.isAdministrator;
 
         function refreshExerciseTypesList() {
-          $scope.exerciseTypes = ExerciseType.query();
+          $scope.exerciseTypes = ExerciseType.query(
+            {language: $translate.proposedLanguage()}
+          );
         }
 
         $scope.onExerciseTypeClicked = function (exerciseType) {

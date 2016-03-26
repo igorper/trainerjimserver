@@ -13,7 +13,7 @@ module ExerciseTypeHelper
 
   def self.translate(exercise_type, translation)
     if translation
-      exercise_type = exercise_type.dup
+      exercise_type = exercise_type.clone
       exercise_type.name = translation.name
       exercise_type.description = translation.description
     end

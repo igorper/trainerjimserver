@@ -5,7 +5,8 @@ var exerciseTypeDetailsModule = angular.module('exerciseTypes.exerciseTypeDetail
   'photos.photoThumb',
   'photos.photoCarousel',
   'util.promiseUi',
-  'photos.takePhotoDialog'
+  'photos.takePhotoDialog',
+  'pascalprecht.translate'
 ]);
 
 exerciseTypeDetailsModule.directive('exerciseTypeDetails', function () {
@@ -18,8 +19,12 @@ exerciseTypeDetailsModule.directive('exerciseTypeDetails', function () {
       onPhotoAdded: '&',
       onPhotoRemoved: '&'
     },
-    controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'TakePhotoDialog', 'PhotoCarouselDialog', '$element', function ($scope, ExerciseType, UserExerciseTypePhotos, TakePhotoDialog, PhotoCarouselDialog, $element) {
-      $scope.exerciseType = ExerciseType.get({id: $scope.exerciseTypeId}, showDescription);
+    controller: ['$scope', 'ExerciseType', 'UserExerciseTypePhotos', 'TakePhotoDialog', 'PhotoCarouselDialog', '$element', '$translate',
+      function ($scope, ExerciseType, UserExerciseTypePhotos, TakePhotoDialog, PhotoCarouselDialog, $element, $translate) {
+      $scope.exerciseType = ExerciseType.get(
+        {id: $scope.exerciseTypeId, language: $translate.proposedLanguage()},
+        showDescription
+      );
 
       function showDescription(exerciseType) {
         $element.find('.description').html(exerciseType.description);

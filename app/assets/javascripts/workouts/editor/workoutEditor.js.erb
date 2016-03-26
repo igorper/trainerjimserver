@@ -8,7 +8,8 @@ var workoutEditor = angular.module('workouts.editor', [
   'exerciseTypes.selector',
   'exerciseTypes.exerciseType',
   'exerciseTypes.exerciseTypeDetails',
-  'exercises.editor'
+  'exercises.editor',
+  'pascalprecht.translate'
 ]);
 
 workoutEditor.directive('workoutEditor', function () {
@@ -25,9 +26,10 @@ workoutEditor.directive('workoutEditor', function () {
   };
 });
 
-workoutEditor.controller('WorkoutEditorCtrl', ['$scope', 'ExerciseType', 'ExerciseTypesSelector', '$localStorage', function ($scope, ExerciseType, ExerciseTypesSelector, $localStorage) {
+workoutEditor.controller('WorkoutEditorCtrl', ['$scope', 'ExerciseType', 'ExerciseTypesSelector', '$localStorage', '$translate',
+  function ($scope, ExerciseType, ExerciseTypesSelector, $localStorage, $translate) {
   $scope.fetchExerciseType = function (exerciseTypeId) {
-    return ExerciseType.get({id: exerciseTypeId});
+    return ExerciseType.get({id: exerciseTypeId, language: $translate.proposedLanguage()});
   };
 
   $scope.sortableOptions = {
