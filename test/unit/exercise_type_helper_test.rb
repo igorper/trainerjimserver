@@ -3,7 +3,7 @@ require 'test_helper'
 class ExerciseTypeHelperTest < ActiveSupport::TestCase
   test "returns translated the exercise types" do
     exercise_types = ExerciseType.where(name: 'Super curl')
-    translations = ExerciseTypeHelper.get_translations(exercise_types, 'sl')
+    translations = ExerciseTypeHelper.get_translation_map(exercise_types, 'sl')
     translated_exercise_types = ExerciseTypeHelper.translate_all(exercise_types, translations)
     assert_equal 'Trebušnjaki', translated_exercise_types[0].name
     assert_equal 'To so trebušnjaki.', translated_exercise_types[0].description
@@ -11,7 +11,7 @@ class ExerciseTypeHelperTest < ActiveSupport::TestCase
 
   test "does not translate exercise type if it has no translation" do
     exercise_types = ExerciseType.where(name: 'Bench press')
-    translations = ExerciseTypeHelper.get_translations(exercise_types, 'sl')
+    translations = ExerciseTypeHelper.get_translation_map(exercise_types, 'sl')
     translated_exercise_types = ExerciseTypeHelper.translate_all(exercise_types, translations)
     assert_equal 'Bench press', translated_exercise_types[0].name
   end

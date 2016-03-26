@@ -36,13 +36,13 @@ AccountCreation.create_trainer("trainer@example.com", "some password", "Full Nam
 
 Here's how you can create the production database (but don't seed it, because it will send registration emails to the users):
 
-    RAILS_ENV=production rake db:create db:migrate
+    RAILS_ENV=production bundle exec rake db:create db:migrate
 
 ## Re-seed the database
 
 Locally:
 
-    rake db:truncate db:seed
+    bundle exec rake db:truncate db:seed
 
 Remotely:
 

@@ -7,8 +7,8 @@ module ExerciseTypeHelper
     end
   end
 
-  def self.translate_all(exercise_types, translations)
-    exercise_types.map {|exercise_type| translate(exercise_type, translations[exercise_type.id])}
+  def self.translate_all(exercise_types, translation_map)
+    exercise_types.map {|exercise_type| translate(exercise_type, translation_map[exercise_type.id])}
   end
 
   def self.translate(exercise_type, translation)
@@ -20,14 +20,18 @@ module ExerciseTypeHelper
     exercise_type
   end
 
-  # returns a dictionary where the keys are exercise type IDs, and
+  # returns a hash where the keys are exercise type IDs, and
   # values are exercise type translations.
+  def self.get_translation_map(exercise_types, language_code)
+    get_translations(exercise_types, language_code).index_by(&:exercise_type_id)
+  end
+
+  # returns
   def self.get_translations(exercise_types, language_code)
     ExerciseTypeTranslation
         .where(language_code: language_code)
         .joins(:exercise_type)
         .merge(exercise_types)
-        .index_by(&:exercise_type_id)
   end
 
   # returns an exercise type translation for the given exercise type.
