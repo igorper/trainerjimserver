@@ -106,7 +106,8 @@ workouts.factory('WorkoutsCtrlHelper', ['toaster', 'Training', 'User', 'TraineeT
   }]);
 
 
-workouts.factory('WorkoutCtrlHelper', ['$state', 'Training', 'toaster', function ($state, Training, toaster) {
+workouts.factory('WorkoutCtrlHelper', ['$state', 'Training', 'toaster', '$translate',
+  function ($state, Training, toaster, $translate) {
   return function ($scope, workoutConfig) {
     $scope.workoutsContext = angular.extend($scope.workoutsContext, angular.extend({
       trainingId: '',
@@ -117,7 +118,7 @@ workouts.factory('WorkoutCtrlHelper', ['$state', 'Training', 'toaster', function
         return new Training({name: "Enter training name", exercises: [], trainee: $scope.workoutsContext.trainee});
       },
       fetchTraining: function (successCallback, failureCallback) {
-        return Training.get({id: $scope.workoutsContext.trainingId}, successCallback, failureCallback);
+        return Training.get({id: $scope.workoutsContext.trainingId, language: $translate.proposedLanguage()}, successCallback, failureCallback);
       },
       deleteTraining: function (successCallback, failureCallback) {
         return Training.delete({id: $scope.workoutsContext.trainingId}, successCallback, failureCallback);

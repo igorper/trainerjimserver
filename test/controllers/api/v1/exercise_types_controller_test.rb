@@ -75,7 +75,7 @@ class Api::V1::ExerciseTypesControllerTest < ActionController::TestCase
   end
 
   test "show returns a translated exercise type" do
-    get :show, format: :json, id: exercise_types(:curl).id.to_s, language: :sl
+    get :show, format: :json, id: exercise_types(:curl).id, language: :sl
     exercise_type = JSON.parse(response.body)
     assert_equal 'Trebušnjaki', exercise_type['name']
   end

@@ -7,6 +7,10 @@ module ExerciseTypeHelper
     end
   end
 
+  def self.translate_all!(exercise_types, translation_map)
+    exercise_types.each {|exercise_type| translate!(exercise_type, translation_map[exercise_type.id])}
+  end
+
   def self.translate_all(exercise_types, translation_map)
     exercise_types.map {|exercise_type| translate(exercise_type, translation_map[exercise_type.id])}
   end
@@ -18,6 +22,13 @@ module ExerciseTypeHelper
       exercise_type.description = translation.description
     end
     exercise_type
+  end
+
+  def self.translate!(exercise_type, translation)
+    if translation
+      exercise_type.name = translation.name
+      exercise_type.description = translation.description
+    end
   end
 
   # returns a hash where the keys are exercise type IDs, and
