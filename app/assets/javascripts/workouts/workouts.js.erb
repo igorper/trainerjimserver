@@ -48,7 +48,8 @@ workouts.directive('workoutsList', function () {
 });
 
 workouts.factory('WorkoutsCtrlHelper', ['toaster', 'Training', 'User', 'TraineeTraining', 'Trainee', '$state', 'WorkoutSelector',
-  function (toaster, Training, User, TraineeTraining, Trainee, $state, WorkoutSelector) {
+  '$translate', '$rootScope',
+  function (toaster, Training, User, TraineeTraining, Trainee, $state, WorkoutSelector, $translate, $rootScope) {
     return function ($scope, workoutsConfig) {
       $scope.workoutsContext = angular.extend({
         workoutStateName: 'main.workouts.workout',
@@ -62,10 +63,22 @@ workouts.factory('WorkoutsCtrlHelper', ['toaster', 'Training', 'User', 'TraineeT
         fetchTrainee: User.current
       }, workoutsConfig);
 
+      function applyTranslations(){
+        $translate('WORKOUTS_CTRL_HELPER_TEMPLATES').then(function(translation){
+          $scope.workoutsContext.title = translation;
+        });
+      }
+
+      applyTranslations();
+
+      $rootScope.$on('$translateChangeSuccess', function () {
+        applyTranslations();
+      });
+
       $scope.onAddPreparedWorkoutClicked = function () {
         WorkoutSelector().result.then(function (selectedTraining) {
           $scope.workoutsContext.addPreparedWorkout(selectedTraining.id, function (training) {
-              toaster.pop("success", "Training saved", "Successfully saved " + training.name);
+              toaster.pop("success", $scope.savedMsgTitle, "Successfully saved " + training.name);
               $scope.onWorkoutSelected(training);
               $scope.refreshTrainingsList();
             },
@@ -106,16 +119,42 @@ workouts.factory('WorkoutsCtrlHelper', ['toaster', 'Training', 'User', 'TraineeT
   }]);
 
 
-workouts.factory('WorkoutCtrlHelper', ['$state', 'Training', 'toaster', '$translate',
-  function ($state, Training, toaster, $translate) {
+workouts.factory('WorkoutCtrlHelper', ['$state', 'Training', 'toaster', '$translate', '$rootScope', function ($state, Training, toaster, $translate, $rootScope) {
   return function ($scope, workoutConfig) {
+    function applyTranslations(){
+      $translate(['WORKOUT_CTRL_HELPER_SAVED_MSG_TITLE',
+        'WORKOUT_CTRL_HELPER_SAVED_MSG_CONTENT',
+        'WORKOUT_CTRL_HELPER_FETCH_ERR_MSG_TITLE',
+        'WORKOUT_CTRL_HELPER_FETCH_ERR_MSG_CONTENT',
+        'WORKOUT_CTRL_HELPER_DELETED_MSG_TITLE',
+        'WORKOUT_CTRL_HELPER_DELETED_MSG_CONTENT',
+        'WORKOUT_CTRL_HELPER_ERR_DELETED_MSG_TITLE',
+        'WORKOUT_CTRL_HELPER_ERR_DELETED_MSG_CONTENT'
+      ]).then(function(translations){
+        $scope.savedMsgTitle = translations.WORKOUT_CTRL_HELPER_SAVED_MSG_TITLE;
+        $scope.savedMsgContent = translations.WORKOUT_CTRL_HELPER_SAVED_MSG_CONTENT;
+        $scope.fetctErrMsgTitle = translations.WORKOUT_CTRL_HELPER_FETCH_ERR_MSG_TITLE;
+        $scope.fetchErrMsgContent = translations.WORKOUT_CTRL_HELPER_FETCH_ERR_MSG_CONTENT;
+        $scope.deletedMsgTitle = translations.WORKOUT_CTRL_HELPER_DELETED_MSG_TITLE;
+        $scope.deletedMsgContent = translations.WORKOUT_CTRL_HELPER_DELETED_MSG_CONTENT;
+        $scope.errDeletedMsgTitle = translations.WORKOUT_CTRL_HELPER_ERR_DELETED_MSG_TITLE;
+        $scope.errDeletedMsgContent = translations.WORKOUT_CTRL_HELPER_ERR_DELETED_MSG_CONTENT;
+      });
+    }
+
+    applyTranslations();
+
+    $rootScope.$on('$translateChangeSuccess', function () {
+      applyTranslations();
+    });
+
     $scope.workoutsContext = angular.extend($scope.workoutsContext, angular.extend({
       trainingId: '',
       saveTraining: function (successCallback, failureCallback) {
         return $scope.workoutsContext.selectedTraining.$save({traineeId: $scope.workoutsContext.traineeId}, successCallback, failureCallback);
       },
       createEmptyTraining: function () {
-        return new Training({name: "Enter training name", exercises: [], trainee: $scope.workoutsContext.trainee});
+        return new Training({name: "Vpišite ime treninga", exercises: [], trainee: $scope.workoutsContext.trainee});
       },
       fetchTraining: function (successCallback, failureCallback) {
         return Training.get({id: $scope.workoutsContext.trainingId, language: $translate.proposedLanguage()}, successCallback, failureCallback);
@@ -125,33 +164,32 @@ workouts.factory('WorkoutCtrlHelper', ['$state', 'Training', 'toaster', '$transl
       }
     }, workoutConfig));
 
-
     if ($scope.workoutsContext.trainingId === '') {
       $scope.workoutsContext.selectedTraining = $scope.workoutsContext.createEmptyTraining();
     } else {
       $scope.workoutsContext.selectedTraining = $scope.workoutsContext.fetchTraining(function () {
       }, function () {
-        toaster.pop("error", "Fetch workout error", "Unable to fetch the workout.");
+        toaster.pop("error", $scope.fetctErrMsgTitle, $scope.fetchErrMsgContent);
       });
     }
 
     $scope.onSaveClicked = function () {
       $scope.workoutsContext.saveTraining(function (training) {
-        toaster.pop("success", "Training saved", "Sucessfully saved " + training.name);
+        toaster.pop("success", $scope.savedMsgTitle, $scope.savedMsgContent + training.name);
         $state.go($scope.workoutsContext.workoutStateName, {trainingId: training.id});
         $scope.refreshTrainingsList();
       }, function () {
-        toaster.pop("error", "Training save error", "Error saving " + training.name);
+        toaster.pop("error", $scope.fetctErrMsgTitle, $scope.fetchErrMsgContent + training.name);
       });
     };
 
     $scope.onDeleteClicked = function () {
       $scope.workoutsContext.deleteTraining(function () {
-        toaster.pop("info", "Workout deleted", "The workout was successfully deleted.");
+        toaster.pop("info", $scope.deletedMsgTitle, $scope.deletedMsgContent);
         $state.go($scope.workoutsContext.workoutStateName, {trainingId: ''});
         $scope.refreshTrainingsList();
       }, function () {
-        toaster.pop("error", "Workout not deleted", "Could not delete the workout. Please try logging in again.");
+        toaster.pop("error", $scope.errDeletedMsgTitle, $scope.errDeletedMsgContent);
       });
     };
   };
