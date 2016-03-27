@@ -51,6 +51,35 @@ workouts.factory('WorkoutsCtrlHelper', ['toaster', 'Training', 'User', 'TraineeT
   '$translate', '$rootScope',
   function (toaster, Training, User, TraineeTraining, Trainee, $state, WorkoutSelector, $translate, $rootScope) {
     return function ($scope, workoutsConfig) {
+      function applyTranslations(){
+        $translate(['WORKOUTS_CTRL_HELPER_TEMPLATES',
+          'WORKOUTS_CTRL_HELPER_SAVED_MSG_CONTENT',
+          'WORKOUTS_CTRL_HELPER_SAVED_MSG_CONTENT',
+          'WORKOUTS_CTRL_HELPER_ERR_SAVE_MSG_TITLE',
+          'WORKOUTS_CTRL_HELPER_ERR_SAVE_MSG_CONTENT',
+          'WORKOUTS_CTRL_HELPER_ERR_AVATAR_MSG_TITLE',
+          'WORKOUTS_CTRL_HELPER_ERR_AVATAR_MSG_CONTENT',
+          'WORKOUTS_CTRL_HELPER_ERR_FETCH_MSG_TITLE',
+          'WORKOUTS_CTRL_HELPER_ERR_FETCH_MSG_CONTENT'
+        ]).then(function(translations){
+          $scope.workoutsContext.title = translations.WORKOUTS_CTRL_HELPER_TEMPLATES;
+          $scope.savedMsgTitle = translations.WORKOUTS_CTRL_HELPER_SAVED_MSG_TITLE;
+          $scope.savedMsgContent = translations.WORKOUTS_CTRL_HELPER_SAVED_MSG_CONTENT;
+          $scope.errorSaveMsgTitle = translations.WORKOUTS_CTRL_HELPER_ERR_SAVE_MSG_TITLE;
+          $scope.errorSaveMsgContent = translations.WORKOUTS_CTRL_HELPER_ERR_SAVE_MSG_CONTENT;
+          $scope.avatarErrorTitle = translations.WORKOUTS_CTRL_HELPER_ERR_AVATAR_MSG_TITLE;
+          $scope.avatarErrorContent  = translations.WORKOUTS_CTRL_HELPER_ERR_AVATAR_MSG_CONTENT;
+          $scope.fetchErrMsgTitle = translations.WORKOUTS_CTRL_HELPER_ERR_FETCH_MSG_TITLE;
+          $scope.fetchErrMsgContent = translations.WORKOUTS_CTRL_HELPER_ERR_FETCH_MSG_CONTENT;
+        });
+      }
+
+      applyTranslations();
+
+      $rootScope.$on('$translateChangeSuccess', function () {
+        applyTranslations();
+      });
+
       $scope.workoutsContext = angular.extend({
         workoutStateName: 'main.workouts.workout',
         traineeId: null,
@@ -63,27 +92,15 @@ workouts.factory('WorkoutsCtrlHelper', ['toaster', 'Training', 'User', 'TraineeT
         fetchTrainee: User.current
       }, workoutsConfig);
 
-      function applyTranslations(){
-        $translate('WORKOUTS_CTRL_HELPER_TEMPLATES').then(function(translation){
-          $scope.workoutsContext.title = translation;
-        });
-      }
-
-      applyTranslations();
-
-      $rootScope.$on('$translateChangeSuccess', function () {
-        applyTranslations();
-      });
-
       $scope.onAddPreparedWorkoutClicked = function () {
         WorkoutSelector().result.then(function (selectedTraining) {
           $scope.workoutsContext.addPreparedWorkout(selectedTraining.id, function (training) {
-              toaster.pop("success", $scope.savedMsgTitle, "Successfully saved " + training.name);
+              toaster.pop("success", $scope.savedMsgTitle, $scope.savedMsgContent + training.name);
               $scope.onWorkoutSelected(training);
               $scope.refreshTrainingsList();
             },
             function () {
-              toaster.pop("error", "Prepared training not added", "An error occurred while trying add the prepared training.");
+              toaster.pop("error", $scope.errorSaveMsgTitle, $scope.errorSaveMsgContent);
             }
           );
         });
@@ -100,7 +117,7 @@ workouts.factory('WorkoutsCtrlHelper', ['toaster', 'Training', 'User', 'TraineeT
       $scope.refreshUserDetails = function () {
         $scope.workoutsContext.trainee = $scope.workoutsContext.fetchTrainee(function () {
         }, function () {
-          toaster.pop("error", "Avatar not loaded", "Could show the avatar. Try logging in again.");
+          toaster.pop("error", $scope.avatarErrorTitle, $scope.avatarErrorContent);
         });
       };
 
@@ -108,7 +125,7 @@ workouts.factory('WorkoutsCtrlHelper', ['toaster', 'Training', 'User', 'TraineeT
         $scope.workoutsContext.trainingList = $scope.workoutsContext.fetchTrainingsList(function () {
           },
           function () {
-            toaster.pop("error", "Fetch workouts error", "Unable to fetch the list of workouts.");
+            toaster.pop("error", $scope.fetchErrMsgTitle, $scope.fetchErrMsgContent);
           }
         );
       };

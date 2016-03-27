@@ -8,7 +8,8 @@ var workoutEditor = angular.module('workouts.editor', [
   'exerciseTypes.selector',
   'exerciseTypes.exerciseType',
   'exerciseTypes.exerciseTypeDetails',
-  'exercises.editor'
+  'exercises.editor',
+  'translations'
 ]);
 
 workoutEditor.directive('workoutEditor', function () {
@@ -25,7 +26,39 @@ workoutEditor.directive('workoutEditor', function () {
   };
 });
 
-workoutEditor.controller('WorkoutEditorCtrl', ['$scope', 'ExerciseType', 'ExerciseTypesSelector', '$localStorage', function ($scope, ExerciseType, ExerciseTypesSelector, $localStorage) {
+workoutEditor.controller('WorkoutEditorCtrl', ['$scope', 'ExerciseType', 'ExerciseTypesSelector', '$localStorage',
+  '$translate', '$rootScope',function ($scope, ExerciseType, ExerciseTypesSelector, $localStorage, $translate, $rootScope) {
+  function applyTranslations(){
+    $translate(['WORKOUT_EDITOR_CTRL_TUTORIAL_STEP_1',
+      'WORKOUT_EDITOR_CTRL_TUTORIAL_STEP_2',
+      'WORKOUT_EDITOR_CTRL_TUTORIAL_STEP_3',
+      'WORKOUT_EDITOR_CTRL_TUTORIAL_STEP_4',
+      'WORKOUT_EDITOR_CTRL_TUTORIAL_STEP_5',
+      'WORKOUT_EDITOR_CTRL_TUTORIAL_STEP_6',
+      'WORKOUT_EDITOR_CTRL_TUTORIAL_DONE',
+      'WORKOUT_EDITOR_CTRL_TUTORIAL_SKIP',
+      'WORKOUT_EDITOR_CTRL_TUTORIAL_NEXT',
+      'WORKOUT_EDITOR_CTRL_TUTORIAL_BACK',
+    ]).then(function(translations){
+      $scope.tutorial_step1 = translations.WORKOUT_EDITOR_CTRL_TUTORIAL_STEP_1;
+      $scope.tutorial_step2 = translations.WORKOUT_EDITOR_CTRL_TUTORIAL_STEP_2;
+      $scope.tutorial_step3 = translations.WORKOUT_EDITOR_CTRL_TUTORIAL_STEP_3;
+      $scope.tutorial_step4 = translations.WORKOUT_EDITOR_CTRL_TUTORIAL_STEP_4;
+      $scope.tutorial_step5 = translations.WORKOUT_EDITOR_CTRL_TUTORIAL_STEP_5;
+      $scope.tutorial_step6 = translations.WORKOUT_EDITOR_CTRL_TUTORIAL_STEP_6;
+      $scope.tutorial_done = translations.WORKOUT_EDITOR_CTRL_TUTORIAL_DONE;
+      $scope.tutorial_skip = translations.WORKOUT_EDITOR_CTRL_TUTORIAL_SKIP;
+      $scope.tutorial_next = translations.WORKOUT_EDITOR_CTRL_TUTORIAL_NEXT;
+      $scope.tutorial_back = translations.WORKOUT_EDITOR_CTRL_TUTORIAL_BACK;
+    });
+  }
+
+  applyTranslations();
+
+  $rootScope.$on('$translateChangeSuccess', function () {
+    applyTranslations();
+  });
+
   $scope.fetchExerciseType = function (exerciseTypeId) {
     return ExerciseType.get({id: exerciseTypeId});
   };
@@ -101,33 +134,35 @@ workoutEditor.controller('WorkoutEditorCtrl', ['$scope', 'ExerciseType', 'Exerci
     intro.setOptions({
       steps: [
         {
-          intro: "How to create a new training?"
+          intro: $scope.tutorial_step1
         },
         {
           element: document.querySelector('.workouts-list .create-workout'),
-          intro: "Click here to create a new training.",
+          intro: $scope.tutorial_step2,
           position: 'top'
         },
         {
           element: document.querySelector('.workout-editor .btn.add-exercise'),
-          intro: "Add exercises to the training.",
+          intro: $scope.tutorial_step3,
           position: 'left'
         },
         {
           element: document.querySelector('.workout-editor .the-name-value'),
-          intro: "Choose a name for your new training. It will appear on the mobile app."
+          intro: $scope.tutorial_step4
         },
         {
           element: document.querySelector('.workout-editor .btn.save'),
-          intro: "Store the training when you're done.",
+          intro: $scope.tutorial_step5,
           position: 'left'
         },
         {
-          intro: "That's it! Now create a training and get pumping!"
+          intro: $scope.tutorial_step6
         }
       ],
-      nextLabel: "Next",
-      prevLabel: "Back",
+      doneLabel: $scope.tutorial_done,
+      skipLabel: $scope.tutorial_skip,
+      nextLabel: $scope.tutorial_next,
+      prevLabel: $scope.tutorial_back,
       tooltipClass: "jim-tutorial"
     });
 
@@ -139,7 +174,5 @@ workoutEditor.controller('WorkoutEditorCtrl', ['$scope', 'ExerciseType', 'Exerci
     intro.onexit(markSeen);
     intro.start();
   }
-
-  //showTrainingInstructions();
 }]);
 
