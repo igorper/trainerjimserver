@@ -62,4 +62,18 @@ module TrainingHelper
     trainings.where(historical: false)
   end
 
+  def self.translate_exercise_types!(training, language_code)
+    exercise_types = extract_exercise_types(training)
+    translation_map = ExerciseTypeTranslation
+                          .where(language_code: language_code,
+                                 exercise_type_id: exercise_types.map { |et| et.id })
+                          .index_by(&:exercise_type_id)
+    ExerciseTypeHelper.translate_all!(exercise_types, translation_map)
+    training
+  end
+
+  def self.extract_exercise_types(training)
+    training.exercises.map { |exercise| exercise.exercise_type }
+  end
+
 end

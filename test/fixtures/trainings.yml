@@ -1,31 +1,7 @@
-# == Schema Information
-#
-# Table name: trainings
-#
-#  id                   :integer          not null, primary key
-#  trainee_id           :integer
-#  name                 :string(255)
-#  original_training_id :integer
-#  created_at           :datetime
-#  updated_at           :datetime
-#
-
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-training1:
-  name: "Super training"
-
-training2:
+curl_training:
   name: "Another global training"
+  trainee: joe
 
-matejs_training1:
-  name: "Matej's training"
-  trainee: matej
-
-matejs_training2:
-  name: "Matej's other training"
-  trainee: matej
-
-igors_training:
-  name: "Igor's training"
-  trainee: igor
+big_training:
+  name: "Big training"
+  trainee: joe

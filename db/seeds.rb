@@ -77,6 +77,10 @@ biceps = ExerciseType.create(name: 'Biceps', exercise_groups: [arms, free_weight
 squats = ExerciseType.create(name: 'Squats', exercise_groups: [legs, body_weight])
 back_curl = ExerciseType.create(name: 'Back curl', exercise_groups: [back, mat])
 
+# Translate some exercise types:
+ExerciseTypeTranslation.create(exercise_type: bench, language_code: 'sl', name: 'Benč pres', description: 'Vleži se na benč, pa presaj.')
+ExerciseTypeTranslation.create(exercise_type: squats, language_code: 'sl', name: 'Počepi', description: 'Malo se počepni, pol pa kr ponavljaj. Bodi super previden da')
+
 
 # Create some dummy trainings:
 training1 = Training.create(name: 'Super training')

@@ -9,7 +9,8 @@ var workoutEditor = angular.module('workouts.editor', [
   'exerciseTypes.exerciseType',
   'exerciseTypes.exerciseTypeDetails',
   'exercises.editor',
-  'translations'
+  'translations',
+  'pascalprecht.translate'
 ]);
 
 workoutEditor.directive('workoutEditor', function () {
@@ -60,7 +61,7 @@ workoutEditor.controller('WorkoutEditorCtrl', ['$scope', 'ExerciseType', 'Exerci
   });
 
   $scope.fetchExerciseType = function (exerciseTypeId) {
-    return ExerciseType.get({id: exerciseTypeId});
+    return ExerciseType.get({id: exerciseTypeId, language: $translate.proposedLanguage()});
   };
 
   $scope.sortableOptions = {

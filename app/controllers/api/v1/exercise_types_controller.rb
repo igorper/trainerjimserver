@@ -6,13 +6,23 @@ class Api::V1::ExerciseTypesController < ActionController::Base
 
   def index
     when_signed_in do
-      @exercise_types = current_user_exercise_types.includes(:exercise_groups)
-      conditional_render(@exercise_types, "exercise_types:index;current_user:#{current_user.id}")
+      last_modified = current_user_exercise_types.maximum(:updated_at).try(:utc)
+      translations_map = ExerciseTypeHelper.get_translation_map(current_user_exercise_types, params[:language])
+      last_modified_translation = translations_map.map { |_, et| et.updated_at }.max.try(:utc)
+      if last_modified_translation && last_modified_translation > last_modified
+        last_modified = last_modified_translation
+      end
+      if stale?(etag: "#{current_user.id}:#{params[:language]}:#{last_modified}", last_modified: last_modified)
+        @exercise_types = current_user_exercise_types.includes(:exercise_groups)
+        @exercise_types = ExerciseTypeHelper.translate_all(@exercise_types, translations_map)
+      end
     end
   end
 
   def show
     @exercise_type = ExerciseType.find_by_id(params[:id])
+    translation = ExerciseTypeHelper.get_translation(@exercise_type, params[:language])
+    @exercise_type = ExerciseTypeHelper.translate(@exercise_type, translation)
   end
 
   def create

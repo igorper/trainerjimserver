@@ -174,7 +174,7 @@ workouts.factory('WorkoutCtrlHelper', ['$state', 'Training', 'toaster', '$transl
         return new Training({name: "Vpišite ime treninga", exercises: [], trainee: $scope.workoutsContext.trainee});
       },
       fetchTraining: function (successCallback, failureCallback) {
-        return Training.get({id: $scope.workoutsContext.trainingId}, successCallback, failureCallback);
+        return Training.get({id: $scope.workoutsContext.trainingId, language: $translate.proposedLanguage()}, successCallback, failureCallback);
       },
       deleteTraining: function (successCallback, failureCallback) {
         return Training.delete({id: $scope.workoutsContext.trainingId}, successCallback, failureCallback);

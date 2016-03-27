@@ -4,17 +4,5 @@ curl:
 bench:
   name: "Bench press"
 
-incline:
-  name: "Incline press"
-
-vertical:
-  name: "Vertical press"
-
-lat:
-  name: "Lat pulldown"
-
 leg:
   name: "Leg press"
-
-tricep:
-  name: "Tricep pushdown"

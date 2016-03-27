@@ -1,11 +1,14 @@
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+curl_exercise:
+  training: curl_training
+  exercise_type: curl
+  order: 200
 
-exercise1:
-  training: training1
+bench_exercise:
+  training: big_training
   exercise_type: bench
   order: 100
 
-exercise2:
-  training: training2
-  exercise_type: curl
+leg_exercise:
+  training: big_training
+  exercise_type: leg
   order: 200

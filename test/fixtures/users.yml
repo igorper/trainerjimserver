@@ -1,59 +1,5 @@
-# == Schema Information
-#
-# Table name: users
-#
-#  id                     :integer          not null, primary key
-#  email                  :string(255)
-#  full_name              :string(255)
-#  created_at             :datetime
-#  updated_at             :datetime
-#  encrypted_password     :string(255)      default(""), not null
-#  reset_password_token   :string(255)
-#  reset_password_sent_at :datetime
-#  remember_created_at    :datetime
-#  sign_in_count          :integer          default(0)
-#  current_sign_in_at     :datetime
-#  last_sign_in_at        :datetime
-#  current_sign_in_ip     :string(255)
-#  last_sign_in_ip        :string(255)
-#  trainer_id             :integer
-#
-
-# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
-
-jim:
-  full_name: Trainer Jim
-  email: jim@trainerjim.com
-  encrypted_password: $2a$10$ejDSk27QMaSFztjjZiX1pOv/mmUfIcK2KPerSVeUnjs461TihzIG6
-  is_trainer: true
-
-matej:
-  full_name: Matej Urbas
-  email: matej@example.com
-  encrypted_password: $2a$10$x/nvHVvCGtA0865e3.d1ZeWnhBawtJtX8xj2T.LILvJ49B9IGGdSe
-  is_administrator: true
-  trainer: jim
-
-igor:
-  full_name: Igor Pernek
-  email: igor@example.com
-  encrypted_password: $2a$10$uSotUNLftI3zXYSSRcgrxe2f5eCsUyxH7DgDN13fDuS0Cwe2osj2G
-  is_administrator: true
-  is_trainer: true
-  trainer: jim
-
 joe:
   full_name: Regular Joe
   email: joe@example.com
   encrypted_password: $2a$10$uSotUNLftI3zXYSSRcgrxe2f5eCsUyxH7DgDN13fDuS0Cwe2osj2G
   trainer: jim
-
-notrainer:
-  full_name: No Trainer
-  email: no@trainer.com
-  encrypted_password: $2a$10$uSotUNLftI3zXYSSRcgrxe2f5eCsUyxH7DgDN13fDuS0Cwe2osj2G
-
-alice:
-  full_name: Alice
-  email: alice@example.com
-  encrypted_password: $2a$10$1rPfWqq0/p6jU2eQb1/w.ez8i02h5KiQH83jh9Cd0ij5UDdm2o7oK
