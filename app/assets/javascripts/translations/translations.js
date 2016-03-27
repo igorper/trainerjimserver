@@ -1,4 +1,7 @@
 var enTranslations = {
+  /** workouts.html **/
+  WORKOUTS_ADD_TEMPLATE: "Add template",
+
   /** workouts-instructions.html **/
   WORKOUTS_INSTRUCTION_TITLE: 'Workouts',
   WORKOUTS_INSTRUCTIONS_STEP1_TITLE: 'Create a workout template',
@@ -13,12 +16,18 @@ var enTranslations = {
   /** workout-editor-v1.html **/
   WORKOUT_EDITOR_EMPTY_STATE_TEXT: "Add some exercises or ",
   WORKOUT_EDITOR_EMPTY_STATE_TUTORIAL_LINK: "view the tutorial",
+  WORKOUT_EDITOR_CUSTOMIZE_WORKOUT: "Customise workout",
+  WORKOUT_EDITOR_IS_CIRCULAR: "Is circular:",
+  WORKOUT_EDITOR_ADD_EXERCISE: "Add exercise",
+  WORKOUT_EDITOR_DELETE_TRAINING: "Delete",
+  WORKOUT_EDITOR_SAVE_TRAINING: "Save",
 
   /** workouts-list.html **/
   WORKOUT_LIST_CREATE_WORKOUT: "Create a new workout",
 
   /** workout-selector.html **/
   WORKOUT_SELECTOR_SELECT_WORKOUT: "Select a workout:",
+  WORKOUT_SELECTOR_CANCEL: "Cancel",
 
   /** workouts.js.erb **/
   WORKOUTS_CTRL_HELPER_TEMPLATES: 'Templates',
@@ -58,6 +67,9 @@ var enTranslations = {
 };
 
 var slTranslations = {
+  /** workouts.html **/
+  WORKOUTS_ADD_TEMPLATE: "Dodaj iz predloge",
+
   /** workouts-instructions.html **/
   WORKOUTS_INSTRUCTION_TITLE: 'Treningi',
   WORKOUTS_INSTRUCTIONS_STEP1_TITLE: 'Ustvarite predlogo treninga',
@@ -72,12 +84,18 @@ var slTranslations = {
   /** workout-editor-v1.html **/
   WORKOUT_EDITOR_EMPTY_STATE_TEXT: "Dodaj vaje oz. si oglej ",
   WORKOUT_EDITOR_EMPTY_STATE_TUTORIAL_LINK: "navodila za uporabo",
+  WORKOUT_EDITOR_CUSTOMIZE_WORKOUT: "Prilagodi trening",
+  WORKOUT_EDITOR_IS_CIRCULAR: "Krožni trening:",
+  WORKOUT_EDITOR_ADD_EXERCISE: "Dodaj vajo",
+  WORKOUT_EDITOR_DELETE_TRAINING: "Izbriši",
+  WORKOUT_EDITOR_SAVE_TRAINING: "Shrani",
 
   /** workouts-list.html **/
   WORKOUT_LIST_CREATE_WORKOUT: "Ustvari nov trening",
 
   /** workout-selector.html **/
   WORKOUT_SELECTOR_SELECT_WORKOUT: "Izberi trening:",
+  WORKOUT_SELECTOR_CANCEL: "Prekliči",
 
   /** workouts.js.erb **/
   WORKOUTS_CTRL_HELPER_TEMPLATES: 'Predloge',
