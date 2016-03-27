@@ -6,11 +6,11 @@
         <span class="glyphicon glyphicon-move move" aria-hidden="true"></span>
 
         <div class="exercise-label" ng-click="showDescription=!showDescription">
-          Exercise: {{exercise.exercise_type.name}}
+          <span translate>EXERCISE_EDITOR_EXERCISE</span>{{exercise.exercise_type.name}}
         </div>
 
         <button class="take-photo btn btn-primary pull-right" ng-click="onTakePhotosClicked()">
-          Take a photo <span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
+          <span translate>EXERCISE_EDITOR_TAKE_PHOTO</span><span class="glyphicon glyphicon-camera" aria-hidden="true"></span>
         </button>
       </div>
     </div>
@@ -24,7 +24,7 @@
 
   <div spin-until="photoUploaded" class="description">
     <div class="description-show-hide" ng-if="showDescription">
-      <div class="description-label">Instructions for {{exercise.exercise_type.name}}</div>
+      <div class="description-label"><span translate>EXERCISE_EDITOR_INSTRUCTIONS_TEXT</span>{{exercise.exercise_type.name}}</div>
       <exercise-type-details exercise-type-id="exercise.exercise_type.id"
                              user-id="training.trainee.id"
                              trainer="trainer"></exercise-type-details>
@@ -36,16 +36,16 @@
       <div class="exercise-top-btns">
         <button class="delete-btn btn-danger btn exercise-action white-text"
                 ng-click="onExerciseRemove(exercise)">
-          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span> Delete
+          <span class="glyphicon glyphicon-remove" aria-hidden="true"></span><span translate>EXERCISE_EDITOR_DELETE</span>
         </button>
         <button class="btn btn-warning exercise-action white-text" ng-click="onApplyToAllSeries({exercise: exercise, selectedSeries: selectedSeries})">
           <span class="glyphicon glyphicon-list" aria-hidden="true"></span> <span
-          class="the-button">Apply to all series</span>
+          class="the-button" translate>EXERCISE_EDITOR_APPLY_TO_ALL</span>
         </button>
         <div class="btn-group">
           <button type="button" class="btn btn-default exercise-action dropdown-toggle" data-toggle="dropdown"
                   aria-expanded="false">
-            Type: {{exercise.guidance_type}} <span class="caret"></span>
+            <span translate>EXERCISE_EDITOR_TYPE_TEXT</span> {{exercise.guidance_type}} <span class="caret"></span>
           </button>
           <ul class="dropdown-menu" role="menu">
             <li><a ng-click="setExerciseToManual()">manual</a></li>

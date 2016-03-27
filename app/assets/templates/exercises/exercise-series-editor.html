@@ -3,8 +3,11 @@
     <div class="first col-xs-6 col-sm-3 right-padding">
       <table>
         <tr>
-          <td class="series-field-label">
-            {{getFirstFieldLabel()}}:
+          <td class="series-field-label" ng-show="isDurationType()" translate>
+            EXERCISE_SERIES_EDITOR_TYPE_DURATION
+          </td>
+          <td class="series-field-label" ng-hide="isDurationType()" translate>
+            EXERCISE_SERIES_EDITOR_TYPE_REPS
           </td>
           <td class="series-field">
             <input type="number" ng-model="selectedSeries.repeat_count"/>
@@ -19,8 +22,8 @@
     <div class="col-xs-6 col-sm-3">
       <table>
         <tr>
-          <td class="series-field-label">
-            weight kg:
+          <td class="series-field-label" translate>
+            EXERCISE_SERIES_EDITOR_WEIGHT
           </td>
           <td class="series-field">
             <input type="number" ng-model="selectedSeries.weight"/>
@@ -35,8 +38,8 @@
     <div class="col-xs-6 col-sm-3 right-padding">
       <table>
         <tr>
-          <td class="series-field-label">
-            rest sec:
+          <td class="series-field-label" translate>
+            EXERCISE_SERIES_EDITOR_REST
           </td>
           <td class="series-field">
             <input type="number" ng-model="selectedSeries.rest_time"/>

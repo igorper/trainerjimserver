@@ -63,7 +63,24 @@ var enTranslations = {
   /** workoutSelector.js.erb **/
   WORKOUT_SELECTOR_CTRL_ERR_TRAINING_FETCH: "Could not fetch the list of workouts. Try logging in.",
   WORKOUT_SELECTOR_CTRL_WAR_SELECT_TRAINING: "Please select a workout",
-  WORKOUT_SELECTOR_CTRL_SELECT_TRAINING_PLACEHOLDER: "Select a workout in the list or search for it"
+  WORKOUT_SELECTOR_CTRL_SELECT_TRAINING_PLACEHOLDER: "Select a workout in the list or search for it",
+
+  /** exercise-editor.html **/
+  EXERCISE_EDITOR_EXERCISE: "Exercise: ",
+  EXERCISE_EDITOR_TAKE_PHOTO: "Take a photo ",
+  EXERCISE_EDITOR_INSTRUCTIONS_TEXT: "Instructions for ",
+  EXERCISE_EDITOR_DELETE: "Delete",
+  EXERCISE_EDITOR_APPLY_TO_ALL: "Apply to all series",
+  EXERCISE_EDITOR_TYPE_TEXT: "Type :",
+
+  /** exercise-series-editor.html **/
+  EXERCISE_SERIES_EDITOR_TYPE_REPS: "reps",
+  EXERCISE_SERIES_EDITOR_TYPE_DURATION: "duration seconds",
+  EXERCISE_SERIES_EDITOR_WEIGHT: "weight kg:",
+  EXERCISE_SERIES_EDITOR_REST: "rest sec",
+
+  /** series-editor.html **/
+  SERIES_EDITOR_SERIES: "Serije:"
 };
 
 var slTranslations = {
@@ -131,7 +148,24 @@ var slTranslations = {
   /** workoutSelector.js.erb **/
   WORKOUT_SELECTOR_CTRL_ERR_TRAINING_FETCH: "Napaka pridobivanja seznama treningov. Poskusite s ponovno prijavo.",
   WORKOUT_SELECTOR_CTRL_WAR_SELECT_TRAINING: "Prosim izberite trening.",
-  WORKOUT_SELECTOR_CTRL_SELECT_TRAINING_PLACEHOLDER: "Poiščite trening oz. ga izberite iz seznama"
+  WORKOUT_SELECTOR_CTRL_SELECT_TRAINING_PLACEHOLDER: "Poiščite trening oz. ga izberite iz seznama",
+
+  /** exercise-editor.html **/
+  EXERCISE_EDITOR_EXERCISE: "Vaja: ",
+  EXERCISE_EDITOR_TAKE_PHOTO: "Dodaj sliko ",
+  EXERCISE_EDITOR_INSTRUCTIONS_TEXT: "Navodila za ",
+  EXERCISE_EDITOR_DELETE: "Izbriši",
+  EXERCISE_EDITOR_APPLY_TO_ALL: "Kopiraj v vse serije",
+  EXERCISE_EDITOR_TYPE_TEXT: "Tip :",
+
+  /** exercise-series-editor.html **/
+  EXERCISE_SERIES_EDITOR_TYPE_REPS: "ponovitve",
+  EXERCISE_SERIES_EDITOR_TYPE_DURATION: "trajanje sekunde",
+  EXERCISE_SERIES_EDITOR_WEIGHT: "breme kg:",
+  EXERCISE_SERIES_EDITOR_REST: "premore sekunde",
+
+  /** series-editor.html **/
+  SERIES_EDITOR_SERIES: "Serije:"
 };
 
 var translationsModule = angular.module('translations', ['pascalprecht.translate', 'ngCookies']);
