@@ -16,8 +16,9 @@ class Api::V1::TrainingsController < ActionController::Base
         render_not_found
       elsif !@training.trainee_id.nil? && @training.trainee_id != current_user.id
         render_forbidden
+      else
+        @training = TrainingHelper.translate_exercise_types!(@training, params[:language])
       end
-      @training = TrainingHelper.translate_exercise_types!(@training, params[:language])
     end
   end
 

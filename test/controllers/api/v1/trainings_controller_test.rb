@@ -17,6 +17,11 @@ class Api::V1::TrainingsControllerTest < ActionController::TestCase
     assert_response :unauthorized
   end
 
+  test "show returns not found for unknown IDs" do
+    get :show, format: :json, id: -1
+    assert_response :not_found
+  end
+
   test "show returns a translated exercise type" do
     get :show, format: :json, id: trainings(:curl_training).id, language: :sl
     training = JSON.parse(response.body)

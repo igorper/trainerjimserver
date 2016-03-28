@@ -21,8 +21,12 @@ class Api::V1::ExerciseTypesController < ActionController::Base
 
   def show
     @exercise_type = ExerciseType.find_by_id(params[:id])
-    translation = ExerciseTypeHelper.get_translation(@exercise_type, params[:language])
-    @exercise_type = ExerciseTypeHelper.translate(@exercise_type, translation)
+    if !@exercise_type
+      render_not_found
+    else
+      translation = ExerciseTypeHelper.get_translation(@exercise_type, params[:language])
+      @exercise_type = ExerciseTypeHelper.translate(@exercise_type, translation)
+    end
   end
 
   def create

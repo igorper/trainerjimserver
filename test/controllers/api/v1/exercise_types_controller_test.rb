@@ -74,6 +74,11 @@ class Api::V1::ExerciseTypesControllerTest < ActionController::TestCase
     assert_includes exercise_types, 'Trebušnjaki'
   end
 
+  test "show returns not found for unknown IDs" do
+    get :show, format: :json, id: -1
+    assert_response :not_found
+  end
+
   test "show returns a translated exercise type" do
     get :show, format: :json, id: exercise_types(:curl).id, language: :sl
     exercise_type = JSON.parse(response.body)
