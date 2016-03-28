@@ -95,7 +95,75 @@ var enTranslations = {
   EXERCISE_SERIES_EDITOR_REST: "rest sec",
 
   /** series-editor.html **/
-  SERIES_EDITOR_SERIES: "Serije:"
+  SERIES_EDITOR_SERIES: "Serije:",
+
+  /** dashboardOverview.js **/
+  DASHBOARD_OVERVIEW_INACTIVITY_BEFORE_TEXT: "Inactive for ",
+  DASHBOARD_OVERVIEW_INACTIVITY_AFTER_TEXT: " days",
+  DASHBOARD_OVERVIEW_INACTIVITY_LONGER_TEXT: "Inactive for 31 days or more",
+
+  /** dashboard.html **/
+  DASHBOARD_OVERVIEW_TITLE: "Overview",
+  DASHBOARD_OVERVIEW_INACTIVE_USERS: "Inactive users",
+  DASHBOARD_OVERVIEW_INTENSITY_ALERTS: "Intensity alerts last month",
+  DASHBOARD_OVERVIEW_PAUSES: "Pauses",
+  DASHBOARD_OVERVIEW_REST_CHANGE: "Rest change: ",
+
+  /** dashboard-user.html **/
+  DASHBOARD_USER_SUMMARY: "Summary",
+  DASHBOARD_USER_CALENDAR: "Calendar",
+
+  /** dashboard-user-calendar.html **/
+  DASHBOARD_USER_CALENDAR_SELECT_INSTRUCTIONS_TEXT1: "Select a training in the calendar ...",
+  DASHBOARD_USER_CALENDAR_SELECT_INSTRUCTIONS_TEXT2: "Click on the emoticon to view training details:",
+  DASHBOARD_USER_CALENDAR_INSTRUCTIONS_TOO_EASY: "Training was too easy.",
+  DASHBOARD_USER_CALENDAR_INSTRUCTIONS_OK: "Training was OK.",
+  DASHBOARD_USER_CALENDAR_INSTRUCTIONS_TOO_HARD: "Training was too hard.",
+
+  /** dashboard-user-calendar-details.html **/
+  DASHBOARD_USER_CALENDAR_DETAILS_SKIPPED: "Skipped",
+
+  /** dashboard-user-calendar-overview.html **/
+  DASHBOARD_USER_CALENDAR_OVERVIEW_DATE: "Date",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_START_TIME: "Start time",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_DURATIONS: "Durations",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_TOTAL: "Total",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_REST: "Rest",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_EXERCISE: "Exercise",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_ACTIVITIES: "Activities",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_EXERCISES: "Exercises",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_SERIES: "Series",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_CHANGES: "Changes",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_REST: "Rest",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_WEIGHT: "Weight",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_REPS: "Reps",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_SERIES_INTENSITY: "Series intensity",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_TOO_EASY: "Too easy",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_TOO_HARD: "Too hard",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_TOO_COMMENT: "Comment",
+
+  /** dashboard-user-summary.html **/
+  DASHBOARD_USER_SUMMARY_DATE: "Date",
+  DASHBOARD_USER_SUMMARY_NAME: "Name",
+  DASHBOARD_USER_SUMMARY_SERIES_SKIPPED: "Series skipped",
+  DASHBOARD_USER_SUMMARY_REST_CHANGE: "Rest change",
+  DASHBOARD_USER_SUMMARY_INTENSITY_ALERTS: "Intensity alerts",
+  DASHBOARD_USER_SUMMARY_INTENSITY_COMMENT: "Comment",
+  DASHBOARD_USER_SUMMARY_INTENSITY_NO_TRAININGS_TEXT: "No trainings for this period, you should change the filter.",
+
+  /** dashboardUserSummary.js **/
+  DASHBOARD_USER_SUMMARY_CTRL_FILTER_ALL: "All",
+  DASHBOARD_USER_SUMMARY_CTRL_FILTER_LAST_MONTH: "Last month",
+  DASHBOARD_USER_SUMMARY_CTRL_FILTER_LAST_WEEK: "Last week",
+  DASHBOARD_USER_SUMMARY_CTRL_FILTER_24_HOURS: "Last 24 hours",
+
+  /** dashboardUser.js **/
+  DASHBOARD_USER_CTRL_ERR_FETCH_MEASUREMENTS_TITLE: "Error while fetching measurements",
+  DASHBOARD_USER_CTRL_ERR_FETCH_MEASUREMENTS_CONTENT: "Unable to fetch measurements. An unexpected error occurred.",
+
+  /** dashboardUserCalendar.js **/
+  DASHBOARD_USER_CALENDAR_CTRL_OVERVIEW_TEXT: "Overview",
+  DASHBOARD_USER_CALENDAR_CTRL_DETAILS_TEXT: "Details"
 };
 
 var slTranslations = {
@@ -195,7 +263,75 @@ var slTranslations = {
   EXERCISE_SERIES_EDITOR_REST: "premore sekunde",
 
   /** series-editor.html **/
-  SERIES_EDITOR_SERIES: "Serije:"
+  SERIES_EDITOR_SERIES: "Serije:",
+
+  /** dashboardOverview.js **/
+  DASHBOARD_OVERVIEW_INACTIVITY_BEFORE_TEXT: "Neaktiven ",
+  DASHBOARD_OVERVIEW_INACTIVITY_AFTER_TEXT: " dni",
+  DASHBOARD_OVERVIEW_INACTIVITY_LONGER_TEXT: "Neaktiven 31 dni ali več",
+
+  /** dashboard.html **/
+  DASHBOARD_OVERVIEW_TITLE: "Pregled",
+  DASHBOARD_OVERVIEW_INACTIVE_USERS: "Neaktivni uporabniki",
+  DASHBOARD_OVERVIEW_INTENSITY_ALERTS: "Opozorila v zadnjem mesecu",
+  DASHBOARD_OVERVIEW_PAUSES: "Premori",
+  DASHBOARD_OVERVIEW_REST_CHANGE: "Odstopanje premora: ",
+
+  /** dashboard-user.html **/
+  DASHBOARD_USER_SUMMARY: "Povzetek",
+  DASHBOARD_USER_CALENDAR: "Koledar",
+
+  /** dashboard-user-calendar.html **/
+  DASHBOARD_USER_CALENDAR_SELECT_INSTRUCTIONS_TEXT1: "Izberi trening v koledarju ...",
+  DASHBOARD_USER_CALENDAR_SELECT_INSTRUCTIONS_TEXT2: "Pritisni na smeška za natančnejše informacije o treningu:",
+  DASHBOARD_USER_CALENDAR_INSTRUCTIONS_TOO_EASY: "Trening je bil prelahek.",
+  DASHBOARD_USER_CALENDAR_INSTRUCTIONS_OK: "Trening je bil OK.",
+  DASHBOARD_USER_CALENDAR_INSTRUCTIONS_TOO_HARD: "Trening je bil pretežek.",
+
+  /** dashboard-user-calendar-details.html **/
+  DASHBOARD_USER_CALENDAR_DETAILS_SKIPPED: "Preskočeno",
+
+  /** dashboard-user-calendar-overview.html **/
+  DASHBOARD_USER_CALENDAR_OVERVIEW_DATE: "Datum",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_START_TIME: "Čas začetka",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_DURATIONS: "Trajanje",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_TOTAL: "Skupno",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_REST: "Premor",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_EXERCISE: "Vadba",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_ACTIVITIES: "Aktivnosti",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_EXERCISES: "Vaje",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_SERIES: "Serije",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_CHANGES: "Odstopanja",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_REST: "Premor",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_WEIGHT: "Teža",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_REPS: "Ponovitve",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_SERIES_INTENSITY: "Intenzivnost serij",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_TOO_EASY: "Prelahko",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_TOO_HARD: "Pretežko",
+  DASHBOARD_USER_CALENDAR_OVERVIEW_TOO_COMMENT: "Komentar",
+
+  /** dashboard-user-summary.html **/
+  DASHBOARD_USER_SUMMARY_DATE: "Datum",
+  DASHBOARD_USER_SUMMARY_NAME: "Ime",
+  DASHBOARD_USER_SUMMARY_SERIES_SKIPPED: "Preskočene serije",
+  DASHBOARD_USER_SUMMARY_REST_CHANGE: "Odstopanje premora",
+  DASHBOARD_USER_SUMMARY_INTENSITY_ALERTS: "Opozorila intenzivnosti",
+  DASHBOARD_USER_SUMMARY_INTENSITY_COMMENT: "Komentar",
+  DASHBOARD_USER_SUMMARY_INTENSITY_NO_TRAININGS_TEXT: "Ni treningov v izbranem obdobju, zamenjajte filter.",
+
+  /** dashboardUserSummary.js **/
+  DASHBOARD_USER_SUMMARY_CTRL_FILTER_ALL: "Vsi podatki",
+  DASHBOARD_USER_SUMMARY_CTRL_FILTER_LAST_MONTH: "Zadnji mesec",
+  DASHBOARD_USER_SUMMARY_CTRL_FILTER_LAST_WEEK: "Zadnji teden",
+  DASHBOARD_USER_SUMMARY_CTRL_FILTER_24_HOURS: "Zadnjih 24 ur",
+
+  /** dashboardUser.js **/
+  DASHBOARD_USER_CTRL_ERR_FETCH_MEASUREMENTS_TITLE: "Napaka pridobivanja treningov",
+  DASHBOARD_USER_CTRL_ERR_FETCH_MEASUREMENTS_CONTENT: "Pridobivanje treningov spodletelo. Nepričakovana napaka.",
+
+  /** dashboardUserCalendar.js **/
+  DASHBOARD_USER_CALENDAR_CTRL_OVERVIEW_TEXT: "Pregled",
+  DASHBOARD_USER_CALENDAR_CTRL_DETAILS_TEXT: "Podrobnosti"
 };
 
 var translationsModule = angular.module('translations', ['pascalprecht.translate', 'ngCookies']);

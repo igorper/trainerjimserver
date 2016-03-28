@@ -7,12 +7,12 @@
   <div class="separator"></div>
   <div class="body">
     <div class="row property large-margin">
-      <div class="col-xs-5 col-sm-4 title">Date</div>
+      <div class="col-xs-5 col-sm-4 title" translate>DASHBOARD_USER_CALENDAR_OVERVIEW_DATE</div>
       <div class="col-xs-7 col-sm-4 value">{{selectedTraining.date | date: 'd.M.yyyy'}}
       </div>
     </div>
     <div class="row property large-margin">
-      <div class="col-xs-5 col-sm-4 title">Start time</div>
+      <div class="col-xs-5 col-sm-4 title" translate>DASHBOARD_USER_CALENDAR_OVERVIEW_START_TIME</div>
       <div class="col-xs-7 col-sm-4 value">{{selectedTraining.date | date: 'HH:mm'}}
       </div>
     </div>
@@ -21,23 +21,23 @@
       <div class="col-sm-12">
         <div class="tabular-section panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">Durations</h3>
+            <h3 class="panel-title" translate>DASHBOARD_USER_CALENDAR_OVERVIEW_DURATIONS</h3>
           </div>
 
           <div class="panel-body">
             <div class="row">
               <div class="col-xs-4 property">
-                <div class="title">Total</div>
+                <div class="title" translate>DASHBOARD_USER_CALENDAR_OVERVIEW_TOTAL</div>
                 <div><span tooltip="Total duration of the training (in minutes).">{{selectedTraining.durationInMinutes | number:0}} min</span>
                 </div>
               </div>
               <div class="col-xs-4 property">
-                <div class="title">Rest</div>
+                <div class="title" translate>DASHBOARD_USER_CALENDAR_OVERVIEW_REST</div>
                 <div><span tooltip="Total duration of rest (in minutes).">{{selectedTraining.totalRestInMinutes | number:0}} min</span>
                 </div>
               </div>
               <div class="col-xs-4 property">
-                <div class="title">Exercise</div>
+                <div class="title" translate>DASHBOARD_USER_CALENDAR_OVERVIEW_EXERCISE</div>
                 <div><span tooltip="Total duration of exercising (in minutes).">{{selectedTraining.totalExercisesInMinutes | number:0}} min</span>
                 </div>
               </div>
@@ -51,18 +51,18 @@
       <div class="col-sm-12">
         <div class="tabular-section panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">Activities</h3>
+            <h3 class="panel-title" translate>DASHBOARD_USER_CALENDAR_OVERVIEW_ACTIVITIES</h3>
           </div>
 
           <div class="panel-body">
             <div class="row">
               <div class="col-xs-4 property">
-                <div class="title">Exercises</div>
+                <div class="title" translate>DASHBOARD_USER_CALENDAR_OVERVIEW_EXERCISES</div>
                 <div><span tooltip="Number of exercises performed.">{{selectedTraining.performedExercises}} of {{selectedTraining.totalExercises}}</span>
                 </div>
               </div>
               <div class="col-xs-4 property">
-                <div class="title">Series</div>
+                <div class="title" translate>DASHBOARD_USER_CALENDAR_OVERVIEW_SERIES</div>
                 <div><span
                     tooltip="Number of series performed.">{{selectedTraining.performedSeries}} of {{selectedTraining.totalSeries}}</span>
                 </div>
@@ -77,24 +77,24 @@
       <div class="col-sm-12">
         <div class="tabular-section panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">Changes</h3>
+            <h3 class="panel-title" translate>DASHBOARD_USER_CALENDAR_OVERVIEW_CHANGES</h3>
           </div>
 
           <div class="panel-body">
             <div class="row">
               <div class="col-xs-4 property">
-                <div class="title">Rest</div>
+                <div class="title" translate>DASHBOARD_USER_CALENDAR_OVERVIEW_REST</div>
                 <div><span tooltip="Average rest difference based on planned rest.">{{selectedTraining.restTimeChangeInSeconds | number:0}} s</span>
                 </div>
               </div>
               <div class="col-xs-4 property">
-                <div class="title">Weight</div>
+                <div class="title" translate>DASHBOARD_USER_CALENDAR_OVERVIEW_WEIGHT</div>
                 <div><span tooltip="Number of weight changes.">{{selectedTraining.weightChangeNumber}} </span> x
                   <span tooltip="Average weight change.">{{selectedTraining.weightChange}} kg</span>
                 </div>
               </div>
               <div class="col-xs-4 property">
-                <div class="title">Reps</div>
+                <div class="title" translate>DASHBOARD_USER_CALENDAR_OVERVIEW_REPS</div>
                 <div><span
                     tooltip="Number of repetition changes.">{{selectedTraining.repChangeNumber}}</span> x
                   <span tooltip="Average repetition change.">{{selectedTraining.repChange}}</span>
@@ -110,20 +110,20 @@
       <div class="col-sm-12">
         <div class="tabular-section panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">Series intensity</h3>
+            <h3 class="panel-title" translate>DASHBOARD_USER_CALENDAR_OVERVIEW_SERIES_INTENSITY</h3>
           </div>
 
           <div class="panel-body">
             <div class="row">
               <div class="col-xs-4 property">
-                <div class="title"></span>Too easy</div>
+                <div class="title" translate>DASHBOARD_USER_CALENDAR_OVERVIEW_TOO_EASY</div>
                 <div class="rating-indicator" tooltip="Number of too easy series.">
                   <span class="glyphicon glyphicon-thumbs-up"></span>
                   <span class="label label-info">{{ selectedTraining.seriesTooEasyCount }}</span>
                 </div>
               </div>
               <div class="col-xs-4 property">
-                <div class="title">Too hard</div>
+                <div class="title" translate>DASHBOARD_USER_CALENDAR_OVERVIEW_TOO_HARD</div>
                 <div class="rating-indicator" tooltip="Number of too hard series.">
                 <span class="glyphicon glyphicon-thumbs-down"></span>
                 <span class="label label-danger">{{selectedTraining.seriesTooHardCount}}</span>
@@ -139,7 +139,7 @@
       <div class="col-sm-12">
         <div class="panel panel-default">
           <div class="panel-heading">
-            <h3 class="panel-title">Comment</h3>
+            <h3 class="panel-title" translate>DASHBOARD_USER_CALENDAR_OVERVIEW_TOO_COMMENT</h3>
           </div>
 
           <div class="panel-body">

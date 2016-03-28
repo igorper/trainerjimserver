@@ -6,7 +6,24 @@ var dashboardUser = angular.module('dashboard.user', [
   'util.filters.withinPeriod'
 ]);
 
-dashboardUser.controller('DashboardUserCtrl', ['$scope', 'Measurement', '$state', 'toaster', 'ExerciseGroup', '$q', 'MeasurementStats', 'userDashboardOptions', function ($scope, Measurement, $state, toaster, ExerciseGroup, promise, MeasurementStats, myUserDashboardOptions) {
+dashboardUser.controller('DashboardUserCtrl', ['$scope', 'Measurement', '$state', 'toaster', 'ExerciseGroup', '$q', 'MeasurementStats', 'userDashboardOptions',
+  '$translate', '$rootScope', function ($scope, Measurement, $state, toaster, ExerciseGroup, promise, MeasurementStats,
+                                        myUserDashboardOptions, $translate, $rootScope) {
+  function applyTranslations(){
+    $translate(['DASHBOARD_USER_CTRL_ERR_FETCH_MEASUREMENTS_TITLE',
+      'DASHBOARD_USER_CTRL_ERR_FETCH_MEASUREMENTS_CONTENT',
+    ]).then(function(translations){
+      $scope.errFetchMeasurementsTitle = translations.DASHBOARD_USER_CTRL_ERR_FETCH_MEASUREMENTS_TITLE;
+      $scope.errFetchMeasurementsContent = translations.DASHBOARD_USER_CTRL_ERR_FETCH_MEASUREMENTS_CONTENT;
+    });
+  }
+
+  applyTranslations();
+
+  $rootScope.$on('$translateChangeSuccess', function () {
+    applyTranslations();
+  });
+
   $scope.userDashboardOptions = myUserDashboardOptions;
 
   $scope.rightMenu = {items: []};
@@ -34,6 +51,6 @@ dashboardUser.controller('DashboardUserCtrl', ['$scope', 'Measurement', '$state'
   }
 
   function overviewCalculationFailed() {
-    toaster.pop("error", "Error while fetching measurements", "Unable to fetch measurements. An unexpected error occurred.");
+    toaster.pop("error", $scope.errFetchMeasurementsTitle, $scope.errFetchMeasurementsContent);
   }
 }]);

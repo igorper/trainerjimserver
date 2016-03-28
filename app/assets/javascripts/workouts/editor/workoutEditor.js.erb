@@ -28,7 +28,7 @@ workoutEditor.directive('workoutEditor', function () {
 });
 
 workoutEditor.controller('WorkoutEditorCtrl', ['$scope', 'ExerciseType', 'ExerciseTypesSelector', '$localStorage',
-  '$translate', '$rootScope',function ($scope, ExerciseType, ExerciseTypesSelector, $localStorage, $translate, $rootScope) {
+  '$translate', '$rootScope', function ($scope, ExerciseType, ExerciseTypesSelector, $localStorage, $translate, $rootScope) {
   function applyTranslations(){
     $translate(['WORKOUT_EDITOR_CTRL_TUTORIAL_STEP_1',
       'WORKOUT_EDITOR_CTRL_TUTORIAL_STEP_2',

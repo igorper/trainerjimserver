@@ -1,11 +1,11 @@
 <div class="dashboard-overview">
-  <h2>Overview</h2>
+  <h2 translate>DASHBOARD_OVERVIEW_TITLE</h2>
 
   <div class="row" spin-until="inactiveUsersLoading">
     <div class="col-sm-12">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Inactive users</h3>
+          <h3 class="panel-title" translate>DASHBOARD_OVERVIEW_INACTIVE_USERS</h3>
         </div>
 
         <div class="panel-body user-reports">
@@ -22,7 +22,7 @@
     <div class="col-sm-12">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Intensity alerts last month</h3>
+          <h3 class="panel-title" translate>DASHBOARD_OVERVIEW_INTENSITY_ALERTS</h3>
         </div>
 
         <div class="panel-body user-reports">
@@ -46,13 +46,13 @@
     <div class="col-sm-12">
       <div class="panel panel-default">
         <div class="panel-heading">
-          <h3 class="panel-title">Pauses</h3>
+          <h3 class="panel-title" translate>DASHBOARD_OVERVIEW_PAUSES</h3>
         </div>
 
         <div class="panel-body user-reports">
           <user-strip ng-repeat="restReport in restReports | orderBy:'restChangeInSeconds':true"
                       user="restReport.user" ng-click="onUserSelected(restReport.user)">
-            Rest change: {{restReport.restChangeInSeconds}}s
+            <span translate>DASHBOARD_OVERVIEW_REST_CHANGE</span>&nbsp;{{restReport.restChangeInSeconds}}s
           </user-strip>
         </div>
       </div>
