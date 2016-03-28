@@ -163,7 +163,15 @@ var enTranslations = {
 
   /** dashboardUserCalendar.js **/
   DASHBOARD_USER_CALENDAR_CTRL_OVERVIEW_TEXT: "Overview",
-  DASHBOARD_USER_CALENDAR_CTRL_DETAILS_TEXT: "Details"
+  DASHBOARD_USER_CALENDAR_CTRL_DETAILS_TEXT: "Details",
+
+  /** trainees.html **/
+  TRAINEES_CHOOSE_TEXT: "Choose a trainee:",
+
+  /** trainees.js.erb **/
+  TRAINEES_CTRL_TRAINEES_FILTER_PLACEHOLDER: "Search trainees",
+  TRAINEES_CTRL_ERR_FETCH_LIST_TITLE: "Trainees listing",
+  TRAINEES_CTRL_ERR_FETCH_LIST_CONTENT: "Could not fetch the list of trainees. Try logging in again."
 };
 
 var slTranslations = {
@@ -331,7 +339,15 @@ var slTranslations = {
 
   /** dashboardUserCalendar.js **/
   DASHBOARD_USER_CALENDAR_CTRL_OVERVIEW_TEXT: "Pregled",
-  DASHBOARD_USER_CALENDAR_CTRL_DETAILS_TEXT: "Podrobnosti"
+  DASHBOARD_USER_CALENDAR_CTRL_DETAILS_TEXT: "Podrobnosti",
+
+  /** trainees.html **/
+  TRAINEES_CHOOSE_TEXT: "Izberi vadečega:",
+
+  /** trainees.js.erb **/
+  TRAINEES_CTRL_TRAINEES_FILTER_PLACEHOLDER: "Išči vadeče",
+  TRAINEES_CTRL_ERR_FETCH_LIST_TITLE: "Napaka pridobivanja",
+  TRAINEES_CTRL_ERR_FETCH_LIST_CONTENT: "Napaka pridobivanja seznama vadečih. Poskusite s ponovno prijavo."
 };
 
 var translationsModule = angular.module('translations', ['pascalprecht.translate', 'ngCookies']);
