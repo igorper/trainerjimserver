@@ -3,7 +3,7 @@
     <div class="col-sm-2 trainees-list">
       <div class="overview" ng-class="{highlighted: getCurrentUserId() === null}" ng-click="onUserSelected()">
         <div class="glyphicon glyphicon-list"></div>
-        <div>Overview</div>
+        <div translate>DASHBOARD_OVERVIEW_TITLE</div>
       </div>
       <div spin-until="users">
         <user-strip ng-repeat="user in users | orderBy:'full_name'" user="user"

@@ -18,8 +18,29 @@ shared.directive('header', function () {
 });
 
 shared.controller('HeaderCtrl', [
-  '$scope', '$state', 'Auth', 'User', 'isLinkActive', 'CreateTraineeDialog', 'CreateUserDialog', '$translate',
-  function ($scope, $state, Auth, User, isLinkActive, CreateTraineeDialog, CreateUserDialog, $translate) {
+  '$scope', '$state', 'Auth', 'User', 'isLinkActive', 'CreateTraineeDialog', 'CreateUserDialog', '$translate', '$rootScope',
+  function ($scope, $state, Auth, User, isLinkActive, CreateTraineeDialog, CreateUserDialog, $translate, $rootScope) {
+  function applyTranslations(){
+    $translate(['HEADER_CTRL_MENU_DASHBOARD',
+      'HEADER_CTRL_MENU_TEMPLATES',
+      'HEADER_CTRL_MENU_TRAINEES',
+      'HEADER_CTRL_NEW_TRAINER'
+    ]).then(function(translations){
+      $scope.topNavigation[0].name = translations.HEADER_CTRL_MENU_DASHBOARD;
+      $scope.topNavigation[1].name = translations.HEADER_CTRL_MENU_DASHBOARD;
+      $scope.topNavigation[2].name = translations.HEADER_CTRL_MENU_TEMPLATES;
+      $scope.topNavigation[3].name = translations.HEADER_CTRL_MENU_TRAINEES;
+      $scope.newTrainerText = translations.HEADER_CTRL_NEW_TRAINER;
+    });
+  }
+
+  applyTranslations();
+
+  $rootScope.$on('$translateChangeSuccess', function () {
+    applyTranslations();
+  });
+
+
   $scope.topNavigation = [
     {
       name: "Dashboard",
@@ -60,7 +81,7 @@ shared.controller('HeaderCtrl', [
   };
 
   $scope.onNewTrainerClicked = function () {
-    CreateUserDialog({dialogTitle: 'New trainer', isTrainer: true});
+    CreateUserDialog({dialogTitle: $scope.newTrainerText, isTrainer: true});
   };
 
   function updateUserDetails(userDetails) {

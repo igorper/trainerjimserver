@@ -2,7 +2,23 @@ var dashboardUserCalendar = angular.module('dashboard.user.calendar', [
   'ui.router'
 ]);
 
-dashboardUserCalendar.controller('DashboardUserCalendarCtrl', ['$scope', 'Measurement', '$state', function ($scope, Measurement, $state) {
+dashboardUserCalendar.controller('DashboardUserCalendarCtrl', ['$scope', 'Measurement', '$state', '$translate', '$rootScope',
+  function ($scope, Measurement, $state, $translate, $rootScope) {
+  function applyTranslations(){
+    $translate(['DASHBOARD_USER_CALENDAR_CTRL_OVERVIEW_TEXT',
+      'DASHBOARD_USER_CALENDAR_CTRL_DETAILS_TEXT',
+    ]).then(function(translations){
+      $scope.rightMenu.items[0].name = translations.DASHBOARD_USER_CALENDAR_CTRL_OVERVIEW_TEXT;
+      $scope.rightMenu.items[1].name = translations.DASHBOARD_USER_CALENDAR_CTRL_DETAILS_TEXT;
+    });
+  }
+
+  applyTranslations();
+
+  $rootScope.$on('$translateChangeSuccess', function () {
+    applyTranslations();
+  });
+
   $scope.smileLookupCssClass = {};
   $scope.smileLookupCssClass[Measurement.TOO_HARD_RATING] = "sweat";
   $scope.smileLookupCssClass[Measurement.OKAY_RATING] = "happy";

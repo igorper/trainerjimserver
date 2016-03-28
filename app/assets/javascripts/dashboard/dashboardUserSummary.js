@@ -3,7 +3,29 @@ var dashboardUserSummary = angular.module('dashboard.user.summary', [
   'nvd3'
 ]);
 
-dashboardUserSummary.controller('DashboardUserSummaryCtrl', ['$scope', '$state', 'MeasurementStats', function ($scope, $state, MeasurementStats) {
+dashboardUserSummary.controller('DashboardUserSummaryCtrl', ['$scope', '$state', 'MeasurementStats', '$translate', '$rootScope',
+  function ($scope, $state, MeasurementStats, $translate, $rootScope) {
+  function applyTranslations(){
+    $translate(['DASHBOARD_USER_SUMMARY_CTRL_FILTER_ALL',
+      'DASHBOARD_USER_SUMMARY_CTRL_FILTER_LAST_MONTH',
+      'DASHBOARD_USER_SUMMARY_CTRL_FILTER_LAST_WEEK',
+      'DASHBOARD_USER_SUMMARY_CTRL_FILTER_24_HOURS'
+
+    ]).then(function(translations){
+      $scope.rightMenu.items[0].name = translations.DASHBOARD_USER_SUMMARY_CTRL_FILTER_ALL;
+      $scope.rightMenu.items[1].name = translations.DASHBOARD_USER_SUMMARY_CTRL_FILTER_LAST_MONTH;
+      $scope.rightMenu.items[2].name = translations.DASHBOARD_USER_SUMMARY_CTRL_FILTER_LAST_WEEK;
+      $scope.rightMenu.items[3].name = translations.DASHBOARD_USER_SUMMARY_CTRL_FILTER_24_HOURS;
+    });
+  }
+
+  applyTranslations();
+
+  $rootScope.$on('$translateChangeSuccess', function () {
+    applyTranslations();
+  });
+
+
   $scope.sortType = "date";
   $scope.sortReverse = true;
   $scope.periodName = $state.params.filter;

@@ -3,10 +3,29 @@ var dashboardOverview = angular.module('dashboard.overview', [
   'users.userStrip',
   'util.promiseUi',
   'util.collections',
-  'dashboard'
+  'dashboard',
+  'translations',
 ]);
 
-dashboardOverview.controller('DashboardOverviewCtrl', ['$scope', 'Trainee', '$q', 'Dashboard', function ($scope, Trainee, promise, Dashboard) {
+dashboardOverview.controller('DashboardOverviewCtrl', ['$scope', 'Trainee', '$q', 'Dashboard', '$translate', '$rootScope',
+  function ($scope, Trainee, promise, Dashboard, $translate, $rootScope) {
+  function applyTranslations(){
+    $translate(['DASHBOARD_OVERVIEW_INACTIVITY_BEFORE_TEXT',
+      'DASHBOARD_OVERVIEW_INACTIVITY_AFTER_TEXT',
+      'DASHBOARD_OVERVIEW_INACTIVITY_LONGER_TEXT'
+    ]).then(function(translations){
+      $scope.inactivityBeforeText = translations.DASHBOARD_OVERVIEW_INACTIVITY_BEFORE_TEXT;
+      $scope.inactivityAfterText = translations.DASHBOARD_OVERVIEW_INACTIVITY_AFTER_TEXT;
+      $scope.inactivityLongerText = translations.DASHBOARD_OVERVIEW_INACTIVITY_LONGER_TEXT;
+    });
+  }
+
+  applyTranslations();
+
+  $rootScope.$on('$translateChangeSuccess', function () {
+    applyTranslations();
+  });
+
   var trainees = Trainee.query().$promise;
   var traineeIdToMeasurements = Dashboard.monthlyOverview().$promise.then(_.partial(toLookupManyByField, _, 'trainee_id'));
   var traineeIdToRatingCounts = Dashboard.ratingCounts().$promise.then(_.partial(toLookupByField, _, 'user_id'));
@@ -76,9 +95,9 @@ dashboardOverview.controller('DashboardOverviewCtrl', ['$scope', 'Trainee', '$q'
     if (_.isDate(lastActiveDate)) {
       var dayInMillis = 24 * 60 * 60 * 1000;
       var days = Math.round(Math.abs((new Date().getTime() - lastActiveDate.getTime()) / dayInMillis));
-      return "Inactive for " + days + " days";
+      return $scope.inactivityBeforeText + days + $scope.inactivityAfterText;
     } else {
-      return "Inactive for 31 days or more"
+      return $scope.inactivityLongerText;
     }
   }
 

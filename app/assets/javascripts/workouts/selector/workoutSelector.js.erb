@@ -2,7 +2,8 @@ var workoutsSelector = angular.module('workouts.selector', [
   'ui.select',
   'trainings',
   'toaster',
-  'util.filters.propsFilter'
+  'util.filters.propsFilter',
+  'translations'
 ]);
 
 workoutsSelector.factory('WorkoutSelector', ['$modal', function ($modal) {
@@ -16,14 +17,32 @@ workoutsSelector.factory('WorkoutSelector', ['$modal', function ($modal) {
   };
 }]);
 
-workoutsSelector.controller("WorkoutSelectorCtrl", ["$scope", '$modalInstance', 'Training', 'toaster',
-  function ($scope, $modalInstance, Training, toaster) {
+workoutsSelector.controller("WorkoutSelectorCtrl", ["$scope", '$modalInstance', 'Training', 'toaster', '$translate', '$rootScope',
+  function ($scope, $modalInstance, Training, toaster, $translate, $rootScope) {
+    function applyTranslations(){
+      $translate(['WORKOUT_SELECTOR_CTRL_ERR_TRAINING_FETCH',
+      'WORKOUT_SELECTOR_CTRL_WAR_SELECT_TRAINING',
+      'WORKOUT_SELECTOR_CTRL_SELECT_TRAINING_PLACEHOLDER'
+      ]).then(function(translations){
+        $scope.errTrainingFetch = translations.WORKOUT_SELECTOR_CTRL_ERR_TRAINING_FETCH;
+        $scope.warSelectTraining = translations.WORKOUT_SELECTOR_CTRL_WAR_SELECT_TRAINING;
+        $scope.selectTrainingPlaceholder = translations.WORKOUT_SELECTOR_CTRL_SELECT_TRAINING_PLACEHOLDER;
+      });
+    }
+
+    applyTranslations();
+
+    $rootScope.$on('$translateChangeSuccess', function () {
+      applyTranslations();
+    });
+
+
     $scope.trainings = [];
     $scope.selectedTraining = {};
 
     $scope.ok = function () {
       if ($scope.selectedTraining.selected == undefined) {
-        toaster.pop("warning", "Please select a workout.");
+        toaster.pop("warning", $scope.warSelectTraining);
       } else {
         $modalInstance.close($scope.selectedTraining.selected);
       }
@@ -36,7 +55,7 @@ workoutsSelector.controller("WorkoutSelectorCtrl", ["$scope", '$modalInstance', 
     Training.query(function (data) {
       $scope.trainings = data;
     }, function (data, status, headers) {
-      toaster.pop("error", "Could not fetch the list of workouts. Try logging in.");
+      toaster.pop("error", $scope.errTrainingFetch);
     });
   }
 ]);

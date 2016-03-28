@@ -5,10 +5,10 @@
 
         <div class="row title-row">
           <div class="col-xs-6">
-            <h2 class="jim-sub-title">Choose a trainee: </h2>
+            <h2 class="jim-sub-title" translate>TRAINEES_CHOOSE_TEXT</h2>
           </div>
           <div class="col-xs-6">
-            <button class="create-trainee btn btn-primary pull-right" ng-click="onCreateTraineeClicked()">New trainee</button>
+            <button class="create-trainee btn btn-primary pull-right" ng-click="onCreateTraineeClicked()" translate>HEADER_CTRL_NEW_TRAINEE</button>
           </div>
         </div>
 
@@ -22,7 +22,7 @@
               <input class="form-control"
                      type="text"
                      id="keywordSearch"
-                     placeholder="Trainees filter"
+                     placeholder="{{traineesFilterPlaceholder}}"
                      ng-model="searchFilter"/>
             </div>
           </div>

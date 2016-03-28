@@ -47,14 +47,31 @@ trainees.factory("TraineeTraining", ["$resource", function ($resource) {
 trainees.config(['$stateProvider', function ($stateProvider) {
   $stateProvider.state('main.trainees', {
     url: '/trainees',
-    controller: ['$scope', '$state', 'Trainee', 'toaster', 'CreateTraineeDialog',
-      function ($scope, $state, Trainee, toaster, CreateTraineeDialog) {
+    controller: ['$scope', '$state', 'Trainee', 'toaster', 'CreateTraineeDialog', '$translate', '$rootScope',
+      function ($scope, $state, Trainee, toaster, CreateTraineeDialog, $translate, $rootScope) {
+        function applyTranslations(){
+          $translate(['TRAINEES_CTRL_TRAINEES_FILTER_PLACEHOLDER',
+            'TRAINEES_CTRL_ERR_FETCH_LIST_TITLE',
+            'TRAINEES_CTRL_ERR_FETCH_LIST_CONTENT'
+          ]).then(function(translations){
+            $scope.traineesFilterPlaceholder = translations.TRAINEES_CTRL_TRAINEES_FILTER_PLACEHOLDER;
+            $scope.errFetchTraineesListTitle = translations.TRAINEES_CTRL_ERR_FETCH_LIST_TITLE;
+            $scope.errFetchTraineesListContent = translations.TRAINEES_CTRL_ERR_FETCH_LIST_CONTENT;
+          });
+        }
+
+        applyTranslations();
+
+        $rootScope.$on('$translateChangeSuccess', function () {
+          applyTranslations();
+        });
+
         $scope.searchFilter = "";
 
         $scope.refreshTraineeList = function () {
           $scope.trainees = Trainee.query(function () {
           }, function () {
-            toaster.pop("error", "Trainees listing", "Could not fetch the list of trainees. Try logging in again.");
+            toaster.pop("error", $scope.errFetchTraineesListTitle, $scope.errFetchTraineesListContent);
           });
         };
 

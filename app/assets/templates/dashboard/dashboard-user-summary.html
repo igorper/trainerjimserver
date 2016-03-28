@@ -17,7 +17,7 @@
             <tr>
               <td class="col-sm-1">
                 <a href="" ng-click="sortType = 'date'; sortReverse = !sortReverse">
-                  Date
+                  <span translate>DASHBOARD_USER_SUMMARY_DATE</span>
                     <span ng-show="sortType == 'date' && !sortReverse"
                           class="glyphicon glyphicon-sort-by-attributes"></span>
                   <span ng-show="sortType == 'date' && sortReverse"
@@ -26,7 +26,7 @@
               </td>
               <td class="col-sm-2">
                 <a href="" ng-click="sortType = 'name'; sortReverse = !sortReverse">
-                  Name
+                  <span translate>DASHBOARD_USER_SUMMARY_NAME</span>
                     <span ng-show="sortType == 'name' && !sortReverse"
                           class="glyphicon glyphicon-sort-by-attributes"></span>
                   <span ng-show="sortType == 'name' && sortReverse"
@@ -35,7 +35,7 @@
               </td>
               <td class="col-sm-1">
                 <a href="" ng-click="sortType = 'seriesSkipped'; sortReverse = !sortReverse">
-                  Series skipped
+                  <span translate>DASHBOARD_USER_SUMMARY_SERIES_SKIPPED</span>
               <span ng-show="sortType == 'seriesSkipped' && !sortReverse"
                     class="glyphicon glyphicon-sort-by-attributes"></span>
               <span ng-show="sortType == 'seriesSkipped' && sortReverse"
@@ -44,7 +44,7 @@
               </td>
               <td class="col-sm-1">
                 <a href="" ng-click="sortType = 'restTimeChangeInSeconds'; sortReverse = !sortReverse">
-                  Rest change
+                  <span translate>DASHBOARD_USER_SUMMARY_REST_CHANGE</span>
               <span ng-show="sortType == 'restTimeChangeInSeconds' && !sortReverse"
                     class="glyphicon glyphicon-sort-by-attributes"></span>
               <span ng-show="sortType == 'restTimeChangeInSeconds' && sortReverse"
@@ -53,7 +53,7 @@
               </td>
               <td class="col-sm-1">
                 <a href="" ng-click="sortType = 'seriesNotOkayCount'; sortReverse = !sortReverse">
-                  Intensity alerts
+                  <span translate>DASHBOARD_USER_SUMMARY_INTENSITY_ALERTS</span>
               <span ng-show="sortType == 'seriesNotOkayCount' && !sortReverse"
                     class="glyphicon glyphicon-sort-by-attributes"></span>
               <span ng-show="sortType == 'seriesNotOkayCount' && sortReverse"
@@ -61,7 +61,7 @@
                 </a>
               </td>
               <td class="col-sm-3">
-                Comment
+                <span translate>DASHBOARD_USER_SUMMARY_COMMENT</span>
               </td>
               <td class="col-sm-1">
 
@@ -90,8 +90,8 @@
               </td>
               <td>{{ measurementStats.comment }}</td>
               <td>
-                <button class="btn btn-danger center-block" ng-click="goToTrainingDetails(measurementStats.measurement.id)">
-                  View
+                <button class="btn btn-danger center-block" ng-click="goToTrainingDetails(measurementStats.measurement.id)" translate>
+                  DASHBOARD_USER_SUMMARY_VIEW
                 </button>
               </td>
             </tr>
@@ -103,7 +103,7 @@
     </div>
   </div>
   <div class="main-content" ng-hide="filteredMeasurementsNotEmpty">
-    <h2 class="text-center">No trainings for this period, you should change the filter.</h2>
+    <h2 class="text-center" translate>DASHBOARD_USER_SUMMARY_NO_TRAININGS_TEXT</h2>
     <div class="row empty-state-mobile">
     </div>
   </div>

@@ -64,7 +64,7 @@ exerciseEditorModule.directive('exerciseSeriesEditor', function () {
       var restStep = 5;
       var durationExerciseType = "duration";
 
-      function isDurationType() {
+      $scope.isDurationType = function() {
         return $scope.exercise.guidance_type == durationExerciseType;
       }
 
@@ -72,16 +72,12 @@ exerciseEditorModule.directive('exerciseSeriesEditor', function () {
         $scope.selectedSeries = series;
       };
 
-      $scope.getFirstFieldLabel = function () {
-        return isDurationType() ? "duration seconds" : "reps"
-      };
-
       $scope.incrementFirstField = function () {
-        $scope.selectedSeries.repeat_count += isDurationType() ? durationStep : repetitionsStep;
+        $scope.selectedSeries.repeat_count += $scope.isDurationType() ? durationStep : repetitionsStep;
       };
 
       $scope.decrementFirstField = function () {
-        var step = isDurationType() ? durationStep : repetitionsStep;
+        var step = $scope.isDurationType() ? durationStep : repetitionsStep;
         if ($scope.selectedSeries.repeat_count <= step) {
           $scope.selectedSeries.repeat_count = 0;
         } else {
