@@ -61,7 +61,7 @@
                 </a>
               </td>
               <td class="col-sm-3">
-                <span translate>DASHBOARD_USER_SUMMARY_INTENSITY_COMMENT</span>
+                <span translate>DASHBOARD_USER_SUMMARY_COMMENT</span>
               </td>
               <td class="col-sm-1">
 
@@ -90,8 +90,8 @@
               </td>
               <td>{{ measurementStats.comment }}</td>
               <td>
-                <button class="btn btn-danger center-block" ng-click="goToTrainingDetails(measurementStats.measurement.id)">
-                  View
+                <button class="btn btn-danger center-block" ng-click="goToTrainingDetails(measurementStats.measurement.id)" translate>
+                  DASHBOARD_USER_SUMMARY_VIEW
                 </button>
               </td>
             </tr>
@@ -103,7 +103,7 @@
     </div>
   </div>
   <div class="main-content" ng-hide="filteredMeasurementsNotEmpty">
-    <h2 class="text-center" translate>DASHBOARD_USER_SUMMARY_INTENSITY_NO_TRAININGS_TEXT</h2>
+    <h2 class="text-center" translate>DASHBOARD_USER_SUMMARY_NO_TRAININGS_TEXT</h2>
     <div class="row empty-state-mobile">
     </div>
   </div>

@@ -148,8 +148,9 @@ var enTranslations = {
   DASHBOARD_USER_SUMMARY_SERIES_SKIPPED: "Series skipped",
   DASHBOARD_USER_SUMMARY_REST_CHANGE: "Rest change",
   DASHBOARD_USER_SUMMARY_INTENSITY_ALERTS: "Intensity alerts",
-  DASHBOARD_USER_SUMMARY_INTENSITY_COMMENT: "Comment",
-  DASHBOARD_USER_SUMMARY_INTENSITY_NO_TRAININGS_TEXT: "No trainings for this period, you should change the filter.",
+  DASHBOARD_USER_SUMMARY_COMMENT: "Comment",
+  DASHBOARD_USER_SUMMARY_VIEW: "View",
+  DASHBOARD_USER_SUMMARY_NO_TRAININGS_TEXT: "No trainings for this period, you should change the filter.",
 
   /** dashboardUserSummary.js **/
   DASHBOARD_USER_SUMMARY_CTRL_FILTER_ALL: "All",
@@ -324,8 +325,9 @@ var slTranslations = {
   DASHBOARD_USER_SUMMARY_SERIES_SKIPPED: "Preskočene serije",
   DASHBOARD_USER_SUMMARY_REST_CHANGE: "Odstopanje premora",
   DASHBOARD_USER_SUMMARY_INTENSITY_ALERTS: "Opozorila intenzivnosti",
-  DASHBOARD_USER_SUMMARY_INTENSITY_COMMENT: "Komentar",
-  DASHBOARD_USER_SUMMARY_INTENSITY_NO_TRAININGS_TEXT: "Ni treningov v izbranem obdobju, zamenjajte filter.",
+  DASHBOARD_USER_SUMMARY_COMMENT: "Komentar",
+  DASHBOARD_USER_SUMMARY_VIEW: "Poglej",
+  DASHBOARD_USER_SUMMARY_NO_TRAININGS_TEXT: "Ni treningov v izbranem obdobju, zamenjajte filter.",
 
   /** dashboardUserSummary.js **/
   DASHBOARD_USER_SUMMARY_CTRL_FILTER_ALL: "Vsi podatki",
