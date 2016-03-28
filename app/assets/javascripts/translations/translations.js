@@ -121,7 +121,7 @@ var enTranslations = {
   DASHBOARD_USER_CALENDAR_INSTRUCTIONS_TOO_HARD: "Training was too hard.",
 
   /** dashboard-user-calendar-details.html **/
-  DASHBOARD_USER_CALENDAR_DETAILS_SKIPPED: "Skipped",
+  DASHBOARD_USER_CALENDAR_DETAILS_SKIPPED: "SKIPPED",
 
   /** dashboard-user-calendar-overview.html **/
   DASHBOARD_USER_CALENDAR_OVERVIEW_DATE: "Date",
@@ -298,7 +298,7 @@ var slTranslations = {
   DASHBOARD_USER_CALENDAR_INSTRUCTIONS_TOO_HARD: "Trening je bil pretežek.",
 
   /** dashboard-user-calendar-details.html **/
-  DASHBOARD_USER_CALENDAR_DETAILS_SKIPPED: "Preskočeno",
+  DASHBOARD_USER_CALENDAR_DETAILS_SKIPPED: "PRESKOČENO",
 
   /** dashboard-user-calendar-overview.html **/
   DASHBOARD_USER_CALENDAR_OVERVIEW_DATE: "Datum",
