@@ -22,14 +22,14 @@
           </li>
           <li ng-if="userDetails.is_trainer">
             <button type="button" class="btn btn-primary navbar-btn"
-                    ng-click="onNewTraineeClicked()">
-              New trainee
+                    ng-click="onNewTraineeClicked()" translate>
+              HEADER_CTRL_NEW_TRAINEE
             </button>
           </li>
           <li ng-if="userDetails.is_admin">
             <button type="button" class="btn btn-primary navbar-btn"
-                    ng-click="onNewTrainerClicked()">
-              New trainer
+                    ng-click="onNewTrainerClicked()" translate>
+              HEADER_CTRL_NEW_TRAINER
             </button>
           </li>
         </ul>
@@ -52,7 +52,7 @@
               <li><a href="#" ng-click="useLanguage('en')"><img class="language-flag" src="images/language-flags/gb.svg"> English</a></li>
               <li><a href="#" ng-click="useLanguage('sl')"><img class="language-flag" src="images/language-flags/si.svg"> Slovenščina</a></li>
               <li role="separator" class="divider"></li>
-              <li><a href="#" ng-click="logout()">Log out</a></li>
+              <li><a href="#" ng-click="logout()" translate>HEADER_CTRL_LOG_OUT</a></li>
             </ul>
           </li>
         </ul>

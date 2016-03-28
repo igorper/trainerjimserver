@@ -65,6 +65,21 @@ var enTranslations = {
   WORKOUT_SELECTOR_CTRL_WAR_SELECT_TRAINING: "Please select a workout",
   WORKOUT_SELECTOR_CTRL_SELECT_TRAINING_PLACEHOLDER: "Select a workout in the list or search for it",
 
+  /** shared.js.erb **/
+  HEADER_CTRL_MENU_DASHBOARD: "Dashboard",
+  HEADER_CTRL_MENU_TEMPLATES: "Templates",
+  HEADER_CTRL_MENU_TRAINEES: "Trainees",
+
+  /** header-nav-bar.html **/
+  HEADER_CTRL_NEW_TRAINER: "New trainer",
+  HEADER_CTRL_NEW_TRAINEE: "New trainee",
+  HEADER_CTRL_LOG_OUT: "Log Out",
+
+  /** footer-bar.html **/
+  FOOTER_BAR_COPYRIGHT: "Trainer JIM. Copyright 2016.",
+  FOOTER_BAR_MOBILE_APP: "GET THE MOBILE APP",
+  FOOTER_BAR_SEE_VIDEO: "see video",
+
   /** exercise-editor.html **/
   EXERCISE_EDITOR_EXERCISE: "Exercise: ",
   EXERCISE_EDITOR_TAKE_PHOTO: "Take a photo ",
@@ -149,6 +164,21 @@ var slTranslations = {
   WORKOUT_SELECTOR_CTRL_ERR_TRAINING_FETCH: "Napaka pridobivanja seznama treningov. Poskusite s ponovno prijavo.",
   WORKOUT_SELECTOR_CTRL_WAR_SELECT_TRAINING: "Prosim izberite trening.",
   WORKOUT_SELECTOR_CTRL_SELECT_TRAINING_PLACEHOLDER: "Poiščite trening oz. ga izberite iz seznama",
+
+  /** shared.js.erb **/
+  HEADER_CTRL_MENU_DASHBOARD: "Pregled",
+  HEADER_CTRL_MENU_TEMPLATES: "Predloge",
+  HEADER_CTRL_MENU_TRAINEES: "Vadeči",
+
+  /** header-nav-bar.html **/
+  HEADER_CTRL_NEW_TRAINER: "Nov trener",
+  HEADER_CTRL_NEW_TRAINEE: "Nov vadeči",
+  HEADER_CTRL_LOG_OUT: "Odjava",
+
+  /** footer-bar.html **/
+  FOOTER_BAR_COPYRIGHT: "Trainer JIM. Vse pravice pridržane 2016.",
+  FOOTER_BAR_MOBILE_APP: "PRENESI MOBILNO APLIKACIJO",
+  FOOTER_BAR_SEE_VIDEO: "video",
 
   /** exercise-editor.html **/
   EXERCISE_EDITOR_EXERCISE: "Vaja: ",
