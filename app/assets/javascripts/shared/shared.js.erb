@@ -72,7 +72,11 @@ shared.controller('HeaderCtrl', [
 
   $scope.isLinkActive = isLinkActive;
 
-  $scope.useLanguage = $translate.use;
+  $scope.useLanguage = function (language_code, $event) {
+    $translate.use(language_code);
+    window.location.reload(true);
+    $event.preventDefault();
+  };
 
   $scope.onNewTraineeClicked = function () {
     CreateTraineeDialog().result.then(function (trainee) {

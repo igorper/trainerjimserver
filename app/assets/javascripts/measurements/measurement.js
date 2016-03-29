@@ -1,25 +1,29 @@
-var measurement = angular.module('measurements', ['ngResource']);
+var measurement = angular.module('measurements',
+  [
+    'ngResource',
+    'translations'
+  ]);
 
-measurement.factory('Measurement', ['$resource', function ($resource) {
+measurement.factory('Measurement', ['$resource', '$translate', function ($resource, $translate) {
   var Measurement = $resource('/api/v1/measurements/:id.json',
     {id: '@id'},
     {
       queryForUser: {
         method: 'GET',
         isArray: true,
-        params: {userId: '@user_id'},
+        params: {userId: '@user_id', language: $translate.proposedLanguage()},
         url: '/api/v1/users/:userId/measurements/.json'
       },
       detailedMeasurementsForUser: {
         method: 'GET',
         isArray: true,
-        params: {userId: '@user_id'},
+        params: {userId: '@user_id', language: $translate.proposedLanguage()},
         url: '/api/v1/users/:userId/detailed_measurements.json'
       },
       detailedMeasurements: {
         method: 'GET',
         isArray: true,
-        params: {},
+        params: {language: $translate.proposedLanguage()},
         url: '/api/v1/measurements/detailed_measurements.json'
       },
       monthlyOverview: {method: 'GET', isArray: true, params: {}, url: '/api/v1/measurements/monthly_overview.json'}

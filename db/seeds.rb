@@ -80,6 +80,7 @@ back_curl = ExerciseType.create(name: 'Back curl', exercise_groups: [back, mat])
 # Translate some exercise types:
 ExerciseTypeTranslation.create(exercise_type: bench, language_code: 'sl', name: 'Benč pres', description: 'Vleži se na benč, pa presaj.')
 ExerciseTypeTranslation.create(exercise_type: squats, language_code: 'sl', name: 'Počepi', description: 'Malo se počepni, pol pa kr ponavljaj. Bodi super previden da')
+ExerciseTypeTranslation.create(exercise_type: incline, language_code: 'sl', name: 'Poševni potiski', description: 'Najdi mašino. Glej mašino. Malo se nagni. Zdaj pa potiskaj! Fejst!')
 
 
 # Create some dummy trainings:

@@ -24,6 +24,7 @@ class Api::V1::MeasurementsController < ActionController::Base
       @measurements = get_detailed_measurements
                           .where('trainers_users.id = :user_id', user_id: current_user.id)
                           .references(trainee: [:trainer])
+      MeasurementHelper.translate_all!(@measurements, params[:language])
       render :detailed_list
     end
   end
@@ -33,6 +34,7 @@ class Api::V1::MeasurementsController < ActionController::Base
       @measurements = get_detailed_measurements
                           .where('measurements.trainee_id = :trainee_id', trainer_id: current_user.id, trainee_id: trainee.id)
                           .references(:trainee, trainee: [:trainer])
+      MeasurementHelper.translate_all!(@measurements, params[:language])
       render :detailed_list
     }
   end
@@ -46,6 +48,8 @@ class Api::V1::MeasurementsController < ActionController::Base
         render_not_found
       elsif !admin_or_trainer_of?(current_user, @measurement.trainee_id)
         render_forbidden
+      else
+        TrainingHelper.translate_exercise_types!(@measurement.training, params[:language])
       end
     end
   end

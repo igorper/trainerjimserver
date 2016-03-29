@@ -1,18 +1,3 @@
-# == Schema Information
-#
-# Table name: measurements
-#
-#  id           :integer          not null, primary key
-#  trainee_id   :integer          not null
-#  training_id  :integer          not null
-#  start_time   :datetime
-#  end_time     :datetime
-#  rating       :integer
-#  created_at   :datetime
-#  updated_at   :datetime
-#  comment      :string(255)
-#
-
 class Measurement < ActiveRecord::Base
   # attr_accessible :id, :data, :trainee, :trainer, :start_time, :end_time, :rating,
     # :training, :series_executions, :measurement_comments, :trainer_seen, :comment, :created_at
