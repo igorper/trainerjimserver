@@ -185,7 +185,7 @@ var slTranslations = {
   WORKOUTS_INSTRUCTIONS_STEP1_DESCRIPTION: 'Pritisnite gumb, da ustvarite novo predlogo treninga.',
   WORKOUTS_INSTRUCTIONS_STEP1_BUTTON: 'Ustvari predlogo treninga',
   WORKOUTS_INSTRUCTIONS_STEP2_TITLE: 'Uredi predlogo treninga',
-  WORKOUTS_INSTRUCTIONS_STEP2_DESCRIPTION: 'Izberite obstoječ trening iz seznama na levi.',
+  WORKOUTS_INSTRUCTIONS_STEP2_DESCRIPTION: 'Izberite obstoječ trening s seznama na levi.',
   WORKOUTS_INSTRUCTIONS_STEP3_TITLE: 'Dodelite trening vadečim',
   WORKOUTS_INSTRUCTIONS_STEP3_DESCRIPTION: 'Pritisnite spodnji gumb, da dodelite trening vadečim.',
   WORKOUTS_INSTRUCTIONS_STEP3_BUTTON: 'Moji vadeči',
